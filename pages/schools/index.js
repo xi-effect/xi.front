@@ -202,7 +202,7 @@ const Schools = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore })
             //objectFit="fill"
             width={3440}
             height={1440}
-            onLoadingComplete={() =>
+            onLoad={() =>
               uiStore.setLoading("/")
             }
           />
