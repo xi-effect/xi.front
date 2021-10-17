@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Schools = inject('rootStore')(observer(({ rootStore }) => {
+const Schools = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
   const router = useRouter()
