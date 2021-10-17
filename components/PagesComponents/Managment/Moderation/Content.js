@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Content = inject('rootStore')(observer(({ rootStore }) => {
-    const theme = useTheme(theme);
-    const classes = useStyles();
+    const theme = useTheme();
+    const classes = useStyles(theme);
 
     return (
         <Grid

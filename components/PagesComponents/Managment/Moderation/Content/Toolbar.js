@@ -15,10 +15,10 @@ import Image from 'next/image'
 
 const useStyles = makeStyles((theme) => ({
     ButtonGroup: {
-        border: `1px solid ${theme.palette.primary.main}`,
+        border: `1px solid ${theme => theme.palette.primary.main}`,
     },
     Button: {
-        border: `1px solid ${theme.palette.primary.main}`,
+        border: `1px solid ${theme => theme.palette.primary.main}`,
     },
 }));
 

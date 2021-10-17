@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Reports = inject('rootStore')(observer(({ rootStore }) => {
-    const theme = useTheme(theme);
-    const classes = useStyles();
+    const theme = useTheme();
+    const classes = useStyles(theme);
 
     const [packageId, setPackageId] = React.useState(null)
     const [openDialogReports, setOpenDialogReports] = React.useState(false)
