@@ -6,9 +6,11 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
     gridRoot: {
-        width: "100vw",
-        height: "100vh",
+        position: "fixed",
+        width: "100%",
+        height: "100%",
         zIndex: 1100,
+        overflow: "hidden",
         backgroundColor: theme => theme.palette.blueGrey["5"]
     },
     label: {

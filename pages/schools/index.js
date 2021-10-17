@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { Divider, useMediaQuery, Link, Button, Grid, Paper, useTheme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles'
 import Image from 'next/image'
+import Loading from './../../components/OtherComponents/Loading/Loading';
 
 import { inject, observer } from 'mobx-react'
 
@@ -91,6 +92,7 @@ const Schools = inject('rootStore')(observer(({ rootStore }) => {
         </title>
       </Head>
       {/* <Background /> */}
+      {uiStore.loading["/"] && <Loading />}
       <Grid
         container
         direction="column"
@@ -201,6 +203,9 @@ const Schools = inject('rootStore')(observer(({ rootStore }) => {
             //objectFit="fill"
             width={3440}
             height={1440}
+            onLoadingComplete={() =>
+              uiStore.setLoading("/")
+            }
           />
         </Grid>
         <div className={classes.dividerDiv}>

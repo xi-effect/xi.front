@@ -13,8 +13,12 @@ class UIStore {
 
     //Loading Screen
     @observable loading = {
-        "/login": true,
         "/": true,
+        "/login": true,
+        "/students": true,
+        "/teachers": true,
+        "/schools": true,
+        "/main": true,
         "/registration": true,
         "/resetpassword/email": true,
     }

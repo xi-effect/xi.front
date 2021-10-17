@@ -72,8 +72,10 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
 
     return (
         <>
-            {uiStore.loading["/"] && <Loading />}
-            {!uiStore.loading["/"] && <div className={classes.root}>
+            {/* {uiStore.loading["/main"] && <Loading />} */}
+            {/* {!uiStore.loading["/main"] && */}
+
+            <div className={classes.root}>
                 <Box sx={{ display: { xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block', } }}>
                     <Sidebar />
                 </Box>
@@ -86,7 +88,8 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                 >
                     {children}
                 </main>
-            </div>}
+            </div>
+            {/* } */}
         </>
     );
 }))
