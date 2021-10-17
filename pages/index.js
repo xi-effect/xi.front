@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
   dividerDiv: {
     //position: "relative",
-    backgroundColor: "red",
+    backgroundColor: theme => theme.palette.blueGrey["3"],
     width: "100%",
     paddingTop: "41.8%",
   },
