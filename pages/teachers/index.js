@@ -195,7 +195,6 @@ const Teachers = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }
           <Image
             className={classes.Image}
             // alt={alt}
-            priority
             alt="alt"
             src={"/backgroundImg.jpg"}
             layout="responsive"
