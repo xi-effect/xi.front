@@ -31,6 +31,7 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
+                sx={{marginBottom: 10,}}
             >
                 <Button onClick={knowledgeStore.prevPageInPages} className={classes.Button} variant="contained" color="primary" disabled={knowledgeStore.pageList.counter === 0 ? true : false}>
                     Назад

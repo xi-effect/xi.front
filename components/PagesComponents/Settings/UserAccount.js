@@ -310,7 +310,7 @@ const UserAccount = inject('rootStore', 'settingsStore')(observer(({ rootStore, 
                         <Button onClick={handleClickOpen1}>
                             <Badge
                                 className={classes.Badge}
-                                overlap="circle"
+                                overlap="circular"
                                 anchorOrigin={{
                                     vertical: 'bottom',
                                     horizontal: 'right',
@@ -320,16 +320,26 @@ const UserAccount = inject('rootStore', 'settingsStore')(observer(({ rootStore, 
                                 }
                             >
                                 <div className={classes.background}>
-                                    <Image
+                                    {settingsStore.settings.avatar === null && <Image
                                         alt="avatarimg"
-                                        src={settingsStore.settings.avatar == undefined ? "/defaultAvatar.jpg" : settingsStore.settings.avatar}
+                                        src={"/defaultAvatar.jpg"}
                                         width={102}
                                         height={102}
                                         // layout="fill"
                                         // objectFit="cover"
                                         // quality={100}
                                         className={classes.Img}
-                                    />
+                                    />}
+                                    {settingsStore.settings.avatar != null && <Image
+                                        alt="avatarimg"
+                                        src={settingsStore.settings.avatar}
+                                        width={102}
+                                        height={102}
+                                        // layout="fill"
+                                        // objectFit="cover"
+                                        // quality={100}
+                                        className={classes.Img}
+                                    />}
                                 </div>
                             </Badge>
                         </Button>

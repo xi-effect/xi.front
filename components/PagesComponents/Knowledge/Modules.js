@@ -32,6 +32,7 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
+                sx={{marginBottom: 10,}}
             >
                 <Button onClick={knowledgeStore.prevPageInModules} className={classes.Button} variant="contained" color="primary" disabled={knowledgeStore.moduleList.counter === 0 ? true : false}>
                     Назад
@@ -89,7 +90,7 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 <Chipper />
                 {!knowledgeStore.moduleList.loadingNothing && <>
                     {!knowledgeStore.moduleList.loadingInd && <ModulesList />}
-                    {!knowledgeStore.moduleList.loadingInd && knowledgeStore.moduleList.modules.length < 50 && <Grid
+                    {!knowledgeStore.moduleList.loadingInd && knowledgeStore.moduleList.modules.length < 12 && <Grid
                         container
                         direction="column"
                         justifyContent="center"

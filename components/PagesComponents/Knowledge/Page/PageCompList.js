@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     wrapperRoot: {
         marginTop: 16,
         maxWidth: 800,
+        zIndex: 1,
     },
     wrapper: {
         // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',

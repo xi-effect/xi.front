@@ -3,31 +3,32 @@ import React from 'react'
 import Head from 'next/head'
 import { useRouter } from "next/router";
 
-import { Divider, Paper, Grid, FormControlLabel, Button, useTheme, Menu, Hidden, IconButton, InputBase, Switch, Typography } from '@mui/material'
+import { Divider, Box, Grid, FormControlLabel, Button, useTheme, Menu, Hidden, IconButton, InputBase, Switch, Typography } from '@mui/material'
 import { makeStyles, withStyles } from '@mui/styles';
 
 import { inject, observer } from 'mobx-react'
 
-import NavigationAll from './../../../components/OtherComponents/Navigation/NavigationAll';
-import PageCompList from './../../../components/PagesComponents/Knowledge/Page/PageCompList';
-import Toolbar from '../../../components/PagesComponents/Knowledge/Page/Toolbar';
+import NavigationAll from './../../../../components/OtherComponents/Navigation/NavigationAll';
+// import PageCompList from './../../../components/PagesComponents/Knowledge/Page/PageCompList';
+// import Toolbar from '../../../components/PagesComponents/Knowledge/Page/Toolbar';
+import ModuleInfo from './../../../../components/PagesComponents/Knowledge/Module/ModuleInfo';
+import PageCompList from './../../../../components/PagesComponents/Knowledge/Page/PageCompList';
 
 const useStyles = makeStyles((theme) => ({
     main: {
-        margin: 4,
-        width: 'calc(100% - 16px)',
+        width: '100%',
         zIndex: 1,
         //backgroundColor: 'red',
     },
 }));
 
-const Page = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore }) => {
+const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore }) => {
     const theme = useTheme();
     const classes = useStyles(theme);
 
     React.useEffect(() => {
         // LoadComponents()
-        knowledgeStore.loadPage()
+        knowledgeStore.loadModule()
     }, []);
 
 
@@ -48,8 +49,11 @@ const Page = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                     alignItems="center"
                     container
                 >
-                    <Toolbar />
-                    <PageCompList />
+                    <ModuleInfo>
+                        <Box sx={{ height: 50, }}>
+                        </Box>
+                        <PageCompList />
+                    </ModuleInfo>
                 </Grid>
             </NavigationAll>
 
@@ -58,4 +62,4 @@ const Page = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
 }))
 
 
-export default Page
+export default ModuleId

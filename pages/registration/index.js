@@ -235,7 +235,7 @@ const Registration = inject('rootStore', 'uiStore')(observer(({ rootStore, uiSto
                     if (data != undefined) {
                         if (data.a) { //true
                             const router = Router
-                            router.push('/')
+                            router.push('/main')
                         } else {
                             setEmailAlreadyUsed(true)
                         }

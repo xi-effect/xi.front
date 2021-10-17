@@ -201,7 +201,7 @@ const Login = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =
                     if (data != undefined) {
                         if (data.a == "Success") {
                             const router = Router
-                            router.push('/')
+                            router.push('/main')
                             setTimeout(() => {
                                 setEmail('')
                                 setPassword('')

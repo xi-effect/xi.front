@@ -45,8 +45,8 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                 } else {
                     rootStore.fetchDataScr(`${rootStore.url}/avatar/`, "GET")
                         .then((data) => {
-                            //console.log("avatar", data)
-                            if (data != undefined && data.message != "The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.") {
+                            console.log("avatar", data)
+                            if (data != undefined && data.message != "The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. You have requested this URI [/avatar/] but did you mean /avatar/ ?") {
                                 settingsStore.setSettings("avatar", data)
                             }
                         });

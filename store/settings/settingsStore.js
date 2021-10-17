@@ -12,7 +12,7 @@ class SettingsStore {
     }
 
     @observable settings = {
-        avatar: undefined,
+        avatar: null,
         username: '',
         darkTheme: true,
         emailAfter: '',

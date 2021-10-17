@@ -114,6 +114,7 @@ const SideDownbar = inject('store')(observer(({ store, openSideMenu, setOpenSide
         ...config,
     });
 
+
     return (
         <>
             <AppBar
@@ -122,8 +123,8 @@ const SideDownbar = inject('store')(observer(({ store, openSideMenu, setOpenSide
                 // classes={{
                 //     //paper: classes.drawerPaper,
                 // }}
-                className={classes.appBar}>
-
+                className={classes.appBar}
+            >
                 <List>
                     <Grid
                         container
@@ -131,19 +132,33 @@ const SideDownbar = inject('store')(observer(({ store, openSideMenu, setOpenSide
                         justifyContent="center"
                         alignItems="center"
                     >
-                        {menuList.map((item, index) =>
-                            <Grid key={item.id}>
-                                <Tooltip title={item.label} placement="top" arrow>
-                                    {/* <Link href={item.href} passHref> */}
-                                    <ListItem onClick={() => router.push(item.href)} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === item.href })}>
-                                        <ListItemIcon className={classes.listItemIcon}>
-                                            {item.icon}
-                                        </ListItemIcon>
-                                    </ListItem>
-                                    {/* </Link> */}
-                                </Tooltip>
-                            </Grid>
-                        )}
+                        <Grid>
+                            <Tooltip title="Главная" placement="top" arrow>
+                                <ListItem onClick={() => router.push('/')} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === '/' })}>
+                                    <ListItemIcon className={classes.listItemIcon}>
+                                        <HomeIcon fontSize="large" className={classes.icon} />
+                                    </ListItemIcon>
+                                </ListItem>
+                            </Tooltip>
+                        </Grid>
+                        <Grid>
+                            <Tooltip title="Знания" placement="top" arrow>
+                                <ListItem onClick={() => router.push('/knowledge')} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname.includes('/knowledge') })}>
+                                    <ListItemIcon className={classes.listItemIcon}>
+                                        <MenuBookIcon fontSize="large" className={classes.icon} />
+                                    </ListItemIcon>
+                                </ListItem>
+                            </Tooltip>
+                        </Grid>
+                        <Grid>
+                            <Tooltip title="Настройки" placement="top" arrow>
+                                <ListItem onClick={() => router.push('/settings')} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === '/settings' })}>
+                                    <ListItemIcon className={classes.listItemIcon}>
+                                        <SettingsIcon fontSize="large" className={classes.icon} />
+                                    </ListItemIcon>
+                                </ListItem>
+                            </Tooltip>
+                        </Grid>
                     </Grid>
                 </List>
 

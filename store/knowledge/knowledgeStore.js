@@ -196,6 +196,8 @@ class KnowledgeStore {
             })
     }
 
+
+
     @action loadModuleList = (isSearch = false) => {
         let filters = {}
         if (this.moduleList.filters.global != null) filters.global = this.moduleList.filters.global
@@ -210,6 +212,75 @@ class KnowledgeStore {
                 this.setModuleListData("modules", data)
                 this.setModuleListData("loadingInd", false)
                 if (isSearch && data.length === 0) this.setModuleListData("loadingNothing", true)
+            })
+    }
+
+    @observable module = {
+        loading: true,
+        openAccordion: false,
+        id: null,
+        name: "",
+        description: "",
+        theme: "",
+        kind: "",
+        components: [],
+        map: [],
+        type: "",
+        blueprint: null,
+        reusable: null,
+        public: null,
+        authorId: null,
+        authorName: null,
+        views: null,
+        updated: null,
+    }
+
+    @action setModule = (value) => {
+        this.module = value
+    }
+
+    @action setModuleData = (name, value) => {
+        this.module[name] = value
+    }
+
+    @action loadPageInModule = () => {
+        if (this.module.type === "practice-block" || this.module.type === "standard") {
+            this.rootStore.fetchDataScr(`${this.rootStore.url}/modules/${this.module.id}/next/`, "POST", { bun: "cinnamon" })
+                .then((data) => {
+                    console.log("pageInModule", data)
+                    this.setPage(data)
+                })
+        }
+        if (this.module.type === "theory-block" || this.module.type === "test") {
+            this.rootStore.fetchDataScr(`${this.rootStore.url}/modules/${this.module.id}/next/`, "POST", { bun: "cinnamon" })
+                .then((data) => {
+                    console.log("pageInModule", data)
+                    this.setPage(data)
+                })
+        }
+
+    }
+
+    @action loadModule = () => {
+        this.setModuleData("loading", true)
+        let str = document.location.href.toString()
+        console.log("str", str)
+        const firstId = str.slice(str.lastIndexOf("/") + 1)
+        str = str.slice(0, str.lastIndexOf("/"))
+        console.log("str", str)
+        const secondId = str.slice(str.lastIndexOf("/") + 1)
+        let lastId = null
+        if (secondId === "module") lastId = firstId
+        else lastId = secondId
+        console.log("lastId", lastId)
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/modules/${lastId}/`, "GET").then(
+            (data) => {
+                console.log("meta", data)
+                this.setModule(data)
+                this.setModuleData("authorId", data["author-id"])
+                this.setModuleData("openAccordion", false)
+                this.setModuleData("loading", false)
+                this.loadPageInModule()
             })
     }
 }

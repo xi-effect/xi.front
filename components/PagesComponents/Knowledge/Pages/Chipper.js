@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import clsx from 'clsx';
 
-import { Chip, Divider, FormControl, SpeedDial, SpeedDialAction, FormLabel, RadioGroup, Radio, FormControlLabel, Popper, ClickAwayListener, Paper, MenuItem, MenuList, IconButton, Button, Grid, InputBase, Typography, useTheme, Tooltip } from '@mui/material';
+import { Chip, Divider, useMediaQuery, SpeedDial, SpeedDialAction, FormLabel, RadioGroup, Radio, FormControlLabel, Popper, ClickAwayListener, Paper, MenuItem, MenuList, IconButton, Button, Grid, InputBase, Typography, useTheme, Tooltip } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -17,8 +17,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import RedoIcon from '@mui/icons-material/Redo';
 
 import { inject, observer } from 'mobx-react'
+import { filterableGridColumnsSelector } from '@material-ui/data-grid';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "auto",
     },
     iconButton: {
-        padding: 10,
+        //padding: 10,
         color: theme => theme.palette.primary.contrastText,
     },
     popper: {
@@ -113,6 +115,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
     const theme = useTheme();
     const classes = useStyles(theme);
     const knowledgeUI = uiStore.knowledgeUI
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
     const setGridType = (type) => {
         if (type === "grid") {
@@ -141,6 +144,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
         }
     }
 
+    const [mobileSearch, setMobileSearch] = React.useState(false);
 
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
@@ -190,7 +194,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 alignItems="center"
             >
 
-                <SpeedDial
+                {(!mobileSearch || !mobile) && <SpeedDial
                     ariaLabel="SpeedDial tooltip example"
                     className={classes.speedDial}
                     // hidden={hidden}
@@ -222,54 +226,39 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                         //tooltipOpen
                         onClick={() => setContentType(knowledgeUI.contentTypeOnPage)}
                     />
-                </SpeedDial>
-                {/* <ClickAwayListener onClickAway={() => setOpenMenu(null)}>
-                    <IconButton onClick={(event) => setOpenMenu(openMenu ? null : event.currentTarget)} className={classes.iconButton} aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
-                </ClickAwayListener> */}
-                {/* <Popper className={classes.popper} id={undefined} open={Boolean(openMenu)} anchorEl={openMenu}>
-                    <Paper className={classes.popperPaper}>
-                        <Grid
-                            className={classes.popperPaperGrid}
-                            container
-                            direction="column"
-                            justifyContent="flex-start"
-                            alignItems="flex-start"
-                        >
-                            <FormControl component="fieldset">
-                                <FormLabel component="legend">Вид</FormLabel>
-                                <RadioGroup aria-label="gender" name="gender1" value={dataType} onChange={handleChange}>
-                                    <FormControlLabel value="list" control={<Radio color="primary" />} label="Сетка" />
-                                    <FormControlLabel value="grid" control={<Radio color="primary" />} label="Список" />
-                                </RadioGroup>
-                            </FormControl>
+                </SpeedDial>}
 
-                        </Grid>
 
-                    </Paper>
-                </Popper> */}
-                <InputBase
+                {/* Поиск в десктоп */}
+                {!mobile && <InputBase
                     value={knowledgeStore.pageList.search}
                     onChange={(event) => knowledgeStore.setPageListData("search", event.target.value)}
                     className={classes.input}
                     placeholder="Поиск страниц"
                     inputProps={{ 'aria-label': 'Поиск страниц' }}
-                />
-                <Tooltip title="Очистить поиск">
+                />}
+                {!mobile && <Tooltip title="Очистить поиск">
                     <span>
                         <IconButton onClick={knowledgeStore.clearSearchInPages} disabled={knowledgeStore.pageList.search.length === 0} type="submit" className={classes.iconButton} aria-label="search">
                             <ClearIcon />
                         </IconButton>
                     </span>
-                </Tooltip>
-                <Tooltip title="Найти">
+                </Tooltip>}
+                {!mobile && <Tooltip title="Найти">
                     <span>
-                        <IconButton onClick={() => knowledgeStore.goSearchInPages()} disabled={knowledgeStore.pageList.search.length < 3} className={classes.iconButton} aria-label="search">
+                        <IconButton className={clsx(classes.iconButton)} onClick={() => knowledgeStore.goSearchInPages()} disabled={mobile ? false : knowledgeStore.pageList.search.length < 3} aria-label="search">
                             <SearchIcon />
                         </IconButton>
                     </span>
-                </Tooltip>
+                </Tooltip>}
+
+                {mobileSearch && mobile && <InputBase
+                    value={knowledgeStore.pageList.search}
+                    onChange={(event) => knowledgeStore.setPageListData("search", event.target.value)}
+                    className={classes.input}
+                    placeholder="Поиск страниц"
+                    inputProps={{ 'aria-label': 'Поиск страниц' }}
+                />}
 
                 {/* <Tooltip title="Очистить поиск">
                         <IconButton disabled={search.length === 0} onClick={() => clearSearchHere()} type="submit" className={classes.iconButton} aria-label="search">
@@ -279,7 +268,35 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 <Grid className={classes.gridSpacer}>
 
                 </Grid>
-                <Grid
+                {mobileSearch && mobile && <Tooltip title="Очистить поиск">
+                    <span>
+                        <IconButton onClick={knowledgeStore.clearSearchInPages} disabled={knowledgeStore.pageList.search.length === 0} type="submit" className={classes.iconButton} aria-label="search">
+                            <ClearIcon />
+                        </IconButton>
+                    </span>
+                </Tooltip>}
+                {!mobileSearch && mobile && <Tooltip title="Очистить поиск">
+                    <span>
+                        <IconButton className={clsx(classes.iconButton)} onClick={() => setMobileSearch(true)} disabled={mobile ? false : knowledgeStore.pageList.search.length < 3} aria-label="search">
+                            <SearchIcon />
+                        </IconButton>
+                    </span>
+                </Tooltip>}
+                {mobileSearch && mobile && <Tooltip title="Найти">
+                    <span>
+                        <IconButton className={clsx(classes.iconButton)} onClick={() => knowledgeStore.goSearchInPages()} disabled={mobile ? false : knowledgeStore.pageList.search.length < 3} aria-label="search">
+                            <SearchIcon />
+                        </IconButton>
+                    </span>
+                </Tooltip>}
+                {mobileSearch && mobile && <Tooltip title="Назад">
+                    <span>
+                        <IconButton className={clsx(classes.iconButton)} onClick={() => setMobileSearch(false)} disabled={mobile ? false : knowledgeStore.pageList.search.length < 3} aria-label="search">
+                            <RedoIcon />
+                        </IconButton>
+                    </span>
+                </Tooltip>}
+                {(!mobileSearch || !mobile) && <Grid
                     container
                     direction="row"
                     justifyContent="center"
@@ -303,7 +320,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                             </IconButton>
                         </span>
                     </Tooltip>
-                </Grid>
+                </Grid>}
             </Grid>
             <Divider className={classes.divider} />
         </Grid>

@@ -104,10 +104,14 @@ const useStyles = makeStyles((theme) => ({
         marginRight: 0,
     },
     title: {
+        marginTop: 12,
+        marginLeft: 12,
         fontSize: 28,
         color: theme.palette.primary.contrastText,
     },
     subtitle: {
+        marginTop: 0,
+        marginLeft: 12,
         fontSize: 20,
         color: theme.palette.primary.contrastText,
     },
@@ -226,11 +230,21 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                 <Grid xs={12} sm={12} md={6} lg={4} xl={3} item className={classes.gridCard} container key={index.toString()}>
                     <Card elevation={24} className={cx(classes.card)}>
                         <Box className={classes.boxCardHeader}>
-                            <CardHeader
+                            {/* <CardHeader
                                 className={classes.cardHeader}
                                 title={<Typography className={classes.title}>{module.name}</Typography>}
                                 subheader={<Typography className={classes.subtitle}>{coursesThemeList[module.theme]}</Typography>}
-                            />
+                            /> */}
+                            <Grid container wrap="nowrap" spacing={2}>
+                                <Grid item xs zeroMinWidth>
+                                    <Typography className={classes.title} noWrap>{module.name}</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container wrap="nowrap" spacing={2}>
+                                <Grid item xs zeroMinWidth>
+                                    <Typography className={classes.subtitle} noWrap>{coursesThemeList[module.theme]}</Typography>
+                                </Grid>
+                            </Grid>
                         </Box>
                         <div className={classes.Page}>
                             <CardMedia
@@ -296,8 +310,8 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                 <Grid>
                                     <Link
                                         href={{
-                                            pathname: '/knowledge/module/[id]',
-                                            query: { id: module.id },
+                                            pathname: '/knowledge/module/[moduleId]/start',
+                                            query: { moduleId: module.id },
                                         }}
                                         passHref>
                                         <Button variant="contained" color="primary" className={classes.CardActionsCenterButton}>

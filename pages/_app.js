@@ -17,7 +17,7 @@ const MyApp = (observer(({ Component, pageProps }) => {
 
   const rootStore = useStore(pageProps.initialState)
 
-  const themeWhite = createTheme({
+  const themeLight = createTheme({
     palette: {
       //mode: 'light',
       primary: {
@@ -43,6 +43,11 @@ const MyApp = (observer(({ Component, pageProps }) => {
         "7": "#455a64",
         "8": "#37474f",
         "9": "#263238",
+      },
+      background: {
+        "0": "#eceff1",
+        "1": "#cfd8dc",
+        "2": "#b0bec5",
       }
     },
   });
@@ -51,8 +56,33 @@ const MyApp = (observer(({ Component, pageProps }) => {
   const themeDark = createTheme({
     palette: {
       //mode: 'dark',
+      text: {
+        main: "#fafafa",
+        dark: "#bdbdbd",
+        reverseMain: "#212121",
+        reverseDark: "#616161",
+      },
+      constant: {
+        textWhite: "#fafafa",
+        textBlack: "#212121",
+      },
+      green: {
+        light: "#6fbf73",
+        main: "#4caf50",
+        dark: "#81ac8d",
+      },
+      background: {
+        "0": "#263238",
+        "1": "#37474f",
+        "2": "#455a64",
+      },
+      forest: {
+        header: "#6cadee",
+        //background: "#dbf2fe",
+      },
+
       primary: {
-        light: '#2196f3',
+        light: '#accef5',
         main: '#1976d2',
         dark: '#0d47a1',
         contrastText: '#fff',
@@ -63,7 +93,6 @@ const MyApp = (observer(({ Component, pageProps }) => {
         dark: '#33691e',
         contrastText: '#111',
       },
-
       blueGrey: {
         "0": "#263238",
         "1": "#37474f",
@@ -75,7 +104,8 @@ const MyApp = (observer(({ Component, pageProps }) => {
         "7": "#b0bec5",
         "8": "#cfd8dc",
         "9": "#eceff1",
-      }
+      },
+
     },
   });
 
@@ -121,7 +151,7 @@ const MyApp = (observer(({ Component, pageProps }) => {
         settingsStore={rootStore.settingsStore}
         contentStore={rootStore.contentStore}
       >
-        <ThemeProvider theme={rootStore.settingsStore.settings.darkTheme ? themeDark : themeWhite}>
+        <ThemeProvider theme={rootStore.settingsStore.settings.darkTheme ? themeDark : themeLight}>
           {/* <SnackbarProvider
             autoHideDuration={800}
             anchorOrigin={{

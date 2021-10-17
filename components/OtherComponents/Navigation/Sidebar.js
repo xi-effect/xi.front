@@ -170,7 +170,7 @@ const Sidebar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu
     // })
 
     const HomeIconClicked = () => {
-        router.push('/')
+        router.push('/main')
         setOpenManagment(false)
     }
 
@@ -198,7 +198,7 @@ const Sidebar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu
             id: 0,
             icon: <HomeIcon fontSize="large" className={classes.icon} />,
             label: "Главная",
-            href: '/',
+            href: '/main',
         },
         {
             id: 1,
@@ -252,7 +252,7 @@ const Sidebar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu
                         alignItems="center"
                     >
                         <Tooltip title="Главная" placement="right" arrow>
-                            <ListItem onClick={HomeIconClicked} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === '/' })}>
+                            <ListItem onClick={HomeIconClicked} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === '/main' })}>
                                 <ListItemIcon className={classes.listItemIcon}>
                                     <HomeIcon fontSize="large" className={classes.icon} />
                                 </ListItemIcon>

@@ -11,8 +11,6 @@ import Image from 'next/image'
 import { inject, observer } from 'mobx-react'
 
 
-
-
 const useStyles = makeStyles((theme) => ({
   main: {
     width: '100%',
@@ -39,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   mainLabelMobile: {
     fontSize: 26,
   },
-  ContentGrid: {
+  ContentGrid1: {
     width: '100%',
     height: 312,
     backgroundColor: theme => theme.palette.blueGrey["2"],
@@ -72,13 +70,13 @@ const useStyles = makeStyles((theme) => ({
   },
   dividerDiv: {
     //position: "relative",
-    backgroundColor: "red",
+    backgroundColor: theme => theme.palette.blueGrey["3"],
     width: "100%",
     paddingTop: "41.8%",
   },
 }));
 
-const Main = inject('rootStore')(observer(({ rootStore }) => {
+const Schools = inject('rootStore')(observer(({ rootStore }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
   const router = useRouter()
@@ -214,7 +212,7 @@ const Main = inject('rootStore')(observer(({ rootStore }) => {
           justifyContent="center"
           alignItems="center"
           sx={{ marginTop: 0, }}
-          className={classes.ContentGrid}>
+          className={classes.ContentGrid1}>
           <Grid
             item
             container
@@ -252,7 +250,7 @@ const Main = inject('rootStore')(observer(({ rootStore }) => {
           justifyContent="center"
           alignItems="center"
           sx={{ marginTop: 0, }}
-          className={classes.ContentGrid}>
+          className={classes.ContentGrid1}>
           <Grid
             item
             container
@@ -290,7 +288,7 @@ const Main = inject('rootStore')(observer(({ rootStore }) => {
           justifyContent="center"
           alignItems="center"
           sx={{ marginTop: 0, }}
-          className={classes.ContentGrid}>
+          className={classes.ContentGrid1}>
           <Grid
             item
             container
@@ -307,4 +305,4 @@ const Main = inject('rootStore')(observer(({ rootStore }) => {
   );
 }))
 
-export default Main
+export default Schools

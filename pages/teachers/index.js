@@ -12,7 +12,6 @@ import { inject, observer } from 'mobx-react'
 
 
 
-
 const useStyles = makeStyles((theme) => ({
   main: {
     width: '100%',

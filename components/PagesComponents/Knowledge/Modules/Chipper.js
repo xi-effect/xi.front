@@ -3,7 +3,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 
-import { Chip, Divider, Accordion, SpeedDial, SpeedDialAction, AccordionSummary, AccordionDetails, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Popper, ClickAwayListener, Paper, MenuItem, MenuList, IconButton, Button, Grid, InputBase, Typography, useTheme, Tooltip } from '@mui/material';
+import { Chip, Divider, Accordion, useMediaQuery, SpeedDial, SpeedDialAction, AccordionSummary, AccordionDetails, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Popper, ClickAwayListener, Paper, MenuItem, MenuList, IconButton, Button, Grid, InputBase, Typography, useTheme, Tooltip } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import { inject, observer } from 'mobx-react'
@@ -24,6 +24,8 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
+import RedoIcon from '@mui/icons-material/Redo';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -79,8 +81,9 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: 8,
     },
     labelFilterColumn: {
-        paddingTop: 16,
-        paddingLeft: 12,
+        marginTop: 4,
+        // paddingTop: 16,
+        // paddingLeft: 12,
         fontSize: 20,
         color: theme => theme.palette.primary.contrastText,
     },
@@ -104,35 +107,24 @@ const useStyles = makeStyles((theme) => ({
         color: theme => theme.palette.primary.contrastText,
     },
     divider: {
+        width: "100%",
+        height: 1,
         backgroundColor: theme => theme.palette.primary.contrastText
     },
     Accordion: {
+        width: "100%",
         backgroundColor: theme => theme.palette.blueGrey["1"],
         color: theme => theme.palette.primary.contrastText,
+    },
+    gridAccordionSummary: {
+        width: "100%",
     },
     AccordionDetails: {
         marginTop: 0,
         paddingTop: 0,
     },
-    speedDial: {
-        height: 36,
-        width: 36,
-        marginTop: 4,
-        marginLeft: 16,
-        // position: 'absolute',
-        // top: theme => theme.spacing(10),
-        // left: theme => theme.spacing(2),
-    },
-    speedDialActionFirst: {
-        marginLeft: 16,
-        color: props => props.palette.primary.main,
-    },
-    speedDialAction: {
-        marginLeft: 16,
-        color: props => props.palette.primary.main,
-    },
     iconButton: {
-        padding: 10,
+        //  padding: 10,
         color: theme => theme.palette.primary.contrastText,
     },
     input: {
@@ -147,7 +139,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "auto",
     },
     gridNavWrap: {
-        width: 120,
+        width: 100,
         marginRight: 0,
         marginLeft: 0,
     },
@@ -167,6 +159,14 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
     const theme = useTheme();
     const classes = useStyles(theme);
     const [open, setOpen] = React.useState(false);
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+    const [mobileSearch, setMobileSearch] = React.useState(false);
+    const [openGlobalList, setOpenGlobalList] = React.useState(false);
+    const [openСategoryList, setOpenСategoryList] = React.useState(false);
+    const [openThemeList, setOpenThemeList] = React.useState(false);
+    const [openDifficultyList, setOpenDifficultyList] = React.useState(false);
+    const [openSortList, setOpenSortList] = React.useState(false);
+
 
     const globalList = [
         { key: 0, title: "Избранное", name: "starred" },
@@ -248,34 +248,9 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                             direction="row"
                             justifyContent="flex-start"
                             alignItems="center"
+                            className={classes.gridAccordionSummary}
                         >
-                            {/* <SpeedDial
-                                ariaLabel="SpeedDial tooltip example"
-                                className={classes.speedDial}
-                                icon={
-                                    <TuneIcon className={classes.iconSpeedDial} />
-                                }
-                                onClose={handleClose}
-                                onOpen={handleOpen}
-                                open={open}
-                                direction="right"
-                            >
-                                <SpeedDialAction
-                                    className={clsx(classes.speedDialActionFirst)}
-                                    tooltipPlacement="bottom"
-                                    icon={gridTypeIcon(knowledgeUI.gridTypeOnPage)}
-                                    tooltipTitle={`Вид сетки. Сейчас - ${gridTypeLabel(knowledgeUI.gridTypeOnPage)}`}
-                                    onClick={() => setGridType(knowledgeUI.gridTypeOnPage)}
-                                />
-                                <SpeedDialAction
-                                    className={clsx(classes.speedDialAction)}
-                                    tooltipPlacement="bottom"
-                                    icon={cardContentIcon(knowledgeUI.contentTypeOnPage)}
-                                    tooltipTitle={`Изменить содержание карточки. Сейчас - ${cardContentLabel(knowledgeUI.contentTypeOnPage)}`}
-                                    onClick={() => setContentType(knowledgeUI.contentTypeOnPage)}
-                                />
-                            </SpeedDial> */}
-                            <Tooltip title="Фильтры">
+                            {(!mobileSearch || !mobile) && <Tooltip title="Фильтры">
                                 <span>
                                     <IconButton onClick={() => setOpen(!open)}>
                                         <ExpandMoreIcon
@@ -285,71 +260,102 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                         />
                                     </IconButton>
                                 </span>
-                            </Tooltip>
-                            
-                            <Tooltip disableHoverListener={!open} title="Применить фильтры">
+                            </Tooltip>}
+                            {(!mobileSearch || !mobile) && <Tooltip disableHoverListener={!open} title="Применить фильтры">
                                 <span>
                                     <IconButton color="inherit" disabled={!open} onClick={() => knowledgeStore.loadModuleList()}>
                                         <SavedSearchIcon
-                                            // className={clsx(classes.ExpandMoreIcon, {
-                                            //     [classes.ExpandMoreIconOpen]: open,
-                                            // })}
+                                        // className={clsx(classes.ExpandMoreIcon, {
+                                        //     [classes.ExpandMoreIconOpen]: open,
+                                        // })}
                                         />
                                     </IconButton>
                                 </span>
-                            </Tooltip>
-                            <Tooltip disableHoverListener={!open} title="Удалить фильтры">
+                            </Tooltip>}
+                            {(!mobileSearch || !mobile) && <Tooltip disableHoverListener={!open} title="Удалить фильтры">
                                 <span>
                                     <IconButton color="inherit" disabled={!open} onClick={() => knowledgeStore.clearFilters()}>
                                         <SearchOffIcon
-                                            // className={clsx(classes.ExpandMoreIcon, {
-                                            //     [classes.ExpandMoreIconOpen]: open,
-                                            // })}
+                                        // className={clsx(classes.ExpandMoreIcon, {
+                                        //     [classes.ExpandMoreIconOpen]: open,
+                                        // })}
                                         />
                                     </IconButton>
                                 </span>
-                            </Tooltip>
+                            </Tooltip>}
                             {/* <Button onClick={() => knowledgeStore.loadModuleList()} disabled={!open} className={classes.applyButton}>
                                 Применить фильтры
                             </Button> */}
                             {/* <Tooltip title="Очистить фильтры">
                                 <span> */}
-                                    {/* <IconButton disabled={!open} onClick={() => knowledgeStore.clearFilters()}>
+                            {/* <IconButton disabled={!open} onClick={() => knowledgeStore.clearFilters()}>
                                         <ClearAllIcon/>
                                     </IconButton> */}
-                                {/* </span>
+                            {/* </span>
                             </Tooltip> */}
-                            <InputBase
+
+                            {/* Поиск в десктоп */}
+                            {!mobile && <InputBase
                                 value={knowledgeStore.moduleList.search}
                                 onChange={(event) => knowledgeStore.setModuleListData("search", event.target.value)}
                                 className={classes.input}
                                 placeholder="Поиск модулей"
                                 inputProps={{ 'aria-label': 'Поиск страниц' }}
-                            />
-                            <Tooltip title="Очистить поиск">
+                            />}
+                            {!mobile && <Tooltip title="Очистить поиск">
                                 <span>
                                     <IconButton onClick={() => knowledgeStore.clearSearchInModules()} disabled={knowledgeStore.moduleList.search.length === 0} type="submit" className={classes.iconButton} aria-label="search">
                                         <ClearIcon />
                                     </IconButton>
                                 </span>
-                            </Tooltip>
-                            <Tooltip title="Найти">
+                            </Tooltip>}
+                            {!mobile && <Tooltip title="Найти">
                                 <span>
                                     <IconButton onClick={() => knowledgeStore.goSearchInModules()} disabled={knowledgeStore.moduleList.search.length < 3} className={classes.iconButton} aria-label="search">
                                         <SearchIcon />
                                     </IconButton>
                                 </span>
-                            </Tooltip>
+                            </Tooltip>}
 
-                            {/* <Tooltip title="Очистить поиск">
-                        <IconButton disabled={search.length === 0} onClick={() => clearSearchHere()} type="submit" className={classes.iconButton} aria-label="search">
-                            <ClearIcon />
-                        </IconButton>
-                    </Tooltip> */}
+                            {mobileSearch && mobile && <InputBase
+                                value={knowledgeStore.moduleList.search}
+                                onChange={(event) => knowledgeStore.setModuleListData("search", event.target.value)}
+                                className={classes.input}
+                                placeholder="Поиск модулей"
+                                inputProps={{ 'aria-label': 'Поиск страниц' }}
+                            />}
                             <Grid className={classes.gridSpacer}>
 
                             </Grid>
-                            <Grid
+                            {mobileSearch && mobile && <Tooltip title="Очистить поиск">
+                                <span>
+                                    <IconButton onClick={knowledgeStore.clearSearchInModules} disabled={knowledgeStore.moduleList.search.length === 0} type="submit" className={classes.iconButton} aria-label="search">
+                                        <ClearIcon />
+                                    </IconButton>
+                                </span>
+                            </Tooltip>}
+                            {!mobileSearch && mobile && <Tooltip title="Очистить поиск">
+                                <span>
+                                    <IconButton className={clsx(classes.iconButton)} onClick={() => setMobileSearch(true)} disabled={mobile ? false : knowledgeStore.moduleList.search.length < 3} aria-label="search">
+                                        <SearchIcon />
+                                    </IconButton>
+                                </span>
+                            </Tooltip>}
+                            {mobileSearch && mobile && <Tooltip title="Найти">
+                                <span>
+                                    <IconButton className={clsx(classes.iconButton)} onClick={() => knowledgeStore.goSearchInModules()} disabled={mobile ? false : knowledgeStore.moduleList.search.length < 3} aria-label="search">
+                                        <SearchIcon />
+                                    </IconButton>
+                                </span>
+                            </Tooltip>}
+                            {mobileSearch && mobile && <Tooltip title="Назад">
+                                <span>
+                                    <IconButton className={clsx(classes.iconButton)} onClick={() => setMobileSearch(false)} disabled={mobile ? false : knowledgeStore.moduleList.search.length < 3} aria-label="search">
+                                        <RedoIcon />
+                                    </IconButton>
+                                </span>
+                            </Tooltip>}
+                            {(!mobileSearch || !mobile) && <Grid
                                 container
                                 direction="row"
                                 justifyContent="center"
@@ -373,7 +379,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                         </IconButton>
                                     </span>
                                 </Tooltip>
-                            </Grid>
+                            </Grid>}
                         </Grid>
                     </AccordionSummary>
                     <AccordionDetails className={classes.AccordionDetails}>
@@ -391,23 +397,47 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                 justify="flex-start"
                                 alignItems="flex-start"
                             >
-                                <Typography className={classes.labelFilterColumn}> Глобальные: </Typography>
-                                {globalList.map((chip, index) => (
-                                    <Grid className={classes.gridChip} key={chip.key.toString()}>
-                                        <Chip
-                                            //clickable={false}
-                                            className={clsx(classes.chip, {
-                                                [classes.chipClicked]: chip.name === knowledgeStore.moduleList.filters.global,
-                                            })}
-                                            onClick={() => knowledgeStore.setModuleListDataSecondary("filters", "global", chip.name === knowledgeStore.moduleList.filters.global ? null : chip.name)}
-                                            label={
-                                                <Typography className={classes.chipTypography}>
-                                                    {chip.title}
-                                                </Typography>
-                                            }
-                                        />
-                                    </Grid>
-                                ))}
+                                <Accordion elevation={0} className={classes.Accordion} expanded={openGlobalList}>
+                                    <AccordionSummary
+                                        onClick={() => setOpenGlobalList(!openGlobalList)}
+                                        className={classes.AccordionSummary}
+                                        aria-controls="panel1bh-content"
+                                        id="panel1bh-header"
+                                    >
+                                        <Tooltip title="Фильтры">
+                                            <span>
+                                                <IconButton>
+                                                    <ArrowDropDownIcon
+                                                        className={clsx(classes.ExpandMoreIcon, {
+                                                            [classes.ExpandMoreIconOpen]: openGlobalList,
+                                                        })}
+                                                    />
+                                                </IconButton>
+                                            </span>
+                                        </Tooltip>
+                                        <Typography className={classes.labelFilterColumn}> Глобальные </Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails className={classes.AccordionDetails}>
+                                        {globalList.map((chip, index) => (
+                                            <Grid className={classes.gridChip} key={chip.key.toString()}>
+                                                <Chip
+                                                    //clickable={false}
+                                                    className={clsx(classes.chip, {
+                                                        [classes.chipClicked]: chip.name === knowledgeStore.moduleList.filters.global,
+                                                    })}
+                                                    onClick={() => knowledgeStore.setModuleListDataSecondary("filters", "global", chip.name === knowledgeStore.moduleList.filters.global ? null : chip.name)}
+                                                    label={
+                                                        <Typography className={classes.chipTypography}>
+                                                            {chip.title}
+                                                        </Typography>
+                                                    }
+                                                />
+                                            </Grid>
+                                        ))}
+                                    </AccordionDetails>
+
+                                </Accordion>
+
                             </Grid>
                             <Grid
                                 item
@@ -417,23 +447,45 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                 justify="flex-start"
                                 alignItems="flex-start"
                             >
-                                <Typography className={classes.labelFilterColumn}> По Категории: </Typography>
-                                {categoryList.map((chip) => (
-                                    <Grid className={classes.gridChip} key={chip.key.toString()}>
-                                        <Chip
-                                            clickable={false}
-                                            className={clsx(classes.chip, {
-                                                [classes.chipClicked]: chip.name === knowledgeStore.moduleList.filters.category,
-                                            })}
-                                            onClick={() => knowledgeStore.setModuleListDataSecondary("filters", "category", chip.name === knowledgeStore.moduleList.filters.category ? null : chip.name)}
-                                            label={
-                                                <Typography className={classes.chipTypography}>
-                                                    {chip.title}
-                                                </Typography>
-                                            }
-                                        />
-                                    </Grid>
-                                ))}
+                                <Accordion elevation={0} className={classes.Accordion} expanded={openСategoryList}>
+                                    <AccordionSummary
+                                        onClick={() => setOpenСategoryList(!openСategoryList)}
+                                        className={classes.AccordionSummary}
+                                        aria-controls="panel1bh-content"
+                                        id="panel1bh-header"
+                                    >
+                                        <Tooltip title="Фильтры">
+                                            <span>
+                                                <IconButton >
+                                                    <ArrowDropDownIcon
+                                                        className={clsx(classes.ExpandMoreIcon, {
+                                                            [classes.ExpandMoreIconOpen]: openСategoryList,
+                                                        })}
+                                                    />
+                                                </IconButton>
+                                            </span>
+                                        </Tooltip>
+                                        <Typography className={classes.labelFilterColumn}> По Категории </Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails className={classes.AccordionDetails}>
+                                        {categoryList.map((chip) => (
+                                            <Grid className={classes.gridChip} key={chip.key.toString()}>
+                                                <Chip
+                                                    clickable={false}
+                                                    className={clsx(classes.chip, {
+                                                        [classes.chipClicked]: chip.name === knowledgeStore.moduleList.filters.category,
+                                                    })}
+                                                    onClick={() => knowledgeStore.setModuleListDataSecondary("filters", "category", chip.name === knowledgeStore.moduleList.filters.category ? null : chip.name)}
+                                                    label={
+                                                        <Typography className={classes.chipTypography}>
+                                                            {chip.title}
+                                                        </Typography>
+                                                    }
+                                                />
+                                            </Grid>
+                                        ))}
+                                    </AccordionDetails>
+                                </Accordion>
                             </Grid>
                             <Grid
                                 item
@@ -443,23 +495,45 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                 justify="flex-start"
                                 alignItems="flex-start"
                             >
-                                <Typography className={classes.labelFilterColumn}> По Теме: </Typography>
-                                {themeList.map((chip) => (
-                                    <Grid className={classes.gridChip} key={chip.key.toString()}>
-                                        <Chip
-                                            clickable={false}
-                                            className={clsx(classes.chip, {
-                                                [classes.chipClicked]: chip.name === knowledgeStore.moduleList.filters.theme,
-                                            })}
-                                            onClick={() => knowledgeStore.setModuleListDataSecondary("filters", "theme", chip.name === knowledgeStore.moduleList.filters.theme ? null : chip.name)}
-                                            label={
-                                                <Typography className={classes.chipTypography}>
-                                                    {chip.title}
-                                                </Typography>
-                                            }
-                                        />
-                                    </Grid>
-                                ))}
+                                <Accordion elevation={0} className={classes.Accordion} expanded={openThemeList}>
+                                    <AccordionSummary
+                                        onClick={() => setOpenThemeList(!openThemeList)}
+                                        className={classes.AccordionSummary}
+                                        aria-controls="panel1bh-content"
+                                        id="panel1bh-header"
+                                    >
+                                        <Tooltip title="Фильтры">
+                                            <span>
+                                                <IconButton>
+                                                    <ArrowDropDownIcon
+                                                        className={clsx(classes.ExpandMoreIcon, {
+                                                            [classes.ExpandMoreIconOpen]: openThemeList,
+                                                        })}
+                                                    />
+                                                </IconButton>
+                                            </span>
+                                        </Tooltip>
+                                        <Typography className={classes.labelFilterColumn}> По Теме </Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails className={classes.AccordionDetails}>
+                                        {themeList.map((chip) => (
+                                            <Grid className={classes.gridChip} key={chip.key.toString()}>
+                                                <Chip
+                                                    clickable={false}
+                                                    className={clsx(classes.chip, {
+                                                        [classes.chipClicked]: chip.name === knowledgeStore.moduleList.filters.theme,
+                                                    })}
+                                                    onClick={() => knowledgeStore.setModuleListDataSecondary("filters", "theme", chip.name === knowledgeStore.moduleList.filters.theme ? null : chip.name)}
+                                                    label={
+                                                        <Typography className={classes.chipTypography}>
+                                                            {chip.title}
+                                                        </Typography>
+                                                    }
+                                                />
+                                            </Grid>
+                                        ))}
+                                    </AccordionDetails>
+                                </Accordion>
                             </Grid>
                             <Grid
                                 item
@@ -469,23 +543,45 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                 justify="flex-start"
                                 alignItems="flex-start"
                             >
-                                <Typography className={classes.labelFilterColumn}> По Сложности: </Typography>
-                                {difficultyList.map((chip) => (
-                                    <Grid className={classes.gridChip} key={chip.key.toString()}>
-                                        <Chip
-                                            clickable={false}
-                                            className={clsx(classes.chip, {
-                                                [classes.chipClicked]: chip.name === knowledgeStore.moduleList.filters.difficulty,
-                                            })}
-                                            onClick={() => knowledgeStore.setModuleListDataSecondary("filters", "difficulty", chip.name === knowledgeStore.moduleList.filters.difficulty ? null : chip.name)}
-                                            label={
-                                                <Typography className={classes.chipTypography}>
-                                                    {chip.title}
-                                                </Typography>
-                                            }
-                                        />
-                                    </Grid>
-                                ))}
+                                <Accordion elevation={0} className={classes.Accordion} expanded={openDifficultyList}>
+                                    <AccordionSummary
+                                        onClick={() => setOpenDifficultyList(!openDifficultyList)}
+                                        className={classes.AccordionSummary}
+                                        aria-controls="panel1bh-content"
+                                        id="panel1bh-header"
+                                    >
+                                        <Tooltip title="Фильтры">
+                                            <span>
+                                                <IconButton>
+                                                    <ArrowDropDownIcon
+                                                        className={clsx(classes.ExpandMoreIcon, {
+                                                            [classes.ExpandMoreIconOpen]: openDifficultyList,
+                                                        })}
+                                                    />
+                                                </IconButton>
+                                            </span>
+                                        </Tooltip>
+                                        <Typography className={classes.labelFilterColumn}> По Сложности </Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails className={classes.AccordionDetails}>
+                                        {difficultyList.map((chip) => (
+                                            <Grid className={classes.gridChip} key={chip.key.toString()}>
+                                                <Chip
+                                                    clickable={false}
+                                                    className={clsx(classes.chip, {
+                                                        [classes.chipClicked]: chip.name === knowledgeStore.moduleList.filters.difficulty,
+                                                    })}
+                                                    onClick={() => knowledgeStore.setModuleListDataSecondary("filters", "difficulty", chip.name === knowledgeStore.moduleList.filters.difficulty ? null : chip.name)}
+                                                    label={
+                                                        <Typography className={classes.chipTypography}>
+                                                            {chip.title}
+                                                        </Typography>
+                                                    }
+                                                />
+                                            </Grid>
+                                        ))}
+                                    </AccordionDetails>
+                                </Accordion>
                             </Grid>
                             <Grid
                                 item
@@ -495,23 +591,45 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                 justify="flex-start"
                                 alignItems="flex-start"
                             >
-                                <Typography className={classes.labelFilterColumn}> Сортировка: </Typography>
-                                {sortList.map((chip) => (
-                                    <Grid className={classes.gridChip} key={chip.key.toString()}>
-                                        <Chip
-                                            clickable={false}
-                                            className={clsx(classes.chip, {
-                                                [classes.chipClicked]: chip.name === knowledgeStore.moduleList.sort,
-                                            })}
-                                            onClick={() => knowledgeStore.setModuleListData("sort", chip.name)}
-                                            label={
-                                                <Typography className={classes.chipTypography}>
-                                                    {chip.title}
-                                                </Typography>
-                                            }
-                                        />
-                                    </Grid>
-                                ))}
+                                <Accordion elevation={0} className={classes.Accordion} expanded={openSortList}>
+                                    <AccordionSummary
+                                        onClick={() => setOpenSortList(!openSortList)}
+                                        className={classes.AccordionSummary}
+                                        aria-controls="panel1bh-content"
+                                        id="panel1bh-header"
+                                    >
+                                        <Tooltip title="Фильтры">
+                                            <span>
+                                                <IconButton >
+                                                    <ArrowDropDownIcon
+                                                        className={clsx(classes.ExpandMoreIcon, {
+                                                            [classes.ExpandMoreIconOpen]: openSortList,
+                                                        })}
+                                                    />
+                                                </IconButton>
+                                            </span>
+                                        </Tooltip>
+                                        <Typography className={classes.labelFilterColumn}> Сортировка </Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails className={classes.AccordionDetails}>
+                                        {sortList.map((chip) => (
+                                            <Grid className={classes.gridChip} key={chip.key.toString()}>
+                                                <Chip
+                                                    clickable={false}
+                                                    className={clsx(classes.chip, {
+                                                        [classes.chipClicked]: chip.name === knowledgeStore.moduleList.sort,
+                                                    })}
+                                                    onClick={() => knowledgeStore.setModuleListData("sort", chip.name)}
+                                                    label={
+                                                        <Typography className={classes.chipTypography}>
+                                                            {chip.title}
+                                                        </Typography>
+                                                    }
+                                                />
+                                            </Grid>
+                                        ))}
+                                    </AccordionDetails>
+                                </Accordion>
                             </Grid>
                         </Grid>
                     </AccordionDetails>
