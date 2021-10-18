@@ -25,11 +25,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme => theme.palette.forest.header,
   },
   ImageGrid: {
-    display: "block",
-    position: "absolute",
-    top: 64,
-    left: 0,
-    right: 0,
+    position: "relative",
+    backgroundColor: theme => theme.palette.blueGrey["3"],
+    width: "100%",
+    paddingTop: "41.8%",
+    // display: "block",
+    // position: "absolute",
+    // top: 64,
+    // left: 0,
+    // right: 0,
   },
   mainLabel: {
     cursor: "default",
@@ -199,19 +203,22 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
             // alt={alt}
             alt="alt"
             src={"/backgroundImg.jpg"}
-            layout="responsive"
-            //objectFit="cover"
+            layout="fill"
+            objectFit="cover"
             quality={100}
+            //layout="responsive"
+            //objectFit="cover"
+            //quality={100}
             //objectFit="fill"
-            width={3440}
-            height={1440}
+            //width={3440}
+            //height={1440}
             onLoad={() =>
               uiStore.setLoading("/")
             }
           />
         </Grid>
-        <div className={classes.dividerDiv}>
-        </div>
+        {/* <div className={classes.dividerDiv}>
+        </div> */}
         <Grid
           item
           container
