@@ -1,18 +1,42 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { CircularProgress, useTheme, Divider, Paper, Grid, AppBar, Toolbar, Typography, CssBaseline, useScrollTrigger, Box, Container, Fab, Zoom, Button } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 
 import { inject, observer } from 'mobx-react'
 import BackgroundImg from '../../components/OtherComponents/Background/BackgroundImg'
 import Loading from './../../components/OtherComponents/Loading/Loading';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const PREFIX = 'Email';
+
+const classes = {
+    root: `${PREFIX}-root`,
+    main: `${PREFIX}-main`,
+    gridLabelMain: `${PREFIX}-gridLabelMain`,
+    gridLabelSecondary: `${PREFIX}-gridLabelSecondary`,
+    gridLabelSecondarytwo: `${PREFIX}-gridLabelSecondarytwo`,
+    labelSecondarytwo: `${PREFIX}-labelSecondarytwo`,
+    labelMain: `${PREFIX}-labelMain`,
+    labelSecondary: `${PREFIX}-labelSecondary`,
+    gridDivider: `${PREFIX}-gridDivider`,
+    divider: `${PREFIX}-divider`,
+    circularProgress: `${PREFIX}-circularProgress`,
+    gridroot: `${PREFIX}-gridroot`,
+    acceptButton: `${PREFIX}-acceptButton`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.root}`]: {
         position: 'fixed',
         height: '100vh',
         width: '100vw',
@@ -20,34 +44,40 @@ const useStyles = makeStyles((theme) => ({
         overflowY: 'auto',
         overflowX: 'hidden',
     },
-    main: {
+
+    [`& .${classes.main}`]: {
         zIndex: 999,
     },
-    gridLabelMain: {
+
+    [`& .${classes.gridLabelMain}`]: {
         paddingLeft: 16,
         cursor: 'default',
         paddingTop: 160,
         zIndex: 999,
     },
-    gridLabelSecondary: {
+
+    [`& .${classes.gridLabelSecondary}`]: {
         paddingLeft: 16,
         paddingRight: 16,
         cursor: 'default',
         paddingTop: 16,
         zIndex: 999,
     },
-    gridLabelSecondarytwo: {
+
+    [`& .${classes.gridLabelSecondarytwo}`]: {
         paddingLeft: 16,
         paddingRight: 16,
         cursor: 'default',
         paddingTop: 2,
     },
-    labelSecondarytwo: {
+
+    [`& .${classes.labelSecondarytwo}`]: {
         zIndex: 999,
         fontSize: 20,
         color: theme => theme.palette.primary.contrastText,
     },
-    labelMain: {
+
+    [`& .${classes.labelMain}`]: {
         fontWeight: 'bold',
         color: theme => theme.palette.primary.contrastText,
         [theme => theme.breakpoints.up('lg')]: {
@@ -56,25 +86,28 @@ const useStyles = makeStyles((theme) => ({
         [theme => theme.breakpoints.only('lg')]: {
             fontSize: 40,
         },
-        [theme => theme.breakpoints.down('lg')]: {
+        [theme => theme.breakpoints.down('xl')]: {
             fontSize: 24,
         },
         fontSize: 24,
         zIndex: 999,
     },
-    labelSecondary: {
+
+    [`& .${classes.labelSecondary}`]: {
         color: theme => theme.palette.primary.contrastText,
         fontSize: 20,
         zIndex: 999,
     },
-    gridDivider: {
+
+    [`& .${classes.gridDivider}`]: {
         marginTop: '80vh',
         //marginBottom: '100px',
         marginLeft: '10px',
         marginRight: '10px',
         width: 'auto',
     },
-    divider: {
+
+    [`& .${classes.divider}`]: {
         zIndex: 999,
         height: 2,
         // width: 'auto',
@@ -82,14 +115,17 @@ const useStyles = makeStyles((theme) => ({
         // marginRight: '10px',
         backgroundColor: theme => theme.palette.primary.contrastText,
     },
-    circularProgress: {
+
+    [`& .${classes.circularProgress}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    gridroot: {
+
+    [`& .${classes.gridroot}`]: {
         width: '100vw',
         minHeight: '100vh',
     },
-    acceptButton: {
+
+    [`& .${classes.acceptButton}`]: {
         borderRadius: 12,
         zIndex: 999,
         color: theme => theme.palette.primary.contrastText,
@@ -100,7 +136,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Email = inject('store')(observer(({ store }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
     const router = useRouter()
     const { id } = router.query
 
@@ -117,7 +153,7 @@ const Email = inject('store')(observer(({ store }) => {
     }
 
     return (
-        <>
+        (<Root>
             <Head>
                 <title>
                     Ξ Регистрация
@@ -140,7 +176,7 @@ const Email = inject('store')(observer(({ store }) => {
                     </Grid>}
                 </Grid>
             </div>
-        </>
+        </Root>)
     );
 }))
 

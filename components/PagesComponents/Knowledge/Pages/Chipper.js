@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 
 import { Chip, Divider, useMediaQuery, SpeedDial, SpeedDialAction, FormLabel, RadioGroup, Radio, FormControlLabel, Popper, ClickAwayListener, Paper, MenuItem, MenuList, IconButton, Button, Grid, InputBase, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -22,8 +23,34 @@ import RedoIcon from '@mui/icons-material/Redo';
 import { inject, observer } from 'mobx-react'
 import { filterableGridColumnsSelector } from '@material-ui/data-grid';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const PREFIX = 'Chipper';
+
+const classes = {
+    root: `${PREFIX}-root`,
+    divider: `${PREFIX}-divider`,
+    input: `${PREFIX}-input`,
+    iconButton: `${PREFIX}-iconButton`,
+    popper: `${PREFIX}-popper`,
+    popperPaper: `${PREFIX}-popperPaper`,
+    popperPaperGrid: `${PREFIX}-popperPaperGrid`,
+    gridSpacer: `${PREFIX}-gridSpacer`,
+    gridNavWrap: `${PREFIX}-gridNavWrap`,
+    Typography: `${PREFIX}-Typography`,
+    speedDial: `${PREFIX}-speedDial`,
+    speedDialActionFirst: `${PREFIX}-speedDialActionFirst`,
+    speedDialAction: `${PREFIX}-speedDialAction`,
+    disableIcon: `${PREFIX}-disableIcon`,
+    activeIcon: `${PREFIX}-activeIcon`,
+    iconSpeedDial: `${PREFIX}-iconSpeedDial`,
+    IconButtonSpeedDial: `${PREFIX}-IconButtonSpeedDial`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.root}`]: {
         margin: 0,
         marginLeft: 32,
         marginRight: 32,
@@ -31,12 +58,14 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 4,
         background: theme => theme.palette.blueGrey["1"],
     },
-    divider: {
+
+    [`& .${classes.divider}`]: {
         width: "100%",
         height: 1,
         backgroundColor: theme => theme.palette.primary.contrastText
     },
-    input: {
+
+    [`& .${classes.input}`]: {
         color: theme => theme.palette.primary.contrastText,
         //marginLeft: theme => theme.spacing(1),
         flex: 1,
@@ -44,37 +73,45 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 500,
         marginLeft: "auto",
     },
-    iconButton: {
+
+    [`& .${classes.iconButton}`]: {
         //padding: 10,
         color: theme => theme.palette.primary.contrastText,
     },
-    popper: {
+
+    [`& .${classes.popper}`]: {
         zIndex: 1000,
         //position: 'fixed',
     },
-    popperPaper: {
+
+    [`& .${classes.popperPaper}`]: {
         zIndex: 1000,
         //minWidth: 200,
         backgroundColor: theme => theme.palette.blueGrey["6"]
     },
-    popperPaperGrid: {
+
+    [`& .${classes.popperPaperGrid}`]: {
         padding: 8,
     },
-    gridSpacer: {
+
+    [`& .${classes.gridSpacer}`]: {
         marginLeft: "auto",
     },
-    gridNavWrap: {
+
+    [`& .${classes.gridNavWrap}`]: {
         width: 120,
         marginRight: 0,
         marginLeft: 0,
     },
-    Typography: {
+
+    [`& .${classes.Typography}`]: {
         marginRight: 2,
         marginLeft: 2,
         color: theme => theme.palette.primary.contrastText,
         cursor: "default",
     },
-    speedDial: {
+
+    [`& .${classes.speedDial}`]: {
         height: 36,
         width: 36,
         marginTop: 4,
@@ -83,18 +120,22 @@ const useStyles = makeStyles((theme) => ({
         // top: theme => theme.spacing(10),
         // left: theme => theme.spacing(2),
     },
-    speedDialActionFirst: {
+
+    [`& .${classes.speedDialActionFirst}`]: {
         marginLeft: 16,
         color: props => props.palette.primary.main,
     },
-    speedDialAction: {
+
+    [`& .${classes.speedDialAction}`]: {
         marginLeft: 16,
         color: props => props.palette.primary.main,
     },
-    disableIcon: {
+
+    [`& .${classes.disableIcon}`]: {
         color: props => props.palette.error.main,
     },
-    activeIcon: {
+
+    [`& .${classes.activeIcon}`]: {
         color: props => props.palette.primary.contrastText,
         backgroundColor: props => props.palette.primary.main,
         '&:hover': {
@@ -102,20 +143,22 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: props => props.palette.primary.main,
         }
     },
-    iconSpeedDial: {
+
+    [`& .${classes.iconSpeedDial}`]: {
         height: 24,
         width: 24,
     },
-    IconButtonSpeedDial: {
+
+    [`& .${classes.IconButtonSpeedDial}`]: {
         color: props => props.palette.primary.contrastText,
-    },
+    }
 }));
 
 const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
     const knowledgeUI = uiStore.knowledgeUI
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
     const setGridType = (type) => {
         if (type === "grid") {
@@ -179,7 +222,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
 
 
     return (
-        <Grid
+        <StyledGrid
             container
             direction="column"
             justifyContent="center"
@@ -239,14 +282,25 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 />}
                 {!mobile && <Tooltip title="Очистить поиск">
                     <span>
-                        <IconButton onClick={knowledgeStore.clearSearchInPages} disabled={knowledgeStore.pageList.search.length === 0} type="submit" className={classes.iconButton} aria-label="search">
+                        <IconButton
+                            onClick={knowledgeStore.clearSearchInPages}
+                            disabled={knowledgeStore.pageList.search.length === 0}
+                            type="submit"
+                            className={classes.iconButton}
+                            aria-label="search"
+                            size="large">
                             <ClearIcon />
                         </IconButton>
                     </span>
                 </Tooltip>}
                 {!mobile && <Tooltip title="Найти">
                     <span>
-                        <IconButton className={clsx(classes.iconButton)} onClick={() => knowledgeStore.goSearchInPages()} disabled={mobile ? false : knowledgeStore.pageList.search.length < 3} aria-label="search">
+                        <IconButton
+                            className={clsx(classes.iconButton)}
+                            onClick={() => knowledgeStore.goSearchInPages()}
+                            disabled={mobile ? false : knowledgeStore.pageList.search.length < 3}
+                            aria-label="search"
+                            size="large">
                             <SearchIcon />
                         </IconButton>
                     </span>
@@ -270,28 +324,49 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 </Grid>
                 {mobileSearch && mobile && <Tooltip title="Очистить поиск">
                     <span>
-                        <IconButton onClick={knowledgeStore.clearSearchInPages} disabled={knowledgeStore.pageList.search.length === 0} type="submit" className={classes.iconButton} aria-label="search">
+                        <IconButton
+                            onClick={knowledgeStore.clearSearchInPages}
+                            disabled={knowledgeStore.pageList.search.length === 0}
+                            type="submit"
+                            className={classes.iconButton}
+                            aria-label="search"
+                            size="large">
                             <ClearIcon />
                         </IconButton>
                     </span>
                 </Tooltip>}
                 {!mobileSearch && mobile && <Tooltip title="Очистить поиск">
                     <span>
-                        <IconButton className={clsx(classes.iconButton)} onClick={() => setMobileSearch(true)} disabled={mobile ? false : knowledgeStore.pageList.search.length < 3} aria-label="search">
+                        <IconButton
+                            className={clsx(classes.iconButton)}
+                            onClick={() => setMobileSearch(true)}
+                            disabled={mobile ? false : knowledgeStore.pageList.search.length < 3}
+                            aria-label="search"
+                            size="large">
                             <SearchIcon />
                         </IconButton>
                     </span>
                 </Tooltip>}
                 {mobileSearch && mobile && <Tooltip title="Найти">
                     <span>
-                        <IconButton className={clsx(classes.iconButton)} onClick={() => knowledgeStore.goSearchInPages()} disabled={mobile ? false : knowledgeStore.pageList.search.length < 3} aria-label="search">
+                        <IconButton
+                            className={clsx(classes.iconButton)}
+                            onClick={() => knowledgeStore.goSearchInPages()}
+                            disabled={mobile ? false : knowledgeStore.pageList.search.length < 3}
+                            aria-label="search"
+                            size="large">
                             <SearchIcon />
                         </IconButton>
                     </span>
                 </Tooltip>}
                 {mobileSearch && mobile && <Tooltip title="Назад">
                     <span>
-                        <IconButton className={clsx(classes.iconButton)} onClick={() => setMobileSearch(false)} disabled={mobile ? false : knowledgeStore.pageList.search.length < 3} aria-label="search">
+                        <IconButton
+                            className={clsx(classes.iconButton)}
+                            onClick={() => setMobileSearch(false)}
+                            disabled={mobile ? false : knowledgeStore.pageList.search.length < 3}
+                            aria-label="search"
+                            size="large">
                             <RedoIcon />
                         </IconButton>
                     </span>
@@ -305,7 +380,12 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 >
                     <Tooltip title="Назад">
                         <span>
-                            <IconButton onClick={knowledgeStore.prevPageInPages} type="submit" className={classes.iconButton} disabled={knowledgeStore.pageList.counter === 0 ? true : false}>
+                            <IconButton
+                                onClick={knowledgeStore.prevPageInPages}
+                                type="submit"
+                                className={classes.iconButton}
+                                disabled={knowledgeStore.pageList.counter === 0 ? true : false}
+                                size="large">
                                 <NavigateBeforeIcon />
                             </IconButton>
                         </span>
@@ -315,7 +395,12 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                     </Tooltip>
                     <Tooltip title="Вперёд">
                         <span>
-                            <IconButton onClick={knowledgeStore.nextPageInPages} type="submit" className={classes.iconButton} disabled={knowledgeStore.pageList.pages.length < 50 ? true : false}>
+                            <IconButton
+                                onClick={knowledgeStore.nextPageInPages}
+                                type="submit"
+                                className={classes.iconButton}
+                                disabled={knowledgeStore.pageList.pages.length < 50 ? true : false}
+                                size="large">
                                 <NavigateNextIcon />
                             </IconButton>
                         </span>
@@ -323,8 +408,8 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 </Grid>}
             </Grid>
             <Divider className={classes.divider} />
-        </Grid>
-    )
+        </StyledGrid>
+    );
 }));
 
 export default Chipper;

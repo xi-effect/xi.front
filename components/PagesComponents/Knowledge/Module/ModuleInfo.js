@@ -1,8 +1,9 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import { useRouter } from 'next/router'
 import { Pagination, useMediaQuery, Link, Box, Accordion, Tabs, Tab, AccordionSummary, AccordionDetails, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Popper, ClickAwayListener, Paper, MenuItem, MenuList, IconButton, Button, Grid, InputBase, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles, withStyles } from '@mui/styles';
+
 
 import { inject, observer } from 'mobx-react'
 
@@ -16,6 +17,157 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+
+const PREFIX = 'ModuleInfo';
+
+const classes = {
+    wrapperRoot: `${PREFIX}-wrapperRoot`,
+    wrapper: `${PREFIX}-wrapper`,
+    Accordion: `${PREFIX}-Accordion`,
+    AccordionSummary: `${PREFIX}-AccordionSummary`,
+    AccordionDetails: `${PREFIX}-AccordionDetails`,
+    moduleAppbar: `${PREFIX}-moduleAppbar`,
+    moduleAppbarMobile: `${PREFIX}-moduleAppbarMobile`,
+    gridSpacer: `${PREFIX}-gridSpacer`,
+    gridNavWrap: `${PREFIX}-gridNavWrap`,
+    ExpandMoreIcon: `${PREFIX}-ExpandMoreIcon`,
+    ExpandMoreIconOpen: `${PREFIX}-ExpandMoreIconOpen`,
+    moduleLabel: `${PREFIX}-moduleLabel`,
+    slashLabel: `${PREFIX}-slashLabel`,
+    descriptionLabel: `${PREFIX}-descriptionLabel`,
+    Divider: `${PREFIX}-Divider`,
+    gridWrapperMeta: `${PREFIX}-gridWrapperMeta`,
+    tabLabel: `${PREFIX}-tabLabel`,
+    gridTabsWrapper: `${PREFIX}-gridTabsWrapper`,
+    AntTabs: `${PREFIX}-AntTabs`,
+    Link: `${PREFIX}-Link`,
+    Pagination: `${PREFIX}-Pagination`,
+    Icon: `${PREFIX}-Icon`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.wrapperRoot}`]: {
+        //marginTop: 16,
+        //maxWidth: 800,
+    },
+
+    [`& .${classes.wrapper}`]: {
+        // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        border: 0,
+        width: "calc(100% - 4px)",
+        margin: 1,
+        padding: 1,
+    },
+
+    [`& .${classes.Accordion}`]: {
+        zIndex: 2000,
+        width: "100%",
+        backgroundColor: theme => theme.palette.blueGrey["2"],
+        color: theme => theme.palette.primary.contrastText,
+    },
+
+    [`& .${classes.AccordionSummary}`]: {
+        height: 36,
+        marginLeft: -8,
+        backgroundColor: theme => theme.palette.blueGrey["3"],
+    },
+
+    [`& .${classes.AccordionDetails}`]: {
+        marginTop: 0,
+        paddingTop: 0,
+    },
+
+    [`& .${classes.moduleAppbar}`]: {
+        zIndex: 2000,
+        position: "fixed",
+        top: 0,
+        left: 72,
+        width: "calc(100% - 72px)",
+    },
+
+    [`& .${classes.moduleAppbarMobile}`]: {
+        left: 0,
+        position: "fixed",
+        top: 0,
+        width: "100%",
+    },
+
+    [`& .${classes.gridSpacer}`]: {
+        marginLeft: "auto",
+    },
+
+    [`& .${classes.gridNavWrap}`]: {
+        //width: 120,
+        marginRight: 0,
+        marginLeft: 0,
+    },
+
+    [`& .${classes.ExpandMoreIcon}`]: {
+        color: theme => theme.palette.primary.contrastText,
+        transform: "rotate(-90deg)",
+        transition: "0.2s",
+    },
+
+    [`& .${classes.ExpandMoreIconOpen}`]: {
+        color: theme => theme.palette.primary.contrastText,
+        transform: "rotate(0deg)",
+        transition: "0.2s",
+    },
+
+    [`& .${classes.moduleLabel}`]: {
+        color: theme => theme.palette.primary.contrastText,
+    },
+
+    [`& .${classes.slashLabel}`]: {
+        marginLeft: 8,
+        marginRight: 8,
+    },
+
+    [`& .${classes.descriptionLabel}`]: {
+        marginTop: 16,
+        fontSize: 20,
+    },
+
+    [`& .${classes.Divider}`]: {
+        backgroundColor: theme => theme.palette.primary.contrastText,
+    },
+
+    [`& .${classes.gridWrapperMeta}`]: {
+        marginTop: 8,
+        // marginLeft: 32,
+    },
+
+    [`& .${classes.tabLabel}`]: {
+        fontSize: "14px",
+        color: theme => theme.palette.primary.contrastText,
+    },
+
+    [`& .${classes.gridTabsWrapper}`]: {
+        width: "100%",
+    },
+
+    [`& .${classes.AntTabs}`]: {
+        marginLeft: -16,
+        width: "calc(100% + 32px)",
+        backgroundColor: theme => theme.palette.blueGrey["3"],
+    },
+
+    [`& .${classes.Link}`]: {
+        cursor: "pointer",
+    },
+
+    [`& .${classes.Pagination}`]: {
+        color: theme => theme.palette.primary.contrastText,
+    },
+
+    [`& .${classes.Icon}`]: {
+        color: theme => theme.palette.primary.contrastText,
+    }
+}));
 
 const categoryList = {
     "middle-school": "Средняя школа",
@@ -55,17 +207,20 @@ const difficultyList = {
     "expert": "Эксперт",
 }
 
-const AntTabs = withStyles((theme) => ({
-    root: {
-        //width: "100%",
-        //backgroundColor: theme => theme.palette.blueGrey["3"],
-        borderBottom: '0px solid #e8e8e8',
-    },
-    indicator: {
-        height: "4px",
-        backgroundColor: '#1976d2',
-    },
-}))(Tabs);
+function AntTabs() {
+    return ({
+        [`& .${classes.root}`]: {
+            //width: "100%",
+            //backgroundColor: theme => theme.palette.blueGrey["3"],
+            borderBottom: '0px solid #e8e8e8',
+        },
+
+        [`& .${classes.indicator}`]: {
+            height: "4px",
+            backgroundColor: '#1976d2',
+        }
+    });
+}(Tabs);
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -95,111 +250,11 @@ function a11yProps(index) {
 }
 
 
-const useStyles = makeStyles((theme) => ({
-    wrapperRoot: {
-        //marginTop: 16,
-        //maxWidth: 800,
-    },
-    wrapper: {
-        // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        border: 0,
-        width: "calc(100% - 4px)",
-        margin: 1,
-        padding: 1,
-    },
-    Accordion: {
-        zIndex: 2000,
-        width: "100%",
-        backgroundColor: theme => theme.palette.blueGrey["2"],
-        color: theme => theme.palette.primary.contrastText,
-    },
-    AccordionSummary: {
-        height: 36,
-        marginLeft: -8,
-        backgroundColor: theme => theme.palette.blueGrey["3"],
-    },
-    AccordionDetails: {
-        marginTop: 0,
-        paddingTop: 0,
-    },
-    moduleAppbar: {
-        zIndex: 2000,
-        position: "fixed",
-        top: 0,
-        left: 72,
-        width: "calc(100% - 72px)",
-    },
-    moduleAppbarMobile: {
-        left: 0,
-        position: "fixed",
-        top: 0,
-        width: "100%",
-    },
-    gridSpacer: {
-        marginLeft: "auto",
-    },
-    gridNavWrap: {
-        //width: 120,
-        marginRight: 0,
-        marginLeft: 0,
-    },
-    ExpandMoreIcon: {
-        color: theme => theme.palette.primary.contrastText,
-        transform: "rotate(-90deg)",
-        transition: "0.2s",
-    },
-    ExpandMoreIconOpen: {
-        color: theme => theme.palette.primary.contrastText,
-        transform: "rotate(0deg)",
-        transition: "0.2s",
-    },
-    moduleLabel: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-    slashLabel: {
-        marginLeft: 8,
-        marginRight: 8,
-    },
-    descriptionLabel: {
-        marginTop: 16,
-        fontSize: 20,
-    },
-    Divider: {
-        backgroundColor: theme => theme.palette.primary.contrastText,
-    },
-    gridWrapperMeta: {
-        marginTop: 8,
-        // marginLeft: 32,
-    },
-    tabLabel: {
-        fontSize: "14px",
-        color: theme => theme.palette.primary.contrastText,
-    },
-    gridTabsWrapper: {
-        width: "100%",
-    },
-    AntTabs: {
-        marginLeft: -16,
-        width: "calc(100% + 32px)",
-        backgroundColor: theme => theme.palette.blueGrey["3"],
-    },
-    Link: {
-        cursor: "pointer",
-    },
-    Pagination: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-    Icon: {
-        color: theme => theme.palette.primary.contrastText,
-    }
-}));
-
-
 const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
     const router = useRouter()
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
     React.useEffect(() => {
 
@@ -249,7 +304,9 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                 <Grid container direction="row" alignItems="center">
                                     <Tooltip title="Фильтры">
                                         <span>
-                                            <IconButton onClick={() => knowledgeStore.setModuleData("openAccordion", !knowledgeStore.module.openAccordion)}>
+                                            <IconButton
+                                                onClick={() => knowledgeStore.setModuleData("openAccordion", !knowledgeStore.module.openAccordion)}
+                                                size="large">
                                                 <ExpandMoreIcon
                                                     className={clsx(classes.ExpandMoreIcon, {
                                                         [classes.ExpandMoreIconOpen]: knowledgeStore.module.openAccordion,
@@ -276,7 +333,7 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                             <Grid item>
                                 <Tooltip title="Вперёд">
                                     <span>
-                                        <IconButton onClick={null}>
+                                        <IconButton onClick={null} size="large">
                                             <DoubleArrowIcon className={classes.Icon} />
                                         </IconButton>
                                     </span>
@@ -447,7 +504,7 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                 {children}
             </Grid>
         </Grid >
-    )
+    );
 }));
 
 

@@ -1,35 +1,56 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import { Grid, Typography, useTheme, Pagination, PaginationItem } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 import { inject, observer } from 'mobx-react'
 import Image from 'next/image'
 import { useSwipeable } from 'react-swipeable';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const PREFIX = 'Card7';
+
+const classes = {
+    root: `${PREFIX}-root`,
+    mainLabel: `${PREFIX}-mainLabel`,
+    content: `${PREFIX}-content`,
+    gridPagination: `${PREFIX}-gridPagination`,
+    PaginationItem: `${PREFIX}-PaginationItem`,
+    labelContent: `${PREFIX}-labelContent`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.root}`]: {
         margin: 16,
         width: 'calc(100% - 32px)',
         height: '450px',
     },
-    mainLabel: {
+
+    [`& .${classes.mainLabel}`]: {
         fontSize: 20,
         marginLeft: 52,
         color: theme => theme.palette.primary.contrastText,
     },
-    content: {
+
+    [`& .${classes.content}`]: {
         //width: '100%',
         height: '350px',
         borderRadius: 64,
         backgroundColor: theme => theme.palette.blueGrey["5"],
         //border: `${theme.main.palette.content.border} solid 2px`,
     },
-    gridPagination: {
+
+    [`& .${classes.gridPagination}`]: {
         marginTop: 8,
     },
-    PaginationItem: {
+
+    [`& .${classes.PaginationItem}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    labelContent: {
+
+    [`& .${classes.labelContent}`]: {
         color: theme => theme.palette.primary.contrastText,
         padding: 16,
         fontSize: 20,
@@ -38,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Card7 = inject('store')(observer((props) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const [page, setPage] = React.useState(1);
     const handleChange = (event, value) => {
@@ -68,7 +89,7 @@ const Card7 = inject('store')(observer((props) => {
     });
 
     return (
-        <Grid
+        <StyledGrid
             {...handlers}
             className={classes.root}
             container
@@ -121,8 +142,8 @@ const Card7 = inject('store')(observer((props) => {
                     onChange={handleChange} />
             </Grid>
 
-        </Grid>
-    )
+        </StyledGrid>
+    );
 
 }))
 

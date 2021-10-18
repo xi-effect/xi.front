@@ -1,58 +1,79 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 
 import { Divider, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles'
 
+const PREFIX = 'Header';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const classes = {
+    root: `${PREFIX}-root`,
+    mainLabel: `${PREFIX}-mainLabel`,
+    mainLabelMobile: `${PREFIX}-mainLabelMobile`,
+    Link: `${PREFIX}-Link`,
+    LinkMobile: `${PREFIX}-LinkMobile`,
+    enterButton: `${PREFIX}-enterButton`,
+    enterButtonMobile: `${PREFIX}-enterButtonMobile`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.root}`]: {
         height: 64,
-        backgroundColor: theme => theme.palette.constant.landingBlue,
+        backgroundColor: theme.palette.constant.landingBlue,
     },
-    mainLabel: {
+
+    [`& .${classes.mainLabel}`]: {
         cursor: "default",
         fontWeight: "bold",
-        color: theme => theme.palette.constant.textWhite,
+        color:theme.palette.constant.textWhite,
         marginLeft: 16,
     },
-    mainLabelMobile: {
+
+    [`& .${classes.mainLabelMobile}`]: {
         fontSize: 26,
     },
-    Link: {
+
+    [`& .${classes.Link}`]: {
         fontSize: 20,
         margin: 8,
         cursor: "pointer",
-        color: theme => theme.palette.constant.textWhite,
+        color: theme.palette.constant.textWhite,
     },
-    LinkMobile: {
+
+    [`& .${classes.LinkMobile}`]: {
         fontSize: 12,
     },
-    enterButton: {
+
+    [`& .${classes.enterButton}`]: {
         //cursor: "default",
         fontWeight: "bold",
-        color: theme => theme.palette.constant.textWhite,
+        color:theme.palette.constant.textWhite,
         fontSize: 24,
         marginRight: 8,
         // borderRadius: 32,
         // padding: 12,
     },
-    enterButtonMobile: {
+
+    [`& .${classes.enterButtonMobile}`]: {
         fontSize: 18,
-    },
+    }
 }));
 
 
 const Header = () => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
     const router = useRouter()
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
 
     return (
-        <Grid
+        <StyledGrid
             item
             container
             direction="row"
@@ -128,7 +149,7 @@ const Header = () => {
                     </Button>
                 </Grid>
             </Grid>
-        </Grid>
+        </StyledGrid>
     );
 }
 

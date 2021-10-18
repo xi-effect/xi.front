@@ -1,27 +1,52 @@
 import Head from 'next/head'
+import { styled } from '@mui/material/styles';
 import Router from 'next/router'
 import React from 'react';
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 
 import { Divider, useMediaQuery, Link, Button, Grid, Paper, useTheme, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles'
+
 import Image from 'next/image'
 import Loading from './../../components/OtherComponents/Loading/Loading';
 
 import { inject, observer } from 'mobx-react'
 
 
-const useStyles = makeStyles((theme) => ({
-  main: {
+const PREFIX = 'Schools';
+
+const classes = {
+  main: `${PREFIX}-main`,
+  NavigationGrid: `${PREFIX}-NavigationGrid`,
+  ImageGrid: `${PREFIX}-ImageGrid`,
+  mainLabel: `${PREFIX}-mainLabel`,
+  mainLabelMobile: `${PREFIX}-mainLabelMobile`,
+  ContentGrid1: `${PREFIX}-ContentGrid1`,
+  ContentGrid2: `${PREFIX}-ContentGrid2`,
+  Link: `${PREFIX}-Link`,
+  LinkMobile: `${PREFIX}-LinkMobile`,
+  enterButton: `${PREFIX}-enterButton`,
+  enterButtonMobile: `${PREFIX}-enterButtonMobile`,
+  dividerDiv: `${PREFIX}-dividerDiv`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.main}`]: {
     width: '100%',
     height: '100%',
   },
-  NavigationGrid: {
+
+  [`& .${classes.NavigationGrid}`]: {
     height: 64,
     backgroundColor: theme => theme.palette.constant.landingBlue,
   },
-  ImageGrid: {
+
+  [`& .${classes.ImageGrid}`]: {
     position: "relative",
     backgroundColor: theme => theme.palette.blueGrey["3"],
     width: "100%",
@@ -32,36 +57,43 @@ const useStyles = makeStyles((theme) => ({
     // left: 0,
     // right: 0,
   },
-  mainLabel: {
+
+  [`& .${classes.mainLabel}`]: {
     cursor: "default",
     fontWeight: "bold",
     color: "#fff",
     //marginTop: 8,
     marginLeft: 16,
   },
-  mainLabelMobile: {
+
+  [`& .${classes.mainLabelMobile}`]: {
     fontSize: 26,
   },
-  ContentGrid1: {
+
+  [`& .${classes.ContentGrid1}`]: {
     width: '100%',
     height: 312,
     backgroundColor: theme => theme.palette.constant.landingBlue,
   },
-  ContentGrid2: {
+
+  [`& .${classes.ContentGrid2}`]: {
     width: '100%',
     height: 312,
     backgroundColor: theme => theme.palette.constant.landingPink,
   },
-  Link: {
+
+  [`& .${classes.Link}`]: {
     fontSize: 20,
     margin: 8,
     cursor: "pointer",
     color: theme => theme.palette.constant.textWhite,
   },
-  LinkMobile: {
+
+  [`& .${classes.LinkMobile}`]: {
     fontSize: 12,
   },
-  enterButton: {
+
+  [`& .${classes.enterButton}`]: {
     //cursor: "default",
     fontWeight: "bold",
     color: theme => theme.palette.constant.textWhite,
@@ -70,26 +102,28 @@ const useStyles = makeStyles((theme) => ({
     // borderRadius: 32,
     // padding: 12,
   },
-  enterButtonMobile: {
+
+  [`& .${classes.enterButtonMobile}`]: {
     fontSize: 18,
   },
-  dividerDiv: {
+
+  [`& .${classes.dividerDiv}`]: {
     //position: "relative",
     backgroundColor: theme => theme.palette.blueGrey["3"],
     width: "100%",
     paddingTop: "41.8%",
-  },
+  }
 }));
 
 const Schools = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) => {
   const theme = useTheme();
-  const classes = useStyles(theme);
+
   const router = useRouter()
-  const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+  const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
 
   return (
-    <>
+    (<Root>
       <Head>
         <title>
           Ξ Effect
@@ -312,7 +346,7 @@ const Schools = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore })
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </Root>)
   );
 }))
 

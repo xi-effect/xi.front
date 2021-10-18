@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import Image from 'next/image';
 import Link from "next/link";
 import clsx from 'clsx';
 import { ToggleButton, ToggleButtonGroup, SpeedDial, SpeedDialIcon, SpeedDialAction, Tabs, Tab, ButtonGroup, Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 
 import { inject, observer } from 'mobx-react'
@@ -20,18 +21,30 @@ import ImageIcon from '@mui/icons-material/Image';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 
 
-const defaultInitializer = (index) => index;
-function createRange(length, initializer = defaultInitializer) {
-    return [...new Array(length)].map((_, index) => initializer(index));
-}
+const PREFIX = 'StepTwo';
 
-const useStyles = makeStyles((theme) => ({
-    gridRoot: {
+const classes = {
+    gridRoot: `${PREFIX}-gridRoot`,
+    gridMain: `${PREFIX}-gridMain`,
+    gridWrapperMap: `${PREFIX}-gridWrapperMap`,
+    gridMainImgWrapper: `${PREFIX}-gridMainImgWrapper`,
+    speedDial: `${PREFIX}-speedDial`,
+    speedDialAction: `${PREFIX}-speedDialAction`,
+    infoLabel: `${PREFIX}-infoLabel`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.gridRoot}`]: {
         //margin: "8px",
         width: "calc(100% - 16px)",
         height: "100%",
     },
-    gridMain: {
+
+    [`& .${classes.gridMain}`]: {
         margin: 0,
         //paddingLeft: 4,
         padding: 0,
@@ -47,7 +60,8 @@ const useStyles = makeStyles((theme) => ({
         //     background: "transparent",
         // }
     },
-    gridWrapperMap: {
+
+    [`& .${classes.gridWrapperMap}`]: {
         backgroundColor: theme => theme.palette.blueGrey["4"],
         margin: "8px",
         width: "calc(100% - 16px)",
@@ -55,22 +69,32 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 32,
         cursor: "default !important",
     },
-    gridMainImgWrapper: {
+
+    [`& .${classes.gridMainImgWrapper}`]: {
         height: "calc(100vh - 156px)",
     },
-    speedDial: {
+
+    [`& .${classes.speedDial}`]: {
         position: 'absolute',
         top: theme => theme.spacing(10),
         left: theme => theme.spacing(2),
     },
-    speedDialAction: {
+
+    [`& .${classes.speedDialAction}`]: {
         height: 48,
         width: 48,
     },
-    infoLabel: {
+
+    [`& .${classes.infoLabel}`]: {
         color: theme => theme.palette.primary.contrastText,
     }
 }));
+
+
+const defaultInitializer = (index) => index;
+function createRange(length, initializer = defaultInitializer) {
+    return [...new Array(length)].map((_, index) => initializer(index));
+}
 
 const initial = Array.from({ length: 2 }, (v, k) => k).map(k => {
     const custom = {
@@ -93,7 +117,7 @@ const reorder = (list, startIndex, endIndex) => {
 
 const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const [state, setState] = useState({
         quotes: [
@@ -148,7 +172,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
 
 
     return (
-        <Grid
+        <StyledGrid
             className={classes.gridRoot}
             container
             direction="row"
@@ -205,8 +229,8 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
             >
                 <DnDList state={managmentStore.pageCreation.components} setState={managmentStore.setPageCreation} ComponentsList={<ComponentsList />} />
             </Grid >}
-        </Grid>
-    )
+        </StyledGrid>
+    );
 }))
 
 export default StepTwo

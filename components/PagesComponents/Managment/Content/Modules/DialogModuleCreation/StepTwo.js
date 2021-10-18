@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import Image from 'next/image';
 import Link from "next/link";
 import clsx from 'clsx';
 import { ToggleButton, Accordion, Drawer, AccordionDetails, AccordionSummary, ToggleButtonGroup, SpeedDial, SpeedDialIcon, SpeedDialAction, Tabs, Tab, ButtonGroup, Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles, withStyles } from '@mui/styles';
+
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -27,27 +28,50 @@ import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import BookIcon from '@mui/icons-material/Book';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 
-const CustomTooltip = withStyles((theme) => ({
-    tooltip: {
-        //backgroundColor: theme => theme.palette.common.white,
-        //color: 'rgba(0, 0, 0, 0.87)',
-        //boxShadow: theme => theme.shadows[1],
-        fontSize: 14,
-    },
-}))(Tooltip);
+const PREFIX = 'StepTwo';
 
-const useStyles = makeStyles((theme) => ({
-    gridRoot: {
+const classes = {
+    gridRoot: `${PREFIX}-gridRoot`,
+    pagesPart: `${PREFIX}-pagesPart`,
+    modulePart: `${PREFIX}-modulePart`,
+    pageBlock: `${PREFIX}-pageBlock`,
+    pageBlockTheory: `${PREFIX}-pageBlockTheory`,
+    pageBlockPractice: `${PREFIX}-pageBlockPractice`,
+    pageBlockTest: `${PREFIX}-pageBlockTest`,
+    pageLabel: `${PREFIX}-pageLabel`,
+    pageLabelInPoint: `${PREFIX}-pageLabelInPoint`,
+    infoLabel: `${PREFIX}-infoLabel`,
+    pageBlockIcons: `${PREFIX}-pageBlockIcons`,
+    IconButton: `${PREFIX}-IconButton`,
+    icon: `${PREFIX}-icon`,
+    speedDial: `${PREFIX}-speedDial`,
+    speedDialActionFirst: `${PREFIX}-speedDialActionFirst`,
+    speedDialAction: `${PREFIX}-speedDialAction`,
+    gridTextWrapper: `${PREFIX}-gridTextWrapper`,
+    text: `${PREFIX}-text`,
+    Accordion: `${PREFIX}-Accordion`,
+    AccordionDetails: `${PREFIX}-AccordionDetails`,
+    gridAddButtonWrapper: `${PREFIX}-gridAddButtonWrapper`
+};
+
+const StyledDragDropContext = styled(DragDropContext)((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.gridRoot}`]: {
         //margin: "8px",
         width: "100%",
         height: "calc(100vh - 64px)",
     },
-    pagesPart: {
+
+    [`& .${classes.pagesPart}`]: {
         //position: 'fixed',
         height: "calc(100vh - 64px)",
         backgroundColor: theme => theme.palette.blueGrey["4"],
     },
-    modulePart: {
+
+    [`& .${classes.modulePart}`]: {
         display: "block",
         padding: 16,
         height: "calc(100vh - 64px)",
@@ -55,7 +79,8 @@ const useStyles = makeStyles((theme) => ({
         overflowX: "hidden",
         //backgroundColor: theme => theme.palette.blueGrey["4"],
     },
-    pageBlock: {
+
+    [`& .${classes.pageBlock}`]: {
         position: "relative",
         backgroundColor: theme => theme.palette.blueGrey["6"],
         height: 64,
@@ -64,21 +89,25 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 8,
         //zIndex: 10000,
     },
-    pageBlockTheory: {
+
+    [`& .${classes.pageBlockTheory}`]: {
         border: '4px solid',
         borderColor: "#81c784",
     },
-    pageBlockPractice: {
+
+    [`& .${classes.pageBlockPractice}`]: {
         //background: "#2962ff",
         border: '4px solid',
         borderColor: "#64b5f6",
     },
-    pageBlockTest: {
+
+    [`& .${classes.pageBlockTest}`]: {
         //background: "#6200ea",
         border: '4px solid',
         borderColor: "#9575cd",
     },
-    pageLabel: {
+
+    [`& .${classes.pageLabel}`]: {
         cursor: "default",
         //marginTop: 16,
         marginLeft: 8,
@@ -86,7 +115,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 20,
         color: theme => theme.palette.primary.contrastText,
     },
-    pageLabelInPoint: {
+
+    [`& .${classes.pageLabelInPoint}`]: {
         cursor: "default",
         //marginTop: 16,
         marginLeft: 8,
@@ -94,21 +124,26 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 20,
         color: theme => theme.palette.primary.contrastText,
     },
-    infoLabel: {
+
+    [`& .${classes.infoLabel}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    pageBlockIcons: {
+
+    [`& .${classes.pageBlockIcons}`]: {
         position: "absolute",
         top: 8,
         right: 2,
     },
-    IconButton: {
+
+    [`& .${classes.IconButton}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    icon: {
+
+    [`& .${classes.icon}`]: {
         color: props => props.palette.primary.contrastText,
     },
-    speedDial: {
+
+    [`& .${classes.speedDial}`]: {
         height: 36,
         width: 36,
         //marginTop: 4,
@@ -117,18 +152,22 @@ const useStyles = makeStyles((theme) => ({
         // top: theme => theme.spacing(10),
         // left: theme => theme.spacing(2),
     },
-    speedDialActionFirst: {
+
+    [`& .${classes.speedDialActionFirst}`]: {
         //marginLeft: 16,
         color: props => props.palette.primary.main,
     },
-    speedDialAction: {
+
+    [`& .${classes.speedDialAction}`]: {
         //marginLeft: 16,
         color: props => props.palette.primary.main,
     },
-    gridTextWrapper: {
+
+    [`& .${classes.gridTextWrapper}`]: {
         width: "calc(100% - 58px)",
     },
-    text: {
+
+    [`& .${classes.text}`]: {
         width: "100%",
         color: props => props.palette.primary.contrastText,
         // fontSize: props => props.fontSize,
@@ -138,18 +177,30 @@ const useStyles = makeStyles((theme) => ({
         // textDecoration: props => props.textDecoration,
         lineHeight: "normal",
     },
-    Accordion: {
+
+    [`& .${classes.Accordion}`]: {
         // maxWidth: 600,
         backgroundColor: theme => theme.palette.blueGrey["5"],
     },
-    AccordionDetails: {
+
+    [`& .${classes.AccordionDetails}`]: {
         //opacity: "1",
         //zIndex: 1,
     },
-    gridAddButtonWrapper: {
+
+    [`& .${classes.gridAddButtonWrapper}`]: {
         padding: 16,
-    },
+    }
 }));
+
+const CustomTooltip =  => ({
+    [`& .${classes.tooltip}`]: {
+        //backgroundColor: theme => theme.palette.common.white,
+        //color: 'rgba(0, 0, 0, 0.87)',
+        //boxShadow: theme => theme.shadows[1],
+        fontSize: 14,
+    }
+}))(Tooltip);
 
 
 const reorder = (list, startIndex, endIndex) => {
@@ -162,65 +213,66 @@ const reorder = (list, startIndex, endIndex) => {
 
 const ItemList = inject('managmentStore')(observer(({ managmentStore, index }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
     const value = managmentStore.moduleCreation.points[index].pages
-    return (
-        <>
-            {value.length === 0 && <Typography sx={{ color: "#fff" }}> Перетащите страницу сюда </Typography>}
-            {value.length != 0 && value.map((page, pageIndex) => (
-                <Draggable
-                    key={pageIndex.toString()}
-                    draggableId={`list-${index}-${pageIndex}`}
-                    index={pageIndex}>
-                    {(provided, snapshot) => (
-                        <Grid
-                            className={clsx(classes.pageBlock, { [classes.pageBlockTheory]: page.kind === "theory" }, { [classes.pageBlockPractice]: page.kind === "practice" }, { [classes.pageBlockTest]: page.kind === "task" })}
-                            container
-                            direction="row"
-                            justifyContent="center"
-                            alignItems="center"
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                        >
-                            <Grid container wrap="nowrap" spacing={2}>
-                                <Grid item xs zeroMinWidth>
-                                    <CustomTooltip className={classes.Tooltip} arrow title={`Название: ${page.name}`}>
-                                        <Typography className={classes.pageLabelInPoint} noWrap>{page.name}</Typography>
-                                    </CustomTooltip>
-                                </Grid>
-                            </Grid>
-                            <Grid className={classes.pageBlockIcons}>
-                                <Link
-                                    href={{
-                                        pathname: '/knowledge/page/[id]',
-                                        query: { id: page.id },
-                                    }}
-                                    passHref>
-                                    <Tooltip title="Посмотреть страницу">
-                                        <IconButton className={classes.IconButton}>
-                                            <VisibilityIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                </Link>
-                                <IconButton onClick={() => managmentStore.deletePageInPoint(index, pageIndex)} className={classes.IconButton}>
-                                    <DeleteForeverIcon />
-                                </IconButton>
-                                <IconButton className={classes.IconButton}>
-                                    <DragIndicatorIcon />
-                                </IconButton>
+    return <>
+        {value.length === 0 && <Typography sx={{ color: "#fff" }}> Перетащите страницу сюда </Typography>}
+        {value.length != 0 && value.map((page, pageIndex) => (
+            <Draggable
+                key={pageIndex.toString()}
+                draggableId={`list-${index}-${pageIndex}`}
+                index={pageIndex}>
+                {(provided, snapshot) => (
+                    <Grid
+                        className={clsx(classes.pageBlock, { [classes.pageBlockTheory]: page.kind === "theory" }, { [classes.pageBlockPractice]: page.kind === "practice" }, { [classes.pageBlockTest]: page.kind === "task" })}
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                    >
+                        <Grid container wrap="nowrap" spacing={2}>
+                            <Grid item xs zeroMinWidth>
+                                <CustomTooltip className={classes.Tooltip} arrow title={`Название: ${page.name}`}>
+                                    <Typography className={classes.pageLabelInPoint} noWrap>{page.name}</Typography>
+                                </CustomTooltip>
                             </Grid>
                         </Grid>
-                    )}
-                </Draggable>
-            ))}
-        </>
-    )
+                        <Grid className={classes.pageBlockIcons}>
+                            <Link
+                                href={{
+                                    pathname: '/knowledge/page/[id]',
+                                    query: { id: page.id },
+                                }}
+                                passHref>
+                                <Tooltip title="Посмотреть страницу">
+                                    <IconButton className={classes.IconButton} size="large">
+                                        <VisibilityIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </Link>
+                            <IconButton
+                                onClick={() => managmentStore.deletePageInPoint(index, pageIndex)}
+                                className={classes.IconButton}
+                                size="large">
+                                <DeleteForeverIcon />
+                            </IconButton>
+                            <IconButton className={classes.IconButton} size="large">
+                                <DragIndicatorIcon />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+                )}
+            </Draggable>
+        ))}
+    </>;
 }))
 
 const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
     console.log(managmentStore.pageCreationList.pages, "p")
 
     function onDragEnd(result) {
@@ -359,12 +411,12 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                                         }}
                                                         passHref>
                                                         <Tooltip title="Посмотреть страницу">
-                                                            <IconButton className={classes.IconButton}>
+                                                            <IconButton className={classes.IconButton} size="large">
                                                                 <VisibilityIcon />
                                                             </IconButton>
                                                         </Tooltip>
                                                     </Link>
-                                                    <IconButton className={classes.IconButton}>
+                                                    <IconButton className={classes.IconButton} size="large">
                                                         <DragIndicatorIcon />
                                                     </IconButton>
                                                 </Grid>
@@ -409,7 +461,9 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                             className={classes.Accordion}
                             expanded={managmentStore.moduleCreation.points[index].openAccordion} >
                             <AccordionSummary
-                                expandIcon={<IconButton onClick={() => managmentStore.setModuleCreationPoints(index, "openAccordion", !managmentStore.moduleCreation.points[index].openAccordion)}><ExpandMoreIcon className={classes.icon} /></IconButton>}
+                                expandIcon={<IconButton
+                                    onClick={() => managmentStore.setModuleCreationPoints(index, "openAccordion", !managmentStore.moduleCreation.points[index].openAccordion)}
+                                    size="large"><ExpandMoreIcon className={classes.icon} /></IconButton>}
                             >
                                 <Grid className={classes.gridTextWrapper}>
                                     <Input
@@ -528,8 +582,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                 </Grid>
             </Grid >
         </DragDropContext >
-
-    )
+    );
 }))
 
 export default StepTwo

@@ -1,36 +1,79 @@
 /* eslint-disable react/display-name */
 import React, { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import Link from "next/link";
 import cx from 'clsx';
 import clsx from 'clsx';
 import { Divider, CardContent, MenuItem, Popper, MenuList, Avatar, Paper, Accordion, IconButton, Chip, AccordionSummary, AccordionDetails, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles, withStyles } from '@mui/styles';
+
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { inject, observer } from 'mobx-react'
 
-const CustomTooltip = withStyles((theme) => ({
-    tooltip: {
-        //backgroundColor: theme => theme.palette.common.white,
-        //color: 'rgba(0, 0, 0, 0.87)',
-        //boxShadow: theme => theme.shadows[1],
-        fontSize: 14,
-    },
-}))(Tooltip);
+const PREFIX = 'PagesList';
 
-const useStyles = makeStyles((theme) => ({
-    container: {
+const classes = {
+    container: `${PREFIX}-container`,
+    gridCard: `${PREFIX}-gridCard`,
+    Card: `${PREFIX}-Card`,
+    CardTheory: `${PREFIX}-CardTheory`,
+    CardPractice: `${PREFIX}-CardPractice`,
+    CardTest: `${PREFIX}-CardTest`,
+    CardButtonTheory: `${PREFIX}-CardButtonTheory`,
+    CardButtonPractice: `${PREFIX}-CardButtonPractice`,
+    CardButtonTest: `${PREFIX}-CardButtonTest`,
+    cardColumn: `${PREFIX}-cardColumn`,
+    CardContent: `${PREFIX}-CardContent`,
+    CardActionsCenterButton: `${PREFIX}-CardActionsCenterButton`,
+    Chip: `${PREFIX}-Chip`,
+    CardActions: `${PREFIX}-CardActions`,
+    Avatar: `${PREFIX}-Avatar`,
+    overline: `${PREFIX}-overline`,
+    name: `${PREFIX}-name`,
+    gridcreater: `${PREFIX}-gridcreater`,
+    userownerinfo: `${PREFIX}-userownerinfo`,
+    Divider: `${PREFIX}-Divider`,
+    popper: `${PREFIX}-popper`,
+    pageName: `${PREFIX}-pageName`,
+    pageDescription: `${PREFIX}-pageDescription`,
+    icon: `${PREFIX}-icon`,
+    "&.MuiSpeedDial-fab": `${PREFIX}-undefined`,
+    speedDial: `${PREFIX}-speedDial`,
+    speedDialActionFirst: `${PREFIX}-speedDialActionFirst`,
+    speedDialAction: `${PREFIX}-speedDialAction`,
+    disableIcon: `${PREFIX}-disableIcon`,
+    activeIcon: `${PREFIX}-activeIcon`,
+    iconSpeedDial: `${PREFIX}-iconSpeedDial`,
+    IconButtonSpeedDial: `${PREFIX}-IconButtonSpeedDial`,
+    IconButtonMoreVert: `${PREFIX}-IconButtonMoreVert`,
+    Divider: `${PREFIX}-Divider`,
+    CardHeader: `${PREFIX}-CardHeader`,
+    DescriptionLabel: `${PREFIX}-DescriptionLabel`,
+    DescriptionLabelInfo: `${PREFIX}-DescriptionLabelInfo`,
+    AuthorLabel: `${PREFIX}-AuthorLabel`,
+    AuthorName: `${PREFIX}-AuthorName`,
+    ContentLabel: `${PREFIX}-ContentLabel`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.container}`]: {
         marginBottom: 16,
         marginTop: 2,
         paddingTop: 0,
         height: '100%',
         width: '100%',
     },
-    gridCard: {
+
+    [`& .${classes.gridCard}`]: {
         padding: 8,
     },
-    Card: {
+
+    [`& .${classes.Card}`]: {
         position: 'relative',
         //paddingLeft: 4,
         //maxWidth: 400,
@@ -49,97 +92,116 @@ const useStyles = makeStyles((theme) => ({
         //overflow: 'initial',
         background: theme => theme.palette.blueGrey["3"],
     },
-    CardTheory: {
+
+    [`& .${classes.CardTheory}`]: {
         border: '4px solid',
         borderColor: "#81c784",
     },
-    CardPractice: {
+
+    [`& .${classes.CardPractice}`]: {
         //background: "#2962ff",
         border: '4px solid',
         borderColor: "#64b5f6",
     },
-    CardTest: {
+
+    [`& .${classes.CardTest}`]: {
         //background: "#6200ea",
         border: '4px solid',
         borderColor: "#9575cd",
     },
-    CardButtonTheory: {
+
+    [`& .${classes.CardButtonTheory}`]: {
         backgroundColor: "#81c784",
         '&:hover': {
             backgroundColor: "#81c784",
         }
     },
-    CardButtonPractice: {
+
+    [`& .${classes.CardButtonPractice}`]: {
         backgroundColor: "#64b5f6",
         '&:hover': {
             backgroundColor: "#64b5f6",
         }
     },
-    CardButtonTest: {
+
+    [`& .${classes.CardButtonTest}`]: {
         backgroundColor: "#9575cd",
         '&:hover': {
             backgroundColor: "#9575cd",
         }
     },
-    cardColumn: {
+
+    [`& .${classes.cardColumn}`]: {
         maxWidth: 700,
     },
-    CardContent: {
+
+    [`& .${classes.CardContent}`]: {
         marginTop: 0,
         height: 196,
     },
-    CardActionsCenterButton: {
+
+    [`& .${classes.CardActionsCenterButton}`]: {
         marginTop: "5px",
         height: "40px",
         marginBottom: "5px",
     },
-    Chip: {
+
+    [`& .${classes.Chip}`]: {
         //border: '2px solid',
         marginRight: 4,
         marginTop: 4,
     },
-    CardActions: {
+
+    [`& .${classes.CardActions}`]: {
         marginTop: "auto",
         marginBottom: 0,
     },
-    Avatar: {
+
+    [`& .${classes.Avatar}`]: {
         borderRadius: 16,
         fontSize: 48,
         width: 128,
         height: 128,
         backgroundColor: theme => theme.palette.blueGrey["7"],
     },
-    overline: {
+
+    [`& .${classes.overline}`]: {
         fontSize: 12,
         textTransform: 'uppercase',
         letterSpacing: 1,
         color: theme => theme.palette.primary.contrastText,
     },
-    name: {
+
+    [`& .${classes.name}`]: {
         fontSize: 16,
         fontWeight: 500,
         color: theme => theme.palette.primary.contrastText,
     },
-    gridcreater: {
+
+    [`& .${classes.gridcreater}`]: {
         paddingLeft: theme => theme.spacing(1.5),
     },
-    userownerinfo: {
+
+    [`& .${classes.userownerinfo}`]: {
         paddingTop: theme => theme.spacing(1.5),
         width: 'auto',
         marginRight: 'auto',
     },
-    Divider: {
+
+    [`& .${classes.Divider}`]: {
         marginTop: 4,
         marginBottom: 4,
         height: 1,
         width: "100%",
         backgroundColor: theme => theme.palette.primary.contrastText,
     },
-    popper: {
+
+    [`& .${classes.popper}`]: {
         zIndex: 1000,
         //position: 'fixed',
     },
-    pageName: {
+
+    [`& .${classes.pageName}`]: {
         cursor: "default",
         marginTop: 16,
         marginLeft: 16,
@@ -147,23 +209,27 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 24,
         color: theme => theme.palette.primary.contrastText,
     },
-    pageDescription: {
+
+    [`& .${classes.pageDescription}`]: {
         cursor: "default",
         marginTop: 12,
         marginLeft: 0,
         fontSize: 16,
         color: theme => theme.palette.primary.contrastText,
     },
-    icon: {
+
+    [`& .${classes.icon}`]: {
         color: props => props.palette.primary.contrastText,
     },
-    "&.MuiSpeedDial-fab": {
+
+    [`& .${classes.undefined}`]: {
         // height: 24,
         // width: 24,
         // color: "#fff"
         color: "#fff !important",
     },
-    speedDial: {
+
+    [`& .${classes.speedDial}`]: {
         //marginTop: 4,
         //marginLeft: 16,
         // height: "24px !important",
@@ -178,18 +244,21 @@ const useStyles = makeStyles((theme) => ({
         top: 6,
         right: 6,
     },
-    speedDialActionFirst: {
+
+    [`& .${classes.speedDialActionFirst}`]: {
         marginTop: -4,
         color: props => props.palette.primary.main,
     },
 
-    speedDialAction: {
+    [`& .${classes.speedDialAction}`]: {
         color: props => props.palette.primary.main,
     },
-    disableIcon: {
+
+    [`& .${classes.disableIcon}`]: {
         color: props => props.palette.error.main,
     },
-    activeIcon: {
+
+    [`& .${classes.activeIcon}`]: {
         color: props => props.palette.primary.contrastText,
         backgroundColor: props => props.palette.primary.main,
         '&:hover': {
@@ -197,16 +266,19 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: props => props.palette.primary.main,
         }
     },
-    iconSpeedDial: {
+
+    [`& .${classes.iconSpeedDial}`]: {
         // height: 24,
         // width: 24,
     },
-    IconButtonSpeedDial: {
+
+    [`& .${classes.IconButtonSpeedDial}`]: {
         // height: 48,
         // width: 48,
         color: props => props.palette.primary.contrastText,
     },
-    IconButtonMoreVert: {
+
+    [`& .${classes.IconButtonMoreVert}`]: {
         position: 'absolute',
         top: 12,
         right: 12,
@@ -214,47 +286,63 @@ const useStyles = makeStyles((theme) => ({
         // marginRight: 12,
         color: props => props.palette.primary.contrastText,
     },
-    Divider: {
+
+    [`& .${classes.Divider}`]: {
         height: 1,
         backgroundColor: props => props.palette.primary.contrastText,
     },
-    CardHeader: {
+
+    [`& .${classes.CardHeader}`]: {
         marginBottom: 4,
     },
-    DescriptionLabel: {
+
+    [`& .${classes.DescriptionLabel}`]: {
         fontWeight: "bold",
         color: props => props.palette.primary.contrastText,
     },
-    DescriptionLabelInfo: {
+
+    [`& .${classes.DescriptionLabelInfo}`]: {
         marginTop: 8,
         fontWeight: "bold",
         color: props => props.palette.primary.contrastText,
     },
-    AuthorLabel: {
+
+    [`& .${classes.AuthorLabel}`]: {
         marginLeft: 8,
         fontWeight: "bold",
         color: props => props.palette.primary.contrastText,
     },
-    AuthorName: {
+
+    [`& .${classes.AuthorName}`]: {
         marginLeft: 8,
         color: props => props.palette.primary.contrastText,
     },
-    ContentLabel: {
+
+    [`& .${classes.ContentLabel}`]: {
         color: props => props.palette.primary.contrastText,
     }
 }));
 
-const useStylesViews = makeStyles((theme) => ({
-    icon: {
-        marginLeft: 12,
+const CustomTooltip =  => ({
+    [`& .${classes.tooltip}`]: {
+        //backgroundColor: theme => theme.palette.common.white,
+        //color: 'rgba(0, 0, 0, 0.87)',
+        //boxShadow: theme => theme.shadows[1],
+        fontSize: 14,
+    }
+}))(Tooltip);
+
+
+icon: {
+    marginLeft: 12,
         marginRight: 8,
-        color: theme => theme.palette.primary.contrastText,
+            color: theme => theme.palette.primary.contrastText,
     }
 }));
 
 const Views = React.memo(({ views }) => {
     const theme = useTheme()
-    const classes = useStylesViews(theme);
+
     if (views < 1000) {
         return (
             <>
@@ -284,7 +372,7 @@ const Views = React.memo(({ views }) => {
 
 const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
     const knowledgeUI = uiStore.knowledgeUI
     const [openMenu, setOpenMenu] = React.useState(false)
 
@@ -301,7 +389,7 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
     }
 
     return (
-        <Grid
+        <StyledGrid
             container
             direction={knowledgeUI.gridTypeOnPage === "grid" ? "row" : "column"}
             justifyContent="center"
@@ -319,7 +407,12 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
                         alignItems="center"
                         key={index.toString()}>
                         <Card elevation={24} className={clsx(classes.Card, { [classes.cardColumn]: knowledgeUI.gridTypeOnPage != "grid" }, { [classes.CardTheory]: page.kind === "theory" }, { [classes.CardPractice]: page.kind === "practice" }, { [classes.CardTest]: page.kind === "task" })}>
-                            <IconButton className={classes.IconButtonMoreVert} variant="contained" color="primary" onClick={(event) => setOpenMenu(event.currentTarget)}>
+                            <IconButton
+                                className={classes.IconButtonMoreVert}
+                                variant="contained"
+                                color="primary"
+                                onClick={(event) => setOpenMenu(event.currentTarget)}
+                                size="large">
                                 <MoreVertIcon className={classes.icons} />
                             </IconButton>
                             <Popper className={classes.popper} id={undefined} open={Boolean(openMenu)} onClose={() => setOpenMenu(false)} anchorEl={openMenu}>
@@ -447,8 +540,8 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
                 ))
 
             }
-        </Grid>
-    )
+        </StyledGrid>
+    );
 }));
 
 

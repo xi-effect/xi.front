@@ -1,12 +1,29 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import { Grid, useTheme, Divider, useMediaQuery, Typography, Link } from '@mui/material'
 import clsx from 'clsx'
-import { makeStyles } from '@mui/styles';
+
 import { useRouter } from 'next/router'
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const PREFIX = '404';
+
+const classes = {
+    root: `${PREFIX}-root`,
+    Link: `${PREFIX}-Link`,
+    LinkMobile: `${PREFIX}-LinkMobile`,
+    mainLabelGrid: `${PREFIX}-mainLabelGrid`,
+    errorNumberLabel: `${PREFIX}-errorNumberLabel`,
+    Divider: `${PREFIX}-Divider`,
+    errorLabel: `${PREFIX}-errorLabel`
+};
+
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.root}`]: {
         position: 'fixed',
         top: 0,
         left: 0,
@@ -21,30 +38,36 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         backgroundColor: '#659DBD',
     },
-    Link: {
+
+    [`& .${classes.Link}`]: {
         fontSize: 34,
         margin: 8,
         cursor: "pointer",
         color: theme => theme.palette.constant.textWhite,
     },
-    LinkMobile: {
+
+    [`& .${classes.LinkMobile}`]: {
         fontSize: 28,
     },
-    mainLabelGrid: {
+
+    [`& .${classes.mainLabelGrid}`]: {
         margin: 16,
     },
-    errorNumberLabel: {
+
+    [`& .${classes.errorNumberLabel}`]: {
         fontSize: 72,
         margin: 8,
         cursor: "default",
         color: theme => theme.palette.constant.textWhite,
     },
-    Divider: {
+
+    [`& .${classes.Divider}`]: {
         height: 3,
         width: 100,
         backgroundColor: theme => theme.palette.constant.textWhite,
     },
-    errorLabel: {
+
+    [`& .${classes.errorLabel}`]: {
         fontSize: 32,
         margin: 8,
         cursor: "default",
@@ -54,13 +77,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function _404() {
     const theme = useTheme();
-    const classes = useStyles(theme);
 
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('lg'));
     const router = useRouter()
 
     return (
-        <div className={classes.root}>
+        <Root className={classes.root}>
             <Grid
                 container
                 direction="column"
@@ -69,7 +92,7 @@ export default function _404() {
                 sx={{ height: "100%" }}
             >
                 <Grid item className={classes.mainLabelGrid}>
-                    
+
                 </Grid>
                 <Grid
                     item
@@ -97,6 +120,6 @@ export default function _404() {
 
                 </Grid>
             </Grid>
-        </div>
-    )
+        </Root>
+    );
 }

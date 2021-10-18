@@ -1,9 +1,10 @@
 import Head from 'next/head'
+import { styled } from '@mui/material/styles';
 import Link from 'next/link'
 import Router from 'next/router'
 import React from 'react';
 import { Divider, Box, Grid, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles'
+
 
 import { inject, observer } from 'mobx-react'
 //import Background from './../components/OtherComponents/Background/Background'
@@ -19,13 +20,26 @@ import Card5 from './../../components/PagesComponents/Main/MainHelpApps/Card5';
 import Card6 from './../../components/PagesComponents/Main/MainHelpApps/Card6';
 
 
-const useStyles = makeStyles((theme) => ({
-  main: {
+const PREFIX = 'Main';
+
+const classes = {
+  main: `${PREFIX}-main`,
+  space: `${PREFIX}-space`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.main}`]: {
     width: '100%',
     //minHeight: '100vh',
     zIndex: 1,
   },
-  space: {
+
+  [`& .${classes.space}`]: {
     width: '100%',
     height: "100px",
     //backgroundColor: theme => theme.palette.blueGrey["5"]
@@ -34,10 +48,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Main = inject('rootStore')(observer(({ rootStore }) => {
   const theme = useTheme();
-  const classes = useStyles(theme);
+
 
   return (
-    <>
+    (<Root>
       <Head>
         <title>
           Ξ Effect
@@ -70,8 +84,7 @@ const Main = inject('rootStore')(observer(({ rootStore }) => {
           </Box>
         </Grid>
       </NavigationAll>
-
-    </>
+    </Root>)
   );
 }))
 

@@ -1,46 +1,69 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import { inject, observer } from 'mobx-react'
 import { Typography, Paper, Grid, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const PREFIX = 'QuiсkButtons';
+
+const classes = {
+    root: `${PREFIX}-root`,
+    paperGrid: `${PREFIX}-paperGrid`,
+    paperInsideGrid: `${PREFIX}-paperInsideGrid`,
+    paper: `${PREFIX}-paper`,
+    mainLabel: `${PREFIX}-mainLabel`,
+    firstIcon: `${PREFIX}-firstIcon`,
+    arrowIcon: `${PREFIX}-arrowIcon`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.root}`]: {
         margin: 8,
         width: "calc(100% - 16px)",
     },
-    paperGrid: {
+
+    [`& .${classes.paperGrid}`]: {
         width: "calc(100% - 32px)",
         padding: 16,
     },
-    paperInsideGrid: {
+
+    [`& .${classes.paperInsideGrid}`]: {
         paddingTop: 4,
         height: 64,
         width: "100%",
     },
-    paper: {
+
+    [`& .${classes.paper}`]: {
         width: "100%",
         borderRadius: 16,
         height: 64,
         backgroundColor: theme => theme.palette.blueGrey["4"],
         cursor: "pointer",
     },
-    mainLabel: {
+
+    [`& .${classes.mainLabel}`]: {
         marginLeft: 8,
         marginRight: "auto",
         color: theme => theme.palette.primary.contrastText,
     },
-    firstIcon: {
+
+    [`& .${classes.firstIcon}`]: {
         marginLeft: 8,
         height: 36,
         width: 36,
         color: theme => theme.palette.primary.contrastText,
     },
-    arrowIcon: {
+
+    [`& .${classes.arrowIcon}`]: {
         marginRight: 8,
         height: 36,
         width: 36,
@@ -49,11 +72,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const QuiсkButtons = inject('rootStore')(observer(({ rootStore }) => {
-    const classes = useStyles();
+
     const theme = useTheme();
 
     return (
-        <Grid
+        <StyledGrid
             container
             direction="row"
             className={classes.root}
@@ -127,7 +150,7 @@ const QuiсkButtons = inject('rootStore')(observer(({ rootStore }) => {
                     </Grid>
                 </Paper>
             </Grid>
-        </Grid>
+        </StyledGrid>
     );
 }));
 

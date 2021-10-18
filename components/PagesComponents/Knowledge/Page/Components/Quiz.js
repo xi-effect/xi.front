@@ -1,15 +1,28 @@
 import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
 import { useTheme, Button, Input, Grid, Radio, Checkbox, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 import { inject, observer } from 'mobx-react'
 
 
-const useStyles = makeStyles((theme) => ({
-    gridTextWrapper: {
+const PREFIX = 'Quiz';
+
+const classes = {
+    gridTextWrapper: `${PREFIX}-gridTextWrapper`,
+    text: `${PREFIX}-text`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.gridTextWrapper}`]: {
         //textAlign: "center !important",
         width: "100%",
     },
-    text: {
+
+    [`& .${classes.text}`]: {
         width: "100%",
         color: props => props.palette.primary.contrastText,
         fontSize: props => props.fontSize,
@@ -26,13 +39,13 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
     const value = knowledgeStore.page.components[index]
     // Simulated props for the purpose of the example
     const props = { fontSize: value.fontSize, textAlign: value.textAlign, fontStyle: value.fontStyle, fontWeight: value.fontWeight, textDecoration: value.textDecoration, backgroundColor: 'black', color: 'white' };
-    // Pass the props as the first argument of useStyles()
+
     console.log("props", props)
     const theme = useTheme();
-    const classes = useStyles({ ...props, ...theme });
+
 
     return (
-        <Grid
+        <StyledGrid
             container
             direction="column"
             justifyContent="flex-start"
@@ -116,7 +129,7 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                 </Typography>}
             </Grid>
 
-        </Grid>
+        </StyledGrid>
     );
 }));
 

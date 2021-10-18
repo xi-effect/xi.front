@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { styled } from '@mui/material/styles';
+
 import { Tooltip, Skeleton, Divider, Grid, Typography, useTheme, IconButton } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import { inject, observer } from 'mobx-react'
 
@@ -10,20 +12,37 @@ import { useRouter } from 'next/router'
 import UndoIcon from '@mui/icons-material/Undo';
 import InfoIcon from '@mui/icons-material/Info';
 
-const useStyles = makeStyles((theme) => ({
-    wrapperRoot: {
+const PREFIX = 'Toolbar';
+
+const classes = {
+    wrapperRoot: `${PREFIX}-wrapperRoot`,
+    IconButton: `${PREFIX}-IconButton`,
+    mainLabel: `${PREFIX}-mainLabel`,
+    divider: `${PREFIX}-divider`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.wrapperRoot}`]: {
         marginTop: 8,
         marginLeft: 8,
         maxWidth: 800,
     },
-    IconButton: {
+
+    [`& .${classes.IconButton}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    mainLabel: {
+
+    [`& .${classes.mainLabel}`]: {
         color: theme => theme.palette.primary.contrastText,
         fontWeight: "bolder",
     },
-    divider: {
+
+    [`& .${classes.divider}`]: {
         backgroundColor: theme => theme.palette.primary.contrastText,
         width: "100%",
         height: 1,
@@ -34,12 +53,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const router = useRouter()
 
     return (
-        <>
+        <Root>
             <Grid
                 container
                 direction="row"
@@ -55,19 +74,19 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
                     }
                 </Grid>
                 <Tooltip title="Информация о странице">
-                    <IconButton onClick={null} className={classes.IconButton}>
+                    <IconButton onClick={null} className={classes.IconButton} size="large">
                         <InfoIcon />
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Назад">
-                    <IconButton onClick={() => router.back()} className={classes.IconButton}>
+                    <IconButton onClick={() => router.back()} className={classes.IconButton} size="large">
                         <UndoIcon />
                     </IconButton>
                 </Tooltip>
             </Grid>
             <Divider className={classes.divider} />
-        </>
-    )
+        </Root>
+    );
 }));
 
 

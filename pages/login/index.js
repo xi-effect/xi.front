@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router'
 import clsx from 'clsx';
 import { Grid, Stack, InputLabel, useMediaQuery, InputAdornment, useTheme, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
@@ -9,28 +10,38 @@ import { inject, observer } from 'mobx-react'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import EmailIcon from '@mui/icons-material/Email';
-import { makeStyles, withStyles } from '@mui/styles';
+
 
 import Loading from './../../components/OtherComponents/Loading/Loading';
 
-let Crypto = require('crypto-js')
+const PREFIX = 'Login';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const classes = {
+    root: `${PREFIX}-root`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.root}`]: {
         width: "100vw",
         height: "100vh",
-        backgroundColor: theme.palette.background["0"],
-    },
-
+        backgroundColor: theme.palette.background["2"],
+    }
 }));
+
+let Crypto = require('crypto-js')
 
 const Login = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ rootStore, authorizationStore, uiStore }) => {
     const theme = useTheme()
-    const classes = useStyles(theme);
+
     const router = useRouter()
 
     return (
-        <>
+        (<Root>
             <Head>
                 <title>Ξ Авторизация</title>
             </Head>
@@ -50,7 +61,7 @@ const Login = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ r
                     sx={{ width: "100%" }}
                 >
                     <Typography
-                        
+
                         onClick={() => router.push('/')}
                         variant="h3"
                         sx={{ color: 'text.main', m: 2, }}
@@ -63,9 +74,8 @@ const Login = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ r
                 </Box>
 
             </Stack>
-
-        </>
-    )
+        </Root>)
+    );
 }))
 
 export default Login

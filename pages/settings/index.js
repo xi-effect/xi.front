@@ -1,9 +1,10 @@
 import Head from 'next/head'
+import { styled } from '@mui/material/styles';
 import Link from 'next/link'
 import Router from 'next/router'
 import React from 'react';
 import { Accordion, AccordionSummary, useTheme, Typography, AccordionDetails, Grid } from '@mui/material';
-import { makeStyles } from '@mui/styles'
+
 
 import { inject, observer } from 'mobx-react'
 import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll'
@@ -13,30 +14,51 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import UserAccount from '../../components/PagesComponents/Settings/UserAccount';
 import Castomize from './../../components/PagesComponents/Settings/Castomize';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
+const PREFIX = 'Settings';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  main: `${PREFIX}-main`,
+  gridMain: `${PREFIX}-gridMain`,
+  heading: `${PREFIX}-heading`,
+  accordion: `${PREFIX}-accordion`,
+  icon: `${PREFIX}-icon`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.root}`]: {
     width: "100%",
   },
-  main: {
+
+  [`& .${classes.main}`]: {
     marginTop: 32,
     paddingLeft: 8,
     paddingRight: 8,
     width: "100%",
   },
-  gridMain: {
+
+  [`& .${classes.gridMain}`]: {
     width: "100%",
     maxWidth: 1200,
   },
-  heading: {
+
+  [`& .${classes.heading}`]: {
     fontSize: theme => theme.typography.pxToRem(15),
     fontWeight: theme => theme.typography.fontWeightRegular,
     color: theme => theme.palette.primary.contrastText,
   },
-  accordion: {
+
+  [`& .${classes.accordion}`]: {
     width: "100%",
     backgroundColor: theme => theme.palette.blueGrey["4"]
   },
-  icon: {
+
+  [`& .${classes.icon}`]: {
     color: theme => theme.palette.primary.contrastText,
     fontSize: 36,
   }
@@ -44,10 +66,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Settings = inject('rootStore')(observer(({ rootStore }) => {
   const theme = useTheme();
-  const classes = useStyles(theme);
+
 
   return (
-    <>
+    (<Root>
       <Head>
         <title>
           Ξ Effect
@@ -87,8 +109,7 @@ const Settings = inject('rootStore')(observer(({ rootStore }) => {
         </div>
 
       </NavigationAll>
-
-    </>
+    </Root>)
   );
 }))
 

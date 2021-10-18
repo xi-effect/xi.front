@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
+import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import { inject, observer } from 'mobx-react'
-import { makeStyles } from '@mui/styles'
+
 import { Box, useTheme } from '@mui/material'
 
 import Sidebar from './Sidebar'
@@ -11,26 +12,38 @@ import Helpbar from './Helpbar'
 import Loading from '../Loading/Loading'
 import SideDownbar from './SideDownbar'
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const PREFIX = 'NavigationAll';
+
+const classes = {
+    root: `${PREFIX}-root`,
+    content: `${PREFIX}-content`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.root}`]: {
         zIndex: 0,
         display: 'flex',
         backgroundColor: theme => theme.palette.blueGrey["1"],
         minHeight: "100vh",
     },
-    content: {
+
+    [`& .${classes.content}`]: {
         zIndex: 0,
         margin: 0,
         //height: "100vh",
         width: "100%",
         backgroundColor: theme => theme.palette.blueGrey["1"],
     }
-
 }));
 
 const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer(({ rootStore, settingsStore, uiStore, children }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const router = useRouter()
 
@@ -71,7 +84,7 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
     }, [])
 
     return (
-        <>
+        (<Root>
             {uiStore.loading["/main"] && <Loading />}
             {!uiStore.loading["/main"] &&
                 <div className={classes.root}>
@@ -89,7 +102,7 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                     </main>
                 </div>
             }
-        </>
+        </Root>)
     );
 }))
 

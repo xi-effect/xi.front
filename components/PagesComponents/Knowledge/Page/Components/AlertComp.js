@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
 import { useTheme, Input, Grid, Alert, InputAdornment } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 import { inject, observer } from 'mobx-react'
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -8,12 +9,28 @@ import InfoIcon from '@mui/icons-material/Info';
 import WarningIcon from '@mui/icons-material/Warning';
 import ErrorIcon from '@mui/icons-material/Error';
 
-const useStyles = makeStyles((theme) => ({
-    gridTextWrapper: {
+const PREFIX = 'AlertComp';
+
+const classes = {
+    gridTextWrapper: `${PREFIX}-gridTextWrapper`,
+    text: `${PREFIX}-text`,
+    Alert: `${PREFIX}-Alert`,
+    AlertMessage: `${PREFIX}-AlertMessage`,
+    icon: `${PREFIX}-icon`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.gridTextWrapper}`]: {
         //textAlign: "center !important",
         width: "100%",
     },
-    text: {
+
+    [`& .${classes.text}`]: {
         width: "100%",
         color: props => props.palette.primary.contrastText,
         fontSize: props => props.fontSize,
@@ -23,15 +40,18 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: props => props.textDecoration,
         lineHeight: "normal",
     },
-    Alert: {
+
+    [`& .${classes.Alert}`]: {
         width: "100%",
     },
-    AlertMessage: {
+
+    [`& .${classes.AlertMessage}`]: {
         width: "100%",
     },
-    icon: {
+
+    [`& .${classes.icon}`]: {
         color: props => props.palette.primary.contrastText,
-    },
+    }
 }));
 
 
@@ -39,13 +59,13 @@ const AlertComp = inject('rootStore')(observer(({ rootStore, value }) => {
 
     // Simulated props for the purpose of the example
     const props = { fontSize: value.fontSize, textAlign: value.textAlign, fontStyle: value.fontStyle, fontWeight: value.fontWeight, textDecoration: value.textDecoration, backgroundColor: 'black', color: 'white' };
-    // Pass the props as the first argument of useStyles()
+
     //console.log( "props", props )
     const theme = useTheme();
-    const classes = useStyles({ ...props, ...theme });
+
 
     return (
-        <>
+        (<Root>
             <Grid className={classes.gridTextWrapper}>
                 <Alert
                     variant="filled"
@@ -77,7 +97,7 @@ const AlertComp = inject('rootStore')(observer(({ rootStore, value }) => {
                     />
                 </Alert>
             </Grid>
-        </>
+        </Root>)
     );
 }));
 

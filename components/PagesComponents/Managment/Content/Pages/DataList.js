@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Tooltip, IconButton, Pagination, PaginationItem, CircularProgress, Grid, Button, Typography, useTheme } from '@mui/material';
 import { DataGrid, useGridSlotComponentProps } from '@material-ui/data-grid';
-import { makeStyles } from '@mui/styles';
+
 import { createTheme } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -24,7 +24,7 @@ function customCheckbox(theme) {
             width: 16,
             height: 16,
             backgroundColor: 'transparent',
-            border: `1px solid ${theme.palette.type === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'
+            border: `1px solid ${theme.palette.mode === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'
                 }`,
             borderRadius: 2,
         },
@@ -88,16 +88,16 @@ const useStyles = makeStyles(
                 display: 'none',
             },
             '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
-                borderRight: `1px solid ${theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
+                borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
                     }`,
             },
             '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-                borderBottom: `1px solid ${theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
+                borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
                     }`,
             },
             '& .MuiDataGrid-cell': {
                 // color:
-                //     theme.palette.type === 'light'
+                //     theme.palette.mode === 'light'
                 //         ? 'rgba(0,0,0,.85)'
                 //         : 'rgba(255,255,255,0.65)',
             },

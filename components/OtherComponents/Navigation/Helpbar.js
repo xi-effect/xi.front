@@ -1,30 +1,45 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import Link from 'next/link'
 import { inject, observer } from 'mobx-react'
-import { makeStyles } from '@mui/styles';
+
 import { SwipeableDrawer, useTheme, Accordion, AccordionSummary, AccordionDetails, Typography, Divider, IconButton } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const PREFIX = 'Helpbar';
+
+const classes = {
+    root: `${PREFIX}-root`,
+    heading: `${PREFIX}-heading`,
+    secondaryHeading: `${PREFIX}-secondaryHeading`
+};
+
+const StyledSwipeableDrawer = styled(SwipeableDrawer)((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.root}`]: {
         width: '100%',
     },
-    heading: {
+
+    [`& .${classes.heading}`]: {
         fontSize: theme => theme.typography.pxToRem(15),
         flexBasis: '20.33%',
         flexShrink: 0,
     },
-    secondaryHeading: {
+
+    [`& .${classes.secondaryHeading}`]: {
         fontSize: theme => theme.typography.pxToRem(15),
         color: theme => theme.palette.text.secondary,
-    },
+    }
 }));
 
 const Helpbar = inject('store')(observer(({ store, openHelpMenu, setOpenHelpMenu }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
 
     const [expanded, setExpanded] = React.useState(false);

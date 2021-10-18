@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import clsx from 'clsx';
 import { inject, observer } from 'mobx-react'
-import { makeStyles } from '@mui/styles';
+
 import { Grid, Drawer, Collapse, List, useTheme, Tooltip, Button, ListItem, ListItemIcon, ListItemText, Typography, Divider, IconButton } from '@mui/material';
 
 import HomeIcon from '@mui/icons-material/Home';
@@ -15,22 +16,47 @@ import SubjectIcon from '@mui/icons-material/Subject';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
 
-const useStyles = makeStyles((theme) => ({
-    drawer: {
+const PREFIX = 'Sidebar';
+
+const classes = {
+    drawer: `${PREFIX}-drawer`,
+    drawerGrid: `${PREFIX}-drawerGrid`,
+    drawerPaper: `${PREFIX}-drawerPaper`,
+    listItem: `${PREFIX}-listItem`,
+    listItemIcon: `${PREFIX}-listItemIcon`,
+    icon: `${PREFIX}-icon`,
+    smallIcon: `${PREFIX}-smallIcon`,
+    content: `${PREFIX}-content`,
+    divider: `${PREFIX}-divider`,
+    dividerVert: `${PREFIX}-dividerVert`,
+    dividerButton: `${PREFIX}-dividerButton`,
+    smallListItem: `${PREFIX}-smallListItem`,
+    listItemActive: `${PREFIX}-listItemActive`
+};
+
+const StyledDrawer = styled(Drawer)((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.drawer}`]: {
         zIndex: 1,
         width: 72,
         flexShrink: 0,
     },
-    drawerGrid: {
+
+    [`& .${classes.drawerGrid}`]: {
         //width: 76,
     },
-    drawerPaper: {
+
+    [`& .${classes.drawerPaper}`]: {
         zIndex: 1,
         width: 72,
         backgroundColor: theme => theme.palette.blueGrey["0"]
     },
+
     // necessary for content to be below app bar
-    listItem: {
+    [`& .${classes.listItem}`]: {
         display: "flex",
         justifyContent: "center",
         alignContent: "center",
@@ -45,41 +71,48 @@ const useStyles = makeStyles((theme) => ({
             borderRadius: 8,
         },
     },
-    listItemIcon: {
+
+    [`& .${classes.listItemIcon}`]: {
         display: "flex",
         justifyContent: "center",
         alignContent: "center",
         color: theme => theme.palette.primary.contrastText,
     },
-    icon: {
+
+    [`& .${classes.icon}`]: {
         fontSize: "38px !important",
         height: 38,
         width: 38,
         color: theme => theme.palette.primary.contrastText,
     },
-    smallIcon: {
+
+    [`& .${classes.smallIcon}`]: {
         fontSize: "32px !important",
         height: 32,
         width: 32,
         color: theme => theme.palette.primary.contrastText,
     },
-    content: {
+
+    [`& .${classes.content}`]: {
         flexGrow: 1,
         backgroundColor: theme => theme.palette.background.default,
         padding: theme => theme.spacing(3),
     },
-    divider: {
+
+    [`& .${classes.divider}`]: {
         marginTop: 12,
         backgroundColor: theme => theme.palette.background.default,
         width: 56,
     },
-    dividerVert: {
+
+    [`& .${classes.dividerVert}`]: {
         marginTop: 0,
         backgroundColor: theme => theme.palette.background.default,
         height: 12,
         width: 4,
     },
-    dividerButton: {
+
+    [`& .${classes.dividerButton}`]: {
         cursor: "pointer",
         height: 8,
         width: 38,
@@ -93,7 +126,8 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: theme => theme.palette.primary.light,
         },
     },
-    smallListItem: {
+
+    [`& .${classes.smallListItem}`]: {
         display: "flex",
         justifyContent: "center",
         alignContent: "center",
@@ -108,19 +142,20 @@ const useStyles = makeStyles((theme) => ({
             borderRadius: 8,
         },
     },
-    listItemActive: {
+
+    [`& .${classes.listItemActive}`]: {
         backgroundColor: theme => theme.palette.primary.main,
         '&:hover': {
             backgroundColor: theme => theme.palette.primary.main,
         },
         borderRadius: 8,
-    },
+    }
 }));
 
 
 const FadeMenuManagment = (props) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
     const router = useRouter()
 
     return (
@@ -154,7 +189,7 @@ const FadeMenuManagment = (props) => {
 
 const Sidebar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const router = useRouter()
 

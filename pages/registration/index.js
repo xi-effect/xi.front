@@ -1,12 +1,14 @@
 import React from 'react'
 
+import { styled } from '@mui/material/styles';
+
 import Head from 'next/head'
 import Link from 'next/link'
 import Router from 'next/router'
 import { Tooltip, Grid, TextField, useMediaQuery, useTheme, InputLabel, InputAdornment, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
 import { Link as LinkUI } from '@mui/material'
 
-import { makeStyles } from '@mui/styles'
+
 import clsx from 'clsx'
 import { inject, observer } from 'mobx-react'
 import Visibility from '@mui/icons-material/Visibility'
@@ -16,10 +18,43 @@ import HelpIcon from '@mui/icons-material/Help';
 import BackgroundImg from './../../components/OtherComponents/Background/BackgroundImg';
 import Loading from './../../components/OtherComponents/Loading/Loading';
 
-let Crypto = require('crypto-js')
+const PREFIX = 'Registration';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const classes = {
+    root: `${PREFIX}-root`,
+    main: `${PREFIX}-main`,
+    gridTittle: `${PREFIX}-gridTittle`,
+    tittle: `${PREFIX}-tittle`,
+    gridUnderPaper: `${PREFIX}-gridUnderPaper`,
+    Paper: `${PREFIX}-Paper`,
+    PaperOnlyXs: `${PREFIX}-PaperOnlyXs`,
+    typographyMain: `${PREFIX}-typographyMain`,
+    typographyMainly: `${PREFIX}-typographyMainly`,
+    gridPaper: `${PREFIX}-gridPaper`,
+    inputLabel: `${PREFIX}-inputLabel`,
+    gridTextField: `${PREFIX}-gridTextField`,
+    textField: `${PREFIX}-textField`,
+    textFieldTypography: `${PREFIX}-textFieldTypography`,
+    icons: `${PREFIX}-icons`,
+    gridForgotPassword: `${PREFIX}-gridForgotPassword`,
+    forgotPassword: `${PREFIX}-forgotPassword`,
+    gridEnterButtom: `${PREFIX}-gridEnterButtom`,
+    enterButtom: `${PREFIX}-enterButtom`,
+    gridForgotRegistration: `${PREFIX}-gridForgotRegistration`,
+    forgotRegistration: `${PREFIX}-forgotRegistration`,
+    OutlinedInput: `${PREFIX}-OutlinedInput`,
+    ErrorLabel: `${PREFIX}-ErrorLabel`,
+    AboutLabel: `${PREFIX}-AboutLabel`,
+    gridroot: `${PREFIX}-gridroot`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.root}`]: {
         //backgroundColor: '#2a2a2a',
         position: 'fixed',
         height: '100vh',
@@ -28,10 +63,12 @@ const useStyles = makeStyles((theme) => ({
         overflowY: 'auto',
         overflowX: 'hidden',
     },
-    main: {
+
+    [`& .${classes.main}`]: {
         zIndex: 999,
     },
-    gridTittle: {
+
+    [`& .${classes.gridTittle}`]: {
         paddingTop: 16,
         [theme => theme.breakpoints.up('lg')]: {
             paddingLeft: 64,
@@ -39,24 +76,27 @@ const useStyles = makeStyles((theme) => ({
         [theme => theme.breakpoints.only('lg')]: {
             paddingLeft: 32,
         },
-        [theme => theme.breakpoints.down('lg')]: {
+        [theme => theme.breakpoints.down('xl')]: {
             paddingLeft: 16,
         },
         paddingLeft: 16,
         zIndex: 999,
         marginRight: 'auto',
     },
-    tittle: {
+
+    [`& .${classes.tittle}`]: {
         fontSize: 32,
         color: theme => theme.palette.primary.contrastText,
         cursor: 'pointer',
         zIndex: 999,
     },
-    gridUnderPaper: {
+
+    [`& .${classes.gridUnderPaper}`]: {
         //paddingTop: 150,
         zIndex: 999,
     },
-    Paper: {
+
+    [`& .${classes.Paper}`]: {
         zIndex: 999,
         borderRadius: 4,
         width: 500,
@@ -72,65 +112,77 @@ const useStyles = makeStyles((theme) => ({
         },
 
     },
-    PaperOnlyXs: {
+
+    [`& .${classes.PaperOnlyXs}`]: {
         width: 350,
         transition: '1s',
     },
-    typographyMain: {
+
+    [`& .${classes.typographyMain}`]: {
         cursor: "default",
         zIndex: 999,
         color: 'rgb(255,255,255)',
         fontWeight: 'bold',
         fontSize: 32,
     },
-    typographyMainly: {
+
+    [`& .${classes.typographyMainly}`]: {
         cursor: "default",
         fontSize: 14,
         zIndex: 999,
         color: 'rgb(142,146,151)',
     },
-    gridPaper: {
+
+    [`& .${classes.gridPaper}`]: {
         zIndex: 999,
         margin: 8,
         marginTop: 24,
     },
-    inputLabel: {
+
+    [`& .${classes.inputLabel}`]: {
         zIndex: 999,
         color: 'rgb(142,146,151)',
     },
-    gridTextField: {
+
+    [`& .${classes.gridTextField}`]: {
         zIndex: 999,
         marginTop: 16,
         paddingLeft: 16,
         paddingRight: 32,
         width: '100%',
     },
-    textField: {
+
+    [`& .${classes.textField}`]: {
         zIndex: 999,
         width: '100%',
         backgroundColor: 'rgb(49,51,57)',
     },
-    textFieldTypography: {
+
+    [`& .${classes.textFieldTypography}`]: {
         zIndex: 999,
         marginTop: -4,
         color: 'rgb(142,146,151)',
     },
-    icons: {
+
+    [`& .${classes.icons}`]: {
         zIndex: 999,
         color: 'rgb(142,146,151)',
     },
-    gridForgotPassword: {
+
+    [`& .${classes.gridForgotPassword}`]: {
         zIndex: 999,
         marginTop: 4,
         paddingLeft: 20,
         paddingRight: 20,
 
     },
-    forgotPassword: {
+
+    [`& .${classes.forgotPassword}`]: {
         zIndex: 999,
         color: 'rgb(142,146,151)',
     },
-    gridEnterButtom: {
+
+    [`& .${classes.gridEnterButtom}`]: {
         zIndex: 999,
         marginTop: 16,
         paddingLeft: 16,
@@ -138,46 +190,55 @@ const useStyles = makeStyles((theme) => ({
 
         width: '100%',
     },
-    enterButtom: {
+
+    [`& .${classes.enterButtom}`]: {
         zIndex: 999,
         width: '100%',
     },
-    gridForgotRegistration: {
+
+    [`& .${classes.gridForgotRegistration}`]: {
         zIndex: 999,
         marginTop: 4,
         paddingLeft: 20,
         paddingBottom: 20,
 
     },
-    forgotRegistration: {
+
+    [`& .${classes.forgotRegistration}`]: {
         zIndex: 999,
         color: 'rgb(142,146,151)',
     },
-    OutlinedInput: {
+
+    [`& .${classes.OutlinedInput}`]: {
         zIndex: 999,
         color: theme => theme.palette.primary.contrastText,
     },
-    ErrorLabel: {
+
+    [`& .${classes.ErrorLabel}`]: {
         zIndex: 999,
         fontSize: 16,
         color: theme => theme.palette.error.main,
     },
-    AboutLabel: {
+
+    [`& .${classes.AboutLabel}`]: {
         zIndex: 999,
         fontSize: 12,
         color: theme => theme.palette.primary.contrastText,
     },
-    gridroot: {
+
+    [`& .${classes.gridroot}`]: {
         width: '100vw',
         minHeight: '100vh',
-    },
+    }
 }));
+
+let Crypto = require('crypto-js')
 
 
 
 const Registration = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) => {
     const theme = useTheme()
-    const classes = useStyles(theme);
+
 
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -247,7 +308,7 @@ const Registration = inject('rootStore', 'uiStore')(observer(({ rootStore, uiSto
     }
 
     return (
-        <>
+        <Root>
             <Head>
                 <title>Ξ Регистрация</title>
             </Head>
@@ -283,9 +344,7 @@ const Registration = inject('rootStore', 'uiStore')(observer(({ rootStore, uiSto
                                             onChange={(event) => setUsername(event.target.value)}
                                             endAdornment={
                                                 <InputAdornment position="end">
-                                                    <IconButton
-                                                        edge="end"
-                                                    >
+                                                    <IconButton edge="end" size="large">
                                                         <Tooltip title="Придумайте себе Имя пользователя, это ваше основное имя на просторах нашего портала." arrow>
                                                             <HelpIcon className={classes.icons} />
                                                         </Tooltip>
@@ -309,9 +368,7 @@ const Registration = inject('rootStore', 'uiStore')(observer(({ rootStore, uiSto
                                             onChange={(event) => setEmail(event.target.value)}
                                             endAdornment={
                                                 <InputAdornment position="end">
-                                                    <IconButton
-                                                        edge="end"
-                                                    >
+                                                    <IconButton edge="end" size="large">
                                                         <EmailIcon className={classes.icons} />
                                                     </IconButton>
                                                 </InputAdornment>
@@ -341,7 +398,7 @@ const Registration = inject('rootStore', 'uiStore')(observer(({ rootStore, uiSto
                                                         onClick={() => setShowPassword(!showPassword)}
                                                         onMouseDown={handleMouseDownPassword}
                                                         edge="end"
-                                                    >
+                                                        size="large">
                                                         {showPassword ? <Visibility className={classes.icons} /> : <VisibilityOff className={classes.icons} />}
                                                     </IconButton>
                                                 </InputAdornment>
@@ -378,8 +435,8 @@ const Registration = inject('rootStore', 'uiStore')(observer(({ rootStore, uiSto
                     </Grid>
                 </Grid>
             </div>
-        </>
-    )
+        </Root>
+    );
 }))
 
 export default Registration;

@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 
 
 import { Chip, Divider, Accordion, useMediaQuery, SpeedDial, SpeedDialAction, AccordionSummary, AccordionDetails, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Popper, ClickAwayListener, Paper, MenuItem, MenuList, IconButton, Button, Grid, InputBase, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import { inject, observer } from 'mobx-react'
 
@@ -27,8 +28,43 @@ import SearchOffIcon from '@mui/icons-material/SearchOff';
 import RedoIcon from '@mui/icons-material/Redo';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const PREFIX = 'Chipper';
+
+const classes = {
+    root: `${PREFIX}-root`,
+    gridChip: `${PREFIX}-gridChip`,
+    chip: `${PREFIX}-chip`,
+    chipClicked: `${PREFIX}-chipClicked`,
+    chipTypography: `${PREFIX}-chipTypography`,
+    labelTypography: `${PREFIX}-labelTypography`,
+    labelTypographyAccept: `${PREFIX}-labelTypographyAccept`,
+    icons: `${PREFIX}-icons`,
+    filterColumn: `${PREFIX}-filterColumn`,
+    labelFilterColumn: `${PREFIX}-labelFilterColumn`,
+    gridFilters: `${PREFIX}-gridFilters`,
+    gridLabelTypographyAccept: `${PREFIX}-gridLabelTypographyAccept`,
+    formControl: `${PREFIX}-formControl`,
+    typographyInputLabel: `${PREFIX}-typographyInputLabel`,
+    applyButton: `${PREFIX}-applyButton`,
+    divider: `${PREFIX}-divider`,
+    Accordion: `${PREFIX}-Accordion`,
+    gridAccordionSummary: `${PREFIX}-gridAccordionSummary`,
+    AccordionDetails: `${PREFIX}-AccordionDetails`,
+    iconButton: `${PREFIX}-iconButton`,
+    input: `${PREFIX}-input`,
+    gridSpacer: `${PREFIX}-gridSpacer`,
+    gridNavWrap: `${PREFIX}-gridNavWrap`,
+    ExpandMoreIcon: `${PREFIX}-ExpandMoreIcon`,
+    ExpandMoreIconOpen: `${PREFIX}-ExpandMoreIconOpen`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.root}`]: {
         margin: 0,
         marginLeft: 32,
         marginRight: 32,
@@ -36,12 +72,14 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 4,
         background: theme => theme.palette.blueGrey["1"],
     },
-    gridChip: {
+
+    [`& .${classes.gridChip}`]: {
         marginLeft: '6px',
         marginTop: '8px',
         cursor: 'pointer',
     },
-    chip: {
+
+    [`& .${classes.chip}`]: {
         border: '2px solid',
         borderColor: theme => theme.palette.primary.contrastText,
         cursor: 'pointer',
@@ -50,7 +88,8 @@ const useStyles = makeStyles((theme) => ({
             //backgroundColor: "rgb(0,0,0, .0)"
         }
     },
-    chipClicked: {
+
+    [`& .${classes.chipClicked}`]: {
         backgroundColor: theme => theme.palette.primary.main,
         borderColor: theme => theme.palette.primary.main,
         '&:hover': {
@@ -58,76 +97,93 @@ const useStyles = makeStyles((theme) => ({
             borderColor: theme => theme.palette.primary.main,
         }
     },
-    chipTypography: {
+
+    [`& .${classes.chipTypography}`]: {
         fontSize: 18,
         cursor: 'pointer',
         color: theme => theme.palette.primary.contrastText,
     },
-    labelTypography: {
+
+    [`& .${classes.labelTypography}`]: {
         paddingRight: 4,
         fontSize: 18,
         color: theme => theme.palette.primary.contrastText,
     },
-    labelTypographyAccept: {
+
+    [`& .${classes.labelTypographyAccept}`]: {
         paddingRight: 4,
         fontSize: 16,
     },
-    icons: {
+
+    [`& .${classes.icons}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    filterColumn: {
+
+    [`& .${classes.filterColumn}`]: {
         width: 'auto',
         paddingLeft: 8,
         paddingRight: 8,
     },
-    labelFilterColumn: {
+
+    [`& .${classes.labelFilterColumn}`]: {
         marginTop: 4,
         // paddingTop: 16,
         // paddingLeft: 12,
         fontSize: 20,
         color: theme => theme.palette.primary.contrastText,
     },
-    gridFilters: {
+
+    [`& .${classes.gridFilters}`]: {
         marginTop: 0,
         marginBottom: 8,
     },
-    gridLabelTypographyAccept: {
+
+    [`& .${classes.gridLabelTypographyAccept}`]: {
         paddingTop: 8,
         paddingLeft: 8,
         paddingBottom: 8,
     },
-    formControl: {
+
+    [`& .${classes.formControl}`]: {
         marginBottom: 4,
     },
-    typographyInputLabel: {
+
+    [`& .${classes.typographyInputLabel}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    applyButton: {
+
+    [`& .${classes.applyButton}`]: {
         marginLeft: 8,
         color: theme => theme.palette.primary.contrastText,
     },
-    divider: {
+
+    [`& .${classes.divider}`]: {
         width: "100%",
         height: 1,
         backgroundColor: theme => theme.palette.primary.contrastText
     },
-    Accordion: {
+
+    [`& .${classes.Accordion}`]: {
         width: "100%",
         backgroundColor: theme => theme.palette.blueGrey["1"],
         color: theme => theme.palette.primary.contrastText,
     },
-    gridAccordionSummary: {
+
+    [`& .${classes.gridAccordionSummary}`]: {
         width: "100%",
     },
-    AccordionDetails: {
+
+    [`& .${classes.AccordionDetails}`]: {
         marginTop: 0,
         paddingTop: 0,
     },
-    iconButton: {
+
+    [`& .${classes.iconButton}`]: {
         //  padding: 10,
         color: theme => theme.palette.primary.contrastText,
     },
-    input: {
+
+    [`& .${classes.input}`]: {
         color: theme => theme.palette.primary.contrastText,
         //marginLeft: theme => theme.spacing(1),
         flex: 1,
@@ -135,20 +191,24 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 500,
         marginLeft: "auto",
     },
-    gridSpacer: {
+
+    [`& .${classes.gridSpacer}`]: {
         marginLeft: "auto",
     },
-    gridNavWrap: {
+
+    [`& .${classes.gridNavWrap}`]: {
         width: 100,
         marginRight: 0,
         marginLeft: 0,
     },
-    ExpandMoreIcon: {
+
+    [`& .${classes.ExpandMoreIcon}`]: {
         color: theme => theme.palette.primary.contrastText,
         transform: "rotate(-90deg)",
         transition: "0.2s",
     },
-    ExpandMoreIconOpen: {
+
+    [`& .${classes.ExpandMoreIconOpen}`]: {
         color: theme => theme.palette.primary.contrastText,
         transform: "rotate(0deg)",
         transition: "0.2s",
@@ -157,9 +217,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ rootStore, knowledgeStore, uiStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
     const [open, setOpen] = React.useState(false);
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
     const [mobileSearch, setMobileSearch] = React.useState(false);
     const [openGlobalList, setOpenGlobalList] = React.useState(false);
     const [openСategoryList, setOpenСategoryList] = React.useState(false);
@@ -234,7 +294,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
 
 
     return (
-        <>
+        <Root>
             <Grid container direction="column" className={classes.root}>
                 <Accordion elevation={0} className={classes.Accordion} expanded={open}>
                     <AccordionSummary
@@ -252,7 +312,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                         >
                             {(!mobileSearch || !mobile) && <Tooltip title="Фильтры">
                                 <span>
-                                    <IconButton onClick={() => setOpen(!open)}>
+                                    <IconButton onClick={() => setOpen(!open)} size="large">
                                         <ExpandMoreIcon
                                             className={clsx(classes.ExpandMoreIcon, {
                                                 [classes.ExpandMoreIconOpen]: open,
@@ -263,7 +323,11 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                             </Tooltip>}
                             {(!mobileSearch || !mobile) && <Tooltip disableHoverListener={!open} title="Применить фильтры">
                                 <span>
-                                    <IconButton color="inherit" disabled={!open} onClick={() => knowledgeStore.loadModuleList()}>
+                                    <IconButton
+                                        color="inherit"
+                                        disabled={!open}
+                                        onClick={() => knowledgeStore.loadModuleList()}
+                                        size="large">
                                         <SavedSearchIcon
                                         // className={clsx(classes.ExpandMoreIcon, {
                                         //     [classes.ExpandMoreIconOpen]: open,
@@ -274,7 +338,11 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                             </Tooltip>}
                             {(!mobileSearch || !mobile) && <Tooltip disableHoverListener={!open} title="Удалить фильтры">
                                 <span>
-                                    <IconButton color="inherit" disabled={!open} onClick={() => knowledgeStore.clearFilters()}>
+                                    <IconButton
+                                        color="inherit"
+                                        disabled={!open}
+                                        onClick={() => knowledgeStore.clearFilters()}
+                                        size="large">
                                         <SearchOffIcon
                                         // className={clsx(classes.ExpandMoreIcon, {
                                         //     [classes.ExpandMoreIconOpen]: open,
@@ -304,14 +372,25 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                             />}
                             {!mobile && <Tooltip title="Очистить поиск">
                                 <span>
-                                    <IconButton onClick={() => knowledgeStore.clearSearchInModules()} disabled={knowledgeStore.moduleList.search.length === 0} type="submit" className={classes.iconButton} aria-label="search">
+                                    <IconButton
+                                        onClick={() => knowledgeStore.clearSearchInModules()}
+                                        disabled={knowledgeStore.moduleList.search.length === 0}
+                                        type="submit"
+                                        className={classes.iconButton}
+                                        aria-label="search"
+                                        size="large">
                                         <ClearIcon />
                                     </IconButton>
                                 </span>
                             </Tooltip>}
                             {!mobile && <Tooltip title="Найти">
                                 <span>
-                                    <IconButton onClick={() => knowledgeStore.goSearchInModules()} disabled={knowledgeStore.moduleList.search.length < 3} className={classes.iconButton} aria-label="search">
+                                    <IconButton
+                                        onClick={() => knowledgeStore.goSearchInModules()}
+                                        disabled={knowledgeStore.moduleList.search.length < 3}
+                                        className={classes.iconButton}
+                                        aria-label="search"
+                                        size="large">
                                         <SearchIcon />
                                     </IconButton>
                                 </span>
@@ -329,28 +408,49 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                             </Grid>
                             {mobileSearch && mobile && <Tooltip title="Очистить поиск">
                                 <span>
-                                    <IconButton onClick={knowledgeStore.clearSearchInModules} disabled={knowledgeStore.moduleList.search.length === 0} type="submit" className={classes.iconButton} aria-label="search">
+                                    <IconButton
+                                        onClick={knowledgeStore.clearSearchInModules}
+                                        disabled={knowledgeStore.moduleList.search.length === 0}
+                                        type="submit"
+                                        className={classes.iconButton}
+                                        aria-label="search"
+                                        size="large">
                                         <ClearIcon />
                                     </IconButton>
                                 </span>
                             </Tooltip>}
                             {!mobileSearch && mobile && <Tooltip title="Очистить поиск">
                                 <span>
-                                    <IconButton className={clsx(classes.iconButton)} onClick={() => setMobileSearch(true)} disabled={mobile ? false : knowledgeStore.moduleList.search.length < 3} aria-label="search">
+                                    <IconButton
+                                        className={clsx(classes.iconButton)}
+                                        onClick={() => setMobileSearch(true)}
+                                        disabled={mobile ? false : knowledgeStore.moduleList.search.length < 3}
+                                        aria-label="search"
+                                        size="large">
                                         <SearchIcon />
                                     </IconButton>
                                 </span>
                             </Tooltip>}
                             {mobileSearch && mobile && <Tooltip title="Найти">
                                 <span>
-                                    <IconButton className={clsx(classes.iconButton)} onClick={() => knowledgeStore.goSearchInModules()} disabled={mobile ? false : knowledgeStore.moduleList.search.length < 3} aria-label="search">
+                                    <IconButton
+                                        className={clsx(classes.iconButton)}
+                                        onClick={() => knowledgeStore.goSearchInModules()}
+                                        disabled={mobile ? false : knowledgeStore.moduleList.search.length < 3}
+                                        aria-label="search"
+                                        size="large">
                                         <SearchIcon />
                                     </IconButton>
                                 </span>
                             </Tooltip>}
                             {mobileSearch && mobile && <Tooltip title="Назад">
                                 <span>
-                                    <IconButton className={clsx(classes.iconButton)} onClick={() => setMobileSearch(false)} disabled={mobile ? false : knowledgeStore.moduleList.search.length < 3} aria-label="search">
+                                    <IconButton
+                                        className={clsx(classes.iconButton)}
+                                        onClick={() => setMobileSearch(false)}
+                                        disabled={mobile ? false : knowledgeStore.moduleList.search.length < 3}
+                                        aria-label="search"
+                                        size="large">
                                         <RedoIcon />
                                     </IconButton>
                                 </span>
@@ -364,7 +464,12 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                             >
                                 <Tooltip title="Назад">
                                     <span>
-                                        <IconButton onClick={knowledgeStore.prevPageInModules} type="submit" className={classes.iconButton} disabled={knowledgeStore.moduleList.counter === 0 ? true : false}>
+                                        <IconButton
+                                            onClick={knowledgeStore.prevPageInModules}
+                                            type="submit"
+                                            className={classes.iconButton}
+                                            disabled={knowledgeStore.moduleList.counter === 0 ? true : false}
+                                            size="large">
                                             <NavigateBeforeIcon />
                                         </IconButton>
                                     </span>
@@ -374,7 +479,12 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                 </Tooltip>
                                 <Tooltip title="Вперёд">
                                     <span>
-                                        <IconButton onClick={knowledgeStore.nextPageInModules} type="submit" className={classes.iconButton} disabled={knowledgeStore.moduleList.modules.length < 12 ? true : false}>
+                                        <IconButton
+                                            onClick={knowledgeStore.nextPageInModules}
+                                            type="submit"
+                                            className={classes.iconButton}
+                                            disabled={knowledgeStore.moduleList.modules.length < 12 ? true : false}
+                                            size="large">
                                             <NavigateNextIcon />
                                         </IconButton>
                                     </span>
@@ -394,7 +504,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                 className={classes.filterColumn}
                                 container
                                 direction="column"
-                                justify="flex-start"
+                                justifyContent="flex-start"
                                 alignItems="flex-start"
                             >
                                 <Accordion elevation={0} className={classes.Accordion} expanded={openGlobalList}>
@@ -406,7 +516,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                     >
                                         <Tooltip title="Фильтры">
                                             <span>
-                                                <IconButton>
+                                                <IconButton size="large">
                                                     <ArrowDropDownIcon
                                                         className={clsx(classes.ExpandMoreIcon, {
                                                             [classes.ExpandMoreIconOpen]: openGlobalList,
@@ -444,7 +554,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                 className={classes.filterColumn}
                                 container
                                 direction="column"
-                                justify="flex-start"
+                                justifyContent="flex-start"
                                 alignItems="flex-start"
                             >
                                 <Accordion elevation={0} className={classes.Accordion} expanded={openСategoryList}>
@@ -456,7 +566,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                     >
                                         <Tooltip title="Фильтры">
                                             <span>
-                                                <IconButton >
+                                                <IconButton size="large">
                                                     <ArrowDropDownIcon
                                                         className={clsx(classes.ExpandMoreIcon, {
                                                             [classes.ExpandMoreIconOpen]: openСategoryList,
@@ -492,7 +602,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                 className={classes.filterColumn}
                                 container
                                 direction="column"
-                                justify="flex-start"
+                                justifyContent="flex-start"
                                 alignItems="flex-start"
                             >
                                 <Accordion elevation={0} className={classes.Accordion} expanded={openThemeList}>
@@ -504,7 +614,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                     >
                                         <Tooltip title="Фильтры">
                                             <span>
-                                                <IconButton>
+                                                <IconButton size="large">
                                                     <ArrowDropDownIcon
                                                         className={clsx(classes.ExpandMoreIcon, {
                                                             [classes.ExpandMoreIconOpen]: openThemeList,
@@ -540,7 +650,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                 className={classes.filterColumn}
                                 container
                                 direction="column"
-                                justify="flex-start"
+                                justifyContent="flex-start"
                                 alignItems="flex-start"
                             >
                                 <Accordion elevation={0} className={classes.Accordion} expanded={openDifficultyList}>
@@ -552,7 +662,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                     >
                                         <Tooltip title="Фильтры">
                                             <span>
-                                                <IconButton>
+                                                <IconButton size="large">
                                                     <ArrowDropDownIcon
                                                         className={clsx(classes.ExpandMoreIcon, {
                                                             [classes.ExpandMoreIconOpen]: openDifficultyList,
@@ -588,7 +698,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                 className={classes.filterColumn}
                                 container
                                 direction="column"
-                                justify="flex-start"
+                                justifyContent="flex-start"
                                 alignItems="flex-start"
                             >
                                 <Accordion elevation={0} className={classes.Accordion} expanded={openSortList}>
@@ -600,7 +710,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                     >
                                         <Tooltip title="Фильтры">
                                             <span>
-                                                <IconButton >
+                                                <IconButton size="large">
                                                     <ArrowDropDownIcon
                                                         className={clsx(classes.ExpandMoreIcon, {
                                                             [classes.ExpandMoreIconOpen]: openSortList,
@@ -636,8 +746,8 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                 </Accordion>
                 <Divider className={classes.divider} />
             </Grid>
-        </>
-    )
+        </Root>
+    );
 }));
 
 export default Chipper;

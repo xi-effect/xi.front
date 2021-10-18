@@ -1,8 +1,9 @@
 import React from 'react'
+import { styled } from '@mui/material/styles';
 import Head from 'next/head'
 import Link from 'next/link'
 import { Grid, useTheme, TextField, useMediaQuery, Tooltip, Popper, Grow, MenuList, MenuItem, InputLabel, Checkbox, ButtonGroup, InputAdornment, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import clsx from 'clsx'
 import { inject, observer } from 'mobx-react'
@@ -11,8 +12,52 @@ import BackgroundImg from './../../components/OtherComponents/Background/Backgro
 import Loading from './../../components/OtherComponents/Loading/Loading';
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const PREFIX = 'PassResetEmail';
+
+const classes = {
+    root: `${PREFIX}-root`,
+    gridTittle: `${PREFIX}-gridTittle`,
+    tittle: `${PREFIX}-tittle`,
+    gridUnderPaper: `${PREFIX}-gridUnderPaper`,
+    Paper: `${PREFIX}-Paper`,
+    PaperOnlyXs: `${PREFIX}-PaperOnlyXs`,
+    typographyMain: `${PREFIX}-typographyMain`,
+    typographyMainly: `${PREFIX}-typographyMainly`,
+    gridPaper: `${PREFIX}-gridPaper`,
+    inputLabel: `${PREFIX}-inputLabel`,
+    gridTextField: `${PREFIX}-gridTextField`,
+    textField: `${PREFIX}-textField`,
+    textFieldTypography: `${PREFIX}-textFieldTypography`,
+    icons: `${PREFIX}-icons`,
+    gridForgotPassword: `${PREFIX}-gridForgotPassword`,
+    forgotPassword: `${PREFIX}-forgotPassword`,
+    gridEnterButtom: `${PREFIX}-gridEnterButtom`,
+    enterButtom: `${PREFIX}-enterButtom`,
+    gridForgotRegistration: `${PREFIX}-gridForgotRegistration`,
+    forgotRegistration: `${PREFIX}-forgotRegistration`,
+    popper: `${PREFIX}-popper`,
+    paper: `${PREFIX}-paper`,
+    gridCheckbox: `${PREFIX}-gridCheckbox`,
+    checkboxTypography: `${PREFIX}-checkboxTypography`,
+    tooltip: `${PREFIX}-tooltip`,
+    tooltipTypography: `${PREFIX}-tooltipTypography`,
+    iconHelp: `${PREFIX}-iconHelp`,
+    Checkbox: `${PREFIX}-Checkbox`,
+    OutlinedInput: `${PREFIX}-OutlinedInput`,
+    ErrorLabel: `${PREFIX}-ErrorLabel`,
+    gridForgotPassword: `${PREFIX}-gridForgotPassword`,
+    gridroot: `${PREFIX}-gridroot`,
+    gridTypography: `${PREFIX}-gridTypography`,
+    typographyMainlySuccess: `${PREFIX}-typographyMainlySuccess`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.root}`]: {
         //backgroundColor: '#2a2a2a',
         position: 'fixed',
         height: '100vh',
@@ -21,7 +66,8 @@ const useStyles = makeStyles((theme) => ({
         overflowY: 'auto',
         overflowX: 'hidden',
     },
-    gridTittle: {
+
+    [`& .${classes.gridTittle}`]: {
         paddingTop: 16,
         [theme => theme.breakpoints.up('lg')]: {
             paddingLeft: 64,
@@ -29,23 +75,26 @@ const useStyles = makeStyles((theme) => ({
         [theme => theme.breakpoints.only('lg')]: {
             paddingLeft: 32,
         },
-        [theme => theme.breakpoints.down('lg')]: {
+        [theme => theme.breakpoints.down('xl')]: {
             paddingLeft: 16,
         },
         paddingLeft: 16,
         zIndex: 999,
         marginRight: 'auto',
     },
-    tittle: {
+
+    [`& .${classes.tittle}`]: {
         fontSize: 32,
         color: theme => theme.palette.primary.contrastText,
         cursor: 'pointer',
         zIndex: 999,
     },
-    gridUnderPaper: {
+
+    [`& .${classes.gridUnderPaper}`]: {
         zIndex: 999,
     },
-    Paper: {
+
+    [`& .${classes.Paper}`]: {
         zIndex: 999,
         borderRadius: 4,
         width: 500,
@@ -61,127 +110,156 @@ const useStyles = makeStyles((theme) => ({
         },
 
     },
-    PaperOnlyXs: {
+
+    [`& .${classes.PaperOnlyXs}`]: {
         width: 350,
         transition: '1s',
     },
-    typographyMain: {
+
+    [`& .${classes.typographyMain}`]: {
         cursor: "default",
         zIndex: 999,
         color: 'rgb(255,255,255)',
         fontWeight: 'bold',
     },
-    typographyMainly: {
+
+    [`& .${classes.typographyMainly}`]: {
         textAlign: 'center',
         cursor: "default",
         zIndex: 999,
         color: 'rgb(142,146,151)',
     },
-    gridPaper: {
+
+    [`& .${classes.gridPaper}`]: {
         margin: 8,
         marginTop: 24,
     },
-    inputLabel: {
+
+    [`& .${classes.inputLabel}`]: {
         color: 'rgb(142,146,151)',
     },
-    gridTextField: {
+
+    [`& .${classes.gridTextField}`]: {
         marginTop: 16,
         paddingLeft: 16,
         paddingRight: 32,
         width: '100%',
     },
-    textField: {
+
+    [`& .${classes.textField}`]: {
         width: '100%',
         backgroundColor: 'rgb(49,51,57)',
     },
-    textFieldTypography: {
+
+    [`& .${classes.textFieldTypography}`]: {
         marginTop: -4,
         color: 'rgb(142,146,151)',
     },
-    icons: {
+
+    [`& .${classes.icons}`]: {
         color: 'rgb(142,146,151)',
     },
-    gridForgotPassword: {
+
+    [`& .${classes.gridForgotPassword}`]: {
         marginTop: 4,
         paddingLeft: 20,
 
     },
-    forgotPassword: {
+
+    [`& .${classes.forgotPassword}`]: {
         color: 'rgb(142,146,151)',
     },
-    gridEnterButtom: {
+
+    [`& .${classes.gridEnterButtom}`]: {
         marginTop: 16,
         paddingLeft: 16,
         paddingRight: 32,
 
         width: '100%',
     },
-    enterButtom: {
+
+    [`& .${classes.enterButtom}`]: {
         width: '100%',
     },
-    gridForgotRegistration: {
+
+    [`& .${classes.gridForgotRegistration}`]: {
         marginTop: 4,
         paddingLeft: 20,
         paddingBottom: 20,
     },
-    forgotRegistration: {
+
+    [`& .${classes.forgotRegistration}`]: {
         color: 'rgb(142,146,151)',
     },
-    popper: {
+
+    [`& .${classes.popper}`]: {
         zIndex: 1100,
     },
-    paper: {
+
+    [`& .${classes.paper}`]: {
         zIndex: 1100,
     },
-    gridCheckbox: {
+
+    [`& .${classes.gridCheckbox}`]: {
         marginTop: 4,
         paddingLeft: 16,
         paddingRight: 32,
         width: '100%',
     },
-    checkboxTypography: {
+
+    [`& .${classes.checkboxTypography}`]: {
         paddingTop: 2,
         color: 'rgb(142,146,151)',
     },
-    tooltip: {
+
+    [`& .${classes.tooltip}`]: {
 
     },
-    tooltipTypography: {
+
+    [`& .${classes.tooltipTypography}`]: {
         paddingTop: 2,
         fontSize: 16,
     },
-    iconHelp: {
+
+    [`& .${classes.iconHelp}`]: {
         marginTop: 8,
         marginLeft: -10,
         color: 'rgb(142,146,151)',
     },
-    Checkbox: {
+
+    [`& .${classes.Checkbox}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    OutlinedInput: {
+
+    [`& .${classes.OutlinedInput}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    ErrorLabel: {
+
+    [`& .${classes.ErrorLabel}`]: {
         zIndex: 999,
         fontSize: 16,
         color: theme => theme.palette.error.main,
     },
-    gridForgotPassword: {
+
+    [`& .${classes.gridForgotPassword}`]: {
         zIndex: 999,
         marginTop: 4,
         paddingLeft: 20,
         paddingRight: 20,
 
     },
-    gridroot: {
+
+    [`& .${classes.gridroot}`]: {
         width: '100vw',
         minHeight: '100vh',
     },
-    gridTypography: {
+
+    [`& .${classes.gridTypography}`]: {
         paddingLeft: 16,
         paddingRight: 16,
     },
-    typographyMainlySuccess: {
+
+    [`& .${classes.typographyMainlySuccess}`]: {
         textAlign: 'center',
         cursor: "default",
         zIndex: 999,
@@ -194,7 +272,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PassResetEmail = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const [emailReset, setEmailReset] = React.useState('')
 
@@ -223,7 +301,7 @@ const PassResetEmail = inject('rootStore', 'uiStore')(observer(({ rootStore, uiS
     }
 
     return (
-        <>
+        <Root>
             <Head>
                 <title>Ξ Регистрация</title>
             </Head>
@@ -260,9 +338,7 @@ const PassResetEmail = inject('rootStore', 'uiStore')(observer(({ rootStore, uiS
                                             onChange={(event) => setEmailReset(event.target.value)}
                                             endAdornment={
                                                 <InputAdornment position="end">
-                                                    <IconButton
-                                                        edge="end"
-                                                    >
+                                                    <IconButton edge="end" size="large">
                                                         <Tooltip title="Ваш адресс электронной почты" arrow>
                                                             <HelpIcon className={classes.icons} />
                                                         </Tooltip>
@@ -297,8 +373,8 @@ const PassResetEmail = inject('rootStore', 'uiStore')(observer(({ rootStore, uiS
                     </Grid>
                 </Grid>
             </div>
-        </>
-    )
+        </Root>
+    );
 }))
 
 export default PassResetEmail;

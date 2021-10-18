@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
 import { SpeedDial, SpeedDialIcon, Fade, Radio, SpeedDialAction, Input, Divider, IconButton, Grid, useTheme, Tooltip, Checkbox, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import clsx from 'clsx';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
@@ -24,20 +25,48 @@ import ListIcon from '@mui/icons-material/List';
 
 
 
-const useStyles = makeStyles((theme) => ({
-    gridButtons: {
+const PREFIX = 'Quiz';
+
+const classes = {
+    gridButtons: `${PREFIX}-gridButtons`,
+    divider: `${PREFIX}-divider`,
+    gridTextWrapper: `${PREFIX}-gridTextWrapper`,
+    text: `${PREFIX}-text`,
+    icon: `${PREFIX}-icon`,
+    speedDial: `${PREFIX}-speedDial`,
+    speedDialActionFirst: `${PREFIX}-speedDialActionFirst`,
+    speedDialAction: `${PREFIX}-speedDialAction`,
+    disableIcon: `${PREFIX}-disableIcon`,
+    activeIcon: `${PREFIX}-activeIcon`,
+    iconSpeedDial: `${PREFIX}-iconSpeedDial`,
+    IconButtonSpeedDial: `${PREFIX}-IconButtonSpeedDial`,
+    leftIconButton: `${PREFIX}-leftIconButton`,
+    IconButtonToHidden: `${PREFIX}-IconButtonToHidden`,
+    hidden: `${PREFIX}-hidden`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.gridButtons}`]: {
         marginLeft: "auto",
     },
-    divider: {
+
+    [`& .${classes.divider}`]: {
         backgroundColor: props => props.palette.primary.main,
         width: "100%",
         height: 1,
         margin: props => props.spacing(1, 0.5),
     },
-    gridTextWrapper: {
+
+    [`& .${classes.gridTextWrapper}`]: {
         width: "calc(100% - 4px)",
     },
-    text: {
+
+    [`& .${classes.text}`]: {
         width: "100%",
         color: props => props.palette.primary.contrastText,
         fontSize: props => props.fontSize,
@@ -47,10 +76,12 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: props => props.textDecoration,
         lineHeight: "normal",
     },
-    icon: {
+
+    [`& .${classes.icon}`]: {
         color: props => props.palette.primary.contrastText,
     },
-    speedDial: {
+
+    [`& .${classes.speedDial}`]: {
         height: 36,
         width: 36,
         marginTop: 2,
@@ -59,19 +90,22 @@ const useStyles = makeStyles((theme) => ({
         // top: theme => theme.spacing(10),
         // left: theme => theme.spacing(2),
     },
-    speedDialActionFirst: {
+
+    [`& .${classes.speedDialActionFirst}`]: {
         marginLeft: 16,
         color: props => props.palette.primary.main,
     },
 
-    speedDialAction: {
+    [`& .${classes.speedDialAction}`]: {
         marginLeft: 16,
         color: props => props.palette.primary.main,
     },
-    disableIcon: {
+
+    [`& .${classes.disableIcon}`]: {
         color: props => props.palette.error.main,
     },
-    activeIcon: {
+
+    [`& .${classes.activeIcon}`]: {
         color: props => props.palette.primary.contrastText,
         backgroundColor: props => props.palette.primary.main,
         '&:hover': {
@@ -79,21 +113,26 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: props => props.palette.primary.main,
         }
     },
-    iconSpeedDial: {
+
+    [`& .${classes.iconSpeedDial}`]: {
         height: 24,
         width: 24,
     },
-    IconButtonSpeedDial: {
+
+    [`& .${classes.IconButtonSpeedDial}`]: {
         color: props => props.palette.primary.contrastText,
     },
-    leftIconButton: {
+
+    [`& .${classes.leftIconButton}`]: {
         marginLeft: "auto"
     },
-    IconButtonToHidden: {
+
+    [`& .${classes.IconButtonToHidden}`]: {
         transition: "0.8s",
         display: "none",
     },
-    hidden: {
+
+    [`& .${classes.hidden}`]: {
         transition: "0.4s",
         display: "block",
     }
@@ -103,10 +142,10 @@ const QuizItem = inject('managmentStore')(observer(({ managmentStore, show, inde
     const values = managmentStore.pageCreation.components[index]
     const item = managmentStore.pageCreation.components[index].content[indexA]
     const props = { fontSize: values.fontSize, textAlign: "left", fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
-    // Pass the props as the first argument of useStyles()
+
     // console.log("props", props)
     const theme = useTheme();
-    const classes = useStyles({ ...theme, ...props });
+
     return (
         <Input
             classes={{
@@ -121,7 +160,7 @@ const QuizItem = inject('managmentStore')(observer(({ managmentStore, show, inde
             value={item.label}
             onChange={(event) => managmentStore.setPageCreationContentComponents(index, indexA, "label", event.target.value)}
             startAdornment={
-                <>
+                <Root>
                     {values.quizType === 'single' && <Radio
                         color="primary"
                         checked={item.rightAnswer}
@@ -134,19 +173,20 @@ const QuizItem = inject('managmentStore')(observer(({ managmentStore, show, inde
                         onChange={() => managmentStore.setPageCreationContentComponents(index, indexA, "rightAnswer", !item.rightAnswer)}
                     //onChange={handleChange}
                     />}
-
-                </>
+                </Root>
             }
             endAdornment={
                 <>
                     <Tooltip title="Удалить блок">
-                        <IconButton onClick={() => managmentStore.deleteComponentContent(index, indexA)}>
+                        <IconButton
+                            onClick={() => managmentStore.deleteComponentContent(index, indexA)}
+                            size="large">
                             <DeleteForeverIcon className={classes.icon} />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Перетащить блок">
                         {/* className={clsx(classes.IconButtonToHidden, { [classes.hidden]: item.showIcons })} */}
-                        <IconButton >
+                        <IconButton size="large">
                             <DragIndicatorIcon className={classes.icon} />
                         </IconButton>
                     </Tooltip>
@@ -159,10 +199,10 @@ const QuizItem = inject('managmentStore')(observer(({ managmentStore, show, inde
 const QuizList = inject('managmentStore')(observer(({ managmentStore, index }) => {
     const values = managmentStore.pageCreation.components[index]
     const props = { fontSize: values.fontSize, textAlign: "left", fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
-    // Pass the props as the first argument of useStyles()
+
     // console.log("props", props)
     const theme = useTheme();
-    const classes = useStyles({ ...theme, ...props });
+
     return (
         <>
             {
@@ -197,10 +237,10 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
     const props = { fontSize: values.fontSize, textAlign: "left", fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
-    // Pass the props as the first argument of useStyles()
+
     // console.log("props", props)
     const theme = useTheme();
-    const classes = useStyles({ ...theme, ...props });
+
 
     const handleFontSizeUp = (event, newFormats) => {
         //console.log(index, "fontSize", newFormats)
@@ -282,125 +322,126 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
         managmentStore.setContentToComponent(index, newState);
     }
 
-    return (
-        <>
+    return <>
+        <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            onClick={() => managmentStore.setPageCreationList("selectId", index)}
+        >
             <Grid
                 container
                 direction="column"
-                justifyContent="center"
-                alignItems="center"
-                onClick={() => managmentStore.setPageCreationList("selectId", index)}
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                className={classes.gridTextWrapper}
             >
-                <Grid
-                    container
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="flex-start"
-                    className={classes.gridTextWrapper}
-                >
-                    <DragDropContext onDragEnd={onDragEnd}>
-                        <Droppable droppableId={`quiz-${index}`}>
-                            {provided => (
-                                <Grid className={classes.gridTextWrapper} ref={provided.innerRef} {...provided.droppableProps} >
-                                    <QuizList index={index} />
-                                    {provided.placeholder}
-                                </Grid>
-                            )}
-                        </Droppable>
-                    </DragDropContext>
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId={`quiz-${index}`}>
+                        {provided => (
+                            <Grid className={classes.gridTextWrapper} ref={provided.innerRef} {...provided.droppableProps} >
+                                <QuizList index={index} />
+                                {provided.placeholder}
+                            </Grid>
+                        )}
+                    </Droppable>
+                </DragDropContext>
 
 
-                </Grid>
-                <Divider className={classes.divider} />
-                <Grid
-                    container
-                    direction="row"
-                    className={classes.gridButtons}
-                >
-                    <Tooltip title="Добавить">
-                        <IconButton onClick={() => managmentStore.pushContentToComponent(index)}>
-                            <AddIcon className={classes.icon} />
-                        </IconButton>
-                    </Tooltip>
-                    <SpeedDial
-                        ariaLabel="SpeedDial tooltip example"
-                        className={classes.speedDial}
-                        // hidden={hidden}
-                        icon={<TuneIcon className={classes.iconSpeedDial} />}
-                        onClose={handleClose}
-                        onOpen={handleOpen}
-                        open={open}
-                        direction="right"
-                    >
-                        <SpeedDialAction
-                            className={classes.speedDialAction}
-                            tooltipPlacement="bottom"
-                            icon={quizTypeIconSelect(values.quizType)}
-                            tooltipTitle={`Изменить тип опроса. Сейчас - ${quizTypeLabelSelect(values.quizType)}`}
-                            //tooltipOpen
-                            onClick={() => handleQuizType(values.quizType)}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialActionFirst, { [classes.disableIcon]: values.fontSize === 48 })}
-                            tooltipPlacement="bottom"
-                            icon={<ZoomInIcon />}
-                            tooltipTitle={`Увеличить шрифт. Сейчас - ${values.fontSize}`}
-                            //tooltipOpen
-                            onClick={() => handleFontSizeUp()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.disableIcon]: values.fontSize === 12 })}
-                            tooltipPlacement="bottom"
-                            icon={<ZoomOutIcon />}
-                            tooltipTitle={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}
-                            //tooltipOpen
-                            onClick={() => handleFontSizeDown()}
-                        />
-
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontWeight === 'bold' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatBoldIcon />}
-                            tooltipTitle="Полужирный"
-                            //tooltipOpen
-                            onClick={() => handleFontWeight()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontStyle === 'italic' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatItalicIcon />}
-                            tooltipTitle="Курсив"
-                            //tooltipOpen
-                            onClick={() => handleFontStyle()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.textDecoration === 'underline' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatUnderlinedIcon />}
-                            tooltipTitle="Подчёркнутый"
-                            //tooltipOpen
-                            onClick={() => handleTextDecoration()}
-                        />
-                    </SpeedDial>
-                    {/* <Tooltip title="Дублировать блок">
-                        <IconButton className={classes.leftIconButton} onClick={() => managmentStore.duplicateComponent(index)}>
-                            <QueueIcon className={classes.icon} />
-                        </IconButton>
-                    </Tooltip> */}
-                    <Tooltip title="Удалить блок">
-                        <IconButton className={classes.leftIconButton} onClick={() => managmentStore.deleteComponent(index)}>
-                            <DeleteForeverIcon className={classes.icon} />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Перетащить блок">
-                        <IconButton>
-                            <DragIndicatorIcon className={classes.icon} />
-                        </IconButton>
-                    </Tooltip>
-                </Grid>
             </Grid>
-        </>
-    );
+            <Divider className={classes.divider} />
+            <Grid
+                container
+                direction="row"
+                className={classes.gridButtons}
+            >
+                <Tooltip title="Добавить">
+                    <IconButton onClick={() => managmentStore.pushContentToComponent(index)} size="large">
+                        <AddIcon className={classes.icon} />
+                    </IconButton>
+                </Tooltip>
+                <SpeedDial
+                    ariaLabel="SpeedDial tooltip example"
+                    className={classes.speedDial}
+                    // hidden={hidden}
+                    icon={<TuneIcon className={classes.iconSpeedDial} />}
+                    onClose={handleClose}
+                    onOpen={handleOpen}
+                    open={open}
+                    direction="right"
+                >
+                    <SpeedDialAction
+                        className={classes.speedDialAction}
+                        tooltipPlacement="bottom"
+                        icon={quizTypeIconSelect(values.quizType)}
+                        tooltipTitle={`Изменить тип опроса. Сейчас - ${quizTypeLabelSelect(values.quizType)}`}
+                        //tooltipOpen
+                        onClick={() => handleQuizType(values.quizType)}
+                    />
+                    <SpeedDialAction
+                        className={clsx(classes.speedDialActionFirst, { [classes.disableIcon]: values.fontSize === 48 })}
+                        tooltipPlacement="bottom"
+                        icon={<ZoomInIcon />}
+                        tooltipTitle={`Увеличить шрифт. Сейчас - ${values.fontSize}`}
+                        //tooltipOpen
+                        onClick={() => handleFontSizeUp()}
+                    />
+                    <SpeedDialAction
+                        className={clsx(classes.speedDialAction, { [classes.disableIcon]: values.fontSize === 12 })}
+                        tooltipPlacement="bottom"
+                        icon={<ZoomOutIcon />}
+                        tooltipTitle={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}
+                        //tooltipOpen
+                        onClick={() => handleFontSizeDown()}
+                    />
+
+                    <SpeedDialAction
+                        className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontWeight === 'bold' })}
+                        tooltipPlacement="bottom"
+                        icon={<FormatBoldIcon />}
+                        tooltipTitle="Полужирный"
+                        //tooltipOpen
+                        onClick={() => handleFontWeight()}
+                    />
+                    <SpeedDialAction
+                        className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontStyle === 'italic' })}
+                        tooltipPlacement="bottom"
+                        icon={<FormatItalicIcon />}
+                        tooltipTitle="Курсив"
+                        //tooltipOpen
+                        onClick={() => handleFontStyle()}
+                    />
+                    <SpeedDialAction
+                        className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.textDecoration === 'underline' })}
+                        tooltipPlacement="bottom"
+                        icon={<FormatUnderlinedIcon />}
+                        tooltipTitle="Подчёркнутый"
+                        //tooltipOpen
+                        onClick={() => handleTextDecoration()}
+                    />
+                </SpeedDial>
+                {/* <Tooltip title="Дублировать блок">
+                    <IconButton className={classes.leftIconButton} onClick={() => managmentStore.duplicateComponent(index)}>
+                        <QueueIcon className={classes.icon} />
+                    </IconButton>
+                </Tooltip> */}
+                <Tooltip title="Удалить блок">
+                    <IconButton
+                        className={classes.leftIconButton}
+                        onClick={() => managmentStore.deleteComponent(index)}
+                        size="large">
+                        <DeleteForeverIcon className={classes.icon} />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Перетащить блок">
+                    <IconButton size="large">
+                        <DragIndicatorIcon className={classes.icon} />
+                    </IconButton>
+                </Tooltip>
+            </Grid>
+        </Grid>
+    </>;
 }));
 
 export default Quiz

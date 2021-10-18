@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
+import { styled } from '@mui/material/styles';
 import Head from 'next/head'
 import { useRouter } from "next/router";
 
 import { Divider, Box, Grid, FormControlLabel, Button, useTheme, Menu, Hidden, IconButton, InputBase, Switch, Typography } from '@mui/material'
-import { makeStyles, withStyles } from '@mui/styles';
+
 
 import { inject, observer } from 'mobx-react'
 
@@ -14,17 +15,28 @@ import NavigationAll from './../../../../components/OtherComponents/Navigation/N
 import ModuleInfo from './../../../../components/PagesComponents/Knowledge/Module/ModuleInfo';
 import PageCompList from './../../../../components/PagesComponents/Knowledge/Page/PageCompList';
 
-const useStyles = makeStyles((theme) => ({
-    main: {
+const PREFIX = 'ModuleId';
+
+const classes = {
+    main: `${PREFIX}-main`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.main}`]: {
         width: '100%',
         zIndex: 1,
         //backgroundColor: 'red',
-    },
+    }
 }));
 
 const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     React.useEffect(() => {
         // LoadComponents()
@@ -34,7 +46,7 @@ const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kn
 
 
     return (
-        <>
+        (<Root>
             <Head>
                 <title>
                     Ξ Effect
@@ -56,9 +68,8 @@ const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kn
                     </ModuleInfo>
                 </Grid>
             </NavigationAll>
-
-        </>
-    )
+        </Root>)
+    );
 }))
 
 

@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
+import { styled } from '@mui/material/styles';
 import Head from 'next/head'
 import { useRouter } from "next/router";
 
 import { Divider, Paper, Grid, FormControlLabel, useTheme, Menu, Hidden, IconButton, InputBase, Switch, Typography } from '@mui/material'
-import { makeStyles, withStyles } from '@mui/styles';
+
 
 // import SearchIcon from '@mui/icons-material/Search';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -28,15 +29,31 @@ import dynamic from 'next/dynamic';
 //import ReactPage from '../../../../components/app/ContentEditor/ReactPage';
 import NavigationAll from './../../../components/OtherComponents/Navigation/NavigationAll';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
+const PREFIX = 'Course';
+
+const classes = {
+    root: `${PREFIX}-root`,
+    main: `${PREFIX}-main`,
+    divReactPage: `${PREFIX}-divReactPage`,
+    divReactPageClose: `${PREFIX}-divReactPageClose`,
+    divReactPageOpen: `${PREFIX}-divReactPageOpen`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.root}`]: {
         // width: '100%',
         // height: '100%',
         margin: 0,
         padding: 0,
         //backgroundColor: theme => theme.main.palette.main.background,
     },
-    main: {
+
+    [`& .${classes.main}`]: {
         //width: '100vw',
         //height: '100vh',
         margin: 0,
@@ -45,26 +62,27 @@ const useStyles = makeStyles((theme) => ({
         // zIndex: 999,
         //paddingBottom: "100px",
     },
-    divReactPage: {
+
+    [`& .${classes.divReactPage}`]: {
         paddingTop: '48px',
         paddingLeft: '32px',
         paddingRight: '32px',
         paddingBottom: '32px',
     },
-    divReactPageClose: {
+
+    [`& .${classes.divReactPageClose}`]: {
         width: '88vw',
 
     },
-    divReactPageOpen: {
+
+    [`& .${classes.divReactPageOpen}`]: {
         width: '81vw',
     }
-
-
 }));
 
 const Course = inject('store')(observer(({ store }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const router = useRouter();
     const { id } = router.query;
@@ -95,7 +113,7 @@ const Course = inject('store')(observer(({ store }) => {
 
 
     return (
-        <>
+        (<Root>
             <Head>
                 <title>Ξ Образование</title>
             </Head>
@@ -119,8 +137,8 @@ const Course = inject('store')(observer(({ store }) => {
                     </Grid>}
                 </div >
             </NavigationAll>
-        </>
-    )
+        </Root>)
+    );
 }))
 
 

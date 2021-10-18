@@ -1,11 +1,68 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import Image from 'next/image'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 
 import { Divider, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles'
+
+
+const PREFIX = 'CardsList';
+
+const classes = {
+    ContentGrid1: `${PREFIX}-ContentGrid1`,
+    ContentGrid2: `${PREFIX}-ContentGrid2`,
+    firstCardLabel: `${PREFIX}-firstCardLabel`,
+    firstCardContent: `${PREFIX}-firstCardContent`,
+    Image: `${PREFIX}-Image`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.ContentGrid1}`]: {
+        width: '100%',
+        height: 396,
+        //background: `linear-gradient(0deg, #EECFBA, #C5DDE8)`;
+        backgroundColor: theme.palette.background["2"],
+    },
+
+    [`& .${classes.ContentGrid2}`]: {
+        width: '100%',
+        height: 396,
+        backgroundColor: theme.palette.background["1"],
+    },
+
+    [`& .${classes.firstCardLabel}`]: {
+        [theme.breakpoints.down('xl')]: {
+            fontSize: 24,
+        },
+        margin: "0.5em",
+        color: theme.palette.text.main,
+    },
+
+    [`& .${classes.firstCardContent}`]: {
+        [theme.breakpoints.down('xl')]: {
+            fontSize: 18,
+        },
+        margin: "1em",
+        color: theme.palette.text.main,
+        fontSize: 24,
+    },
+
+    [`& .${classes.Image}`]: {
+        [theme.breakpoints.down('xl')]: {
+            height: 128,
+            width: 128,
+        },
+        height: 256,
+        width: 256,
+    }
+}));
 
 const cards = [
     {
@@ -35,50 +92,13 @@ const cards = [
 
 ]
 
-const useStyles = makeStyles((theme) => ({
-    ContentGrid1: {
-        width: '100%',
-        height: 396,
-        //background: `linear-gradient(0deg, #EECFBA, #C5DDE8)`;
-        backgroundColor: theme => theme.palette.background["2"],
-    },
-    ContentGrid2: {
-        width: '100%',
-        height: 396,
-        backgroundColor: theme => theme.palette.background["1"],
-    },
-    firstCardLabel: {
-        [theme.breakpoints.down('md')]: {
-            fontSize: 24,
-        },
-        margin: "0.5em",
-        color: theme => theme.palette.text.main,
-    },
-    firstCardContent: {
-        [theme.breakpoints.down('md')]: {
-            fontSize: 18,
-        },
-        margin: "1em",
-        color: theme => theme.palette.text.main,
-        fontSize: 24,
-    },
-    Image: {
-        [theme.breakpoints.down('md')]: {
-            height: 128,
-            width: 128,
-        },
-        height: 256,
-        width: 256,
-    }
-}));
-
 const Card = ({ card }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
     //const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
     return (
-        <>
+        (<Root sx={{width: "100%"}}>
             <Grid
                 item
                 container
@@ -148,8 +168,8 @@ const Card = ({ card }) => {
 
                 </Grid>
             </Grid>
-        </>
-    )
+        </Root>)
+    );
 }
 
 const CardsList = () => {

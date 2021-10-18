@@ -1,7 +1,8 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import { inject, observer } from 'mobx-react'
 import { Typography, Paper, Grid, Divider, List, ListItem, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 import clsx from 'clsx';
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -10,29 +11,50 @@ import StarHalfIcon from '@mui/icons-material/StarHalf';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
-const useStyles = makeStyles((theme) => ({
-    paperGrid: {
+const PREFIX = 'Lessons';
+
+const classes = {
+    paperGrid: `${PREFIX}-paperGrid`,
+    labelGrid: `${PREFIX}-labelGrid`,
+    paper: `${PREFIX}-paper`,
+    mainLabel: `${PREFIX}-mainLabel`,
+    arrowIcon: `${PREFIX}-arrowIcon`,
+    arrowIconOpen: `${PREFIX}-arrowIconOpen`,
+    divider: `${PREFIX}-divider`,
+    itemGrid: `${PREFIX}-itemGrid`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.paperGrid}`]: {
         width: "calc(100% - 128px)",
         margin: 0,
     },
-    labelGrid: {
+
+    [`& .${classes.labelGrid}`]: {
         marginTop: 12,
         //height: 64,
         //width: "100%",
     },
-    paper: {
+
+    [`& .${classes.paper}`]: {
         //width: "100%",
         borderRadius: 16,
         //height: 64,
         backgroundColor: theme => theme.palette.blueGrey["4"],
         cursor: "default",
     },
-    mainLabel: {
+
+    [`& .${classes.mainLabel}`]: {
         marginLeft: 16,
         marginRight: "auto",
         color: theme => theme.palette.primary.contrastText,
     },
-    arrowIcon: {
+
+    [`& .${classes.arrowIcon}`]: {
         marginRight: 8,
         height: 24,
         width: 24,
@@ -40,18 +62,21 @@ const useStyles = makeStyles((theme) => ({
         transition: "all 0.4s",
         cursor: "pointer",
     },
-    arrowIconOpen: {
+
+    [`& .${classes.arrowIconOpen}`]: {
         transition: "all 0.4s",
         transform: "rotate(-0.25turn)"
     },
-    divider: {
+
+    [`& .${classes.divider}`]: {
         height: 1,
         marginTop: 4,
         marginBottom: 4,
         width: "100%",
         backgroundColor: theme => theme.palette.primary.contrastText,
     },
-    itemGrid: {
+
+    [`& .${classes.itemGrid}`]: {
         '&:hover': {
             backgroundColor: theme => theme.palette.blueGrey["3"],
         },
@@ -61,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Lessons = inject('store')(observer(({ store }) => {
-    const classes = useStyles();
+
     const theme = useTheme();
 
     const menuList = [
@@ -75,7 +100,7 @@ const Lessons = inject('store')(observer(({ store }) => {
     const [open, setOpen] = React.useState(false)
 
     return (
-        <Grid
+        <StyledGrid
             item
             container
             xs={12} sm={12} md={4} lg={4} xl={4}
@@ -125,7 +150,7 @@ const Lessons = inject('store')(observer(({ store }) => {
                     </Grid>
                 </Grid>
             </Paper>
-        </Grid>
+        </StyledGrid>
     );
 }));
 

@@ -1,37 +1,68 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 
+import { styled } from '@mui/material/styles';
+
 import { Button, CircularProgress, Grid, Typography, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 import { inject, observer } from 'mobx-react'
 
 import Image from 'next/image'
 import Chipper from './Pages/Chipper';
 import PagesList from './Pages/PagesList';
 
-const useStylesToolbar = makeStyles((theme) => ({
-    Button: {
+const PREFIX = 'Pages';
+
+const classes = {
+    Button: `${PREFIX}-Button`,
+    Typography: `${PREFIX}-Typography`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.Button}`]: {
         marginLeft: 16,
         marginRight: 16,
         color: theme => theme.palette.primary.contrastText,
     },
-    Typography: {
+
+    [`& .${classes.Typography}`]: {
+        color: theme => theme.palette.primary.contrastText,
+    }
+}));
+
+
+{
+    theme
+}
+) => ({
+    [`& .${classes.Button}`]: {
+        marginLeft: 16,
+        marginRight: 16,
+        color: theme => theme.palette.primary.contrastText,
+    },
+
+    [`& .${classes.Typography}`]: {
         color: theme => theme.palette.primary.contrastText,
     }
 }));
 
 const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
     const theme = useTheme();
-    const classes = useStylesToolbar(theme);
+
 
     return (
-        <>
+        (<Root>
             <Grid
                 container
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                sx={{marginBottom: 10,}}
+                sx={{ marginBottom: 10, }}
             >
                 <Button onClick={knowledgeStore.prevPageInPages} className={classes.Button} variant="contained" color="primary" disabled={knowledgeStore.pageList.counter === 0 ? true : false}>
                     Назад
@@ -43,34 +74,13 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
                     Вперёд
                 </Button>
             </Grid>
-        </>
-    )
-}));
-
-const useStyles = makeStyles((theme) => ({
-    gridLoading: {
-        marginTop: 8,
-        marginBottom: 8,
-        //height: 96,
-    },
-    labelThatsAll: {
-        fontSize: 18,
-        color: theme => theme.palette.primary.contrastText,
-    },
-    container: {
-        marginTop: 16,
-        marginBottom: 16,
-        height: '100%',
-        width: '100%',
-    },
-    nothingSearchLabel: {
-        color: theme => theme.palette.text.main,
-    }
+        </Root>)
+    );
 }));
 
 const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     React.useEffect(() => {
         uiStore.setKnowledgeUI("contentTypeOnPage", localStorage.getItem("contentTypeOnPageInKnowleadge") != undefined ? localStorage.getItem("contentTypeOnPageInKnowleadge") : "info")

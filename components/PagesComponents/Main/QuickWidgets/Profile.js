@@ -1,36 +1,58 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import { inject, observer } from 'mobx-react'
 import { Typography, Paper, Grid, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
-const useStyles = makeStyles((theme) => ({
-    paperGrid: {
+const PREFIX = 'Profile';
+
+const classes = {
+    paperGrid: `${PREFIX}-paperGrid`,
+    labelGrid: `${PREFIX}-labelGrid`,
+    paper: `${PREFIX}-paper`,
+    mainLabel: `${PREFIX}-mainLabel`,
+    arrowIcon: `${PREFIX}-arrowIcon`,
+    arrowIconOpen: `${PREFIX}-arrowIconOpen`,
+    divider: `${PREFIX}-divider`,
+    itemGrid: `${PREFIX}-itemGrid`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.paperGrid}`]: {
         width: "calc(100% - 32px)",
         margin: 16,
     },
-    labelGrid: {
+
+    [`& .${classes.labelGrid}`]: {
         marginTop: 12,
         //height: 64,
         width: "100%",
     },
-    paper: {
+
+    [`& .${classes.paper}`]: {
         width: "100%",
         borderRadius: 16,
         //height: 64,
         backgroundColor: theme => theme.palette.blueGrey["4"],
         cursor: "default",
     },
-    mainLabel: {
+
+    [`& .${classes.mainLabel}`]: {
         marginLeft: 16,
         marginRight: "auto",
         color: theme => theme.palette.primary.contrastText,
     },
-    arrowIcon: {
+
+    [`& .${classes.arrowIcon}`]: {
         marginRight: 8,
         height: 24,
         width: 24,
@@ -38,18 +60,21 @@ const useStyles = makeStyles((theme) => ({
         transition: "all 0.4s",
         cursor: "pointer",
     },
-    arrowIconOpen: {
+
+    [`& .${classes.arrowIconOpen}`]: {
         transition: "all 0.4s",
         transform: "rotate(-0.25turn)"
     },
-    divider: {
+
+    [`& .${classes.divider}`]: {
         height: 1,
         marginTop: 4,
         marginBottom: 4,
         width: "100%",
         backgroundColor: theme => theme.palette.primary.contrastText,
     },
-    itemGrid: {
+
+    [`& .${classes.itemGrid}`]: {
         '&:hover': {
             backgroundColor: theme => theme.palette.blueGrey["3"],
         },
@@ -59,11 +84,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = inject('store')(observer(({ store }) => {
-    const classes = useStyles();
+
     const theme = useTheme();
 
     return (
-        <Grid
+        <StyledGrid
             item
             container
             xs={12} sm={12} md={4} lg={4} xl={4}
@@ -85,7 +110,7 @@ const Profile = inject('store')(observer(({ store }) => {
                     <ArrowForwardIcon className={classes.arrowIcon} />
                 </Grid>
             </Paper>
-        </Grid>
+        </StyledGrid>
     );
 }));
 

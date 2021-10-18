@@ -1,15 +1,29 @@
 import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
 import { useTheme, Input, Grid } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 import { inject, observer } from 'mobx-react'
 
 
-const useStyles = makeStyles((theme) => ({
-    gridTextWrapper: {
+const PREFIX = 'Header';
+
+const classes = {
+    gridTextWrapper: `${PREFIX}-gridTextWrapper`,
+    text: `${PREFIX}-text`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.gridTextWrapper}`]: {
         //textAlign: "center !important",
         width: "100%",
     },
-    text: {
+
+    [`& .${classes.text}`]: {
         width: "100%",
         color: props => props.palette.primary.contrastText,
         fontSize: props => props.fontSize,
@@ -26,13 +40,13 @@ const Header = inject('rootStore')(observer(({ rootStore, value }) => {
 
     // Simulated props for the purpose of the example
     const props = { fontSize: value.fontSize, textAlign: value.textAlign, fontStyle: value.fontStyle, fontWeight: value.fontWeight, textDecoration: value.textDecoration, backgroundColor: 'black', color: 'white' };
-    // Pass the props as the first argument of useStyles()
+
     //console.log( "props", props )
     const theme = useTheme();
-    const classes = useStyles({ ...props, ...theme });
+
 
     return (
-        <>
+        (<Root>
             <Grid className={classes.gridTextWrapper}>
                 <Input
                     classes={{
@@ -47,7 +61,7 @@ const Header = inject('rootStore')(observer(({ rootStore, value }) => {
                     value={value.label}
                 />
             </Grid>
-        </>
+        </Root>)
     );
 }));
 

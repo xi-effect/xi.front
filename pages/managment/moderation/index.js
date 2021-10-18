@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Head from 'next/head'
+import { styled } from '@mui/material/styles';
 import Image from 'next/image'
 import Link from 'next/link'
 import Router from 'next/router'
 import React from 'react';
 import { Grid, Box, AppBar, Tabs, Button, Typography, useTheme, Tab } from '@mui/material';
-import { makeStyles, withStyles } from '@mui/styles'
 
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
@@ -18,26 +18,56 @@ import Content from '../../../components/PagesComponents/Managment/Moderation/Co
 
 
 
-const AntTabs = withStyles((theme) => ({
-  root: {
-    borderBottom: '0px solid #e8e8e8',
-  },
-  indicator: {
-    height: "4px",
-    backgroundColor: '#1976d2',
-  },
-}))(Tabs);
+const PREFIX = 'Moderation';
 
-const useStylesTabPanel = makeStyles((theme) => ({
-  Box: {
+const classes = {
+  Box: `${PREFIX}-Box`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.Box}`]: {
     color: theme => theme.palette.primary.contrastText,
   }
 }));
 
+
+
+function AntTabs() {
+  return ({
+    [`& .${classes.root}`]: {
+      borderBottom: '0px solid #e8e8e8',
+    },
+
+    [`& .${classes.indicator}`]: {
+      height: "4px",
+      backgroundColor: '#1976d2',
+    }
+  });
+}(Tabs);
+
+
+//   newFunction();
+
+// function newFunction() {
+//   {
+//     theme;
+//   }
+//   ({
+//     [`& .${classes.Box}`]: {
+//       color: theme => theme.palette.primary.contrastText,
+//     }
+//   });;
+// }
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   const theme = useTheme()
-  const classes = useStylesTabPanel(theme);
+
 
   return (
     <div
@@ -65,38 +95,10 @@ function a11yProps(index) {
 }
 
 
-const useStyles = makeStyles((theme) => ({
-  main: {
-    width: '100%',
-    zIndex: 1,
-  },
-  appBar: {
-    left: 72,
-    [theme => theme.breakpoints.only('xs')]: {
-      left: 0,
-    },
-    backgroundColor: theme => theme.palette.blueGrey["0"]
-  },
-  tab: {
-    borderBottom: "5px solid #fff",
-  },
-  tabLabel: {
-    fontSize: "14px",
-    color: theme => theme.palette.primary.contrastText,
-  },
-  tabPanel: {
-    height: "100vh",
-  },
-  SwipeableViews: {
-    marginTop: 48,
-  }
-}));
-
-
 
 const Moderation = inject('store')(observer(({ store }) => {
   const theme = useTheme();
-  const classes = useStyles(theme);
+
 
 
   const [value, setValue] = React.useState(0);
@@ -110,7 +112,7 @@ const Moderation = inject('store')(observer(({ store }) => {
   };
 
   return (
-    <>
+    (<Root>
       <Head>
         <title>
           Ξ Effect
@@ -154,8 +156,7 @@ const Moderation = inject('store')(observer(({ store }) => {
           </SwipeableViews>
         </Grid>
       </NavigationAll>
-
-    </>
+    </Root>)
   );
 }))
 

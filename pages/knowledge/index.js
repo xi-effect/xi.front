@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Head from 'next/head'
+import { styled } from '@mui/material/styles';
 import Link from 'next/link'
 import Router from 'next/router'
 import React from 'react';
 import clsx from 'clsx';
 import { Grid, Box, AppBar, useMediaQuery, Tabs, Typography, Tab, useTheme } from '@mui/material';
-import { makeStyles, withStyles } from '@mui/styles';
+
 
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
@@ -16,17 +17,69 @@ import NavigationAll from '../../components/OtherComponents/Navigation/Navigatio
 
 import Pages from '../../components/PagesComponents/Knowledge/Pages';
 import Modules from '../../components/PagesComponents/Knowledge/Modules';
+const PREFIX = 'Knowledge';
+
+const classes = {
+  main: `${PREFIX}-main`,
+  appBar: `${PREFIX}-appBar`,
+  appBarMod: `${PREFIX}-appBarMod`,
+  tab: `${PREFIX}-tab`,
+  tabLabel: `${PREFIX}-tabLabel`,
+  tabPanel: `${PREFIX}-tabPanel`,
+  SwipeableViews: `${PREFIX}-SwipeableViews`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.main}`]: {
+    width: '100%',
+    zIndex: 1,
+  },
+
+  [`& .${classes.appBar}`]: {
+    left: 72,
+    backgroundColor: theme => theme.palette.blueGrey["0"]
+  },
+
+  [`& .${classes.appBarMod}`]: {
+    left: 0,
+  },
+
+  [`& .${classes.tab}`]: {
+    borderBottom: "5px solid #fff",
+  },
+
+  [`& .${classes.tabLabel}`]: {
+    fontSize: "14px",
+    color: theme => theme.palette.primary.contrastText,
+  },
+
+  [`& .${classes.tabPanel}`]: {
+    height: "100vh",
+  },
+
+  [`& .${classes.SwipeableViews}`]: {
+    marginTop: 48,
+    width: '100%',
+  }
+}));
+
 //import Moderate from '../../components/PagesComponents/Knowledge/Moderate';
 //import Other from '../../garbage/Other';
 
-const AntTabs = withStyles((theme) => ({
-  root: {
+const AntTabs =  => ({
+  [`& .${classes.root}`]: {
     borderBottom: '0px solid #e8e8e8',
   },
-  indicator: {
+
+  [`& .${classes.indicator}`]: {
     height: "4px",
     backgroundColor: '#1976d2',
-  },
+  }
 }))(Tabs);
 
 function TabPanel(props) {
@@ -57,37 +110,9 @@ function a11yProps(index) {
 }
 
 
-const useStyles = makeStyles((theme) => ({
-  main: {
-    width: '100%',
-    zIndex: 1,
-  },
-  appBar: {
-    left: 72,
-    backgroundColor: theme => theme.palette.blueGrey["0"]
-  },
-  appBarMod: {
-    left: 0,
-  },
-  tab: {
-    borderBottom: "5px solid #fff",
-  },
-  tabLabel: {
-    fontSize: "14px",
-    color: theme => theme.palette.primary.contrastText,
-  },
-  tabPanel: {
-    height: "100vh",
-  },
-  SwipeableViews: {
-    marginTop: 48,
-    width: '100%',
-  }
-}));
-
 const Knowledge = () => {
   const theme = useTheme();
-  const classes = useStyles(theme);
+
 
   React.useEffect(() => {
     if (sessionStorage.getItem('KnowledgeTab') === "Pages") return setValue(0)
@@ -106,7 +131,7 @@ const Knowledge = () => {
   };
 
   return (
-    <>
+    (<Root>
       <Head>
         <title>
           Ξ Effect
@@ -144,8 +169,7 @@ const Knowledge = () => {
           </SwipeableViews>
         </Grid>
       </NavigationAll>
-
-    </>
+    </Root>)
   );
 }
 

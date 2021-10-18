@@ -1,27 +1,63 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import Link from "next/link";
 import cx from 'clsx';
 import { Divider, CardContent, CardMedia, Grow, ClickAwayListener, SpeedDial, MenuItem, SpeedDialAction, Popper, MenuList, Avatar, Paper, Accordion, IconButton, Chip, AccordionSummary, AccordionDetails, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles, withStyles } from '@mui/styles';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import StarIcon from '@material-ui/icons/Star';
-import FlagIcon from '@material-ui/icons/Flag';
-import FlagOutlinedIcon from '@material-ui/icons/FlagOutlined';
+
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from '@mui/icons-material/Star';
+import FlagIcon from '@mui/icons-material/Flag';
+import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 import { inject, observer } from 'mobx-react'
 
-const useStyles = makeStyles((theme) => ({
-    container: {
+const PREFIX = 'ModulesList';
+
+const classes = {
+    container: `${PREFIX}-container`,
+    gridCard: `${PREFIX}-gridCard`,
+    card: `${PREFIX}-card`,
+    content: `${PREFIX}-content`,
+    boxCardHeader: `${PREFIX}-boxCardHeader`,
+    cardHeader: `${PREFIX}-cardHeader`,
+    avatar: `${PREFIX}-avatar`,
+    overline: `${PREFIX}-overline`,
+    name: `${PREFIX}-name`,
+    gridcreater: `${PREFIX}-gridcreater`,
+    userownerinfo: `${PREFIX}-userownerinfo`,
+    CardActionsCenterButton: `${PREFIX}-CardActionsCenterButton`,
+    CardContentGrid: `${PREFIX}-CardContentGrid`,
+    CardContentSmallActionButtom: `${PREFIX}-CardContentSmallActionButtom`,
+    icons: `${PREFIX}-icons`,
+    iconsStarPush: `${PREFIX}-iconsStarPush`,
+    iconsPinPush: `${PREFIX}-iconsPinPush`,
+    media: `${PREFIX}-media`,
+    title: `${PREFIX}-title`,
+    subtitle: `${PREFIX}-subtitle`,
+    Page: `${PREFIX}-Page`,
+    popper: `${PREFIX}-popper`,
+    MenuList: `${PREFIX}-MenuList`,
+    MenuItem: `${PREFIX}-MenuItem`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.container}`]: {
         marginTop: 16,
         marginBottom: 16,
         height: '100%',
         width: '100%',
     },
-    gridCard: {
+
+    [`& .${classes.gridCard}`]: {
         padding: 8,
     },
-    card: {
+
+    [`& .${classes.card}`]: {
         position: 'relative',
         //paddingLeft: 4,
         border: '2px solid',
@@ -38,7 +74,8 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'initial',
         background: theme.palette.blueGrey["3"],
     },
-    content: {
+
+    [`& .${classes.content}`]: {
         paddingTop: 6,
         textAlign: 'left',
         overflowX: 'auto',
@@ -46,56 +83,70 @@ const useStyles = makeStyles((theme) => ({
             marginBottom: 0,
         }
     },
-    boxCardHeader: {
+
+    [`& .${classes.boxCardHeader}`]: {
         paddingTop: -8,
     },
-    cardHeader: {
+
+    [`& .${classes.cardHeader}`]: {
         color: theme.palette.primary.contrastText,
     },
-    avatar: {
+
+    [`& .${classes.avatar}`]: {
         borderRadius: 8,
         backgroundColor: theme.palette.blueGrey["7"],
     },
-    overline: {
+
+    [`& .${classes.overline}`]: {
         fontSize: 12,
         textTransform: 'uppercase',
         letterSpacing: 1,
         color: theme.palette.primary.contrastText,
     },
-    name: {
+
+    [`& .${classes.name}`]: {
         fontSize: 16,
         fontWeight: 500,
         color: theme.palette.primary.contrastText,
     },
-    gridcreater: {
+
+    [`& .${classes.gridcreater}`]: {
         paddingLeft: theme.spacing(1.5),
     },
-    userownerinfo: {
+
+    [`& .${classes.userownerinfo}`]: {
         paddingTop: theme.spacing(1.5),
         width: 'auto',
         marginRight: 'auto',
     },
-    CardActionsCenterButton: {
+
+    [`& .${classes.CardActionsCenterButton}`]: {
         marginTop: "5px",
         height: "40px",
         marginBottom: "5px",
     },
-    CardContentGrid: {
+
+    [`& .${classes.CardContentGrid}`]: {
         width: "100%"
     },
-    CardContentSmallActionButtom: {
+
+    [`& .${classes.CardContentSmallActionButtom}`]: {
         marginTop: "8px",
     },
-    icons: {
+
+    [`& .${classes.icons}`]: {
         color: theme.palette.primary.contrastText,
     },
-    iconsStarPush: {
+
+    [`& .${classes.iconsStarPush}`]: {
         color: "#ffeb3b",
     },
-    iconsPinPush: {
+
+    [`& .${classes.iconsPinPush}`]: {
         color: "#8bc34a",
     },
-    media: {
+
+    [`& .${classes.media}`]: {
         height: 320,
         width: '100%',
         paddingLeft: 0,
@@ -103,19 +154,22 @@ const useStyles = makeStyles((theme) => ({
         marinLeft: 0,
         marginRight: 0,
     },
-    title: {
+
+    [`& .${classes.title}`]: {
         marginTop: 12,
         marginLeft: 12,
         fontSize: 28,
         color: theme.palette.primary.contrastText,
     },
-    subtitle: {
+
+    [`& .${classes.subtitle}`]: {
         marginTop: 0,
         marginLeft: 12,
         fontSize: 20,
         color: theme.palette.primary.contrastText,
     },
-    Page: {
+
+    [`& .${classes.Page}`]: {
         height: 320,
         width: '100%',
         paddingLeft: 0,
@@ -123,16 +177,19 @@ const useStyles = makeStyles((theme) => ({
         marinLeft: 0,
         marginRight: 0,
     },
-    popper: {
+
+    [`& .${classes.popper}`]: {
         zIndex: 1000,
     },
-    MenuList: {
+
+    [`& .${classes.MenuList}`]: {
         backgroundColor: theme.palette.blueGrey["5"],
         border: '2px solid',
         borderColor: theme.palette.primary.dark,
         borderRadius: 4,
     },
-    MenuItem: {
+
+    [`& .${classes.MenuItem}`]: {
         color: theme.palette.primary.contrastText,
     }
 }));
@@ -182,7 +239,7 @@ const coursesImgList = {
 
 const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const options = [
         'Скрыть курс',
@@ -225,7 +282,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
     }, [open]);
 
     return (
-        <Grid container className={classes.container}>
+        <StyledGrid container className={classes.container}>
             {knowledgeStore.moduleList.modules.map((module, index) => (
                 <Grid xs={12} sm={12} md={6} lg={4} xl={3} item className={classes.gridCard} container key={index.toString()}>
                     <Card elevation={24} className={cx(classes.card)}>
@@ -265,13 +322,21 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                     </Grid>
                                 </Grid>
                                 <Grid className={classes.CardContentSmallActionButtom}>
-                                    <IconButton onClick={() => knowledgeStore.setPreferenceInModules(index, "starred", module.id, module.starred ? "unstar" : "star", !module.starred)} color="primary" aria-label="add an alarm">
+                                    <IconButton
+                                        onClick={() => knowledgeStore.setPreferenceInModules(index, "starred", module.id, module.starred ? "unstar" : "star", !module.starred)}
+                                        color="primary"
+                                        aria-label="add an alarm"
+                                        size="large">
                                         {!module.starred && <StarBorderIcon className={classes.icons} />}
                                         {module.starred && <StarIcon className={classes.iconsStarPush} />}
                                     </IconButton>
                                 </Grid>
                                 <Grid className={classes.CardContentSmallActionButtom}>
-                                    <IconButton onClick={() => knowledgeStore.setPreferenceInModules(index, "pinned", module.id, module.pinned ? "unpin" : "pin", !module.pinned)} color="primary" aria-label="add an alarm">
+                                    <IconButton
+                                        onClick={() => knowledgeStore.setPreferenceInModules(index, "pinned", module.id, module.pinned ? "unpin" : "pin", !module.pinned)}
+                                        color="primary"
+                                        aria-label="add an alarm"
+                                        size="large">
                                         {!module.pinned && <FlagOutlinedIcon className={classes.icons} />}
                                         {module.pinned && <FlagIcon className={classes.iconsPinPush} />}
                                     </IconButton>
@@ -284,7 +349,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                         }}
                                         variant="contained"
                                         color="primary"
-                                    >
+                                        size="large">
                                         <MoreVertIcon className={classes.icons} />
                                     </IconButton>
                                     <Popper className={classes.popper} id={index} open={module.openMenu === undefined ? false : module.openMenu} anchorEl={module?.openMenuTarget}>
@@ -326,8 +391,8 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                 </Grid>
             ))
             }
-        </Grid>
-    )
+        </StyledGrid>
+    );
 }));
 
 

@@ -1,9 +1,36 @@
 import React, { useState } from "react";
+import { styled } from '@mui/material/styles';
 import ReactDOM from "react-dom";
 import { Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { inject, observer } from 'mobx-react'
+
+const PREFIX = 'DnDList';
+
+const classes = {
+    Container: `${PREFIX}-Container`
+};
+
+const StyledDragDropContext = styled(DragDropContext)((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.Container}`]: {
+        marginTop: 8,
+        marginLeft: 8,
+        marginRight: 8,
+        height: "calc(100vh - 220px)",
+        //display: "block",
+        //overflow: "auto",
+        '&::-webkit-scrollbar': {
+            width: "0! important",
+            height: 0,
+            display: "none !important",
+            background: "transparent",
+        }
+    }
+}));
 
 const initial = Array.from({ length: 10 }, (v, k) => k).map(k => {
     const custom = {
@@ -24,27 +51,10 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 
-const useStyles = makeStyles((theme) => ({
-    Container: {
-        marginTop: 8,
-        marginLeft: 8,
-        marginRight: 8,
-        height: "calc(100vh - 220px)",
-        //display: "block",
-        //overflow: "auto",
-        '&::-webkit-scrollbar': {
-            width: "0! important",
-            height: 0,
-            display: "none !important",
-            background: "transparent",
-        }
-    },
-}));
-
 function DnDList({ state, setState, ComponentsList }) {
     //state = initial
     //const [state, setState] = useState({ quotes: initial });
-    const classes = useStyles();
+
 
     function onDragEnd(result) {
         if (!result.destination) {
@@ -65,7 +75,7 @@ function DnDList({ state, setState, ComponentsList }) {
     }
 
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
+        <StyledDragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="list">
                 {provided => (
                     <div className={classes.Container} ref={provided.innerRef} {...provided.droppableProps}>
@@ -76,7 +86,7 @@ function DnDList({ state, setState, ComponentsList }) {
                     </div>
                 )}
             </Droppable>
-        </DragDropContext>
+        </StyledDragDropContext>
     );
 }
 

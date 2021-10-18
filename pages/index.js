@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { styled } from '@mui/material/styles';
 import Router from 'next/router'
 import Image from 'next/image'
 import React from 'react';
@@ -6,7 +7,7 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 
 import { Divider, useMediaQuery, Link, Button, IconButton, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles'
+
 
 import { inject, observer } from 'mobx-react'
 import Loading from './../components/OtherComponents/Loading/Loading';
@@ -16,14 +17,24 @@ import CardsList from './../components/PagesComponents/Landing/CardList';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    height: '100%',
-  },
-  ImageGrid: {
+const PREFIX = 'Main';
+
+const classes = {
+  ImageGrid: `${PREFIX}-ImageGrid`,
+  ContentGrid: `${PREFIX}-ContentGrid`,
+  dividerDiv: `${PREFIX}-dividerDiv`,
+  Icon: `${PREFIX}-Icon`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.ImageGrid}`]: {
     position: "relative",
-    backgroundColor: theme => theme.palette.blueGrey["3"],
+    backgroundColor: theme.palette.blueGrey["3"],
     width: "100%",
     paddingTop: "41.8%",
     // display: "block",
@@ -32,37 +43,40 @@ const useStyles = makeStyles((theme) => ({
     // left: 0,
     // right: 0,
   },
-  ContentGrid: {
+
+  [`& .${classes.ContentGrid}`]: {
     width: '100%',
     height: 396,
     background: `linear-gradient(0deg, ${theme.palette.background["2"]} , #d391e3)`,
-    //backgroundColor: theme => theme.palette.constant.landingBlue,
+    //backgroundColor:  theme.palette.constant.landingBlue,
   },
-  dividerDiv: {
+
+  [`& .${classes.dividerDiv}`]: {
     //position: "relative",
-    backgroundColor: theme => theme.palette.blueGrey["3"],
+    backgroundColor:  theme.palette.blueGrey["3"],
     width: "100%",
     paddingTop: "41.8%",
   },
-  Icon: {
+
+  [`& .${classes.Icon}`]: {
     fontSize: 48,
-    color: theme => theme.palette.constant.textWhite,
+    color:  theme.palette.constant.textWhite,
   }
 }));
 
 
 const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) => {
   const theme = useTheme();
-  const classes = useStyles(theme);
+
   const router = useRouter()
-  const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+  const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
   const firstCard = React.useRef(null)
 
-  const executeScroll = () => firstCard.current.scrollIntoView({behavior: "smooth"})
+  const executeScroll = () => firstCard.current.scrollIntoView({ behavior: "smooth" })
 
   return (
-    <>
+    <Root>
       <Head>
         <title>
           Ξffect
@@ -75,7 +89,10 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
         direction="column"
         justifyContent="flex-start"
         alignItems="center"
-        className={classes.root}
+        sx={{
+          width: '100%',
+          height: '100%',
+        }}
       >
         <Header />
         <Grid
@@ -115,7 +132,7 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
             alignItems="center"
             sx={{ maxWidth: 1200, }}
           >
-            <IconButton onClick={executeScroll}>
+            <IconButton onClick={executeScroll} size="large">
               <ArrowDownwardIcon className={classes.Icon} />
             </IconButton>
           </Grid>
@@ -123,7 +140,7 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
         <div ref={firstCard}> </div>
         <CardsList />
       </Grid>
-    </>
+    </Root>
   );
 }))
 

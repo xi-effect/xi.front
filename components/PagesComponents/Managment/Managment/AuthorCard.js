@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import Link from "next/link";
 import cx from 'clsx';
 import { Popper, MenuList, Paper, Grow, Pagination, PaginationItem, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import Image from 'next/image'
 import { inject, observer } from 'mobx-react'
 
-const useStyles = makeStyles((theme) => ({
-    gridCard: {
+const PREFIX = 'AuthorCard';
+
+const classes = {
+    gridCard: `${PREFIX}-gridCard`,
+    content: `${PREFIX}-content`,
+    gridPagination: `${PREFIX}-gridPagination`,
+    PaginationItem: `${PREFIX}-PaginationItem`,
+    buttonAuthor: `${PREFIX}-buttonAuthor`,
+    labelContent: `${PREFIX}-labelContent`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.gridCard}`]: {
         padding: 8,
     },
-    content: {
+
+    [`& .${classes.content}`]: {
         position: 'relative',
         //paddingLeft: 4,
         border: '2px solid',
@@ -32,13 +49,16 @@ const useStyles = makeStyles((theme) => ({
         //backgroundColor: theme => theme.palette.blueGrey["5"],
         //border: `${theme.main.palette.content.border} solid 2px`,
     },
-    gridPagination: {
+
+    [`& .${classes.gridPagination}`]: {
         marginTop: 8,
     },
-    PaginationItem: {
+
+    [`& .${classes.PaginationItem}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    buttonAuthor: {
+
+    [`& .${classes.buttonAuthor}`]: {
         position: "absolute",
         color: theme => theme.palette.primary.contrastText,
         backgroundColor: theme => theme.palette.primary.main,
@@ -49,14 +69,15 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: theme => theme.palette.primary.main,
         },
     },
-    labelContent: {
+
+    [`& .${classes.labelContent}`]: {
         margin: 16,
     }
 }));
 
 const AuthorCard = inject('store')(observer(({ store }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const [page, setPage] = React.useState(1);
     const handleChange = (event, value) => {
@@ -64,7 +85,7 @@ const AuthorCard = inject('store')(observer(({ store }) => {
     };
 
     return (
-        <Grid xs={12} sm={12} md={6} lg={4} xl={4} item className={classes.gridCard}
+        <StyledGrid xs={12} sm={12} md={6} lg={4} xl={4} item className={classes.gridCard}
             container
             direction="column"
             justifyContent="center"
@@ -109,8 +130,8 @@ const AuthorCard = inject('store')(observer(({ store }) => {
                     page={page}
                     onChange={handleChange} />
             </Grid>
-        </Grid>
-    )
+        </StyledGrid>
+    );
 }));
 
 

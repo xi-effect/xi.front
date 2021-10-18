@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
+
 
 //import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { Slider, Dialog, useTheme, DialogTitle, DialogContent, DialogContentText, DialogActions, Link, InputAdornment, Tooltip, IconButton, ClickAwayListener, Divider, ButtonGroup, MenuList, MenuItem, Avatar, Paper, Grow, Popper, Badge, Grid, FormControl, InputLabel, TextField, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button } from '@mui/material'
@@ -14,48 +15,97 @@ import DialogChangePassword from './UserAccount/DialogChangePassword'
 import DialogChangeEmail from './UserAccount/DialogChangeEmail';
 import SaveIcon from '@mui/icons-material/Save';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
-//import { SnackbarProvider, useSnackbar } from 'notistack';
+const PREFIX = 'UserAccount';
 
-let Crypto = require('crypto-js')
+const classes = {
+    root: `${PREFIX}-root`,
+    rootProfile: `${PREFIX}-rootProfile`,
+    gridDarkModeToggle: `${PREFIX}-gridDarkModeToggle`,
+    gridTypography: `${PREFIX}-gridTypography`,
+    Typography: `${PREFIX}-Typography`,
+    Badge: `${PREFIX}-Badge`,
+    Icon: `${PREFIX}-Icon`,
+    usernameLabel: `${PREFIX}-usernameLabel`,
+    divider: `${PREFIX}-divider`,
+    textField: `${PREFIX}-textField`,
+    textFieldDialog: `${PREFIX}-textFieldDialog`,
+    OutlinedInput: `${PREFIX}-OutlinedInput`,
+    icons: `${PREFIX}-icons`,
+    inputLabel: `${PREFIX}-inputLabel`,
+    textFieldTypography: `${PREFIX}-textFieldTypography`,
+    gridTextField: `${PREFIX}-gridTextField`,
+    gridSelectButton: `${PREFIX}-gridSelectButton`,
+    popper: `${PREFIX}-popper`,
+    labelEmailPassword: `${PREFIX}-labelEmailPassword`,
+    gridLabel: `${PREFIX}-gridLabel`,
+    labelEmailBefore: `${PREFIX}-labelEmailBefore`,
+    labelEmailAfter: `${PREFIX}-labelEmailAfter`,
+    link: `${PREFIX}-link`,
+    changeButton: `${PREFIX}-changeButton`,
+    cancelButton: `${PREFIX}-cancelButton`,
+    gridDialogItem: `${PREFIX}-gridDialogItem`,
+    gridRootDialogItem: `${PREFIX}-gridRootDialogItem`,
+    ErrorLabel: `${PREFIX}-ErrorLabel`,
+    gridErrorLabel: `${PREFIX}-gridErrorLabel`,
+    slider: `${PREFIX}-slider`,
+    gridDialogAv: `${PREFIX}-gridDialogAv`,
+    uploadButton: `${PREFIX}-uploadButton`,
+    Img: `${PREFIX}-Img`,
+    background: `${PREFIX}-background`,
+    changeLabel: `${PREFIX}-changeLabel`,
+    gridUsernameWrapper: `${PREFIX}-gridUsernameWrapper`
+};
 
-
-const useStyles = makeStyles((theme) => ({
-    root: {
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.root}`]: {
         width: '100%',
         height: 'auto',
         //backgroundColor: theme => theme.main.palette.content.background,
     },
-    rootProfile: {
+
+    [`& .${classes.rootProfile}`]: {
         // paddingLeft: 8,
         // paddingTop: 8,
     },
-    gridDarkModeToggle: {
+
+    [`& .${classes.gridDarkModeToggle}`]: {
         marginLeft: 8,
         marginTop: 8,
     },
-    gridTypography: {
+
+    [`& .${classes.gridTypography}`]: {
         marginTop: 4,
         marginLeft: 8,
     },
-    Typography: {
+
+    [`& .${classes.Typography}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    Badge: {
+
+    [`& .${classes.Badge}`]: {
 
     },
-    Icon: {
+
+    [`& .${classes.Icon}`]: {
         marginTop: 32,
         marginLeft: 32,
         borderRadius: "25%",
         color: theme => theme.palette.secondary.contrastText,
         backgroundColor: theme => theme.palette.primary.contrastText,
     },
-    usernameLabel: {
+
+    [`& .${classes.usernameLabel}`]: {
         paddingLeft: 8,
         fontSize: 24,
         color: theme => theme.palette.primary.contrastText,
     },
-    divider: {
+
+    [`& .${classes.divider}`]: {
         marginTop: 8,
         marginBottom: 8,
         width: "100%",
@@ -63,136 +113,168 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme => theme.palette.primary.contrastText,
         //paddingBottom: 8,
     },
-    textField: {
+
+    [`& .${classes.textField}`]: {
         marginLeft: 12,
         marginRight: 0,
         width: "100%",
         borderRadius: 4,
         backgroundColor: theme => theme.palette.blueGrey["6"],
     },
-    textFieldDialog: {
+
+    [`& .${classes.textFieldDialog}`]: {
         marginLeft: 12,
         marginRight: 0,
         width: "100%",
         backgroundColor: theme => theme.palette.primary.contrastText,
     },
-    OutlinedInput: {
+
+    [`& .${classes.OutlinedInput}`]: {
         zIndex: 999,
         color: theme => theme.palette.primary.contrastText,
     },
-    icons: {
+
+    [`& .${classes.icons}`]: {
         //color: 'rgb(142,146,151)',
     },
-    inputLabel: {
+
+    [`& .${classes.inputLabel}`]: {
         zIndex: 999,
         color: theme => theme.palette.primary.contrastText,
 
     },
-    textFieldTypography: {
+
+    [`& .${classes.textFieldTypography}`]: {
         zIndex: 999,
         marginTop: -4,
         color: theme => theme.palette.primary.contrastText,
     },
-    gridTextField: {
+
+    [`& .${classes.gridTextField}`]: {
         paddingTop: 12,
     },
-    gridSelectButton: {
+
+    [`& .${classes.gridSelectButton}`]: {
         paddingTop: 6,
         paddingLeft: 12,
     },
-    popper: {
+
+    [`& .${classes.popper}`]: {
         zIndex: 1000,
     },
-    labelEmailPassword: {
+
+    [`& .${classes.labelEmailPassword}`]: {
         paddingTop: 6,
         paddingLeft: 12,
         color: theme => theme.palette.primary.contrastText,
     },
-    gridLabel: {
+
+    [`& .${classes.gridLabel}`]: {
         paddingTop: 6,
         paddingLeft: 12,
         backgroundColor: theme => theme.palette.blueGrey["6"],
         paddingBottom: 6,
         borderRadius: 4,
     },
-    labelEmailBefore: {
+
+    [`& .${classes.labelEmailBefore}`]: {
         fontSize: 20,
         color: theme => theme.palette.primary.contrastText,
     },
-    labelEmailAfter: {
+
+    [`& .${classes.labelEmailAfter}`]: {
         fontSize: 20,
         color: theme => theme.palette.primary.contrastText,
     },
-    link: {
+
+    [`& .${classes.link}`]: {
         color: theme => theme.palette.primary.light,
         cursor: 'pointer',
         paddingLeft: 4,
         paddingTop: 4,
     },
-    changeButton: {
+
+    [`& .${classes.changeButton}`]: {
         width: 180,
         marginTop: 8,
     },
-    cancelButton: {
+
+    [`& .${classes.cancelButton}`]: {
         color: theme => theme.palette.primary.contrastText
     },
-    gridDialogItem: {
+
+    [`& .${classes.gridDialogItem}`]: {
         width: '100%',
         paddingTop: 16,
         paddingLeft: -4,
     },
-    gridRootDialogItem: {
+
+    [`& .${classes.gridRootDialogItem}`]: {
         width: '100%',
         paddingRight: 24,
     },
+
     // icons: {
     //     zIndex: 999,
     //     color: 'rgb(142,146,151)',
     // },,
-    ErrorLabel: {
+    [`& .${classes.ErrorLabel}`]: {
         zIndex: 999,
         fontSize: 16,
         color: theme => theme.palette.error.main,
     },
-    gridErrorLabel: {
+
+    [`& .${classes.gridErrorLabel}`]: {
         zIndex: 999,
         marginTop: 4,
         paddingLeft: 20,
         paddingRight: 20,
 
     },
-    slider: {
+
+    [`& .${classes.slider}`]: {
         width: "250px",
         padding: 16,
     },
-    gridDialogAv: {
+
+    [`& .${classes.gridDialogAv}`]: {
         height: '100%'
         //width: "550px",
     },
-    uploadButton: {
+
+    [`& .${classes.uploadButton}`]: {
         marginTop: 8,
     },
-    Img: {
+
+    [`& .${classes.Img}`]: {
         borderRadius: '50%'
     },
-    background: {
+
+    [`& .${classes.background}`]: {
         //position: 'fixed',
         // height: 96,
         // width: 96,
         //borderRadius: 64,
 
     },
-    changeLabel: {
+
+    [`& .${classes.changeLabel}`]: {
         paddingTop: 8,
     },
-    gridUsernameWrapper: {
+
+    [`& .${classes.gridUsernameWrapper}`]: {
         marginTop: 16,
     }
 }));
 
+//import { SnackbarProvider, useSnackbar } from 'notistack';
+
+let Crypto = require('crypto-js')
+
+
 const UserAccount = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore }) => {
     const theme = useTheme()
-    const classes = useStyles(theme);
+
     const options = ['Участник', 'Ученик', 'Преподаватель', 'Автор', 'Родитель'];
 
     // const { enqueueSnackbar } = useSnackbar();
@@ -297,7 +379,7 @@ const UserAccount = inject('rootStore', 'settingsStore')(observer(({ rootStore, 
     }
 
     return (
-        <>
+        <Root>
             <Grid spacing={1} container direction="column" className={classes.root}>
                 <Grid
                     //item
@@ -356,12 +438,11 @@ const UserAccount = inject('rootStore', 'settingsStore')(observer(({ rootStore, 
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
-
                                             aria-label="toggle password visibility"
                                             onClick={saveNewUsername}
                                             // onMouseDown={handleMouseDownPassword}
                                             edge="end"
-                                        >
+                                            size="large">
                                             <Tooltip title="Сохранить изменения" arrow>
                                                 <SaveIcon className={classes.icons} />
                                             </Tooltip>
@@ -511,7 +592,8 @@ const UserAccount = inject('rootStore', 'settingsStore')(observer(({ rootStore, 
                     {/* </Grid> */}
                 </Grid>
             </Grid>
-        </>);
+        </Root>
+    );
 }))
 
 export default UserAccount

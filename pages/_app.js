@@ -2,33 +2,35 @@
 import React from 'react';
 import Head from "next/head";
 import PropTypes from 'prop-types';
-import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
-import { makeStyles } from '@mui/styles';
+import {
+  createTheme,
+  ThemeProvider,
+  StyledEngineProvider,
+  responsiveFontSizes,
+} from '@mui/material/styles';
+
 import { Provider } from 'mobx-react'
 import { useStore } from '../store/rootStore'
 //import { useFileUpload } from "use-file-upload";
 import { inject, observer } from 'mobx-react'
 import CssBaseline from '@mui/material/CssBaseline';
 import { getDesignTokens } from '../theme'
+import { CacheProvider } from '@emotion/react';
 //import { SnackbarProvider, useSnackbar } from 'notistack';
+import createEmotionCache from '../store/createEmotionCache';
 
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
 import "../styles/globals.css"
 
-const MyApp = (observer(({ Component, pageProps }) => {
-
+const MyApp = (observer((props) => {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const rootStore = useStore(pageProps.initialState)
 
   const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsStore.settings.darkMode))), [rootStore.settingsStore.settings.darkMode]);
-  React.useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-  }, []);
 
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         {/* <title>
           Ξ Effect
@@ -62,30 +64,32 @@ const MyApp = (observer(({ Component, pageProps }) => {
         contentStore={rootStore.contentStore}
         authorizationStore={rootStore.authorizationStore}
       >
-        <ThemeProvider theme={theme}>
-          {/* <SnackbarProvider
-            autoHideDuration={800}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            maxSnack={3}> */}
-          {/* <MenuLayout> */}
-          <CssBaseline />
-          <Component {...pageProps} />
-          {/* </MenuLayout> */}
-          {/* </SnackbarProvider> */}
-        </ThemeProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            {/* <SnackbarProvider
+              autoHideDuration={800}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              maxSnack={3}> */}
+            {/* <MenuLayout> */}
+            <CssBaseline />
+            <Component {...pageProps} />
+            {/* </MenuLayout> */}
+            {/* </SnackbarProvider> */}
+          </ThemeProvider>
+        </StyledEngineProvider>
       </Provider>
       {/* </Context.Provider> */}
-    </>
-
-  )
+    </CacheProvider>
+  );
 }))
 
 export default MyApp
 
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
+  emotionCache: PropTypes.object,
   pageProps: PropTypes.object.isRequired,
 };

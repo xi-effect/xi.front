@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import Link from "next/link";
 import cx from 'clsx';
 import { Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
@@ -12,11 +13,23 @@ import FlagIcon from '@mui/icons-material/Flag';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 import { inject, observer } from 'mobx-react'
 
-const useStyles = makeStyles((theme) => ({
-    gridCard: {
+const PREFIX = 'AuthorCard';
+
+const classes = {
+    gridCard: `${PREFIX}-gridCard`,
+    card: `${PREFIX}-card`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.gridCard}`]: {
         padding: 8,
     },
-    card: {
+
+    [`& .${classes.card}`]: {
         position: 'relative',
         //paddingLeft: 4,
         border: '2px solid',
@@ -32,16 +45,16 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         overflow: 'initial',
         background: theme => theme.palette.blueGrey["5"],
-    },
+    }
 }));
 
 const AuthorCard = inject('store')(observer(({ store }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
 
     return (
-        <Grid
+        <StyledGrid
             xs={12} sm={12} md={6} lg={4} xl={3}
             item
             container
@@ -53,8 +66,8 @@ const AuthorCard = inject('store')(observer(({ store }) => {
             <Card className={cx(classes.card)}>
 
             </Card>
-        </Grid>
-    )
+        </StyledGrid>
+    );
 }));
 
 
