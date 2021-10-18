@@ -95,6 +95,7 @@ const MyApp = (observer(({ Component, pageProps }) => {
         "1": "#37474f",
         "2": "#455a64",
       },
+      // старая палитра 
       primary: {
         light: '#accef5',
         main: '#1976d2',
