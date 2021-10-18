@@ -1,7 +1,9 @@
 import React from 'react';
-import { Grid, useTheme } from '@mui/material';
+import { Grid, useTheme, Divider, useMediaQuery, Typography, Link } from '@mui/material'
+import clsx from 'clsx'
 import { makeStyles } from '@mui/styles';
-import { Divider, Typography } from '@mui/material';
+import { useRouter } from 'next/router'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,69 +21,80 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         backgroundColor: '#659DBD',
     },
-    textgrid: {
-        marginTop: '20%',
-        paddingLeft: '5%',
+    Link: {
+        fontSize: 34,
+        margin: 8,
+        cursor: "pointer",
+        color: theme => theme.palette.constant.textWhite,
     },
-    text: {
-        // [theme.breakpoints.up('sm')]: {
-        //     fontSize: '200px',
-        // },
-        // [theme.breakpoints.down('sm')]: {
-        //     fontSize: '100px',
-        // },
-        fontSize: '100px',
-        color: "#ffffff",
-        fontSize: '200px',
-        fontFamily: 'Roboto',
-        fontFamily: 'sans-serif',
+    LinkMobile: {
+        fontSize: 28,
     },
-    divider: {
-        width: '4px',
-        marginTop: '20%',
-        // [theme.breakpoints.up('sm')]: {
-        //     height: '280px',
-        // },
-        // [theme.breakpoints.down('sm')]: {
-        //     height: '140px',
-        // },
-        height: '140px',
-        marginLeft: '8px',
-        backgroundColor: "#ffffff",
+    mainLabelGrid: {
+        margin: 16,
     },
-    text2grid: {
-        marginTop: '20%',
-        paddingLeft: '16px',
+    errorNumberLabel: {
+        fontSize: 72,
+        margin: 8,
+        cursor: "default",
+        color: theme => theme.palette.constant.textWhite,
     },
-    text2: {
-        //paddingTop: '420px',
-        color: "#ffffff",
-        // [theme.breakpoints.up('sm')]: {
-        //     fontSize: '48px',
-        // },
-        // [theme.breakpoints.down('sm')]: {
-        //     fontSize: '36px',
-        // },
-        fontSize: '36px',
-        fontFamily: 'Roboto',
-        fontFamily: 'sans-serif',
+    Divider: {
+        height: 3,
+        width: 100,
+        backgroundColor: theme => theme.palette.constant.textWhite,
+    },
+    errorLabel: {
+        fontSize: 32,
+        margin: 8,
+        cursor: "default",
+        color: theme => theme.palette.constant.textWhite,
     }
 }));
 
 export default function ComponentDidCatch() {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const theme = useTheme();
     const classes = useStyles(theme);
 
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+    const router = useRouter()
+
     return (
         <div className={classes.root}>
-            <Grid container direction="row" >
-                <Grid item className={classes.textgrid}>
-                    <Typography className={classes.text}>404</Typography>
+            <Grid
+                container
+                direction="column"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{ height: "100%" }}
+            >
+                <Grid item className={classes.mainLabelGrid}>
+
                 </Grid>
-                <Divider orientation="vertical" flexItem className={classes.divider} />
-                <Grid item className={classes.text2grid}>
-                    <Typography className={classes.text2}>Упс,<br /> вы заблудились... <br />Если вам грустно, <br />Можно погладить Оленя</Typography>
+                <Grid
+                    item
+                    container
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Typography className={classes.errorNumberLabel}> 500 </Typography>
+                    <Divider className={classes.Divider} />
+                    <Typography className={classes.errorLabel}> Упс, вы заблудились... </Typography>
+                    <Link
+                        className={clsx(classes.Link, { [classes.LinkMobile]: mobile })}
+                        onClick={() => {
+                            router.push({
+                                pathname: '/',
+                            })
+                        }}
+                        underline="hover"
+                    >
+                        Вернуться в Ξffect
+                    </Link>
+                </Grid>
+                <Grid item>
+
                 </Grid>
             </Grid>
         </div>

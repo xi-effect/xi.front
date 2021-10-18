@@ -134,7 +134,7 @@ const SideDownbar = inject('store')(observer(({ store, openSideMenu, setOpenSide
                     >
                         <Grid>
                             <Tooltip title="Главная" placement="top" arrow>
-                                <ListItem onClick={() => router.push('/')} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === '/' })}>
+                                <ListItem onClick={() => router.push('/')} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === '/main' })}>
                                     <ListItemIcon className={classes.listItemIcon}>
                                         <HomeIcon fontSize="large" className={classes.icon} />
                                     </ListItemIcon>

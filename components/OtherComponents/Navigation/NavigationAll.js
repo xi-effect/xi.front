@@ -64,7 +64,7 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                                 console.log("Проблемы с сервером")
                             }
                         });
-                    uiStore.setLoading("/")
+                    uiStore.setLoading("/main")
 
                 }
             })
@@ -72,24 +72,23 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
 
     return (
         <>
-            {/* {uiStore.loading["/main"] && <Loading />} */}
-            {/* {!uiStore.loading["/main"] && */}
-
-            <div className={classes.root}>
-                <Box sx={{ display: { xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block', } }}>
-                    <Sidebar />
-                </Box>
-                <Box sx={{ display: { xs: 'block', sm: 'none', md: 'none', lg: 'none', xl: 'none', } }}>
-                    <SideDownbar />
-                </Box>
-                {/* <Helpbar openHelpMenu={openHelpMenu} setOpenHelpMenu={setOpenHelpMenu} /> */}
-                <main
-                    className={classes.content}
-                >
-                    {children}
-                </main>
-            </div>
-            {/* } */}
+            {uiStore.loading["/main"] && <Loading />}
+            {!uiStore.loading["/main"] &&
+                <div className={classes.root}>
+                    <Box sx={{ display: { xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block', } }}>
+                        <Sidebar />
+                    </Box>
+                    <Box sx={{ display: { xs: 'block', sm: 'none', md: 'none', lg: 'none', xl: 'none', } }}>
+                        <SideDownbar />
+                    </Box>
+                    {/* <Helpbar openHelpMenu={openHelpMenu} setOpenHelpMenu={setOpenHelpMenu} /> */}
+                    <main
+                        className={classes.content}
+                    >
+                        {children}
+                    </main>
+                </div>
+            }
         </>
     );
 }))
