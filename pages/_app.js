@@ -2,13 +2,14 @@
 import React from 'react';
 import Head from "next/head";
 import PropTypes from 'prop-types';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import { Provider } from 'mobx-react'
 import { useStore } from '../store/rootStore'
 //import { useFileUpload } from "use-file-upload";
 import { inject, observer } from 'mobx-react'
 import CssBaseline from '@mui/material/CssBaseline';
+import { getDesignTokens } from '../theme'
 //import { SnackbarProvider, useSnackbar } from 'notistack';
 
 import "../styles/globals.css"
@@ -17,113 +18,7 @@ const MyApp = (observer(({ Component, pageProps }) => {
 
   const rootStore = useStore(pageProps.initialState)
 
-  const themeLight = createTheme({
-    palette: {
-      text: {
-        main: "#212121",
-        dark: "#616161",
-        reverseMain: "#fafafa",
-        reverseDark: "#bdbdbd",
-      },
-      constant: {
-        textWhite: "#fafafa",
-        textBlack: "#212121",
-        landingBlue: "#6cadee",
-        landingPink: "#d391e3",
-      },
-      green: {
-        light: "#6fbf73",
-        main: "#4caf50",
-        dark: "#81ac8d",
-      },
-      background: {
-        "0": "#eceff1",
-        "1": "#cfd8dc",
-        "2": "#b0bec5",
-      },
-      primary: {
-        light: '#2196f3',
-        main: '#1976d2',
-        dark: '#0d47a1',
-        contrastText: '#fff',
-      },
-      secondary: {
-        light: '#8bc34a',
-        main: '#689f38',
-        dark: '#33691e',
-        contrastText: '#111',
-      },
-      blueGrey: {
-        "0": "#eceff1",
-        "1": "#cfd8dc",
-        "2": "#b0bec5",
-        "3": "#90a4ae",
-        "4": "#78909c",
-        "5": "#607d8b",
-        "6": "#546e7a",
-        "7": "#455a64",
-        "8": "#37474f",
-        "9": "#263238",
-      },
-
-    },
-  });
-
-
-  const themeDark = createTheme({
-    palette: {
-      //mode: 'dark',
-      text: {
-        main: "#fafafa",
-        dark: "#bdbdbd",
-        reverseMain: "#212121",
-        reverseDark: "#616161",
-      },
-      constant: {
-        textWhite: "#fafafa",
-        textBlack: "#212121",
-        landingBlue: "#6cadee",
-        landingPink: "#d391e3",
-      },
-      green: {
-        light: "#6fbf73",
-        main: "#4caf50",
-        dark: "#81ac8d",
-      },
-      background: {
-        "0": "#263238",
-        "1": "#37474f",
-        "2": "#455a64",
-      },
-      // старая палитра 
-      primary: {
-        light: '#accef5',
-        main: '#1976d2',
-        dark: '#0d47a1',
-        contrastText: '#fff',
-      },
-      secondary: {
-        light: '#8bc34a',
-        main: '#689f38',
-        dark: '#33691e',
-        contrastText: '#111',
-      },
-      blueGrey: {
-        "0": "#263238",
-        "1": "#37474f",
-        "2": "#455a64",
-        "3": "#546e7a",
-        "4": "#607d8b",
-        "5": "#78909c",
-        "6": "#90a4ae",
-        "7": "#b0bec5",
-        "8": "#cfd8dc",
-        "9": "#eceff1",
-      },
-
-    },
-  });
-
+  const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsStore.settings.darkMode))), [rootStore.settingsStore.settings.darkMode]);
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -167,7 +62,7 @@ const MyApp = (observer(({ Component, pageProps }) => {
         contentStore={rootStore.contentStore}
         authorizationStore={rootStore.authorizationStore}
       >
-        <ThemeProvider theme={rootStore.settingsStore.settings.darkTheme ? themeDark : themeLight}>
+        <ThemeProvider theme={theme}>
           {/* <SnackbarProvider
             autoHideDuration={800}
             anchorOrigin={{
