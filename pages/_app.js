@@ -165,6 +165,7 @@ const MyApp = (observer(({ Component, pageProps }) => {
         managmentStore={rootStore.managmentStore}
         settingsStore={rootStore.settingsStore}
         contentStore={rootStore.contentStore}
+        authorizationStore={rootStore.authorizationStore}
       >
         <ThemeProvider theme={rootStore.settingsStore.settings.darkTheme ? themeDark : themeLight}>
           {/* <SnackbarProvider
