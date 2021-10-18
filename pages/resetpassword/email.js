@@ -227,7 +227,7 @@ const PassResetEmail = inject('rootStore', 'uiStore')(observer(({ rootStore, uiS
             <Head>
                 <title>Ξ Регистрация</title>
             </Head>
-            {uiStore.loading["/registration"] && <Loading />}
+            {/* {uiStore.loading["/registration"] && <Loading />} */}
             <div className={classes.root}>
                 <BackgroundImg src="/wallpapers/hp3.jpg" />
                 <Grid

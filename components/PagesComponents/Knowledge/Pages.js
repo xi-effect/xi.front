@@ -63,6 +63,9 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         width: '100%',
     },
+    nothingSearchLabel: {
+        color: theme => theme.palette.text.main,
+    }
 }));
 
 const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
@@ -120,7 +123,7 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                         alignItems="center"
                         className={classes.container}
                     >
-                        <Typography> Ничего не найдено по запросу </Typography>
+                        <Typography className={classes.nothingSearchLabel}> Ничего не найдено по запросу </Typography>
                         <div>
                             <Image
                                 alt="img"

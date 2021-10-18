@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from "next/link";
 import cx from 'clsx';
 import clsx from 'clsx';
-import { Divider, CardContent, SpeedDial, MenuItem, SpeedDialAction, Popper, MenuList, Avatar, Paper, Accordion, IconButton, Chip, AccordionSummary, AccordionDetails, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
+import { Divider, CardContent, MenuItem, Popper, MenuList, Avatar, Paper, Accordion, IconButton, Chip, AccordionSummary, AccordionDetails, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
 import { makeStyles, withStyles } from '@mui/styles';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -317,31 +317,8 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
                         container
                         justifyContent="center"
                         alignItems="center"
-                        key={index}>
+                        key={index.toString()}>
                         <Card elevation={24} className={clsx(classes.Card, { [classes.cardColumn]: knowledgeUI.gridTypeOnPage != "grid" }, { [classes.CardTheory]: page.kind === "theory" }, { [classes.CardPractice]: page.kind === "practice" }, { [classes.CardTest]: page.kind === "task" })}>
-                            {/* <SpeedDial
-                                //sx={{ height: 20, width: 20 }}
-                                ariaLabel="SpeedDial tooltip example"
-                                className={classes.speedDial}
-                                //hidden={hidden}
-                                // icon={<IconButton className={classes.IconButtonSpeedDial}>
-                                //     <MoreVertIcon className={classes.iconSpeedDial} />
-                                // </IconButton>}
-                                icon={<MoreVertIcon className={classes.iconSpeedDial} />}
-                                onClose={() => setOpen(false)}
-                                onOpen={() => setOpen(true)}
-                                open={open}
-                                direction="down"
-                            >
-                                <SpeedDialAction
-                                    className={clsx(classes.speedDialActionFirst)}
-                                    tooltipPlacement="left"
-                                    icon={<MoreVertIcon />}
-                                    tooltipTitle={`Тип`}
-                                    //tooltipOpen
-                                    onClick={() => setOpen(false)}
-                                />
-                            </SpeedDial> */}
                             <IconButton className={classes.IconButtonMoreVert} variant="contained" color="primary" onClick={(event) => setOpenMenu(event.currentTarget)}>
                                 <MoreVertIcon className={classes.icons} />
                             </IconButton>
@@ -378,14 +355,6 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
 
                                 </Grid>
                             </Grid>
-
-                            {/* <Grid sx={{ maxWidth: 640, my: 1, mx: 'auto' }}>
-                                <Grid container wrap="nowrap" spacing={2}>
-                                    <Grid item xs>
-                                        <Typography className={classes.pageName} noWrap>{page.name}</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Grid> */}
                             <Divider variant="middle" className={classes.Divider} />
                             <CardContent className={classes.CardContent}>
                                 <Grid
@@ -453,39 +422,6 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
                                             <Typography className={classes.AuthorName}>Информация об авторе</Typography>
                                         </Grid>
                                     </Grid>}
-
-                                    {/* <Chip className={classes.Chip} label={page.theme} size="small" color="primary" /> */}
-                                    {/* <Chip className={classes.Chip} label={kindSelect(page.kind)} size="small" color="primary" /> */}
-                                    {/* <Grid
-                                        container
-                                        direction="row"
-                                        justifyContent="flex-start"
-                                        alignItems="center"
-                                    >
-                                        <Views views={page.views} />
-                                    </Grid> */}
-                                    {/* <Divider className={classes.Divider} /> */}
-                                    {/* <Grid container wrap="nowrap" spacing={2}>
-                                        <Grid item xs zeroMinWidth>
-                                            <CustomTooltip className={classes.Tooltip} arrow title={`Описание`}>
-                                                <Typography className={classes.pageDescription} noWrap>{page.description != null ? page.description : "Автор не оставил описание страницы"}</Typography>
-                                            </CustomTooltip>
-                                        </Grid>
-                                    </Grid> */}
-                                    {/* <Divider className={classes.Divider}/> */}
-                                    {/* <Grid container item direction="row" justifyContent="flex-end" xs={12} className={classes.CardContentGrid}>
-                                        <Grid container direction='row' className={classes.userownerinfo}> */}
-                                    {/* {course.createrAvatar} */}
-                                    {/* <Grid><Avatar className={classes.avatar}> {page["author_name"][0].toUpperCase()} </Avatar></Grid>
-                                            <Grid className={classes.gridcreater}>
-                                                <Typography className={classes.overline}>Создатель</Typography>
-                                                <Typography className={classes.name}>{page["author_name"]}</Typography>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid className={classes.CardContentSmallActionButtom}>
-
-                                        </Grid>
-                                    </Grid> */}
                                 </Grid>
                             </CardContent>
                             <Divider variant="middle" className={classes.Divider} />

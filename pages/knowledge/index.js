@@ -10,7 +10,6 @@ import { makeStyles, withStyles } from '@mui/styles';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 import SwipeableViews from 'react-swipeable-views';
-import { inject, observer } from 'mobx-react'
 
 import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll'
 //import Background from '../../components/OtherComponents/Background/Background.js'
@@ -50,7 +49,6 @@ function TabPanel(props) {
   );
 }
 
-
 function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
@@ -87,10 +85,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Knowledge = inject('rootStore')(observer(({ rootStore }) => {
+const Knowledge = () => {
   const theme = useTheme();
   const classes = useStyles(theme);
-
 
   React.useEffect(() => {
     if (sessionStorage.getItem('KnowledgeTab') === "Pages") return setValue(0)
@@ -143,22 +140,13 @@ const Knowledge = inject('rootStore')(observer(({ rootStore }) => {
             </TabPanel>
             <TabPanel value={value} index={1} dir={theme.direction}>
               <Modules />
-
-              {/* <Modules /> */}
             </TabPanel>
-
-            {/* <TabPanel value={value} index={2} dir={theme.direction}> */}
-            {/* <Moderate/> */}
-            {/* </TabPanel> */}
-            {/* <TabPanel value={value} index={2} dir={theme.direction}> */}
-            {/* <Other /> */}
-            {/* </TabPanel> */}
           </SwipeableViews>
         </Grid>
       </NavigationAll>
 
     </>
   );
-}))
+}
 
 export default Knowledge
