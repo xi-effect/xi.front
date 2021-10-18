@@ -19,7 +19,28 @@ const MyApp = (observer(({ Component, pageProps }) => {
 
   const themeLight = createTheme({
     palette: {
-      //mode: 'light',
+      text: {
+        main: "#212121",
+        dark: "#616161",
+        reverseMain: "#fafafa",
+        reverseDark: "#bdbdbd",
+      },
+      constant: {
+        textWhite: "#fafafa",
+        textBlack: "#212121",
+        landingBlue: "#6cadee",
+        landingPink: "#d391e3",
+      },
+      green: {
+        light: "#6fbf73",
+        main: "#4caf50",
+        dark: "#81ac8d",
+      },
+      background: {
+        "0": "#eceff1",
+        "1": "#cfd8dc",
+        "2": "#b0bec5",
+      },
       primary: {
         light: '#2196f3',
         main: '#1976d2',
@@ -44,11 +65,7 @@ const MyApp = (observer(({ Component, pageProps }) => {
         "8": "#37474f",
         "9": "#263238",
       },
-      background: {
-        "0": "#eceff1",
-        "1": "#cfd8dc",
-        "2": "#b0bec5",
-      }
+
     },
   });
 
@@ -65,6 +82,8 @@ const MyApp = (observer(({ Component, pageProps }) => {
       constant: {
         textWhite: "#fafafa",
         textBlack: "#212121",
+        landingBlue: "#6cadee",
+        landingPink: "#d391e3",
       },
       green: {
         light: "#6fbf73",
@@ -76,11 +95,6 @@ const MyApp = (observer(({ Component, pageProps }) => {
         "1": "#37474f",
         "2": "#455a64",
       },
-      forest: {
-        header: "#6cadee",
-        //background: "#dbf2fe",
-      },
-
       primary: {
         light: '#accef5',
         main: '#1976d2',

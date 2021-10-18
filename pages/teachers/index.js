@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   NavigationGrid: {
     height: 64,
-    backgroundColor: theme => theme.palette.forest.header,
+    backgroundColor: theme => theme.palette.constant.landingBlue,
   },
   ImageGrid: {
     position: "relative",
@@ -43,15 +43,15 @@ const useStyles = makeStyles((theme) => ({
   mainLabelMobile: {
     fontSize: 26,
   },
-  ContentGrid: {
+  ContentGrid1: {
     width: '100%',
     height: 312,
-    backgroundColor: theme => theme.palette.blueGrey["2"],
+    backgroundColor: theme => theme.palette.constant.landingBlue,
   },
   ContentGrid2: {
     width: '100%',
     height: 312,
-    backgroundColor: theme => theme.palette.blueGrey["3"],
+    backgroundColor: theme => theme.palette.constant.landingPink,
   },
   Link: {
     fontSize: 20,

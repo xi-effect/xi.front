@@ -18,11 +18,10 @@ const useStyles = makeStyles((theme) => ({
   main: {
     width: '100%',
     height: '100%',
-    overflow: "hidden",
   },
   NavigationGrid: {
     height: 64,
-    backgroundColor: theme => theme.palette.forest.header,
+    backgroundColor: theme => theme.palette.constant.landingBlue,
   },
   ImageGrid: {
     position: "relative",
@@ -47,13 +46,20 @@ const useStyles = makeStyles((theme) => ({
   },
   ContentGrid: {
     width: '100%',
-    height: 312,
-    backgroundColor: theme => theme.palette.blueGrey["2"],
+    height: 512,
+    background: `linear-gradient(0deg, ${theme.palette.background["2"]} , #d391e3)`,
+    //backgroundColor: theme => theme.palette.constant.landingBlue,
+  },
+  ContentGrid1: {
+    width: '100%',
+    height: 512,
+    //background: `linear-gradient(0deg, #EECFBA, #C5DDE8)`;
+    backgroundColor: theme => theme.palette.background["2"],
   },
   ContentGrid2: {
     width: '100%',
-    height: 312,
-    backgroundColor: theme => theme.palette.blueGrey["3"],
+    height: 512,
+    backgroundColor: theme => theme.palette.background["1"],
   },
   Link: {
     fontSize: 20,
@@ -245,26 +251,7 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
           justifyContent="center"
           alignItems="center"
           sx={{ marginTop: 0, }}
-          className={classes.ContentGrid2}>
-          <Grid
-            item
-            container
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{ maxWidth: 1200, }}
-          >
-
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          sx={{ marginTop: 0, }}
-          className={classes.ContentGrid}>
+          className={classes.ContentGrid1}>
           <Grid
             item
             container
@@ -302,7 +289,45 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
           justifyContent="center"
           alignItems="center"
           sx={{ marginTop: 0, }}
-          className={classes.ContentGrid}>
+          className={classes.ContentGrid1}>
+          <Grid
+            item
+            container
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{ maxWidth: 1200, }}
+          >
+
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ marginTop: 0, }}
+          className={classes.ContentGrid2}>
+          <Grid
+            item
+            container
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{ maxWidth: 1200, }}
+          >
+
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ marginTop: 0, }}
+          className={classes.ContentGrid1}>
           <Grid
             item
             container
