@@ -67,7 +67,7 @@ const Root = styled('div')((
 
 const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) => {
   const theme = useTheme();
-
+  const [loading, setLoading] = React.useState(true)
   const router = useRouter()
   const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
@@ -83,7 +83,7 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
         </title>
       </Head>
       {/* <Background /> */}
-      {uiStore.loading["/"] && <Loading />}
+      {loading && <Loading />}
       <Grid
         container
         direction="column"
@@ -112,7 +112,7 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
             quality={100}
 
             onLoad={() =>
-              uiStore.setLoading("/")
+              setLoading(false)
             }
           />
         </Grid>

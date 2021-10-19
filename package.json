@@ -17,6 +17,7 @@
     "@emotion/react": "^11.5.0",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.3.0",
+    "@hookform/resolvers": "^2.8.2",
     "@mui/icons-material": "^5.0.3",
     "@mui/lab": "^5.0.0-alpha.51",
     "@mui/material": "^5.0.4",
@@ -34,7 +35,8 @@
     "react-hook-form": "^7.17.4",
     "react-swipeable": "^6.2.0",
     "react-swipeable-views": "^0.14.0",
-    "use-file-upload": "^1.0.11"
+    "use-file-upload": "^1.0.11",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

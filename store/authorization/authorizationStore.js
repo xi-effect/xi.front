@@ -1,5 +1,8 @@
 import { action, observable, computed, runInAction, makeObservable } from 'mobx'
+import Router from 'next/router'
 
+
+let Crypto = require('crypto-js')
 
 class AuthorizationStore {
     // `this` from rootstore passed to the constructor and we can 
@@ -11,51 +14,33 @@ class AuthorizationStore {
         makeObservable(this);
     }
 
-    @observable login = {
-        email: '',
-        password: '',
-        showPassword: false,
-        error: false,
-        errorEmail: false,
-        errorPassword: false,
-        errorServer: false,
-    }
-
-    @action setLogin = (item, value) => {
-        this.login[item] = value
-    }
-
-    @action clickEnterButton = () => {
-        this.setLogin("error", false)
-        this.setLogin("errorEmail", false)
-        this.setLogin("errorPassword", false)
-        this.setLogin("errorServer", false)
-        if (this.login.email.length > 0 && this.login.password.length > 0) {
-            this.rootStore.fetchData(`${this.rootStore.url}/auth/`, "POST", { "email": this.login.email, "password": Crypto.SHA384(this.login.password).toString() })
-                .then((data) => {
-                    if (data != undefined) {
-                        if (data.a == "Success") {
-                            const router = Router
-                            router.push('/main')
-                            setTimeout(() => {
-                                this.setLogin("email", '')
-                                this.setLogin("password", '')
-                            }, 10000)
-                        }
-                        if (data.a == "User doesn't exist") {
-                            this.setLogin("errorEmail", true)
-                        }
-                        if (data.a == "Wrong password") {
-                            this.setLogin("errorPassword", true)
-                        }
+    @action clickRegistrationButton = (data) => {
+        this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString(), "username": data.username })
+            .then((data) => {
+                console.log(data)
+                if (data != undefined) {
+                    if (data.a) { //true
+                        const router = Router
+                        router.push('/')
                     } else {
-                        this.setLogin("errorServer", true)
+                        setEmailAlreadyUsed(true)
                     }
-                });
-        }
-        else {
-            this.setLogin("error", true)
-        }
+                } else {
+                    setErrorServer(true)
+                }
+            });
+    }
+
+    @action clickEnterButton = (data) => {
+        this.rootStore.fetchData(`${this.rootStore.url}/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
+            .then((data) => {
+                if (data != undefined) {
+                    if (data.a == "Success") {
+                        const router = Router
+                        router.push('/main')
+                    }
+                }
+            })
     }
 }
 

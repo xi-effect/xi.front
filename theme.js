@@ -8,6 +8,10 @@ export const getDesignTokens = (mode) => ({
                     dark: "#616161",
                     reverseMain: "#fafafa",
                     reverseDark: "#bdbdbd",
+
+                    disabled: "rgba(0, 0, 0, 0.38)",
+                    primary: "rgba(0, 0, 0, 0.87)",
+                    secondary: "rgba(0, 0, 0, 0.6)",
                 },
                 constant: {
                     textWhite: "#fafafa",
@@ -21,9 +25,9 @@ export const getDesignTokens = (mode) => ({
                     dark: "#81ac8d",
                 },
                 background: {
-                    "0": "#eceff1",
-                    "1": "#cfd8dc",
-                    "2": "#b0bec5",
+                    1: "#eceff1",
+                    2: "#cfd8dc",
+                    3: "#b0bec5",
                 },
                 primary: {
                     light: '#2196f3',
@@ -57,6 +61,10 @@ export const getDesignTokens = (mode) => ({
                     dark: "#bdbdbd",
                     reverseMain: "#212121",
                     reverseDark: "#616161",
+                    disabled: "rgba(255, 255, 255, 0.38)",
+                    primary: "rgba(255, 255, 255, 0.87)",
+                    secondary: "rgba(255, 255, 255, 0.6)",
+                    icon: "rgba(255, 255, 255, 0.8)",
                 },
                 constant: {
                     textWhite: "#fafafa",
@@ -70,9 +78,9 @@ export const getDesignTokens = (mode) => ({
                     dark: "#81ac8d",
                 },
                 background: {
-                    "0": "#263238",
-                    "1": "#37474f",
-                    "2": "#455a64",
+                    0: "#263238",
+                    1: "#37474f",
+                    2: "#455a64",
                 },
                 // старая палитра 
                 primary: {

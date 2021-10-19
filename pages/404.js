@@ -43,7 +43,7 @@ const Root = styled('div')((
         fontSize: 34,
         margin: 8,
         cursor: "pointer",
-        color: theme => theme.palette.constant.textWhite,
+        color: theme.palette.constant.textWhite,
     },
 
     [`& .${classes.LinkMobile}`]: {
@@ -58,20 +58,20 @@ const Root = styled('div')((
         fontSize: 72,
         margin: 8,
         cursor: "default",
-        color: theme => theme.palette.constant.textWhite,
+        color: theme.palette.constant.textWhite,
     },
 
     [`& .${classes.Divider}`]: {
         height: 3,
         width: 100,
-        backgroundColor: theme => theme.palette.constant.textWhite,
+        backgroundColor: theme.palette.constant.textWhite,
     },
 
     [`& .${classes.errorLabel}`]: {
         fontSize: 32,
         margin: 8,
         cursor: "default",
-        color: theme => theme.palette.constant.textWhite,
+        color: theme.palette.constant.textWhite,
     }
 }));
 
@@ -83,43 +83,42 @@ export default function _404() {
     const router = useRouter()
 
     return (
-        <Root className={classes.root}>
+        <Grid
+            container
+            direction="column"
+            justifyContent="space-between"
+            alignItems="center"
+            className={classes.root}
+            // sx={{ height: "100%" }}
+        >
+            <Grid item className={classes.mainLabelGrid}>
+
+            </Grid>
             <Grid
+                item
                 container
                 direction="column"
-                justifyContent="space-between"
+                justifyContent="center"
                 alignItems="center"
-                sx={{ height: "100%" }}
             >
-                <Grid item className={classes.mainLabelGrid}>
-
-                </Grid>
-                <Grid
-                    item
-                    container
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
+                <Typography className={classes.errorNumberLabel}> 404 </Typography>
+                <Divider className={classes.Divider} />
+                <Typography className={classes.errorLabel}> Упс, вы заблудились... </Typography>
+                <Link
+                    className={clsx(classes.Link, { [classes.LinkMobile]: mobile })}
+                    onClick={() => {
+                        router.push({
+                            pathname: '/',
+                        })
+                    }}
+                    underline="hover"
                 >
-                    <Typography className={classes.errorNumberLabel}> 404 </Typography>
-                    <Divider className={classes.Divider} />
-                    <Typography className={classes.errorLabel}> Упс, вы заблудились... </Typography>
-                    <Link
-                        className={clsx(classes.Link, { [classes.LinkMobile]: mobile })}
-                        onClick={() => {
-                            router.push({
-                                pathname: '/',
-                            })
-                        }}
-                        underline="hover"
-                    >
-                        Вернуться в Ξffect
-                    </Link>
-                </Grid>
-                <Grid item>
-
-                </Grid>
+                    Вернуться в Ξffect
+                </Link>
             </Grid>
-        </Root>
+            <Grid item>
+
+            </Grid>
+        </Grid>
     );
 }
