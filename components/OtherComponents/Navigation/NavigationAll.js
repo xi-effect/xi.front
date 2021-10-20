@@ -26,27 +26,16 @@ const Root = styled('div')((
     }
 ) => ({
     [`& .${classes.root}`]: {
-        zIndex: 0,
-        display: 'flex',
-        backgroundColor: theme => theme.palette.blueGrey["1"],
-        minHeight: "100vh",
-    },
 
-    [`& .${classes.content}`]: {
-        zIndex: 0,
-        margin: 0,
-        //height: "100vh",
-        width: "100%",
-        backgroundColor: theme => theme.palette.blueGrey["1"],
-    }
+    },
 }));
 
 const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer(({ rootStore, settingsStore, uiStore, children }) => {
     const theme = useTheme();
-
-
     const router = useRouter()
 
+
+    
     React.useEffect(() => {
         rootStore.fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
             .then((data) => {
@@ -87,7 +76,12 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
         (<Root>
             {uiStore.loading["/main"] && <Loading />}
             {!uiStore.loading["/main"] &&
-                <div className={classes.root}>
+                <Box sx={{
+                    zIndex: 0,
+                    display: 'flex',
+                    backgroundColor: 'background.1',
+                    minHeight: "100vh",
+                }}>
                     <Box sx={{ display: { xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block', } }}>
                         <Sidebar />
                     </Box>
@@ -95,12 +89,18 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                         <SideDownbar />
                     </Box>
                     {/* <Helpbar openHelpMenu={openHelpMenu} setOpenHelpMenu={setOpenHelpMenu} /> */}
-                    <main
-                        className={classes.content}
+                    <Box
+                        sx={{
+                            zIndex: 0,
+                            margin: 0,
+                            //height: "100vh",
+                            width: "100%",
+                            backgroundColor: 'background.0',
+                        }}
                     >
                         {children}
-                    </main>
-                </div>
+                    </Box>
+                </Box>
             }
         </Root>)
     );

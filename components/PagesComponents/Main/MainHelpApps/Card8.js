@@ -31,14 +31,14 @@ const StyledGrid = styled(Grid)((
     [`& .${classes.mainLabel}`]: {
         fontSize: 20,
         marginLeft: 52,
-        color: theme => theme.palette.primary.contrastText,
+        color:  theme.palette.primary.contrastText,
     },
 
     [`& .${classes.content}`]: {
         //width: '100%',
         height: '350px',
         borderRadius: 64,
-        backgroundColor: theme => theme.palette.blueGrey["5"],
+        backgroundColor:  theme.palette.blueGrey["5"],
         //border: `${theme.main.palette.content.border} solid 2px`,
     },
 
@@ -47,11 +47,11 @@ const StyledGrid = styled(Grid)((
     },
 
     [`& .${classes.PaginationItem}`]: {
-        color: theme => theme.palette.primary.contrastText,
+        color:  theme.palette.primary.contrastText,
     },
 
     [`& .${classes.labelContent}`]: {
-        color: theme => theme.palette.primary.contrastText,
+        color:  theme.palette.primary.contrastText,
         padding: 16,
         fontSize: 20,
     }

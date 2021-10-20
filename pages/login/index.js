@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router'
 import clsx from 'clsx';
-import { Grid, Stack, Input, useMediaQuery, TextField, useTheme, InputLabel, InputAdornment, Tooltip, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
+import { Grid, Stack, Input, Link, useMediaQuery, TextField, useTheme, InputLabel, InputAdornment, Tooltip, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
 import { Link as LinkUI } from '@mui/material';
 import React from 'react'
 import BackgroundImg from '../../components/OtherComponents/Background/BackgroundImg'
@@ -60,7 +60,7 @@ const Login = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ r
 
                         onClick={() => router.push('/')}
                         variant="h3"
-                        sx={{ color: 'text.main', m: 2, }}
+                        sx={{ color: 'text.main', m: 2, cursor: "pointer", }}
                     >
                         Ξffect
                     </Typography>
@@ -127,9 +127,41 @@ const Login = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ r
                                         </InputAdornment>
                                     }
                                 />
+                                <Stack
+                                    direction="row"
+                                    justifyContent="flex-start"
+                                    alignItems="center"
+                                    spacing={1}
+
+                                >
+                                    <Link
+                                        sx={{ color: 'text.main', m: 1, cursor: 'pointer' }}
+                                        onClick={() => {
+                                            router.push({
+                                                pathname: '/registration',
+                                            })
+                                        }}
+                                        underline="hover"
+                                    >
+                                        Регистрация
+                                    </Link>
+                                    {"/"}
+                                    <Link
+                                        sx={{ color: 'text.main', m: 1, cursor: 'pointer' }}
+                                        onClick={() => {
+                                            router.push({
+                                                pathname: '/resetpassword/email',
+                                            })
+                                        }}
+                                        underline="hover"
+                                    >
+                                        Смена пароля
+                                    </Link>
+                                </Stack>
                             </FormControl>}
                         />
-                        <Button size="large" type="submit" sx={{ color: 'text.main' }}>
+
+                        <Button variant="outlined" size="large" type="submit" sx={{ color: 'text.main', border: `2px solid ${theme.palette.text.dark}`, '&:hover': { border: `2px solid ${theme.palette.text.dark}` } }}>
                             Войти
                         </Button>
                     </Stack>

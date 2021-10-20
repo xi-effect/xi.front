@@ -38,7 +38,7 @@ const Root = styled('div')((
         zIndex: 1,
         height: 72,
         flexShrink: 0,
-        backgroundColor: theme => theme.palette.blueGrey["0"],
+        backgroundColor: theme.palette.blueGrey["0"],
     },
 
     [`& .${classes.drawerPaper}`]: {
@@ -54,7 +54,7 @@ const Root = styled('div')((
         marginLeft: 12,
         height: 56,
         width: 56,
-        backgroundColor: theme => theme.palette.blueGrey["2"],
+        backgroundColor: theme.palette.blueGrey["2"],
         cursor: "pointer",
         transition: '0.4s',
         borderRadius: 18,
@@ -64,9 +64,9 @@ const Root = styled('div')((
     },
 
     [`& .${classes.listItemActive}`]: {
-        backgroundColor: theme => theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.main,
         '&:hover': {
-            backgroundColor: theme => theme.palette.primary.main,
+            backgroundColor: theme.palette.primary.main,
         },
         borderRadius: 8,
     },
@@ -75,20 +75,20 @@ const Root = styled('div')((
         display: "flex",
         justifyContent: "center",
         alignContent: "center",
-        color: theme => theme.palette.primary.contrastText,
+        color: theme.palette.primary.contrastText,
     },
 
     [`& .${classes.icon}`]: {
         fontSize: "38px !important",
         height: 38,
         width: 38,
-        color: theme => theme.palette.primary.contrastText,
+        color: theme.palette.primary.contrastText,
     },
 
     [`& .${classes.content}`]: {
         flexGrow: 1,
-        backgroundColor: theme => theme.palette.background.default,
-        padding: theme => theme.spacing(3),
+        backgroundColor: theme.palette.background.default,
+        padding: theme.spacing(3),
     }
 }));
 

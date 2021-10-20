@@ -55,7 +55,7 @@ const Email = inject('rootStore')(observer(({ rootStore }) => {
 
                         onClick={() => router.push('/')}
                         variant="h3"
-                        sx={{ color: 'text.main', m: 2, }}
+                        sx={{ color: 'text.main', m: 2, cursor: "pointer", }}
                     >
                         Ξffect
                     </Typography>
@@ -72,7 +72,7 @@ const Email = inject('rootStore')(observer(({ rootStore }) => {
                             <Grid container direction="row" justifyContent="center" alignItems="center" >
                                 <Typography variant="h4"> Подтверждение почты </Typography>
                             </Grid>
-                            {!ok && <Button sx={{ color: 'text.main', m: 2, }} onClick={acceptButtonClicked} >
+                            {!ok && <Button variant="outlined" sx={{ color: 'text.main', m: 2, border: `2px solid ${theme.palette.text.dark}`, '&:hover': {border: `2px solid ${theme.palette.text.dark}`}}} onClick={acceptButtonClicked} >
                                 Подтвердить
                             </Button>}
                             {ok && <Grid container direction="row" justifyContent="center" alignItems="center" >

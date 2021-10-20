@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router'
 import clsx from 'clsx';
-import { Grid, Stack, Input, useMediaQuery, TextField, useTheme, InputLabel, InputAdornment, Tooltip, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
+import { Grid, Stack, Input, Link, useMediaQuery, TextField, useTheme, InputLabel, InputAdornment, Tooltip, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
 import { Link as LinkUI } from '@mui/material';
 import React from 'react'
 import BackgroundImg from '../../components/OtherComponents/Background/BackgroundImg'
@@ -73,7 +73,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                         justifyContent="center"
                         alignItems="center"
                         spacing={3}
-                        sx={{ width: "100%", p: 2, }}
+                        sx={{ width: "100%", p: 2, cursor: "pointer", }}
                     >
                         <Controller
                             name="username"
@@ -150,9 +150,20 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                         </InputAdornment>
                                     }
                                 />
+                                <Link
+                                    sx={{ color: 'text.main', m: 1, cursor: 'pointer' }}
+                                    onClick={() => {
+                                        router.push({
+                                            pathname: '/login',
+                                        })
+                                    }}
+                                    underline="hover"
+                                >
+                                    Есть учётная запись? Войти
+                                </Link>
                             </FormControl>}
                         />
-                        <Button size="large" type="submit" sx={{ color: 'text.main' }}>
+                        <Button variant="outlined" size="large" type="submit" sx={{ color: 'text.main', border: `2px solid ${theme.palette.text.dark}`, '&:hover': { border: `2px solid ${theme.palette.text.dark}` } }}>
                             Зарегистрироваться
                         </Button>
                     </Stack>

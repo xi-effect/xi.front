@@ -12,70 +12,28 @@ import Image from 'next/image'
 import Chipper from './Modules/Chipper';
 import ModulesList from './Modules/ModulesList';
 
-const PREFIX = 'Modules';
-
-const classes = {
-    Button: `${PREFIX}-Button`,
-    Typography: `${PREFIX}-Typography`
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.Button}`]: {
-        marginLeft: 16,
-        marginRight: 16,
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.Typography}`]: {
-        color: theme => theme.palette.primary.contrastText,
-    }
-}));
-
-
-{
-    theme
-}
-) => ({
-    [`& .${classes.Button}`]: {
-        marginLeft: 16,
-        marginRight: 16,
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.Typography}`]: {
-        color: theme => theme.palette.primary.contrastText,
-    }
-}));
-
 const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
     const theme = useTheme();
 
 
     return (
-        (<Root>
-            <Grid
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ marginBottom: 10, }}
-            >
-                <Button onClick={knowledgeStore.prevPageInModules} className={classes.Button} variant="contained" color="primary" disabled={knowledgeStore.moduleList.counter === 0 ? true : false}>
-                    Назад
-                </Button>
-                <Typography className={classes.Typography} variant="subtitle1">
-                    {`Страница ${knowledgeStore.moduleList.counter + 1}`}
-                </Typography>
-                <Button onClick={knowledgeStore.nextPageInModules} className={classes.Button} variant="contained" color="primary" disabled={knowledgeStore.moduleList.modules.length < 12 ? true : false}>
-                    Вперёд
-                </Button>
-            </Grid>
-        </Root>)
+        <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ marginBottom: 10, }}
+        >
+            <Button onClick={knowledgeStore.prevPageInModules} sx={{ ml: 2, mr: 2, }} variant="contained" color="primary" disabled={knowledgeStore.moduleList.counter === 0 ? true : false}>
+                Назад
+            </Button>
+            <Typography variant="subtitle1">
+                {`Страница ${knowledgeStore.moduleList.counter + 1}`}
+            </Typography>
+            <Button onClick={knowledgeStore.nextPageInModules} sx={{ ml: 2, mr: 2, }} variant="contained" color="primary" disabled={knowledgeStore.moduleList.modules.length < 12 ? true : false}>
+                Вперёд
+            </Button>
+        </Grid>
     );
 }));
 
@@ -95,7 +53,11 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                className={classes.container}
+                sx={{
+                    marginBottom: 2,
+                    height: '100%',
+                    width: '100%',
+                }}
             >
                 <Chipper />
                 {!knowledgeStore.moduleList.loadingNothing && <>
@@ -105,9 +67,13 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                         direction="column"
                         justifyContent="center"
                         alignItems="center"
-                        className={classes.container}
+                        sx={{
+                            marginBottom: 2,
+                            height: '100%',
+                            width: '100%',
+                        }}
                     >
-                        <Typography className={classes.labelThatsAll}> Это всё, что мы нашли по вашему запросу </Typography>
+                        <Typography> Это всё, что мы нашли по вашему запросу </Typography>
                     </Grid>}
                     {!knowledgeStore.moduleList.loadingInd && <Toolbar />}
                     {knowledgeStore.moduleList.loadingInd &&
@@ -116,7 +82,6 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                             direction="row"
                             justifyContent="center"
                             alignItems="center"
-                            className={classes.gridCircularProgress}
                         >
                             <CircularProgress />
                         </Grid>
@@ -128,9 +93,13 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                         direction="column"
                         justifyContent="center"
                         alignItems="center"
-                        className={classes.container}
+                        sx={{
+                            marginBottom: 2,
+                            height: '100%',
+                            width: '100%',
+                        }}
                     >
-                        <Typography sx={{ marginTop: 4 }} className={classes.labelThatsAll}> Ничего не найдено по запросу </Typography>
+                        <Typography sx={{ marginTop: 4 }}> Ничего не найдено по запросу </Typography>
                         <div>
                             <Image
                                 alt="img"
@@ -145,7 +114,6 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                     </Grid>
                 }
             </Grid>
-
         </>
     )
 }));

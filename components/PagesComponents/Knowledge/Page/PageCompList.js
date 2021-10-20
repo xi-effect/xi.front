@@ -14,34 +14,6 @@ import ImageComp from './Components/ImageComp';
 import Quiz from './Components/Quiz';
 
 
-const PREFIX = 'PageCompList';
-
-const classes = {
-    wrapperRoot: `${PREFIX}-wrapperRoot`,
-    wrapper: `${PREFIX}-wrapper`
-};
-
-const StyledGrid = styled(Grid)((
-    {
-        theme
-    }
-) => ({
-    [`&.${classes.wrapperRoot}`]: {
-        marginTop: 16,
-        maxWidth: 800,
-        zIndex: 1,
-    },
-
-    [`& .${classes.wrapper}`]: {
-        // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        border: 0,
-        width: "calc(100% - 4px)",
-        margin: 1,
-        padding: 1,
-    }
-}));
-
-
 const PageCompList = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
     const theme = useTheme();
 
@@ -80,20 +52,29 @@ const PageCompList = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
     }
 
     return (
-        <StyledGrid
+        <Grid
             container
             direction="column"
             justifyContent="center"
             alignItems="center"
-            className={classes.wrapperRoot}
+            sx={{
+                marginTop: 2,
+                maxWidth: "800px",
+                zIndex: 1,
+            }}
         >
             {knowledgeStore.page.components.map((value, index) => (
-                <Grid className={classes.wrapper} key={index}>
+                <Grid sx={{
+                    border: 0,
+                    width: "calc(100% - 4px)",
+                    margin: "1px",
+                    padding: "1px",
+                }} key={index}>
                     {knowledgeStore.page.loading ? <Skeleton variant="rectangular" animation="wave" height={64} /> :
                         componentsSelect(value, index)}
                 </Grid>
             ))}
-        </StyledGrid>
+        </Grid>
     );
 }));
 

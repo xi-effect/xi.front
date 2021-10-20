@@ -6,26 +6,6 @@ import { useTheme, Input, Grid } from '@mui/material';
 import { inject, observer } from 'mobx-react'
 import Image from 'next/image'
 
-
-const PREFIX = 'ImageComp';
-
-const classes = {
-    gridTextWrapper: `${PREFIX}-gridTextWrapper`
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.gridTextWrapper}`]: {
-        //textAlign: "center !important",
-        width: "100%",
-    }
-}));
-
-
 const ImageComp = inject('rootStore')(observer(({ rootStore, value }) => {
 
     // Simulated props for the purpose of the example
@@ -48,7 +28,7 @@ const ImageComp = inject('rootStore')(observer(({ rootStore, value }) => {
                 direction="row"
                 justifyContent="center"
                 // alignItems="center"
-                className={classes.gridTextWrapper}
+                sx={{ width: "100%", }}
             >
                 {value.authorId != null && value.imageId != null &&
                     <div className={classes.imgWrapper}>

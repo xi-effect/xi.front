@@ -21,7 +21,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import RedoIcon from '@mui/icons-material/Redo';
 
 import { inject, observer } from 'mobx-react'
-import { filterableGridColumnsSelector } from '@material-ui/data-grid';
+
 
 const PREFIX = 'Chipper';
 
@@ -50,34 +50,7 @@ const StyledGrid = styled(Grid)((
         theme
     }
 ) => ({
-    [`&.${classes.root}`]: {
-        margin: 0,
-        marginLeft: 32,
-        marginRight: 32,
-        width: "calc(100% - 64px)",
-        borderRadius: 4,
-        background: theme => theme.palette.blueGrey["1"],
-    },
 
-    [`& .${classes.divider}`]: {
-        width: "100%",
-        height: 1,
-        backgroundColor: theme => theme.palette.primary.contrastText
-    },
-
-    [`& .${classes.input}`]: {
-        color: theme => theme.palette.primary.contrastText,
-        //marginLeft: theme => theme.spacing(1),
-        flex: 1,
-        // minWidth: 100,
-        maxWidth: 500,
-        marginLeft: "auto",
-    },
-
-    [`& .${classes.iconButton}`]: {
-        //padding: 10,
-        color: theme => theme.palette.primary.contrastText,
-    },
 
     [`& .${classes.popper}`]: {
         zIndex: 1000,
@@ -111,25 +84,6 @@ const StyledGrid = styled(Grid)((
         cursor: "default",
     },
 
-    [`& .${classes.speedDial}`]: {
-        height: 36,
-        width: 36,
-        marginTop: 4,
-        marginLeft: 16,
-        // position: 'absolute',
-        // top: theme => theme.spacing(10),
-        // left: theme => theme.spacing(2),
-    },
-
-    [`& .${classes.speedDialActionFirst}`]: {
-        marginLeft: 16,
-        color: props => props.palette.primary.main,
-    },
-
-    [`& .${classes.speedDialAction}`]: {
-        marginLeft: 16,
-        color: props => props.palette.primary.main,
-    },
 
     [`& .${classes.disableIcon}`]: {
         color: props => props.palette.error.main,
@@ -227,7 +181,14 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
             direction="column"
             justifyContent="center"
             alignItems="center"
-            className={classes.root}
+            sx={{
+                margin: 0,
+                marginLeft: 0,
+                marginRight: 0,
+                width: "calc(100%",
+                borderRadius: 2,
+                background: 'background.1',
+            }}
         >
             <Grid
                 item
@@ -239,13 +200,18 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
 
                 {(!mobileSearch || !mobile) && <SpeedDial
                     ariaLabel="SpeedDial tooltip example"
-                    className={classes.speedDial}
+                    sx={{
+                        height: 4,
+                        width: 4,
+                        marginTop: 0.5,
+                        marginLeft: 2,
+                    }}
                     // hidden={hidden}
                     // icon={<IconButton className={classes.IconButtonSpeedDial}>
                     //     <TuneIcon className={classes.iconSpeedDial} />
                     // </IconButton>}
                     icon={
-                        <TuneIcon className={classes.iconSpeedDial} />
+                        <TuneIcon />
                     }
                     onClose={handleClose}
                     onOpen={handleOpen}
@@ -253,7 +219,10 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                     direction="right"
                 >
                     <SpeedDialAction
-                        className={clsx(classes.speedDialActionFirst)}
+                        sx={{
+                            marginLeft: 2,
+                            // color: props => props.palette.primary.main,
+                        }}
                         tooltipPlacement="bottom"
                         icon={gridTypeIcon(knowledgeUI.gridTypeOnPage)}
                         tooltipTitle={`Вид сетки. Сейчас - ${gridTypeLabel(knowledgeUI.gridTypeOnPage)}`}
@@ -262,7 +231,10 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                     />
                     {/* { [classes.disableIcon]: true } */}
                     <SpeedDialAction
-                        className={clsx(classes.speedDialAction)}
+                        sx={{
+                            marginLeft: 2,
+                            // color: props => props.palette.primary.main,
+                        }}
                         tooltipPlacement="bottom"
                         icon={cardContentIcon(knowledgeUI.contentTypeOnPage)}
                         tooltipTitle={`Изменить содержание карточки. Сейчас - ${cardContentLabel(knowledgeUI.contentTypeOnPage)}`}
@@ -276,7 +248,12 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 {!mobile && <InputBase
                     value={knowledgeStore.pageList.search}
                     onChange={(event) => knowledgeStore.setPageListData("search", event.target.value)}
-                    className={classes.input}
+                    sx={{
+                        color: theme => theme.palette.primary.contrastText,
+                        flex: 1,
+                        maxWidth: "500px",
+                        marginLeft: "auto",
+                    }}
                     placeholder="Поиск страниц"
                     inputProps={{ 'aria-label': 'Поиск страниц' }}
                 />}
@@ -309,7 +286,12 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 {mobileSearch && mobile && <InputBase
                     value={knowledgeStore.pageList.search}
                     onChange={(event) => knowledgeStore.setPageListData("search", event.target.value)}
-                    className={classes.input}
+                    sx={{
+                        color: theme => theme.palette.primary.contrastText,
+                        flex: 1,
+                        maxWidth: "500px",
+                        marginLeft: "auto",
+                    }}
                     placeholder="Поиск страниц"
                     inputProps={{ 'aria-label': 'Поиск страниц' }}
                 />}
@@ -328,7 +310,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                             onClick={knowledgeStore.clearSearchInPages}
                             disabled={knowledgeStore.pageList.search.length === 0}
                             type="submit"
-                            className={classes.iconButton}
+                            sx={{ color: 'text.main' }}
                             aria-label="search"
                             size="large">
                             <ClearIcon />
@@ -338,7 +320,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 {!mobileSearch && mobile && <Tooltip title="Очистить поиск">
                     <span>
                         <IconButton
-                            className={clsx(classes.iconButton)}
+                            sx={{ color: 'text.main' }}
                             onClick={() => setMobileSearch(true)}
                             disabled={mobile ? false : knowledgeStore.pageList.search.length < 3}
                             aria-label="search"
@@ -350,7 +332,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 {mobileSearch && mobile && <Tooltip title="Найти">
                     <span>
                         <IconButton
-                            className={clsx(classes.iconButton)}
+                            sx={{ color: 'text.main' }}
                             onClick={() => knowledgeStore.goSearchInPages()}
                             disabled={mobile ? false : knowledgeStore.pageList.search.length < 3}
                             aria-label="search"
@@ -362,7 +344,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 {mobileSearch && mobile && <Tooltip title="Назад">
                     <span>
                         <IconButton
-                            className={clsx(classes.iconButton)}
+                            sx={{ color: 'text.main' }}
                             onClick={() => setMobileSearch(false)}
                             disabled={mobile ? false : knowledgeStore.pageList.search.length < 3}
                             aria-label="search"
@@ -383,7 +365,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                             <IconButton
                                 onClick={knowledgeStore.prevPageInPages}
                                 type="submit"
-                                className={classes.iconButton}
+                                sx={{ color: 'text.main' }}
                                 disabled={knowledgeStore.pageList.counter === 0 ? true : false}
                                 size="large">
                                 <NavigateBeforeIcon />
@@ -396,9 +378,9 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                     <Tooltip title="Вперёд">
                         <span>
                             <IconButton
+                                sx={{ color: 'text.main' }}
                                 onClick={knowledgeStore.nextPageInPages}
                                 type="submit"
-                                className={classes.iconButton}
                                 disabled={knowledgeStore.pageList.pages.length < 50 ? true : false}
                                 size="large">
                                 <NavigateNextIcon />
@@ -407,7 +389,11 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                     </Tooltip>
                 </Grid>}
             </Grid>
-            <Divider className={classes.divider} />
+            <Divider sx={{
+                width: "100%",
+                height: "1px",
+                backgroundColor: 'text.dark',
+            }} />
         </StyledGrid>
     );
 }));

@@ -4,37 +4,6 @@ import { useTheme, Button, Input, Grid, Radio, Checkbox, Typography } from '@mui
 
 import { inject, observer } from 'mobx-react'
 
-
-const PREFIX = 'Quiz';
-
-const classes = {
-    gridTextWrapper: `${PREFIX}-gridTextWrapper`,
-    text: `${PREFIX}-text`
-};
-
-const StyledGrid = styled(Grid)((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.gridTextWrapper}`]: {
-        //textAlign: "center !important",
-        width: "100%",
-    },
-
-    [`& .${classes.text}`]: {
-        width: "100%",
-        color: props => props.palette.primary.contrastText,
-        fontSize: props => props.fontSize,
-        fontStyle: props => props.fontStyle,
-        textAlign: props => props.textAlign,
-        fontWeight: props => props.fontWeight,
-        textDecoration: props => props.textDecoration,
-        lineHeight: "normal",
-    }
-}));
-
-
 const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore, index }) => {
     const value = knowledgeStore.page.components[index]
     // Simulated props for the purpose of the example
@@ -45,22 +14,28 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
 
 
     return (
-        <StyledGrid
+        <Grid
             container
             direction="column"
             justifyContent="flex-start"
             alignItems="flex-start"
         >
-            <Grid className={classes.gridTextWrapper}>
+            <Grid sx={{ width: "100%" }}>
                 {
                     value.content.map((item, indexA) => (
                         <Input
                             key={indexA.toString()}
-                            classes={{
-                                input: classes.text
+                            sx={{
+                                width: "100%",
+                                color: 'text.main',
+                                fontSize: value.fontSize,
+                                fontStyle: value.fontStyle,
+                                textAlign: value.textAlign,
+                                fontWeight: value.fontWeight,
+                                textDecoration: value.textDecoration,
+                                lineHeight: "normal",
                             }}
                             placeholder="Добавить текст ответа"
-                            className={classes.text}
                             type="text"
                             disableUnderline
                             multiline
@@ -71,9 +46,9 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                                 <>
                                     {value.quizType === 'single' && <Radio
                                         sx={{
-                                            color: theme => theme.palette.primary.contrastText,
+                                            color: 'text.main',
                                             '&.Mui-checked': {
-                                                color: theme => theme.palette.primary.contrastText,
+                                                color: 'text.main',
                                             },
                                         }}
                                         //color="primary"
@@ -83,9 +58,9 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                                     />}
                                     {value.quizType === 'multiple' && <Checkbox
                                         sx={{
-                                            color: theme => theme.palette.primary.contrastText,
+                                            color: 'text.main',
                                             '&.Mui-checked': {
-                                                color: theme => theme.palette.primary.contrastText,
+                                                color: 'text.main',
                                             },
                                         }}
                                         //color="primary"
@@ -110,7 +85,7 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                     sx={{
                         ml: 2,
                         mt: 1,
-                        color: theme => theme.palette.primary.contrastText,
+                        color: 'text.main',
                     }}
                     variant="text"
                     onClick={() => knowledgeStore.isAnswerRight(index)}
@@ -122,14 +97,14 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                     sx={{
                         ml: 2,
                         mt: 1,
-                        color: theme => theme.palette.primary.contrastText,
+                        color: 'text.main',
                     }}
                 >
                     {value.successAnswer ? `Ответ Верный!` : `Ответ Неправильный!`}
                 </Typography>}
             </Grid>
 
-        </StyledGrid>
+        </Grid>
     );
 }));
 

@@ -61,36 +61,13 @@ const StyledGrid = styled(Grid)((
         theme
     }
 ) => ({
-    [`&.${classes.container}`]: {
-        marginBottom: 16,
-        marginTop: 2,
-        paddingTop: 0,
-        height: '100%',
-        width: '100%',
-    },
 
     [`& .${classes.gridCard}`]: {
         padding: 8,
     },
 
     [`& .${classes.Card}`]: {
-        position: 'relative',
-        //paddingLeft: 4,
-        //maxWidth: 400,
-        //border: '2px solid',
-        //borderColor: theme => theme.palette.primary.dark,
-        borderRadius: 42,
-        //transition: '0.4s',
-        // '&:hover': {
-        //     borderColor: theme => theme.palette.primary.light,
-        // },
-        // marginTop: theme => theme.spacing(8),
 
-        transition: '0.3s',
-        width: '100%',
-        height: '100%',
-        //overflow: 'initial',
-        background: theme => theme.palette.blueGrey["3"],
     },
 
     [`& .${classes.CardTheory}`]: {
@@ -323,22 +300,6 @@ const StyledGrid = styled(Grid)((
     }
 }));
 
-const CustomTooltip =  => ({
-    [`& .${classes.tooltip}`]: {
-        //backgroundColor: theme => theme.palette.common.white,
-        //color: 'rgba(0, 0, 0, 0.87)',
-        //boxShadow: theme => theme.shadows[1],
-        fontSize: 14,
-    }
-}))(Tooltip);
-
-
-icon: {
-    marginLeft: 12,
-        marginRight: 8,
-            color: theme => theme.palette.primary.contrastText,
-    }
-}));
 
 const Views = React.memo(({ views }) => {
     const theme = useTheme()
@@ -346,7 +307,7 @@ const Views = React.memo(({ views }) => {
     if (views < 1000) {
         return (
             <>
-                <VisibilityIcon className={classes.icon} />
+                <VisibilityIcon />
                 <Typography sx={{ color: "white" }}> {`${views}`} </Typography>
             </>
         )
@@ -354,7 +315,7 @@ const Views = React.memo(({ views }) => {
     if (views >= 1000 && views < 1000000) {
         return (
             <>
-                <VisibilityIcon className={classes.icon} />
+                <VisibilityIcon />
                 <Typography sx={{ color: "white" }}> {`${Math.round(views / 1000)}к`} </Typography>
             </>
         )
@@ -362,7 +323,7 @@ const Views = React.memo(({ views }) => {
     if (views > 1000000) {
         return (
             <>
-                <VisibilityIcon className={classes.icon} />
+                <VisibilityIcon />
                 <Typography sx={{ color: "white" }}> {`${Math.round(views / 1000000)} млн`} </Typography>
             </>
         )
@@ -394,19 +355,33 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
             direction={knowledgeUI.gridTypeOnPage === "grid" ? "row" : "column"}
             justifyContent="center"
             alignItems="center"
-            className={classes.container}
+            sx={{
+                marginBottom: 2,
+                marginTop: 2,
+                paddingTop: 0,
+                height: '100%',
+                width: '100%',
+            }}
         >
             {
                 knowledgeStore.pageList.pages.map((page, index) => (
                     <Grid
                         xs={12} sm={12} md={knowledgeUI.gridTypeOnPageSizes[0]} lg={knowledgeUI.gridTypeOnPageSizes[1]} xl={knowledgeUI.gridTypeOnPageSizes[2]}
                         item
-                        className={clsx(classes.gridCard,)}
+                        sx={{ p: 1 }}
                         container
                         justifyContent="center"
                         alignItems="center"
                         key={index.toString()}>
-                        <Card elevation={24} className={clsx(classes.Card, { [classes.cardColumn]: knowledgeUI.gridTypeOnPage != "grid" }, { [classes.CardTheory]: page.kind === "theory" }, { [classes.CardPractice]: page.kind === "practice" }, { [classes.CardTest]: page.kind === "task" })}>
+                        <Card elevation={24} sx={{
+                            //position: 'relative',
+                            borderRadius: 4,
+                            transition: '0.3s',
+                            width: '100%',
+                            minWidth: "500px",
+                            height: '100%',
+                            backgroundColor: 'background.1',
+                        }}>
                             <IconButton
                                 className={classes.IconButtonMoreVert}
                                 variant="contained"
@@ -438,9 +413,9 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
                                 <Grid item container>
                                     <Grid container wrap="nowrap" spacing={2}>
                                         <Grid item xs zeroMinWidth>
-                                            <CustomTooltip arrow title={`Название: ${page.name}`}>
+                                            <Tooltip arrow title={`Название: ${page.name}`}>
                                                 <Typography className={classes.pageName} noWrap>{page.name}</Typography>
-                                            </CustomTooltip>
+                                            </Tooltip>
                                         </Grid>
                                     </Grid>
                                 </Grid>
