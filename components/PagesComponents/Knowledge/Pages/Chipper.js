@@ -28,11 +28,10 @@ import React from 'react';
 
 const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
     const theme = useTheme();
-
+    const knowledgeUI = uiStore.knowledgeUI
     const [open, setOpen] = React.useState(false);
     const [mobileSearch, setMobileSearch] = React.useState(false);
     const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
-
 
     const [openGlobalList, setOpenGlobalList] = React.useState(false);
     const globalList = [
@@ -40,6 +39,55 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
         { key: 1, title: "Закреплённое", name: "pinned" },
         { key: 2, title: "Начатое", name: "started" },
     ]
+
+    const setGridType = (type) => {
+        if (type === "grid") {
+            localStorage.setItem("gridTypeOnPageInKnowleadge", "list")
+            uiStore.setKnowledgeUI("gridTypeOnPage", "list")
+            console.log(localStorage.getItem("gridTypeOnPageInKnowleadge"))
+        }
+        else if (type === "list") {
+            localStorage.setItem("gridTypeOnPageInKnowleadge", "grid")
+            uiStore.setKnowledgeUI("gridTypeOnPage", "grid")
+        }
+    }
+
+    const setContentType = (type) => {
+        if (type === "info") {
+            localStorage.setItem("contentTypeOnPageInKnowleadge", "description")
+            uiStore.setKnowledgeUI("contentTypeOnPage", "description")
+        }
+        else if (type === "description") {
+            localStorage.setItem("contentTypeOnPageInKnowleadge", "author")
+            uiStore.setKnowledgeUI("contentTypeOnPage", "author")
+        }
+        else if (type === "author") {
+            localStorage.setItem("contentTypeOnPageInKnowleadge", "info")
+            uiStore.setKnowledgeUI("contentTypeOnPage", "info")
+        }
+    }
+
+    const gridTypeIcon = (type) => {
+        if (type === "grid") return <ViewComfyIcon />
+        if (type === "list") return <ReorderIcon />
+    }
+
+    const gridTypeLabel = (type) => {
+        if (type === "grid") return "Сетка"
+        if (type === "list") return "Лента"
+    }
+
+    const cardContentIcon = (type) => {
+        if (type === "info") return <AnalyticsIcon />
+        if (type === "description") return <DescriptionIcon />
+        if (type === "author") return <AccountCircleIcon />
+    }
+
+    const cardContentLabel = (type) => {
+        if (type === "info") return "Информация"
+        if (type === "description") return "Описание"
+        if (type === "author") return "Автор"
+    }
 
     return (
         <Grid container direction="column"
@@ -80,6 +128,26 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                                             transition: "0.2s",
                                         }}
                                     />
+                                </IconButton>
+                            </span>
+                        </Tooltip>}
+                        {(!mobileSearch || !mobile) && <Tooltip title={gridTypeLabel(knowledgeUI.gridTypeOnPage)}>
+                            <span>
+                                <IconButton
+                                    onClick={() => setGridType(knowledgeUI.gridTypeOnPage)}
+                                    color="inherit"
+                                    size="large">
+                                    {gridTypeIcon(knowledgeUI.gridTypeOnPage)}
+                                </IconButton>
+                            </span>
+                        </Tooltip>}
+                        {(!mobileSearch || !mobile) && <Tooltip title={cardContentLabel(knowledgeUI.contentTypeOnPage)}>
+                            <span>
+                                <IconButton
+                                    color="inherit"
+                                    onClick={() => setContentType(knowledgeUI.contentTypeOnPage)}
+                                    size="large">
+                                    {cardContentIcon(knowledgeUI.contentTypeOnPage)}
                                 </IconButton>
                             </span>
                         </Tooltip>}
@@ -221,7 +289,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                     marginTop: 0,
                     paddingTop: 0,
                 }}>
-                    
+
                 </AccordionDetails>
             </Accordion>
             <Divider sx={{

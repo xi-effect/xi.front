@@ -169,10 +169,10 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                     {!mobile && <Typography variant="h6" >
                                         {knowledgeStore.module.name}
                                     </Typography>}
-                                    {!mobile && knowledgeStore.page.name != "" && <Typography variant="h5" className={classes.slashLabel}>
+                                    {!mobile && knowledgeStore.page.name != "" && <Typography variant="h5">
                                         {"/"}
                                     </Typography>}
-                                    {!mobile && <Typography variant="h6" className={classes.pageLabel}>
+                                    {!mobile && <Typography variant="h6">
                                         {knowledgeStore.page.name}
                                     </Typography>}
                                 </Grid>
@@ -185,7 +185,7 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                 <Tooltip title="Вперёд">
                                     <span>
                                         <IconButton onClick={null} size="large">
-                                            <DoubleArrowIcon className={classes.Icon} />
+                                            <DoubleArrowIcon />
                                         </IconButton>
                                     </span>
                                 </Tooltip>

@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { Tooltip, IconButton, Pagination, PaginationItem, CircularProgress, Grid, Button, Typography, useTheme } from '@mui/material';
-import { DataGrid, useGridSlotComponentProps } from '@material-ui/data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 
 import { createTheme } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -143,7 +143,6 @@ const useStyles = makeStyles(
 
 const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
 
 
     React.useEffect(() => {

@@ -151,9 +151,13 @@ const Sidebar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu
                 spacing={0}
             >
                 {menuList.map((item, index) => (
-                    <>
+                    <Stack
+                        sx={{
+                            width: "100%",
+                        }}
+                        key={index.toString()}>
                         <Stack
-                            key={index.toString()}
+
                             direction="row"
                             justifyContent="space-between"
                             alignItems="center"
@@ -224,7 +228,7 @@ const Sidebar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu
                                 </Stack>
                             </Stack>
                         ))}
-                    </>
+                    </Stack>
                 ))}
             </Stack>
 

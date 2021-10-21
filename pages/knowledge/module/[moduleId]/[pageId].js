@@ -15,38 +15,20 @@ import NavigationAll from './../../../../components/OtherComponents/Navigation/N
 import ModuleInfo from './../../../../components/PagesComponents/Knowledge/Module/ModuleInfo';
 import PageCompList from './../../../../components/PagesComponents/Knowledge/Page/PageCompList';
 
-const PREFIX = 'ModuleId';
-
-const classes = {
-    main: `${PREFIX}-main`
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.main}`]: {
-        width: '100%',
-        zIndex: 1,
-        //backgroundColor: 'red',
-    }
-}));
 
 const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore }) => {
     const theme = useTheme();
 
 
     React.useEffect(() => {
-        // LoadComponents()
+        knowledgeStore.clearModule()
         knowledgeStore.loadModule()
     }, []);
 
 
 
     return (
-        (<Root>
+        <>
             <Head>
                 <title>
                     Ξ Effect
@@ -55,7 +37,10 @@ const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kn
             {/* <Background/> */}
             <NavigationAll>
                 <Grid
-                    className={classes.main}
+                    sx={{
+                        width: '100%',
+                        zIndex: 1,
+                    }}
                     direction="column"
                     justifyContent="flex-start"
                     alignItems="center"
@@ -68,7 +53,7 @@ const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kn
                     </ModuleInfo>
                 </Grid>
             </NavigationAll>
-        </Root>)
+        </>
     );
 }))
 

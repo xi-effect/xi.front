@@ -53,14 +53,14 @@ const Root = styled('div')((
 
   [`& .${classes.dividerDiv}`]: {
     //position: "relative",
-    backgroundColor:  theme.palette.blueGrey["3"],
+    backgroundColor: theme.palette.blueGrey["3"],
     width: "100%",
     paddingTop: "41.8%",
   },
 
   [`& .${classes.Icon}`]: {
     fontSize: 48,
-    color:  theme.palette.constant.textWhite,
+    color: theme.palette.constant.textWhite,
   }
 }));
 

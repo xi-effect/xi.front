@@ -62,12 +62,12 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
     return (
         <Grid
             container
-            //direction={knowledgeUI.gridTypeOnPage === "grid" ? "row" : "column"}
-            //justifyContent="center"
-            //alignItems="center"
+            direction={knowledgeUI.gridTypeOnPage === "grid" ? "row" : "column"}
+            justifyContent="center"
+            alignItems="center"
             sx={{
-                margin: 4,
-                width: "calc(100% - 64px)",
+                margin: 2,
+                width: "calc(100% - 32px)",
                 borderRadius: 2,
                 //backgroundColor: 'background.1',
             }}
@@ -75,7 +75,7 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
             {
                 knowledgeStore.pageList.pages.map((page, index) => (
                     <Grid
-                        xs={12} sm={12} md={6} lg={4} xl={3}
+                        xs={12} sm={12} md={knowledgeUI.gridTypeOnPageSizes[0]} lg={knowledgeUI.gridTypeOnPageSizes[1]} xl={knowledgeUI.gridTypeOnPageSizes[2]}
                         item
                         sx={{ p: 1, }}
                         container
@@ -223,9 +223,9 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
                                         <Grid item>
                                             <Avatar sx={{
                                                 borderRadius: 2,
-                                                fontSize: 6,
-                                                width: 18,
-                                                height: 18,
+                                                fontSize: "24px",
+                                                width: "72px",
+                                                height: "72px",
                                             }}> {page["author-name"][0].toUpperCase()} </Avatar>
                                             <Typography sx={{
                                                 marginLeft: 1,

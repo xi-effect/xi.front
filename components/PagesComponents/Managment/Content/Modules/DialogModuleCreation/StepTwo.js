@@ -193,16 +193,6 @@ const StyledDragDropContext = styled(DragDropContext)((
     }
 }));
 
-const CustomTooltip =  => ({
-    [`& .${classes.tooltip}`]: {
-        //backgroundColor: theme => theme.palette.common.white,
-        //color: 'rgba(0, 0, 0, 0.87)',
-        //boxShadow: theme => theme.shadows[1],
-        fontSize: 14,
-    }
-}))(Tooltip);
-
-
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -235,9 +225,9 @@ const ItemList = inject('managmentStore')(observer(({ managmentStore, index }) =
                     >
                         <Grid container wrap="nowrap" spacing={2}>
                             <Grid item xs zeroMinWidth>
-                                <CustomTooltip className={classes.Tooltip} arrow title={`Название: ${page.name}`}>
+                                <Tooltip className={classes.Tooltip} arrow title={`Название: ${page.name}`}>
                                     <Typography className={classes.pageLabelInPoint} noWrap>{page.name}</Typography>
-                                </CustomTooltip>
+                                </Tooltip>
                             </Grid>
                         </Grid>
                         <Grid className={classes.pageBlockIcons}>
@@ -398,9 +388,9 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                             >
                                                 <Grid container wrap="nowrap" spacing={2}>
                                                     <Grid item xs zeroMinWidth>
-                                                        <CustomTooltip className={classes.Tooltip} arrow title={`Название: ${page.name}`}>
+                                                        <Tooltip className={classes.Tooltip} arrow title={`Название: ${page.name}`}>
                                                             <Typography className={classes.pageLabel} noWrap>{page.name}</Typography>
-                                                        </CustomTooltip>
+                                                        </Tooltip>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid className={classes.pageBlockIcons}>
@@ -429,15 +419,6 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                         )}
                     </Droppable>
                 </Grid>
-                {/* <Grid
-                    item
-                    xs={12} sm={12} md={5} lg={3} xl={3}
-                    container
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                >
-                </Grid> */}
                 {/* Основная часть редактора */}
                 <Grid
                     item
@@ -550,35 +531,6 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                             Добавить точку
                         </Button>
                     </Grid>
-
-                    {/* {managmentStore.pageCreation.components.length === 0 && <Grid
-                        item
-                        container
-                        direction="column"
-                        className={classes.gridMainImgWrapper}
-                        justifyContent="center"
-                        alignItems="center"
-                    >
-                        <Typography variant="h5" className={classes.infoLabel}> Модуль пока пуст </Typography>
-                        <Typography variant="h5" className={classes.infoLabel}> Добавьте точки - логические разделы модуля, а в точки добавьте ваши страницы</Typography>
-                        <Typography variant="h5" className={classes.infoLabel}> Тем самым вы создадите структуру вашего модуля </Typography>
-                        <Image
-                            quality={100}
-                            alt="howtocreateamodule"
-                            src="/illustrations/mathTeacher.png"
-                            //layout='fill'
-                            width={480}
-                            height={480}
-                        />
-                    </Grid>}
-                    {managmentStore.pageCreation.components.length != 0 && <Grid
-                        container
-                        direction="column"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                        className={classes.gridMain}
-                    >
-                    </Grid >} */}
                 </Grid>
             </Grid >
         </DragDropContext >

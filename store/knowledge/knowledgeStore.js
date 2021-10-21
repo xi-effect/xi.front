@@ -235,6 +235,10 @@ class KnowledgeStore {
         updated: null,
     }
 
+    @action clearModule = () => {
+        this.module = {}
+    }
+
     @action setModule = (value) => {
         this.module = value
     }
@@ -280,6 +284,12 @@ class KnowledgeStore {
                 this.setModuleData("authorId", data["author-id"])
                 this.setModuleData("openAccordion", false)
                 this.setModuleData("loading", false)
+                if (this.module.type === "theory-block" || this.module.type === "standard") {
+                    this.rootStore.fetchDataScr(`${this.rootStore.url}/modules/${this.module.id}/open/`, "GET")
+                        .then((data) => {
+                            
+                        })
+                }
                 this.loadPageInModule()
             })
     }

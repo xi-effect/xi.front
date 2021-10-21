@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { Tooltip, IconButton, CircularProgress, Grid, Button, Pagination, PaginationItem, Typography, useTheme } from '@mui/material';
-import { DataGrid, useGridSlotComponentProps } from '@material-ui/data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 
 import { createTheme } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -62,7 +62,6 @@ function customCheckbox(theme) {
 
 const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
 
     React.useEffect(() => {
         managmentStore.LoadModuleList()
@@ -197,7 +196,6 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                             variant="contained"
                             //color="primary"
                             size="small"
-                            className={classes.IconButton}
                             style={{ marginLeft: 16, marginTop: -4, color: theme => theme.palette.primary.contrastText }}
                         >
                             <EditIcon />
@@ -209,7 +207,6 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                             variant="contained"
                             //color="primary"
                             size="small"
-                            className={classes.IconButton}
                             style={{ marginLeft: 16, marginTop: -4, color: theme => theme.palette.primary.contrastText }}
                         >
                             <DeleteForeverIcon />
@@ -233,7 +230,7 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
     // ];
 
     return (
-        <div style={{ display: 'flex', height: '100%', width: '100%', marginTop: 16, }} className={classes.root}>
+        <div style={{ display: 'flex', height: '100%', width: '100%', marginTop: 16, }}>
             <div style={{ flexGrow: 1 }}>
                 <DataGrid
                     rows={[...managmentStore.moduleCreationList.modules]}

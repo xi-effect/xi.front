@@ -47,29 +47,12 @@ const StyledGrid = styled(Grid)((
     }
 ) => ({
 
-    [`& .${classes.card}`]: {
-    },
-
-    [`& .${classes.CardActionsCenterButton}`]: {
-        marginTop: "5px",
-        height: "40px",
-        marginBottom: "5px",
-    },
-
-    [`& .${classes.CardContentGrid}`]: {
-        width: "100%"
-    },
-
-    [`& .${classes.icons}`]: {
-        color: theme.palette.primary.contrastText,
-    },
-
     [`& .${classes.iconsStarPush}`]: {
-        color: "#ffeb3b",
+
     },
 
     [`& .${classes.iconsPinPush}`]: {
-        color: "#8bc34a",
+
     },
     [`& .${classes.popper}`]: {
         zIndex: 1000,
@@ -176,8 +159,8 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
 
     return (
         <StyledGrid container sx={{
-            margin: 1,
-            width: "calc(100% - 16px)",
+            margin: 2,
+            width: "calc(100% - 32px)",
             borderRadius: 2,
             //backgroundColor: 'background.1',
         }}>
@@ -266,8 +249,8 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                         color="primary"
                                         aria-label="add an alarm"
                                         size="large">
-                                        {!module.starred && <StarBorderIcon className={classes.icons} />}
-                                        {module.starred && <StarIcon className={classes.iconsStarPush} />}
+                                        {!module.starred && <StarBorderIcon />}
+                                        {module.starred && <StarIcon sx={{ color: "#ffeb3b", }} />}
                                     </IconButton>
                                 </Grid>
                                 <Grid sx={{ mt: 1, }}>
@@ -277,7 +260,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                         aria-label="add an alarm"
                                         size="large">
                                         {!module.pinned && <FlagOutlinedIcon className={classes.icons} />}
-                                        {module.pinned && <FlagIcon className={classes.iconsPinPush} />}
+                                        {module.pinned && <FlagIcon sx={{ color: "#8bc34a", }} />}
                                     </IconButton>
                                 </Grid>
                                 <Grid sx={{ mt: 1, }}>

@@ -12,7 +12,7 @@ import { inject, observer } from 'mobx-react'
 
 import NavigationAll from '../../../components/OtherComponents/Navigation/NavigationAll'
 
-import Toolbar from '../../../components/PagesComponents/Managment/Content/ModulesToolbar/';
+import Toolbar from '../../../components/PagesComponents/Managment/Content/Modules/Toolbar';
 import DataList from '../../../components/PagesComponents/Managment/Content/Modules/DataList';
 import DialogModuleCreation from '../../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation';
 
