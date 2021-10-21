@@ -13,8 +13,6 @@ import Image from 'next/image'
 
 import { inject, observer } from 'mobx-react'
 
-// import Chipper from './Modules/Chipper';
-// import ModulesList from './Modules/ModulesList';
 
 function customCheckbox(theme) {
     return {
@@ -58,67 +56,6 @@ function customCheckbox(theme) {
         },
     };
 }
-
-const defaultTheme = createTheme();
-const useStyles = makeStyles(
-    (theme) => ({
-        root: {
-            border: 0,
-            color: theme => theme.palette.primary.contrastText,
-            fontFamily: [
-                '-apple-system',
-                'BlinkMacSystemFont',
-                '"Segoe UI"',
-                'Roboto',
-                '"Helvetica Neue"',
-                'Arial',
-                'sans-serif',
-                '"Apple Color Emoji"',
-                '"Segoe UI Emoji"',
-                '"Segoe UI Symbol"',
-            ].join(','),
-            WebkitFontSmoothing: 'auto',
-            letterSpacing: 'normal',
-            '& .MuiDataGrid-columnsContainer': {
-                backgroundColor: theme => theme.palette.primary.main,
-            },
-            '& .MuiDataGrid-iconSeparator': {
-                display: 'none',
-            },
-            '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
-                borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
-                    }`,
-            },
-            '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-                borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
-                    }`,
-            },
-            '& .MuiDataGrid-cell': {
-                // color:
-                //     theme.palette.mode === 'light'
-                //         ? 'rgba(0,0,0,.85)'
-                //         : 'rgba(255,255,255,0.65)',
-            },
-            '& .MuiPaginationItem-root': {
-                borderRadius: 0,
-            },
-            ...customCheckbox(theme),
-            '& .super-app-theme--rows': {
-                backgroundColor: theme => theme.palette.blueGrey["5"],
-                '&:hover': {
-                    backgroundColor: theme => theme.palette.blueGrey["5"],
-                },
-                color: theme => theme.palette.primary.contrastText,
-            },
-        },
-        IconButton: {
-            color: theme => theme.palette.primary.contrastText,
-        }
-    }),
-    { defaultTheme },
-);
-
-
 
 
 
@@ -302,7 +239,55 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                     rows={[...managmentStore.moduleCreationList.modules]}
                     //rows={rows}
                     columns={columns}
-                    className={classes.root}
+                    sx={{
+                        border: 0,
+                        color: theme => theme.palette.primary.contrastText,
+                        fontFamily: [
+                            '-apple-system',
+                            'BlinkMacSystemFont',
+                            '"Segoe UI"',
+                            'Roboto',
+                            '"Helvetica Neue"',
+                            'Arial',
+                            'sans-serif',
+                            '"Apple Color Emoji"',
+                            '"Segoe UI Emoji"',
+                            '"Segoe UI Symbol"',
+                        ].join(','),
+                        WebkitFontSmoothing: 'auto',
+                        letterSpacing: 'normal',
+                        '& .MuiDataGrid-columnsContainer': {
+                            backgroundColor: theme => theme.palette.primary.main,
+                        },
+                        '& .MuiDataGrid-iconSeparator': {
+                            display: 'none',
+                        },
+                        '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
+                            borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
+                                }`,
+                        },
+                        '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
+                            borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
+                                }`,
+                        },
+                        '& .MuiDataGrid-cell': {
+                            // color:
+                            //     theme.palette.mode === 'light'
+                            //         ? 'rgba(0,0,0,.85)'
+                            //         : 'rgba(255,255,255,0.65)',
+                        },
+                        '& .MuiPaginationItem-root': {
+                            borderRadius: 0,
+                        },
+                        ...customCheckbox(theme),
+                        '& .super-app-theme--rows': {
+                            backgroundColor: theme => theme.palette.blueGrey["5"],
+                            '&:hover': {
+                                backgroundColor: theme => theme.palette.blueGrey["5"],
+                            },
+                            color: theme => theme.palette.primary.contrastText,
+                        },
+                    }}
                     autoHeight
                     //checkboxSelection
                     autoPageSize

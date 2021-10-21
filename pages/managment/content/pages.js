@@ -13,7 +13,7 @@ import { inject, observer } from 'mobx-react'
 import NavigationAll from '../../../components/OtherComponents/Navigation/NavigationAll'
 
 
-const Content = inject('rootStore')(observer(({ rootStore }) => {
+const ContentPages = inject('rootStore')(observer(({ rootStore }) => {
   const theme = useTheme();
 
   const [value, setValue] = React.useState(0);
@@ -48,4 +48,4 @@ const Content = inject('rootStore')(observer(({ rootStore }) => {
   );
 }))
 
-export default Content
+export default ContentPages

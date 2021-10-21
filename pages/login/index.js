@@ -57,7 +57,6 @@ const Login = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ r
                     sx={{ width: "100%" }}
                 >
                     <Typography
-
                         onClick={() => router.push('/')}
                         variant="h3"
                         sx={{ color: 'text.main', m: 2, cursor: "pointer", }}

@@ -18,7 +18,7 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
     const router = useRouter()
 
     return (
-        <Root>
+        <>
             <Grid
                 container
                 direction="row"
@@ -53,7 +53,7 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
                 height: "1px",
                 maxWidth: "800px",
             }} />
-        </Root>
+        </>
     );
 }));
 

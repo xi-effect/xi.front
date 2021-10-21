@@ -6,7 +6,7 @@ import Link from 'next/link'
 import clsx from 'clsx';
 import { inject, observer } from 'mobx-react'
 
-import { Grid, Drawer, Collapse, Stack, List, useTheme, Tooltip, Button, ListItem, ListItemIcon, ListItemText, Typography, Divider, IconButton } from '@mui/material';
+import { Grid, Drawer, Collapse, Stack, Box, List, useTheme, Tooltip, Button, ListItem, ListItemIcon, ListItemText, Typography, Divider, IconButton } from '@mui/material';
 
 import HomeIcon from '@mui/icons-material/Home';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
@@ -16,8 +16,9 @@ import MessageIcon from '@mui/icons-material/Message';
 import SubjectIcon from '@mui/icons-material/Subject';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
-
-
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
 const FadeMenuManagment = (props) => {
     const theme = useTheme();
@@ -77,6 +78,18 @@ const Sidebar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu
             icon: <MenuBookIcon />,
             label: "Знания",
             href: '/knowledge',
+            secondMenu: [
+                {
+                    icon: <SubjectIcon />,
+                    label: "Страницы",
+                    href: '/knowledge/pages'
+                },
+                {
+                    icon: <FormatListBulletedIcon />,
+                    label: "Модули",
+                    href: '/knowledge/modules'
+                },
+            ],
         },
         {
             id: 2,
@@ -89,6 +102,23 @@ const Sidebar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu
             icon: <AddToQueueIcon />,
             label: "Студия",
             href: '/managment',
+            secondMenu: [
+                {
+                    icon: <SubjectIcon />,
+                    label: "Страницы",
+                    href: '/managment/content/pages'
+                },
+                {
+                    icon: <FormatListBulletedIcon />,
+                    label: "Модули",
+                    href: '/managment/content/modules'
+                },
+                {
+                    icon: <SettingsEthernetIcon />,
+                    label: "Модерация",
+                    href: '/managment/moderation'
+                },
+            ],
         },
         {
             id: 4,
@@ -102,12 +132,12 @@ const Sidebar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu
         <Drawer
             sx={{
                 zIndex: 1,
-                width: 200,
+                width: 210,
                 flexShrink: 0,
                 backgroundColor: 'background.1',
                 '& .MuiDrawer-paper': {
                     backgroundColor: 'background.1',
-                    width: 200,
+                    width: 210,
                 }
             }}
             variant="permanent"
@@ -121,31 +151,81 @@ const Sidebar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu
                 spacing={0}
             >
                 {menuList.map((item, index) => (
-                    <Stack
-                        key={index.toString()}
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                        spacing={2}
-                        onClick={() => router.push(item.href)}
-                        sx={{
-                            width: "calc(100% - 16px)",
-                            height: 36,
-                            p: 1,
-                            pl: 1,
-                            m: 1,
-                            borderRadius: 4,
-                            cursor: "pointer",
-                            transition: '0.4s',
-                            '&:hover': {
-                                backgroundColor: 'background.2'
-                            },
-                            backgroundColor: router.pathname === item.href ? 'background.2' : 'none',
-                        }}
-                    >
-                        {item.icon}
-                        <Typography> {item.label} </Typography>
-                    </Stack>))}
+                    <>
+                        <Stack
+                            key={index.toString()}
+                            direction="row"
+                            justifyContent="space-between"
+                            alignItems="center"
+                            spacing={2}
+                            onClick={() => router.push(item.href)}
+                            sx={{
+                                width: "calc(100% - 16px)",
+                                height: 36,
+                                p: 1,
+                                pl: 1,
+                                m: 1,
+                                borderRadius: 4,
+                                cursor: "pointer",
+                                transition: '0.4s',
+                                '&:hover': {
+                                    backgroundColor: 'background.2'
+                                },
+                                backgroundColor: router.pathname.includes(item.href) ? 'background.2' : 'none',
+                            }}
+                        >
+                            <Stack
+                                direction="row"
+                                justifyContent="flex-start"
+                                alignItems="center"
+                                spacing={2}
+                            >
+                                {item.icon}
+                                <Typography> {item.label} </Typography>
+                            </Stack>
+                            {(item.href === "/messages" || item.href === "/managment" || item.href === "/knowledge") && <ArrowLeftIcon sx={{ transition: "0.2s", transform: router.pathname.includes(item.href) ? "rotate(-90deg)" : "rotate(0deg)", }} />}
+                        </Stack>
+                        {item?.secondMenu !== undefined && router.pathname.includes(item.href) && item.secondMenu.map((itemMenu, indexMenu) => (
+                            <Stack
+                                key={indexMenu.toString()}
+                                direction="row"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                spacing={2}
+                                onClick={() => router.push(itemMenu.href)}
+                                sx={{
+                                    width: "calc(100% - 40px)",
+                                    height: 36,
+                                    p: 1,
+                                    pl: 1,
+                                    m: 1,
+                                    ml: 4,
+                                    borderRadius: 4,
+                                    cursor: "pointer",
+                                    transition: '0.4s',
+                                    '&:hover': {
+                                        backgroundColor: 'background.2'
+                                    },
+                                    backgroundColor: router.pathname.includes(itemMenu.href) ? 'background.2' : 'none',
+                                }}
+                            >
+
+                                <Stack
+                                    direction="row"
+                                    justifyContent="flex-start"
+                                    alignItems="center"
+                                    spacing={2}
+                                    sx={{
+                                        width: "100%",
+                                    }}
+                                >
+                                    {itemMenu.icon}
+                                    <Typography> {itemMenu.label} </Typography>
+                                </Stack>
+                            </Stack>
+                        ))}
+                    </>
+                ))}
             </Stack>
 
         </Drawer >

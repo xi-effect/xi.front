@@ -12,13 +12,6 @@ import { inject, observer } from 'mobx-react'
 //import QuiсkWidgets from '../components/PagesComponents/Main/QuiсkWidgets';
 // import Card7 from './../components/PagesComponents/Main/MainHelpApps/Card7';
 import NavigationAll from './../../components/OtherComponents/Navigation/NavigationAll';
-import Card1 from './../../components/PagesComponents/Main/MainHelpApps/Card1';
-import Card2 from './../../components/PagesComponents/Main/MainHelpApps/Card2';
-import Card3 from './../../components/PagesComponents/Main/MainHelpApps/Card3';
-import Card4 from './../../components/PagesComponents/Main/MainHelpApps/Card4';
-import Card5 from './../../components/PagesComponents/Main/MainHelpApps/Card5';
-import Card6 from './../../components/PagesComponents/Main/MainHelpApps/Card6';
-
 
 const PREFIX = 'Main';
 
@@ -60,25 +53,6 @@ const Main = inject('rootStore')(observer(({ rootStore }) => {
       {/* <Background /> */}
       <NavigationAll>
         <Grid container className={classes.main}>
-          <Grid xs={12} sm={12} md={12} lg={6} xl={4} item container>
-            <Card1 />
-          </Grid>
-          <Grid xs={12} sm={12} md={12} lg={6} xl={4} item container>
-            <Card2 />
-          </Grid>
-          <Grid xs={12} sm={12} md={12} lg={6} xl={4} item container>
-            <Card3 />
-          </Grid>
-          <Grid xs={12} sm={12} md={12} lg={6} xl={4} item container>
-            <Card4 />
-          </Grid>
-          <Grid xs={12} sm={12} md={12} lg={6} xl={4} item container>
-            <Card5 />
-          </Grid>
-          <Grid xs={12} sm={12} md={12} lg={6} xl={4} item container>
-            <Card6 />
-          </Grid>
-
           <Box className={classes.space}>
 
           </Box>

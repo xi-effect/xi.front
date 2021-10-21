@@ -12,30 +12,12 @@ import Helpbar from './Helpbar'
 import Loading from '../Loading/Loading'
 import SideDownbar from './SideDownbar'
 
-const PREFIX = 'NavigationAll';
-
-const classes = {
-    root: `${PREFIX}-root`,
-    content: `${PREFIX}-content`
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.root}`]: {
-
-    },
-}));
-
 const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer(({ rootStore, settingsStore, uiStore, children }) => {
     const theme = useTheme();
     const router = useRouter()
 
 
-    
+
     React.useEffect(() => {
         rootStore.fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
             .then((data) => {
@@ -73,7 +55,7 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
     }, [])
 
     return (
-        (<Root>
+        <>
             {uiStore.loading["/main"] && <Loading />}
             {!uiStore.loading["/main"] &&
                 <Box sx={{
@@ -102,7 +84,7 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                     </Box>
                 </Box>
             }
-        </Root>)
+        </>
     );
 }))
 

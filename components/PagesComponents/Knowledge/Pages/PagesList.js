@@ -11,296 +11,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { inject, observer } from 'mobx-react'
 
-const PREFIX = 'PagesList';
-
-const classes = {
-    container: `${PREFIX}-container`,
-    gridCard: `${PREFIX}-gridCard`,
-    Card: `${PREFIX}-Card`,
-    CardTheory: `${PREFIX}-CardTheory`,
-    CardPractice: `${PREFIX}-CardPractice`,
-    CardTest: `${PREFIX}-CardTest`,
-    CardButtonTheory: `${PREFIX}-CardButtonTheory`,
-    CardButtonPractice: `${PREFIX}-CardButtonPractice`,
-    CardButtonTest: `${PREFIX}-CardButtonTest`,
-    cardColumn: `${PREFIX}-cardColumn`,
-    CardContent: `${PREFIX}-CardContent`,
-    CardActionsCenterButton: `${PREFIX}-CardActionsCenterButton`,
-    Chip: `${PREFIX}-Chip`,
-    CardActions: `${PREFIX}-CardActions`,
-    Avatar: `${PREFIX}-Avatar`,
-    overline: `${PREFIX}-overline`,
-    name: `${PREFIX}-name`,
-    gridcreater: `${PREFIX}-gridcreater`,
-    userownerinfo: `${PREFIX}-userownerinfo`,
-    Divider: `${PREFIX}-Divider`,
-    popper: `${PREFIX}-popper`,
-    pageName: `${PREFIX}-pageName`,
-    pageDescription: `${PREFIX}-pageDescription`,
-    icon: `${PREFIX}-icon`,
-    "&.MuiSpeedDial-fab": `${PREFIX}-undefined`,
-    speedDial: `${PREFIX}-speedDial`,
-    speedDialActionFirst: `${PREFIX}-speedDialActionFirst`,
-    speedDialAction: `${PREFIX}-speedDialAction`,
-    disableIcon: `${PREFIX}-disableIcon`,
-    activeIcon: `${PREFIX}-activeIcon`,
-    iconSpeedDial: `${PREFIX}-iconSpeedDial`,
-    IconButtonSpeedDial: `${PREFIX}-IconButtonSpeedDial`,
-    IconButtonMoreVert: `${PREFIX}-IconButtonMoreVert`,
-    Divider: `${PREFIX}-Divider`,
-    CardHeader: `${PREFIX}-CardHeader`,
-    DescriptionLabel: `${PREFIX}-DescriptionLabel`,
-    DescriptionLabelInfo: `${PREFIX}-DescriptionLabelInfo`,
-    AuthorLabel: `${PREFIX}-AuthorLabel`,
-    AuthorName: `${PREFIX}-AuthorName`,
-    ContentLabel: `${PREFIX}-ContentLabel`
-};
-
-const StyledGrid = styled(Grid)((
-    {
-        theme
-    }
-) => ({
-
-    [`& .${classes.gridCard}`]: {
-        padding: 8,
-    },
-
-    [`& .${classes.Card}`]: {
-
-    },
-
-    [`& .${classes.CardTheory}`]: {
-        border: '4px solid',
-        borderColor: "#81c784",
-    },
-
-    [`& .${classes.CardPractice}`]: {
-        //background: "#2962ff",
-        border: '4px solid',
-        borderColor: "#64b5f6",
-    },
-
-    [`& .${classes.CardTest}`]: {
-        //background: "#6200ea",
-        border: '4px solid',
-        borderColor: "#9575cd",
-    },
-
-    [`& .${classes.CardButtonTheory}`]: {
-        backgroundColor: "#81c784",
-        '&:hover': {
-            backgroundColor: "#81c784",
-        }
-    },
-
-    [`& .${classes.CardButtonPractice}`]: {
-        backgroundColor: "#64b5f6",
-        '&:hover': {
-            backgroundColor: "#64b5f6",
-        }
-    },
-
-    [`& .${classes.CardButtonTest}`]: {
-        backgroundColor: "#9575cd",
-        '&:hover': {
-            backgroundColor: "#9575cd",
-        }
-    },
-
-    [`& .${classes.cardColumn}`]: {
-        maxWidth: 700,
-    },
-
-    [`& .${classes.CardContent}`]: {
-        marginTop: 0,
-        height: 196,
-    },
-
-    [`& .${classes.CardActionsCenterButton}`]: {
-        marginTop: "5px",
-        height: "40px",
-        marginBottom: "5px",
-    },
-
-    [`& .${classes.Chip}`]: {
-        //border: '2px solid',
-        marginRight: 4,
-        marginTop: 4,
-    },
-
-    [`& .${classes.CardActions}`]: {
-        marginTop: "auto",
-        marginBottom: 0,
-    },
-
-    [`& .${classes.Avatar}`]: {
-        borderRadius: 16,
-        fontSize: 48,
-        width: 128,
-        height: 128,
-        backgroundColor: theme => theme.palette.blueGrey["7"],
-    },
-
-    [`& .${classes.overline}`]: {
-        fontSize: 12,
-        textTransform: 'uppercase',
-        letterSpacing: 1,
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.name}`]: {
-        fontSize: 16,
-        fontWeight: 500,
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.gridcreater}`]: {
-        paddingLeft: theme => theme.spacing(1.5),
-    },
-
-    [`& .${classes.userownerinfo}`]: {
-        paddingTop: theme => theme.spacing(1.5),
-        width: 'auto',
-        marginRight: 'auto',
-    },
-
-    [`& .${classes.Divider}`]: {
-        marginTop: 4,
-        marginBottom: 4,
-        height: 1,
-        width: "100%",
-        backgroundColor: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.popper}`]: {
-        zIndex: 1000,
-        //position: 'fixed',
-    },
-
-    [`& .${classes.pageName}`]: {
-        cursor: "default",
-        marginTop: 16,
-        marginLeft: 16,
-        marginRight: 52,
-        fontSize: 24,
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.pageDescription}`]: {
-        cursor: "default",
-        marginTop: 12,
-        marginLeft: 0,
-        fontSize: 16,
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.icon}`]: {
-        color: props => props.palette.primary.contrastText,
-    },
-
-    [`& .${classes.undefined}`]: {
-        // height: 24,
-        // width: 24,
-        // color: "#fff"
-        color: "#fff !important",
-    },
-
-    [`& .${classes.speedDial}`]: {
-        //marginTop: 4,
-        //marginLeft: 16,
-        // height: "24px !important",
-        // width: "24px !important",
-        // borderRadius: "12px",
-        // height: 36,
-        // width: 36,
-        // marginTop: 4,
-        // marginLeft: 16,
-        // margin: 0,
-        position: 'absolute',
-        top: 6,
-        right: 6,
-    },
-
-    [`& .${classes.speedDialActionFirst}`]: {
-        marginTop: -4,
-        color: props => props.palette.primary.main,
-    },
-
-    [`& .${classes.speedDialAction}`]: {
-        color: props => props.palette.primary.main,
-    },
-
-    [`& .${classes.disableIcon}`]: {
-        color: props => props.palette.error.main,
-    },
-
-    [`& .${classes.activeIcon}`]: {
-        color: props => props.palette.primary.contrastText,
-        backgroundColor: props => props.palette.primary.main,
-        '&:hover': {
-            color: props => props.palette.primary.contrastText,
-            backgroundColor: props => props.palette.primary.main,
-        }
-    },
-
-    [`& .${classes.iconSpeedDial}`]: {
-        // height: 24,
-        // width: 24,
-    },
-
-    [`& .${classes.IconButtonSpeedDial}`]: {
-        // height: 48,
-        // width: 48,
-        color: props => props.palette.primary.contrastText,
-    },
-
-    [`& .${classes.IconButtonMoreVert}`]: {
-        position: 'absolute',
-        top: 12,
-        right: 12,
-        // marginTop: 12,
-        // marginRight: 12,
-        color: props => props.palette.primary.contrastText,
-    },
-
-    [`& .${classes.Divider}`]: {
-        height: 1,
-        backgroundColor: props => props.palette.primary.contrastText,
-    },
-
-    [`& .${classes.CardHeader}`]: {
-        marginBottom: 4,
-    },
-
-    [`& .${classes.DescriptionLabel}`]: {
-        fontWeight: "bold",
-        color: props => props.palette.primary.contrastText,
-    },
-
-    [`& .${classes.DescriptionLabelInfo}`]: {
-        marginTop: 8,
-        fontWeight: "bold",
-        color: props => props.palette.primary.contrastText,
-    },
-
-    [`& .${classes.AuthorLabel}`]: {
-        marginLeft: 8,
-        fontWeight: "bold",
-        color: props => props.palette.primary.contrastText,
-    },
-
-    [`& .${classes.AuthorName}`]: {
-        marginLeft: 8,
-        color: props => props.palette.primary.contrastText,
-    },
-
-    [`& .${classes.ContentLabel}`]: {
-        color: props => props.palette.primary.contrastText,
-    }
-}));
-
-
 const Views = React.memo(({ views }) => {
     const theme = useTheme()
 
@@ -350,48 +60,56 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
     }
 
     return (
-        <StyledGrid
+        <Grid
             container
-            direction={knowledgeUI.gridTypeOnPage === "grid" ? "row" : "column"}
-            justifyContent="center"
-            alignItems="center"
+            //direction={knowledgeUI.gridTypeOnPage === "grid" ? "row" : "column"}
+            //justifyContent="center"
+            //alignItems="center"
             sx={{
-                marginBottom: 2,
-                marginTop: 2,
-                paddingTop: 0,
-                height: '100%',
-                width: '100%',
+                margin: 4,
+                width: "calc(100% - 64px)",
+                borderRadius: 2,
+                //backgroundColor: 'background.1',
             }}
         >
             {
                 knowledgeStore.pageList.pages.map((page, index) => (
                     <Grid
-                        xs={12} sm={12} md={knowledgeUI.gridTypeOnPageSizes[0]} lg={knowledgeUI.gridTypeOnPageSizes[1]} xl={knowledgeUI.gridTypeOnPageSizes[2]}
+                        xs={12} sm={12} md={6} lg={4} xl={3}
                         item
-                        sx={{ p: 1 }}
+                        sx={{ p: 1, }}
                         container
                         justifyContent="center"
                         alignItems="center"
                         key={index.toString()}>
                         <Card elevation={24} sx={{
-                            //position: 'relative',
-                            borderRadius: 4,
-                            transition: '0.3s',
+                            position: 'relative',
+                            border: '2px solid',
+                            borderColor: 'primary.dark',
+                            borderRadius: 8,
+                            transition: '0.4s',
+                            '&:hover': {
+                                borderColor: 'primary.light',
+                            },
                             width: '100%',
-                            minWidth: "500px",
-                            height: '100%',
-                            backgroundColor: 'background.1',
+                            overflow: 'initial',
+                            backgroundColor: 'background.2',
                         }}>
                             <IconButton
-                                className={classes.IconButtonMoreVert}
+                                sx={{
+                                    position: 'absolute',
+                                    top: 1.5,
+                                    right: 1.5,
+                                    color: 'text.main',
+                                }}
                                 variant="contained"
                                 color="primary"
                                 onClick={(event) => setOpenMenu(event.currentTarget)}
                                 size="large">
-                                <MoreVertIcon className={classes.icons} />
+                                <MoreVertIcon />
                             </IconButton>
-                            <Popper className={classes.popper} id={undefined} open={Boolean(openMenu)} onClose={() => setOpenMenu(false)} anchorEl={openMenu}>
-                                <Paper className={classes.popper}>
+                            <Popper sx={{ zIndex: 1000, }} id={undefined} open={Boolean(openMenu)} onClose={() => setOpenMenu(false)} anchorEl={openMenu}>
+                                <Paper sx={{ zIndex: 1000, }}>
                                     <MenuList
                                         id="composition-menu"
                                         aria-labelledby="composition-button"
@@ -407,14 +125,20 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
                                 direction="row"
                                 justifyContent="space-between"
                                 alignItems="center"
-                                className={classes.CardHeader}
+                                sx={{ marginBottom: 0.5, }}
                             >
                                 {/* wrap="nowrap" spacing={2} */}
                                 <Grid item container>
                                     <Grid container wrap="nowrap" spacing={2}>
                                         <Grid item xs zeroMinWidth>
                                             <Tooltip arrow title={`Название: ${page.name}`}>
-                                                <Typography className={classes.pageName} noWrap>{page.name}</Typography>
+                                                <Typography sx={{
+                                                    cursor: "default",
+                                                    marginTop: 2,
+                                                    marginLeft: 2,
+                                                    marginRight: 8.5,
+                                                    fontSize: "24px",
+                                                }} noWrap>{page.name}</Typography>
                                             </Tooltip>
                                         </Grid>
                                     </Grid>
@@ -423,8 +147,18 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
 
                                 </Grid>
                             </Grid>
-                            <Divider variant="middle" className={classes.Divider} />
-                            <CardContent className={classes.CardContent}>
+                            <Divider variant="middle" sx={{
+                                marginTop: 0.5,
+                                marginBottom: 0.5,
+                                height: "1px",
+                                //width: "100%",
+                                backgroundColor: 'text.main',
+                            }} />
+                            <CardContent sx={{
+                                marginTop: 0,
+                                width: "300px",
+                                height: "196px",
+                            }}>
                                 <Grid
                                     container
                                     direction="column"
@@ -438,19 +172,25 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
                                         alignItems="flex-start"
                                     >
                                         <Grid item>
-                                            <Typography className={classes.DescriptionLabel}> Тематика Страницы </Typography>
+                                            <Typography sx={{ fontWeight: "bold", }}> Тематика Страницы </Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography className={classes.ContentLabel}> {page.theme} </Typography>
+                                            <Typography> {page.theme} </Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography className={classes.DescriptionLabelInfo}> Тип Страницы </Typography>
+                                            <Typography sx={{
+                                                marginTop: 1,
+                                                fontWeight: "bold",
+                                            }}> Тип Страницы </Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography className={classes.ContentLabel}> {kindSelect(page.kind)}</Typography>
+                                            <Typography> {kindSelect(page.kind)}</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography className={classes.DescriptionLabelInfo}> Просмотры </Typography>
+                                            <Typography sx={{
+                                                marginTop: 1,
+                                                fontWeight: "bold",
+                                            }}> Просмотры </Typography>
                                         </Grid>
                                         <Grid
                                             container
@@ -468,10 +208,10 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
                                         alignItems="flex-start"
                                     >
                                         <Grid item>
-                                            <Typography className={classes.DescriptionLabel}> Описание </Typography>
+                                            <Typography sx={{ fontWeight: "bold", }}> Описание </Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography className={classes.ContentLabel}> {page.description != null ? page.description : "Автор не оставил описание страницы"} </Typography>
+                                            <Typography> {page.description != null ? page.description : "Автор не оставил описание страницы"} </Typography>
                                         </Grid>
                                     </Grid>}
                                     {knowledgeUI.contentTypeOnPage === "author" && <Grid
@@ -481,19 +221,39 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
                                         alignItems="flex-start"
                                     >
                                         <Grid item>
-                                            <Avatar className={classes.Avatar}> {page["author-name"][0].toUpperCase()} </Avatar>
-                                            <Typography className={classes.AuthorLabel}> Автор </Typography>
-                                            <Typography className={classes.AuthorName}>{page["author-name"]}</Typography>
+                                            <Avatar sx={{
+                                                borderRadius: 2,
+                                                fontSize: 6,
+                                                width: 18,
+                                                height: 18,
+                                            }}> {page["author-name"][0].toUpperCase()} </Avatar>
+                                            <Typography sx={{
+                                                marginLeft: 1,
+                                                fontWeight: "bold",
+                                            }}> Автор </Typography>
+                                            <Typography sx={{ marginLeft: 1, }}>{page["author-name"]}</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography className={classes.AuthorLabel}>Об Авторе </Typography>
-                                            <Typography className={classes.AuthorName}>Информация об авторе</Typography>
+                                            <Typography sx={{
+                                                marginLeft: 1,
+                                                fontWeight: "bold",
+                                            }}>Об Авторе </Typography>
+                                            <Typography sx={{ marginLeft: 1, }}>Информация об авторе</Typography>
                                         </Grid>
                                     </Grid>}
                                 </Grid>
                             </CardContent>
-                            <Divider variant="middle" className={classes.Divider} />
-                            <CardActions className={classes.CardActions}>
+                            <Divider variant="middle" sx={{
+                                marginTop: 0.5,
+                                marginBottom: 0.5,
+                                height: "1px",
+                                //width: "100%",
+                                backgroundColor: 'text.main',
+                            }} />
+                            <CardActions sx={{
+                                marginTop: "auto",
+                                marginBottom: 0,
+                            }}>
                                 <Grid spacing={1} container justifyContent="center" >
                                     <Grid>
                                         <Link
@@ -502,7 +262,11 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
                                                 query: { id: page.id },
                                             }}
                                             passHref>
-                                            <Button variant="contained" className={clsx(classes.CardActionsCenterButton, { [classes.CardButtonTheory]: page.kind === "theory" }, { [classes.CardButtonPractice]: page.kind === "practice" }, { [classes.CardButtonTest]: page.kind === "task" })}>
+                                            <Button variant="contained" sx={{
+                                                marginTop: "5px",
+                                                height: "40px",
+                                                marginBottom: "5px",
+                                            }}>
                                                 <Typography variant="subtitle1">{`Перейти к ${buttonLabelSelect(page.kind)}`}</Typography>
                                                 {/* <Typography variant="subtitle1">Продолжить модуль</Typography>} */}
                                             </Button>
@@ -515,7 +279,7 @@ const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore
                 ))
 
             }
-        </StyledGrid>
+        </Grid>
     );
 }));
 

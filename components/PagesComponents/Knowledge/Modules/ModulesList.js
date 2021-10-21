@@ -176,10 +176,10 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
 
     return (
         <StyledGrid container sx={{
-            marginTop: 2,
-            marginBottom: 2,
-            height: '100%',
-            width: '100%',
+            margin: 1,
+            width: "calc(100% - 16px)",
+            borderRadius: 2,
+            //backgroundColor: 'background.1',
         }}>
             {knowledgeStore.moduleList.modules.map((module, index) => (
                 <Grid xs={12} sm={12} md={6} lg={4} xl={3} item sx={{ p: 1, }} container key={index.toString()}>
@@ -187,19 +187,19 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                         position: 'relative',
                         border: '2px solid',
                         borderColor: 'primary.dark',
-                        borderRadius: 4,
+                        borderRadius: 8,
                         transition: '0.4s',
                         '&:hover': {
                             borderColor: 'primary.light',
                         },
                         width: '100%',
                         overflow: 'initial',
-                        background: 'background.1',
+                        backgroundColor: 'background.2',
                     }}>
                         <Box sx={{ paddingTop: -1, }}>
                             <Grid container wrap="nowrap" spacing={2}>
                                 <Grid item xs zeroMinWidth>
-                                    <Typography sx={{
+                                    <Typography variant="h5" sx={{
                                         marginTop: 1.5,
                                         marginLeft: 1.5,
                                     }} noWrap>{module.name}</Typography>
@@ -207,7 +207,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                             </Grid>
                             <Grid container wrap="nowrap" spacing={2}>
                                 <Grid item xs zeroMinWidth>
-                                    <Typography sx={{ marginLeft: 1.5, }} noWrap>{coursesThemeList[module.theme]}</Typography>
+                                    <Typography variant="h6" sx={{ marginLeft: 1.5, }} noWrap>{coursesThemeList[module.theme]}</Typography>
                                 </Grid>
                             </Grid>
                         </Box>
@@ -260,7 +260,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                         }}>Ξ Effect</Typography>
                                     </Grid>
                                 </Grid>
-                                <Grid sx={{ mt: 1,}}>
+                                <Grid sx={{ mt: 1, }}>
                                     <IconButton
                                         onClick={() => knowledgeStore.setPreferenceInModules(index, "starred", module.id, module.starred ? "unstar" : "star", !module.starred)}
                                         color="primary"
@@ -270,7 +270,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                         {module.starred && <StarIcon className={classes.iconsStarPush} />}
                                     </IconButton>
                                 </Grid>
-                                <Grid sx={{ mt: 1,}}>
+                                <Grid sx={{ mt: 1, }}>
                                     <IconButton
                                         onClick={() => knowledgeStore.setPreferenceInModules(index, "pinned", module.id, module.pinned ? "unpin" : "pin", !module.pinned)}
                                         color="primary"
@@ -280,7 +280,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                         {module.pinned && <FlagIcon className={classes.iconsPinPush} />}
                                     </IconButton>
                                 </Grid>
-                                <Grid sx={{ mt: 1,}}>
+                                <Grid sx={{ mt: 1, }}>
                                     <IconButton
                                         onClick={(event) => {
                                             knowledgeStore.setModuleListDataInModules(index, "openMenu", module.openMenu === undefined ? true : !module.openMenu)
@@ -310,7 +310,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                         </CardContent>
                         <Divider />
                         <CardActions>
-                            <Grid spacing={1} container justifyContent="center" className={classes.CardActions}>
+                            <Grid spacing={1} container justifyContent="center">
                                 <Grid>
                                     <Link
                                         href={{
@@ -318,7 +318,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                             query: { moduleId: module.id },
                                         }}
                                         passHref>
-                                        <Button variant="contained" color="primary" className={classes.CardActionsCenterButton}>
+                                        <Button variant="contained" color="primary" >
                                             {!module.started && <Typography variant="subtitle1">Приступить к модулю</Typography>}
                                             {module.started && <Typography variant="subtitle1">Продолжить модуль</Typography>}
                                         </Button>

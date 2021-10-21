@@ -1,163 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import clsx from 'clsx';
-
-
-import { Chip, Divider, Accordion, useMediaQuery, SpeedDial, SpeedDialAction, AccordionSummary, AccordionDetails, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Popper, ClickAwayListener, Paper, MenuItem, MenuList, IconButton, Button, Grid, InputBase, Typography, useTheme, Tooltip } from '@mui/material';
-
-
-import { inject, observer } from 'mobx-react'
-
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ClearIcon from '@mui/icons-material/Clear';
+import ClearAllIcon from '@mui/icons-material/ClearAll';
+import DescriptionIcon from '@mui/icons-material/Description';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import ClearIcon from '@mui/icons-material/Clear';
-import TuneIcon from '@mui/icons-material/Tune';
-import ZoomInIcon from '@mui/icons-material/ZoomIn';
-import ViewComfyIcon from '@mui/icons-material/ViewComfy';
-import ReorderIcon from '@mui/icons-material/Reorder';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
-import DescriptionIcon from '@mui/icons-material/Description';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import ClearAllIcon from '@mui/icons-material/ClearAll';
-import SavedSearchIcon from '@mui/icons-material/SavedSearch';
-import SearchOffIcon from '@mui/icons-material/SearchOff';
 import RedoIcon from '@mui/icons-material/Redo';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-
-const PREFIX = 'Chipper';
-
-const classes = {
-    root: `${PREFIX}-root`,
-    gridChip: `${PREFIX}-gridChip`,
-    chip: `${PREFIX}-chip`,
-    chipClicked: `${PREFIX}-chipClicked`,
-    chipTypography: `${PREFIX}-chipTypography`,
-    labelTypography: `${PREFIX}-labelTypography`,
-    labelTypographyAccept: `${PREFIX}-labelTypographyAccept`,
-    icons: `${PREFIX}-icons`,
-    filterColumn: `${PREFIX}-filterColumn`,
-    labelFilterColumn: `${PREFIX}-labelFilterColumn`,
-    gridFilters: `${PREFIX}-gridFilters`,
-    gridLabelTypographyAccept: `${PREFIX}-gridLabelTypographyAccept`,
-    formControl: `${PREFIX}-formControl`,
-    typographyInputLabel: `${PREFIX}-typographyInputLabel`,
-    applyButton: `${PREFIX}-applyButton`,
-    divider: `${PREFIX}-divider`,
-    Accordion: `${PREFIX}-Accordion`,
-    gridAccordionSummary: `${PREFIX}-gridAccordionSummary`,
-    AccordionDetails: `${PREFIX}-AccordionDetails`,
-    iconButton: `${PREFIX}-iconButton`,
-    input: `${PREFIX}-input`,
-    gridSpacer: `${PREFIX}-gridSpacer`,
-    gridNavWrap: `${PREFIX}-gridNavWrap`,
-    ExpandMoreIcon: `${PREFIX}-ExpandMoreIcon`,
-    ExpandMoreIconOpen: `${PREFIX}-ExpandMoreIconOpen`
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-    {
-        theme
-    }
-) => ({
-
-    [`& .${classes.chip}`]: {
-        border: '2px solid',
-        borderColor: theme => theme.palette.primary.contrastText,
-        cursor: 'pointer',
-        // backgroundColor: "rgb(0,0,0, .0)",
-        '&:hover': {
-            //backgroundColor: "rgb(0,0,0, .0)"
-        }
-    },
-
-    [`& .${classes.chipTypography}`]: {
-        fontSize: 18,
-        cursor: 'pointer',
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.labelTypography}`]: {
-        paddingRight: 4,
-        fontSize: 18,
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.labelTypographyAccept}`]: {
-        paddingRight: 4,
-        fontSize: 16,
-    },
-
-    [`& .${classes.icons}`]: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.filterColumn}`]: {
-
-    },
-
-    [`& .${classes.labelFilterColumn}`]: {
-        marginTop: 4,
-        fontSize: 20,
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.gridFilters}`]: {
-        marginTop: 0,
-        marginBottom: 8,
-    },
-
-    [`& .${classes.gridLabelTypographyAccept}`]: {
-        paddingTop: 8,
-        paddingLeft: 8,
-        paddingBottom: 8,
-    },
-
-    [`& .${classes.formControl}`]: {
-        marginBottom: 4,
-    },
-
-    [`& .${classes.typographyInputLabel}`]: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.applyButton}`]: {
-        marginLeft: 8,
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.divider}`]: {
-        width: "100%",
-        height: 1,
-        backgroundColor: theme => theme.palette.primary.contrastText
-    },
-
-    [`& .${classes.AccordionDetails}`]: {
-        marginTop: 0,
-        paddingTop: 0,
-    },
-
-    [`& .${classes.iconButton}`]: {
-        //  padding: 10,
-        color: theme => theme.palette.primary.contrastText,
-    },
+import ReorderIcon from '@mui/icons-material/Reorder';
+import SavedSearchIcon from '@mui/icons-material/SavedSearch';
+import SearchIcon from '@mui/icons-material/Search';
+import SearchOffIcon from '@mui/icons-material/SearchOff';
+import TuneIcon from '@mui/icons-material/Tune';
+import ViewComfyIcon from '@mui/icons-material/ViewComfy';
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import { Accordion, AccordionDetails, AccordionSummary, Button, Chip, ClickAwayListener, Divider, FormControl, FormControlLabel, FormLabel, Grid, IconButton, InputBase, MenuItem, MenuList, Paper, Popper, Radio, RadioGroup, SpeedDial, SpeedDialAction, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import clsx from 'clsx';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
 
 
-    [`& .${classes.gridSpacer}`]: {
 
-    },
 
-    [`& .${classes.gridNavWrap}`]: {
-        width: 100,
-        marginRight: 0,
-        marginLeft: 0,
-    },
 
-}));
 
 const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ rootStore, knowledgeStore, uiStore }) => {
     const theme = useTheme();
@@ -369,7 +238,6 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                         {!mobileSearch && mobile && <Tooltip title="Очистить поиск">
                             <span>
                                 <IconButton
-                                    className={clsx(classes.iconButton)}
                                     onClick={() => setMobileSearch(true)}
                                     disabled={mobile ? false : knowledgeStore.moduleList.search.length < 3}
                                     aria-label="search"
@@ -405,7 +273,11 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                             direction="row"
                             justifyContent="center"
                             alignItems="center"
-                            className={classes.gridNavWrap}
+                            sx={{
+                                width: "110px",
+                                marginRight: 0,
+                                marginLeft: 0,
+                            }}
                         >
                             <Tooltip title="Назад">
                                 <span>
@@ -439,7 +311,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                 }}>
                     <Grid
                         item
-                        className={classes.gridFilters}
+                        sx={{ marginBottom: 1, }}
                         container
                         direction="row"
                     >
@@ -479,7 +351,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                         </span>
                                     </Tooltip>
                                     <Typography sx={{
-                                        marginTop: 0.5,
+                                        marginTop: 1.5,
                                     }}> Глобальные </Typography>
                                 </AccordionSummary>
                                 <AccordionDetails sx={{
@@ -507,7 +379,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                                 }}
                                                 onClick={() => knowledgeStore.setModuleListDataSecondary("filters", "global", chip.name === knowledgeStore.moduleList.filters.global ? null : chip.name)}
                                                 label={
-                                                    <Typography className={classes.chipTypography}>
+                                                    <Typography >
                                                         {chip.title}
                                                     </Typography>
                                                 }
@@ -555,7 +427,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                         </>
                                     </Tooltip>
                                     <Typography sx={{
-                                        marginTop: 0.5,
+                                        marginTop: 1.5,
                                     }}> По Категории </Typography>
                                 </AccordionSummary>
                                 <AccordionDetails sx={{
@@ -629,7 +501,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                         </>
                                     </Tooltip>
                                     <Typography sx={{
-                                        marginTop: 0.5,
+                                        marginTop: 1.5,
                                     }}> По Теме </Typography>
                                 </AccordionSummary>
                                 <AccordionDetails sx={{
@@ -703,7 +575,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                         </>
                                     </Tooltip>
                                     <Typography sx={{
-                                        marginTop: 0.5,
+                                        marginTop: 1.5,
                                     }}> По Сложности </Typography>
                                 </AccordionSummary>
                                 <AccordionDetails sx={{
@@ -731,7 +603,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                                 }}
                                                 onClick={() => knowledgeStore.setModuleListDataSecondary("filters", "difficulty", chip.name === knowledgeStore.moduleList.filters.difficulty ? null : chip.name)}
                                                 label={
-                                                    <Typography className={classes.chipTypography}>
+                                                    <Typography>
                                                         {chip.title}
                                                     </Typography>
                                                 }
@@ -777,7 +649,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                         </>
                                     </Tooltip>
                                     <Typography sx={{
-                                        marginTop: 1,
+                                        marginTop: 1.5,
                                     }}> Сортировка </Typography>
                                 </AccordionSummary>
                                 <AccordionDetails sx={{
@@ -805,7 +677,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                                                 }}
                                                 onClick={() => knowledgeStore.setModuleListData("sort", chip.name)}
                                                 label={
-                                                    <Typography className={classes.chipTypography}>
+                                                    <Typography>
                                                         {chip.title}
                                                     </Typography>
                                                 }
@@ -818,7 +690,11 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                     </Grid>
                 </AccordionDetails>
             </Accordion>
-            <Divider className={classes.divider} />
+            <Divider sx={{
+                width: "100%",
+                height: "1px",
+                backgroundColor: 'text.main',
+            }} />
         </Grid>
     );
 }));
