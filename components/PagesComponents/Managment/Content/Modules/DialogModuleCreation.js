@@ -72,48 +72,35 @@ const DialogModuleCreation = inject('managmentStore')(observer(({ managmentStore
                                 </IconButton>
                             </Tooltip>
                         </Grid>
-                        <MobileStepper
-                            variant="dots"
-                            steps={3}
+                        <Grid
                             sx={{
-                                '& .MuiMobileStepper-dotActive': {
-                                    color: 'text.main',
-                                    backgroundColor: 'text.main',
-                                },
                                 marginLeft: "auto",
-                                // width: "100%",
+                            }}>
+                            <Button sx={{
+                                marginLeft: 0.5,
+                                marginRight: 0.5,
                                 color: 'text.main',
-                                backgroundColor: 'primary.main',
-                            }}
-                            position="static"
-                            activeStep={activeStep}
-                            nextButton={
-                                <Button sx={{
-                                    marginLeft: 0.5,
-                                    marginRight: 0.5,
-                                }} onClick={handleNext} disabled={activeStep === 2}>
-                                    Вперёд
-                                    {theme.direction === 'rtl' ? (
-                                        <KeyboardArrowLeft />
-                                    ) : (
-                                        <KeyboardArrowRight />
-                                    )}
-                                </Button>
-                            }
-                            backButton={
-                                <Button sx={{
-                                    marginLeft: 0.5,
-                                    marginRight: 0.5,
-                                }} onClick={handleBack} disabled={activeStep === 0}>
-                                    {theme.direction === 'rtl' ? (
-                                        <KeyboardArrowRight />
-                                    ) : (
-                                        <KeyboardArrowLeft />
-                                    )}
-                                    Назад
-                                </Button>
-                            }
-                        />
+                            }} onClick={handleBack} disabled={activeStep === 0}>
+                                {theme.direction === 'rtl' ? (
+                                    <KeyboardArrowRight />
+                                ) : (
+                                    <KeyboardArrowLeft />
+                                )}
+                                Назад
+                            </Button>
+                            <Button sx={{
+                                marginLeft: 0.5,
+                                marginRight: 0.5,
+                                color: 'text.main',
+                            }} onClick={handleNext} disabled={activeStep === 2}>
+                                Вперёд
+                                {theme.direction === 'rtl' ? (
+                                    <KeyboardArrowLeft />
+                                ) : (
+                                    <KeyboardArrowRight />
+                                )}
+                            </Button>
+                        </Grid>
                     </Grid>
                 </Toolbar>
             </AppBar>

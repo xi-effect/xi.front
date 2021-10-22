@@ -198,8 +198,15 @@ const Text = inject('managmentStore')(observer(({ managmentStore, index }) => {
             >
                 <Grid className={classes.gridTextWrapper}>
                     <Input
-                        classes={{
-                            input: classes.text
+                        sx={{
+                            width: "100%",
+                            color: 'text.main',
+                            fontSize: values.fontSize,
+                            fontStyle: values.fontStyle,
+                            textAlign: values.textAlign,
+                            fontWeight: values.fontWeight,
+                            textDecoration: values.textDecoration,
+                            lineHeight: "normal",
                         }}
                         type="text"
                         disableUnderline

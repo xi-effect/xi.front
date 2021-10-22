@@ -40,8 +40,7 @@ const StyledGrid = styled(Grid)((
 ) => ({
     [`&.${classes.gridRoot}`]: {
         //margin: "8px",
-        width: "calc(100% - 16px)",
-        height: "100%",
+
     },
 
     [`& .${classes.gridMain}`]: {
@@ -75,9 +74,7 @@ const StyledGrid = styled(Grid)((
     },
 
     [`& .${classes.speedDial}`]: {
-        position: 'absolute',
-        top: theme => theme.spacing(10),
-        left: theme => theme.spacing(2),
+
     },
 
     [`& .${classes.speedDialAction}`]: {
@@ -173,7 +170,10 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
 
     return (
         <StyledGrid
-            className={classes.gridRoot}
+            sx={{
+                width: "calc(100% - 16px)",
+                height: "100%",
+            }}
             container
             direction="row"
             justifyContent="center"
@@ -181,7 +181,11 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
         >
             <SpeedDial
                 ariaLabel="SpeedDial tooltip example"
-                className={classes.speedDial}
+                sx={{
+                    position: 'absolute',
+                    top: "72px",
+                    left: 2,
+                }}
                 hidden={hidden}
                 icon={<SpeedDialIcon />}
                 onClose={handleClose}

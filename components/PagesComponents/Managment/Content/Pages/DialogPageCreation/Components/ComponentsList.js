@@ -119,14 +119,4 @@ const ComponentsList = inject('managmentStore')(observer(({ managmentStore }) =>
     ));
 }));
 
-// const ComponentsList = ({ components }) => {
-//     return (
-//         <>
-//             {components.map((component, index) => (
-//                 <Component component={component} index={index} key={index} />
-//             ))}
-//         </>
-//     );
-// };
-
 export default ComponentsList

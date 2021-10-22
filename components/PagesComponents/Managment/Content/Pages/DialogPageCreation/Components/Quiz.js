@@ -152,7 +152,17 @@ const QuizItem = inject('managmentStore')(observer(({ managmentStore, show, inde
                 input: classes.text
             }}
             placeholder="Добавить текст ответа"
-            className={classes.text}
+            sx={{
+                width: "100%",
+                color: 'text.main',
+
+                fontSize: values.fontSize,
+                fontStyle: values.fontStyle,
+                textAlign: values.textAlign,
+                fontWeight: values.fontWeight,
+                textDecoration: values.textDecoration,
+                lineHeight: "normal",
+            }}
             type="text"
             disableUnderline
             multiline

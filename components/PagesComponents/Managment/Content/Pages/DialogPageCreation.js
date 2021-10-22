@@ -54,13 +54,6 @@ const StyledDialog = styled(Dialog)((
         color: theme => theme.palette.primary.contrastText,
     },
 
-    [`& .${classes.mobileStepper}`]: {
-        marginLeft: "auto",
-        // width: "100%",
-        color: theme => theme.palette.primary.contrastText,
-        backgroundColor: theme => theme.palette.primary.main,
-    },
-
     [`& .${classes.icon}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
@@ -70,8 +63,7 @@ const StyledDialog = styled(Dialog)((
     },
 
     [`& .${classes.appBar}`]: {
-        position: 'relative',
-        zIndex: 1,
+
     },
 
     [`& .${classes.title}`]: {
@@ -152,12 +144,6 @@ const StyledDialog = styled(Dialog)((
         height: '2px',
     },
 
-    [`& .${classes.dialog}`]: {
-        zIndex: "10 !important",
-        width: '100vw',
-        height: '100vh',
-    },
-
     [`& .${classes.dialogTitle}`]: {
         backgroundColor: theme => theme.palette.blueGrey["6"],
         color: theme => theme.palette.primary.contrastText,
@@ -199,7 +185,11 @@ const DialogPageCreation = inject('rootStore', 'managmentStore')(observer(({ roo
 
     return (
         <Dialog
-            className={classes.dialog}
+            sx={{
+                zIndex: "10000 !important",
+                width: '100vw',
+                height: '100vh',
+            }}
             fullScreen
             open={managmentStore.pageCreationList.dialogOpen}
             onClose={() => managmentStore.setPageCreationList("dialogOpen", false)}
@@ -207,7 +197,11 @@ const DialogPageCreation = inject('rootStore', 'managmentStore')(observer(({ roo
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
         >
-            <AppBar className={classes.appBar}>
+            <AppBar sx={{
+                position: 'relative',
+                zIndex: 1,
+                backgroundColor: 'background.2',
+            }}>
                 <Toolbar>
                     <Grid
                         container
@@ -216,102 +210,31 @@ const DialogPageCreation = inject('rootStore', 'managmentStore')(observer(({ roo
                         alignItems="center"
                     >
                         <Grid>
-                            <Typography className={classes.mainLabel}> Создание страницы </Typography>
+                            <Typography> Создание страницы </Typography>
                         </Grid>
                         <Grid>
                             <Tooltip title="Сохранить">
                                 <IconButton onClick={() => managmentStore.savePage()} size="large">
-                                    <SaveIcon className={classes.icon} />
+                                    <SaveIcon />
                                 </IconButton>
                             </Tooltip>
                             <Tooltip title="Закрыть. Перед закрытием сохраните, иначе прогресс будет потерян">
                                 <IconButton
                                     onClick={() => managmentStore.setPageCreationList("dialogOpen", false)}
                                     size="large">
-                                    <CloseIcon className={classes.icon} />
+                                    <CloseIcon />
                                 </IconButton>
                             </Tooltip>
                         </Grid>
-                        <MobileStepper
-                            variant="dots"
-                            steps={3}
+                        <Grid
                             sx={{
-                                '& .MuiMobileStepper-dotActive': {
-                                    color: theme => theme.palette.primary.contrastText,
-                                    backgroundColor: theme => theme.palette.primary.contrastText,
-                                },
-                            }}
-                            position="static"
-                            activeStep={activeStep}
-                            className={classes.mobileStepper}
-                            nextButton={
-                                <Button className={classes.button} onClick={handleNext} disabled={activeStep === 2}>
-                                    Вперёд
-                                    {theme.direction === 'rtl' ? (
-                                        <KeyboardArrowLeft />
-                                    ) : (
-                                        <KeyboardArrowRight />
-                                    )}
-                                </Button>
-                            }
-                            backButton={
-                                <Button className={classes.button} onClick={handleBack} disabled={activeStep === 0}>
-                                    {theme.direction === 'rtl' ? (
-                                        <KeyboardArrowRight />
-                                    ) : (
-                                        <KeyboardArrowLeft />
-                                    )}
-                                    Назад
-                                </Button>
-                            }
-                        />
-                    </Grid>
-                </Toolbar>
-            </AppBar>
-            {/* <DialogTitle id="scroll-dialog-title">
-
-            </DialogTitle> */}
-            <DialogContent className={classes.dialogContent}>
-                <Grid
-                    container
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="flex-start"
-                    className={clsx(classes.gridMain, {
-                        [classes.gridMainStepFour]: activeStep == 1,
-                    })}
-                >
-                    {activeStep == 0 && <StepOne />}
-                    {activeStep == 1 && <StepTwo />}
-                    {activeStep == 2 && <StepThree />}
-
-                </Grid>
-            </DialogContent>
-            {/* <DialogActions className={classes.dialogActions}>
-                <Grid
-                    container
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <MobileStepper
-                        variant="dots"
-                        steps={3}
-                        position="static"
-                        activeStep={activeStep}
-                        className={classes.mobileStepper}
-                        nextButton={
-                            <Button className={classes.button} onClick={handleNext} disabled={activeStep === 2}>
-                                Вперёд
-                                {theme.direction === 'rtl' ? (
-                                    <KeyboardArrowLeft />
-                                ) : (
-                                    <KeyboardArrowRight />
-                                )}
-                            </Button>
-                        }
-                        backButton={
-                            <Button className={classes.button} onClick={handleBack} disabled={activeStep === 0}>
+                                marginLeft: "auto",
+                            }}>
+                            <Button sx={{
+                                marginLeft: 0.5,
+                                marginRight: 0.5,
+                                color: 'text.main',
+                            }} onClick={handleBack} disabled={activeStep === 0}>
                                 {theme.direction === 'rtl' ? (
                                     <KeyboardArrowRight />
                                 ) : (
@@ -319,10 +242,42 @@ const DialogPageCreation = inject('rootStore', 'managmentStore')(observer(({ roo
                                 )}
                                 Назад
                             </Button>
-                        }
-                    />
+                            <Button sx={{
+                                marginLeft: 0.5,
+                                marginRight: 0.5,
+                                color: 'text.main',
+                            }} onClick={handleNext} disabled={activeStep === 2}>
+                                Вперёд
+                                {theme.direction === 'rtl' ? (
+                                    <KeyboardArrowLeft />
+                                ) : (
+                                    <KeyboardArrowRight />
+                                )}
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Toolbar>
+            </AppBar>
+            {/* <DialogTitle id="scroll-dialog-title">
+
+            </DialogTitle> */}
+            <DialogContent sx={{
+                margin: 0,
+                padding: 0,
+                backgroundColor: 'background.0',
+                zIndex: 1,
+            }}>
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="flex-start"
+                >
+                    {activeStep == 0 && <StepOne />}
+                    {activeStep == 1 && <StepTwo />}
+                    {activeStep == 2 && <StepThree />}
                 </Grid>
-            </DialogActions> */}
+            </DialogContent>
         </Dialog >
     );
 }));

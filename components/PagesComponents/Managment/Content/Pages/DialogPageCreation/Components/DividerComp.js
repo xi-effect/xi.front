@@ -126,26 +126,6 @@ const DividerComp = inject('managmentStore')(observer(({ managmentStore, index }
     const theme = useTheme();
 
 
-    // const handleFontSizeUp = (event, newFormats) => {
-    //     //console.log(index, "fontSize", newFormats)
-    //     if (values.fontSize != 64) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
-    // };
-
-    // const handleFontSizeDown = (event, newFormats) => {
-    //     //console.log(index, "fontSize", newFormats)
-    //     if (values.fontSize != 24) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
-    // };
-
-    // const handleTextAlign = (align) => {
-    //     let newAlignment = null
-    //     if (align === 'left') newAlignment = 'center'
-    //     else if (align === 'center') newAlignment = 'right'
-    //     else if (align === 'right') newAlignment = 'left'
-    //     // else if (align === 'justify') newAlignment = 'left'
-    //     managmentStore.setPageCreationComponents(index, "textAlign", newAlignment)
-    // };
-
-
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
         setOpen(false);
@@ -174,72 +154,6 @@ const DividerComp = inject('managmentStore')(observer(({ managmentStore, index }
                     direction="row"
                     className={classes.gridButtons}
                 >
-                    {/* <SpeedDial
-                        ariaLabel="SpeedDial tooltip example"
-                        className={classes.speedDial}
-                        // hidden={hidden}
-                        icon={<IconButton className={classes.IconButtonSpeedDial}>
-                            <TuneIcon className={classes.iconSpeedDial} />
-                        </IconButton>}
-                        onClose={handleClose}
-                        onOpen={handleOpen}
-                        open={open}
-                        direction="right"
-                    >
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialActionFirst, { [classes.disableIcon]: values.fontSize === 64 })}
-                            tooltipPlacement="bottom"
-                            icon={<ZoomInIcon />}
-                            tooltipTitle={`Увеличить шрифт. Сейчас - ${values.fontSize}`}
-                            //tooltipOpen
-                            onClick={() => handleFontSizeUp()}
-                        />
-                        {/*<SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.disableIcon]: values.fontSize === 24 })}
-                            tooltipPlacement="bottom"
-                            icon={<ZoomOutIcon />}
-                            tooltipTitle={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}
-                            //tooltipOpen
-                            onClick={() => handleFontSizeDown()}
-                        />
-                        <SpeedDialAction
-                            className={classes.speedDialAction}
-                            tooltipPlacement="bottom"
-                            icon={textAlignIconSelect(values.textAlign)}
-                            tooltipTitle={`Изменить выравнивание текста. Сейчас - ${textAlignLabelSelect(values.textAlign)}`}
-                            //tooltipOpen
-                            onClick={() => handleTextAlign(values.textAlign)}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontWeight === 'bold' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatBoldIcon />}
-                            tooltipTitle="Полужирный"
-                            //tooltipOpen
-                            onClick={() => handleFontWeight()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontStyle === 'italic' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatItalicIcon />}
-                            tooltipTitle="Курсив"
-                            //tooltipOpen
-                            onClick={() => handleFontStyle()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.textDecoration === 'underline' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatUnderlinedIcon />}
-                            tooltipTitle="Подчёркнутый"
-                            //tooltipOpen
-                            onClick={() => handleTextDecoration()}
-                        /> */}
-                    {/* </SpeedDial>  */}
-                    {/* <Tooltip title="Дублировать блок">
-                        <IconButton className={classes.leftIconButton} onClick={() => managmentStore.duplicateComponent(index)}>
-                            <QueueIcon className={classes.icon} />
-                        </IconButton>
-                    </Tooltip> */}
                     <Tooltip title="Удалить блок">
                         <IconButton
                             className={classes.leftIconButton}
