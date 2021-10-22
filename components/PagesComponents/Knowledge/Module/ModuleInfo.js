@@ -17,6 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import CircleIcon from '@mui/icons-material/Circle';
 
 const categoryList = {
     "middle-school": "Средняя школа",
@@ -124,8 +125,8 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                     zIndex: 2000,
                     position: "fixed",
                     top: 0,
-                    left: mobile ? 0 : 9,
-                    width: mobile ? "100%" : "calc(100% - 72px)",
+                    left: mobile ? 0 : "210px",
+                    width: mobile ? "100%" : "calc(100% - 210px)",
                 }}
             >
                 <Accordion elevation={24}
@@ -166,13 +167,13 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                             </IconButton>
                                         </span>
                                     </Tooltip>
-                                    {!mobile && <Typography variant="h6" >
+                                    {!mobile && <Typography variant="h6" sx={{ ml: 1, }}>
                                         {knowledgeStore.module.name}
                                     </Typography>}
-                                    {!mobile && knowledgeStore.page.name != "" && <Typography variant="h5">
+                                    {!mobile && knowledgeStore.page.name != "" && <Typography variant="h5" sx={{ ml: 1, }}>
                                         {"/"}
                                     </Typography>}
-                                    {!mobile && <Typography variant="h6">
+                                    {!mobile && <Typography variant="h6" sx={{ ml: 1, }}>
                                         {knowledgeStore.page.name}
                                     </Typography>}
                                 </Grid>
@@ -184,7 +185,7 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                             <Grid item>
                                 <Tooltip title="Вперёд">
                                     <span>
-                                        <IconButton onClick={null} size="large">
+                                        <IconButton onClick={() => knowledgeStore.loadPageInModule(knowledgeStore.module.activeIdInMap + 1)} size="large">
                                             <DoubleArrowIcon />
                                         </IconButton>
                                     </span>
@@ -214,10 +215,10 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                     //variant="fullWidth"
                                     centered
                                 >
-                                    <Tab label={<Typography >Описание</Typography>} {...a11yProps(0)} />
-                                    {knowledgeStore.module["map"] != undefined && <Tab label={<Typography >Навигация</Typography>} {...a11yProps(1)} />}
-                                    <Tab label={<Typography >Статистика</Typography>} {...a11yProps(2)} />
-                                    <Tab label={<Typography >Об Авторе</Typography>} {...a11yProps(3)} />
+                                    <Tab label={<Typography sx={{ color: 'text.main' }}>Описание</Typography>} {...a11yProps(0)} />
+                                    {knowledgeStore.module["map"] != undefined && <Tab label={<Typography sx={{ color: 'text.main' }}>Навигация</Typography>} {...a11yProps(1)} />}
+                                    <Tab label={<Typography sx={{ color: 'text.main' }}>Статистика</Typography>} {...a11yProps(2)} />
+                                    <Tab label={<Typography sx={{ color: 'text.main' }}>Об Авторе</Typography>} {...a11yProps(3)} />
 
                                     {/* <Tab label={<Typography className={classes.tabLabel}>Модерация</Typography>} {...a11yProps(2)} /> */}
                                     {/* <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Others")} label={<Typography className={classes.tabLabel}><MoreHorizIcon /></Typography>} {...a11yProps(2)} /> */}
@@ -256,20 +257,20 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                             mt: 1,
                                         }}
                                     >
-                                        <Typography variant="subtitle2" >
+                                        <Typography variant="subtitle2">
                                             {themeList[knowledgeStore.module.theme]}
                                         </Typography>
-                                        <Typography variant="subtitle2" >
+                                        <Typography variant="h6" sx={{ ml: 1, }}>
                                             {"-"}
                                         </Typography>
-                                        <Typography variant="subtitle2" >
+                                        <Typography variant="subtitle2" sx={{ ml: 1, }}>
                                             {categoryList[knowledgeStore.module.category]}
 
                                         </Typography>
-                                        <Typography variant="subtitle2" >
+                                        <Typography variant="h6" sx={{ ml: 1, }}>
                                             {"-"}
                                         </Typography>
-                                        <Typography variant="subtitle2" >
+                                        <Typography variant="subtitle2" sx={{ ml: 1, }}>
                                             {difficultyList[knowledgeStore.module.difficulty]}
                                         </Typography>
                                     </Grid>
@@ -317,19 +318,16 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                                 alignItems="center"
                                                 key={index.toString()}
                                             >
-                                                <ArrowRightIcon />
+                                                {knowledgeStore.module.activeIdInMap === (index + (paginationCounter - 1) * 10) && <ArrowRightIcon />}
+                                                {/* {knowledgeStore.module.activeIdInMap !== (index + (paginationCounter - 1) * 10) && <CircleIcon sx={{fontSize: "8px", m: 1}} />} */}
                                                 <Link
                                                     sx={{
-                                                        cursor: "pointer",
+                                                        cursor: knowledgeStore.module.activeIdInMap === (index + (paginationCounter - 1) * 10) ? "default" : "pointer",
+                                                        ml: knowledgeStore.module.activeIdInMap === (index + (paginationCounter - 1) * 10) ? 0 : 3,
                                                     }}
-                                                    onClick={() => {
-                                                        router.push({
-                                                            pathname: '/knowledge/module/[moduleId]/[pageId]',
-                                                            query: { moduleId: knowledgeStore.module.id, pageId: index + (paginationCounter - 1) * 10 },
-                                                        })
-                                                    }}
+                                                    onClick={() => knowledgeStore.loadPageInModule(index + (paginationCounter - 1) * 10)}
                                                     color="inherit"
-                                                    underline="hover"
+                                                    underline={ knowledgeStore.module.activeIdInMap === (index + (paginationCounter - 1) * 10) ? "none" : "hover"}
                                                 >
                                                     {name}
                                                 </Link>

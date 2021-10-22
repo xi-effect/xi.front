@@ -12,19 +12,14 @@ import { inject, observer } from 'mobx-react'
 
 import NavigationAll from '../../../components/OtherComponents/Navigation/NavigationAll'
 
+import Toolbar from '../../../components/PagesComponents/Managment/Content/Pages/Toolbar';
+import DataList from '../../../components/PagesComponents/Managment/Content/Pages/DataList';
+import DialogPageCreation from '../../../components/PagesComponents/Managment/Content/Pages/DialogPageCreation';
 
 const ContentPages = inject('rootStore')(observer(({ rootStore }) => {
   const theme = useTheme();
+  const [dialogPageCreation, setDialogPageCreation] = React.useState(false)
 
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
 
   return (
     <>
@@ -39,9 +34,17 @@ const ContentPages = inject('rootStore')(observer(({ rootStore }) => {
           sx={{
             width: '100%',
             zIndex: 1,
+            p: 2,
           }}
         >
-
+          <Grid>
+            <Typography variant="h5"> Управление контентом </Typography>
+          </Grid>
+          <Grid sx={{ marginTop: 2, }}>
+            <Toolbar setDialogPageCreation={setDialogPageCreation} />
+          </Grid>
+          <DialogPageCreation dialogPageCreation={dialogPageCreation} setDialogPageCreation={setDialogPageCreation} />
+          <DataList />
         </Grid>
       </NavigationAll>
     </>

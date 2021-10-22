@@ -38,6 +38,7 @@ const ContentModules = inject('rootStore')(observer(({ rootStore }) => {
                     sx={{
                         width: '100%',
                         zIndex: 1,
+                        p: 2,
                     }}
                 >
                     <Grid>

@@ -249,7 +249,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                         color="primary"
                                         aria-label="add an alarm"
                                         size="large">
-                                        {!module.starred && <StarBorderIcon />}
+                                        {!module.starred && <StarBorderIcon sx={{ color: 'text.main' }} />}
                                         {module.starred && <StarIcon sx={{ color: "#ffeb3b", }} />}
                                     </IconButton>
                                 </Grid>
@@ -259,7 +259,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                         color="primary"
                                         aria-label="add an alarm"
                                         size="large">
-                                        {!module.pinned && <FlagOutlinedIcon className={classes.icons} />}
+                                        {!module.pinned && <FlagOutlinedIcon sx={{ color: 'text.main' }} />}
                                         {module.pinned && <FlagIcon sx={{ color: "#8bc34a", }} />}
                                     </IconButton>
                                 </Grid>
@@ -272,7 +272,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                         variant="contained"
                                         color="primary"
                                         size="large">
-                                        <MoreVertIcon className={classes.icons} />
+                                        <MoreVertIcon sx={{ color: 'text.main' }} />
                                     </IconButton>
                                     <Popper className={classes.popper} id={index} open={module.openMenu === undefined ? false : module.openMenu} anchorEl={module?.openMenuTarget}>
                                         <Paper elevation={24} className={classes.popper}>
