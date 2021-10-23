@@ -33,7 +33,7 @@ const DialogModuleCreation = inject('managmentStore')(observer(({ managmentStore
     return (
         <Dialog
             sx={{
-                zIndex: "10 !important",
+                zIndex: "10000 !important",
                 width: '100vw',
                 height: '100vh',
             }}
@@ -47,6 +47,7 @@ const DialogModuleCreation = inject('managmentStore')(observer(({ managmentStore
             <AppBar sx={{
                 position: 'relative',
                 zIndex: 1,
+                backgroundColor: 'background.2',
             }}>
                 <Toolbar>
                     <Grid
@@ -110,7 +111,7 @@ const DialogModuleCreation = inject('managmentStore')(observer(({ managmentStore
             <DialogContent sx={{
                 margin: 0,
                 padding: 0,
-                bgcolor: 'background.1',
+                bgcolor: 'background.0',
                 zIndex: 1,
             }}>
                 <Grid

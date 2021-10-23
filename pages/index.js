@@ -17,54 +17,6 @@ import CardsList from './../components/PagesComponents/Landing/CardList';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 
-const PREFIX = 'Main';
-
-const classes = {
-  ImageGrid: `${PREFIX}-ImageGrid`,
-  ContentGrid: `${PREFIX}-ContentGrid`,
-  dividerDiv: `${PREFIX}-dividerDiv`,
-  Icon: `${PREFIX}-Icon`
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-  {
-    theme
-  }
-) => ({
-  [`& .${classes.ImageGrid}`]: {
-    position: "relative",
-    backgroundColor: theme.palette.blueGrey["3"],
-    width: "100%",
-    paddingTop: "41.8%",
-    // display: "block",
-    // position: "absolute",
-    // top: 64,
-    // left: 0,
-    // right: 0,
-  },
-
-  [`& .${classes.ContentGrid}`]: {
-    width: '100%',
-    height: 396,
-    background: `linear-gradient(0deg, ${theme.palette.background["2"]} , #d391e3)`,
-    //backgroundColor:  theme.palette.constant.landingBlue,
-  },
-
-  [`& .${classes.dividerDiv}`]: {
-    //position: "relative",
-    backgroundColor: theme.palette.blueGrey["3"],
-    width: "100%",
-    paddingTop: "41.8%",
-  },
-
-  [`& .${classes.Icon}`]: {
-    fontSize: 48,
-    color: theme.palette.constant.textWhite,
-  }
-}));
-
-
 const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) => {
   const theme = useTheme();
   const [loading, setLoading] = React.useState(true)
@@ -76,7 +28,7 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
   const executeScroll = () => firstCard.current.scrollIntoView({ behavior: "smooth" })
 
   return (
-    <Root>
+    <>
       <Head>
         <title>
           Ξffect
@@ -101,10 +53,13 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
           direction="row"
           justifyContent="center"
           alignItems="center"
-          className={classes.ImageGrid}>
+          sx={{
+            position: "relative",
+            backgroundColor: 'background.1',
+            width: "100%",
+            paddingTop: "41.8%",
+          }}>
           <Image
-            className={classes.Image}
-            // alt={alt}
             alt="alt"
             src={"/backgroundImg.jpg"}
             layout="fill"
@@ -122,8 +77,12 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
           direction="column"
           justifyContent="center"
           alignItems="center"
-          sx={{ marginTop: 0, }}
-          className={classes.ContentGrid}>
+          sx={{
+            width: '100%',
+            height: "396px",
+            background: `linear-gradient(0deg, ${theme.palette.background["2"]} , #d391e3)`,
+          }}
+        >
           <Grid
             item
             container
@@ -133,14 +92,17 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
             sx={{ maxWidth: 1200, }}
           >
             <IconButton onClick={executeScroll} size="large">
-              <ArrowDownwardIcon className={classes.Icon} />
+              <ArrowDownwardIcon sx={{
+                fontSize: 48,
+                color: 'constant.textWhite',
+              }} />
             </IconButton>
           </Grid>
         </Grid>
         <div ref={firstCard}> </div>
         <CardsList />
       </Grid>
-    </Root>
+    </>
   );
 }))
 

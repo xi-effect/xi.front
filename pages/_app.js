@@ -26,9 +26,9 @@ import "../styles/globals.css"
 const MyApp = (observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const rootStore = useStore(pageProps.initialState)
-
-  const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsStore.settings.darkMode))), [rootStore.settingsStore.settings.darkMode]);
-
+  // console.log("darkMode", rootStore.settingsStore.settings.darkTheme)
+  const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsStore.settings.darkTheme))), [rootStore.settingsStore.settings.darkTheme]) 
+  // console.log("theme", theme)
   return (
     <CacheProvider value={emotionCache}>
       <Head>

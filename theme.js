@@ -1,7 +1,7 @@
 
 export const getDesignTokens = (mode) => ({
     palette: {
-        ...(mode
+        ...(!mode
             ? {
                 mode: 'light',
                 text: {
@@ -26,9 +26,9 @@ export const getDesignTokens = (mode) => ({
                     dark: "#81ac8d",
                 },
                 background: {
-                    1: "#eceff1",
-                    2: "#cfd8dc",
-                    3: "#b0bec5",
+                    0: "#cfd8dc",
+                    1: "#b0bec5",
+                    2: "#90a4ae",
                 },
 
                 // Старые цвета ниже, от них избавляемся
@@ -113,8 +113,6 @@ export const getDesignTokens = (mode) => ({
                     "9": "#eceff1",
                 },
             }),
-
-
     },
 });
 

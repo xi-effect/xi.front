@@ -28,7 +28,7 @@ const StyledGrid = styled(Grid)((
     },
 
     [`& .${classes.mainLabel}`]: {
-        cursor: "default",
+        cursor: "pointer",
         fontWeight: "bold",
         color:theme.palette.constant.textWhite,
         marginLeft: 16,

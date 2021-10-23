@@ -15,6 +15,7 @@ const Castomize = inject('rootStore', 'settingsStore')(observer(({ rootStore, se
             "changed": { "dark-theme": !settingsStore.settings.darkTheme }
         })
             .then((data) => {
+                console.log(data)
                 if (data.a) {
                     settingsStore.setSettings("darkTheme", !settingsStore.settings.darkTheme)
                     // enqueueSnackbar('Успешно', {
