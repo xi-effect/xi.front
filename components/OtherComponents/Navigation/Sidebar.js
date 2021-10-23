@@ -163,7 +163,7 @@ const Sidebar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, o
                 defaultCollapseIcon={<KeyboardArrowDownIcon fontSize="large" />}
                 defaultExpandIcon={<KeyboardArrowRightIcon fontSize="large" />}
                 defaultEndIcon={<div style={{ width: 24 }} />}
-                sx={{ height: 264, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+                sx={{ height: 264, flexGrow: 1, maxWidth: 400, pt: 1, overflowY: 'auto' }}
             >
                 <StyledTreeItem
                     nodeId="1"
