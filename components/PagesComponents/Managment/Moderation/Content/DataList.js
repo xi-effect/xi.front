@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { CircularProgress, Pagination, PaginationItem, Grid, Button, Typography, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import { inject, observer } from 'mobx-react'
 import { DataGrid, useGridSlotComponentProps } from '@material-ui/data-grid';
@@ -17,7 +17,7 @@ function customCheckbox(theme) {
             width: 16,
             height: 16,
             backgroundColor: 'transparent',
-            border: `1px solid ${theme.palette.type === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'
+            border: `1px solid ${theme.palette.mode === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'
                 }`,
             borderRadius: 2,
         },
@@ -81,16 +81,16 @@ const useStyles = makeStyles(
                 display: 'none',
             },
             '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
-                borderRight: `1px solid ${theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
+                borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
                     }`,
             },
             '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-                borderBottom: `1px solid ${theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
+                borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
                     }`,
             },
             '& .MuiDataGrid-cell': {
                 // color:
-                //     theme.palette.type === 'light'
+                //     theme.palette.mode === 'light'
                 //         ? 'rgba(0,0,0,.85)'
                 //         : 'rgba(255,255,255,0.65)',
             },

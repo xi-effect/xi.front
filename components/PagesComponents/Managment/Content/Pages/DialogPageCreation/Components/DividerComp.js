@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
 import { Input, Divider, IconButton, Grid, useTheme, Tooltip } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import clsx from 'clsx';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
@@ -18,23 +19,50 @@ import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
 import { inject, observer } from 'mobx-react'
 
-const useStyles = makeStyles((theme) => ({
-    gridButtons: {
+const PREFIX = 'DividerComp';
+
+const classes = {
+    gridButtons: `${PREFIX}-gridButtons`,
+    divider: `${PREFIX}-divider`,
+    gridTextWrapper: `${PREFIX}-gridTextWrapper`,
+    icon: `${PREFIX}-icon`,
+    speedDial: `${PREFIX}-speedDial`,
+    speedDialActionFirst: `${PREFIX}-speedDialActionFirst`,
+    speedDialAction: `${PREFIX}-speedDialAction`,
+    disableIcon: `${PREFIX}-disableIcon`,
+    activeIcon: `${PREFIX}-activeIcon`,
+    iconSpeedDial: `${PREFIX}-iconSpeedDial`,
+    IconButtonSpeedDial: `${PREFIX}-IconButtonSpeedDial`,
+    leftIconButton: `${PREFIX}-leftIconButton`,
+    dividerBlock: `${PREFIX}-dividerBlock`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.gridButtons}`]: {
         marginLeft: "auto",
     },
-    divider: {
+
+    [`& .${classes.divider}`]: {
         backgroundColor: props => props.palette.primary.main,
         width: "100%",
         height: 1,
         margin: props => props.spacing(1, 0.5),
     },
-    gridTextWrapper: {
+
+    [`& .${classes.gridTextWrapper}`]: {
         width: "calc(100% - 4px)",
     },
-    icon: {
+
+    [`& .${classes.icon}`]: {
         color: props => props.palette.primary.contrastText,
     },
-    speedDial: {
+
+    [`& .${classes.speedDial}`]: {
         height: 36,
         width: 36,
         marginTop: 4,
@@ -43,19 +71,22 @@ const useStyles = makeStyles((theme) => ({
         // top: theme => theme.spacing(10),
         // left: theme => theme.spacing(2),
     },
-    speedDialActionFirst: {
+
+    [`& .${classes.speedDialActionFirst}`]: {
         marginLeft: 16,
         color: props => props.palette.primary.main,
     },
 
-    speedDialAction: {
+    [`& .${classes.speedDialAction}`]: {
         marginLeft: 16,
         color: props => props.palette.primary.main,
     },
-    disableIcon: {
+
+    [`& .${classes.disableIcon}`]: {
         color: props => props.palette.error.main,
     },
-    activeIcon: {
+
+    [`& .${classes.activeIcon}`]: {
         color: props => props.palette.primary.contrastText,
         backgroundColor: props => props.palette.primary.main,
         '&:hover': {
@@ -63,22 +94,26 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: props => props.palette.primary.main,
         }
     },
-    iconSpeedDial: {
+
+    [`& .${classes.iconSpeedDial}`]: {
         height: 24,
         width: 24,
     },
-    IconButtonSpeedDial: {
+
+    [`& .${classes.IconButtonSpeedDial}`]: {
         color: props => props.palette.primary.contrastText,
     },
-    leftIconButton: {
+
+    [`& .${classes.leftIconButton}`]: {
         marginLeft: "auto"
     },
-    dividerBlock: {
+
+    [`& .${classes.dividerBlock}`]: {
         width: "100%",
         height: 2,
         margin: props => props.spacing(1, 0.5),
         backgroundColor: props => props.palette.primary.contrastText,
-    },
+    }
 }));
 
 const DividerComp = inject('managmentStore')(observer(({ managmentStore, index }) => {
@@ -86,29 +121,9 @@ const DividerComp = inject('managmentStore')(observer(({ managmentStore, index }
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
     const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
-    // Pass the props as the first argument of useStyles()
+
     // console.log("props", props)
     const theme = useTheme();
-    const classes = useStyles({ ...theme, ...props });
-
-    // const handleFontSizeUp = (event, newFormats) => {
-    //     //console.log(index, "fontSize", newFormats)
-    //     if (values.fontSize != 64) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
-    // };
-
-    // const handleFontSizeDown = (event, newFormats) => {
-    //     //console.log(index, "fontSize", newFormats)
-    //     if (values.fontSize != 24) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
-    // };
-
-    // const handleTextAlign = (align) => {
-    //     let newAlignment = null
-    //     if (align === 'left') newAlignment = 'center'
-    //     else if (align === 'center') newAlignment = 'right'
-    //     else if (align === 'right') newAlignment = 'left'
-    //     // else if (align === 'justify') newAlignment = 'left'
-    //     managmentStore.setPageCreationComponents(index, "textAlign", newAlignment)
-    // };
 
 
     const [open, setOpen] = React.useState(false);
@@ -122,7 +137,7 @@ const DividerComp = inject('managmentStore')(observer(({ managmentStore, index }
 
 
     return (
-        <>
+        <Root>
             <Grid
                 container
                 direction="column"
@@ -139,85 +154,22 @@ const DividerComp = inject('managmentStore')(observer(({ managmentStore, index }
                     direction="row"
                     className={classes.gridButtons}
                 >
-                    {/* <SpeedDial
-                        ariaLabel="SpeedDial tooltip example"
-                        className={classes.speedDial}
-                        // hidden={hidden}
-                        icon={<IconButton className={classes.IconButtonSpeedDial}>
-                            <TuneIcon className={classes.iconSpeedDial} />
-                        </IconButton>}
-                        onClose={handleClose}
-                        onOpen={handleOpen}
-                        open={open}
-                        direction="right"
-                    >
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialActionFirst, { [classes.disableIcon]: values.fontSize === 64 })}
-                            tooltipPlacement="bottom"
-                            icon={<ZoomInIcon />}
-                            tooltipTitle={`Увеличить шрифт. Сейчас - ${values.fontSize}`}
-                            //tooltipOpen
-                            onClick={() => handleFontSizeUp()}
-                        />
-                        {/*<SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.disableIcon]: values.fontSize === 24 })}
-                            tooltipPlacement="bottom"
-                            icon={<ZoomOutIcon />}
-                            tooltipTitle={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}
-                            //tooltipOpen
-                            onClick={() => handleFontSizeDown()}
-                        />
-                        <SpeedDialAction
-                            className={classes.speedDialAction}
-                            tooltipPlacement="bottom"
-                            icon={textAlignIconSelect(values.textAlign)}
-                            tooltipTitle={`Изменить выравнивание текста. Сейчас - ${textAlignLabelSelect(values.textAlign)}`}
-                            //tooltipOpen
-                            onClick={() => handleTextAlign(values.textAlign)}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontWeight === 'bold' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatBoldIcon />}
-                            tooltipTitle="Полужирный"
-                            //tooltipOpen
-                            onClick={() => handleFontWeight()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontStyle === 'italic' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatItalicIcon />}
-                            tooltipTitle="Курсив"
-                            //tooltipOpen
-                            onClick={() => handleFontStyle()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.textDecoration === 'underline' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatUnderlinedIcon />}
-                            tooltipTitle="Подчёркнутый"
-                            //tooltipOpen
-                            onClick={() => handleTextDecoration()}
-                        /> */}
-                    {/* </SpeedDial>  */}
-                    {/* <Tooltip title="Дублировать блок">
-                        <IconButton className={classes.leftIconButton} onClick={() => managmentStore.duplicateComponent(index)}>
-                            <QueueIcon className={classes.icon} />
-                        </IconButton>
-                    </Tooltip> */}
                     <Tooltip title="Удалить блок">
-                        <IconButton className={classes.leftIconButton} onClick={() => managmentStore.deleteComponent(index)}>
+                        <IconButton
+                            className={classes.leftIconButton}
+                            onClick={() => managmentStore.deleteComponent(index)}
+                            size="large">
                             <DeleteForeverIcon className={classes.icon} />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Перетащить блок">
-                        <IconButton>
+                        <IconButton size="large">
                             <DragIndicatorIcon className={classes.icon} />
                         </IconButton>
                     </Tooltip>
                 </Grid>
             </Grid>
-        </>
+        </Root>
     );
 }));
 

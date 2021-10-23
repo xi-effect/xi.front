@@ -3,8 +3,8 @@
 import React from 'react';
 
 import { Tooltip, IconButton, Pagination, PaginationItem, CircularProgress, Grid, Button, Typography, useTheme } from '@mui/material';
-import { DataGrid, useGridSlotComponentProps } from '@material-ui/data-grid';
-import { makeStyles } from '@mui/styles';
+import { DataGrid } from '@mui/x-data-grid';
+
 import { createTheme } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -24,7 +24,7 @@ function customCheckbox(theme) {
             width: 16,
             height: 16,
             backgroundColor: 'transparent',
-            border: `1px solid ${theme.palette.type === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'
+            border: `1px solid ${theme.palette.mode === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'
                 }`,
             borderRadius: 2,
         },
@@ -61,89 +61,9 @@ function customCheckbox(theme) {
     };
 }
 
-const defaultTheme = createTheme();
-const useStyles = makeStyles(
-    (theme) => ({
-        root: {
-            border: 0,
-            color: theme => theme.palette.primary.contrastText,
-            fontFamily: [
-                '-apple-system',
-                'BlinkMacSystemFont',
-                '"Segoe UI"',
-                'Roboto',
-                '"Helvetica Neue"',
-                'Arial',
-                'sans-serif',
-                '"Apple Color Emoji"',
-                '"Segoe UI Emoji"',
-                '"Segoe UI Symbol"',
-            ].join(','),
-            WebkitFontSmoothing: 'auto',
-            letterSpacing: 'normal',
-            '& .MuiDataGrid-columnsContainer': {
-                backgroundColor: theme => theme.palette.primary.main,
-            },
-            '& .MuiDataGrid-iconSeparator': {
-                display: 'none',
-            },
-            '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
-                borderRight: `1px solid ${theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
-                    }`,
-            },
-            '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-                borderBottom: `1px solid ${theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
-                    }`,
-            },
-            '& .MuiDataGrid-cell': {
-                // color:
-                //     theme.palette.type === 'light'
-                //         ? 'rgba(0,0,0,.85)'
-                //         : 'rgba(255,255,255,0.65)',
-            },
-            '& .MuiPaginationItem-root': {
-                borderRadius: 0,
-            },
-            ...customCheckbox(theme),
-            '& .super-app-theme--rows': {
-                backgroundColor: theme => theme.palette.blueGrey["5"],
-                '&:hover': {
-                    backgroundColor: theme => theme.palette.blueGrey["5"],
-                },
-                color: theme => theme.palette.primary.contrastText,
-            },
-        },
-        IconButton: {
-            color: theme => theme.palette.primary.contrastText,
-        }
-    }),
-    { defaultTheme },
-);
-
-// function CustomPagination() {
-//     const { state, apiRef } = useGridSlotComponentProps();
-
-//     return (
-//         <Pagination
-//             color="primary"
-//             variant="outlined"
-//             shape="rounded"
-//             page={state.pagination.page}
-//             count={state.pagination.pageCount}
-//             // @ts-expect-error
-//             renderItem={(props2) => <PaginationItem {...props2} disableRipple />}
-//             onChange={(event, value) => apiRef.current.setPage(value)}
-//         />
-//     );
-// }
-
-
-
-
 
 const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
 
 
     React.useEffect(() => {
@@ -255,7 +175,6 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                             variant="contained"
                             //color="primary"
                             size="small"
-                            className={classes.IconButton}
                             style={{ marginLeft: 16, marginTop: -4, color: theme => theme.palette.primary.contrastText }}
                         >
                             <EditIcon />
@@ -267,7 +186,6 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                             variant="contained"
                             //color="primary"
                             size="small"
-                            className={classes.IconButton}
                             style={{ marginLeft: 16, marginTop: -4, color: theme => theme.palette.primary.contrastText }}
                         >
                             <DeleteForeverIcon />
@@ -278,26 +196,74 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
         },
     ];
 
-    const rows = [
-        { id: 1, valueReports: 1, reportType: 'Не исторично', contentType: 'Страница', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>', },
-        { id: 2, valueReports: 2, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-        { id: 3, valueReports: 3, reportType: 'Не исторично', contentType: 'Страница', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-        { id: 4, valueReports: 4, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-        { id: 5, valueReports: 5, reportType: 'Не исторично', contentType: 'Страница', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-        { id: 6, valueReports: 6, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-        { id: 7, valueReports: 7, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-        { id: 8, valueReports: 8, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-        { id: 9, valueReports: 9, reportType: 'Не исторично', contentType: 'Страница', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-    ];
+    // const rows = [
+    //     { id: 1, valueReports: 1, reportType: 'Не исторично', contentType: 'Страница', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>', },
+    //     { id: 2, valueReports: 2, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
+    //     { id: 3, valueReports: 3, reportType: 'Не исторично', contentType: 'Страница', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
+    //     { id: 4, valueReports: 4, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
+    //     { id: 5, valueReports: 5, reportType: 'Не исторично', contentType: 'Страница', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
+    //     { id: 6, valueReports: 6, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
+    //     { id: 7, valueReports: 7, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
+    //     { id: 8, valueReports: 8, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
+    //     { id: 9, valueReports: 9, reportType: 'Не исторично', contentType: 'Страница', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
+    // ];
 
     return (
-        <div style={{ display: 'flex', height: '100%', width: '100%', marginTop: 16, }} className={classes.root}>
+        <div style={{ display: 'flex', height: '100%', width: '100%', marginTop: 16, }}>
             <div style={{ flexGrow: 1 }}>
                 <DataGrid
                     rows={[...managmentStore.pageCreationList.pages]}
                     //rows={rows}
                     columns={columns}
-                    className={classes.root}
+                    sx={{
+                        border: 0,
+                        color: theme => theme.palette.primary.contrastText,
+                        fontFamily: [
+                            '-apple-system',
+                            'BlinkMacSystemFont',
+                            '"Segoe UI"',
+                            'Roboto',
+                            '"Helvetica Neue"',
+                            'Arial',
+                            'sans-serif',
+                            '"Apple Color Emoji"',
+                            '"Segoe UI Emoji"',
+                            '"Segoe UI Symbol"',
+                        ].join(','),
+                        WebkitFontSmoothing: 'auto',
+                        letterSpacing: 'normal',
+                        '& .MuiDataGrid-columnsContainer': {
+                            backgroundColor: theme => theme.palette.primary.main,
+                        },
+                        '& .MuiDataGrid-iconSeparator': {
+                            display: 'none',
+                        },
+                        '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
+                            borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
+                                }`,
+                        },
+                        '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
+                            borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
+                                }`,
+                        },
+                        '& .MuiDataGrid-cell': {
+                            // color:
+                            //     theme.palette.mode === 'light'
+                            //         ? 'rgba(0,0,0,.85)'
+                            //         : 'rgba(255,255,255,0.65)',
+                        },
+                        '& .MuiPaginationItem-root': {
+                            borderRadius: 0,
+                        },
+                        ...customCheckbox(theme),
+                        '& .super-app-theme--rows': {
+                            backgroundColor: theme => theme.palette.blueGrey["5"],
+                            '&:hover': {
+                                backgroundColor: theme => theme.palette.blueGrey["5"],
+                            },
+                            color: theme => theme.palette.primary.contrastText,
+                        },
+                    }}
                     autoHeight
                     //checkboxSelection
                     autoPageSize

@@ -1,9 +1,10 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import clsx from 'clsx';
 import { inject, observer } from 'mobx-react'
-import { makeStyles } from '@mui/styles';
+
 import { Grid, Drawer, useTheme, List, Tooltip, ListItem, ListItemIcon, ListItemText, Typography, Divider, IconButton, AppBar, Toolbar } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
@@ -13,20 +14,39 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 import { useSwipeable } from 'react-swipeable';
 
-const useStyles = makeStyles((theme) => ({
-    appBar: {
+const PREFIX = 'SideDownbar';
+
+const classes = {
+    appBar: `${PREFIX}-appBar`,
+    drawerPaper: `${PREFIX}-drawerPaper`,
+    listItem: `${PREFIX}-listItem`,
+    listItemActive: `${PREFIX}-listItemActive`,
+    listItemIcon: `${PREFIX}-listItemIcon`,
+    icon: `${PREFIX}-icon`,
+    content: `${PREFIX}-content`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.appBar}`]: {
         top: 'auto',
         bottom: 0,
         zIndex: 1,
         height: 72,
         flexShrink: 0,
-        backgroundColor: theme => theme.palette.blueGrey["0"],
+        backgroundColor: theme.palette.blueGrey["0"],
     },
-    drawerPaper: {
+
+    [`& .${classes.drawerPaper}`]: {
         height: 72,
     },
+
     // necessary for content to be below app bar
-    listItem: {
+    [`& .${classes.listItem}`]: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
@@ -34,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 12,
         height: 56,
         width: 56,
-        backgroundColor: theme => theme.palette.blueGrey["2"],
+        backgroundColor: theme.palette.blueGrey["2"],
         cursor: "pointer",
         transition: '0.4s',
         borderRadius: 18,
@@ -42,35 +62,39 @@ const useStyles = makeStyles((theme) => ({
             borderRadius: 8,
         },
     },
-    listItemActive: {
-        backgroundColor: theme => theme.palette.primary.main,
+
+    [`& .${classes.listItemActive}`]: {
+        backgroundColor: theme.palette.primary.main,
         '&:hover': {
-            backgroundColor: theme => theme.palette.primary.main,
+            backgroundColor: theme.palette.primary.main,
         },
         borderRadius: 8,
     },
-    listItemIcon: {
+
+    [`& .${classes.listItemIcon}`]: {
         display: "flex",
         justifyContent: "center",
         alignContent: "center",
-        color: theme => theme.palette.primary.contrastText,
+        color: theme.palette.primary.contrastText,
     },
-    icon: {
+
+    [`& .${classes.icon}`]: {
         fontSize: "38px !important",
         height: 38,
         width: 38,
-        color: theme => theme.palette.primary.contrastText,
+        color: theme.palette.primary.contrastText,
     },
-    content: {
+
+    [`& .${classes.content}`]: {
         flexGrow: 1,
-        backgroundColor: theme => theme.palette.background.default,
-        padding: theme => theme.spacing(3),
-    },
+        backgroundColor: theme.palette.background.default,
+        padding: theme.spacing(3),
+    }
 }));
 
 const SideDownbar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
 
     const router = useRouter()
@@ -116,7 +140,7 @@ const SideDownbar = inject('store')(observer(({ store, openSideMenu, setOpenSide
 
 
     return (
-        <>
+        (<Root>
             <AppBar
                 {...handlers}
                 position="fixed"
@@ -163,7 +187,7 @@ const SideDownbar = inject('store')(observer(({ store, openSideMenu, setOpenSide
                 </List>
 
             </AppBar>
-        </>
+        </Root>)
     );
 }));
 

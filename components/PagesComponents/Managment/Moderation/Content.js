@@ -1,22 +1,26 @@
 import React from 'react';
 
+import { styled } from '@mui/material/styles';
+
 import { CircularProgress, Grid, Typography, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import { inject, observer } from 'mobx-react'
 import Image from 'next/image'
 import Toolbar from './Content/Toolbar';
 import DataList from './Content/DataList';
-// import Chipper from './Modules/Chipper';
-// import ModulesList from './Modules/ModulesList';
+const PREFIX = 'Content';
+const classes = {};
 
-const useStyles = makeStyles((theme) => ({
-
-}));
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({}));
 
 const Content = inject('rootStore')(observer(({ rootStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     return (
         <Grid

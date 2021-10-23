@@ -235,6 +235,10 @@ class KnowledgeStore {
         updated: null,
     }
 
+    @action clearModule = () => {
+        this.module = {}
+    }
+
     @action setModule = (value) => {
         this.module = value
     }
@@ -243,19 +247,28 @@ class KnowledgeStore {
         this.module[name] = value
     }
 
-    @action loadPageInModule = () => {
+    @action loadPageInModule = (pageId = null) => {
         if (this.module.type === "practice-block" || this.module.type === "standard") {
             this.rootStore.fetchDataScr(`${this.rootStore.url}/modules/${this.module.id}/next/`, "POST", { bun: "cinnamon" })
                 .then((data) => {
                     console.log("pageInModule", data)
-                    this.setPage(data)
+                    if (data?.a === "You have reached the end") {
+                        this.loadModule()
+                    } else {
+                        this.setPage(data)
+                    }
                 })
         }
         if (this.module.type === "theory-block" || this.module.type === "test") {
-            this.rootStore.fetchDataScr(`${this.rootStore.url}/modules/${this.module.id}/next/`, "POST", { bun: "cinnamon" })
+            this.rootStore.fetchDataScr(`${this.rootStore.url}/modules/${this.module.id}/points/${pageId}/`, "GET")
                 .then((data) => {
                     console.log("pageInModule", data)
-                    this.setPage(data)
+                    if (data?.a === "You have reached the end") {
+                        this.loadModule()
+                    } else {
+                        this.setModuleData("activeIdInMap", pageId)
+                        this.setPage(data)
+                    }
                 })
         }
 
@@ -280,7 +293,26 @@ class KnowledgeStore {
                 this.setModuleData("authorId", data["author-id"])
                 this.setModuleData("openAccordion", false)
                 this.setModuleData("loading", false)
-                this.loadPageInModule()
+                if (this.module.type === "standard") {
+                    this.rootStore.fetchDataScr(`${this.rootStore.url}/modules/${this.module.id}/open/`, "GET")
+                        .then((data) => {
+                            this.setPage(data)
+                        })
+                } else if (this.module.type === "theory-block") {
+                    this.rootStore.fetchDataScr(`${this.rootStore.url}/modules/${this.module.id}/open/`, "GET")
+                    .then((data) => {
+                        console.log("theory-block", data)
+                        if (data.id !== null) {
+                            this.setModuleData("activeIdInMap", data.id)
+                            this.loadPageInModule(data.id)
+                        } 
+                        else {
+                            this.setModuleData("activeIdInMap", 0)
+                            this.loadPageInModule(0)
+                        }
+                    })
+                }
+
             })
     }
 }

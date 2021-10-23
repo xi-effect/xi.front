@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
+import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import { inject, observer } from 'mobx-react'
-import { makeStyles } from '@mui/styles'
+
 import { Box, useTheme } from '@mui/material'
 
 import Sidebar from './Sidebar'
@@ -11,28 +12,11 @@ import Helpbar from './Helpbar'
 import Loading from '../Loading/Loading'
 import SideDownbar from './SideDownbar'
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        zIndex: 0,
-        display: 'flex',
-        backgroundColor: theme => theme.palette.blueGrey["1"],
-        minHeight: "100vh",
-    },
-    content: {
-        zIndex: 0,
-        margin: 0,
-        //height: "100vh",
-        width: "100%",
-        backgroundColor: theme => theme.palette.blueGrey["1"],
-    }
-
-}));
-
 const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer(({ rootStore, settingsStore, uiStore, children }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
-
     const router = useRouter()
+
+
 
     React.useEffect(() => {
         rootStore.fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
@@ -74,7 +58,12 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
         <>
             {uiStore.loading["/main"] && <Loading />}
             {!uiStore.loading["/main"] &&
-                <div className={classes.root}>
+                <Box sx={{
+                    zIndex: 0,
+                    display: 'flex',
+                    backgroundColor: 'background.1',
+                    minHeight: "100vh",
+                }}>
                     <Box sx={{ display: { xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block', } }}>
                         <Sidebar />
                     </Box>
@@ -82,12 +71,18 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                         <SideDownbar />
                     </Box>
                     {/* <Helpbar openHelpMenu={openHelpMenu} setOpenHelpMenu={setOpenHelpMenu} /> */}
-                    <main
-                        className={classes.content}
+                    <Box
+                        sx={{
+                            zIndex: 0,
+                            margin: 0,
+                            //height: "100vh",
+                            width: "100%",
+                            backgroundColor: 'background.0',
+                        }}
                     >
                         {children}
-                    </main>
-                </div>
+                    </Box>
+                </Box>
             }
         </>
     );

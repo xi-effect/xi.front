@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import Link from "next/link";
 import cx from 'clsx';
 import { Slider, Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import { inject, observer } from 'mobx-react'
 
@@ -14,39 +15,64 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AvatarEditor from 'react-avatar-editor'
 
-const useStyles = makeStyles((theme) => ({
-    stepLabel: {
+const PREFIX = 'StepThree';
+
+const classes = {
+    stepLabel: `${PREFIX}-stepLabel`,
+    stepSecondLabel: `${PREFIX}-stepSecondLabel`,
+    slider: `${PREFIX}-slider`,
+    gridDialogAv: `${PREFIX}-gridDialogAv`,
+    uploadButton: `${PREFIX}-uploadButton`,
+    wrapperGrid: `${PREFIX}-wrapperGrid`,
+    changeLabel: `${PREFIX}-changeLabel`,
+    stepWrapper: `${PREFIX}-stepWrapper`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.stepLabel}`]: {
         marginLeft: 16,
         fontSize: 24,
         cursor: 'default',
         color: theme => theme.palette.primary.contrastText,
     },
-    stepSecondLabel: {
+
+    [`& .${classes.stepSecondLabel}`]: {
         marginLeft: 16,
         fontSize: 20,
         cursor: 'default',
         color: theme => theme.palette.primary.contrastText,
     },
-    slider: {
+
+    [`& .${classes.slider}`]: {
         width: "250px",
         padding: 16,
     },
-    gridDialogAv: {
+
+    [`& .${classes.gridDialogAv}`]: {
         height: '100%',
         padding: 16,
         //width: "550px",
     },
-    uploadButton: {
+
+    [`& .${classes.uploadButton}`]: {
         marginTop: 8,
     },
-    wrapperGrid: {
+
+    [`& .${classes.wrapperGrid}`]: {
         margin: 0,
     },
-    changeLabel: {
+
+    [`& .${classes.changeLabel}`]: {
         marginTop: 16,
         color: theme => theme.palette.primary.contrastText,
     },
-    stepWrapper: {
+
+    [`& .${classes.stepWrapper}`]: {
         padding: 16,
         //width: "calc(100% - 64px)",
         //backgroundColor: "blue",
@@ -55,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StepThree = inject('rootStore', 'managmentStore', 'contentStore')(observer(({ rootStore, managmentStore, contentStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const [value, setValue] = React.useState(10);
 
@@ -96,7 +122,7 @@ const StepThree = inject('rootStore', 'managmentStore', 'contentStore')(observer
 
 
     return (
-        <>
+        (<Root>
             <Grid
                 className={classes.stepWrapper}
                 xs={12} sm={12} md={6} lg={6} xl={6}
@@ -236,8 +262,8 @@ const StepThree = inject('rootStore', 'managmentStore', 'contentStore')(observer
                     </Button>
                 </Grid>
             </Grid >
-        </>
-    )
+        </Root>)
+    );
 }))
 
 export default StepThree

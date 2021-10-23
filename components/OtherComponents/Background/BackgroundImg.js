@@ -1,12 +1,23 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import { useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
 
-const useStyles = makeStyles((theme) => ({
-  background: {
+const PREFIX = 'BackgroundImg';
+
+const classes = {
+  background: `${PREFIX}-background`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.background}`]: {
     backgroundColor: 'black',
     filter: 'grayscale(10%) opacity(100%)',
     mixBlendMode: 'multiply',
@@ -14,12 +25,12 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
     width: '100vw',
     zIndex: '-1',
-  },
+  }
 }));
 
 const BackgroundImg = inject('uiStore')(observer(({ uiStore, src, alt = 'background' }) => {
   const theme = useTheme();
-  const classes = useStyles(theme);
+
   const router = useRouter()
   const onLoad = () => {
     uiStore.setLoading(router.pathname)

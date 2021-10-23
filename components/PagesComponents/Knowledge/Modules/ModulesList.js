@@ -1,138 +1,71 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import Link from "next/link";
 import cx from 'clsx';
 import { Divider, CardContent, CardMedia, Grow, ClickAwayListener, SpeedDial, MenuItem, SpeedDialAction, Popper, MenuList, Avatar, Paper, Accordion, IconButton, Chip, AccordionSummary, AccordionDetails, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles, withStyles } from '@mui/styles';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import StarIcon from '@material-ui/icons/Star';
-import FlagIcon from '@material-ui/icons/Flag';
-import FlagOutlinedIcon from '@material-ui/icons/FlagOutlined';
+
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from '@mui/icons-material/Star';
+import FlagIcon from '@mui/icons-material/Flag';
+import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 import { inject, observer } from 'mobx-react'
 
-const useStyles = makeStyles((theme) => ({
-    container: {
-        marginTop: 16,
-        marginBottom: 16,
-        height: '100%',
-        width: '100%',
-    },
-    gridCard: {
-        padding: 8,
-    },
-    card: {
-        position: 'relative',
-        //paddingLeft: 4,
-        border: '2px solid',
-        borderColor: theme.palette.primary.dark,
-        borderRadius: 32,
-        transition: '0.4s',
-        '&:hover': {
-            borderColor: theme.palette.primary.light,
-        },
-        // marginTop: theme.spacing(8),
+const PREFIX = 'ModulesList';
 
-        transition: '0.3s',
-        width: '100%',
-        overflow: 'initial',
-        background: theme.palette.blueGrey["3"],
+const classes = {
+    container: `${PREFIX}-container`,
+    gridCard: `${PREFIX}-gridCard`,
+    card: `${PREFIX}-card`,
+    content: `${PREFIX}-content`,
+    boxCardHeader: `${PREFIX}-boxCardHeader`,
+    cardHeader: `${PREFIX}-cardHeader`,
+    avatar: `${PREFIX}-avatar`,
+    overline: `${PREFIX}-overline`,
+    name: `${PREFIX}-name`,
+    gridcreater: `${PREFIX}-gridcreater`,
+    userownerinfo: `${PREFIX}-userownerinfo`,
+    CardActionsCenterButton: `${PREFIX}-CardActionsCenterButton`,
+    CardContentGrid: `${PREFIX}-CardContentGrid`,
+    CardContentSmallActionButtom: `${PREFIX}-CardContentSmallActionButtom`,
+    icons: `${PREFIX}-icons`,
+    iconsStarPush: `${PREFIX}-iconsStarPush`,
+    iconsPinPush: `${PREFIX}-iconsPinPush`,
+    media: `${PREFIX}-media`,
+    title: `${PREFIX}-title`,
+    subtitle: `${PREFIX}-subtitle`,
+    Page: `${PREFIX}-Page`,
+    popper: `${PREFIX}-popper`,
+    MenuList: `${PREFIX}-MenuList`,
+    MenuItem: `${PREFIX}-MenuItem`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+
+    [`& .${classes.iconsStarPush}`]: {
+
     },
-    content: {
-        paddingTop: 6,
-        textAlign: 'left',
-        overflowX: 'auto',
-        '& table': {
-            marginBottom: 0,
-        }
+
+    [`& .${classes.iconsPinPush}`]: {
+
     },
-    boxCardHeader: {
-        paddingTop: -8,
-    },
-    cardHeader: {
-        color: theme.palette.primary.contrastText,
-    },
-    avatar: {
-        borderRadius: 8,
-        backgroundColor: theme.palette.blueGrey["7"],
-    },
-    overline: {
-        fontSize: 12,
-        textTransform: 'uppercase',
-        letterSpacing: 1,
-        color: theme.palette.primary.contrastText,
-    },
-    name: {
-        fontSize: 16,
-        fontWeight: 500,
-        color: theme.palette.primary.contrastText,
-    },
-    gridcreater: {
-        paddingLeft: theme.spacing(1.5),
-    },
-    userownerinfo: {
-        paddingTop: theme.spacing(1.5),
-        width: 'auto',
-        marginRight: 'auto',
-    },
-    CardActionsCenterButton: {
-        marginTop: "5px",
-        height: "40px",
-        marginBottom: "5px",
-    },
-    CardContentGrid: {
-        width: "100%"
-    },
-    CardContentSmallActionButtom: {
-        marginTop: "8px",
-    },
-    icons: {
-        color: theme.palette.primary.contrastText,
-    },
-    iconsStarPush: {
-        color: "#ffeb3b",
-    },
-    iconsPinPush: {
-        color: "#8bc34a",
-    },
-    media: {
-        height: 320,
-        width: '100%',
-        paddingLeft: 0,
-        paddingRight: 0,
-        marinLeft: 0,
-        marginRight: 0,
-    },
-    title: {
-        marginTop: 12,
-        marginLeft: 12,
-        fontSize: 28,
-        color: theme.palette.primary.contrastText,
-    },
-    subtitle: {
-        marginTop: 0,
-        marginLeft: 12,
-        fontSize: 20,
-        color: theme.palette.primary.contrastText,
-    },
-    Page: {
-        height: 320,
-        width: '100%',
-        paddingLeft: 0,
-        paddingRight: 0,
-        marinLeft: 0,
-        marginRight: 0,
-    },
-    popper: {
+    [`& .${classes.popper}`]: {
         zIndex: 1000,
     },
-    MenuList: {
+
+    [`& .${classes.MenuList}`]: {
         backgroundColor: theme.palette.blueGrey["5"],
         border: '2px solid',
         borderColor: theme.palette.primary.dark,
         borderRadius: 4,
     },
-    MenuItem: {
+
+    [`& .${classes.MenuItem}`]: {
         color: theme.palette.primary.contrastText,
     }
 }));
@@ -182,7 +115,7 @@ const coursesImgList = {
 
 const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const options = [
         'Скрыть курс',
@@ -225,58 +158,112 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
     }, [open]);
 
     return (
-        <Grid container className={classes.container}>
+        <StyledGrid container sx={{
+            margin: 2,
+            width: "calc(100% - 32px)",
+            borderRadius: 2,
+            //backgroundColor: 'background.1',
+        }}>
             {knowledgeStore.moduleList.modules.map((module, index) => (
-                <Grid xs={12} sm={12} md={6} lg={4} xl={3} item className={classes.gridCard} container key={index.toString()}>
-                    <Card elevation={24} className={cx(classes.card)}>
-                        <Box className={classes.boxCardHeader}>
-                            {/* <CardHeader
-                                className={classes.cardHeader}
-                                title={<Typography className={classes.title}>{module.name}</Typography>}
-                                subheader={<Typography className={classes.subtitle}>{coursesThemeList[module.theme]}</Typography>}
-                            /> */}
+                <Grid xs={12} sm={12} md={6} lg={4} xl={3} item sx={{ p: 1, }} container key={index.toString()}>
+                    <Card elevation={24} sx={{
+                        position: 'relative',
+                        border: '2px solid',
+                        borderColor: 'primary.dark',
+                        borderRadius: 8,
+                        transition: '0.4s',
+                        '&:hover': {
+                            borderColor: 'primary.light',
+                        },
+                        width: '100%',
+                        overflow: 'initial',
+                        backgroundColor: 'background.2',
+                    }}>
+                        <Box sx={{ paddingTop: -1, }}>
                             <Grid container wrap="nowrap" spacing={2}>
                                 <Grid item xs zeroMinWidth>
-                                    <Typography className={classes.title} noWrap>{module.name}</Typography>
+                                    <Typography variant="h5" sx={{
+                                        marginTop: 1.5,
+                                        marginLeft: 1.5,
+                                    }} noWrap>{module.name}</Typography>
                                 </Grid>
                             </Grid>
                             <Grid container wrap="nowrap" spacing={2}>
                                 <Grid item xs zeroMinWidth>
-                                    <Typography className={classes.subtitle} noWrap>{coursesThemeList[module.theme]}</Typography>
+                                    <Typography variant="h6" sx={{ marginLeft: 1.5, }} noWrap>{coursesThemeList[module.theme]}</Typography>
                                 </Grid>
                             </Grid>
                         </Box>
-                        <div className={classes.Page}>
+                        <div sx={{
+                            height: "320px",
+                            width: '100%',
+                            p: 0,
+                            m: 0,
+                        }}>
                             <CardMedia
                                 src="img"
-                                className={classes.media}
+                                sx={{
+                                    height: "320px",
+                                    width: '100%',
+                                    p: 0,
+                                    m: 0,
+                                }}
                                 image={coursesImgList[module.name] != undefined ? coursesImgList[module.name] : "/illustrations/astronaut.png"}
                             />
                         </div>
 
-                        <CardContent className={classes.content}>
-                            <Grid container item direction="row" justifyContent="flex-end" xs={12} className={classes.CardContentGrid}>
-                                <Grid container direction='row' className={classes.userownerinfo}>
+                        <CardContent sx={{
+                            pt: 1,
+                            textAlign: 'left',
+                            overflowX: 'auto',
+                            '& table': {
+                                marginBottom: 0,
+                            }
+                        }}>
+                            <Grid container item direction="row" justifyContent="flex-end" xs={12} sx={{ width: "100%" }}>
+                                <Grid container direction='row' sx={{
+                                    paddingTop: theme.spacing(1.5),
+                                    width: 'auto',
+                                    marginRight: 'auto',
+                                }}>
                                     {/* {course.createrAvatar} */}
-                                    <Grid><Avatar className={classes.avatar}> Ξ </Avatar></Grid>
-                                    <Grid className={classes.gridcreater}>
-                                        <Typography className={classes.overline}>Создатель</Typography>
-                                        <Typography className={classes.name}>Ξ Effect</Typography>
+                                    <Grid><Avatar sx={{
+                                        borderRadius: 1,
+                                        backgroundColor: theme => theme.palette.blueGrey["7"],
+                                    }}> Ξ </Avatar></Grid>
+                                    <Grid sx={{ paddingLeft: 1.5, }}>
+                                        <Typography sx={{
+                                            fontSize: '12px',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: 1,
+                                        }}>Создатель</Typography>
+                                        <Typography sx={{
+                                            fontSize: '16px',
+                                            fontWeight: 500,
+                                        }}>Ξ Effect</Typography>
                                     </Grid>
                                 </Grid>
-                                <Grid className={classes.CardContentSmallActionButtom}>
-                                    <IconButton onClick={() => knowledgeStore.setPreferenceInModules(index, "starred", module.id, module.starred ? "unstar" : "star", !module.starred)} color="primary" aria-label="add an alarm">
-                                        {!module.starred && <StarBorderIcon className={classes.icons} />}
-                                        {module.starred && <StarIcon className={classes.iconsStarPush} />}
+                                <Grid sx={{ mt: 1, }}>
+                                    <IconButton
+                                        onClick={() => knowledgeStore.setPreferenceInModules(index, "starred", module.id, module.starred ? "unstar" : "star", !module.starred)}
+                                        color="primary"
+                                        aria-label="add an alarm"
+                                        size="large">
+                                        {!module.starred && <StarBorderIcon sx={{ color: 'text.main' }} />}
+                                        {module.starred && <StarIcon sx={{ color: "#ffeb3b", }} />}
                                     </IconButton>
                                 </Grid>
-                                <Grid className={classes.CardContentSmallActionButtom}>
-                                    <IconButton onClick={() => knowledgeStore.setPreferenceInModules(index, "pinned", module.id, module.pinned ? "unpin" : "pin", !module.pinned)} color="primary" aria-label="add an alarm">
-                                        {!module.pinned && <FlagOutlinedIcon className={classes.icons} />}
-                                        {module.pinned && <FlagIcon className={classes.iconsPinPush} />}
+                                <Grid sx={{ mt: 1, }}>
+                                    <IconButton
+                                        onClick={() => knowledgeStore.setPreferenceInModules(index, "pinned", module.id, module.pinned ? "unpin" : "pin", !module.pinned)}
+                                        color="primary"
+                                        aria-label="add an alarm"
+                                        size="large">
+                                        {!module.pinned && <FlagOutlinedIcon sx={{ color: 'text.main' }} />}
+                                        {module.pinned && <FlagIcon sx={{ color: "#8bc34a", }} />}
                                     </IconButton>
                                 </Grid>
-                                <Grid className={classes.CardContentSmallActionButtom}>
+                                <Grid sx={{ mt: 1, }}>
                                     <IconButton
                                         onClick={(event) => {
                                             knowledgeStore.setModuleListDataInModules(index, "openMenu", module.openMenu === undefined ? true : !module.openMenu)
@@ -284,8 +271,8 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                         }}
                                         variant="contained"
                                         color="primary"
-                                    >
-                                        <MoreVertIcon className={classes.icons} />
+                                        size="large">
+                                        <MoreVertIcon sx={{ color: 'text.main' }} />
                                     </IconButton>
                                     <Popper className={classes.popper} id={index} open={module.openMenu === undefined ? false : module.openMenu} anchorEl={module?.openMenuTarget}>
                                         <Paper elevation={24} className={classes.popper}>
@@ -306,7 +293,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                         </CardContent>
                         <Divider />
                         <CardActions>
-                            <Grid spacing={1} container justifyContent="center" className={classes.CardActions}>
+                            <Grid spacing={1} container justifyContent="center">
                                 <Grid>
                                     <Link
                                         href={{
@@ -314,7 +301,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                                             query: { moduleId: module.id },
                                         }}
                                         passHref>
-                                        <Button variant="contained" color="primary" className={classes.CardActionsCenterButton}>
+                                        <Button variant="contained" color="primary" >
                                             {!module.started && <Typography variant="subtitle1">Приступить к модулю</Typography>}
                                             {module.started && <Typography variant="subtitle1">Продолжить модуль</Typography>}
                                         </Button>
@@ -326,8 +313,8 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                 </Grid>
             ))
             }
-        </Grid>
-    )
+        </StyledGrid>
+    );
 }));
 
 

@@ -1,8 +1,9 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import { useRouter } from 'next/router'
 import { Pagination, useMediaQuery, Link, Box, Accordion, Tabs, Tab, AccordionSummary, AccordionDetails, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Popper, ClickAwayListener, Paper, MenuItem, MenuList, IconButton, Button, Grid, InputBase, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles, withStyles } from '@mui/styles';
+
 
 import { inject, observer } from 'mobx-react'
 
@@ -16,6 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import CircleIcon from '@mui/icons-material/Circle';
 
 const categoryList = {
     "middle-school": "Средняя школа",
@@ -55,17 +57,6 @@ const difficultyList = {
     "expert": "Эксперт",
 }
 
-const AntTabs = withStyles((theme) => ({
-    root: {
-        //width: "100%",
-        //backgroundColor: theme => theme.palette.blueGrey["3"],
-        borderBottom: '0px solid #e8e8e8',
-    },
-    indicator: {
-        height: "4px",
-        backgroundColor: '#1976d2',
-    },
-}))(Tabs);
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -95,111 +86,11 @@ function a11yProps(index) {
 }
 
 
-const useStyles = makeStyles((theme) => ({
-    wrapperRoot: {
-        //marginTop: 16,
-        //maxWidth: 800,
-    },
-    wrapper: {
-        // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        border: 0,
-        width: "calc(100% - 4px)",
-        margin: 1,
-        padding: 1,
-    },
-    Accordion: {
-        zIndex: 2000,
-        width: "100%",
-        backgroundColor: theme => theme.palette.blueGrey["2"],
-        color: theme => theme.palette.primary.contrastText,
-    },
-    AccordionSummary: {
-        height: 36,
-        marginLeft: -8,
-        backgroundColor: theme => theme.palette.blueGrey["3"],
-    },
-    AccordionDetails: {
-        marginTop: 0,
-        paddingTop: 0,
-    },
-    moduleAppbar: {
-        zIndex: 2000,
-        position: "fixed",
-        top: 0,
-        left: 72,
-        width: "calc(100% - 72px)",
-    },
-    moduleAppbarMobile: {
-        left: 0,
-        position: "fixed",
-        top: 0,
-        width: "100%",
-    },
-    gridSpacer: {
-        marginLeft: "auto",
-    },
-    gridNavWrap: {
-        //width: 120,
-        marginRight: 0,
-        marginLeft: 0,
-    },
-    ExpandMoreIcon: {
-        color: theme => theme.palette.primary.contrastText,
-        transform: "rotate(-90deg)",
-        transition: "0.2s",
-    },
-    ExpandMoreIconOpen: {
-        color: theme => theme.palette.primary.contrastText,
-        transform: "rotate(0deg)",
-        transition: "0.2s",
-    },
-    moduleLabel: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-    slashLabel: {
-        marginLeft: 8,
-        marginRight: 8,
-    },
-    descriptionLabel: {
-        marginTop: 16,
-        fontSize: 20,
-    },
-    Divider: {
-        backgroundColor: theme => theme.palette.primary.contrastText,
-    },
-    gridWrapperMeta: {
-        marginTop: 8,
-        // marginLeft: 32,
-    },
-    tabLabel: {
-        fontSize: "14px",
-        color: theme => theme.palette.primary.contrastText,
-    },
-    gridTabsWrapper: {
-        width: "100%",
-    },
-    AntTabs: {
-        marginLeft: -16,
-        width: "calc(100% + 32px)",
-        backgroundColor: theme => theme.palette.blueGrey["3"],
-    },
-    Link: {
-        cursor: "pointer",
-    },
-    Pagination: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-    Icon: {
-        color: theme => theme.palette.primary.contrastText,
-    }
-}));
-
-
 const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
     const router = useRouter()
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
     React.useEffect(() => {
 
@@ -223,18 +114,33 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
             direction="column"
             justifyContent="center"
             alignItems="center"
-            className={classes.wrapperRoot}
+
         >
             <Grid
                 container
                 direction="row"
                 justifyContent="flex-start"
                 alignItems="center"
-                className={clsx(classes.moduleAppbar, { [classes.moduleAppbarMobile]: mobile, })}
+                sx={{
+                    zIndex: 2000,
+                    position: "fixed",
+                    top: 0,
+                    left: mobile ? 0 : "210px",
+                    width: mobile ? "100%" : "calc(100% - 210px)",
+                }}
             >
-                <Accordion elevation={24} className={classes.Accordion} expanded={knowledgeStore.module.openAccordion === undefined ? false : knowledgeStore.module.openAccordion}>
+                <Accordion elevation={24}
+                    sx={{
+                        zIndex: 2000,
+                        width: "100%",
+                        backgroundColor: 'background.1',
+                        color: 'text.main',
+                    }} expanded={knowledgeStore.module.openAccordion === undefined ? false : knowledgeStore.module.openAccordion}>
                     <AccordionSummary
-                        className={classes.AccordionSummary}
+                        sx={{
+                            height: 4,
+                            marginLeft: -1,
+                        }}
                         aria-controls="panel1bh-content"
                         id="panel1bh-header"
                     >
@@ -249,22 +155,25 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                 <Grid container direction="row" alignItems="center">
                                     <Tooltip title="Фильтры">
                                         <span>
-                                            <IconButton onClick={() => knowledgeStore.setModuleData("openAccordion", !knowledgeStore.module.openAccordion)}>
+                                            <IconButton
+                                                onClick={() => knowledgeStore.setModuleData("openAccordion", !knowledgeStore.module.openAccordion)}
+                                                size="large">
                                                 <ExpandMoreIcon
-                                                    className={clsx(classes.ExpandMoreIcon, {
-                                                        [classes.ExpandMoreIconOpen]: knowledgeStore.module.openAccordion,
-                                                    })}
+                                                    sx={{
+                                                        transform: knowledgeStore.module.openAccordion ? "rotate(0deg)" : "rotate(-90deg)",
+                                                        transition: "0.2s",
+                                                    }}
                                                 />
                                             </IconButton>
                                         </span>
                                     </Tooltip>
-                                    {!mobile && <Typography variant="h6" className={classes.moduleLabel}>
+                                    {!mobile && <Typography variant="h6" sx={{ ml: 1, }}>
                                         {knowledgeStore.module.name}
                                     </Typography>}
-                                    {!mobile && knowledgeStore.page.name != "" && <Typography variant="h5" className={classes.slashLabel}>
+                                    {!mobile && knowledgeStore.page.name != "" && <Typography variant="h5" sx={{ ml: 1, }}>
                                         {"/"}
                                     </Typography>}
-                                    {!mobile && <Typography variant="h6" className={classes.pageLabel}>
+                                    {!mobile && <Typography variant="h6" sx={{ ml: 1, }}>
                                         {knowledgeStore.page.name}
                                     </Typography>}
                                 </Grid>
@@ -276,15 +185,18 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                             <Grid item>
                                 <Tooltip title="Вперёд">
                                     <span>
-                                        <IconButton onClick={null}>
-                                            <DoubleArrowIcon className={classes.Icon} />
+                                        <IconButton onClick={() => knowledgeStore.loadPageInModule(knowledgeStore.module.activeIdInMap + 1)} size="large">
+                                            <DoubleArrowIcon />
                                         </IconButton>
                                     </span>
                                 </Tooltip>
                             </Grid>
                         </Grid>
                     </AccordionSummary>
-                    <AccordionDetails className={classes.AccordionDetails}>
+                    <AccordionDetails sx={{
+                        marginTop: 0,
+                        paddingTop: 0,
+                    }}>
                         {/* <Divider className={classes.Divider} /> */}
                         <Grid
                             container
@@ -293,8 +205,8 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                             alignItems="flex-start"
                         >
 
-                            <Grid className={classes.gridTabsWrapper}>
-                                {!mobile && <AntTabs
+                            <Grid sx={{ width: "100%", }}>
+                                {!mobile && <Tabs
                                     value={value}
                                     onChange={handleChange}
                                     indicatorColor="primary"
@@ -302,17 +214,16 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                     aria-label="full width tabs example"
                                     //variant="fullWidth"
                                     centered
-                                    className={classes.AntTabs}
                                 >
-                                    <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Pages")} label={<Typography className={classes.tabLabel}>Описание</Typography>} {...a11yProps(0)} />
-                                    {knowledgeStore.module["map"] != undefined && <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Modules")} label={<Typography className={classes.tabLabel}>Навигация</Typography>} {...a11yProps(1)} />}
-                                    <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Modules")} label={<Typography className={classes.tabLabel}>Статистика</Typography>} {...a11yProps(2)} />
-                                    <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Modules")} label={<Typography className={classes.tabLabel}>Об Авторе</Typography>} {...a11yProps(3)} />
+                                    <Tab label={<Typography sx={{ color: 'text.main' }}>Описание</Typography>} {...a11yProps(0)} />
+                                    {knowledgeStore.module["map"] != undefined && <Tab label={<Typography sx={{ color: 'text.main' }}>Навигация</Typography>} {...a11yProps(1)} />}
+                                    <Tab label={<Typography sx={{ color: 'text.main' }}>Статистика</Typography>} {...a11yProps(2)} />
+                                    <Tab label={<Typography sx={{ color: 'text.main' }}>Об Авторе</Typography>} {...a11yProps(3)} />
 
                                     {/* <Tab label={<Typography className={classes.tabLabel}>Модерация</Typography>} {...a11yProps(2)} /> */}
                                     {/* <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Others")} label={<Typography className={classes.tabLabel}><MoreHorizIcon /></Typography>} {...a11yProps(2)} /> */}
-                                </AntTabs>}
-                                {mobile && <AntTabs
+                                </Tabs>}
+                                {mobile && <Tabs
                                     value={value}
                                     onChange={handleChange}
                                     indicatorColor="primary"
@@ -320,21 +231,21 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                     aria-label="full width tabs example"
                                     //variant="fullWidth"
                                     centered
-                                    className={classes.AntTabs}
+
                                 >
-                                    <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Pages")} label={<DescriptionIcon className={classes.Icon} />} {...a11yProps(0)} />
-                                    {knowledgeStore.module["map"] != undefined && <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Modules")} label={<MenuIcon className={classes.Icon} />} {...a11yProps(1)} />}
-                                    <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Modules")} label={<AnalyticsIcon className={classes.Icon} />} {...a11yProps(2)} />
-                                    <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Modules")} label={<AccountBoxIcon className={classes.Icon} />} {...a11yProps(3)} />
+                                    <Tab label={<DescriptionIcon />} {...a11yProps(0)} />
+                                    {knowledgeStore.module["map"] != undefined && <Tab label={<MenuIcon />} {...a11yProps(1)} />}
+                                    <Tab label={<AnalyticsIcon />} {...a11yProps(2)} />
+                                    <Tab label={<AccountBoxIcon />} {...a11yProps(3)} />
 
                                     {/* <Tab label={<Typography className={classes.tabLabel}>Модерация</Typography>} {...a11yProps(2)} /> */}
                                     {/* <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Others")} label={<Typography className={classes.tabLabel}><MoreHorizIcon /></Typography>} {...a11yProps(2)} /> */}
-                                </AntTabs>}
+                                </Tabs>}
                                 <TabPanel value={value} index={0}>
-                                    <Typography variant="h6" className={classes.moduleLabel}>
+                                    <Typography variant="h6" >
                                         {knowledgeStore.module.name}
                                     </Typography>
-                                    <Typography variant="h6" className={classes.pageLabel}>
+                                    <Typography variant="h6" >
                                         {knowledgeStore.page.name}
                                     </Typography>
                                     <Grid
@@ -342,22 +253,24 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                         direction="row"
                                         justifyContent="flex-start"
                                         alignItems="center"
-                                        className={classes.gridWrapperMeta}
+                                        sx={{
+                                            mt: 1,
+                                        }}
                                     >
-                                        <Typography variant="subtitle2" className={classes.moduleLabel}>
+                                        <Typography variant="subtitle2">
                                             {themeList[knowledgeStore.module.theme]}
                                         </Typography>
-                                        <Typography variant="subtitle2" className={classes.slashLabel}>
+                                        <Typography variant="h6" sx={{ ml: 1, }}>
                                             {"-"}
                                         </Typography>
-                                        <Typography variant="subtitle2" className={classes.pageLabel}>
+                                        <Typography variant="subtitle2" sx={{ ml: 1, }}>
                                             {categoryList[knowledgeStore.module.category]}
 
                                         </Typography>
-                                        <Typography variant="subtitle2" className={classes.slashLabel}>
+                                        <Typography variant="h6" sx={{ ml: 1, }}>
                                             {"-"}
                                         </Typography>
-                                        <Typography variant="subtitle2" className={classes.pageLabel}>
+                                        <Typography variant="subtitle2" sx={{ ml: 1, }}>
                                             {difficultyList[knowledgeStore.module.difficulty]}
                                         </Typography>
                                     </Grid>
@@ -366,9 +279,11 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                         direction="row"
                                         justifyContent="flex-start"
                                         alignItems="center"
-                                        className={classes.gridWrapperMeta}
+                                        sx={{
+                                            mt: 1,
+                                        }}
                                     >
-                                        <Typography variant="subtitle2" className={classes.descriptionLabel}>
+                                        <Typography variant="subtitle2">
                                             {knowledgeStore.module.description != undefined ? knowledgeStore.module.description : "Автор не оставил описания"}
                                         </Typography>
 
@@ -380,9 +295,11 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                         direction="row"
                                         justifyContent="flex-start"
                                         alignItems="center"
-                                        className={classes.gridWrapperMeta}
+                                        sx={{
+                                            mt: 1,
+                                        }}
                                     >
-                                        <Typography variant="subtitle2" className={classes.moduleLabel}>
+                                        <Typography variant="subtitle2" >
                                             Навигация по страницам
                                         </Typography>
                                     </Grid>
@@ -401,17 +318,16 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                                 alignItems="center"
                                                 key={index.toString()}
                                             >
-                                                <ArrowRightIcon />
+                                                {knowledgeStore.module.activeIdInMap === (index + (paginationCounter - 1) * 10) && <ArrowRightIcon />}
+                                                {/* {knowledgeStore.module.activeIdInMap !== (index + (paginationCounter - 1) * 10) && <CircleIcon sx={{fontSize: "8px", m: 1}} />} */}
                                                 <Link
-                                                    className={classes.Link}
-                                                    onClick={() => {
-                                                        router.push({
-                                                            pathname: '/knowledge/module/[moduleId]/[pageId]',
-                                                            query: { moduleId: knowledgeStore.module.id, pageId: index + (paginationCounter - 1) * 10 },
-                                                        })
+                                                    sx={{
+                                                        cursor: knowledgeStore.module.activeIdInMap === (index + (paginationCounter - 1) * 10) ? "default" : "pointer",
+                                                        ml: knowledgeStore.module.activeIdInMap === (index + (paginationCounter - 1) * 10) ? 0 : 3,
                                                     }}
+                                                    onClick={() => knowledgeStore.loadPageInModule(index + (paginationCounter - 1) * 10)}
                                                     color="inherit"
-                                                    underline="hover"
+                                                    underline={ knowledgeStore.module.activeIdInMap === (index + (paginationCounter - 1) * 10) ? "none" : "hover"}
                                                 >
                                                     {name}
                                                 </Link>
@@ -425,7 +341,6 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                                                     color: theme => theme.palette.primary.contrastText,
                                                 }
                                             }}
-                                            className={classes.Pagination}
                                             count={Math.ceil(knowledgeStore.module["map"].length / 10)}
                                             color="primary"
                                             onChange={handleChangePagination}
@@ -447,7 +362,7 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                 {children}
             </Grid>
         </Grid >
-    )
+    );
 }));
 
 

@@ -12,7 +12,7 @@ import React from 'react';
 // Компоненты
 import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
 
-const Knowledge = () => {
+const Messages = () => {
   const theme = useTheme();
 
   return (
@@ -41,4 +41,4 @@ const Knowledge = () => {
   );
 }
 
-export default Knowledge
+export default Messages
