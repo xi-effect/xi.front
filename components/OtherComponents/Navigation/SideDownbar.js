@@ -1,3 +1,10 @@
+import PropTypes from 'prop-types';
+import { Global } from '@emotion/react';
+import CssBaseline from '@mui/material/CssBaseline';
+import { grey } from '@mui/material/colors';
+import Skeleton from '@mui/material/Skeleton';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router'
@@ -5,190 +12,398 @@ import Link from 'next/link'
 import clsx from 'clsx';
 import { inject, observer } from 'mobx-react'
 
-import { Grid, Drawer, useTheme, List, Tooltip, ListItem, ListItemIcon, ListItemText, Typography, Divider, IconButton, AppBar, Toolbar } from '@mui/material';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { Grid, Drawer, Collapse, Box, List, Stack, Badge, useTheme, Tooltip, Button, ListItem, ListItemIcon, ListItemText, Typography, Divider, IconButton } from '@mui/material';
+
+import TreeView from '@mui/lab/TreeView';
+import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
+import MailIcon from '@mui/icons-material/Mail';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Label from '@mui/icons-material/Label';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import InfoIcon from '@mui/icons-material/Info';
+import ForumIcon from '@mui/icons-material/Forum';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 import HomeIcon from '@mui/icons-material/Home';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import SettingsIcon from '@mui/icons-material/Settings';
+import AddToQueueIcon from '@mui/icons-material/AddToQueue';
+import MessageIcon from '@mui/icons-material/Message';
+import SubjectIcon from '@mui/icons-material/Subject';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import AdjustIcon from '@mui/icons-material/Adjust';
+import CircleIcon from '@mui/icons-material/Circle';
 
-import { useSwipeable } from 'react-swipeable';
+const StyledTreeItemRoot = styled(TreeItem)(({ theme }) => ({
+    color: theme.palette.text.secondary,
 
-const PREFIX = 'SideDownbar';
+    [`& .${treeItemClasses.content}`]: {
+        color: theme.palette.text.secondary,
+        // borderTopRightRadius: theme.spacing(2),
+        // borderBottomRightRadius: theme.spacing(2),
+        paddingRight: theme.spacing(1),
+        fontWeight: theme.typography.fontWeightMedium,
 
-const classes = {
-    appBar: `${PREFIX}-appBar`,
-    drawerPaper: `${PREFIX}-drawerPaper`,
-    listItem: `${PREFIX}-listItem`,
-    listItemActive: `${PREFIX}-listItemActive`,
-    listItemIcon: `${PREFIX}-listItemIcon`,
-    icon: `${PREFIX}-icon`,
-    content: `${PREFIX}-content`
-};
+        // fontSize: "20px",
+        // '&.MuiTreeItem-iconContainer svg': {
+        //     fontSize: "40px",
+        // },
 
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.appBar}`]: {
-        top: 'auto',
-        bottom: 0,
-        zIndex: 1,
-        height: 72,
-        flexShrink: 0,
-        backgroundColor: theme.palette.blueGrey["0"],
-    },
-
-    [`& .${classes.drawerPaper}`]: {
-        height: 72,
-    },
-
-    // necessary for content to be below app bar
-    [`& .${classes.listItem}`]: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignContent: "center",
-        marginLeft: 12,
-        height: 56,
-        width: 56,
-        backgroundColor: theme.palette.blueGrey["2"],
-        cursor: "pointer",
-        transition: '0.4s',
-        borderRadius: 18,
+        '&.Mui-expanded': {
+            //fontWeight: theme.typography.fontWeightRegular,
+            //fontSize: "40px",
+        },
         '&:hover': {
-            borderRadius: 8,
+            // borderRight: `4px solid ${theme.palette.primary.main}`,
+            backgroundColor: theme.palette.action.hover,
+        },
+        // '&.Mui-focused, &.Mui-selected, &.Mui-selected.Mui-focused': {
+        //     borderRight: `4px solid ${theme.palette.primary.main}`,
+        //     backgroundColor: 'var(--tree-view-bg-color)',
+        //     color: 'var(--tree-view-color)',
+        // },
+        [`& .${treeItemClasses.label}`]: {
+            fontWeight: 'inherit',
+            color: 'inherit',
         },
     },
-
-    [`& .${classes.listItemActive}`]: {
-        backgroundColor: theme.palette.primary.main,
-        '&:hover': {
-            backgroundColor: theme.palette.primary.main,
+    [`& .${treeItemClasses.group}`]: {
+        marginLeft: 0,
+        [`& .${treeItemClasses.content}`]: {
+            paddingLeft: theme.spacing(2),
         },
-        borderRadius: 8,
     },
-
-    [`& .${classes.listItemIcon}`]: {
-        display: "flex",
-        justifyContent: "center",
-        alignContent: "center",
-        color: theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.icon}`]: {
-        fontSize: "38px !important",
-        height: 38,
-        width: 38,
-        color: theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.content}`]: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.default,
-        padding: theme.spacing(3),
-    }
 }));
 
-const SideDownbar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu }) => {
+function StyledTreeItem(props) {
     const theme = useTheme();
-
-
-
-    const router = useRouter()
-
-    const [menuList, setMenuList] = React.useState([
-        {
-            id: 0,
-            icon: <HomeIcon fontSize="large" className={classes.icon} />,
-            label: "Главная",
-            href: '/',
-        },
-        {
-            id: 1,
-            icon: <MenuBookIcon fontSize="large" className={classes.icon} />,
-            label: "Знания",
-            href: '/knowledge',
-        },
-        {
-            id: 2,
-            icon: <SettingsIcon fontSize="large" className={classes.icon} />,
-            label: "Настройки",
-            href: '/settings',
-        }
-    ])
-
-    const config = {
-        delta: 8,
-    }
-
-    const handlers = useSwipeable({
-        onSwipedLeft: (eventData) => {
-            if (router.pathname === "/") router.push("/knowledge")
-            if (router.pathname === "/knowledge") router.push("/settings")
-            // console.log("User Swiped!", eventData)
-        },
-        onSwipedRight: (eventData) => {
-            if (router.pathname === "/knowledge") router.push("/")
-            if (router.pathname === "/settings") router.push("/knowledge")
-            // console.log("User Swiped!", eventData)
-        },
-        ...config,
-    });
-
+    const {
+        bgColor,
+        color,
+        labelIcon: LabelIcon,
+        labelInfo,
+        labelText,
+        textVariant,
+        select,
+        ...other
+    } = props;
 
     return (
-        (<Root>
-            <AppBar
-                {...handlers}
-                position="fixed"
-                // classes={{
-                //     //paper: classes.drawerPaper,
-                // }}
-                className={classes.appBar}
-            >
-                <List>
-                    <Grid
-                        container
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="center"
-                    >
-                        <Grid>
-                            <Tooltip title="Главная" placement="top" arrow>
-                                <ListItem onClick={() => router.push('/')} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === '/main' })}>
-                                    <ListItemIcon className={classes.listItemIcon}>
-                                        <HomeIcon fontSize="large" className={classes.icon} />
-                                    </ListItemIcon>
-                                </ListItem>
-                            </Tooltip>
-                        </Grid>
-                        <Grid>
-                            <Tooltip title="Знания" placement="top" arrow>
-                                <ListItem onClick={() => router.push('/knowledge')} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname.includes('/knowledge') })}>
-                                    <ListItemIcon className={classes.listItemIcon}>
-                                        <MenuBookIcon fontSize="large" className={classes.icon} />
-                                    </ListItemIcon>
-                                </ListItem>
-                            </Tooltip>
-                        </Grid>
-                        <Grid>
-                            <Tooltip title="Настройки" placement="top" arrow>
-                                <ListItem onClick={() => router.push('/settings')} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === '/settings' })}>
-                                    <ListItemIcon className={classes.listItemIcon}>
-                                        <SettingsIcon fontSize="large" className={classes.icon} />
-                                    </ListItemIcon>
-                                </ListItem>
-                            </Tooltip>
+        <StyledTreeItemRoot
+            sx={{
+                // color: 'primary.main',
+                bgcolor: select ? 'action.hover' : null,
+                borderRight: select ? `4px solid ${theme.palette.primary.main}` : null,
+            }}
+            label={
+                <Box sx={{ display: 'flex', alignItems: 'center', p: 0.5, pr: 0, }}>
+                    <Box component={LabelIcon} color="inherit" sx={{ mr: 1, }} />
+                    <Grid container wrap="nowrap" spacing={2}>
+                        <Grid item xs zeroMinWidth>
+                            <Typography sx={{ ml: 1, }} variant={textVariant} noWrap>{labelText}</Typography>
                         </Grid>
                     </Grid>
-                </List>
-
-            </AppBar>
-        </Root>)
+                    <Typography variant="subtitle1" color="inherit">
+                        {labelInfo}
+                    </Typography>
+                </Box>
+            }
+            {...other}
+        />
     );
+}
+
+StyledTreeItem.propTypes = {
+    bgColor: PropTypes.string,
+    color: PropTypes.string,
+    labelIcon: PropTypes.elementType,
+    labelInfo: PropTypes.string,
+    textVariant: PropTypes.string,
+    select: PropTypes.bool,
+    labelText: PropTypes.string.isRequired,
+};
+
+
+const drawerBleeding = 64;
+
+const Root = styled('div')(({ theme }) => ({
+    height: '100%',
+    backgroundColor:
+        theme.palette.mode === 'light' ? "#90a4ae" : "#455a64",
 }));
 
-export default SideDownbar
+const StyledBox = styled(Box)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'light' ? "#90a4ae" : "#455a64",
+}));
+
+const Puller = styled(Box)(({ theme }) => ({
+    width: 30,
+    height: 6,
+    backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
+    borderRadius: 3,
+    position: 'absolute',
+    top: 8,
+    left: 'calc(50% - 15px)',
+}));
+
+const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore, uiStore, openSideMenu, setOpenSideMenu }) => {
+
+    const [open, setOpen] = React.useState(false);
+    const theme = useTheme();
+    const router = useRouter()
+
+    const mainIconFn = () => {
+        if (router.pathname === "/main") return <HomeIcon fontSize="large" sx={{ml: 2}}/>
+        if (router.pathname === "/knowledge") return <MenuBookIcon fontSize="large" sx={{ml: 2}}/>
+        if (router.pathname.includes("/knowledge/pages")) return <SubjectIcon fontSize="large" sx={{ml: 2}}/>
+        if (router.pathname.includes("/knowledge/modules")) return <FormatListBulletedIcon fontSize="large" sx={{ml: 2}}/>
+        if (router.pathname.includes("/messages")) return <MessageIcon fontSize="large" sx={{ml: 2}}/>
+        if (router.pathname.includes("/managment")) return <AddToQueueIcon fontSize="large" sx={{ml: 2}}/>
+        if (router.pathname.includes("/settings")) return <SettingsIcon fontSize="large" sx={{ml: 2}}/>
+
+    }
+
+    const defaultExpandedFn = () => {
+        if (router.pathname.includes("/knowledge")) return ['2']
+
+        if (router.pathname.includes("/managment")) return ['12']
+        // if (router.pathname.include("/knowledge")) return ['2']
+        return ['1']
+    }
+
+    const toggleDrawer = (newOpen) => () => {
+        setOpen(newOpen);
+    };
+
+    // This is used only for the example
+    const container = window !== undefined ? () => window().document.body : undefined;
+
+    return (
+        <Root>
+            {/* <CssBaseline /> */}
+            <Global
+                styles={{
+                    '.MuiDrawer-root > .MuiPaper-root': {
+                        height: `calc(50% - ${drawerBleeding}px)`,
+                        overflow: 'visible',
+                        "& ::-webkit-scrollbar": {
+                            backgroundColor: theme.palette.mode === 'light' ? "#90a4ae" : "#455a64",
+                            width: "8px",
+                        },
+                        // "& ::-webkit-scrollbar-track": {
+                        //     boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
+                        // },
+                        "& ::-webkit-scrollbar-thumb": {
+                            borderRadius: "8px",
+                            width: "2px",
+                            backgroundColor: theme.palette.mode === 'light' ? "#455a64" : "#90a4ae",
+                            minHeight: "24px",
+                            border: `2px solid ${theme.palette.mode === 'light' ? "#90a4ae" : "#455a64"}`,
+                        },
+                    },
+
+                }}
+            />
+            <SwipeableDrawer
+                container={container}
+                anchor="bottom"
+                open={open}
+                onClose={toggleDrawer(false)}
+                onOpen={toggleDrawer(true)}
+                swipeAreaWidth={drawerBleeding}
+                disableSwipeToOpen={false}
+                ModalProps={{
+                    keepMounted: true,
+                }}
+            >
+                <StyledBox
+                    sx={{
+                        position: 'absolute',
+                        top: -drawerBleeding,
+                        borderTopLeftRadius: 16,
+                        borderTopRightRadius: 16,
+                        visibility: 'visible',
+                        right: 0,
+                        left: 0,
+                    }}
+                >
+                    <Puller />
+                    <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        // spacing={2}
+                        sx={{
+                            height: 64,
+                        }}
+                    >
+                        {/* <Box > */}
+                            {mainIconFn()}
+                        {/* </Box> */}
+                        <Typography variant="h4" sx={{ ml: 1, mt: 0.3, color: 'text.secondary' }}>Ξffect</Typography>
+                    </Stack>
+                </StyledBox>
+                <StyledBox
+                    sx={{
+                        px: 1,
+                        pb: 1,
+                        height: '100%',
+                        overflow: 'auto',
+                    }}
+                >
+                    <TreeView
+                        defaultExpanded={defaultExpandedFn()}
+                        defaultCollapseIcon={<KeyboardArrowDownIcon fontSize="large" />}
+                        defaultExpandIcon={<KeyboardArrowRightIcon fontSize="large" />}
+                        defaultEndIcon={<div style={{ width: 24 }} />}
+                        sx={{
+                            // height: 264,
+                            flexGrow: 1,
+                            // maxWidth: 400,
+                            pt: 1,
+                            overflowY: 'auto'
+                        }}
+                    >
+                        <StyledTreeItem
+                            nodeId="1"
+                            textVariant="h5"
+                            labelText="Главная"
+                            labelIcon={HomeIcon}
+                            select={router.pathname === "/main"}
+                            onClick={() => router.push("/main")}
+                        />
+                        <Divider sx={{ mt: 1, mb: 1 }} />
+                        <StyledTreeItem
+                            nodeId="2"
+                            labelText="Знания"
+                            textVariant="h5"
+                            labelIcon={MenuBookIcon}
+                            select={router.pathname === "/knowledge"}
+                            onClick={() => router.push("/knowledge")}
+                        />
+                        <StyledTreeItem
+                            nodeId="21"
+                            textVariant="h5"
+                            labelText="Страницы"
+                            labelIcon={SubjectIcon}
+                            //labelInfo="90"
+                            select={router.pathname.includes("/knowledge/pages")}
+                            onClick={() => router.push("/knowledge/pages")}
+                        />
+                        <StyledTreeItem
+                            nodeId="22"
+                            textVariant="h5"
+                            labelText="Модули"
+                            labelIcon={FormatListBulletedIcon}
+                            //labelInfo="2,294"
+                            select={router.pathname.includes("/knowledge/modules")}
+                            onClick={() => router.push("/knowledge/modules")}
+                        />
+                        <Divider sx={{ mt: 1, mb: 1 }} />
+                        <StyledTreeItem
+                            nodeId="3"
+                            textVariant="h5"
+                            labelText="Общение"
+                            labelIcon={MessageIcon}
+                        >
+                            <StyledTreeItem
+                                nodeId="31"
+                                textVariant="h6"
+                                labelText="Класс"
+                                labelIcon={SupervisorAccountIcon}
+                            // labelInfo="90"
+                            >
+                                {uiStore.menu.messagerItems[0].chats.map((chatItem, chatIndex) => (
+                                    <StyledTreeItem
+                                        textVariant="subtitle1"
+                                        key={chatIndex.toString()}
+                                        nodeId={"31" + chatIndex.toString()}
+                                        labelText={chatItem.userName}
+                                        // labelIcon={InfoIcon}
+                                        //select={true}
+                                        labelInfo={chatItem?.count !== undefined ? chatItem.count.toString() : null}
+                                    />
+                                ))}
+                            </StyledTreeItem>
+                            <StyledTreeItem
+                                nodeId="32"
+                                textVariant="h6"
+                                labelText="Преподаватели"
+                                labelIcon={SupervisorAccountIcon}
+                            // labelInfo="90"
+                            >
+                                {uiStore.menu.messagerItems[1].chats.map((chatItem, chatIndex) => (
+                                    <StyledTreeItem
+                                        textVariant="subtitle1"
+                                        key={chatIndex.toString()}
+                                        nodeId={"32" + chatIndex.toString()}
+                                        labelText={chatItem.userName}
+                                        // labelIcon={InfoIcon}
+                                        // select={true}
+                                        labelInfo={chatItem?.count !== undefined ? chatItem.count.toString() : null}
+                                    />
+                                ))}
+                            </StyledTreeItem>
+                        </StyledTreeItem>
+                        <Divider sx={{ mt: 1, mb: 1 }} />
+                        <StyledTreeItem
+                            nodeId="12"
+                            textVariant="h5"
+                            labelText="Студия"
+                            labelIcon={AddToQueueIcon}
+                            select={router.pathname === "/managment"}
+                            onClick={() => router.push("/managment")}
+                        >
+                            <StyledTreeItem
+                                nodeId="13"
+                                textVariant="h6"
+                                labelText="Страницы"
+                                labelIcon={SubjectIcon}
+                                select={router.pathname.includes("/managment/content/pages")}
+                                onClick={() => router.push("/managment/content/pages")}
+                            //labelInfo="90"
+                            />
+                            <StyledTreeItem
+                                nodeId="14"
+                                textVariant="h6"
+                                labelText="Модули"
+                                labelIcon={FormatListBulletedIcon}
+                                select={router.pathname.includes("/managment/content/modules")}
+                                onClick={() => router.push("/managment/content/modules")}
+                            //labelInfo="2,294"
+                            />
+                        </StyledTreeItem>
+                        <Divider sx={{ mt: 1, mb: 1 }} />
+                        <StyledTreeItem
+                            nodeId="15"
+                            textVariant="h5"
+                            labelText="Настройки"
+                            labelIcon={SettingsIcon}
+                            select={router.pathname.includes("/settings")}
+                            onClick={() => router.push("/settings")}
+                        />
+                    </TreeView>
+                </StyledBox>
+            </SwipeableDrawer>
+        </Root>
+    );
+}))
+
+SideDownbar.propTypes = {
+    /**
+     * Injected by the documentation to work in an iframe.
+     * You won't need it on your project.
+     */
+    window: PropTypes.func,
+};
+
+export default SideDownbar;
