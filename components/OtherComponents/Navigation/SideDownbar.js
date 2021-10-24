@@ -1,34 +1,33 @@
-import PropTypes from 'prop-types';
 import { Global } from '@emotion/react';
-import CssBaseline from '@mui/material/CssBaseline';
-import { grey } from '@mui/material/colors';
-import Skeleton from '@mui/material/Skeleton';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import { useSwipeable } from 'react-swipeable';
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import clsx from 'clsx';
-import { inject, observer } from 'mobx-react'
-
-import { Grid, Drawer, AppBar, Toolbar, Box, List, Stack, Badge, useTheme, Tooltip, Button, ListItem, ListItemIcon, ListItemText, Typography, Divider, IconButton } from '@mui/material';
-
-import TreeView from '@mui/lab/TreeView';
-import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
-import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-
-import HomeIcon from '@mui/icons-material/Home';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import SettingsIcon from '@mui/icons-material/Settings';
 import AddToQueueIcon from '@mui/icons-material/AddToQueue';
-import MessageIcon from '@mui/icons-material/Message';
-import SubjectIcon from '@mui/icons-material/Subject';
-
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import HomeIcon from '@mui/icons-material/Home';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import MessageIcon from '@mui/icons-material/Message';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SubjectIcon from '@mui/icons-material/Subject';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
+import TreeView from '@mui/lab/TreeView';
+import { AppBar, Badge, Box, Button, Divider, Drawer, Grid, IconButton, List, ListItem, ListItemIcon, ListItemText, Stack, Toolbar, Tooltip, Typography, useTheme } from '@mui/material';
+import { grey } from '@mui/material/colors';
+import { styled } from '@mui/material/styles';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import clsx from 'clsx';
+import { inject, observer } from 'mobx-react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useSwipeable } from 'react-swipeable';
+import { useWindowSize } from "react-use";
+
+
+
+
 
 
 const StyledTreeItemRoot = styled(TreeItem)(({ theme }) => ({
@@ -144,7 +143,8 @@ const Puller = styled(Box)(({ theme }) => ({
 }));
 
 const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore, uiStore, openSideMenu, setOpenSideMenu }) => {
-
+    const { width, height } = useWindowSize();
+    console.log("height", height)
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const router = useRouter()
@@ -162,7 +162,6 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
 
     const defaultExpandedFn = () => {
         if (router.pathname.includes("/knowledge")) return ['2']
-
         if (router.pathname.includes("/managment")) return ['12']
         // if (router.pathname.include("/knowledge")) return ['2']
         return ['1']
@@ -248,7 +247,7 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                             minHeight: "24px",
                             border: `2px solid ${theme.palette.mode === 'light' ? "#90a4ae" : "#455a64"}`,
                         },
-                        height: '50%',
+                        height: height > 700 ? '50%' : '70%',
                         overflow: 'auto',
                         p: 1,
                         borderTopLeftRadius: 16,
