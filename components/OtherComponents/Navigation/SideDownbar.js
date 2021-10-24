@@ -173,14 +173,27 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
     };
 
     const handlers = useSwipeable({
-        onSwipedUp: toggleDrawer(true),
+        onSwipedLeft: () => console.log("left"),
+        onSwipedRight: () => console.log("right"),
         delta: 10,
-      });
+    });
 
     return (
         <Root>
-            <AppBar {...handlers} position="fixed" color="primary" sx={{ top: 'auto', bottom: 0, height: 64,  }}>
-                <Toolbar>
+            <AppBar
+                {...handlers}
+                onClick={toggleDrawer(true)}
+                position="fixed"
+                sx={{
+                    top: 'auto',
+                    bottom: 0,
+                    height: 64,
+                    // backgroundColor: 'primary.main',
+                }}
+            >
+                <Toolbar
+
+                >
                     <StyledBox
                         sx={{
                             position: 'absolute',
@@ -190,7 +203,7 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                             visibility: 'visible',
                             right: 0,
                             left: 0,
-                            backgroundColor: theme.palette.mode === 'light' ? "#90a4ae" : "#455a64",
+                            backgroundColor: 'background.2',
                         }}
                     >
                         <Puller />
@@ -240,7 +253,7 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                         p: 1,
                         borderTopLeftRadius: 16,
                         borderTopRightRadius: 16,
-                        backgroundColor: theme.palette.mode === 'light' ? "#90a4ae" : "#455a64",
+                        backgroundColor: 'background.2',
                     }
                 }}
             >
@@ -254,6 +267,7 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                         height: 64,
                         borderTopLeftRadius: 16,
                         borderTopRightRadius: 16,
+                        backgroundColor: 'background.2',
                     }}
                 >
                     {/* <Box > */}
@@ -356,7 +370,7 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                         </StyledTreeItem>
                     </StyledTreeItem>
                     <Divider sx={{ mt: 1, mb: 1 }} />
-                    <StyledTreeItem
+                    {/* <StyledTreeItem
                         nodeId="12"
                         textVariant="h5"
                         labelText="Студия"
@@ -383,7 +397,7 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                         //labelInfo="2,294"
                         />
                     </StyledTreeItem>
-                    <Divider sx={{ mt: 1, mb: 1 }} />
+                    <Divider sx={{ mt: 1, mb: 1 }} /> */}
                     <StyledTreeItem
                         nodeId="15"
                         textVariant="h5"
@@ -393,8 +407,6 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                         onClick={() => router.push("/settings")}
                     />
                 </TreeView>
-                {/* </StyledBox> */}
-                {/* </Box> */}
             </SwipeableDrawer>
         </Root>
     );
