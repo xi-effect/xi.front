@@ -137,8 +137,8 @@ const drawerBleeding = 64;
 
 const Root = styled('div')(({ theme }) => ({
     height: '100%',
-    backgroundColor:
-        theme.palette.mode === 'light' ? "#90a4ae" : "#455a64",
+    // display: 'none',
+    backgroundColor: theme.palette.mode === 'light' ? "#90a4ae" : "#455a64",
 }));
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -162,13 +162,13 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
     const router = useRouter()
 
     const mainIconFn = () => {
-        if (router.pathname === "/main") return <HomeIcon fontSize="large" sx={{ml: 2}}/>
-        if (router.pathname === "/knowledge") return <MenuBookIcon fontSize="large" sx={{ml: 2}}/>
-        if (router.pathname.includes("/knowledge/pages")) return <SubjectIcon fontSize="large" sx={{ml: 2}}/>
-        if (router.pathname.includes("/knowledge/modules")) return <FormatListBulletedIcon fontSize="large" sx={{ml: 2}}/>
-        if (router.pathname.includes("/messages")) return <MessageIcon fontSize="large" sx={{ml: 2}}/>
-        if (router.pathname.includes("/managment")) return <AddToQueueIcon fontSize="large" sx={{ml: 2}}/>
-        if (router.pathname.includes("/settings")) return <SettingsIcon fontSize="large" sx={{ml: 2}}/>
+        if (router.pathname === "/main") return <HomeIcon fontSize="large" sx={{ ml: 2 }} />
+        if (router.pathname === "/knowledge") return <MenuBookIcon fontSize="large" sx={{ ml: 2 }} />
+        if (router.pathname.includes("/knowledge/pages")) return <SubjectIcon fontSize="large" sx={{ ml: 2 }} />
+        if (router.pathname.includes("/knowledge/modules")) return <FormatListBulletedIcon fontSize="large" sx={{ ml: 2 }} />
+        if (router.pathname.includes("/messages")) return <MessageIcon fontSize="large" sx={{ ml: 2 }} />
+        if (router.pathname.includes("/managment")) return <AddToQueueIcon fontSize="large" sx={{ ml: 2 }} />
+        if (router.pathname.includes("/settings")) return <SettingsIcon fontSize="large" sx={{ ml: 2 }} />
 
     }
 
@@ -184,12 +184,9 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
         setOpen(newOpen);
     };
 
-    // This is used only for the example
-    const container = window !== undefined ? () => window().document.body : undefined;
-
     return (
         <Root>
-            {/* <CssBaseline /> */}
+            <CssBaseline />
             <Global
                 styles={{
                     '.MuiDrawer-root > .MuiPaper-root': {
@@ -214,16 +211,15 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                 }}
             />
             <SwipeableDrawer
-                container={container}
                 anchor="bottom"
                 open={open}
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
                 swipeAreaWidth={drawerBleeding}
                 disableSwipeToOpen={false}
-                ModalProps={{
-                    keepMounted: true,
-                }}
+                // ModalProps={{
+                //     keepMounted: true,
+                // }}
             >
                 <StyledBox
                     sx={{
@@ -247,7 +243,7 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                         }}
                     >
                         {/* <Box > */}
-                            {mainIconFn()}
+                        {mainIconFn()}
                         {/* </Box> */}
                         <Typography variant="h4" sx={{ ml: 1, mt: 0.3, color: 'text.secondary' }}>Ξffect</Typography>
                     </Stack>
@@ -397,13 +393,5 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
         </Root>
     );
 }))
-
-SideDownbar.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    window: PropTypes.func,
-};
 
 export default SideDownbar;
