@@ -144,7 +144,6 @@ const Puller = styled(Box)(({ theme }) => ({
 
 const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore, uiStore, openSideMenu, setOpenSideMenu }) => {
     const { width, height } = useWindowSize();
-    console.log("height", height)
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const router = useRouter()
