@@ -205,9 +205,9 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                 onOpen={toggleDrawer(true)}
                 swipeAreaWidth={drawerBleeding}
                 disableSwipeToOpen={false}
-                // ModalProps={{
-                //     keepMounted: true,
-                // }}
+                ModalProps={{
+                    keepMounted: true,
+                }}
             >
                 <StyledBox
                     sx={{
