@@ -61,10 +61,10 @@ a {
   border: 6px solid #2b2b2b;
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   background-color: #2b2b2b;
   width: 16px;
-} */
+}
 
 ::backdrop {
   background-color: #121212;
