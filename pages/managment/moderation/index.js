@@ -24,7 +24,7 @@ const Moderation = inject('store')(observer(({ store }) => {
     <>
       <Head>
         <title>
-          Ξ Effect
+          Ξffect
         </title>
       </Head>
       {/* <Background/> */}

@@ -22,7 +22,7 @@ const Settings = inject('rootStore')(observer(({ rootStore }) => {
     <>
       <Head>
         <title>
-          Ξ Effect
+          Ξffect
         </title>
       </Head>
       <NavigationAll>

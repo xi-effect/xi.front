@@ -47,7 +47,7 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
         <>
             <Head>
                 <title>
-                    Ξ Effect
+                    Ξffect
                 </title>
             </Head>
             {/* <Background/> */}

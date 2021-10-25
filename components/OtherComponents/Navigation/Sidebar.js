@@ -178,8 +178,8 @@ const Sidebar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, o
                     labelText="Знания"
                     textVariant="h5"
                     labelIcon={MenuBookIcon}
-                    select={router.pathname === "/knowledge"}
-                    onClick={() => router.push("/knowledge")}
+                    // select={router.pathname === "/knowledge"}
+                    // onClick={() => router.push("/knowledge")}
                 >
                     <StyledTreeItem
                         nodeId="21"
@@ -250,8 +250,8 @@ const Sidebar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, o
                     textVariant="h5"
                     labelText="Студия"
                     labelIcon={AddToQueueIcon}
-                    select={router.pathname === "/managment"}
-                    onClick={() => router.push("/managment")}
+                    // select={router.pathname === "/managment"}
+                    // onClick={() => router.push("/managment")}
                 >
                     <StyledTreeItem
                         nodeId="13"

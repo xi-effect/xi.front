@@ -106,6 +106,8 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                                         </InputAdornment>
                                     }
                                 />
+                                {errors?.password?.message === "password must be at least 6 characters" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Минимальная длинна пароля - 6 символов </Typography>}
+                                {errors?.password?.message === "password is a required field" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Обязательное поле </Typography>}
                             </FormControl>}
                         />
                         {!authorizationStore.passwordReset.emailResetOk && <Button variant="outlined" size="large" type="submit" sx={{ color: 'text.main', border: `2px solid ${theme.palette.text.dark}`, '&:hover': { border: `2px solid ${theme.palette.text.dark}` } }}>

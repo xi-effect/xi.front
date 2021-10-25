@@ -9,6 +9,7 @@ import ManagmentStore from "./managment/managmentStore";
 import SettingsStore from "./settings/settingsStore";
 import ContentStore from "./content/contentStore";
 import AuthorizationStore from "./authorization/authorizationStore";
+import MessageStore from "./message/messageStore";
 
 enableStaticRendering(typeof window === 'undefined')
 
@@ -24,6 +25,7 @@ class RootStore {
     this.settingsStore = new SettingsStore(this)
     this.contentStore = new ContentStore(this)
     this.authorizationStore = new AuthorizationStore(this)
+    this.messageStore = new MessageStore(this)
     makeObservable(this)
   }
 

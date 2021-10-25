@@ -48,7 +48,7 @@ const Page = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
         (<Root>
             <Head>
                 <title>
-                    Ξ Effect
+                    Ξffect
                 </title>
             </Head>
             {/* <Background/> */}

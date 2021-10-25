@@ -97,6 +97,8 @@ const PassResetEmail = inject('rootStore', 'uiStore', 'authorizationStore')(obse
                                         </InputAdornment>
                                     }
                                 />
+                                {errors?.email?.message === "email is a required field" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Обязательное поле </Typography>}
+                                {errors?.email?.message === "email must be a valid email" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Ошибка валидации </Typography>}
                                 <Link
                                     sx={{ color: 'text.main', m: 1, cursor: 'pointer' }}
                                     onClick={() => {

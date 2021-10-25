@@ -48,7 +48,7 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
         <>
             <Head>
                 <title>
-                    Ξ Effect
+                    Ξffect
                 </title>
             </Head>
             {/* <Background/> */}

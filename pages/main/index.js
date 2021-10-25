@@ -47,7 +47,7 @@ const Main = inject('rootStore')(observer(({ rootStore }) => {
     (<Root>
       <Head>
         <title>
-          Ξ Effect
+          Ξffect
         </title>
       </Head>
       {/* <Background /> */}

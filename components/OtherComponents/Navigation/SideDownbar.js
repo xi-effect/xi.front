@@ -151,8 +151,8 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
     const mainIconFn = () => {
         if (router.pathname === "/main") return <HomeIcon fontSize="large" sx={{ ml: 2 }} />
         if (router.pathname === "/knowledge") return <MenuBookIcon fontSize="large" sx={{ ml: 2 }} />
-        if (router.pathname.includes("/knowledge/pages")) return <SubjectIcon fontSize="large" sx={{ ml: 2 }} />
-        if (router.pathname.includes("/knowledge/modules")) return <FormatListBulletedIcon fontSize="large" sx={{ ml: 2 }} />
+        if (router.pathname.includes("/knowledge/page")) return <SubjectIcon fontSize="large" sx={{ ml: 2 }} />
+        if (router.pathname.includes("/knowledge/module")) return <FormatListBulletedIcon fontSize="large" sx={{ ml: 2 }} />
         if (router.pathname.includes("/messages")) return <MessageIcon fontSize="large" sx={{ ml: 2 }} />
         if (router.pathname.includes("/managment")) return <AddToQueueIcon fontSize="large" sx={{ ml: 2 }} />
         if (router.pathname.includes("/settings")) return <SettingsIcon fontSize="large" sx={{ ml: 2 }} />
@@ -300,27 +300,28 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                         labelText="Знания"
                         textVariant="h5"
                         labelIcon={MenuBookIcon}
-                        select={router.pathname === "/knowledge"}
-                        onClick={() => router.push("/knowledge")}
-                    />
-                    <StyledTreeItem
-                        nodeId="21"
-                        textVariant="h5"
-                        labelText="Страницы"
-                        labelIcon={SubjectIcon}
-                        //labelInfo="90"
-                        select={router.pathname.includes("/knowledge/pages")}
-                        onClick={() => router.push("/knowledge/pages")}
-                    />
-                    <StyledTreeItem
-                        nodeId="22"
-                        textVariant="h5"
-                        labelText="Модули"
-                        labelIcon={FormatListBulletedIcon}
-                        //labelInfo="2,294"
-                        select={router.pathname.includes("/knowledge/modules")}
-                        onClick={() => router.push("/knowledge/modules")}
-                    />
+                        // select={router.pathname === "/knowledge"}
+                        // onClick={() => router.push("/knowledge")}
+                    >
+                        <StyledTreeItem
+                            nodeId="21"
+                            textVariant="h5"
+                            labelText="Страницы"
+                            labelIcon={SubjectIcon}
+                            //labelInfo="90"
+                            select={router.pathname.includes("/knowledge/page")}
+                            onClick={() => router.push("/knowledge/pages")}
+                        />
+                        <StyledTreeItem
+                            nodeId="22"
+                            textVariant="h5"
+                            labelText="Модули"
+                            labelIcon={FormatListBulletedIcon}
+                            //labelInfo="2,294"
+                            select={router.pathname.includes("/knowledge/module")}
+                            onClick={() => router.push("/knowledge/modules")}
+                        />
+                    </StyledTreeItem>
                     <Divider sx={{ mt: 1, mb: 1 }} />
                     <StyledTreeItem
                         nodeId="3"

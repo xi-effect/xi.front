@@ -31,7 +31,7 @@ const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kn
         <>
             <Head>
                 <title>
-                    Ξ Effect
+                    Ξffect
                 </title>
             </Head>
             {/* <Background/> */}
