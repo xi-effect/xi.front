@@ -79,7 +79,7 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
           alignItems="center"
           sx={{
             width: '100%',
-            height: "396px",
+            height: "196px",
             background: `linear-gradient(0deg, ${theme.palette.background["2"]} , #d391e3)`,
           }}
         >
