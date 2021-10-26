@@ -65,8 +65,8 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
             layout="fill"
             objectFit="cover"
             quality={100}
-
-            onLoad={() =>
+            onLoadingComplete
+            ={() =>
               setLoading(false)
             }
           />

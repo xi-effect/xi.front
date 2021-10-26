@@ -27,13 +27,6 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                         router.push("/login")
                     }
                 } else {
-                    rootStore.fetchDataScr(`${rootStore.url}/avatar/`, "GET")
-                        .then((data) => {
-                            console.log("avatar", data)
-                            if (data != undefined && data.message != "The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. You have requested this URI [/avatar/] but did you mean /avatar/ ?") {
-                                settingsStore.setSettings("avatar", data)
-                            }
-                        });
                     rootStore.fetchDataScr(`${rootStore.url}/settings/`, "GET")
                         .then((data) => {
                             console.log(data)
@@ -48,7 +41,7 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                                 console.log("Проблемы с сервером")
                             }
                         });
-                    uiStore.setLoading("/main")
+                    // uiStore.setLoading("/main")
 
                 }
             })
@@ -56,8 +49,8 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
 
     return (
         <>
-            {uiStore.loading["/main"] && <Loading />}
-            {!uiStore.loading["/main"] &&
+            {/* {uiStore.loading["/main"] && <Loading />} */}
+            {/* {!uiStore.loading["/main"] && */}
                 <Box sx={{
                     zIndex: 0,
                     display: 'flex',
@@ -83,7 +76,7 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                         {children}
                     </Box>
                 </Box>
-            }
+            {/* } */}
         </>
     );
 }))
