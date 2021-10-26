@@ -342,6 +342,7 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                                     key={chatIndex.toString()}
                                     nodeId={"31" + chatIndex.toString()}
                                     labelText={chatItem.userName}
+                                    onClick={() => router.push("/messages/1/1")}
                                     // labelIcon={InfoIcon}
                                     //select={true}
                                     labelInfo={chatItem?.count !== undefined ? chatItem.count.toString() : null}
