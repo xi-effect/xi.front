@@ -256,6 +256,8 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
             >
                 <Puller />
                 <Stack
+                    onDoubleClick={toggleDrawer(false)}
+
                     // onClick={toggleDrawer(false)}
                     direction="row"
                     justifyContent="flex-start"
