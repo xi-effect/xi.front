@@ -25,7 +25,7 @@ const Chat = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                 </title>
             </Head>
             <NavigationAll>
-                <Box
+                {/* <Box
                     sx={{
                         // display: 'block',
                         // position: 'absolute',
@@ -33,9 +33,9 @@ const Chat = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                         // height: '100vh',
                         // overflow: 'hidden',
                         transform: "scaleY(-1)",
-                    }} >
+                    }} > */}
                     <ChatList />
-                </Box>
+                {/* </Box> */}
 
                 <Stack
                     direction="column"
@@ -43,12 +43,12 @@ const Chat = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                     alignItems="center"
                     sx={{
                         width: '100%',
-                        height: '100vh',
+                        height: '72px',
                         // maxWidth: 800,
                         zIndex: 10000,
                     }}
                 >
-                    <Box sx={{ maxWidth: 800, zIndex: 10000,}}>
+                    <Box sx={{ maxWidth: 1200, zIndex: 10000,}}>
                         <ChatBar />
                     </Box>
 

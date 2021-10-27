@@ -18,6 +18,7 @@ import { getDesignTokens } from '../theme'
 import { CacheProvider } from '@emotion/react';
 //import { SnackbarProvider, useSnackbar } from 'notistack';
 import createEmotionCache from '../store/createEmotionCache';
+import 'moment/locale/ru';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -36,7 +37,7 @@ const MyApp = (observer((props) => {
           Ξ Effect
         </title> */}
         <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
-        <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=3.2" />
+        <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
         <meta name="yandex-verification" content="5fa082e60959bf8b" />
         <meta
           name="description"

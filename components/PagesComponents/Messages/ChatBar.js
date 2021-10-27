@@ -78,80 +78,97 @@ const ChatBar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore })
     const onSubmit = data => authorizationStore.clickEnterButton(data);
 
     return (
-        <Stack
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            sx={{
-                minHeight: 64,
-                width: '100%',
-                borderTopLeftRadius: 16,
-                borderTopRightRadius: 16,
-                backgroundColor: 'background.2',
-                zIndex: 10000,
-                // top: 'auto',
-                // bottom: 0,
-            }}
-        >
+        <Box sx={{
+            position: 'fixed',
+            top: 'auto',
+            bottom: 0,
+            left: 0,
+            right: 0,
+        }}>
             <Stack
                 direction="row"
-                justifyContent="space-between"
+                justifyContent="center"
                 alignItems="center"
-                sx={{
-                    width: '100%',
-                }}
+                spacing={2}
             >
-                <Box component="form" sx={{ width: "100%", pt: 2, pl: 2, pr: 2 }} onSubmit={handleSubmit(onSubmit)}>
-                    <Controller
-                        name="email"
-                        control={control}
-                        defaultValue=""
-                        render={({ field }) => <FormControl error={errors?.message?.type === "required"} fullWidth variant="outlined">
-                            <Input
-                                sx={{ backgroundColor: 'background.2', width: "100%", }}
-                                label="Адрес почты"
-                                type='text'
-                                multiline
-                                maxRows={5}
-                                placeholder="Отправить сообщение"
-                                {...field}
+                <Stack
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                        // marginLeft: 'calc(50% - 400px)',
+                        ml: 32,
+                        maxWidth: 1200,
+                        minHeight: 64,
+                        width: '100%',
+                        borderTopLeftRadius: 16,
+                        borderTopRightRadius: 16,
+                        backgroundColor: 'background.2',
+                        zIndex: 10000,
+                        // top: 'auto',
+                        // bottom: 0,
+                    }}
+                >
+                    <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        sx={{
+                            width: '100%',
+                        }}
+                    >
+                        <Box component="form" sx={{ width: "100%", pt: 2, pl: 2, pr: 2 }} onSubmit={handleSubmit(onSubmit)}>
+                            <Controller
+                                name="email"
+                                control={control}
+                                defaultValue=""
+                                render={({ field }) => <FormControl error={errors?.message?.type === "required"} fullWidth variant="outlined">
+                                    <Input
+                                        sx={{ backgroundColor: 'background.2', width: "100%", }}
+                                        label="Адрес почты"
+                                        type='text'
+                                        multiline
+                                        maxRows={5}
+                                        placeholder="Отправить сообщение"
+                                        {...field}
+                                    />
+                                </FormControl>}
                             />
-                        </FormControl>}
-                    />
-                </Box>
+                        </Box>
+                    </Stack>
+                    <Accordion sx={{ mt: 1, mb: 1 }} expanded={expanded}>
+                        <AccordionSummary expandIcon={null} aria-controls="panel1d-content" id="panel1d-header">
+                            <IconButton onClick={() => setExpanded(!expanded)} size="large">
+                                <ExpandMoreIcon
+                                    sx={{
+                                        transform: expanded ? "rotate(0deg)" : "rotate(-90deg)",
+                                        transition: "0.2s",
+                                    }}
+                                />
+                            </IconButton>
+                            <IconButton size="large">
+                                <Tooltip title="Добавить пользователя" arrow>
+                                    <PersonAddIcon />
+                                </Tooltip>
+                            </IconButton>
+                            <IconButton sx={{ ml: 'auto', mr: 0.2 }} edge="end" size="large">
+                                <Tooltip title="Отправить" arrow>
+                                    <SendIcon sx={{ color: 'text.main' }} />
+                                </Tooltip>
+                            </IconButton>
+                        </AccordionSummary>
+                        <AccordionDetails sx={{ bgcolor: 'background.2' }}>
+                            <Typography>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                                malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                                sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                                sit amet blandit leo lobortis eget.
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                </Stack>
             </Stack>
-            <Accordion sx={{ mt: 1, mb: 1 }} expanded={expanded}>
-                <AccordionSummary expandIcon={null} aria-controls="panel1d-content" id="panel1d-header">
-                    <IconButton onClick={() => setExpanded(!expanded)} size="large">
-                        <ExpandMoreIcon
-                            sx={{
-                                transform: expanded ? "rotate(0deg)" : "rotate(-90deg)",
-                                transition: "0.2s",
-                            }}
-                        />
-                    </IconButton>
-                    <IconButton size="large">
-                        <Tooltip title="Добавить пользователя" arrow>
-                            <PersonAddIcon />
-                        </Tooltip>
-                    </IconButton>
-                    <IconButton sx={{ ml: 'auto', mr: 0.2 }} edge="end" size="large">
-                        <Tooltip title="Отправить" arrow>
-                            <SendIcon sx={{ color: 'text.main' }} />
-                        </Tooltip>
-                    </IconButton>
-                </AccordionSummary>
-                <AccordionDetails sx={{ bgcolor: 'background.2' }}>
-                    <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                        sit amet blandit leo lobortis eget.
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-        </Stack>
-
+        </Box>
     );
 }))
 

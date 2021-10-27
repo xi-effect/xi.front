@@ -245,7 +245,7 @@ const ChatList = () => {
     const newMessages = [
         {
             "id": 19,
-            "content": "Neque consectetur quisquam dolorem aliquam.",
+            "content": "Первое сообщение Первое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщениеПервое сообщение",
             "sender-id": 35,
             "sender-name": "Consectetur",
             "sent": "2021-10-25T21:07:50.638560",
@@ -268,7 +268,7 @@ const ChatList = () => {
         },
         {
             "id": 16,
-            "content": "Numquam quaerat non velit quiquia eius.",
+            "content": "Сообщение далеееееееееееееееееее",
             "sender-id": 34,
             "sender-name": "Sit",
             "sent": "2021-10-25T21:07:49.103325",
@@ -8453,12 +8453,28 @@ const ChatList = () => {
         },
     ]
 
+    
     return (
-        <>
+        <Stack
+            direction="column-reverse"
+            justifyContent="flex-start"
+            alignItems="center"
+            sx={{ width: '100%', marginBottom: 10, }}
+        >
             {newMessages.map((item, index) => (
-                <ChatItem key={index.toString()} item={item} />
+                <Stack
+                    key={index.toString()}
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={2}
+                    sx={{ width: '100%' }}
+                >
+                    <ChatItem item={item} nextItem={newMessages.length != index + 1 ? newMessages[index + 1] : null} />
+                </Stack>
+
             ))}
-        </>
+        </Stack>
     );
 }
 
