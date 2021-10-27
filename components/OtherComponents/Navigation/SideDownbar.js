@@ -180,17 +180,16 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
         <Root>
             <AppBar
                 {...handlers}
-                onClick={toggleDrawer(true)}
+                onDoubleClick={toggleDrawer(true)}
                 position="fixed"
                 sx={{
                     top: 'auto',
                     bottom: 0,
-                    height: 64,
+                    height: 72,
                     // backgroundColor: 'primary.main',
                 }}
             >
                 <Toolbar
-
                 >
                     <StyledBox
                         sx={{
@@ -211,7 +210,7 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                             alignItems="center"
                             // spacing={2}
                             sx={{
-                                height: 64,
+                                height: 72,
                             }}
                         >
                             {/* <Box > */}
@@ -257,12 +256,13 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
             >
                 <Puller />
                 <Stack
+                    // onClick={toggleDrawer(false)}
                     direction="row"
                     justifyContent="flex-start"
                     alignItems="center"
                     // spacing={2}
                     sx={{
-                        height: 64,
+                        height: 72,
                         borderTopLeftRadius: 16,
                         borderTopRightRadius: 16,
                         backgroundColor: 'background.2',
@@ -300,8 +300,8 @@ const SideDownbar = inject('rootStore', 'uiStore')(observer(({ window, rootStore
                         labelText="Знания"
                         textVariant="h5"
                         labelIcon={MenuBookIcon}
-                        // select={router.pathname === "/knowledge"}
-                        // onClick={() => router.push("/knowledge")}
+                    // select={router.pathname === "/knowledge"}
+                    // onClick={() => router.push("/knowledge")}
                     >
                         <StyledTreeItem
                             nodeId="21"

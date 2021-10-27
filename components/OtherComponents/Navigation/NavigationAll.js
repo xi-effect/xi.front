@@ -57,10 +57,10 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                     backgroundColor: 'background.1',
                     minHeight: "100vh",
                 }}>
-                    <Box sx={{ display: { xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block', } }}>
+                    <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'block', } }}>
                         <Sidebar />
                     </Box>
-                    <Box sx={{ display: { xs: 'block', sm: 'none', md: 'none', lg: 'none', xl: 'none', } }}>
+                    <Box sx={{ display: { xs: 'block', sm: 'block', md: 'none', lg: 'none', xl: 'none', } }}>
                         <SideDownbar />
                     </Box>
                     {/* <Helpbar openHelpMenu={openHelpMenu} setOpenHelpMenu={setOpenHelpMenu} /> */}

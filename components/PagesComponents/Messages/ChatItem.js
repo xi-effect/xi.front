@@ -76,6 +76,7 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
                             borderRadius: 1,
                             height: 30,
                             width: 92,
+                            zIndex: 100000,
                             color: 'text.main'
                         }}>
                         <Stack

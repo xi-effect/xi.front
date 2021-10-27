@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import Head from 'next/head'
 import { useRouter } from "next/router";
 
-import { Divider, Paper, Box, Grid, Stack, FormControlLabel, Button, useTheme, Menu, Hidden, IconButton, InputBase, Switch, Typography } from '@mui/material'
+import { Divider, Paper, Box, useMediaQuery, Grid, Stack, FormControlLabel, Button, useTheme, Menu, Hidden, IconButton, InputBase, Switch, Typography } from '@mui/material'
 
 
 import { inject, observer } from 'mobx-react'
@@ -15,7 +15,7 @@ import ChatList from '../../../components/PagesComponents/Messages/ChatList';
 
 const Chat = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore }) => {
     const theme = useTheme();
-
+    const mobile = useMediaQuery(theme => theme.breakpoints.up('md'));
 
     return (
         <>
@@ -48,9 +48,9 @@ const Chat = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                         zIndex: 10000,
                     }}
                 >
-                    <Box sx={{ maxWidth: 1200, zIndex: 10000,}}>
+                    {mobile && <Box sx={{ maxWidth: 1200, zIndex: 10000,}}>
                         <ChatBar />
-                    </Box>
+                    </Box>}
 
                 </Stack>
             </NavigationAll>
