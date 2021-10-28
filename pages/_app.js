@@ -63,6 +63,7 @@ const MyApp = (observer((props) => {
         <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
         <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
         <meta name="yandex-verification" content="42187efe6d19061b" />
+        <meta name="google-site-verification" content="Z9F9qlZZKDIV30WIUVOkQOJa89Nbg9bOiqUaZz-XJiY" />
         <meta
           name="description"
           content="Всё, что нужно для вашего Образования."

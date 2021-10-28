@@ -17,6 +17,7 @@ export default class MyDocument extends Document {
           />
           <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
           <meta name="yandex-verification" content="42187efe6d19061b" />
+          <meta name="google-site-verification" content="Z9F9qlZZKDIV30WIUVOkQOJa89Nbg9bOiqUaZz-XJiY" />
           <meta
             name="description"
             content="Всё, что нужно для вашего Образования."
