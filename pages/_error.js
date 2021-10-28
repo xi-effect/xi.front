@@ -83,43 +83,74 @@ export default function ComponentDidCatch() {
     const router = useRouter()
 
     return (
-        <Root className={classes.root}>
+        <Grid
+            container
+            direction="column"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                margin: '0',
+                padding: '0',
+                backgroundImage: 'url(https://cdna.artstation.com/p/assets/images/images/012/086/010/large/mikael-gustafsson-amongtrees-2-8.jpg?1532971442)',
+                height: '100%',
+                width: '100%',
+                backgroundPosition: 'center center',
+                backgroundRepeat: 'no-repeat',
+                backgroundAttachment: 'fixed',
+                backgroundSize: 'cover',
+                backgroundColor: '#659DBD',
+            }}
+        >
+            <Grid sx={{ margin: 2, }}>
+
+            </Grid>
             <Grid
+                item
                 container
                 direction="column"
-                justifyContent="space-between"
+                justifyContent="center"
                 alignItems="center"
-                sx={{ height: "100%" }}
             >
-                <Grid item className={classes.mainLabelGrid}>
-
-                </Grid>
-                <Grid
-                    item
-                    container
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
+                <Typography sx={{
+                    fontSize: 72,
+                    margin: 8,
+                    cursor: "default",
+                    color: 'constant.textWhite',
+                }}> 500 </Typography>
+                <Divider sx={{
+                    height: 3,
+                    width: 100,
+                    backgroundColor: 'constant.textWhite',
+                }} />
+                <Typography sx={{
+                    fontSize: 32,
+                    margin: 1,
+                    cursor: "default",
+                    color: 'constant.textWhite',
+                }}> Упс, вы заблудились... </Typography>
+                <Link
+                    sx={{
+                        fontSize: mobile ? 34 : 28,
+                        margin: 1,
+                        cursor: "pointer",
+                        color: theme.palette.constant.textWhite,
+                    }}
+                    onClick={() => {
+                        router.push({
+                            pathname: '/',
+                        })
+                    }}
+                    underline="hover"
                 >
-                    <Typography className={classes.errorNumberLabel}> 500 </Typography>
-                    <Divider className={classes.Divider} />
-                    <Typography className={classes.errorLabel}> Упс, вы заблудились... </Typography>
-                    <Link
-                        className={clsx(classes.Link, { [classes.LinkMobile]: mobile })}
-                        onClick={() => {
-                            router.push({
-                                pathname: '/',
-                            })
-                        }}
-                        underline="hover"
-                    >
-                        Вернуться в Ξffect
-                    </Link>
-                </Grid>
-                <Grid item>
-
-                </Grid>
+                    Вернуться в Ξffect
+                </Link>
             </Grid>
-        </Root>
+            <Grid item>
+
+            </Grid>
+        </Grid>
     );
 }

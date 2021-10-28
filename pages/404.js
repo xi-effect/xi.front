@@ -5,76 +5,6 @@ import clsx from 'clsx'
 
 import { useRouter } from 'next/router'
 
-
-const PREFIX = '404';
-
-const classes = {
-    root: `${PREFIX}-root`,
-    Link: `${PREFIX}-Link`,
-    LinkMobile: `${PREFIX}-LinkMobile`,
-    mainLabelGrid: `${PREFIX}-mainLabelGrid`,
-    errorNumberLabel: `${PREFIX}-errorNumberLabel`,
-    Divider: `${PREFIX}-Divider`,
-    errorLabel: `${PREFIX}-errorLabel`
-};
-
-const Root = styled('div')((
-    {
-        theme
-    }
-) => ({
-    [`&.${classes.root}`]: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        margin: '0',
-        padding: '0',
-        backgroundImage: 'url(https://cdna.artstation.com/p/assets/images/images/012/086/010/large/mikael-gustafsson-amongtrees-2-8.jpg?1532971442)',
-        height: '100%',
-        width: '100%',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-        backgroundSize: 'cover',
-        backgroundColor: '#659DBD',
-    },
-
-    [`& .${classes.Link}`]: {
-        fontSize: 34,
-        margin: 8,
-        cursor: "pointer",
-        color: theme.palette.constant.textWhite,
-    },
-
-    [`& .${classes.LinkMobile}`]: {
-        fontSize: 28,
-    },
-
-    [`& .${classes.mainLabelGrid}`]: {
-        margin: 16,
-    },
-
-    [`& .${classes.errorNumberLabel}`]: {
-        fontSize: 72,
-        margin: 8,
-        cursor: "default",
-        color: theme.palette.constant.textWhite,
-    },
-
-    [`& .${classes.Divider}`]: {
-        height: 3,
-        width: 100,
-        backgroundColor: theme.palette.constant.textWhite,
-    },
-
-    [`& .${classes.errorLabel}`]: {
-        fontSize: 32,
-        margin: 8,
-        cursor: "default",
-        color: theme.palette.constant.textWhite,
-    }
-}));
-
 export default function _404() {
     const theme = useTheme();
 
@@ -88,10 +18,23 @@ export default function _404() {
             direction="column"
             justifyContent="space-between"
             alignItems="center"
-            className={classes.root}
-            // sx={{ height: "100%" }}
+            sx={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                margin: '0',
+                padding: '0',
+                backgroundImage: 'url(https://cdna.artstation.com/p/assets/images/images/012/086/010/large/mikael-gustafsson-amongtrees-2-8.jpg?1532971442)',
+                height: '100%',
+                width: '100%',
+                backgroundPosition: 'center center',
+                backgroundRepeat: 'no-repeat',
+                backgroundAttachment: 'fixed',
+                backgroundSize: 'cover',
+                backgroundColor: '#659DBD',
+            }}
         >
-            <Grid item className={classes.mainLabelGrid}>
+            <Grid sx={{margin: 2,}}>
 
             </Grid>
             <Grid
@@ -101,11 +44,30 @@ export default function _404() {
                 justifyContent="center"
                 alignItems="center"
             >
-                <Typography className={classes.errorNumberLabel}> 404 </Typography>
-                <Divider className={classes.Divider} />
-                <Typography className={classes.errorLabel}> Упс, вы заблудились... </Typography>
+                <Typography sx={{
+                    fontSize: 72,
+                    margin: 8,
+                    cursor: "default",
+                    color: 'constant.textWhite',
+                }}> 404 </Typography>
+                <Divider sx={{
+                    height: 3,
+                    width: 100,
+                    backgroundColor: 'constant.textWhite',
+                }} />
+                <Typography sx={{
+                    fontSize: 32,
+                    margin: 1,
+                    cursor: "default",
+                    color: 'constant.textWhite',
+                }}> Упс, вы заблудились... </Typography>
                 <Link
-                    className={clsx(classes.Link, { [classes.LinkMobile]: mobile })}
+                    sx={{
+                        fontSize: mobile ? 34 : 28,
+                        margin: 1,
+                        cursor: "pointer",
+                        color: theme.palette.constant.textWhite,
+                    }}
                     onClick={() => {
                         router.push({
                             pathname: '/',
