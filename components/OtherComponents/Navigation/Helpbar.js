@@ -129,3 +129,5 @@ const Helpbar = inject('store')(observer(({ store, openHelpMenu, setOpenHelpMenu
 }));
 
 export default Helpbar
+
+//Коммент
