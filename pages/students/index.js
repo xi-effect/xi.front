@@ -55,6 +55,7 @@ const Students = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }
             backgroundColor: 'background.1',
             width: "100%",
             paddingTop: "41.8%",
+            background: `linear-gradient(0deg, ${theme.palette.constant.landingPink} , ${theme.palette.constant.landingBlue})`,
           }}>
           <Image
             alt="alt"
@@ -62,8 +63,7 @@ const Students = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }
             layout="fill"
             objectFit="cover"
             quality={100}
-
-            onLoad={() =>
+            onLoadingComplete={() =>
               setLoading(false)
             }
           />
