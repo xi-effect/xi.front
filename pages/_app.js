@@ -8,7 +8,7 @@ import {
   StyledEngineProvider,
   responsiveFontSizes,
 } from '@mui/material/styles';
-
+import { useRouter } from 'next/router'
 import { Provider } from 'mobx-react'
 import { useStore } from '../store/rootStore'
 //import { useFileUpload } from "use-file-upload";
@@ -20,12 +20,36 @@ import { CacheProvider } from '@emotion/react';
 import createEmotionCache from '../store/createEmotionCache';
 import 'moment/locale/ru';
 
+import { initGA, logPageView } from '../utils/analytics'
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 import "../styles/globals.css"
 
 const MyApp = (observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
+  const router = useRouter()
+
+  useEffect(() => {
+    initGA()
+    // `routeChangeComplete` won't run for the first page load unless the query string is
+    // hydrated later on, so here we log a page view if this is the first render and
+    // there's no query string
+    if (!router.asPath.includes('?')) {
+      logPageView()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    // Listen for page changes after a navigation or when the query changes
+    router.events.on('routeChangeComplete', logPageView)
+    return () => {
+      router.events.off('routeChangeComplete', logPageView)
+    }
+  }, [router.events])
+
   const rootStore = useStore(pageProps.initialState)
   // console.log("darkMode", rootStore.settingsStore.settings.darkTheme)
   const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsStore.settings.darkTheme))), [rootStore.settingsStore.settings.darkTheme])
