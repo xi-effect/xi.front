@@ -107,4 +107,4 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
   );
 }))
 
-export default 
+export default Main
