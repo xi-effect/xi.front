@@ -85,7 +85,7 @@ class AuthorizationStore {
     }
 
     @action clickEnterButton = (data) => {
-        this.setLogin(error, null)
+        this.setLogin("error", null)
         this.rootStore.fetchData(`${this.rootStore.url}/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
             .then((data) => {
                 if (data != undefined) {
@@ -93,12 +93,12 @@ class AuthorizationStore {
                         const router = Router
                         router.push('/main')
                     } else if (data.a === "User doesn't exist") {
-                        this.setLogin(error, "User doesn't exist")
+                        this.setLogin("error", "User doesn't exist")
                     } else if (data.a === "Wrong password") {
-                        this.setLogin(error, "Wrong password")
+                        this.setLogin("error", "Wrong password")
                     }
                 } else {
-                    this.setLogin(error, "Server error")
+                    this.setLogin("error", "Server error")
 
                 }
             })
