@@ -274,7 +274,7 @@ const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ roo
                             justifyContent="center"
                             alignItems="center"
                             sx={{
-                                width: "110px",
+                                width: "130px",
                                 marginRight: 0,
                                 marginLeft: 0,
                             }}

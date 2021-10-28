@@ -146,13 +146,13 @@ const Sidebar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
         <Drawer
             sx={{
                 zIndex: 1,
-                width: 256,
+                width: 296,
                 height: "100vh",
                 flexShrink: 0,
                 backgroundColor: 'background.1',
                 '& .MuiDrawer-paper': {
                     backgroundColor: 'background.1',
-                    width: 256,
+                    width: 296,
                     height: "100vh",
                 }
             }}
@@ -164,7 +164,7 @@ const Sidebar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                 defaultCollapseIcon={<KeyboardArrowDownIcon fontSize="large" />}
                 defaultExpandIcon={<KeyboardArrowRightIcon fontSize="large" />}
                 defaultEndIcon={<div style={{ width: 24 }} />}
-                sx={{ height: 264, flexGrow: 1, maxWidth: 400, pt: 1, overflowY: 'auto' }}
+                sx={{ flexGrow: 1, maxWidth: 400, pt: 1, overflowY: 'auto' }}
             >
                 <StyledTreeItem
                     nodeId="1"
