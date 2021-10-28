@@ -16,7 +16,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
           <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
-          <meta name="yandex-verification" content="5fa082e60959bf8b" />
+          <meta name="yandex-verification" content="42187efe6d19061b" />
           <meta
             name="description"
             content="Всё, что нужно для вашего Образования."
