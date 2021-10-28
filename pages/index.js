@@ -58,6 +58,7 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
             backgroundColor: 'background.1',
             width: "100%",
             paddingTop: "41.8%",
+            background: `linear-gradient(0deg, ${theme.palette.constant.landingPink} , ${theme.palette.constant.landingBlue})`,
           }}>
           <Image
             alt="alt"
@@ -80,7 +81,7 @@ const Main = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) =>
           sx={{
             width: '100%',
             height: "196px",
-            background: `linear-gradient(0deg, ${theme.palette.background["2"]} , #d391e3)`,
+            background: `linear-gradient(0deg, ${theme.palette.background["2"]} , ${theme.palette.constant.landingPink})`,
           }}
         >
           <Grid
