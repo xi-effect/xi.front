@@ -128,6 +128,7 @@ const Header = inject('managmentStore')(observer(({ managmentStore, index }) => 
     // console.log("props", props)
     const theme = useTheme();
 
+    console.log("textAlign", values.textAlign)
 
     const handleFontSizeUp = (event, newFormats) => {
         //console.log(index, "fontSize", newFormats)
@@ -198,14 +199,16 @@ const Header = inject('managmentStore')(observer(({ managmentStore, index }) => 
                 <Grid className={classes.gridTextWrapper}>
                     <Input
                         sx={{
-                            width: "100%",
-                            color: 'text.main',
-                            fontSize: values.fontSize,
-                            fontStyle: values.fontStyle,
-                            textAlign: values.textAlign,
-                            fontWeight: values.fontWeight,
-                            textDecoration: values.textDecoration,
-                            lineHeight: "normal",
+                            '& .MuiInput-input': {
+                                width: "100%",
+                                color: 'text.main',
+                                fontSize: values.fontSize,
+                                fontStyle: values.fontStyle,
+                                textAlign: values.textAlign,
+                                fontWeight: values.fontWeight,
+                                textDecoration: values.textDecoration,
+                                lineHeight: "normal",
+                            }
                         }}
                         type="text"
                         disableUnderline

@@ -96,6 +96,7 @@ const Login = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ r
                                         </InputAdornment>
                                     }
                                 />
+                                {authorizationStore.login.error === "User doesn't exist" && <Typography varinat="subtitle1" sx={{mt: 1, ml: 1,}} color="error"> Пользователь не найден </Typography>}
                                 {errors?.email?.message === "email is a required field" && <Typography varinat="subtitle1" sx={{mt: 1, ml: 1,}} color="error"> Обязательное поле </Typography>}
                                 {errors?.email?.message === "email must be a valid email" && <Typography varinat="subtitle1" sx={{mt: 1, ml: 1,}} color="error"> Ошибка валидации </Typography>}
                             </FormControl>}
@@ -128,6 +129,8 @@ const Login = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ r
                                         </InputAdornment>
                                     }
                                 />
+                                {authorizationStore.login.error === "Wrong password" && <Typography varinat="subtitle1" sx={{mt: 1, ml: 1,}} color="error"> Неверный Пароль </Typography>}
+                                {authorizationStore.login.error === "Server error" && <Typography varinat="subtitle1" sx={{mt: 1, ml: 1,}} color="error"> Ошибка сервера </Typography>}
                                 {errors?.password?.message === "password must be at least 6 characters" && <Typography varinat="subtitle1" sx={{mt: 1, ml: 1,}} color="error"> Минимальная длинна пароля - 6 символов </Typography>}
                                 {errors?.password?.message === "password is a required field" && <Typography varinat="subtitle1" sx={{mt: 1, ml: 1,}} color="error"> Обязательное поле </Typography>}
                                 {errors?.password?.message === "password must be a valid email" && <Typography varinat="subtitle1" sx={{mt: 1, ml: 1,}} color="error"> Ошибка валидации </Typography>}

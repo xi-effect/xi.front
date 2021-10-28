@@ -250,14 +250,16 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
                     >
                         <Input
                             sx={{
-                                width: "100%",
-                                color: 'text.main',
-                                fontSize: values.fontSize,
-                                fontStyle: values.fontStyle,
-                                textAlign: values.textAlign,
-                                fontWeight: values.fontWeight,
-                                textDecoration: values.textDecoration,
-                                lineHeight: "normal",
+                                '& .MuiInput-input': {
+                                    width: "100%",
+                                    color: 'text.main',
+                                    fontSize: values.fontSize,
+                                    fontStyle: values.fontStyle,
+                                    textAlign: values.textAlign,
+                                    fontWeight: values.fontWeight,
+                                    textDecoration: values.textDecoration,
+                                    lineHeight: "normal",
+                                }
                             }}
                             type="text"
                             disableUnderline
