@@ -35,7 +35,6 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
             sameElse: 'L'
         }
     })
-    console.log("moment", moment(item.sent).calendar())
 
 
     if (nextItem !== null) {

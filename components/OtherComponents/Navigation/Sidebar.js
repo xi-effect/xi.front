@@ -37,6 +37,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AdjustIcon from '@mui/icons-material/Adjust';
 import CircleIcon from '@mui/icons-material/Circle';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
 const StyledTreeItemRoot = styled(TreeItem)(({ theme }) => ({
     color: theme.palette.text.secondary,
@@ -96,7 +97,7 @@ function StyledTreeItem(props) {
         <StyledTreeItemRoot
             sx={{
                 // color: 'primary.main',
-                bgcolor: select ?  'action.hover' : null,
+                bgcolor: select ? 'action.hover' : null,
                 borderRight: select ? `4px solid ${theme.palette.primary.main}` : null,
             }}
             label={
@@ -130,7 +131,7 @@ StyledTreeItem.propTypes = {
 
 
 
-const Sidebar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, openSideMenu, setOpenSideMenu }) => {
+const Sidebar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, openSideMenu, setOpenSideMenu }) => {
     const theme = useTheme();
     const router = useRouter()
 
@@ -178,8 +179,8 @@ const Sidebar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, o
                     labelText="Знания"
                     textVariant="h5"
                     labelIcon={MenuBookIcon}
-                    // select={router.pathname === "/knowledge"}
-                    // onClick={() => router.push("/knowledge")}
+                // select={router.pathname === "/knowledge"}
+                // onClick={() => router.push("/knowledge")}
                 >
                     <StyledTreeItem
                         nodeId="21"
@@ -206,6 +207,14 @@ const Sidebar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, o
                     labelText="Общение"
                     labelIcon={MessageIcon}
                 >
+                    <StyledTreeItem
+                        nodeId="30"
+                        textVariant="h6"
+                        labelText="Создать чат"
+                        labelIcon={PersonAddAlt1Icon}
+                        //labelInfo="2,294"
+                        onClick={() => messageStore.setUi("openDialog", true)}
+                    />
                     <StyledTreeItem
                         nodeId="31"
                         textVariant="h6"
@@ -251,8 +260,8 @@ const Sidebar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, o
                     textVariant="h5"
                     labelText="Студия"
                     labelIcon={AddToQueueIcon}
-                    // select={router.pathname === "/managment"}
-                    // onClick={() => router.push("/managment")}
+                // select={router.pathname === "/managment"}
+                // onClick={() => router.push("/managment")}
                 >
                     <StyledTreeItem
                         nodeId="13"

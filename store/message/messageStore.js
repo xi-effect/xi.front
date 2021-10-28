@@ -11,9 +11,14 @@ class MessageStore {
         makeObservable(this)
     }
 
-    @observable mainStore = {
-
+    @observable ui = {
+        openDialog: false,
     }
+
+    @action setUi = (name, value) => {
+        this.ui[name] = value
+    }
+
 }
 
 export default MessageStore;

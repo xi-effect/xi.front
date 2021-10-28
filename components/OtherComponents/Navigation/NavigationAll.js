@@ -11,6 +11,7 @@ import Sidebar from './Sidebar'
 import Helpbar from './Helpbar'
 import Loading from '../Loading/Loading'
 import SideDownbar from './SideDownbar'
+import ChatDialog from '../../PagesComponents/Messages/ChatDialog';
 
 const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer(({ rootStore, settingsStore, uiStore, children }) => {
     const theme = useTheme();
@@ -51,31 +52,32 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
         <>
             {/* {uiStore.loading["/main"] && <Loading />} */}
             {/* {!uiStore.loading["/main"] && */}
-                <Box sx={{
-                    zIndex: 0,
-                    display: 'flex',
-                    backgroundColor: 'background.1',
-                    minHeight: "100vh",
-                }}>
-                    <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'block', } }}>
-                        <Sidebar />
-                    </Box>
-                    <Box sx={{ display: { xs: 'block', sm: 'block', md: 'none', lg: 'none', xl: 'none', } }}>
-                        <SideDownbar />
-                    </Box>
-                    {/* <Helpbar openHelpMenu={openHelpMenu} setOpenHelpMenu={setOpenHelpMenu} /> */}
-                    <Box
-                        sx={{
-                            zIndex: 0,
-                            margin: 0,
-                            //height: "100vh",
-                            width: "100%",
-                            backgroundColor: 'background.0',
-                        }}
-                    >
-                        {children}
-                    </Box>
+            <Box sx={{
+                zIndex: 0,
+                display: 'flex',
+                backgroundColor: 'background.1',
+                minHeight: "100vh",
+            }}>
+                <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'block', } }}>
+                    <Sidebar />
                 </Box>
+                <Box sx={{ display: { xs: 'block', sm: 'block', md: 'none', lg: 'none', xl: 'none', } }}>
+                    <SideDownbar />
+                </Box>
+                {/* <Helpbar openHelpMenu={openHelpMenu} setOpenHelpMenu={setOpenHelpMenu} /> */}
+                <Box
+                    sx={{
+                        zIndex: 0,
+                        margin: 0,
+                        //height: "100vh",
+                        width: "100%",
+                        backgroundColor: 'background.0',
+                    }}
+                >
+                    {children}
+                </Box>
+                <ChatDialog />
+            </Box>
             {/* } */}
         </>
     );
