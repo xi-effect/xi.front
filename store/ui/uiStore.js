@@ -21,6 +21,7 @@ class UIStore {
         "/main": true,
         "/registration": true,
         "/resetpassword/email": true,
+        "navigation": true,
     }
 
     @action setLoading = (page) => {

@@ -17,7 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
 const schema = yup.object({
-    username: yup.string().required(),
+    username: yup.string().max(100).required(),
     email: yup.string().email().required(),
     password: yup.string().min(6).max(100).required(),
 }).required();
@@ -80,7 +80,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                             control={control}
                             defaultValue=""
                             render={({ field }) => <FormControl error={errors?.username?.type === "required"} fullWidth sx={{ maxWidth: 512, }} variant="outlined">
-                                <InputLabel htmlFor="outlined-adornment-password"> <Typography sx={{ color: 'text.main' }}>Имя пользователя</Typography> </InputLabel>
+                                <InputLabel> <Typography sx={{ color: 'text.main' }}>Имя пользователя</Typography> </InputLabel>
                                 <OutlinedInput
                                     sx={{ backgroundColor: 'background.2', width: "100%", }}
                                     label="Имя пользователя"
@@ -123,6 +123,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                         </InputAdornment>
                                     }
                                 />
+                                {authorizationStore.signup.error === "emailAlreadyUsed" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Почта уже используется </Typography>}
                                 {errors?.email?.message === "email is a required field" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Обязательное поле </Typography>}
                                 {errors?.email?.message === "email must be a valid email" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Ошибка валидации </Typography>}
                             </FormControl>}
@@ -154,6 +155,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                     }
 
                                 />
+                                {authorizationStore.signup.error === "serverError" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Ошибка сервера </Typography>}
                                 {errors?.password?.message === "password must be at least 6 characters" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Минимальная длинна пароля - 6 символов </Typography>}
                                 {errors?.password?.message === "password is a required field" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Обязательное поле </Typography>}
                                 <Link

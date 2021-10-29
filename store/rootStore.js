@@ -1,6 +1,7 @@
 import { action, observable, computed, runInAction, makeObservable } from 'mobx'
 import { enableStaticRendering } from 'mobx-react'
 import { useMemo } from 'react'
+import Router from 'next/router'
 
 import UIStore from "./ui/uiStore";
 import MainStore from "./main/mainStore";
@@ -75,9 +76,15 @@ class RootStore {
         });
       }
       //console.log(response.headers)
-      const string = await response.text();
-      const json = string === "" ? {} : JSON.parse(string);
-      return json; // parses JSON response into native JavaScript objects
+      if (response.ok) {
+        const string = await response.text();
+        const json = string === "" ? {} : JSON.parse(string);
+        return json; // parses JSON response into native JavaScript objects
+      } else {
+        const string = await response.text();
+        const json = string === "" ? {} : JSON.parse(string);
+        return json;
+      }
     } catch (error) {
       //console.log(error)
       console.log('Возникла проблема с вашим fetch запросом: ', error.message);
@@ -120,12 +127,20 @@ class RootStore {
           // referrerPolicy, // no-referrer, *client
         });
       }
-      //console.log(response.headers)
-      const string = await response.text();
-      const json = string === "" ? {} : JSON.parse(string);
-      return json; // parses JSON response into native JavaScript objects
+      console.log("response", response)
+      if (response.ok) {
+        const string = await response.text();
+        const json = string === "" ? {} : JSON.parse(string);
+        return json; // parses JSON response into native JavaScript objects
+      }
+      if (response.status === 422 || response.status === 401) {
+        const router = Router
+        router.push('/login')
+        return null
+      }
+
     } catch (error) {
-      //console.log(error)
+      console.log(error)
       console.log('Возникла проблема с вашим fetch запросом: ', error.message);
     }
   }
