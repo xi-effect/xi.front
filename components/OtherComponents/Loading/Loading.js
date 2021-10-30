@@ -43,9 +43,9 @@ const Loading = () => {
                 justifyContent="center"
                 alignItems="center"
                 // className={classes.gridRoot}
-                sx={{height: "100%"}}
+                sx={{ height: "100%" }}
             >
-                <Typography className={classes.label} variant='h3' noWrap> Effect </Typography>
+                <Typography className={classes.label} variant='h3' noWrap>Ξffect</Typography>
                 <Loader />
             </Grid>
         </Root>

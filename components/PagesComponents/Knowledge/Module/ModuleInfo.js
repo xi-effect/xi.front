@@ -92,10 +92,6 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
     const router = useRouter()
     const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
-    React.useEffect(() => {
-
-    }, [])
-
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -125,8 +121,8 @@ const ModuleInfo = inject('knowledgeStore')(observer(({ knowledgeStore, children
                     zIndex: 2000,
                     position: "fixed",
                     top: 0,
-                    left: mobile ? 0 : "210px",
-                    width: mobile ? "100%" : "calc(100% - 210px)",
+                    left: mobile ? 0 : "296px",
+                    width: mobile ? "100%" : "calc(100% - 296px)",
                 }}
             >
                 <Accordion elevation={24}

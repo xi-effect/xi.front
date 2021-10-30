@@ -48,10 +48,7 @@ const Root = styled('div')((
     },
 
     [`& .${classes.divider}`]: {
-        backgroundColor: props => props.palette.primary.main,
-        width: "100%",
-        height: 1,
-        margin: props => props.spacing(1, 0.5),
+
     },
 
     [`& .${classes.gridTextWrapper}`]: {
@@ -61,59 +58,6 @@ const Root = styled('div')((
     [`& .${classes.icon}`]: {
         color: props => props.palette.primary.contrastText,
     },
-
-    [`& .${classes.speedDial}`]: {
-        height: 36,
-        width: 36,
-        marginTop: 4,
-        marginLeft: 16,
-        // position: 'absolute',
-        // top: theme => theme.spacing(10),
-        // left: theme => theme.spacing(2),
-    },
-
-    [`& .${classes.speedDialActionFirst}`]: {
-        marginLeft: 16,
-        color: props => props.palette.primary.main,
-    },
-
-    [`& .${classes.speedDialAction}`]: {
-        marginLeft: 16,
-        color: props => props.palette.primary.main,
-    },
-
-    [`& .${classes.disableIcon}`]: {
-        color: props => props.palette.error.main,
-    },
-
-    [`& .${classes.activeIcon}`]: {
-        color: props => props.palette.primary.contrastText,
-        backgroundColor: props => props.palette.primary.main,
-        '&:hover': {
-            color: props => props.palette.primary.contrastText,
-            backgroundColor: props => props.palette.primary.main,
-        }
-    },
-
-    [`& .${classes.iconSpeedDial}`]: {
-        height: 24,
-        width: 24,
-    },
-
-    [`& .${classes.IconButtonSpeedDial}`]: {
-        color: props => props.palette.primary.contrastText,
-    },
-
-    [`& .${classes.leftIconButton}`]: {
-        marginLeft: "auto"
-    },
-
-    [`& .${classes.dividerBlock}`]: {
-        width: "100%",
-        height: 2,
-        margin: props => props.spacing(1, 0.5),
-        backgroundColor: props => props.palette.primary.contrastText,
-    }
 }));
 
 const DividerComp = inject('managmentStore')(observer(({ managmentStore, index }) => {
@@ -146,9 +90,21 @@ const DividerComp = inject('managmentStore')(observer(({ managmentStore, index }
                 onClick={() => managmentStore.setPageCreationList("selectId", index)}
             >
                 <Grid className={classes.gridTextWrapper}>
-                    <Divider flexItem className={classes.dividerBlock} />
+                    <Divider flexItem
+                        sx={{
+                            bgcolor: 'text.dark',
+                            width: "100%",
+                            height: "2px",
+                            margin: theme.spacing(1, 0.5),
+                        }}
+                    />
                 </Grid>
-                <Divider className={classes.divider} />
+                <Divider sx={{
+                    backgroundColor: 'text.dark',
+                    width: "100%",
+                    height: "1px",
+                    margin: theme.spacing(1, 0.5),
+                }} />
                 <Grid
                     container
                     direction="row"
@@ -156,15 +112,17 @@ const DividerComp = inject('managmentStore')(observer(({ managmentStore, index }
                 >
                     <Tooltip title="Удалить блок">
                         <IconButton
-                            className={classes.leftIconButton}
+                            sx={{
+                                marginLeft: "auto"
+                            }}
                             onClick={() => managmentStore.deleteComponent(index)}
                             size="large">
-                            <DeleteForeverIcon className={classes.icon} />
+                            <DeleteForeverIcon sx={{ color: 'text.main' }} />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Перетащить блок">
                         <IconButton size="large">
-                            <DragIndicatorIcon className={classes.icon} />
+                            <DragIndicatorIcon sx={{ color: 'text.main' }} />
                         </IconButton>
                     </Tooltip>
                 </Grid>

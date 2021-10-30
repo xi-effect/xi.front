@@ -23,134 +23,15 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ListIcon from '@mui/icons-material/List';
 
-
-
-const PREFIX = 'Quiz';
-
-const classes = {
-    gridButtons: `${PREFIX}-gridButtons`,
-    divider: `${PREFIX}-divider`,
-    gridTextWrapper: `${PREFIX}-gridTextWrapper`,
-    text: `${PREFIX}-text`,
-    icon: `${PREFIX}-icon`,
-    speedDial: `${PREFIX}-speedDial`,
-    speedDialActionFirst: `${PREFIX}-speedDialActionFirst`,
-    speedDialAction: `${PREFIX}-speedDialAction`,
-    disableIcon: `${PREFIX}-disableIcon`,
-    activeIcon: `${PREFIX}-activeIcon`,
-    iconSpeedDial: `${PREFIX}-iconSpeedDial`,
-    IconButtonSpeedDial: `${PREFIX}-IconButtonSpeedDial`,
-    leftIconButton: `${PREFIX}-leftIconButton`,
-    IconButtonToHidden: `${PREFIX}-IconButtonToHidden`,
-    hidden: `${PREFIX}-hidden`
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.gridButtons}`]: {
-        marginLeft: "auto",
-    },
-
-    [`& .${classes.divider}`]: {
-        backgroundColor: props => props.palette.primary.main,
-        width: "100%",
-        height: 1,
-        margin: props => props.spacing(1, 0.5),
-    },
-
-    [`& .${classes.gridTextWrapper}`]: {
-        width: "calc(100% - 4px)",
-    },
-
-    [`& .${classes.text}`]: {
-        width: "100%",
-        color: props => props.palette.primary.contrastText,
-        fontSize: props => props.fontSize,
-        fontStyle: props => props.fontStyle,
-        textAlign: props => props.textAlign,
-        fontWeight: props => props.fontWeight,
-        textDecoration: props => props.textDecoration,
-        lineHeight: "normal",
-    },
-
-    [`& .${classes.icon}`]: {
-        color: props => props.palette.primary.contrastText,
-    },
-
-    [`& .${classes.speedDial}`]: {
-        height: 36,
-        width: 36,
-        marginTop: 2,
-        marginLeft: 22,
-        // position: 'absolute',
-        // top: theme => theme.spacing(10),
-        // left: theme => theme.spacing(2),
-    },
-
-    [`& .${classes.speedDialActionFirst}`]: {
-        marginLeft: 16,
-        color: props => props.palette.primary.main,
-    },
-
-    [`& .${classes.speedDialAction}`]: {
-        marginLeft: 16,
-        color: props => props.palette.primary.main,
-    },
-
-    [`& .${classes.disableIcon}`]: {
-        color: props => props.palette.error.main,
-    },
-
-    [`& .${classes.activeIcon}`]: {
-        color: props => props.palette.primary.contrastText,
-        backgroundColor: props => props.palette.primary.main,
-        '&:hover': {
-            color: props => props.palette.primary.contrastText,
-            backgroundColor: props => props.palette.primary.main,
-        }
-    },
-
-    [`& .${classes.iconSpeedDial}`]: {
-        height: 24,
-        width: 24,
-    },
-
-    [`& .${classes.IconButtonSpeedDial}`]: {
-        color: props => props.palette.primary.contrastText,
-    },
-
-    [`& .${classes.leftIconButton}`]: {
-        marginLeft: "auto"
-    },
-
-    [`& .${classes.IconButtonToHidden}`]: {
-        transition: "0.8s",
-        display: "none",
-    },
-
-    [`& .${classes.hidden}`]: {
-        transition: "0.4s",
-        display: "block",
-    }
-}));
-
 const QuizItem = inject('managmentStore')(observer(({ managmentStore, show, index, indexA }) => {
     const values = managmentStore.pageCreation.components[index]
     const item = managmentStore.pageCreation.components[index].content[indexA]
-    const props = { fontSize: values.fontSize, textAlign: "left", fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
 
     // console.log("props", props)
     const theme = useTheme();
 
     return (
         <Input
-            classes={{
-                input: classes.text
-            }}
             placeholder="Добавить текст ответа"
             sx={{
                 '& .MuiInput-input': {
@@ -171,7 +52,7 @@ const QuizItem = inject('managmentStore')(observer(({ managmentStore, show, inde
             value={item.label}
             onChange={(event) => managmentStore.setPageCreationContentComponents(index, indexA, "label", event.target.value)}
             startAdornment={
-                <Root>
+                <>
                     {values.quizType === 'single' && <Radio
                         color="primary"
                         checked={item.rightAnswer}
@@ -184,7 +65,7 @@ const QuizItem = inject('managmentStore')(observer(({ managmentStore, show, inde
                         onChange={() => managmentStore.setPageCreationContentComponents(index, indexA, "rightAnswer", !item.rightAnswer)}
                     //onChange={handleChange}
                     />}
-                </Root>
+                </>
             }
             endAdornment={
                 <>
@@ -192,13 +73,13 @@ const QuizItem = inject('managmentStore')(observer(({ managmentStore, show, inde
                         <IconButton
                             onClick={() => managmentStore.deleteComponentContent(index, indexA)}
                             size="large">
-                            <DeleteForeverIcon className={classes.icon} />
+                            <DeleteForeverIcon />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Перетащить блок">
                         {/* className={clsx(classes.IconButtonToHidden, { [classes.hidden]: item.showIcons })} */}
                         <IconButton size="large">
-                            <DragIndicatorIcon className={classes.icon} />
+                            <DragIndicatorIcon />
                         </IconButton>
                     </Tooltip>
                 </>
@@ -208,11 +89,9 @@ const QuizItem = inject('managmentStore')(observer(({ managmentStore, show, inde
 }));
 
 const QuizList = inject('managmentStore')(observer(({ managmentStore, index }) => {
-    const values = managmentStore.pageCreation.components[index]
-    const props = { fontSize: values.fontSize, textAlign: "left", fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
-
     // console.log("props", props)
     const theme = useTheme();
+    const values = managmentStore.pageCreation.components[index]
 
     return (
         <>
@@ -230,7 +109,9 @@ const QuizList = inject('managmentStore')(observer(({ managmentStore, index }) =
                                 direction="row"
                                 justifyContent="flex-start"
                                 alignItems="center"
-                                className={classes.gridTextWrapper}
+                                sx={{
+                                    width: "calc(100% - 4px)",
+                                }}
                             >
                                 <QuizItem index={index} indexA={indexA} />
                             </Grid>
@@ -247,8 +128,6 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
     // Simulated props for the purpose of the example
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
-    const props = { fontSize: values.fontSize, textAlign: "left", fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
-
     // console.log("props", props)
     const theme = useTheme();
 
@@ -329,9 +208,31 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
             result.source.index,
             result.destination.index
         );
-        console.log("newState", newState)
         managmentStore.setContentToComponent(index, newState);
     }
+
+    const textAlignIconSelect = (align) => {
+        if (align === 'left') return <FormatAlignLeftIcon />
+        if (align === 'center') return <FormatAlignCenterIcon />
+        if (align === 'right') return <FormatAlignRightIcon />
+        if (align === 'justify') return <FormatAlignJustifyIcon />
+    }
+
+    const textAlignLabelSelect = (align) => {
+        if (align === 'left') return 'по левому краю'
+        if (align === 'center') return 'по правому краю'
+        if (align === 'right') return 'по центру'
+        if (align === 'justify') return 'по ширине'
+    }
+
+    const handleTextAlign = (align) => {
+        let newAlignment = null
+        if (align === 'left') newAlignment = 'center'
+        else if (align === 'center') newAlignment = 'right'
+        else if (align === 'right') newAlignment = 'justify'
+        else if (align === 'justify') newAlignment = 'left'
+        managmentStore.setPageCreationComponents(index, "textAlign", newAlignment)
+    };
 
     return <>
         <Grid
@@ -346,12 +247,14 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-                className={classes.gridTextWrapper}
+                sx={{
+                    width: "calc(100% - 4px)",
+                }}
             >
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId={`quiz-${index}`}>
                         {provided => (
-                            <Grid className={classes.gridTextWrapper} ref={provided.innerRef} {...provided.droppableProps} >
+                            <Grid sx={{ width: "calc(100% - 4px)", }} ref={provided.innerRef} {...provided.droppableProps} >
                                 <QuizList index={index} />
                                 {provided.placeholder}
                             </Grid>
@@ -361,29 +264,46 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
 
 
             </Grid>
-            <Divider className={classes.divider} />
+            <Divider sx={{
+                backgroundColor: 'text.dark',
+                width: "100%",
+                height: "1px",
+                margin: 0.5,
+            }} />
             <Grid
                 container
                 direction="row"
-                className={classes.gridButtons}
+                sx={{
+                    marginLeft: "auto",
+                }}
             >
                 <Tooltip title="Добавить">
                     <IconButton onClick={() => managmentStore.pushContentToComponent(index)} size="large">
-                        <AddIcon className={classes.icon} />
+                        <AddIcon />
                     </IconButton>
                 </Tooltip>
                 <SpeedDial
-                    ariaLabel="SpeedDial tooltip example"
-                    className={classes.speedDial}
-                    // hidden={hidden}
-                    icon={<TuneIcon className={classes.iconSpeedDial} />}
+                    ariaLabel="speedDial"
+                    sx={{
+                        height: 36,
+                        width: 36,
+                        marginTop: 0.6,
+                        marginLeft: 2,
+                    }}
+                    icon={<TuneIcon sx={{
+                        height: 24,
+                        width: 24,
+                    }} />}
                     onClose={handleClose}
                     onOpen={handleOpen}
                     open={open}
                     direction="right"
                 >
                     <SpeedDialAction
-                        className={classes.speedDialAction}
+                        sx={{
+                            marginLeft: 1,
+                            color: 'text.main',
+                        }}
                         tooltipPlacement="bottom"
                         icon={quizTypeIconSelect(values.quizType)}
                         tooltipTitle={`Изменить тип опроса. Сейчас - ${quizTypeLabelSelect(values.quizType)}`}
@@ -391,7 +311,21 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
                         onClick={() => handleQuizType(values.quizType)}
                     />
                     <SpeedDialAction
-                        className={clsx(classes.speedDialActionFirst, { [classes.disableIcon]: values.fontSize === 48 })}
+                        sx={{
+                            marginLeft: 1,
+                            color: 'text.main',
+                        }}
+                        tooltipPlacement="bottom"
+                        icon={textAlignIconSelect(values.textAlign)}
+                        tooltipTitle={`Изменить выравнивание текста. Сейчас - ${textAlignLabelSelect(values.textAlign)}`}
+                        //tooltipOpen
+                        onClick={() => handleTextAlign(values.textAlign)}
+                    />
+                    <SpeedDialAction
+                        sx={{
+                            marginLeft: 1,
+                            color: values.fontSize === 48 ? 'error.main' : 'text.main',
+                        }}
                         tooltipPlacement="bottom"
                         icon={<ZoomInIcon />}
                         tooltipTitle={`Увеличить шрифт. Сейчас - ${values.fontSize}`}
@@ -399,7 +333,10 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
                         onClick={() => handleFontSizeUp()}
                     />
                     <SpeedDialAction
-                        className={clsx(classes.speedDialAction, { [classes.disableIcon]: values.fontSize === 12 })}
+                        sx={{
+                            marginLeft: 1,
+                            color: values.fontSize === 12 ? 'error.main' : 'text.main',
+                        }}
                         tooltipPlacement="bottom"
                         icon={<ZoomOutIcon />}
                         tooltipTitle={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}
@@ -408,7 +345,10 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
                     />
 
                     <SpeedDialAction
-                        className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontWeight === 'bold' })}
+                        sx={{
+                            marginLeft: 1,
+                            color: values.fontWeight === 'bold' ? 'text.main' : 'text.dark',
+                        }}
                         tooltipPlacement="bottom"
                         icon={<FormatBoldIcon />}
                         tooltipTitle="Полужирный"
@@ -416,19 +356,25 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
                         onClick={() => handleFontWeight()}
                     />
                     <SpeedDialAction
-                        className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontStyle === 'italic' })}
+                        sx={{
+                            marginLeft: 1,
+                            color: values.fontStyle === 'italic' ? 'text.main' : 'text.dark',
+                        }}
                         tooltipPlacement="bottom"
                         icon={<FormatItalicIcon />}
                         tooltipTitle="Курсив"
-                        //tooltipOpen
+                        // tooltipOpen
                         onClick={() => handleFontStyle()}
                     />
                     <SpeedDialAction
-                        className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.textDecoration === 'underline' })}
+                        sx={{
+                            marginLeft: 1,
+                            color: values.textDecoration === 'underline' ? 'text.main' : 'text.dark',
+                        }}
                         tooltipPlacement="bottom"
                         icon={<FormatUnderlinedIcon />}
                         tooltipTitle="Подчёркнутый"
-                        //tooltipOpen
+                        // tooltipOpen
                         onClick={() => handleTextDecoration()}
                     />
                 </SpeedDial>
@@ -439,15 +385,15 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
                 </Tooltip> */}
                 <Tooltip title="Удалить блок">
                     <IconButton
-                        className={classes.leftIconButton}
+                        sx={{ marginLeft: "auto" }}
                         onClick={() => managmentStore.deleteComponent(index)}
                         size="large">
-                        <DeleteForeverIcon className={classes.icon} />
+                        <DeleteForeverIcon />
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Перетащить блок">
                     <IconButton size="large">
-                        <DragIndicatorIcon className={classes.icon} />
+                        <DragIndicatorIcon />
                     </IconButton>
                 </Tooltip>
             </Grid>

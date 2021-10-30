@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React from 'react';
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import { Divider, AppBar, Toolbar, Input, Stack, Tooltip, InputAdornment, FormControl, useMediaQuery, Link, Button, IconButton, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
+import { Divider, AppBar, Toolbar, Tabs, Tab, Input, Stack, Tooltip, InputAdornment, FormControl, useMediaQuery, Link, Button, IconButton, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
 
 import { inject, observer } from 'mobx-react'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
@@ -15,7 +15,9 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-
+import GroupIcon from '@mui/icons-material/Group';
+import DescriptionIcon from '@mui/icons-material/Description';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 const schema = yup.object({
     message: yup.string().max(100).required(),
@@ -63,7 +65,32 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
     borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
 
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    {children}
+                </Box>
+            )}
+        </div>
+    );
+}
+
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
 
 const ChatBar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) => {
     const theme = useTheme();
@@ -76,6 +103,12 @@ const ChatBar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore })
     const [expanded, setExpanded] = React.useState(false);
 
     const onSubmit = data => authorizationStore.clickEnterButton(data);
+
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
     return (
         <Box sx={{
@@ -97,7 +130,7 @@ const ChatBar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore })
                     alignItems="center"
                     sx={{
                         // marginLeft: 'calc(50% - 400px)',
-                        ml: 32,
+                        ml: 37,
                         maxWidth: 1200,
                         minHeight: 64,
                         width: '100%',
@@ -136,7 +169,7 @@ const ChatBar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore })
                             />
                         </Box>
                     </Stack>
-                    <Accordion sx={{ mt: 1, mb: 1 }} expanded={expanded}>
+                    <Accordion sx={{ width: '100%', mt: 1, mb: 1 }} expanded={expanded}>
                         <AccordionSummary expandIcon={null} aria-controls="panel1d-content" id="panel1d-header">
                             <IconButton onClick={() => setExpanded(!expanded)} size="large">
                                 <ExpandMoreIcon
@@ -158,12 +191,28 @@ const ChatBar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore })
                             </IconButton>
                         </AccordionSummary>
                         <AccordionDetails sx={{ bgcolor: 'background.2' }}>
-                            <Typography>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                                sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                sit amet blandit leo lobortis eget.
-                            </Typography>
+                            <Tabs
+                                value={value}
+                                onChange={handleChange}
+                                indicatorColor="primary"
+                                textColor="primary"
+                                aria-label="full width tabs example"
+                                //variant="fullWidth"
+                                // centered
+                            >
+                                <Tab label={<GroupIcon sx={{color: 'text.main'}}/>} {...a11yProps(0)} />
+                                <Tab label={<DescriptionIcon sx={{color: 'text.main'}}/>} {...a11yProps(1)} />
+                                <Tab label={<AttachFileIcon sx={{color: 'text.main'}}/>} {...a11yProps(2)} />
+                            </Tabs>
+                            <TabPanel value={value} index={0}>
+                                1
+                            </TabPanel>
+                            <TabPanel value={value} index={1}>
+                                2
+                            </TabPanel>
+                            <TabPanel value={value} index={2}>
+                                3
+                            </TabPanel>
                         </AccordionDetails>
                     </Accordion>
                 </Stack>

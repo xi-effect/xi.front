@@ -15,6 +15,7 @@ const DividerComp = inject('rootStore')(observer(({ rootStore, value }) => {
             <Divider flexItem sx={{
                 width: "100%",
                 height: "2px",
+                bgcolor: 'text.dark',
                 marginTop: 1,
                 marginBottom: 1,
             }} />

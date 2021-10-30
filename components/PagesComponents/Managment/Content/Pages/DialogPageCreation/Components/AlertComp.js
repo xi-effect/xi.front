@@ -295,7 +295,10 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
                         direction="right"
                     >
                         <SpeedDialAction
-                            className={clsx(classes.speedDialActionFirst)}
+                            sx={{
+                                marginLeft: 1,
+                                color: 'text.main',
+                            }}
                             tooltipPlacement="bottom"
                             icon={alertTypeIconSelect(values.alertType)}
                             tooltipTitle={`Тип. Сейчас - ${alertTypeLabelSelect(values.alertType)}`}
@@ -303,7 +306,10 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
                             onClick={() => handleAlertType(values.alertType)}
                         />
                         <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.disableIcon]: values.fontSize === 48 })}
+                            sx={{
+                                marginLeft: 1,
+                                color: values.fontSize === 48 ? 'error.main' : 'text.main',
+                            }}
                             tooltipPlacement="bottom"
                             icon={<ZoomInIcon />}
                             tooltipTitle={`Увеличить шрифт. Сейчас - ${values.fontSize}`}
@@ -311,7 +317,10 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
                             onClick={() => handleFontSizeUp()}
                         />
                         <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.disableIcon]: values.fontSize === 12 })}
+                            sx={{
+                                marginLeft: 1,
+                                color: values.fontSize === 12 ? 'error.main' : 'text.main',
+                            }}
                             tooltipPlacement="bottom"
                             icon={<ZoomOutIcon />}
                             tooltipTitle={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}
@@ -319,7 +328,10 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
                             onClick={() => handleFontSizeDown()}
                         />
                         <SpeedDialAction
-                            className={classes.speedDialAction}
+                            sx={{
+                                marginLeft: 1,
+                                color: 'text.main',
+                            }}
                             tooltipPlacement="bottom"
                             icon={textAlignIconSelect(values.textAlign)}
                             tooltipTitle={`Изменить выравнивание текста. Сейчас - ${textAlignLabelSelect(values.textAlign)}`}
@@ -327,7 +339,10 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
                             onClick={() => handleTextAlign(values.textAlign)}
                         />
                         <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontWeight === 'bold' })}
+                            sx={{
+                                marginLeft: 1,
+                                color: values.fontWeight === 'bold' ? 'text.main' : 'text.dark',
+                            }}
                             tooltipPlacement="bottom"
                             icon={<FormatBoldIcon />}
                             tooltipTitle="Полужирный"
@@ -335,19 +350,25 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
                             onClick={() => handleFontWeight()}
                         />
                         <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontStyle === 'italic' })}
+                            sx={{
+                                marginLeft: 1,
+                                color: values.fontStyle === 'italic' ? 'text.main' : 'text.dark',
+                            }}
                             tooltipPlacement="bottom"
                             icon={<FormatItalicIcon />}
                             tooltipTitle="Курсив"
-                            //tooltipOpen
+                            // tooltipOpen
                             onClick={() => handleFontStyle()}
                         />
                         <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.textDecoration === 'underline' })}
+                            sx={{
+                                marginLeft: 1,
+                                color: values.textDecoration === 'underline' ? 'text.main' : 'text.dark',
+                            }}
                             tooltipPlacement="bottom"
                             icon={<FormatUnderlinedIcon />}
                             tooltipTitle="Подчёркнутый"
-                            //tooltipOpen
+                            // tooltipOpen
                             onClick={() => handleTextDecoration()}
                         />
                     </SpeedDial>

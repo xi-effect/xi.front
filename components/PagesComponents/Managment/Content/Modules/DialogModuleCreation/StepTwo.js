@@ -110,10 +110,7 @@ const StyledDragDropContext = styled(DragDropContext)((
     [`& .${classes.pageLabel}`]: {
         cursor: "default",
         //marginTop: 16,
-        marginLeft: 8,
-        marginRight: 82,
-        fontSize: 20,
-        color: theme => theme.palette.primary.contrastText,
+
     },
 
     [`& .${classes.pageLabelInPoint}`]: {
@@ -214,7 +211,14 @@ const ItemList = inject('managmentStore')(observer(({ managmentStore, index }) =
                 index={pageIndex}>
                 {(provided, snapshot) => (
                     <Grid
-                        className={clsx(classes.pageBlock, { [classes.pageBlockTheory]: page.kind === "theory" }, { [classes.pageBlockPractice]: page.kind === "practice" }, { [classes.pageBlockTest]: page.kind === "task" })}
+                        sx={{
+                            position: "relative",
+                            backgroundColor: 'background.1',
+                            height: 64,
+                            width: "calc(100% - 16px)",
+                            margin: 1,
+                            borderRadius: 1,
+                        }}
                         container
                         direction="row"
                         justifyContent="center"
@@ -225,12 +229,23 @@ const ItemList = inject('managmentStore')(observer(({ managmentStore, index }) =
                     >
                         <Grid container wrap="nowrap" spacing={2}>
                             <Grid item xs zeroMinWidth>
-                                <Tooltip className={classes.Tooltip} arrow title={`Название: ${page.name}`}>
-                                    <Typography className={classes.pageLabelInPoint} noWrap>{page.name}</Typography>
+                                <Tooltip arrow title={`Название: ${page.name}`}>
+                                    <Typography sx={{
+                                        cursor: "default",
+                                        //marginTop: 16,
+                                        marginLeft: 1,
+                                        marginRight: "128px",
+                                        fontSize: "20px",
+                                        color: 'text.main',
+                                    }} noWrap>{page.name}</Typography>
                                 </Tooltip>
                             </Grid>
                         </Grid>
-                        <Grid className={classes.pageBlockIcons}>
+                        <Grid sx={{
+                            position: "absolute",
+                            top: 8,
+                            right: "2px",
+                        }}>
                             <Link
                                 href={{
                                     pathname: '/knowledge/page/[id]',
@@ -238,18 +253,17 @@ const ItemList = inject('managmentStore')(observer(({ managmentStore, index }) =
                                 }}
                                 passHref>
                                 <Tooltip title="Посмотреть страницу">
-                                    <IconButton className={classes.IconButton} size="large">
+                                    <IconButton size="large">
                                         <VisibilityIcon />
                                     </IconButton>
                                 </Tooltip>
                             </Link>
                             <IconButton
                                 onClick={() => managmentStore.deletePageInPoint(index, pageIndex)}
-                                className={classes.IconButton}
                                 size="large">
                                 <DeleteForeverIcon />
                             </IconButton>
-                            <IconButton className={classes.IconButton} size="large">
+                            <IconButton size="large">
                                 <DragIndicatorIcon />
                             </IconButton>
                         </Grid>
@@ -263,7 +277,7 @@ const ItemList = inject('managmentStore')(observer(({ managmentStore, index }) =
 const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
     const theme = useTheme();
 
-    console.log(managmentStore.pageCreationList.pages, "p")
+    console.log("p", managmentStore.pageCreationList.pages)
 
     function onDragEnd(result) {
         console.log("result", result)
@@ -345,7 +359,10 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
             onDragEnd={onDragEnd}
         >
             <Grid
-                className={classes.gridRoot}
+                sx={{
+                    width: "100%",
+                    height: "calc(100vh - 64px)",
+                }}
                 container
                 direction="row"
                 justifyContent="flex-start"
@@ -359,7 +376,10 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                     direction="column"
                     justifyContent="flex-start"
                     alignItems="center"
-                    className={classes.pagesPart}
+                    sx={{
+                        height: "calc(100vh - 64px)",
+                        backgroundColor: 'background.1',
+                    }}
                 >
                     <Droppable isDropDisabled droppableId="list-pages">
                         {(provided, snapshot) => (
@@ -377,7 +397,15 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                         index={index}>
                                         {(provided, snapshot) => (
                                             <Grid
-                                                className={clsx(classes.pageBlock, { [classes.pageBlockTheory]: page.kind === "theory" }, { [classes.pageBlockPractice]: page.kind === "practice" }, { [classes.pageBlockTest]: page.kind === "task" })}
+                                                sx={{
+                                                    position: "relative",
+                                                    backgroundColor: 'background.2',
+                                                    height: "64px",
+                                                    width: "calc(100% - 16px)",
+                                                    margin: 1,
+                                                    borderRadius: 1,
+                                                }}
+                                                // className={clsx(classes.pageBlock, { [classes.pageBlockTheory]: page.kind === "theory" }, { [classes.pageBlockPractice]: page.kind === "practice" }, { [classes.pageBlockTest]: page.kind === "task" })}
                                                 container
                                                 direction="row"
                                                 justifyContent="center"
@@ -388,12 +416,23 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                             >
                                                 <Grid container wrap="nowrap" spacing={2}>
                                                     <Grid item xs zeroMinWidth>
-                                                        <Tooltip className={classes.Tooltip} arrow title={`Название: ${page.name}`}>
-                                                            <Typography className={classes.pageLabel} noWrap>{page.name}</Typography>
+                                                        <Tooltip arrow title={`Название: ${page.name}`}>
+                                                            <Typography
+                                                                sx={{
+                                                                    marginLeft: 1,
+                                                                    marginRight: "82px",
+                                                                    fontSize: "20px",
+                                                                    color: 'text.main',
+                                                                }}
+                                                                noWrap>{page.name}</Typography>
                                                         </Tooltip>
                                                     </Grid>
                                                 </Grid>
-                                                <Grid className={classes.pageBlockIcons}>
+                                                <Grid sx={{
+                                                    position: "absolute",
+                                                    top: 8,
+                                                    right: "2px",
+                                                }}>
                                                     <Link
                                                         href={{
                                                             pathname: '/knowledge/page/[id]',
@@ -401,12 +440,12 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                                         }}
                                                         passHref>
                                                         <Tooltip title="Посмотреть страницу">
-                                                            <IconButton className={classes.IconButton} size="large">
+                                                            <IconButton size="large">
                                                                 <VisibilityIcon />
                                                             </IconButton>
                                                         </Tooltip>
                                                     </Link>
-                                                    <IconButton className={classes.IconButton} size="large">
+                                                    <IconButton size="large">
                                                         <DragIndicatorIcon />
                                                     </IconButton>
                                                 </Grid>
@@ -427,7 +466,13 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                     direction="column"
                     justifyContent="flex-start"
                     alignItems="center"
-                    className={classes.modulePart}
+                    sx={{
+                        display: "block",
+                        padding: 2,
+                        height: "calc(100vh - 64px)",
+                        overflowY: "scroll",
+                        overflowX: "hidden",
+                    }}
                 >
                     {managmentStore.moduleCreation.points.map((point, index) => (
                         <Accordion
@@ -439,17 +484,18 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                             // onMouseEnter={() => setExpanded1(true)}
                             // onMouseLeave={() => setExpanded1(false)}
                             key={index.toString()}
-                            className={classes.Accordion}
+                            sx={{ bgcolor: 'background.2' }}
                             expanded={managmentStore.moduleCreation.points[index].openAccordion} >
                             <AccordionSummary
                                 expandIcon={<IconButton
                                     onClick={() => managmentStore.setModuleCreationPoints(index, "openAccordion", !managmentStore.moduleCreation.points[index].openAccordion)}
-                                    size="large"><ExpandMoreIcon className={classes.icon} /></IconButton>}
+                                    size="large"><ExpandMoreIcon /></IconButton>}
                             >
-                                <Grid className={classes.gridTextWrapper}>
+                                <Grid sx={{ width: "calc(100% - 58px)", }}>
                                     <Input
-                                        classes={{
-                                            input: classes.text
+                                        sx={{
+                                            width: "100%",
+                                            color: 'text.main',
                                         }}
                                         type="text"
                                         disableUnderline
@@ -461,16 +507,19 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                 </Grid>
                                 <SpeedDial
                                     ariaLabel="SpeedDial tooltip example"
-                                    className={classes.speedDial}
+                                    sx={{
+                                        height: 36,
+                                        width: 36,
+                                    }}
                                     // hidden={hidden}
-                                    icon={<TuneIcon className={classes.iconSpeedDial} />}
+                                    icon={<TuneIcon />}
                                     onClose={() => managmentStore.setModuleCreationPoints(index, "openSpeedDial", false)}
                                     onOpen={() => managmentStore.setModuleCreationPoints(index, "openSpeedDial", true)}
                                     open={managmentStore.moduleCreation.points[index].openSpeedDial}
                                     direction="left"
                                 >
                                     <SpeedDialAction
-                                        className={clsx(classes.speedDialAction)}
+                                        // className={clsx(classes.speedDialAction)}
                                         tooltipPlacement="bottom"
                                         icon={<DeleteForeverIcon />}
                                         tooltipTitle={`Удалить точку`}
@@ -478,7 +527,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                         onClick={() => managmentStore.deletePoint(index)}
                                     />
                                     <SpeedDialAction
-                                        className={clsx(classes.speedDialAction)}
+                                        // className={clsx(classes.speedDialAction)}
                                         tooltipPlacement="bottom"
                                         icon={<ArrowCircleDownIcon />}
                                         tooltipTitle={`Переместить точку ниже`}
@@ -486,7 +535,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                         onClick={() => managmentStore.setPointDown(index)}
                                     />
                                     <SpeedDialAction
-                                        className={clsx(classes.speedDialActionFirst)}
+                                        // className={clsx(classes.speedDialActionFirst)}
                                         tooltipPlacement="bottom"
                                         icon={<ArrowCircleUpIcon />}
                                         tooltipTitle={`Переместить точку выше`}
@@ -495,7 +544,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
 
                                 </SpeedDial>
                             </AccordionSummary>
-                            <AccordionDetails className={classes.AccordionDetails}>
+                            <AccordionDetails>
                                 <Droppable droppableId={`list-${index}`}>
                                     {(provided, snapshot) => (
                                         <>
@@ -525,7 +574,9 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                         direction="row"
                         justifyContent="center"
                         alignItems="center"
-                        className={classes.gridAddButtonWrapper}
+                        sx={{
+                            m: 2,
+                        }}
                     >
                         <Button variant="contained" onClick={() => managmentStore.pushNewPoint()}>
                             Добавить точку
