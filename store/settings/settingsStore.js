@@ -1,5 +1,5 @@
 import { action, observable, computed, runInAction, makeObservable } from 'mobx'
-
+import Router from 'next/router'
 
 class SettingsStore {
     // `this` from rootstore passed to the constructor and we can 
@@ -22,6 +22,16 @@ class SettingsStore {
 
     @action setSettings = (item, value) => {
         this.settings[item] = value
+    }
+
+    @action logout = () => {
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/logout/`, "POST", { "lol": "kek" }).then(
+            (data) => {
+                if (data?.a) {
+                    const router = Router
+                    router.push('/login')
+                }
+            })
     }
 }
 

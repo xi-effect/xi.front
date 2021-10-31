@@ -9,9 +9,9 @@ import { Divider, Paper, Box, useMediaQuery, Grid, Stack, FormControlLabel, Butt
 
 import { inject, observer } from 'mobx-react'
 
-import NavigationAll from './../../../components/OtherComponents/Navigation/NavigationAll';
-import ChatBar from '../../../components/PagesComponents/Messages/ChatBar';
-import ChatList from '../../../components/PagesComponents/Messages/ChatList';
+import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
+import ChatBar from '../../components/PagesComponents/Messages/ChatBar';
+import ChatList from '../../components/PagesComponents/Messages/ChatList';
 
 const Chat = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore }) => {
     const theme = useTheme();
