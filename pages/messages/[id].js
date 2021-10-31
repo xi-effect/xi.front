@@ -13,10 +13,16 @@ import NavigationAll from '../../components/OtherComponents/Navigation/Navigatio
 import ChatBar from '../../components/PagesComponents/Messages/ChatBar';
 import ChatList from '../../components/PagesComponents/Messages/ChatList';
 
-const Chat = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore }) => {
+const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageStore }) => {
     const theme = useTheme();
     const mobile = useMediaQuery(theme => theme.breakpoints.up('md'));
 
+    const router = useRouter()
+    const { id } = router.query
+
+    React.useEffect(() => {
+        messageStore.loadMetaForChat(id)
+    }, [])
     return (
         <>
             <Head>
@@ -25,18 +31,7 @@ const Chat = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                 </title>
             </Head>
             <NavigationAll>
-                {/* <Box
-                    sx={{
-                        // display: 'block',
-                        // position: 'absolute',
-                        width: 'calc(100% - 48px)',
-                        // height: '100vh',
-                        // overflow: 'hidden',
-                        transform: "scaleY(-1)",
-                    }} > */}
-                    <ChatList />
-                {/* </Box> */}
-
+                <ChatList />
                 <Stack
                     direction="column"
                     justifyContent="flex-end"
@@ -48,7 +43,7 @@ const Chat = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                         zIndex: 10000,
                     }}
                 >
-                    {mobile && <Box sx={{ maxWidth: 1200, zIndex: 10000,}}>
+                    {mobile && <Box sx={{ maxWidth: 1200, zIndex: 10000, }}>
                         <ChatBar />
                     </Box>}
 

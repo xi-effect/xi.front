@@ -19,11 +19,18 @@ class MessageStore {
         this.ui[name] = value
     }
 
+
+    // Диалог создания чата
+
     @observable dialogChatCreation = {
         openDialog: false,
         usersForChat: [],
         searchResults: [],
         chatName: "",
+    }
+
+    @action setDialogChatCreation = (name, value) => {
+        this.dialogChatCreation[name] = value
     }
 
     @action clearDialogChatCreation = () => {
@@ -33,10 +40,6 @@ class MessageStore {
             searchResults: [],
             chatName: "",
         }
-    }
-
-    @action setDialogChatCreation = (name, value) => {
-        this.dialogChatCreation[name] = value
     }
 
     @action searchUsers = (search) => {
@@ -66,6 +69,24 @@ class MessageStore {
             this.setDialogChatCreation("chatName", newChatName)
         }
         this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/`, "POST", { "name": this.dialogChatCreation.chatName }).then(
+            (data) => {
+
+            })
+    }
+
+
+    // Чат
+
+    @observable chat = {
+        messages: []
+    }
+
+    @action setChat = (name, value) => {
+        this.messages[name] = value
+    }
+
+    @action loadMetaForChat = (id) => {
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${id}/`, "GET").then(
             (data) => {
 
             })
