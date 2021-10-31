@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { Skeleton, Stack, Radio, Input, Grid, Box, InputLabel, Link, InputAdornment, Tooltip, IconButton, FormControl, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Typography, } from "@mui/material";
+import { Skeleton, Stack, Radio, Input, Grid, Box, InputLabel, Link, InputAdornment, Tooltip, IconButton, Checkbox, FormControl, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Typography, } from "@mui/material";
 import { inject, observer } from 'mobx-react'
 
 import { useForm, Controller } from "react-hook-form";
@@ -17,7 +17,8 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
-    const onSubmit = data => { };
+    const onSubmitSearch = data => messageStore.searchUsers(data.search);
+
 
     return (
         <Dialog
@@ -35,32 +36,20 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                     spacing={1}
                 >
                     <Typography variant="h5"> Создание чата </Typography>
-                    <Box component="form" sx={{ width: "100%", }} onSubmit={handleSubmit(onSubmit)}>
-                        <Controller
-                            name="search"
-                            control={control}
-                            render={({ field }) => <FormControl error={errors?.search?.type === "required"} fullWidth variant="outlined">
-                                <Input
-                                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                                    type='text'
-                                    // value={emailReset}
-                                    // onChange={null}
-                                    {...field}
-                                    placeholder="Поиск"
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton edge="end" size="large">
-                                                <Tooltip title="Найти" arrow>
-                                                    <SearchIcon sx={{ color: 'text.main' }} />
-                                                </Tooltip>
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                />
-                            </FormControl>}
-                        />
+                    <Box component="form" sx={{ width: "100%", }}>
+                        <FormControl fullWidth variant="outlined">
+                            <Input
+                                sx={{ backgroundColor: 'background.2', width: "100%", }}
+                                type='text'
+                                value={messageStore.dialogChatCreation.chatName}
+                                onChange={(e) => messageStore.setDialogChatCreation("chatName", e.target.value)}
+                                placeholder="Имя чата (не обязательно)"
+                            />
+                        </FormControl>
                     </Box>
-                    {["",].map((item, index) => (
+                    <Typography> Пользователи в новом чате: </Typography>
+                    {messageStore.dialogChatCreation.usersForChat.length === 0 && <Typography sx={{ width: '100%' }} align="center" variant="subtitle1"> Вы пока не выбрали ни одного пользователя </Typography>}
+                    {messageStore.dialogChatCreation.usersForChat.length !== 0 && messageStore.usersForChat.map((item, index) => (
                         <Stack
                             key={index.toString()}
                             direction="row"
@@ -71,7 +60,9 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                                 width: 'calc(100% - 72px)',
                             }}
                         >
-                            <Radio
+                            <Checkbox
+                                color="default"
+                                sx={{ color: 'text.main' }}
                                 checked={true}
                                 onChange={null}
                             />
@@ -110,6 +101,8 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                             </IconButton>
                         </Stack>
                     ))}
+
+
                 </Stack>
             </DialogTitle>
             <DialogContent sx={{ bgcolor: 'background.2' }} dividers>
@@ -119,7 +112,34 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                     alignItems="flex-start"
                     spacing={1}
                 >
-                    {["", "", ""].map((item, index) => (
+                    <Box component="form" sx={{ width: "100%", }} onSubmit={handleSubmit(onSubmitSearch)}>
+                        <Controller
+                            name="search"
+                            control={control}
+                            render={({ field }) => <FormControl error={errors?.search?.type === "required"} fullWidth variant="outlined">
+                                <Input
+                                    sx={{ backgroundColor: 'background.2', width: "100%", }}
+                                    type='text'
+                                    // value={emailReset}
+                                    // onChange={null}
+                                    {...field}
+                                    placeholder="Поиск"
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton type="submit" edge="end" size="large">
+                                                <Tooltip title="Найти" arrow>
+                                                    <SearchIcon sx={{ color: 'text.main' }} />
+                                                </Tooltip>
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                />
+                            </FormControl>}
+                        />
+                    </Box>
+                    <Typography> Результаты поиска: </Typography>
+                    {messageStore.dialogChatCreation.searchResults.length === 0 && <Typography sx={{ width: '100%' }} align="center" variant="subtitle1"> Введите поисковой запрос </Typography>}
+                    {messageStore.dialogChatCreation.searchResults.length !== 0 && messageStore.dialogChatCreation.searchResults.map((item, index) => (
                         <Stack
                             key={index.toString()}
                             direction="row"
@@ -130,7 +150,9 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                                 width: 'calc(100% - 72px)',
                             }}
                         >
-                            <Radio
+                            <Checkbox
+                                color="default"
+                                sx={{ color: 'text.main' }}
                                 checked={null}
                                 onChange={null}
                             />
@@ -173,7 +195,7 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
             </DialogContent>
             <DialogActions sx={{ bgcolor: 'background.2' }}>
                 <Button sx={{ color: 'text.main' }} onClick={() => messageStore.setUi("openDialog", false)}>Отмена</Button>
-                <Button sx={{ color: 'text.main' }} onClick={() => messageStore.setUi("openDialog", false)}>Готово</Button>
+                <Button sx={{ color: 'text.main' }} onClick={() => messageStore.createChat()}>Готово</Button>
             </DialogActions>
         </Dialog>
     );
