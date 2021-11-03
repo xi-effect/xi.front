@@ -1,6 +1,7 @@
 import { action, observable, computed, runInAction, makeObservable } from 'mobx'
 import Router from 'next/router'
-
+import socket from '../../utils/socket'
+import { io } from "socket.io-client";
 
 let Crypto = require('crypto-js')
 
@@ -97,6 +98,12 @@ class AuthorizationStore {
                     this.setSignup("error", "serverError")
                 }
             });
+        this.rootStore.fetchData(`https://xieffect-socketio.herokuapp.com/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
+            .then((data) => {
+                socket = io("https://xieffect-socketio.herokuapp.com/", {
+                    withCredentials: true,
+                });
+            })
     }
 
     @observable login = {
@@ -138,6 +145,12 @@ class AuthorizationStore {
                     this.setLogin("error", "Server error")
 
                 }
+            })
+        this.rootStore.fetchData(`https://xieffect-socketio.herokuapp.com/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
+            .then((data) => {
+                socket = io("https://xieffect-socketio.herokuapp.com/", {
+                    withCredentials: true,
+                });
             })
     }
 }

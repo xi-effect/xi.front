@@ -261,8 +261,6 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
                         )}
                     </Droppable>
                 </DragDropContext>
-
-
             </Grid>
             <Divider sx={{
                 backgroundColor: 'text.dark',

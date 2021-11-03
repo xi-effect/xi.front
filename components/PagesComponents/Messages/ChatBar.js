@@ -26,6 +26,8 @@ const schema = yup.object({
 import SendIcon from '@mui/icons-material/Send';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -61,7 +63,7 @@ const AccordionSummary = styled((props) => (
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
@@ -92,7 +94,7 @@ function a11yProps(index) {
     };
 }
 
-const ChatBar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) => {
+const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore }) => {
     const theme = useTheme();
     const router = useRouter()
 
@@ -100,9 +102,12 @@ const ChatBar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore })
         resolver: yupResolver(schema)
     });
 
+    const [edit, setEdit] = React.useState(false)
+    const [newChatName, setNewChatName] = React.useState("")
+
     const [expanded, setExpanded] = React.useState(false);
 
-    const onSubmit = data => authorizationStore.clickEnterButton(data);
+    const onSubmit = data => messageStore.sendMessage(data.message);
 
     const [value, setValue] = React.useState(0);
 
@@ -148,26 +153,18 @@ const ChatBar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore })
                         alignItems="center"
                         sx={{
                             width: '100%',
+                            pt: 2, pl: 2, pr: 2, pb: 0,
                         }}
                     >
-                        <Box component="form" sx={{ width: "100%", pt: 2, pl: 2, pr: 2 }} onSubmit={handleSubmit(onSubmit)}>
-                            <Controller
-                                name="email"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => <FormControl error={errors?.message?.type === "required"} fullWidth variant="outlined">
-                                    <Input
-                                        sx={{ backgroundColor: 'background.2', width: "100%", }}
-                                        label="Адрес почты"
-                                        type='text'
-                                        multiline
-                                        maxRows={5}
-                                        placeholder="Отправить сообщение"
-                                        {...field}
-                                    />
-                                </FormControl>}
-                            />
-                        </Box>
+                        <Input
+                            sx={{ backgroundColor: 'background.2', width: "100%", }}
+                            type='text'
+                            value={messageStore.chat.newMessage}
+                            onChange={(e) => messageStore.setChat("newMessage", e.target.value)}
+                            multiline
+                            maxRows={5}
+                            placeholder="Отправить сообщение"
+                        />
                     </Stack>
                     <Accordion sx={{ width: '100%', mt: 1, mb: 1 }} expanded={expanded}>
                         <AccordionSummary expandIcon={null} aria-controls="panel1d-content" id="panel1d-header">
@@ -184,28 +181,98 @@ const ChatBar = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore })
                                     <PersonAddIcon />
                                 </Tooltip>
                             </IconButton>
-                            <IconButton sx={{ ml: 'auto', mr: 0.2 }} edge="end" size="large">
+                            <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 'auto', mr: 0.2 }} edge="end" size="large">
                                 <Tooltip title="Отправить" arrow>
                                     <SendIcon sx={{ color: 'text.main' }} />
                                 </Tooltip>
                             </IconButton>
                         </AccordionSummary>
                         <AccordionDetails sx={{ bgcolor: 'background.2' }}>
+                            <Stack
+                                direction="row"
+                                justifyContent="flex-start"
+                                alignItems="center"
+                                sx={{
+                                    width: '100%',
+                                }}
+                            >
+                                {edit &&
+                                    <Input
+                                        sx={{ backgroundColor: 'background.2', width: "100%", }}
+                                        type='text'
+                                        value={messageStore.chat.newMessage}
+                                        onChange={(e) => messageStore.setChat("newMessage", e.target.value)}
+                                        multiline
+                                        maxRows={5}
+                                        placeholder="Отправить сообщение"
+                                    />
+                                }
+                                {!edit && <Typography sx={{ cursor: 'default', pl: 2 }} variant="h6">
+                                    {`${messageStore.chat.name}`}
+                                </Typography>}
+                                {!edit && <IconButton sx={{ ml: 1 }} size="large">
+                                    <Tooltip title="Изменить название чата" arrow>
+                                        <ModeEditIcon />
+                                    </Tooltip>
+                                </IconButton>}
+                                <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 'auto', mr: 1, color: 'error.dark' }} edge="end" size="large">
+                                    <Tooltip title="Удалить чат" arrow>
+                                        <DeleteSweepIcon />
+                                    </Tooltip>
+                                </IconButton>
+                            </Stack>
                             <Tabs
                                 value={value}
                                 onChange={handleChange}
                                 indicatorColor="primary"
                                 textColor="primary"
                                 aria-label="full width tabs example"
-                                //variant="fullWidth"
-                                // centered
+                            //variant="fullWidth"
+                            // centered
                             >
-                                <Tab label={<GroupIcon sx={{color: 'text.main'}}/>} {...a11yProps(0)} />
-                                <Tab label={<DescriptionIcon sx={{color: 'text.main'}}/>} {...a11yProps(1)} />
-                                <Tab label={<AttachFileIcon sx={{color: 'text.main'}}/>} {...a11yProps(2)} />
+                                <Tab label={<GroupIcon sx={{ color: 'text.main' }} />} {...a11yProps(0)} />
+                                <Tab label={<DescriptionIcon sx={{ color: 'text.main' }} />} {...a11yProps(1)} />
+                                <Tab label={<AttachFileIcon sx={{ color: 'text.main' }} />} {...a11yProps(2)} />
                             </Tabs>
                             <TabPanel value={value} index={0}>
-                                1
+                                <Stack
+                                    direction="column"
+                                    justifyContent="center"
+                                    alignItems="flex-start"
+                                    spacing={1}
+                                >
+                                    <Typography variant="subtitle1">
+                                        {`${messageStore.chat.users} пользователей в чате:`}
+                                    </Typography>
+                                    {messageStore.chat.usersInChat.length !== 0 && messageStore.chat.usersInChat.map((item, index) => (
+                                        <Stack
+                                            key={index.toString()}
+                                            direction="row"
+                                            justifyContent="flex-start"
+                                            alignItems="center"
+                                            spacing={0}
+                                            sx={{
+                                                width: '100%',
+                                            }}
+                                        >
+                                            <Link
+                                                sx={{
+                                                    fontSize: 22,
+                                                    cursor: "pointer",
+                                                    color: 'text.main',
+                                                }}
+                                                // onClick={() => {
+                                                //     router.push({
+                                                //         pathname: '/students',
+                                                //     })
+                                                // }}
+                                                underline="hover"
+                                            >
+                                                {item.username}
+                                            </Link>
+                                        </Stack>
+                                    ))}
+                                </Stack>
                             </TabPanel>
                             <TabPanel value={value} index={1}>
                                 2

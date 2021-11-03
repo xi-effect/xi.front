@@ -3,21 +3,23 @@ import { styled } from '@mui/material/styles';
 import Link from 'next/link'
 import Router from 'next/router'
 import React from 'react';
-import { Accordion, AccordionSummary, Box, Stack, Tooltip, useTheme, Typography, AccordionDetails, Grid, IconButton } from '@mui/material';
+import { Accordion, AccordionSummary, Button, useMediaQuery, Box, Stack, Tooltip, useTheme, Typography, AccordionDetails, Grid, IconButton } from '@mui/material';
 
 
 import { inject, observer } from 'mobx-react'
 import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll'
 //import Background from '../../components/OtherComponents/Background/Background.js'
-
+import SaveIcon from '@mui/icons-material/Save';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // import UserAccount from '../../components/PagesComponents/Settings/UserAccount';
 import Castomize from './../../components/PagesComponents/Settings/Castomize';
 import LogoutIcon from '@mui/icons-material/Logout';
+import UserAvatar from '../../components/PagesComponents/Settings/UserAvatar';
+import CustomAvatar from '../../components/OtherComponents/Avatar/CustomAvatar';
 
 const Settings = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore }) => {
   const theme = useTheme();
-
+  const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
   return (
     <>
@@ -38,45 +40,54 @@ const Settings = inject('rootStore', 'settingsStore')(observer(({ rootStore, set
           >
             <Stack
               direction="row"
-              justifyContent="space-between"
-              alignItems="center"
+              justifyContent="flex-start"
+              alignItems="flex-end"
               sx={{
                 width: '100%',
-                height: 64,
+                height: 256,
                 maxWidth: 1200,
               }}
             >
-              <Typography variant="h6" sx={{ pl: 1 }}> {settingsStore.settings.username} </Typography>
+              {/* <Typography variant="h6" sx={{ pl: 1 }}> {settingsStore.settings.username} </Typography> */}
+              <CustomAvatar avatar={settingsStore.settings.avatar} />
+              {!mobile && <Button sx={{ ml: "auto", mr: 1, mb: 1.2, }} onClick={() => settingsStore.saveNewSettimgs()} color="inherit">
+                Сохранить изменения
+              </Button>}
+              {mobile && <Tooltip title="Выйти">
+                <IconButton sx={{ ml: "auto", mr: 1, mb: 1, }} onClick={() => settingsStore.saveNewSettimgs()} color="inherit">
+                  <SaveIcon />
+                </IconButton>
+              </Tooltip>}
               <Tooltip title="Выйти">
-                <IconButton onClick={() => settingsStore.logout()} color="error">
+                <IconButton sx={{ m: 1 }} onClick={() => settingsStore.logout()} color="error">
                   <LogoutIcon />
                 </IconButton>
               </Tooltip>
-
             </Stack>
             <Grid sx={{
               width: "100%",
               maxWidth: 1200,
             }}>
-              {/* <Accordion sx={{ width: "100%", backgroundColor: 'background.1' }}>
+              <Accordion sx={{ width: "100%", backgroundColor: 'background.1' }}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography >Учётная запись</Typography>
+                  <Typography >Настройка Аватара</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <UserAccount />
+                  {/* <UserAccount /> */}
+                  <UserAvatar />
                 </AccordionDetails>
-              </Accordion> */}
+              </Accordion>
               <Accordion sx={{ width: "100%", backgroundColor: 'background.1' }}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel2a-content"
                   id="panel2a-header"
                 >
-                  <Typography>Внешний вид</Typography>
+                  <Typography>Внешний вид приложения</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Castomize />

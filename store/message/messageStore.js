@@ -11,14 +11,23 @@ class MessageStore {
         makeObservable(this)
     }
 
-    @observable ui = {
-        openDialog: false,
+    // Список чатов 
+
+    @observable menu = {
+        chats: []
     }
 
-    @action setUi = (name, value) => {
-        this.ui[name] = value
+    @action setMenu = (name, value) => {
+        this.menu[name] = value
     }
 
+    @action loadChatsInMenu = () => {
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/index/`, "POST", { "counter": 0 }).then(
+            (data) => {
+                console.log("chats", data)
+                this.setMenu("chats", data)
+            })
+    }
 
     // Диалог создания чата
 
@@ -27,6 +36,7 @@ class MessageStore {
         usersForChat: [],
         searchResults: [],
         chatName: "",
+        search: "",
     }
 
     @action setDialogChatCreation = (name, value) => {
@@ -39,18 +49,23 @@ class MessageStore {
             usersForChat: [],
             searchResults: [],
             chatName: "",
+            search: "",
         }
     }
 
-    @action searchUsers = (search) => {
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/wip/pages/`, "POST", {"search": search}).then(
+    @action searchUsers = () => {
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/users/`, "POST", { "search": this.dialogChatCreation.search, "counter": 0 }).then(
             (data) => {
-                
+                this.setDialogChatCreation("searchResults", data)
             })
     }
 
     @action selectUserInSearch = (index) => {
         this.dialogChatCreation.usersForChat.push(this.dialogChatCreation.searchResults[index])
+        this.dialogChatCreation.searchResults = this.dialogChatCreation.searchResults.filter((n, id) => {
+            if (id == index) return false
+            return true
+        })
     }
 
     @action deleteInUsersForChat = (index) => {
@@ -68,9 +83,17 @@ class MessageStore {
             }
             this.setDialogChatCreation("chatName", newChatName)
         }
+        let users = []
+        for (let i = 0; i < this.dialogChatCreation.usersForChat.length; i++) {
+            users.push(this.dialogChatCreation.usersForChat[i].id)
+        }
         this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/`, "POST", { "name": this.dialogChatCreation.chatName }).then(
             (data) => {
-
+                this.setChat("id", data.id)
+                this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${this.chat.id}/users/add-all/`, "POST", { "ids": users }).then(
+                    (data) => {
+                        this.clearDialogChatCreation()
+                    })
             })
     }
 
@@ -78,17 +101,53 @@ class MessageStore {
     // Чат
 
     @observable chat = {
-        messages: []
+        id: "",
+        newMessage: "",
+        messages: [],
+        name: "",
+        role: "",
+        unread: 0,
+        users: 0,
+        usersInChat: [],
+        messageCounter: 0,
     }
 
     @action setChat = (name, value) => {
-        this.messages[name] = value
+        this.chat[name] = value
     }
 
     @action loadMetaForChat = (id) => {
+        this.setChat("id", id)
         this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${id}/`, "GET").then(
             (data) => {
+                console.log("metachat", data)
+                this.setChat("name", data["name"])
+                this.setChat("role", data["role"])
+                this.setChat("unread", data["unread"])
+                this.setChat("users", data["users"])
+            })
+    }
 
+    @action loadUsersForChat = (id) => {
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${id}/users/`, "POST", { "counter": 0 }).then(
+            (data) => {
+                console.log("users", data)
+                this.setChat("usersInChat", data)
+            })
+    }
+
+    @action loadMessageForChat = (id) => {
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${id}/message-history/`, "POST", { "counter": this.chat.messageCounter }).then(
+            (data) => {
+                console.log("messagesChat", data)
+                this.setChat("messages", data)
+            })
+    }
+
+    @action sendMessage = () => {
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${this.chat.id}/messages/`, "POST", { "content": this.chat.newMessage }).then(
+            (data) => {
+                this.setChat("newMessage", "")
             })
     }
 

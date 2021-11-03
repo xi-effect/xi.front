@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import { inject, observer } from 'mobx-react'
 
-import { Box, useTheme } from '@mui/material'
+import { Box, Button, useTheme } from '@mui/material'
 
 import Sidebar from './Sidebar'
 import Helpbar from './Helpbar'
@@ -13,10 +13,13 @@ import Loading from '../Loading/Loading'
 import SideDownbar from './SideDownbar'
 import ChatDialog from '../../PagesComponents/Messages/ChatDialog';
 
-const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer(({ rootStore, settingsStore, uiStore, children }) => {
+import { io } from "socket.io-client";
+
+import socket from '../../../utils/socket'
+
+const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore', 'messageStore')(observer(({ rootStore, settingsStore, uiStore, messageStore, children }) => {
     const theme = useTheme();
     const router = useRouter()
-
 
     React.useEffect(() => {
         rootStore.fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
@@ -28,7 +31,38 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                     settingsStore.setSettings("username", data.username)
                 }
             })
+        rootStore.fetchDataScr(`${rootStore.url}/settings/`, "GET")
+            .then((data) => {
+                if (data) {
+                    console.log("settings", data)
+                    if (data?.avatar?.body !== undefined) {
+                        settingsStore.setSettings("avatar", data["avatar"])
+                    } else {
+                        settingsStore.setSettings("avatar", {
+                            accessory: 0,
+                            body: 0,
+                            face: 0,
+                            hair: 0,
+                            facialHair: 0,
+                        })
+                    }
+                }
+            })
+        messageStore.loadChatsInMenu()
     }, [])
+
+    // const socketClick = () => {
+    //     socket.emit("open", {
+    //         "chat-id": 2,
+    //         "data": {}
+    //     });
+    // }
+
+    // if (socket != null) {
+    //     socket.on("hello", (arg) => {
+    //         console.log(arg);
+    //     })
+    // }
 
     return (
         <>
@@ -58,6 +92,9 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                     >
                         {children}
                     </Box>
+                    {/* <Button sx={{ position: 'absolute', top: 64, left: 512 }} onClick={socketClick}>
+                        Click
+                    </Button> */}
                     <ChatDialog />
                 </Box>
             }
