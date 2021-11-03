@@ -74,6 +74,9 @@ class ManagmentStore {
         if (type === "quiz") {
             this.pageCreation.components.push({ type: "quiz", quizType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [], successAnswer: null })
         }
+        if (type === "list") {
+            this.pageCreation.components.push({ type: "list", quizType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [], successAnswer: null })
+        }
         //this.idComponents()
         console.log("compot", this.pageCreation.components)
     }

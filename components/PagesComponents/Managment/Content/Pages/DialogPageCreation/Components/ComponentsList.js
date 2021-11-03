@@ -12,7 +12,7 @@ import AlertComp from './AlertComp';
 import DividerComp from './DividerComp';
 import ImageComp from './ImageComp';
 import Quiz from './Quiz';
-
+import List from './List';
 
 const PREFIX = 'ComponentsList';
 
@@ -87,6 +87,11 @@ const ModuleSelect = (component, index) => {
     if (component.type === "quiz") return (
         <>
             <Quiz index={index} />
+        </>
+    )
+    if (component.type === "list") return (
+        <>
+            <List index={index} />
         </>
     )
 }

@@ -19,7 +19,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import VerticalAlignCenterIcon from '@mui/icons-material/VerticalAlignCenter';
 import ImageIcon from '@mui/icons-material/Image';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-
+import ListAltIcon from '@mui/icons-material/ListAlt';
 
 const PREFIX = 'StepTwo';
 
@@ -148,6 +148,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
         { name: "Опрос", icon: <QuestionAnswerIcon />, type: "quiz" },
         { name: "Замечание", icon: <NotificationsIcon />, type: "alert" },
         { name: "Разделитель", icon: <VerticalAlignCenterIcon />, type: "divider" },
+        { name: "Список", icon: <ListAltIcon />, type: "list" },
     ]
 
 
