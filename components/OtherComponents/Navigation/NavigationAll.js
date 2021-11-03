@@ -26,6 +26,7 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore', 'messageSt
             .then((data) => {
                 if (data) {
                     console.log("settings/main", data)
+                    messageStore.loadChatsInMenu()
                     uiStore.setLoading("navigation", false)
                     settingsStore.setSettings("darkTheme", data["dark-theme"])
                     settingsStore.setSettings("username", data.username)
@@ -35,20 +36,9 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore', 'messageSt
             .then((data) => {
                 if (data) {
                     console.log("settings", data)
-                    if (data?.avatar?.body !== undefined) {
-                        settingsStore.setSettings("avatar", data["avatar"])
-                    } else {
-                        settingsStore.setSettings("avatar", {
-                            accessory: 0,
-                            body: 0,
-                            face: 0,
-                            hair: 0,
-                            facialHair: 0,
-                        })
-                    }
+                    settingsStore.setSettings("avatar", data["avatar"])
                 }
             })
-        messageStore.loadChatsInMenu()
     }, [])
 
     // const socketClick = () => {

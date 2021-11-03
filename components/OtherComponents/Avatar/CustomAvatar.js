@@ -159,14 +159,14 @@ const accessory = {
     "6": "GlassButterflyOutline",
     "7": "GlassClubmaster",
     "8": "GlassRound",
-    "8": "Eyepatch",
+    "9": "Eyepatch",
 }
 
 const CustomAvatar = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore, avatar }) => {
     return (
         <Box sx={{
-            height: 290,
-            width: 290,
+            height: '100%',
+            width: '100%',
         }}>
             <Peep
                 style={styles.peepStyle}

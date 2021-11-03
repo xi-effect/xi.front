@@ -53,7 +53,7 @@ const Settings = inject('rootStore', 'settingsStore')(observer(({ rootStore, set
               {!mobile && <Button sx={{ ml: "auto", mr: 1, mb: 1.2, }} onClick={() => settingsStore.saveNewSettimgs()} color="inherit">
                 Сохранить изменения
               </Button>}
-              {mobile && <Tooltip title="Выйти">
+              {mobile && <Tooltip title="Сохранить изменения">
                 <IconButton sx={{ ml: "auto", mr: 1, mb: 1, }} onClick={() => settingsStore.saveNewSettimgs()} color="inherit">
                   <SaveIcon />
                 </IconButton>
