@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React from 'react';
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import { Divider, AppBar, Toolbar, Input, Stack, Avatar, Tooltip, InputAdornment, FormControl, useMediaQuery, Link, Button, IconButton, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
+import { Divider, AppBar, Popper, Toolbar, Input, Menu, MenuItem, Stack, Avatar, Tooltip, InputAdornment, FormControl, useMediaQuery, Link, Button, IconButton, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
 
 import { inject, observer } from 'mobx-react'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
@@ -23,6 +23,27 @@ import CustomAvatar from '../../OtherComponents/Avatar/CustomAvatar';
 
 const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, item, nextItem }) => {
     const theme = useTheme();
+
+    const [contextMenu, setContextMenu] = React.useState(null);
+
+    const handleContextMenu = (event) => {
+        event.preventDefault();
+        setContextMenu(
+            contextMenu === null
+                ? {
+                    mouseX: event.clientX - 2,
+                    mouseY: event.clientY - 4,
+                }
+                : // repeated contextmenu when it is already open closes it with Chrome 84 on Ubuntu
+                // Other native context menus might behave different.
+                // With this behavior we prevent contextmenu from the backdrop to re-locale existing context menus.
+                null,
+        );
+    };
+
+    const handleClose = () => {
+        setContextMenu(null);
+    };
 
     const [hover, setHover] = React.useState(false);
     const itemDate = new Date(item.sent)
@@ -71,11 +92,12 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
             >
                 {
                     nextItem["sender-name"] !== item["sender-name"] &&
-                    <Box sx={{ position: 'absolute', top: "12px", left: "2px", height: 64, width: 64, bgcolor: 'constant.landingBlue', borderRadius: 2 }}>
-                        <CustomAvatar avatar={item["sender-avatar"]} viewBox={{ x: '50', y: '-100', width: '732', height: '732' }}/>
+                    <Box sx={{ position: 'absolute', top: "12px", left: "2px", height: 64, width: 64, }}>
+                        <CustomAvatar avatar={item["sender-avatar"]} viewBox={{ x: '50', y: '-100', width: '732', height: '732' }} />
                     </Box>
                 }
                 <Stack
+                    onContextMenu={handleContextMenu}
                     onMouseEnter={e => setHover(true)}
                     onMouseLeave={e => setHover(false)}
                     direction="column"
@@ -98,7 +120,7 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
                         // borderRadius: 1,
                         // width: '100%',
                         // maxWidth: 1200,
-                        width: "calc(100% - 156px)",
+                        width: "calc(100% - 72px)",
                         '&:hover': {
                             bgcolor: 'background.1',
                         }
@@ -131,12 +153,46 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
                             <Typography sx={{ color: 'text.dark' }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
                         </Stack>
                     }
-                    
+
                     <Grid container wrap="nowrap">
                         <Grid item xs>
                             <Typography> {item.content} </Typography>
                         </Grid>
                     </Grid>
+                    <Popper
+                        open={open}
+                        anchorEl={anchorRef.current}
+                        role={undefined}
+                        placement="bottom-start"
+                        transition
+                        disablePortal
+                    >
+                        {({ TransitionProps, placement }) => (
+                            <Grow
+                                {...TransitionProps}
+                                style={{
+                                    transformOrigin:
+                                        placement === 'bottom-start' ? 'left top' : 'left bottom',
+                                }}
+                            >
+                                <Paper>
+                                    <ClickAwayListener onClickAway={handleClose}>
+                                        <MenuList
+                                            autoFocusItem={open}
+                                            id="composition-menu"
+                                            aria-labelledby="composition-button"
+                                            onKeyDown={handleListKeyDown}
+                                        >
+                                            <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                            <MenuItem onClick={handleClose}>My account</MenuItem>
+                                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                                        </MenuList>
+                                    </ClickAwayListener>
+                                </Paper>
+                            </Grow>
+                        )}
+                    </Popper>
+
                 </Stack >
             </Stack >
 

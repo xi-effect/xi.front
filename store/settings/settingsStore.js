@@ -18,6 +18,7 @@ class SettingsStore {
             face: 0,
             hair: 0,
             facialHair: 0,
+            bgcolor: 0,
         },
         username: '',
         darkTheme: true,

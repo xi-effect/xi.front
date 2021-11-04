@@ -51,7 +51,7 @@ const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageS
                     direction="column-reverse"
                     justifyContent="flex-start"
                     alignItems="center"
-                    sx={{ width: '100%', paddingBottom: 10, paddingTop: 10 }}
+                    sx={{ width: '100%', paddingBottom: 12, paddingTop: 12, pl: 2, pr: 2 }}
                 >
                     <div ref={messagesEndRef} sx={{ position: 'absolute', bottom: 0, left: 0 }} />
                     {messageStore.chat.messages.map((item, index) => (

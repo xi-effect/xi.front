@@ -162,11 +162,29 @@ const accessory = {
     "9": "Eyepatch",
 }
 
+const bgcolor = [
+    "#78909c",
+    "#9c27b0",
+    "#673ab7",
+    "#2196f3",
+    "#03a9f4",
+    '#00bcd4',
+    "#009688",
+    "#4caf50",
+    "#8bc34a",
+    "#cddc39",
+    "#ffeb3b",
+    "#ffc107",
+    "#ff9800",
+]
+
 const CustomAvatar = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore, avatar, viewBox }) => {
     return (
         <Box sx={{
             height: '100%',
             width: '100%',
+            bgcolor: bgcolor[avatar.bgcolor] ?? null,
+            borderRadius: 2,
         }}>
             <Peep
                 style={styles.peepStyle}
