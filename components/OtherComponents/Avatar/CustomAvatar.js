@@ -162,7 +162,7 @@ const accessory = {
     "9": "Eyepatch",
 }
 
-const CustomAvatar = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore, avatar }) => {
+const CustomAvatar = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore, avatar, viewBox }) => {
     return (
         <Box sx={{
             height: '100%',
@@ -177,7 +177,7 @@ const CustomAvatar = inject('rootStore', 'settingsStore')(observer(({ rootStore,
                 facialHair={facialHair[avatar?.facialHair ?? 0]}
                 strokeColor='#000000'
                 backgroundColor={"rgba(255, 255, 255, 0.9)"}
-                viewBox={{ x: '-175', y: '-100', width: '1256', height: '1256' }}
+                viewBox={viewBox}
             />
         </Box>
     );

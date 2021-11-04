@@ -49,7 +49,7 @@ const Settings = inject('rootStore', 'settingsStore')(observer(({ rootStore, set
               }}
             >
               {/* <Typography variant="h6" sx={{ pl: 1 }}> {settingsStore.settings.username} </Typography> */}
-              <CustomAvatar avatar={settingsStore.settings.avatar} />
+              <CustomAvatar avatar={settingsStore.settings.avatar} viewBox={{ x: '-175', y: '-100', width: '1256', height: '1256' }} />
               {!mobile && <Button sx={{ ml: "auto", mr: 1, mb: 1.2, }} onClick={() => settingsStore.saveNewSettimgs()} color="inherit">
                 Сохранить изменения
               </Button>}

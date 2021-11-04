@@ -58,7 +58,7 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
                     // minHeight: nextItem["sender-name"] === item["sender-name"] ? 0 : 132,
                     // m: 1,
                     // ml: 3,
-                    mt: nextItem["sender-name"] === item["sender-name"] ? 0 : 12,
+                    mt: nextItem["sender-name"] === item["sender-name"] ? 0 : 2,
                     borderRadius: 1,
                     // width: '100%',
                     maxWidth: 1200,
@@ -71,8 +71,8 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
             >
                 {
                     nextItem["sender-name"] !== item["sender-name"] &&
-                    <Box sx={{ position: 'absolute', top: "1px", left: "1px", height: 156, width: 156 }}>
-                        <CustomAvatar avatar={item["sender-avatar"]} />
+                    <Box sx={{ position: 'absolute', top: "12px", left: "2px", height: 64, width: 64, bgcolor: 'constant.landingBlue', borderRadius: 2 }}>
+                        <CustomAvatar avatar={item["sender-avatar"]} viewBox={{ x: '50', y: '-100', width: '732', height: '732' }}/>
                     </Box>
                 }
                 <Stack
@@ -94,7 +94,7 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
                         // mt: nextItem["sender-name"] === item["sender-name"] ? 0 : 2,
                         // minHeight: nextItem["sender-name"] === item["sender-name"] ? 0 : 132,
                         // m: 1,
-                        ml: 16,
+                        ml: 10,
                         // borderRadius: 1,
                         // width: '100%',
                         // maxWidth: 1200,
