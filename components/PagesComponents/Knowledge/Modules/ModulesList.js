@@ -11,6 +11,7 @@ import StarIcon from '@mui/icons-material/Star';
 import FlagIcon from '@mui/icons-material/Flag';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 import { inject, observer } from 'mobx-react'
+import { useRouter } from 'next/router'
 
 const PREFIX = 'ModulesList';
 
@@ -115,7 +116,7 @@ const coursesImgList = {
 
 const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
     const theme = useTheme();
-
+    const router = useRouter()
 
     const options = [
         'Скрыть курс',
@@ -295,17 +296,10 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                         <CardActions>
                             <Grid spacing={1} container justifyContent="center">
                                 <Grid>
-                                    <Link
-                                        href={{
-                                            pathname: '/knowledge/module/[moduleId]/start',
-                                            query: { moduleId: module.id },
-                                        }}
-                                        passHref>
-                                        <Button variant="contained" color="primary" >
-                                            {!module.started && <Typography variant="subtitle1">Приступить к модулю</Typography>}
-                                            {module.started && <Typography variant="subtitle1">Продолжить модуль</Typography>}
-                                        </Button>
-                                    </Link>
+                                    <Button onClick={() => router.push(`/knowledge/module/${module.id}/start`)} variant="contained" color="primary" >
+                                        {!module.started && <Typography variant="subtitle1">Приступить к модулю</Typography>}
+                                        {module.started && <Typography variant="subtitle1">Продолжить модуль</Typography>}
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </CardActions>

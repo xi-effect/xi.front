@@ -109,11 +109,17 @@ class MessageStore {
         unread: 0,
         users: 0,
         usersInChat: [],
-        messageCounter: 0,
+        uploading: true,
+        messageCounter: 1,
+        hasNext: true,
     }
 
     @action setChat = (name, value) => {
         this.chat[name] = value
+    }
+
+    @action pushNewMessageToChat = (data) => {
+        this.chat.messages.push(...data)
     }
 
     @action loadMetaForChat = (id) => {
@@ -136,11 +142,28 @@ class MessageStore {
             })
     }
 
-    @action loadMessageForChat = (id) => {
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${id}/message-history/`, "POST", { "counter": this.chat.messageCounter }).then(
+    @action uploadFirstMessages = (id) => {
+        // this.setChat("uploading", true)
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${id}/message-history/`, "POST", { "counter": 0 }).then(
             (data) => {
+                // console.log("messageCounter", this.chat.messageCounter)
                 console.log("messagesChat", data)
-                this.setChat("messages", data)
+                if (data.length < 50) this.setChat("hasNext", false)
+                this.pushNewMessageToChat(data)
+                // this.setChat("uploading", false)
+            })
+    }
+
+    @action uploadMoreMessages = () => {
+        // this.setChat("uploading", true)
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${this.chat.id}/message-history/`, "POST", { "counter": this.chat.messageCounter }).then(
+            (data) => {
+                this.setChat("messageCounter", this.chat.messageCounter + 1)
+                // console.log("messageCounter", this.chat.messageCounter)
+                if (data.length < 50) this.setChat("hasNext", false)
+                console.log("messagesChat", data)
+                this.pushNewMessageToChat(data)
+                // this.setChat("uploading", false)
             })
     }
 

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React from 'react';
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import { Divider, AppBar, Popper, Toolbar, Input, Menu, MenuItem, Stack, Avatar, Tooltip, InputAdornment, FormControl, useMediaQuery, Link, Button, IconButton, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
+import { Divider, AppBar, Popper, Toolbar, Input, MenuList, Menu, MenuItem, Grow, ClickAwayListener, Stack, Avatar, Tooltip, InputAdornment, FormControl, useMediaQuery, Link, Button, IconButton, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
 
 import { inject, observer } from 'mobx-react'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
@@ -20,9 +20,25 @@ import ReplyIcon from '@mui/icons-material/Reply';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CustomAvatar from '../../OtherComponents/Avatar/CustomAvatar';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 
 const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, item, nextItem }) => {
     const theme = useTheme();
+
+    const [hover, setHover] = React.useState(false);
+    const itemDate = new Date(item.sent)
+    moment.locale('ru', {
+        calendar: {
+            lastDay: '[Yesterday, at] HH:mm',
+            sameDay: '[Today, at] HH:mm',
+            nextDay: '[Tomorrow at] LT',
+            lastWeek: 'HH:mm, DD/MM',
+            nextWeek: 'dddd [at] LT',
+            sameElse: 'L'
+        }
+    })
 
     const [contextMenu, setContextMenu] = React.useState(null);
 
@@ -45,25 +61,14 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
         setContextMenu(null);
     };
 
-    const [hover, setHover] = React.useState(false);
-    const itemDate = new Date(item.sent)
-    moment.locale('ru', {
-        calendar: {
-            lastDay: '[Yesterday, at] HH:mm',
-            sameDay: '[Today, at] HH:mm',
-            nextDay: '[Tomorrow at] LT',
-            lastWeek: 'HH:mm, DD/MM',
-            nextWeek: 'dddd [at] LT',
-            sameElse: 'L'
-        }
-    })
-
 
     if (nextItem !== null) {
         return (
             <Stack
                 onMouseEnter={e => setHover(true)}
-                onMouseLeave={e => setHover(false)}
+                onMouseLeave={e => {
+                    setHover(false)
+                }}
                 direction="column"
                 justifyContent="center"
                 alignItems="flex-start"
@@ -110,7 +115,7 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
                         // pb: nextItem["sender-name"] === item["sender-name"] ? 0 : 2,
 
                         pl: 1,
-
+                        pr: 6,
                         // ml: "156px",
                         // pr: 2,
                         // mt: nextItem["sender-name"] === item["sender-name"] ? 0 : 2,
@@ -153,45 +158,38 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
                             <Typography sx={{ color: 'text.dark' }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
                         </Stack>
                     }
-
+                    {/* {hover && <IconButton
+                        ref={anchorRef}
+                        id="composition-button"
+                        aria-controls={open ? 'composition-menu' : undefined}
+                        aria-expanded={open ? 'true' : undefined}
+                        aria-haspopup="true"
+                        sx={{ position: 'absolute', top: 1, right: 1, p: "2px" }}
+                    >
+                        <MoreHorizIcon />
+                    </IconButton>} */}
                     <Grid container wrap="nowrap">
                         <Grid item xs>
                             <Typography> {item.content} </Typography>
                         </Grid>
                     </Grid>
-                    <Popper
-                        open={open}
-                        anchorEl={anchorRef.current}
-                        role={undefined}
-                        placement="bottom-start"
-                        transition
-                        disablePortal
+                    <Menu
+                        open={contextMenu !== null}
+                        onClose={handleClose}
+                        anchorReference="anchorPosition"
+                        anchorPosition={
+                            contextMenu !== null
+                                ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
+                                : undefined
+                        }
                     >
-                        {({ TransitionProps, placement }) => (
-                            <Grow
-                                {...TransitionProps}
-                                style={{
-                                    transformOrigin:
-                                        placement === 'bottom-start' ? 'left top' : 'left bottom',
-                                }}
-                            >
-                                <Paper>
-                                    <ClickAwayListener onClickAway={handleClose}>
-                                        <MenuList
-                                            autoFocusItem={open}
-                                            id="composition-menu"
-                                            aria-labelledby="composition-button"
-                                            onKeyDown={handleListKeyDown}
-                                        >
-                                            <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                            <MenuItem onClick={handleClose}>My account</MenuItem>
-                                            <MenuItem onClick={handleClose}>Logout</MenuItem>
-                                        </MenuList>
-                                    </ClickAwayListener>
-                                </Paper>
-                            </Grow>
-                        )}
-                    </Popper>
+                        <Typography align='center' sx={{ color: 'text.dark', width: '100%', }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
+                        <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>
+                        <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>
+                        <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>
+                        <MenuItem onClick={handleClose}> <VolumeMuteIcon sx={{ mr: 1 }} /> Заглушить</MenuItem>
+                        <MenuItem onClick={handleClose}> <PersonRemoveIcon sx={{ mr: 1 }} /> Удалить пользователя</MenuItem>
+                    </Menu>
 
                 </Stack >
             </Stack >
