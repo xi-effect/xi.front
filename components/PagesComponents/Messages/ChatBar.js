@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React from 'react';
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import { Divider, AppBar, Toolbar, Tabs, Tab, Input, Stack, Tooltip, InputAdornment, FormControl, useMediaQuery, Link, Button, IconButton, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
+import { Divider, AppBar, Select, Toolbar, Tabs, Tab, Input, MenuItem, Stack, Tooltip, InputAdornment, FormControl, useMediaQuery, Link, Button, IconButton, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
 
 import { inject, observer } from 'mobx-react'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
@@ -28,6 +28,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -166,8 +167,8 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                             placeholder="Отправить сообщение"
                         />
                     </Stack>
-                    <Accordion sx={{ width: '100%', mt: 1, mb: 1 }} expanded={expanded}>
-                        <AccordionSummary expandIcon={null} aria-controls="panel1d-content" id="panel1d-header">
+                    <Accordion sx={{ width: '100%', mt: 1, mb: 1,}} expanded={expanded}>
+                        <AccordionSummary expandIcon={null} sx={{cursor: 'default !important'}} aria-controls="panel1d-content" id="panel1d-header">
                             <IconButton onClick={() => setExpanded(!expanded)} size="large">
                                 <ExpandMoreIcon
                                     sx={{
@@ -176,11 +177,11 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                     }}
                                 />
                             </IconButton>
-                            <IconButton size="large">
+                            {(messageStore.chat.role === 'owner' || messageStore.chat.role === 'admin') && <IconButton size="large">
                                 <Tooltip title="Добавить пользователя" arrow>
                                     <PersonAddIcon />
                                 </Tooltip>
-                            </IconButton>
+                            </IconButton>}
                             <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 'auto', mr: 0.2 }} edge="end" size="large">
                                 <Tooltip title="Отправить" arrow>
                                     <SendIcon sx={{ color: 'text.main' }} />
@@ -196,30 +197,35 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                     width: '100%',
                                 }}
                             >
-                                {edit &&
+                                {(messageStore.chat.role === 'owner' || messageStore.chat.role === 'admin') && edit &&
                                     <Input
                                         sx={{ backgroundColor: 'background.2', width: "100%", }}
                                         type='text'
-                                        value={messageStore.chat.newMessage}
-                                        onChange={(e) => messageStore.setChat("newMessage", e.target.value)}
-                                        multiline
-                                        maxRows={5}
-                                        placeholder="Отправить сообщение"
+                                        value={messageStore.chat.name}
+                                        onChange={(e) => messageStore.setChat("name", e.target.value)}
+                                        // multiline
+                                        maxRows={1}
+                                        placeholder="Имя чата"
                                     />
                                 }
                                 {!edit && <Typography sx={{ cursor: 'default', pl: 2 }} variant="h6">
                                     {`${messageStore.chat.name}`}
                                 </Typography>}
-                                {!edit && <IconButton sx={{ ml: 1 }} size="large">
+                                {(messageStore.chat.role === 'owner' || messageStore.chat.role === 'admin') && !edit && <IconButton onClick={() => setEdit(true)} sx={{ ml: 1 }} size="large">
                                     <Tooltip title="Изменить название чата" arrow>
                                         <ModeEditIcon />
                                     </Tooltip>
                                 </IconButton>}
-                                <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 'auto', mr: 1, color: 'error.dark' }} edge="end" size="large">
+                                {messageStore.chat.role === 'owner' && <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 'auto', mr: 1, color: 'error.dark' }} edge="end" size="large">
                                     <Tooltip title="Удалить чат" arrow>
                                         <DeleteSweepIcon />
                                     </Tooltip>
-                                </IconButton>
+                                </IconButton>}
+                                {messageStore.chat.role !== 'owner' && <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 'auto', mr: 1, color: 'error.dark' }} edge="end" size="large">
+                                    <Tooltip title="Выйти из чата" arrow>
+                                        <LogoutIcon />
+                                    </Tooltip>
+                                </IconButton>}
                             </Stack>
                             <Tabs
                                 value={value}
@@ -270,6 +276,21 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                             >
                                                 {item.username}
                                             </Link>
+                                            <FormControl variant="standard" sx={{ ml: 'auto', mr: 1, width: 150 }}>
+                                                <Select
+                                                    // labelId="demo-simple-select-standard-label"
+                                                    // id="demo-simple-select-standard"
+                                                    value={item.role}
+                                                    onChange={() => messageStore.changeUserRole(event.target.value)}
+                                                    label="Роль"
+                                                >
+                                                    <MenuItem value={'basic'}> Пользователь </MenuItem>
+                                                    <MenuItem value={'moder'}> Модератор </MenuItem>
+                                                    <MenuItem value={'admin'}> Администратор </MenuItem>
+                                                    <MenuItem value={'owner'}> Владелец </MenuItem>
+
+                                                </Select>
+                                            </FormControl>
                                         </Stack>
                                     ))}
                                 </Stack>

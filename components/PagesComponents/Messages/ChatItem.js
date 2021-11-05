@@ -27,8 +27,6 @@ import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, item, nextItem }) => {
     const theme = useTheme();
 
-    const [hover, setHover] = React.useState(false);
-    const itemDate = new Date(item.sent)
     moment.locale('ru', {
         calendar: {
             lastDay: '[Yesterday, at] HH:mm',
@@ -65,109 +63,56 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
     if (nextItem !== null) {
         return (
             <Stack
-                onMouseEnter={e => setHover(true)}
-                onMouseLeave={e => {
-                    setHover(false)
-                }}
                 direction="column"
                 justifyContent="center"
                 alignItems="flex-start"
                 sx={{
                     position: 'relative',
-                    // height: 64,
                     pt: nextItem["sender-name"] === item["sender-name"] ? 0 : 1,
-                    // pb: nextItem["sender-name"] === item["sender-name"] ? 0 : 2,
-                    // pl: 7,
-                    // ml: "156px",
                     pr: 2,
-                    // mt: nextItem["sender-name"] === item["sender-name"] ? 0 : 2,
-                    // minHeight: nextItem["sender-name"] === item["sender-name"] ? 0 : 132,
-                    // m: 1,
-                    // ml: 3,
                     mt: nextItem["sender-name"] === item["sender-name"] ? 0 : 2,
                     borderRadius: 1,
-                    // width: '100%',
                     maxWidth: 1200,
                     width: "100%",
-                    // '&:hover': {
-                    //     bgcolor: 'background.1',
-                    // }
-                    // bgcolor: 'background.1',
                 }}
             >
-                {
-                    nextItem["sender-name"] !== item["sender-name"] &&
-                    <Box sx={{ position: 'absolute', top: "12px", left: "2px", height: 64, width: 64, }}>
-                        <CustomAvatar avatar={item["sender-avatar"]} viewBox={{ x: '50', y: '-100', width: '732', height: '732' }} />
-                    </Box>
-                }
+                {nextItem["sender-name"] !== item["sender-name"] && <Box sx={{ position: 'absolute', top: "12px", left: "2px", height: 64, width: 64, }}>
+                    <CustomAvatar avatar={item["sender-avatar"]} viewBox={{ x: '50', y: '-100', width: '732', height: '732' }} />
+                </Box>}
                 <Stack
                     onContextMenu={handleContextMenu}
-                    onMouseEnter={e => setHover(true)}
-                    onMouseLeave={e => setHover(false)}
                     direction="column"
                     justifyContent="center"
                     alignItems="flex-start"
                     sx={{
                         position: 'relative',
-                        // height: 64,
-                        // pt: nextItem["sender-name"] === item["sender-name"] ? 0 : 1,
-                        // pb: nextItem["sender-name"] === item["sender-name"] ? 0 : 2,
-
                         pl: 1,
                         pr: 6,
-                        // ml: "156px",
-                        // pr: 2,
-                        // mt: nextItem["sender-name"] === item["sender-name"] ? 0 : 2,
-                        // minHeight: nextItem["sender-name"] === item["sender-name"] ? 0 : 132,
-                        // m: 1,
                         ml: 10,
-                        // borderRadius: 1,
-                        // width: '100%',
-                        // maxWidth: 1200,
                         width: "calc(100% - 72px)",
                         '&:hover': {
                             bgcolor: 'background.1',
                         }
-                        // bgcolor: 'background.1',
                     }}
                 >
-                    {
-                        nextItem["sender-name"] !== item["sender-name"] &&
-                        <Stack
-                            direction="row"
-                            justifyContent="flex-start"
-                            alignItems="center"
-                            spacing={2}
-                        >
-                            <Link
-                                sx={{
-                                    fontSize: 22,
-                                    cursor: "pointer",
-                                    color: 'text.main',
-                                }}
-                                // onClick={() => {
-                                //     router.push({
-                                //         pathname: '/students',
-                                //     })
-                                // }}
-                                underline="hover"
-                            >
-                                {item["sender-name"]}
-                            </Link>
-                            <Typography sx={{ color: 'text.dark' }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
-                        </Stack>
-                    }
-                    {/* {hover && <IconButton
-                        ref={anchorRef}
-                        id="composition-button"
-                        aria-controls={open ? 'composition-menu' : undefined}
-                        aria-expanded={open ? 'true' : undefined}
-                        aria-haspopup="true"
-                        sx={{ position: 'absolute', top: 1, right: 1, p: "2px" }}
+                    {nextItem["sender-name"] !== item["sender-name"] && <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        spacing={2}
                     >
-                        <MoreHorizIcon />
-                    </IconButton>} */}
+                        <Link
+                            sx={{
+                                fontSize: 22,
+                                cursor: "pointer",
+                                color: 'text.main',
+                            }}
+                            underline="hover"
+                        >
+                            {item["sender-name"]}
+                        </Link>
+                        <Typography sx={{ color: 'text.dark' }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
+                    </Stack>}
                     <Grid container wrap="nowrap">
                         <Grid item xs>
                             <Typography> {item.content} </Typography>
@@ -190,7 +135,6 @@ const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, 
                         <MenuItem onClick={handleClose}> <VolumeMuteIcon sx={{ mr: 1 }} /> Заглушить</MenuItem>
                         <MenuItem onClick={handleClose}> <PersonRemoveIcon sx={{ mr: 1 }} /> Удалить пользователя</MenuItem>
                     </Menu>
-
                 </Stack >
             </Stack >
 

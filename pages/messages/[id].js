@@ -15,38 +15,77 @@ import ChatItem from '../../components/PagesComponents/Messages/ChatItem';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+const LoadingSkeleton = () => {
+
+    return (
+        <>
+            {[...Array(15)].map((item, index) => (
+                <Stack
+                    key={index.toString()}
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={2}
+                    sx={{
+                        width: 'calc(100% - 20px)',
+                        marginLeft: "20px",
+                    }}
+                >
+                    <Stack
+
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="flex-start"
+                        sx={{
+                            position: 'relative',
+                            pt: 1,
+                            pr: 2,
+                            mt: 2,
+                            borderRadius: 1,
+                            // width: '100%',
+                            maxWidth: 1200,
+                            width: "100%",
+                        }}>
+                        <Box sx={{ position: 'absolute', top: "12px", left: "2px", height: 64, width: 64, }}>
+                            <Skeleton sx={{
+                                ml: 1,
+                                height: "100%",
+                                width: "100%",
+                                borderRadius: 1,
+                            }} />
+                        </Box>
+                        <Stack
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="flex-start"
+                            sx={{
+                                position: 'relative',
+                                pl: 1,
+                                pr: 6,
+                                ml: 10,
+                                width: "calc(100% - 72px)",
+                            }}
+                        >
+                            <Skeleton sx={{
+                                height: 64,
+                                ml: 1,
+                                height: "100%",
+                                width: "100%",
+                                borderRadius: 1,
+                            }} />
+                        </Stack>
+                    </Stack>
+                </Stack>
+            ))}
+        </>
+    )
+}
+
 const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageStore }) => {
     const theme = useTheme();
     const mobile = useMediaQuery(theme => theme.breakpoints.up('md'));
     const router = useRouter()
     // const { id } = router.query
-    // const messagesEndRef = React.useRef(null)
-
-    // const handleScroll = () => {
-    //     const position = window.pageYOffset;
-    //     // console.log("position", position)
-    //     if (position <= 300 && position > 200 && !messageStore.chat.uploading) {
-    //         console.log("download",)
-    //         const id = window.location.href.split('/').pop();
-    //         messageStore.uploadMoreMessages(id)
-    //     }
-    // };
-
-    // React.useEffect(() => {
-    //     window.addEventListener('scroll', handleScroll, { passive: true });
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll);
-    //     };
-    // }, []);
-
-
-    // const scrollToBottom = () => {
-    //     messagesEndRef.current?.scrollIntoView()
-    // }
-
-    // // React.useEffect(() => {
-    // //     scrollToBottom()
-    // // }, []);
 
     // //messageStore.chat.messages
     // // const executeScroll = () => 
@@ -79,7 +118,9 @@ const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageS
                     id="scrollableDiv"
                     style={{
                         height: "100vh",
-                        overflow: 'auto',
+                        width: '100%',
+                        overflowY: 'auto',
+                        overFlowX: 'hidden',
                         display: 'flex',
                         flexDirection: 'column-reverse',
                     }}
@@ -92,13 +133,13 @@ const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageS
                         inverse={true} //
                         scrollThreshold={0.6}
                         hasMore={messageStore.chat.hasNext}
-                        endMessage={<Typography align='center' sx={{ color: 'text.main', width: '100%', m: 4 }} variant="subtitle2"> Это всё </Typography>}
-                        loader={<Typography align='center' sx={{ color: 'text.main', width: '100%', m: 4 }} variant="subtitle2"> Загрузка </Typography>}
+                        //endMessage={<Typography align='center' sx={{ color: 'text.main', width: '100%', m: 4 }} variant="subtitle2"> Это всё </Typography>}
+                        loader={<LoadingSkeleton />}
                         scrollableTarget="scrollableDiv"
                     >
                         <Stack sx={{ height: "172px" }}>
                         </Stack>
-
+                        {messageStore.chat.messages.length === 0 && <LoadingSkeleton />}
                         {messageStore.chat.messages.map((item, index) => (
                             <Stack
                                 key={index.toString()}
