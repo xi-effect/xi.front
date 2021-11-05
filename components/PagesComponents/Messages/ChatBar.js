@@ -116,6 +116,15 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
         setValue(newValue);
     };
 
+    const getUserRoleLabel = (role) => {
+        if (role === 'basic') return 'Пользователь'
+        if (role === 'moder') return 'Модератор'
+        if (role === 'admin') return 'Администратор'
+        if (role === 'owner') return 'Владелец'
+        if (role === 'muted') return 'Читатель'
+
+    }
+
     return (
         <Box sx={{
             position: 'fixed',
@@ -167,8 +176,8 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                             placeholder="Отправить сообщение"
                         />
                     </Stack>
-                    <Accordion sx={{ width: '100%', mt: 1, mb: 1,}} expanded={expanded}>
-                        <AccordionSummary expandIcon={null} sx={{cursor: 'default !important'}} aria-controls="panel1d-content" id="panel1d-header">
+                    <Accordion sx={{ width: '100%', mt: 1, mb: 1, }} expanded={expanded}>
+                        <AccordionSummary expandIcon={null} sx={{ cursor: 'default !important' }} aria-controls="panel1d-content" id="panel1d-header">
                             <IconButton onClick={() => setExpanded(!expanded)} size="large">
                                 <ExpandMoreIcon
                                     sx={{
@@ -276,21 +285,61 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                             >
                                                 {item.username}
                                             </Link>
-                                            <FormControl variant="standard" sx={{ ml: 'auto', mr: 1, width: 150 }}>
-                                                <Select
-                                                    // labelId="demo-simple-select-standard-label"
-                                                    // id="demo-simple-select-standard"
-                                                    value={item.role}
-                                                    onChange={() => messageStore.changeUserRole(event.target.value)}
-                                                    label="Роль"
-                                                >
-                                                    <MenuItem value={'basic'}> Пользователь </MenuItem>
-                                                    <MenuItem value={'moder'}> Модератор </MenuItem>
-                                                    <MenuItem value={'admin'}> Администратор </MenuItem>
-                                                    <MenuItem value={'owner'}> Владелец </MenuItem>
+                                            <Box sx={{ ml: 'auto', mr: 1 }}>
+                                            </Box>
+                                            {(messageStore.chat.role === 'admin' || messageStore.chat.role === 'moder' || messageStore.chat.role === 'owner') && <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 1, mr: 1, color: 'error.dark' }} edge="end" size="large">
+                                                <Tooltip title="Удалить пользователя" arrow>
+                                                    <LogoutIcon />
+                                                </Tooltip>
+                                            </IconButton>}
+                                            {messageStore.chat.role === 'moder' && (item.role != 'moder' || item.role != 'admin' || item.role != 'owner') &&
+                                                <FormControl variant="standard" sx={{ ml: 1, mr: 1, width: 150 }}>
+                                                    <Select
+                                                        // labelId="demo-simple-select-standard-label"
+                                                        // id="demo-simple-select-standard"
+                                                        value={item.role}
+                                                        onChange={() => messageStore.changeUserRole(event.target.value)}
+                                                        label="Роль"
+                                                    >
+                                                        <MenuItem value={'muted'}> Читатель </MenuItem>
+                                                        <MenuItem value={'basic'}> Пользователь </MenuItem>
+                                                    </Select>
+                                                </FormControl>
+                                            }
+                                            {messageStore.chat.role === 'admin' && (item.role != 'admin' || item.role != 'owner') &&
+                                                <FormControl variant="standard" sx={{ ml: 1, mr: 1, width: 150 }}>
+                                                    <Select
+                                                        // labelId="demo-simple-select-standard-label"
+                                                        // id="demo-simple-select-standard"
+                                                        value={item.role}
+                                                        onChange={() => messageStore.changeUserRole(event.target.value)}
+                                                        label="Роль"
+                                                    >
+                                                        <MenuItem value={'muted'}> Читатель </MenuItem>
+                                                        <MenuItem value={'basic'}> Пользователь </MenuItem>
+                                                        <MenuItem value={'moder'}> Модератор </MenuItem>
+                                                    </Select>
+                                                </FormControl>
+                                            }
+                                            {messageStore.chat.role === 'owner' &&
+                                                <FormControl variant="standard" sx={{ ml: 1, mr: 1, width: 150 }}>
+                                                    <Select
+                                                        // labelId="demo-simple-select-standard-label"
+                                                        // id="demo-simple-select-standard"
+                                                        value={item.role}
+                                                        onChange={() => messageStore.changeUserRole(event.target.value)}
+                                                        label="Роль"
+                                                    >
+                                                        <MenuItem value={'muted'}> Читатель </MenuItem>
+                                                        <MenuItem value={'basic'}> Пользователь </MenuItem>
+                                                        <MenuItem value={'moder'}> Модератор </MenuItem>
+                                                        <MenuItem value={'admin'}> Администратор </MenuItem>
+                                                        {/* <MenuItem value={'owner'}> Владелец </MenuItem> */}
+                                                    </Select>
+                                                </FormControl>
+                                            }
 
-                                                </Select>
-                                            </FormControl>
+                                            {(messageStore.chat.role === 'basic' || messageStore.chat.role === 'muted' || (messageStore.chat.role === 'moder' && (item.role === 'owner' || item.role === 'admin' || item.role === 'moder')) || (messageStore.chat.role === 'admin' && (item.role === 'owner' || item.role === 'admin'))) && <Typography sx={{ ml: 1, mr: 1, width: 120, cursor: 'default' }}> {getUserRoleLabel(item.role)} </Typography>}
                                         </Stack>
                                     ))}
                                 </Stack>
