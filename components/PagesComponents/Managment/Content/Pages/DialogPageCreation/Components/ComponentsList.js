@@ -12,6 +12,7 @@ import AlertComp from './AlertComp';
 import DividerComp from './DividerComp';
 import ImageComp from './ImageComp';
 import Quiz from './Quiz';
+import Markdown from "./Markdown";
 
 
 const PREFIX = 'ComponentsList';
@@ -87,6 +88,11 @@ const ModuleSelect = (component, index) => {
     if (component.type === "quiz") return (
         <>
             <Quiz index={index} />
+        </>
+    )
+    if (component.type === "markdown") return (
+        <>
+            <Markdown index={index} />
         </>
     )
 }
