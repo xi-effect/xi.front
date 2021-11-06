@@ -75,12 +75,12 @@ class ManagmentStore {
             this.pageCreation.components.push({ type: "quiz", quizType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [], successAnswer: null })
         }
         if (type === "list") {
-            this.pageCreation.components.push({ type: "list", quizType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [], successAnswer: null })
+            this.pageCreation.components.push({ type: "list", listType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [], successAnswer: null })
         }
         //this.idComponents()
         console.log("compot", this.pageCreation.components)
     }
-    S
+    
     @action setSingleQuiz = (index, indexA) => {
         for (let i = 0; i < this.pageCreation.components[index].content.length; i += 1) {
             this.pageCreation.components[index].content[i].rightAnswer = false
@@ -88,7 +88,20 @@ class ManagmentStore {
         this.pageCreation.components[index].content[indexA].rightAnswer = true
     }
 
+    @action setNumberList = (index, indexA) => {
+        for (let i = 0; i < this.pageCreation.components[index].content.length; i += 1) {
+            this.pageCreation.components[index].content[i].rightAnswer = false
+        }
+        this.pageCreation.components[index].content[indexA].rightAnswer = true
+    }
+
     @action changeQuizType = (index) => {
+        for (let i = 0; i < this.pageCreation.components[index].content.length; i += 1) {
+            this.pageCreation.components[index].content[i].rightAnswer = false
+        }
+    }
+
+    @action changeListType = (index) => {
         for (let i = 0; i < this.pageCreation.components[index].content.length; i += 1) {
             this.pageCreation.components[index].content[i].rightAnswer = false
         }

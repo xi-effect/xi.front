@@ -22,6 +22,7 @@ import { inject, observer } from 'mobx-react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ListIcon from '@mui/icons-material/List';
+import LensIcon from '@mui/icons-material/Lens';
 
 const ListItem = inject('managmentStore')(observer(({ managmentStore, show, index, indexA }) => {
     const values = managmentStore.pageCreation.components[index]
@@ -35,6 +36,7 @@ const ListItem = inject('managmentStore')(observer(({ managmentStore, show, inde
             placeholder="Добавить элемент в список"
             sx={{
                 '& .MuiInput-input': {
+                    paddingLeft:"5px",
                     width: "100%",
                     color: 'text.main',
                     fontSize: values.fontSize,
@@ -43,6 +45,7 @@ const ListItem = inject('managmentStore')(observer(({ managmentStore, show, inde
                     fontWeight: values.fontWeight,
                     textDecoration: values.textDecoration,
                     lineHeight: "normal",
+                    
                 }
             }}
             type="text"
@@ -53,14 +56,16 @@ const ListItem = inject('managmentStore')(observer(({ managmentStore, show, inde
             onChange={(event) => managmentStore.setPageCreationContentComponents(index, indexA, "label", event.target.value)}
             startAdornment={
                 <>
-                    {values.quizType === 'single' && <Radio
-                        color="primary"
+                    {values.listType === 'single' && <LensIcon
+                        fontSize="1"
+                        color="main.dark"
                         checked={item.rightAnswer}
                         onChange={() => managmentStore.setSingleQuiz(index, indexA)}
 
                     />}
-                    {values.quizType === 'multiple' && <Checkbox
-                        color="primary"
+                    {values.listType === 'multiple' && <LensIcon
+                        fontSize="5px"
+                        color="main.dark"
                         checked={item.rightAnswer}
                         onChange={() => managmentStore.setPageCreationContentComponents(index, indexA, "rightAnswer", !item.rightAnswer)}
                     //onChange={handleChange}
