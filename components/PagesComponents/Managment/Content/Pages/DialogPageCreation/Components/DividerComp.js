@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
-import { Input, Divider, IconButton, Grid, useTheme, Tooltip } from '@mui/material';
+import { Fade, Input, Divider, IconButton, Grid, useTheme, Tooltip } from '@mui/material';
 
 
 import clsx from 'clsx';
@@ -79,10 +79,13 @@ const DividerComp = inject('managmentStore')(observer(({ managmentStore, index }
         setOpen(true);
     };
 
+    const [hover, setHover] = React.useState(false)
 
     return (
         <Root>
             <Grid
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
                 container
                 direction="column"
                 justifyContent="center"
@@ -95,37 +98,39 @@ const DividerComp = inject('managmentStore')(observer(({ managmentStore, index }
                             bgcolor: 'text.dark',
                             width: "100%",
                             height: "2px",
-                            margin: theme.spacing(1, 0.5),
+                            mt: 0.5,
+                            mb: 0.5,
+                            // margin: 0.5,
                         }}
                     />
                 </Grid>
-                <Divider sx={{
-                    backgroundColor: 'text.dark',
-                    width: "100%",
-                    height: "1px",
-                    margin: theme.spacing(1, 0.5),
-                }} />
-                <Grid
-                    container
-                    direction="row"
-                    className={classes.gridButtons}
+                <Fade
+                    in={hover}
+                    style={{ transformOrigin: '0 0 0' }}
+                    {...(hover ? { timeout: 1000 } : {})}
                 >
-                    <Tooltip title="Удалить блок">
-                        <IconButton
-                            sx={{
-                                marginLeft: "auto"
-                            }}
-                            onClick={() => managmentStore.deleteComponent(index)}
-                            size="large">
-                            <DeleteForeverIcon sx={{ color: 'text.main' }} />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Перетащить блок">
-                        <IconButton size="large">
-                            <DragIndicatorIcon sx={{ color: 'text.main' }} />
-                        </IconButton>
-                    </Tooltip>
-                </Grid>
+                    <Grid
+                        container
+                        direction="row"
+                        className={classes.gridButtons}
+                    >
+                        <Tooltip title="Удалить блок">
+                            <IconButton
+                                sx={{
+                                    marginLeft: "auto"
+                                }}
+                                onClick={() => managmentStore.deleteComponent(index)}
+                                size="large">
+                                <DeleteForeverIcon sx={{ color: 'text.main' }} />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Перетащить блок">
+                            <IconButton size="large">
+                                <DragIndicatorIcon sx={{ color: 'text.main' }} />
+                            </IconButton>
+                        </Tooltip>
+                    </Grid>
+                </Fade>
             </Grid>
         </Root>
     );

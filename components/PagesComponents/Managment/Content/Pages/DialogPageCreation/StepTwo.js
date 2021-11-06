@@ -44,13 +44,7 @@ const StyledGrid = styled(Grid)((
     },
 
     [`& .${classes.gridMain}`]: {
-        margin: 0,
-        //paddingLeft: 4,
-        padding: 0,
-        width: "100%",
-        height: "100%",
-        maxWidth: 1200,
-        display: "block",
+
         //overflow: "auto",
         // '&::-webkit-scrollbar': {
         //     width: "0! important",
@@ -229,7 +223,18 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="center"
-                className={classes.gridMain}
+                sx={{
+                    ml: 12,
+                    mt: 2,
+                    mb: 2,
+                    mr: 12,
+                    //paddingLeft: 4,
+                    padding: 0,
+                    width: "100%",
+                    height: "100%",
+                    maxWidth: 1200,
+                    display: "block",
+                }}
             >
                 <DnDList state={managmentStore.pageCreation.components} setState={managmentStore.setPageCreation} ComponentsList={<ComponentsList />} />
             </Grid >}

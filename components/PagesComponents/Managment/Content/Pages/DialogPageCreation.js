@@ -186,7 +186,7 @@ const DialogPageCreation = inject('rootStore', 'managmentStore')(observer(({ roo
     return (
         <Dialog
             sx={{
-                zIndex: "10000 !important",
+                zIndex: "1200 !important",
                 width: '100vw',
                 height: '100vh',
             }}
