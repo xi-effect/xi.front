@@ -24,9 +24,13 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 
-const ChatItem = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore, item, nextItem }) => {
+import socket from '../../../utils/socket';
+
+const ChatItem = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, item, nextItem }) => {
     const theme = useTheme();
 
+
+    
     moment.locale('ru', {
         calendar: {
             lastDay: '[Yesterday, at] HH:mm',

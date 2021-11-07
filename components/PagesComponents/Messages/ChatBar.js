@@ -29,6 +29,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+
+import socket from '../../../utils/socket';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -157,7 +160,7 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                         // bottom: 0,
                     }}
                 >
-                    <Stack
+                    {messageStore.chat.role !== 'muted' && <Stack
                         direction="row"
                         justifyContent="space-between"
                         alignItems="center"
@@ -166,7 +169,7 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                             pt: 2, pl: 2, pr: 2, pb: 0,
                         }}
                     >
-                        <Input
+                         <Input
                             sx={{ backgroundColor: 'background.2', width: "100%", }}
                             type='text'
                             value={messageStore.chat.newMessage}
@@ -175,7 +178,7 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                             maxRows={5}
                             placeholder="Отправить сообщение"
                         />
-                    </Stack>
+                    </Stack>}
                     <Accordion sx={{ width: '100%', mt: 1, mb: 1, }} expanded={expanded}>
                         <AccordionSummary expandIcon={null} sx={{ cursor: 'default !important' }} aria-controls="panel1d-content" id="panel1d-header">
                             <IconButton onClick={() => setExpanded(!expanded)} size="large">
@@ -191,11 +194,11 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                     <PersonAddIcon />
                                 </Tooltip>
                             </IconButton>}
-                            <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 'auto', mr: 0.2 }} edge="end" size="large">
+                            {messageStore.chat.role !== 'muted' && <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 'auto', mr: 0.2 }} edge="end" size="large">
                                 <Tooltip title="Отправить" arrow>
                                     <SendIcon sx={{ color: 'text.main' }} />
                                 </Tooltip>
-                            </IconButton>
+                            </IconButton>}
                         </AccordionSummary>
                         <AccordionDetails sx={{ bgcolor: 'background.2' }}>
                             <Stack
@@ -267,11 +270,19 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                             alignItems="center"
                                             spacing={0}
                                             sx={{
+                                                height: 48,
                                                 width: '100%',
+                                                // bgcolor: 'background.0',
+                                                '&:hover': {
+                                                    bgcolor: 'background.1',
+                                                },
+                                                borderRadius: 2,
+                                                transition: '0.8s',
                                             }}
                                         >
                                             <Link
                                                 sx={{
+                                                    ml: 1,
                                                     fontSize: 22,
                                                     cursor: "pointer",
                                                     color: 'text.main',
@@ -287,12 +298,12 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                             </Link>
                                             <Box sx={{ ml: 'auto', mr: 1 }}>
                                             </Box>
-                                            {(messageStore.chat.role === 'admin' || messageStore.chat.role === 'moder' || messageStore.chat.role === 'owner') && <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 1, mr: 1, color: 'error.dark' }} edge="end" size="large">
+                                            {((messageStore.chat.role === 'admin' && item.role !== 'owner' && item.role !== 'admin' ) || (messageStore.chat.role === 'moder' && item.role !== 'owner' && item.role !== 'admin' && item.role !== 'moder' ) || messageStore.chat.role === 'owner') && <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 1, mr: 1, color: 'error.dark' }} edge="end" size="large">
                                                 <Tooltip title="Удалить пользователя" arrow>
-                                                    <LogoutIcon />
+                                                    <PersonRemoveIcon />
                                                 </Tooltip>
                                             </IconButton>}
-                                            {messageStore.chat.role === 'moder' && (item.role != 'moder' || item.role != 'admin' || item.role != 'owner') &&
+                                            {messageStore.chat.role === 'moder' && (item.role != 'moder' && item.role != 'admin' && item.role != 'owner') &&
                                                 <FormControl variant="standard" sx={{ ml: 1, mr: 1, width: 150 }}>
                                                     <Select
                                                         // labelId="demo-simple-select-standard-label"
@@ -302,11 +313,11 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                                         label="Роль"
                                                     >
                                                         <MenuItem value={'muted'}> Читатель </MenuItem>
-                                                        <MenuItem value={'basic'}> Пользователь </MenuItem>
+                                                        <MenuItem value={'basic'}> Участник </MenuItem>
                                                     </Select>
                                                 </FormControl>
                                             }
-                                            {messageStore.chat.role === 'admin' && (item.role != 'admin' || item.role != 'owner') &&
+                                            {messageStore.chat.role === 'admin' && (item.role != 'admin' && item.role != 'owner') &&
                                                 <FormControl variant="standard" sx={{ ml: 1, mr: 1, width: 150 }}>
                                                     <Select
                                                         // labelId="demo-simple-select-standard-label"
@@ -316,7 +327,7 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                                         label="Роль"
                                                     >
                                                         <MenuItem value={'muted'}> Читатель </MenuItem>
-                                                        <MenuItem value={'basic'}> Пользователь </MenuItem>
+                                                        <MenuItem value={'basic'}> Участник </MenuItem>
                                                         <MenuItem value={'moder'}> Модератор </MenuItem>
                                                     </Select>
                                                 </FormControl>
@@ -331,7 +342,7 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                                         label="Роль"
                                                     >
                                                         <MenuItem value={'muted'}> Читатель </MenuItem>
-                                                        <MenuItem value={'basic'}> Пользователь </MenuItem>
+                                                        <MenuItem value={'basic'}> Участник </MenuItem>
                                                         <MenuItem value={'moder'}> Модератор </MenuItem>
                                                         <MenuItem value={'admin'}> Администратор </MenuItem>
                                                         {/* <MenuItem value={'owner'}> Владелец </MenuItem> */}
@@ -339,7 +350,7 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                                 </FormControl>
                                             }
 
-                                            {(messageStore.chat.role === 'basic' || messageStore.chat.role === 'muted' || (messageStore.chat.role === 'moder' && (item.role === 'owner' || item.role === 'admin' || item.role === 'moder')) || (messageStore.chat.role === 'admin' && (item.role === 'owner' || item.role === 'admin'))) && <Typography sx={{ ml: 1, mr: 1, width: 120, cursor: 'default' }}> {getUserRoleLabel(item.role)} </Typography>}
+                                            {(messageStore.chat.role === 'basic' || messageStore.chat.role === 'muted' || (messageStore.chat.role === 'moder' && (item.role === 'owner' || item.role === 'admin' || item.role === 'moder')) || (messageStore.chat.role === 'admin' && (item.role === 'owner' || item.role === 'admin'))) && <Typography sx={{ ml: 1, mr: 1, width: 150, cursor: 'default' }}> {getUserRoleLabel(item.role)} </Typography>}
                                         </Stack>
                                     ))}
                                 </Stack>

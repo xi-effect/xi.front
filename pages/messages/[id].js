@@ -15,6 +15,8 @@ import ChatItem from '../../components/PagesComponents/Messages/ChatItem';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import socket from '../../utils/socket'
+
 const LoadingSkeleton = () => {
 
     return (
@@ -86,17 +88,29 @@ const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageS
     const mobile = useMediaQuery(theme => theme.breakpoints.up('md'));
     const router = useRouter()
     // const { id } = router.query
-
+    socket.on("send", (arg) => {
+        if (messageStore.chat.hasNext) {
+            let newArray = messageStore.chat.messages
+            newArray.pop()
+            messageStore.setChat("messages", newArray)
+        }
+        
+    })
     // //messageStore.chat.messages
     // // const executeScroll = () => 
+    const id = window.location.href.split('/').pop();
     React.useEffect(() => {
-        // {behavior: "smooth"}
-        const id = window.location.href.split('/').pop();
+        socket.emit("open", { "chat-id": id })
+        console.log('open socket')
         console.log("id", id)
         messageStore.loadMetaForChat(id)
         messageStore.loadUsersForChat(id)
         messageStore.uploadFirstMessages(id)
-    }, [])
+        return () => {
+            socket.emit("close", { "chat-id": id })
+            console.log('close socket')
+        }
+    }, [id])
 
 
 

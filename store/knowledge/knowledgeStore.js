@@ -54,9 +54,9 @@ class KnowledgeStore {
         this.rootStore.fetchDataScr(`${this.rootStore.url}/pages/`, "POST", { "counter": this.pageList.counter, "search": this.pageList.search }).then(
             (data) => {
                 console.log("loadPageList", data)
-                this.setPageListData("pages", data)
+                this.setPageListData("pages", data.results)
                 this.setPageListData("loadingInd", false)
-                if (isSearch && data.length === 0) this.setPageListData("loadingNothing", true)
+                if (isSearch && data.results.length === 0) this.setPageListData("loadingNothing", true)
             })
     }
 
@@ -209,9 +209,9 @@ class KnowledgeStore {
         this.rootStore.fetchDataScr(`${this.rootStore.url}/modules/`, "POST", { "filters": filters, "counter": this.moduleList.counter, "search": this.moduleList.search, "sort": this.moduleList.sort, })
             .then((data) => {
                 console.log("loadModuleList", data)
-                this.setModuleListData("modules", data)
+                this.setModuleListData("modules", data.results)
                 this.setModuleListData("loadingInd", false)
-                if (isSearch && data.length === 0) this.setModuleListData("loadingNothing", true)
+                if (isSearch && data.results.length === 0) this.setModuleListData("loadingNothing", true)
             })
     }
 

@@ -1,5 +1,5 @@
 import { action, observable, computed, runInAction, makeObservable } from 'mobx'
-
+import socket from '../../utils/socket'
 
 class MessageStore {
     // `this` from rootstore passed to the constructor and we can 
@@ -24,8 +24,8 @@ class MessageStore {
     @action loadChatsInMenu = () => {
         this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/index/`, "POST", { "counter": 0 }).then(
             (data) => {
-                console.log("chats", data)
-                this.setMenu("chats", data)
+                console.log("chats", data.results)
+                this.setMenu("chats", data.results)
             })
     }
 
@@ -56,7 +56,7 @@ class MessageStore {
     @action searchUsers = () => {
         this.rootStore.fetchDataScr(`${this.rootStore.url}/users/`, "POST", { "search": this.dialogChatCreation.search, "counter": 0 }).then(
             (data) => {
-                this.setDialogChatCreation("searchResults", data)
+                this.setDialogChatCreation("searchResults", data.results)
             })
     }
 
@@ -137,8 +137,8 @@ class MessageStore {
     @action loadUsersForChat = (id) => {
         this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${id}/users/`, "POST", { "counter": 0 }).then(
             (data) => {
-                console.log("users", data)
-                this.setChat("usersInChat", data)
+                console.log("users", data.results)
+                this.setChat("usersInChat", data.results)
             })
     }
 
@@ -148,8 +148,8 @@ class MessageStore {
             (data) => {
                 // console.log("messageCounter", this.chat.messageCounter)
                 console.log("messagesChat", data)
-                if (data.length < 50) this.setChat("hasNext", false)
-                this.pushNewMessageToChat(data)
+                if (!data.hasNext) this.setChat("hasNext", false)
+                this.pushNewMessageToChat(data.results)
                 // this.setChat("uploading", false)
             })
     }
@@ -160,18 +160,16 @@ class MessageStore {
             (data) => {
                 this.setChat("messageCounter", this.chat.messageCounter + 1)
                 // console.log("messageCounter", this.chat.messageCounter)
-                if (data.length < 50) this.setChat("hasNext", false)
                 console.log("messagesChat", data)
-                this.pushNewMessageToChat(data)
+                if (!data.hasNext) this.setChat("hasNext", false)
+                this.pushNewMessageToChat(data.results)
                 // this.setChat("uploading", false)
             })
     }
 
     @action sendMessage = () => {
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${this.chat.id}/messages/`, "POST", { "content": this.chat.newMessage }).then(
-            (data) => {
-                this.setChat("newMessage", "")
-            })
+        socket.emit("send", {"chat-id": this.chat.id, "content":  this.chat.newMessage})
+
     }
 
 }
