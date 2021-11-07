@@ -118,8 +118,25 @@ class MessageStore {
         this.chat[name] = value
     }
 
+    @action clearChat = () => {
+        this.chat = {
+            id: "",
+            newMessage: "",
+            messages: [],
+            name: "",
+            role: "",
+            unread: 0,
+            users: 0,
+            usersInChat: [],
+            uploading: true,
+            messageCounter: 1,
+            hasNext: true,
+        }
+    }
+
     @action pushNewMessageToChat = (data) => {
         this.chat.messages.push(...data)
+        console.log()
     }
 
     @action loadMetaForChat = (id) => {
@@ -148,8 +165,8 @@ class MessageStore {
             (data) => {
                 // console.log("messageCounter", this.chat.messageCounter)
                 console.log("messagesChat", data)
-                if (!data.hasNext) this.setChat("hasNext", false)
                 this.pushNewMessageToChat(data.results)
+                if (!data["has-next"]) this.setChat("hasNext", false)
                 // this.setChat("uploading", false)
             })
     }
@@ -161,14 +178,14 @@ class MessageStore {
                 this.setChat("messageCounter", this.chat.messageCounter + 1)
                 // console.log("messageCounter", this.chat.messageCounter)
                 console.log("messagesChat", data)
-                if (!data.hasNext) this.setChat("hasNext", false)
+                if (!data["has-next"]) this.setChat("hasNext", false)
                 this.pushNewMessageToChat(data.results)
                 // this.setChat("uploading", false)
             })
     }
 
     @action sendMessage = () => {
-        socket.emit("send", {"chat-id": this.chat.id, "content":  this.chat.newMessage})
+        socket.emit("send", { "chat-id": this.chat.id, "content": this.chat.newMessage })
 
     }
 

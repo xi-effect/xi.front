@@ -227,45 +227,7 @@ const Sidebar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                             labelInfo={chatItem?.unread !== undefined ? chatItem.unread.toString() : null}
                         />
                     ))}
-                    {/* <StyledTreeItem
-                        nodeId="31"
-                        textVariant="h6"
-                        labelText="Класс"
-                        labelIcon={SupervisorAccountIcon}
-                    // labelInfo="90"
-                    >
-                        {uiStore.menu.messagerItems[0].chats.map((chatItem, chatIndex) => (
-                            <StyledTreeItem
-                                textVariant="subtitle1"
-                                key={chatIndex.toString()}
-                                nodeId={"31" + chatIndex.toString()}
-                                labelText={chatItem.userName}
-                                onClick={() => router.push("/messages/1/1")}
-                                // labelIcon={InfoIcon}
-                                //select={true}
-                                labelInfo={chatItem?.count !== undefined ? chatItem.count.toString() : null}
-                            />
-                        ))}
-                    </StyledTreeItem>
-                    <StyledTreeItem
-                        nodeId="32"
-                        textVariant="h6"
-                        labelText="Преподаватели"
-                        labelIcon={SupervisorAccountIcon}
-                    // labelInfo="90"
-                    >
-                        {uiStore.menu.messagerItems[1].chats.map((chatItem, chatIndex) => (
-                            <StyledTreeItem
-                                textVariant="subtitle1"
-                                key={chatIndex.toString()}
-                                nodeId={"32" + chatIndex.toString()}
-                                labelText={chatItem.userName}
-                                // labelIcon={InfoIcon}
-                                // select={true}
-                                labelInfo={chatItem?.count !== undefined ? chatItem.count.toString() : null}
-                            />
-                        ))} */}
-                    {/* </StyledTreeItem> */}
+                    
                 </StyledTreeItem>
                 <StyledTreeItem
                     nodeId="12"

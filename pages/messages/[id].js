@@ -83,23 +83,38 @@ const LoadingSkeleton = () => {
     )
 }
 
+// export async function getStaticPaths() {
+//     return {
+//         paths: [
+//             { params: { ... } } // See the "paths" section below
+//         ],
+//         fallback: 'blocking' // See the "fallback" section below
+//     };
+// }
+
 const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageStore }) => {
     const theme = useTheme();
     const mobile = useMediaQuery(theme => theme.breakpoints.up('md'));
     const router = useRouter()
-    // const { id } = router.query
-    socket.on("send", (arg) => {
-        if (messageStore.chat.hasNext) {
-            let newArray = messageStore.chat.messages
-            newArray.pop()
-            messageStore.setChat("messages", newArray)
-        }
-        
-    })
+    console.log("router.query", router.query.id)
+    if (socket !== null) {
+        socket.on("send", (arg) => {
+            if (messageStore.chat.hasNext) {
+                let newArray = messageStore.chat.messages
+                newArray.pop()
+                messageStore.setChat("messages", newArray)
+            }
+
+        })
+    }
+
+
+    // let id = null
     // //messageStore.chat.messages
     // // const executeScroll = () => 
-    const id = window.location.href.split('/').pop();
+
     React.useEffect(() => {
+        const id = window.location.href.split('/').pop();
         socket.emit("open", { "chat-id": id })
         console.log('open socket')
         console.log("id", id)
@@ -109,8 +124,9 @@ const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageS
         return () => {
             socket.emit("close", { "chat-id": id })
             console.log('close socket')
+            messageStore.clearChat()
         }
-    }, [id])
+    }, [router.query.id])
 
 
 

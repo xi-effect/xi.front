@@ -22,10 +22,14 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore', 'messageSt
     const router = useRouter()
 
     React.useEffect(() => {
+
         rootStore.fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
             .then((data) => {
                 if (data) {
                     console.log("settings/main", data)
+                    socket = io("https://xieffect-socketio.herokuapp.com/", {
+                        withCredentials: true,
+                    });
                     messageStore.loadChatsInMenu()
                     uiStore.setLoading("navigation", false)
                     settingsStore.setSettings("darkTheme", data["dark-theme"])
