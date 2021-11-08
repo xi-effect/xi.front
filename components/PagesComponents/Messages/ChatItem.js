@@ -171,8 +171,8 @@ const ChatItem = inject('rootStore', 'uiStore', 'messageStore', 'settingsStore')
                         position: 'relative',
                         pl: 1,
                         pr: 6,
-                        ml: 10,
-                        width: "calc(100% - 72px)",
+                        ml: 8,
+                        width: "calc(100% - 54px)",
                         '&:hover': {
                             bgcolor: 'background.1',
                         }

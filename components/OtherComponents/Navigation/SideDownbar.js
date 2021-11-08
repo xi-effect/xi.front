@@ -249,6 +249,7 @@ const SideDownbar = inject('rootStore', 'uiStore', 'messageStore', 'settingsStor
     }
 
     const toggleDrawer = (newOpen) => () => {
+        setExpanded(false)
         setOpen(newOpen);
     };
 
