@@ -12,6 +12,7 @@ class SettingsStore {
     }
 
     @observable settings = {
+        id: null,
         avatar: {
             accessory: 0,
             body: 0,

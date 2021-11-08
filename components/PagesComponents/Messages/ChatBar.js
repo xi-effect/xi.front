@@ -125,7 +125,6 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
         if (role === 'admin') return 'Администратор'
         if (role === 'owner') return 'Владелец'
         if (role === 'muted') return 'Читатель'
-
     }
 
     return (
@@ -258,6 +257,10 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                     justifyContent="center"
                                     alignItems="flex-start"
                                     spacing={1}
+                                    sx={{
+                                        maxHeight: 400,
+                                        overflowY: 'auto',
+                                    }}
                                 >
                                     <Typography variant="subtitle1">
                                         {`${messageStore.chat.users} пользователей в чате:`}

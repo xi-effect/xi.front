@@ -33,6 +33,7 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore', 'messageSt
                     messageStore.loadChatsInMenu()
                     uiStore.setLoading("navigation", false)
                     settingsStore.setSettings("darkTheme", data["dark-theme"])
+                    settingsStore.setSettings("id", data.id)
                     settingsStore.setSettings("username", data.username)
                 }
             })

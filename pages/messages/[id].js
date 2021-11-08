@@ -21,7 +21,7 @@ const LoadingSkeleton = () => {
 
     return (
         <>
-            {[...Array(15)].map((item, index) => (
+            {[...Array(30)].map((item, index) => (
                 <Stack
                     key={index.toString()}
                     direction="row"
@@ -31,10 +31,10 @@ const LoadingSkeleton = () => {
                     sx={{
                         width: 'calc(100% - 20px)',
                         marginLeft: "20px",
+                        height: 64,
                     }}
                 >
                     <Stack
-
                         direction="column"
                         justifyContent="center"
                         alignItems="flex-start"
@@ -42,7 +42,7 @@ const LoadingSkeleton = () => {
                             position: 'relative',
                             pt: 1,
                             pr: 2,
-                            mt: 2,
+                            mt: 1,
                             borderRadius: 1,
                             // width: '100%',
                             maxWidth: 1200,
@@ -51,8 +51,8 @@ const LoadingSkeleton = () => {
                         <Box sx={{ position: 'absolute', top: "12px", left: "2px", height: 64, width: 64, }}>
                             <Skeleton sx={{
                                 ml: 1,
-                                height: "100%",
-                                width: "100%",
+                                height: 64,
+                                width: 64,
                                 borderRadius: 1,
                             }} />
                         </Box>
@@ -71,7 +71,6 @@ const LoadingSkeleton = () => {
                             <Skeleton sx={{
                                 height: 64,
                                 ml: 1,
-                                height: "100%",
                                 width: "100%",
                                 borderRadius: 1,
                             }} />
@@ -94,8 +93,10 @@ const LoadingSkeleton = () => {
 
 const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageStore }) => {
     const theme = useTheme();
-    const mobile = useMediaQuery(theme => theme.breakpoints.up('md'));
     const router = useRouter()
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
+    const mobileSecond = useMediaQuery(theme => theme.breakpoints.up('md'));
+
     console.log("router.query", router.query.id)
     if (socket !== null) {
         socket.on("send", (arg) => {
@@ -107,11 +108,6 @@ const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageS
 
         })
     }
-
-
-    // let id = null
-    // //messageStore.chat.messages
-    // // const executeScroll = () => 
 
     React.useEffect(() => {
         const id = window.location.href.split('/').pop();
@@ -167,7 +163,7 @@ const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageS
                         loader={<LoadingSkeleton />}
                         scrollableTarget="scrollableDiv"
                     >
-                        <Stack sx={{ height: "172px" }}>
+                        <Stack sx={{ height: mobile ? "222px" : "172px" }}>
                         </Stack>
                         {messageStore.chat.messages.length === 0 && <LoadingSkeleton />}
                         {messageStore.chat.messages.map((item, index) => (
@@ -178,8 +174,8 @@ const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageS
                                 alignItems="center"
                                 spacing={2}
                                 sx={{
-                                    width: 'calc(100% - 20px)',
-                                    marginLeft: "20px",
+                                    width: 'calc(100% - 2px)',
+                                    marginLeft: "2px",
                                     // marginRight: 2,
                                 }}
                             >
@@ -187,10 +183,10 @@ const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageS
                             </Stack>
                         ))}
                     </InfiniteScroll>
-                    <Stack sx={{ height: "172px" }}>
+                    <Stack sx={{ height: mobile ? "272px" : "172px" }}>
                     </Stack>
                 </div>
-                {mobile && <Box sx={{ maxWidth: 1200, zIndex: 10000, }}>
+                {mobileSecond && <Box sx={{ maxWidth: 1200, zIndex: 10000, }}>
                     <ChatBar />
                 </Box>}
             </NavigationAll>

@@ -26,11 +26,12 @@ import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 
 import socket from '../../../utils/socket';
 
-const ChatItem = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, item, nextItem }) => {
+const ChatItem = inject('rootStore', 'uiStore', 'messageStore', 'settingsStore')(observer(({ rootStore, uiStore, messageStore, settingsStore, item, nextItem }) => {
     const theme = useTheme();
+    // console.log("fI", messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"]))
+    // console.log("fU", messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])])
 
-
-    
+    // const roleMessageOwner = 
     moment.locale('ru', {
         calendar: {
             lastDay: '[Yesterday, at] HH:mm',
@@ -92,8 +93,8 @@ const ChatItem = inject('rootStore', 'uiStore', 'messageStore')(observer(({ root
                         position: 'relative',
                         pl: 1,
                         pr: 6,
-                        ml: 10,
-                        width: "calc(100% - 72px)",
+                        ml: 8,
+                        width: "calc(100% - 54px)",
                         '&:hover': {
                             bgcolor: 'background.1',
                         }
@@ -122,7 +123,7 @@ const ChatItem = inject('rootStore', 'uiStore', 'messageStore')(observer(({ root
                             <Typography> {item.content} </Typography>
                         </Grid>
                     </Grid>
-                    <Menu
+                    {messageStore.chat.role !== 'muted' && <Menu
                         open={contextMenu !== null}
                         onClose={handleClose}
                         anchorReference="anchorPosition"
@@ -133,19 +134,92 @@ const ChatItem = inject('rootStore', 'uiStore', 'messageStore')(observer(({ root
                         }
                     >
                         <Typography align='center' sx={{ color: 'text.dark', width: '100%', }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
-                        <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>
-                        <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>
-                        <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>
-                        <MenuItem onClick={handleClose}> <VolumeMuteIcon sx={{ mr: 1 }} /> Заглушить</MenuItem>
-                        <MenuItem onClick={handleClose}> <PersonRemoveIcon sx={{ mr: 1 }} /> Удалить пользователя</MenuItem>
-                    </Menu>
+                        {item["sender-id"] !== settingsStore.settings.id && <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>}
+                        {(item["sender-id"] === settingsStore.settings.id || (messageStore.chat.role === 'moder' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'moder') || (messageStore.chat.role === 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner') || (messageStore.chat.role === 'owner' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner')) && <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>}
+                        {(item["sender-id"] === settingsStore.settings.id || (messageStore.chat.role === 'moder' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'moder') || (messageStore.chat.role === 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner') || (messageStore.chat.role === 'owner' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner')) && <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>}
+                        {(item["sender-id"] === settingsStore.settings.id || (messageStore.chat.role === 'moder' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'moder') || (messageStore.chat.role === 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner') || (messageStore.chat.role === 'owner' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner')) && <MenuItem onClick={handleClose}> <VolumeMuteIcon sx={{ mr: 1 }} /> Заглушить</MenuItem>}
+                    </Menu>}
                 </Stack >
             </Stack >
-
         );
     }
     else {
-        return null
+        return (
+            <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="flex-start"
+                sx={{
+                    position: 'relative',
+                    pt: 1,
+                    pr: 2,
+                    mt: 2,
+                    borderRadius: 1,
+                    maxWidth: 1200,
+                    width: "100%",
+                }}
+            >
+                <Box sx={{ position: 'absolute', top: "12px", left: "2px", height: 64, width: 64, }}>
+                    <CustomAvatar avatar={item["sender-avatar"]} viewBox={{ x: '50', y: '-100', width: '732', height: '732' }} />
+                </Box>
+                <Stack
+                    onContextMenu={handleContextMenu}
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="flex-start"
+                    sx={{
+                        position: 'relative',
+                        pl: 1,
+                        pr: 6,
+                        ml: 10,
+                        width: "calc(100% - 72px)",
+                        '&:hover': {
+                            bgcolor: 'background.1',
+                        }
+                    }}
+                >
+                    <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        <Link
+                            sx={{
+                                fontSize: 22,
+                                cursor: "pointer",
+                                color: 'text.main',
+                            }}
+                            underline="hover"
+                        >
+                            {item["sender-name"]}
+                        </Link>
+                        <Typography sx={{ color: 'text.dark' }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
+                    </Stack>
+                    <Grid container wrap="nowrap">
+                        <Grid item xs>
+                            <Typography> {item.content} </Typography>
+                        </Grid>
+                    </Grid>
+                    {messageStore.chat.role !== 'muted' && <Menu
+                        open={contextMenu !== null}
+                        onClose={handleClose}
+                        anchorReference="anchorPosition"
+                        anchorPosition={
+                            contextMenu !== null
+                                ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
+                                : undefined
+                        }
+                    >
+                        <Typography align='center' sx={{ color: 'text.dark', width: '100%', }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
+                        {item["sender-id"] !== settingsStore.settings.id && <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>}
+                        {(item["sender-id"] === settingsStore.settings.id || (messageStore.chat.role === 'moder' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'moder') || (messageStore.chat.role === 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner') || (messageStore.chat.role === 'owner' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner')) && <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>}
+                        {(item["sender-id"] === settingsStore.settings.id || (messageStore.chat.role === 'moder' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'moder') || (messageStore.chat.role === 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner') || (messageStore.chat.role === 'owner' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner')) && <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>}
+                        {(item["sender-id"] === settingsStore.settings.id || (messageStore.chat.role === 'moder' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'moder') || (messageStore.chat.role === 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'admin' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner') || (messageStore.chat.role === 'owner' && messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])].role !== 'owner')) && <MenuItem onClick={handleClose}> <VolumeMuteIcon sx={{ mr: 1 }} /> Заглушить</MenuItem>}
+                    </Menu>}
+                </Stack >
+            </Stack >
+        )
     }
 }))
 
