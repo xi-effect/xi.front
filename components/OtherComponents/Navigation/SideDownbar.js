@@ -447,7 +447,7 @@ const SideDownbar = inject('rootStore', 'uiStore', 'messageStore', 'settingsStor
                                             overflowY: 'auto',
                                         }}
                                     >
-                                        <Typography variant="subtitle1">
+                                        <Typography sx={{m: 1, mt: 4,}} variant="subtitle1">
                                             {`${messageStore.chat.users} пользователей в чате:`}
                                         </Typography>
                                         {messageStore.chat.usersInChat.length !== 0 && messageStore.chat.usersInChat.map((item, index) => (
@@ -497,7 +497,7 @@ const SideDownbar = inject('rootStore', 'uiStore', 'messageStore', 'settingsStor
                                                             // labelId="demo-simple-select-standard-label"
                                                             // id="demo-simple-select-standard"
                                                             value={item.role}
-                                                            onChange={() => messageStore.changeUserRole(event.target.value)}
+                                                            onChange={(e) => messageStore.changeUserRole(e.target.value)}
                                                             label="Роль"
                                                         >
                                                             <MenuItem value={'muted'}> Читатель </MenuItem>
@@ -511,7 +511,7 @@ const SideDownbar = inject('rootStore', 'uiStore', 'messageStore', 'settingsStor
                                                             // labelId="demo-simple-select-standard-label"
                                                             // id="demo-simple-select-standard"
                                                             value={item.role}
-                                                            onChange={() => messageStore.changeUserRole(event.target.value)}
+                                                            onChange={(e) => messageStore.changeUserRole(e.target.value)}
                                                             label="Роль"
                                                         >
                                                             <MenuItem value={'muted'}> Читатель </MenuItem>
@@ -526,7 +526,7 @@ const SideDownbar = inject('rootStore', 'uiStore', 'messageStore', 'settingsStor
                                                             // labelId="demo-simple-select-standard-label"
                                                             // id="demo-simple-select-standard"
                                                             value={item.role}
-                                                            onChange={() => messageStore.changeUserRole(event.target.value)}
+                                                            onChange={(e) => messageStore.changeUserRole(e.target.value)}
                                                             label="Роль"
                                                         >
                                                             <MenuItem value={'muted'}> Читатель </MenuItem>

@@ -99,6 +99,7 @@ function a11yProps(index) {
 }
 
 const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore }) => {
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
     const theme = useTheme();
     const router = useRouter()
 
@@ -154,7 +155,7 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                         borderTopLeftRadius: 16,
                         borderTopRightRadius: 16,
                         backgroundColor: 'background.2',
-                        zIndex: 10000,
+                        zIndex: 1200,
                         // top: 'auto',
                         // bottom: 0,
                     }}
@@ -312,7 +313,7 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                                         // labelId="demo-simple-select-standard-label"
                                                         // id="demo-simple-select-standard"
                                                         value={item.role}
-                                                        onChange={() => messageStore.changeUserRole(event.target.value)}
+                                                        onChange={(e) => messageStore.changeUserRole(e.target.value)}
                                                         label="Роль"
                                                     >
                                                         <MenuItem value={'muted'}> Читатель </MenuItem>
@@ -326,7 +327,7 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                                         // labelId="demo-simple-select-standard-label"
                                                         // id="demo-simple-select-standard"
                                                         value={item.role}
-                                                        onChange={() => messageStore.changeUserRole(event.target.value)}
+                                                        onChange={(e) => messageStore.changeUserRole(e.target.value)}
                                                         label="Роль"
                                                     >
                                                         <MenuItem value={'muted'}> Читатель </MenuItem>
@@ -341,7 +342,7 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                                         // labelId="demo-simple-select-standard-label"
                                                         // id="demo-simple-select-standard"
                                                         value={item.role}
-                                                        onChange={() => messageStore.changeUserRole(event.target.value)}
+                                                        onChange={(e) => messageStore.changeUserRole(e.target.value)}
                                                         label="Роль"
                                                     >
                                                         <MenuItem value={'muted'}> Читатель </MenuItem>

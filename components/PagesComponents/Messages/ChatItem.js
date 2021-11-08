@@ -26,22 +26,24 @@ import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 
 import socket from '../../../utils/socket';
 
+moment.locale('ru', {
+    calendar: {
+        lastDay: '[Yesterday, at] HH:mm',
+        sameDay: '[Today, at] HH:mm',
+        nextDay: '[Tomorrow at] LT',
+        lastWeek: 'HH:mm, DD/MM',
+        nextWeek: 'dddd [at] LT',
+        sameElse: 'L'
+    }
+})
+
+
 const ChatItem = inject('rootStore', 'uiStore', 'messageStore', 'settingsStore')(observer(({ rootStore, uiStore, messageStore, settingsStore, item, nextItem }) => {
     const theme = useTheme();
     // console.log("fI", messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"]))
     // console.log("fU", messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])])
-
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
     // const roleMessageOwner = 
-    moment.locale('ru', {
-        calendar: {
-            lastDay: '[Yesterday, at] HH:mm',
-            sameDay: '[Today, at] HH:mm',
-            nextDay: '[Tomorrow at] LT',
-            lastWeek: 'HH:mm, DD/MM',
-            nextWeek: 'dddd [at] LT',
-            sameElse: 'L'
-        }
-    })
 
     const [contextMenu, setContextMenu] = React.useState(null);
 
@@ -73,12 +75,13 @@ const ChatItem = inject('rootStore', 'uiStore', 'messageStore', 'settingsStore')
                 alignItems="flex-start"
                 sx={{
                     position: 'relative',
+                    ml: mobile ? 0 : 2,
                     pt: nextItem["sender-name"] === item["sender-name"] ? 0 : 1,
                     pr: 2,
                     mt: nextItem["sender-name"] === item["sender-name"] ? 0 : 2,
                     borderRadius: 1,
                     maxWidth: 1200,
-                    width: "100%",
+                    width: "calc(100% - 16px)",
                 }}
             >
                 {nextItem["sender-name"] !== item["sender-name"] && <Box sx={{ position: 'absolute', top: "12px", left: "2px", height: 64, width: 64, }}>
@@ -93,8 +96,8 @@ const ChatItem = inject('rootStore', 'uiStore', 'messageStore', 'settingsStore')
                         position: 'relative',
                         pl: 1,
                         pr: 6,
-                        ml: 8,
-                        width: "calc(100% - 54px)",
+                        ml: mobile ? 8 : 9,
+                        width: "calc(100% - 56px)",
                         '&:hover': {
                             bgcolor: 'background.1',
                         }

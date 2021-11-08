@@ -186,7 +186,7 @@ const Chat = inject('rootStore', 'messageStore')(observer(({ rootStore, messageS
                     <Stack sx={{ height: mobile ? "272px" : "172px" }}>
                     </Stack>
                 </div>
-                {mobileSecond && <Box sx={{ maxWidth: 1200, zIndex: 10000, }}>
+                {mobileSecond && <Box sx={{ maxWidth: 1200, zIndex: 1200, }}>
                     <ChatBar />
                 </Box>}
             </NavigationAll>
