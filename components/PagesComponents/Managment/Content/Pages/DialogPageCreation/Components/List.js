@@ -31,6 +31,8 @@ const ListItem = inject('managmentStore')(observer(({ managmentStore, show, inde
     // console.log("props", props)
     const theme = useTheme();
 
+// Стили к тексту  
+
     return (
         <Input
             placeholder="Добавить элемент в список"
@@ -44,8 +46,7 @@ const ListItem = inject('managmentStore')(observer(({ managmentStore, show, inde
                     textAlign: values.textAlign,
                     fontWeight: values.fontWeight,
                     textDecoration: values.textDecoration,
-                    lineHeight: "normal",
-                    
+                    lineHeight: "normal",       
                 }
             }}
             type="text"
@@ -56,19 +57,20 @@ const ListItem = inject('managmentStore')(observer(({ managmentStore, show, inde
             onChange={(event) => managmentStore.setPageCreationContentComponents(index, indexA, "label", event.target.value)}
             startAdornment={
                 <>
-                    {values.listType === 'single' && <LensIcon
+                    {values.listType === 'single' && <LensIcon // список с точками
                         fontSize="1"
                         color="main.dark"
                         checked={item.rightAnswer}
                         onChange={() => managmentStore.setSingleQuiz(index, indexA)}
 
                     />}
-                    {values.listType === 'multiple' && <LensIcon
-                        fontSize="5px"
-                        color="main.dark"
+                    {values.listType === 'multiple' && <LensIcon         // список с цифрами
+                        fontSize="5px" 
+                        color="main.dark" 
                         checked={item.rightAnswer}
                         onChange={() => managmentStore.setPageCreationContentComponents(index, indexA, "rightAnswer", !item.rightAnswer)}
                     //onChange={handleChange}
+                   
                     />}
                 </>
             }
@@ -93,10 +95,12 @@ const ListItem = inject('managmentStore')(observer(({ managmentStore, show, inde
     );
 }));
 
+
 const ListList = inject('managmentStore')(observer(({ managmentStore, index }) => {
     // console.log("props", props)
     const theme = useTheme();
     const values = managmentStore.pageCreation.components[index]
+
 
     return (
         <>
