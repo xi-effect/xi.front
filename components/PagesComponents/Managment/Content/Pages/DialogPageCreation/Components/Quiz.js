@@ -86,7 +86,7 @@ const QuizItem = inject('managmentStore')(observer(({ managmentStore, show, inde
             }
         />
     );
-}));
+}))
 
 const QuizList = inject('managmentStore')(observer(({ managmentStore, index }) => {
     // console.log("props", props)
@@ -121,7 +121,7 @@ const QuizList = inject('managmentStore')(observer(({ managmentStore, index }) =
                 ))}
         </>
     );
-}));
+}))
 
 
 const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
@@ -397,7 +397,7 @@ const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
             </Grid>
         </Grid>
     </>;
-}));
+}))
 
 export default Quiz
 

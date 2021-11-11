@@ -76,6 +76,7 @@ class ManagmentStore {
         }
         if (type === "list") {
             this.pageCreation.components.push({ type: "list", listType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [], successAnswer: null })
+        }
         if (type === "markdown") {
             this.pageCreation.components.push({ type: "markdown", label: "markdown" })
         }
@@ -86,7 +87,7 @@ class ManagmentStore {
     @action setSingleQuiz = (index, indexA) => {
         for (let i = 0; i < this.pageCreation.components[index].content.length; i += 1) {
             this.pageCreation.components[index].content[i].rightAnswer = false
-        }
+        };
         this.pageCreation.components[index].content[indexA].rightAnswer = true
     }
 
@@ -269,6 +270,7 @@ class ManagmentStore {
         }
     }
 
+
     @action setModuleCreationAll = (value) => {
         this.moduleCreation = value
     }
@@ -358,9 +360,6 @@ class ManagmentStore {
     }
 
 
-
-
-
     @observable moduleCreationList = {
         modules: [],
         counter: 0,
@@ -421,9 +420,6 @@ class ManagmentStore {
 
             })
     }
-
-
-
 }
 
 export default ManagmentStore;

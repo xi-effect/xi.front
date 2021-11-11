@@ -410,6 +410,6 @@ const List = inject('managmentStore')(observer(({ managmentStore, index }) => {
     </>;
 }));
 
-export default List
+export default List;
 
 

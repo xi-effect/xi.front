@@ -94,7 +94,8 @@ const ModuleSelect = (component, index) => {
     if (component.type === "list") return (
         <>
             <List index={index} />
-
+        </>
+    )
     if (component.type === "markdown") return (
         <>
             <Markdown index={index} />
@@ -104,7 +105,7 @@ const ModuleSelect = (component, index) => {
 
 
 function Component({ component, index }) {
-    const theme = useTheme()
+    const theme = useTheme();
 
 
     return (
