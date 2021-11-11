@@ -42,7 +42,6 @@ const Root = styled('div')((
 const Main = inject('rootStore')(observer(({ rootStore }) => {
   const theme = useTheme();
 
-
   return (
     (<Root>
       <Head>

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import { inject, observer } from 'mobx-react'
 
-import { Box, useTheme } from '@mui/material'
+import { Box, Button, useTheme } from '@mui/material'
 
 import Sidebar from './Sidebar'
 import Helpbar from './Helpbar'
@@ -13,22 +13,55 @@ import Loading from '../Loading/Loading'
 import SideDownbar from './SideDownbar'
 import ChatDialog from '../../PagesComponents/Messages/ChatDialog';
 
-const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer(({ rootStore, settingsStore, uiStore, children }) => {
+import { io } from "socket.io-client";
+
+import socket from '../../../utils/socket'
+
+const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore', 'messageStore')(observer(({ rootStore, settingsStore, uiStore, messageStore, children }) => {
     const theme = useTheme();
     const router = useRouter()
 
-
     React.useEffect(() => {
+        // Главное подключение к сокету
+        socket = io("https://xieffect-socketio.herokuapp.com/", {
+            withCredentials: true,
+        });
+        // Каждый раз запрашиваются настройки, чтобы понимать,
+        // актуален ли токен авторизации
         rootStore.fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
             .then((data) => {
                 if (data) {
                     console.log("settings/main", data)
+
+                    messageStore.loadChatsInMenu()
                     uiStore.setLoading("navigation", false)
                     settingsStore.setSettings("darkTheme", data["dark-theme"])
+                    settingsStore.setSettings("id", data.id)
                     settingsStore.setSettings("username", data.username)
                 }
             })
+        rootStore.fetchDataScr(`${rootStore.url}/settings/`, "GET")
+            .then((data) => {
+                if (data) {
+                    console.log("settings", data)
+                    settingsStore.setSettings("avatar", data["avatar"])
+                }
+            })
     }, [])
+
+
+    // Сокеты пролсушки для изменения информации в меню для чатов
+    if (socket != null) {
+        socket.on("add-chat", (arg) => {
+            console.log(arg);
+        })
+        socket.on("edit-chat", (arg) => {
+            console.log(arg);
+        })
+        socket.on("delete-chat", (arg) => {
+            console.log(arg);
+        })
+    }
 
     return (
         <>
@@ -58,6 +91,9 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore')(observer((
                     >
                         {children}
                     </Box>
+                    {/* <Button sx={{ position: 'absolute', top: 64, left: 512 }} onClick={socketClick}>
+                        Click
+                    </Button> */}
                     <ChatDialog />
                 </Box>
             }

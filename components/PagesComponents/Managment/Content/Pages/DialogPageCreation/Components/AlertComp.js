@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
-import { SpeedDial, SpeedDialIcon, SpeedDialAction, Alert, Input, Divider, IconButton, Grid, useTheme, Tooltip, InputAdornment } from '@mui/material';
+import { SpeedDial, SpeedDialIcon, SpeedDialAction, Fade, Alert, Input, Divider, IconButton, Grid, useTheme, Tooltip, InputAdornment, Typography } from '@mui/material';
 
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -56,10 +56,7 @@ const Root = styled('div')((
     },
 
     [`& .${classes.divider}`]: {
-        backgroundColor: props => props.palette.primary.main,
-        width: "100%",
-        height: 1,
-        margin: props => props.spacing(1, 0.5),
+
     },
 
     [`& .${classes.gridTextWrapper}`]: {
@@ -145,7 +142,6 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
     // console.log("props", props)
     const theme = useTheme();
 
-
     const handleAlertType = (type) => {
         //console.log(index, "fontSize", newFormats)
         let newType = null
@@ -166,14 +162,14 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
         if (values.fontSize != 12) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
     };
 
-    const handleTextAlign = (align) => {
-        let newAlignment = null
-        if (align === 'left') newAlignment = 'center'
-        else if (align === 'center') newAlignment = 'right'
-        else if (align === 'right') newAlignment = 'justify'
-        else if (align === 'justify') newAlignment = 'left'
-        managmentStore.setPageCreationComponents(index, "textAlign", newAlignment)
-    };
+    // const handleTextAlign = (align) => {
+    //     let newAlignment = null
+    //     if (align === 'left') newAlignment = 'center'
+    //     else if (align === 'center') newAlignment = 'right'
+    //     else if (align === 'right') newAlignment = 'justify'
+    //     else if (align === 'justify') newAlignment = 'left'
+    //     managmentStore.setPageCreationComponents(index, "textAlign", newAlignment)
+    // };
 
     const handleFontStyle = () => {
         if (values.fontStyle === "normal") return managmentStore.setPageCreationComponents(index, "fontStyle", "italic")
@@ -190,28 +186,19 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
         return managmentStore.setPageCreationComponents(index, "textDecoration", "none");
     };
 
-    const [open, setOpen] = React.useState(false);
-    const handleClose = () => {
-        setOpen(false);
-    };
+    // const textAlignLabelSelect = (type) => {
+    //     if (type === 'left') return 'по левому краю'
+    //     if (type === 'center') return 'по правому краю'
+    //     if (type === 'right') return 'по центру'
+    //     if (type === 'justify') return 'по ширине'
+    // }
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const textAlignLabelSelect = (type) => {
-        if (type === 'left') return 'по левому краю'
-        if (type === 'center') return 'по правому краю'
-        if (type === 'right') return 'по центру'
-        if (type === 'justify') return 'по ширине'
-    }
-
-    const textAlignIconSelect = (align) => {
-        if (align === 'left') return <FormatAlignLeftIcon />
-        if (align === 'center') return <FormatAlignCenterIcon />
-        if (align === 'right') return <FormatAlignRightIcon />
-        if (align === 'justify') return <FormatAlignJustifyIcon />
-    }
+    // const textAlignIconSelect = (align) => {
+    //     if (align === 'left') return <FormatAlignLeftIcon />
+    //     if (align === 'center') return <FormatAlignCenterIcon />
+    //     if (align === 'right') return <FormatAlignRightIcon />
+    //     if (align === 'justify') return <FormatAlignJustifyIcon />
+    // }
 
     const alertTypeLabelSelect = (align) => {
         if (align === 'success') return 'Успех'
@@ -227,11 +214,13 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
         if (type === 'error') return <ErrorIcon />
     }
 
-
+    const [hover, setHover] = React.useState(false)
 
     return (
         <Root>
             <Grid
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
                 container
                 direction="column"
                 justifyContent="center"
@@ -278,119 +267,63 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
                         />
                     </Alert>
                 </Grid>
-                <Divider className={classes.divider} />
-                <Grid
-                    container
-                    direction="row"
-                    className={classes.gridButtons}
+                <Fade
+                    in={hover}
+                    style={{ transformOrigin: '0 0 0' }}
+                    {...(hover ? { timeout: 1000 } : {})}
                 >
-                    <SpeedDial
-                        ariaLabel="SpeedDial tooltip example"
-                        className={classes.speedDial}
-                        // hidden={hidden}
-                        icon={<TuneIcon className={classes.iconSpeedDial} />}
-                        onClose={handleClose}
-                        onOpen={handleOpen}
-                        open={open}
-                        direction="right"
+                    <Grid
+                        container
+                        direction="row"
+                        className={classes.gridButtons}
                     >
-                        <SpeedDialAction
-                            sx={{
-                                marginLeft: 1,
-                                color: 'text.main',
-                            }}
-                            tooltipPlacement="bottom"
-                            icon={alertTypeIconSelect(values.alertType)}
-                            tooltipTitle={`Тип. Сейчас - ${alertTypeLabelSelect(values.alertType)}`}
-                            //tooltipOpen
-                            onClick={() => handleAlertType(values.alertType)}
-                        />
-                        <SpeedDialAction
-                            sx={{
-                                marginLeft: 1,
-                                color: values.fontSize === 48 ? 'error.main' : 'text.main',
-                            }}
-                            tooltipPlacement="bottom"
-                            icon={<ZoomInIcon />}
-                            tooltipTitle={`Увеличить шрифт. Сейчас - ${values.fontSize}`}
-                            //tooltipOpen
-                            onClick={() => handleFontSizeUp()}
-                        />
-                        <SpeedDialAction
-                            sx={{
-                                marginLeft: 1,
-                                color: values.fontSize === 12 ? 'error.main' : 'text.main',
-                            }}
-                            tooltipPlacement="bottom"
-                            icon={<ZoomOutIcon />}
-                            tooltipTitle={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}
-                            //tooltipOpen
-                            onClick={() => handleFontSizeDown()}
-                        />
-                        <SpeedDialAction
-                            sx={{
-                                marginLeft: 1,
-                                color: 'text.main',
-                            }}
-                            tooltipPlacement="bottom"
-                            icon={textAlignIconSelect(values.textAlign)}
-                            tooltipTitle={`Изменить выравнивание текста. Сейчас - ${textAlignLabelSelect(values.textAlign)}`}
-                            //tooltipOpen
-                            onClick={() => handleTextAlign(values.textAlign)}
-                        />
-                        <SpeedDialAction
-                            sx={{
-                                marginLeft: 1,
-                                color: values.fontWeight === 'bold' ? 'text.main' : 'text.dark',
-                            }}
-                            tooltipPlacement="bottom"
-                            icon={<FormatBoldIcon />}
-                            tooltipTitle="Полужирный"
-                            //tooltipOpen
-                            onClick={() => handleFontWeight()}
-                        />
-                        <SpeedDialAction
-                            sx={{
-                                marginLeft: 1,
-                                color: values.fontStyle === 'italic' ? 'text.main' : 'text.dark',
-                            }}
-                            tooltipPlacement="bottom"
-                            icon={<FormatItalicIcon />}
-                            tooltipTitle="Курсив"
-                            // tooltipOpen
-                            onClick={() => handleFontStyle()}
-                        />
-                        <SpeedDialAction
-                            sx={{
-                                marginLeft: 1,
-                                color: values.textDecoration === 'underline' ? 'text.main' : 'text.dark',
-                            }}
-                            tooltipPlacement="bottom"
-                            icon={<FormatUnderlinedIcon />}
-                            tooltipTitle="Подчёркнутый"
-                            // tooltipOpen
-                            onClick={() => handleTextDecoration()}
-                        />
-                    </SpeedDial>
-                    {/* <Tooltip title="Дублировать блок">
-                        <IconButton className={classes.leftIconButton} onClick={() => managmentStore.duplicateComponent(index)}>
-                            <QueueIcon className={classes.icon} />
+                        {/* <Typography sx={{color: 'main.dark', ml: 1, mt: 1.5,}} variant="subtitle2"> настройки: </Typography> */}
+                        <IconButton onClick={() => handleAlertType(values.alertType)} sx={{ ml: 1, color: 'text.main', }} edge="end" size="large">
+                            <Tooltip title={`Тип. Сейчас - ${alertTypeLabelSelect(values.alertType)}`}>
+                                {alertTypeIconSelect(values.alertType)}
+                            </Tooltip>
                         </IconButton>
-                    </Tooltip> */}
-                    <Tooltip title="Удалить блок">
-                        <IconButton
-                            className={classes.leftIconButton}
-                            onClick={() => managmentStore.deleteComponent(index)}
-                            size="large">
-                            <DeleteForeverIcon className={classes.icon} />
+                        <IconButton onClick={() => handleFontSizeUp()} sx={{ ml: 1, color: values.fontSize === 48 ? 'error.main' : 'text.main', }} edge="end" size="large">
+                            <Tooltip title={`Увеличить шрифт. Сейчас - ${values.fontSize}`}>
+                                <ZoomInIcon />
+                            </Tooltip>
                         </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Перетащить блок">
-                        <IconButton size="large">
-                            <DragIndicatorIcon className={classes.icon} />
+                        <IconButton onClick={() => handleFontSizeDown()} sx={{ ml: 1, color: values.fontSize === 12 ? 'error.main' : 'text.main', }} edge="end" size="large">
+                            <Tooltip title={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}>
+                                <ZoomOutIcon />
+                            </Tooltip>
                         </IconButton>
-                    </Tooltip>
-                </Grid>
+                        <IconButton onClick={() => handleFontWeight()} sx={{ ml: 1, color: values.fontWeight === 'bold' ? 'text.main' : 'text.dark', }} edge="end" size="large">
+                            <Tooltip title={`Полужирный`}>
+                                <FormatBoldIcon />
+                            </Tooltip>
+                        </IconButton>
+                        <IconButton onClick={() => handleFontStyle()} sx={{ ml: 1, color: values.fontStyle === 'italic' ? 'text.main' : 'text.dark', }} edge="end" size="large">
+                            <Tooltip title={`Курсив`}>
+                                <FormatItalicIcon />
+                            </Tooltip>
+                        </IconButton>
+                        <IconButton onClick={() => handleTextDecoration()} sx={{ ml: 1, color: values.textDecoration === 'underline' ? 'text.main' : 'text.dark', }} edge="end" size="large">
+                            <Tooltip title={`Подчёркнутый`}>
+                                <FormatUnderlinedIcon />
+                            </Tooltip>
+                        </IconButton>
+                        <Tooltip title="Удалить блок">
+                            <IconButton
+                                className={classes.leftIconButton}
+                                onClick={() => managmentStore.deleteComponent(index)}
+                                size="large">
+                                <DeleteForeverIcon className={classes.icon} />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Перетащить блок">
+                            <IconButton size="large">
+                                <DragIndicatorIcon className={classes.icon} />
+                            </IconButton>
+                        </Tooltip>
+                    </Grid>
+                </Fade>
+
             </Grid>
         </Root>
     );

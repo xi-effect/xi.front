@@ -1,6 +1,7 @@
 import { action, observable, computed, runInAction, makeObservable } from 'mobx'
 import Router from 'next/router'
-
+import socket from '../../utils/socket'
+import { io } from "socket.io-client";
 
 let Crypto = require('crypto-js')
 
@@ -76,20 +77,6 @@ class AuthorizationStore {
                     if (data.a) { //true
                         const router = Router
                         router.push('/main')
-                        this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/`, "GET")
-                            .then((data) => {
-                                console.log(data)
-                                if (data != undefined) {
-                                    let emailArr = data.email.split("@", 2)
-                                    this.rootStore.settingsStore.setSettings("username", data.username)
-                                    this.rootStore.settingsStore.setSettings("emailBefore", emailArr[0])
-                                    this.rootStore.settingsStore.setSettings("emailAfter", "@" + emailArr[1])
-                                    this.rootStore.settingsStore.setSettings("darkTheme", data["dark-theme"])
-                                    this.rootStore.settingsStore.setSettings("emailConfirmed", data["email-confirmed"])
-                                } else {
-                                    console.log("Проблемы с сервером")
-                                }
-                            });
                     } else {
                         this.setSignup("error", "emailAlreadyUsed")
                     }
@@ -97,6 +84,12 @@ class AuthorizationStore {
                     this.setSignup("error", "serverError")
                 }
             });
+        this.rootStore.fetchData(`https://xieffect-socketio.herokuapp.com/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
+            .then((data) => {
+                socket = io("https://xieffect-socketio.herokuapp.com/", {
+                    withCredentials: true,
+                });
+            })
     }
 
     @observable login = {
@@ -138,6 +131,10 @@ class AuthorizationStore {
                     this.setLogin("error", "Server error")
 
                 }
+            })
+        this.rootStore.fetchData(`https://xieffect-socketio.herokuapp.com/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
+            .then((data) => {
+
             })
     }
 }

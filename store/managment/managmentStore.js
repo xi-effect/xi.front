@@ -76,6 +76,8 @@ class ManagmentStore {
         }
         if (type === "list") {
             this.pageCreation.components.push({ type: "list", listType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [], successAnswer: null })
+        if (type === "markdown") {
+            this.pageCreation.components.push({ type: "markdown", label: "markdown" })
         }
         //this.idComponents()
         console.log("compot", this.pageCreation.components)
@@ -192,8 +194,8 @@ class ManagmentStore {
     @action LoadPageList = () => {
         this.rootStore.fetchDataScr(`${this.rootStore.url}/wip/pages/index/`, "POST", { "counter": this.pageCreationList.counter }).then(
             (data) => {
-                console.log("log", data)
-                this.setPageCreationList("pages", data)
+                console.log("log", data.results)
+                this.setPageCreationList("pages", data.results)
             })
     }
 
@@ -374,8 +376,8 @@ class ManagmentStore {
     @action LoadModuleList = () => {
         this.rootStore.fetchDataScr(`${this.rootStore.url}/wip/modules/index/`, "POST", { "counter": this.moduleCreationList.counter }).then(
             (data) => {
-                console.log("log", data)
-                this.setModuleCreationList("modules", data)
+                console.log("log", data.results)
+                this.setModuleCreationList("modules", data.results)
             })
     }
 

@@ -3,6 +3,8 @@ import { enableStaticRendering } from 'mobx-react'
 import { useMemo } from 'react'
 import Router from 'next/router'
 
+import { io } from "socket.io-client";
+
 import UIStore from "./ui/uiStore";
 import MainStore from "./main/mainStore";
 import KnowledgeStore from "./knowledge/knowledgeStore";
@@ -31,12 +33,11 @@ class RootStore {
   }
 
 
+  // socket = io("http://f877-188-242-138-193.ngrok.io/", {
+  //   withCredentials: true,
+  // });
 
-
-
-
-
-  @action async getCookie(name) {
+  @action getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();

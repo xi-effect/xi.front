@@ -45,7 +45,7 @@ const Loading = () => {
                 // className={classes.gridRoot}
                 sx={{ height: "100%" }}
             >
-                <Typography className={classes.label} variant='h3' noWrap>Ξffect</Typography>
+                <Typography sx={{color: 'constant.textWhite', cursor: 'default'}} variant='h3' noWrap>Ξffect</Typography>
                 <Loader />
             </Grid>
         </Root>

@@ -38,47 +38,6 @@ class UIStore {
         this.knowledgeUI[name] = value
     }
 
-    @observable menu = {
-        messagerItems: [
-            {
-                label: "Класс",
-                chats: [
-                    {
-                        id: 0,
-                        userName: "Беседа",
-                        count: 8,
-                    },
-                    {
-                        id: 1,
-                        userName: "Чувак",
-                        count: 1,
-                    },
-                    {
-                        id: 1,
-                        userName: "Ещё один чувак офигенный",
-                        count: 2,
-                    }
-                ]
-            },
-            {
-                label: "Преподаватели",
-                chats: [
-                    {
-                        id: 0,
-                        userName: "АФК",
-                    },
-                    {
-                        id: 1,
-                        userName: "ГГ",
-                    },
-                    {
-                        id: 2,
-                        userName: "КВ",
-                    }
-                ]
-            }
-        ]
-    }
 }
 
 export default UIStore;

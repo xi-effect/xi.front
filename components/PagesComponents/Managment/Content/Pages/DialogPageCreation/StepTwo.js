@@ -20,6 +20,8 @@ import VerticalAlignCenterIcon from '@mui/icons-material/VerticalAlignCenter';
 import ImageIcon from '@mui/icons-material/Image';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import LineStyleIcon from '@mui/icons-material/LineStyle';
+
 
 const PREFIX = 'StepTwo';
 
@@ -44,13 +46,7 @@ const StyledGrid = styled(Grid)((
     },
 
     [`& .${classes.gridMain}`]: {
-        margin: 0,
-        //paddingLeft: 4,
-        padding: 0,
-        width: "100%",
-        height: "100%",
-        maxWidth: 1200,
-        display: "block",
+
         //overflow: "auto",
         // '&::-webkit-scrollbar': {
         //     width: "0! important",
@@ -144,6 +140,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
     const components = [
         { name: "Текст", icon: <TextFieldsIcon />, type: "text" },
         { name: "Заголовок", icon: <TitleIcon />, type: "h" },
+        { name: "Markdown", icon: <LineStyleIcon />, type: "markdown" },
         { name: "Изображение", icon: <ImageIcon />, type: "img" },
         { name: "Опрос", icon: <QuestionAnswerIcon />, type: "quiz" },
         { name: "Замечание", icon: <NotificationsIcon />, type: "alert" },
@@ -230,7 +227,18 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="center"
-                className={classes.gridMain}
+                sx={{
+                    ml: 12,
+                    mt: 2,
+                    mb: 2,
+                    mr: 12,
+                    //paddingLeft: 4,
+                    padding: 0,
+                    width: "100%",
+                    height: "100%",
+                    maxWidth: 1200,
+                    display: "block",
+                }}
             >
                 <DnDList state={managmentStore.pageCreation.components} setState={managmentStore.setPageCreation} ComponentsList={<ComponentsList />} />
             </Grid >}
