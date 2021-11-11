@@ -105,9 +105,6 @@ const ModuleSelect = (component, index) => {
 
 
 function Component({ component, index }) {
-    const theme = useTheme();
-
-
     return (
         <Draggable draggableId={`id-${index}`} index={index}>
             {provided => (
