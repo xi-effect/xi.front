@@ -75,7 +75,7 @@ class ManagmentStore {
             this.pageCreation.components.push({ type: "quiz", quizType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [], successAnswer: null })
         }
         if (type === "list") {
-            this.pageCreation.components.push({ type: "list", listType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [], successAnswer: null })
+            this.pageCreation.components.push({ type: "list", listType: 'dotted', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [] })
         }
         if (type === "markdown") {
             this.pageCreation.components.push({ type: "markdown", label: "markdown" })
