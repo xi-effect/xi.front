@@ -118,6 +118,10 @@ class MessageStore {
         this.chat[name] = value
     }
 
+    @action setChatSecondArray = (firstName, id, name, value) => {
+        this.chat[firstName][id][name] = value
+    }
+
     @action clearChat = () => {
         this.chat = {
             id: "",
@@ -187,6 +191,13 @@ class MessageStore {
     @action sendMessage = () => {
         socket.emit("send", { "chat-id": this.chat.id, "content": this.chat.newMessage })
 
+    }
+
+    @action editMessageInChat = (id, content) => {
+      let mId = this.chat.messages.findIndex(el => el.id === id)
+      if (mId !== -1) {
+        this.setChatSecondArray("messages", mId, "content", content)
+      }
     }
 
 }

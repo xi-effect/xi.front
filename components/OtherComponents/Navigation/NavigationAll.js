@@ -22,9 +22,12 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore', 'messageSt
     const router = useRouter()
 
     React.useEffect(() => {
+        // Главное подключение к сокету
         socket = io("https://xieffect-socketio.herokuapp.com/", {
             withCredentials: true,
         });
+        // Каждый раз запрашиваются настройки, чтобы понимать,
+        // актуален ли токен авторизации
         rootStore.fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
             .then((data) => {
                 if (data) {
@@ -46,18 +49,19 @@ const NavigationAll = inject('rootStore', 'settingsStore', 'uiStore', 'messageSt
             })
     }, [])
 
-    // const socketClick = () => {
-    //     socket.emit("open", {
-    //         "chat-id": 2,
-    //         "data": {}
-    //     });
-    // }
 
-    // if (socket != null) {
-    //     socket.on("hello", (arg) => {
-    //         console.log(arg);
-    //     })
-    // }
+    // Сокеты пролсушки для изменения информации в меню для чатов
+    if (socket != null) {
+        socket.on("add-chat", (arg) => {
+            console.log(arg);
+        })
+        socket.on("edit-chat", (arg) => {
+            console.log(arg);
+        })
+        socket.on("delete-chat", (arg) => {
+            console.log(arg);
+        })
+    }
 
     return (
         <>
