@@ -77,20 +77,6 @@ class AuthorizationStore {
                     if (data.a) { //true
                         const router = Router
                         router.push('/main')
-                        this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/`, "GET")
-                            .then((data) => {
-                                console.log(data)
-                                if (data != undefined) {
-                                    let emailArr = data.email.split("@", 2)
-                                    this.rootStore.settingsStore.setSettings("username", data.username)
-                                    this.rootStore.settingsStore.setSettings("emailBefore", emailArr[0])
-                                    this.rootStore.settingsStore.setSettings("emailAfter", "@" + emailArr[1])
-                                    this.rootStore.settingsStore.setSettings("darkTheme", data["dark-theme"])
-                                    this.rootStore.settingsStore.setSettings("emailConfirmed", data["email-confirmed"])
-                                } else {
-                                    console.log("Проблемы с сервером")
-                                }
-                            });
                     } else {
                         this.setSignup("error", "emailAlreadyUsed")
                     }
