@@ -22,7 +22,6 @@ const AlertComp = inject('rootStore')(observer(({ rootStore, value }) => {
                 variant="filled"
                 sx={{ width: "100%", }}
                 severity={value.alertType}
-
                 icon={<span></span>}
             >
                 <Input
