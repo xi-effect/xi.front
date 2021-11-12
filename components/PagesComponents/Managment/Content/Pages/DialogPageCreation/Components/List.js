@@ -85,8 +85,6 @@ const ListItem = inject("managmentStore")(
                   fontSize: "12px",
                 }}
                 color="main.dark"
-                checked={item.rightAnswer}
-                onChange={() => managmentStore.setSingleQuiz(index, indexA)}
               />
             )}
             {values.listType === "numberded" && (

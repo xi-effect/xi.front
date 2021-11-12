@@ -18,6 +18,7 @@ const DividerComp = inject('rootStore')(observer(({ rootStore, value }) => {
                 bgcolor: 'text.dark',
                 marginTop: 1,
                 marginBottom: 1,
+                cursor: "default",
             }} />
         </Grid>
     );

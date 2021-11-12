@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useTheme, Input, Grid } from '@mui/material';
+import { useTheme, Input, Grid, useMediaQuery } from '@mui/material';
 
 import { inject, observer } from 'mobx-react'
 
 const Header = inject('rootStore')(observer(({ rootStore, value }) => {
-    
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
     return (
         <Grid sx={{ width: "100%", }}>
             <Input
@@ -12,12 +13,13 @@ const Header = inject('rootStore')(observer(({ rootStore, value }) => {
                     '& .MuiInput-input': {
                         width: "100%",
                         color: 'text.main',
-                        fontSize: value.fontSize,
+                        fontSize: mobile ? value.fontSize * 0.8 : value.fontSize,
                         fontStyle: value.fontStyle,
                         textAlign: value.textAlign,
                         fontWeight: value.fontWeight,
                         textDecoration: value.textDecoration,
                         lineHeight: "normal",
+                        cursor: "default",
                     }
                 }}
                 type="text"

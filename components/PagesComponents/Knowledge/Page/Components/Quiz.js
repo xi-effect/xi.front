@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
-import { useTheme, Button, Input, Grid, Radio, Checkbox, Typography } from '@mui/material';
+import { useTheme, Button, Input, Grid, Radio, Checkbox, Typography, useMediaQuery } from '@mui/material';
 
 import { inject, observer } from 'mobx-react'
 
@@ -11,7 +11,7 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
 
     console.log("props", props)
     const theme = useTheme();
-
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
     return (
         <Grid
@@ -29,12 +29,13 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                                 '& .MuiInput-input': {
                                     width: "100%",
                                     color: 'text.main',
-                                    fontSize: value.fontSize,
+                                    fontSize: mobile ? value.fontSize * 0.8 : value.fontSize,
                                     fontStyle: value.fontStyle,
                                     textAlign: value.textAlign,
                                     fontWeight: value.fontWeight,
                                     textDecoration: value.textDecoration,
                                     lineHeight: "normal",
+                                    cursor: "default",
                                 }
                             }}
                             placeholder="Добавить текст ответа"

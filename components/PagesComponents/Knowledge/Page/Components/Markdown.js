@@ -8,7 +8,7 @@ const Markdown = inject('rootStore')(observer(({ rootStore, value }) => {
 
     return (
         <Grid
-            sx={{ width: "100%", }}
+            sx={{ width: "100%", cursor: "default", }}
         >
             <ReactMarkdown>
                 {value.label}

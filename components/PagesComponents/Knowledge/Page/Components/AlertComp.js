@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
-import { useTheme, Input, Grid, Alert, InputAdornment } from '@mui/material';
+import { useTheme, Input, Grid, Alert, InputAdornment, useMediaQuery } from '@mui/material';
 
 import { inject, observer } from 'mobx-react'
 
@@ -14,7 +14,7 @@ const AlertComp = inject('rootStore')(observer(({ rootStore, value }) => {
     // Simulated props for the purpose of the example
     //console.log( "props", props )
     const theme = useTheme();
-
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
     return (
         <Grid sx={{ width: "100%", }}>
@@ -30,12 +30,13 @@ const AlertComp = inject('rootStore')(observer(({ rootStore, value }) => {
                         '& .MuiInput-input': {
                             width: "100%",
                             color: 'text.main',
-                            fontSize: value.fontSize,
+                            fontSize: mobile ? value.fontSize * 0.8 : value.fontSize,
                             fontStyle: value.fontStyle,
                             textAlign: value.textAlign,
                             fontWeight: value.fontWeight,
                             textDecoration: value.textDecoration,
                             lineHeight: "normal",
+                            cursor: "default",
                         }
                     }}
                     type="text"

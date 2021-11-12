@@ -264,6 +264,7 @@ class KnowledgeStore {
     authorName: null,
     views: null,
     updated: null,
+    activeIdInMap: null,
   };
 
   @action clearModule = () => {
@@ -279,6 +280,7 @@ class KnowledgeStore {
   };
 
   @action loadPageInModule = (pageId = null) => {
+    this.setPageData("loading", true);
     if (
       this.module.type === "practice-block" ||
       this.module.type === "standard"
@@ -295,6 +297,7 @@ class KnowledgeStore {
             this.loadModule();
           } else {
             this.setPage(data);
+            this.setPageData("loading", false);
           }
         });
     }
@@ -306,11 +309,12 @@ class KnowledgeStore {
         )
         .then((data) => {
           console.log("pageInModule", data);
-          if (data?.a === "You have reached the end") {
-            this.loadModule();
+          if (pageId === this.module.map.length) {
+            this.loadPageInModule(0);
           } else {
             this.setModuleData("activeIdInMap", pageId);
             this.setPage(data);
+            this.setPageData("loading", false);
           }
         });
     }
@@ -318,7 +322,7 @@ class KnowledgeStore {
 
   @action loadModule = () => {
     this.setModuleData("loading", true);
-
+    this.setPageData("loading", true);
     // Получение id из url
     let str = document.location.href.toString();
     console.log("str", str);
@@ -347,6 +351,7 @@ class KnowledgeStore {
             )
             .then((data) => {
               this.setPage(data);
+              this.setPageData("loading", false);
             });
         } else if (this.module.type === "theory-block") {
           this.rootStore
