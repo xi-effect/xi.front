@@ -95,6 +95,18 @@ const Settings = inject('rootStore', 'settingsStore')(observer(({ rootStore, set
                   <Castomize />
                 </AccordionDetails>
               </Accordion>
+              <Accordion sx={{ width: "100%", backgroundColor: 'background.1' }}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                >
+                  <Typography>Безопастность</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                 {/* <Secure /> */}
+                </AccordionDetails>
+              </Accordion>
             </Grid>
           </Grid>
         </Box>
