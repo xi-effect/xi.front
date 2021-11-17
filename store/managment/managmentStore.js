@@ -72,7 +72,7 @@ class ManagmentStore {
             this.pageCreation.components.push({ type: "img", authorId: null, imageId: null, })
         }
         if (type === "quiz") {
-            this.pageCreation.components.push({ type: "quiz", quizType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", rightAnswer: false, showIcons: false, userAnswer: false, }], successAnswer: null })
+            this.pageCreation.components.push({ type: "quiz", quizType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", rightAnswer: false, }], successAnswer: null })
         }
         if (type === "list") {
             this.pageCreation.components.push({ type: "list", listType: 'dotted', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", }, ] })
@@ -119,7 +119,7 @@ class ManagmentStore {
             this.pageCreation.components[index]["content"].push({ label: "", })
         }
         if (type === 'quiz') {
-            this.pageCreation.components[index]["content"].push({ label: "", rightAnswer: false, showIcons: false, userAnswer: false, })
+            this.pageCreation.components[index]["content"].push({ label: "", rightAnswer: false, })
         }
     }
 

@@ -22,6 +22,10 @@ import {
   Paper,
   MenuItem,
   MenuList,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
   IconButton,
   Button,
   Grid,
@@ -106,6 +110,64 @@ function a11yProps(index) {
   };
 }
 
+const DialogEndTestResults = inject("knowledgeStore")(
+  observer(({ knowledgeStore, openTestResults, setOpenTestResults }) => {
+    return (
+      <Dialog
+        open={openTestResults}
+        onClose={() => setOpenTestResults(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Результаты теста"}
+        </DialogTitle>
+        <DialogContent>
+
+        </DialogContent>
+        <DialogActions>
+          <Button sx={{color: 'text.main'}} onClick={() => setOpenTestResults(false)} autoFocus>
+            Закрыть
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  })
+);
+
+const DialogEndTestApply = inject("knowledgeStore")(
+  observer(({ knowledgeStore, openTestApply, setOpenTestApply, setOpenTestResults }) => {
+    return (
+<Dialog
+        open={openTestApply}
+        onClose={() => setOpenTestApply(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Завершить тестирование?"}
+        </DialogTitle>
+        <DialogContent>
+            Вы уверены, что хотите завершить тест?
+            После этого вы не сможете изменить ответы и увидете результаты
+        </DialogContent>
+        <DialogActions>
+          <Button sx={{color: 'text.main'}} onClick={() => setOpenTestApply(false)}>Отмена</Button>
+          <Button
+          sx={{color: 'text.main'}}
+          onClick={() => {
+              setOpenTestApply(false)
+              setOpenTestResults(true)
+            }}
+             autoFocus>
+            Завершить тест
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  })
+);
+
 const ModuleInfo = inject("knowledgeStore")(
   observer(({ knowledgeStore, children }) => {
     const theme = useTheme();
@@ -119,6 +181,8 @@ const ModuleInfo = inject("knowledgeStore")(
       setValue(newValue);
     };
 
+    const [openTestApply, setOpenTestApply] = React.useState(false);
+    const [openTestResults, setOpenTestResults] = React.useState(false);
     const [paginationCounter, setPaginationCounter] = React.useState(1);
 
     const handleChangePagination = (event, value) => {
@@ -217,6 +281,21 @@ const ModuleInfo = inject("knowledgeStore")(
                 </Grid>
                 <Grid item></Grid>
                 <Grid item>
+                {knowledgeStore.module.type === "test" && <Tooltip title="Завершить тест">
+                    <span>
+                      <Button
+                        onClick={() =>
+                          setOpenTestApply(true)
+                        }
+                        size="large"
+                        sx={{color: 'text.main'}}
+                      >
+                        Завершить
+                      </Button>
+                    </span>
+                  </Tooltip>}
+                  {<DialogEndTestApply openTestApply={openTestApply} setOpenTestApply={setOpenTestApply} setOpenTestResults={setOpenTestResults}/>}
+                  {<DialogEndTestResults openTestResults={openTestResults} setOpenTestResults={setOpenTestResults}/>}
                   <Tooltip title="Вперёд">
                     <span>
                       <IconButton

@@ -6,6 +6,8 @@ import {
   makeObservable,
 } from "mobx";
 
+import Router from 'next/router'
+const router = Router
 class KnowledgeStore {
   // `this` from rootstore passed to the constructor and we can
   // assign it to a variable accessible in this class called
@@ -86,27 +88,52 @@ class KnowledgeStore {
     authorName: null,
     views: null,
     updated: null,
+    quizCounter: 0,
+    rightAnswersCounter: 0,
   };
 
-  @action setSingleQuiz = (index, indexA) => {
-    for (let i = 0; i < this.page.components[index].content.length; i += 1) {
-      this.page.components[index].content[i].userAnswer = false;
+  @action setAnswer = (type, indexComp, indexAnswer) => {
+    if (type === "single") {
+      this.module.answers[indexComp] = indexAnswer;
     }
-    this.page.components[index].content[indexA].userAnswer = true;
-  };
-
-  @action isAnswerRight = (index) => {
-    for (let i = 0; i < this.page.components[index].content.length; i += 1) {
-      if (
-        this.page.components[index].content[i].userAnswer !=
-        this.page.components[index].content[i].rightAnswer
-      ) {
-        this.page.components[index].successAnswer = false;
-        return;
+    if (type === "multiple") {
+      if (indexComp in this.module.answers) {
+        if (this.module.answers[indexComp].includes(indexAnswer)) {
+          this.module.answers[indexComp] = this.module.answers[
+            indexComp
+          ].filter((item) => {
+            return item !== indexAnswer;
+          });
+        } else {
+          this.module.answers[indexComp].push(indexAnswer);
+        }
+      } else {
+        this.module.answers[indexComp] = [];
+        console.log("iut", this.module.answers[indexComp]);
+        this.module.answers[indexComp].push(indexAnswer);
       }
     }
-    this.page.components[index].successAnswer = true;
-    console.log("logs", this.page.components[index]);
+  };
+
+  @action isAnswerRight = (type, index) => {
+    if (type === 'single') {
+      this.page.components[index].content.forEach((item, itemIndex)  => {
+        if (this.module.answers[index] === itemIndex && !item.rightAnswer) {
+          this.page.components[index].successAnswer = false 
+          return;
+        }
+      })
+    }
+    if (type === 'multiple') {
+      this.page.components[index].content.forEach((item, itemIndex)  => {
+        if (this.module.answers[index].includes(itemIndex) && !item.rightAnswer) {
+          this.page.components[index].successAnswer = false 
+          return;
+        }
+      })
+    }
+    this.page.components[index].successAnswer = true 
+    // console.log("logs", this.page.components[index]);
   };
 
   @action setComponentsContent = (index, indexA, name, value) => {
@@ -133,6 +160,7 @@ class KnowledgeStore {
         this.setPage(data);
         this.setPageData("authorId", data["author-id"]);
         this.setPageData("authorName", data["author-name"]);
+        this.setPageData("answers", {});
         this.setPageData("loading", false);
       });
   };
@@ -265,6 +293,7 @@ class KnowledgeStore {
     views: null,
     updated: null,
     activeIdInMap: null,
+    answers: {},
   };
 
   @action clearModule = () => {
@@ -279,7 +308,7 @@ class KnowledgeStore {
     this.module[name] = value;
   };
 
-  @action loadPageInModule = (pageId = null) => {
+  @action loadPageInModule = (pageId = null, first = null) => {
     this.setPageData("loading", true);
     if (
       this.module.type === "practice-block" ||
@@ -297,11 +326,12 @@ class KnowledgeStore {
             this.loadModule();
           } else {
             this.setPage(data);
+            router.push(`/knowledge/module/${this.module.id}/${this.page.id}`)
             this.setPageData("loading", false);
           }
         });
     }
-    if (this.module.type === "theory-block" || this.module.type === "test") {
+    if (this.module.type === "theory-block") {
       this.rootStore
         .fetchDataScr(
           `${this.rootStore.url}/modules/${this.module.id}/points/${pageId}/`,
@@ -314,7 +344,52 @@ class KnowledgeStore {
           } else {
             this.setModuleData("activeIdInMap", pageId);
             this.setPage(data);
+            router.push(`/knowledge/module/${this.module.id}/${pageId}`)
             this.setPageData("loading", false);
+          }
+        });
+    }
+    if (this.module.type === "test") {
+      if (first === null) {
+        this.setModuleData("answers", { a: true });
+        this.setPageData("quizCounter", 0);
+        this.setPageData("rightAnswersCounter", 0);
+        this.page.components.forEach((item) => {
+          if (item.type === "quiz")
+            this.setPageData("quizCounter", this.page.quizCounter + 1);
+        });
+        this.rootStore
+          .fetchDataScr(
+            `${this.rootStore.url}/modules/${this.module.id}/points/${pageId}/reply/`,
+            "POST",
+            {
+              answers: {
+                pageName: this.page.name,
+                ...this.module.answers,
+              },
+              "right-answers": this.page.components.rightAnswersCounter,
+              "total-answers": this.page.components.quizCounter,
+            }
+          )
+          .then((data) => {
+
+          });
+      }
+      this.rootStore
+        .fetchDataScr(
+          `${this.rootStore.url}/modules/${this.module.id}/points/${pageId}/`,
+          "GET"
+        )
+        .then((data) => {
+          console.log("pageInModule", data);
+          if (pageId === this.module.map.length) {
+            this.loadPageInModule(0);
+          } else {
+            this.setModuleData("activeIdInMap", pageId);
+            this.setPage(data);
+            router.push(`/knowledge/module/${this.module.id}/${pageId}`)
+            this.setPageData("loading", false);
+            console.log("pageInModule2", this.page);
           }
         });
     }
@@ -331,15 +406,19 @@ class KnowledgeStore {
     console.log("str", str);
     const secondId = str.slice(str.lastIndexOf("/") + 1);
     let lastId = null;
+    
     if (secondId === "module") lastId = firstId;
     else lastId = secondId;
     console.log("lastId", lastId);
+    console.log("firstId", firstId);
+    console.log("secondId", secondId);
 
     this.rootStore
       .fetchDataScr(`${this.rootStore.url}/modules/${lastId}/`, "GET")
       .then((data) => {
         console.log("meta", data);
         this.setModule(data);
+        this.setModuleData("answers", { a: true });
         this.setModuleData("authorId", data["author-id"]);
         this.setModuleData("openAccordion", false);
         this.setModuleData("loading", false);
@@ -351,6 +430,7 @@ class KnowledgeStore {
             )
             .then((data) => {
               this.setPage(data);
+              router.push(`/knowledge/module/${this.module.id}/${this.page.id}`)
               this.setPageData("loading", false);
             });
         } else if (this.module.type === "theory-block") {
@@ -374,8 +454,14 @@ class KnowledgeStore {
           this.module.type !== "theory-block" &&
           this.module.type !== "standard"
         ) {
-          this.setModuleData("activeIdInMap", 0);
-          this.loadPageInModule(0);
+          if (firstId !== 'start') {
+            this.setModuleData("activeIdInMap", Number(firstId));
+            this.loadPageInModule(Number(firstId), true);
+          } else {
+            this.setModuleData("activeIdInMap", 0);
+            this.loadPageInModule(0, true);
+          }
+
         }
       });
   };

@@ -19,10 +19,10 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
             direction="column"
             justifyContent="flex-start"
             alignItems="flex-start"
+            sx={{mt: 2, mb: 2,}}
         >
             <Grid sx={{ width: "100%" }}>
-                {
-                    value.content.map((item, indexA) => (
+                {value.content.map((item, indexA) => (
                         <Input
                             key={indexA.toString()}
                             sx={{
@@ -44,6 +44,11 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                             multiline
                             fullWidth
                             readOnly
+                            onClick={() => {
+                                // if (value.quizType === 'single') knowledgeStore.setSingleQuiz(index, indexA)
+                                // if (value.quizType === 'multiple') knowledgeStore.setComponentsContent(index, indexA, "userAnswer", !item.userAnswer)
+                                knowledgeStore.setAnswer(value.quizType, index, indexA)
+                            }}
                             value={item.label}
                             startAdornment={
                                 <>
@@ -55,9 +60,7 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                                             },
                                         }}
                                         //color="primary"
-                                        checked={item.userAnswer}
-                                        onChange={() => knowledgeStore.setSingleQuiz(index, indexA)}
-
+                                        checked={index in knowledgeStore.module.answers ? knowledgeStore.module.answers[index] === indexA : false}
                                     />}
                                     {value.quizType === 'multiple' && <Checkbox
                                         sx={{
@@ -67,18 +70,44 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                                             },
                                         }}
                                         //color="primary"
-                                        checked={item.userAnswer}
-                                        onChange={() => knowledgeStore.setComponentsContent(index, indexA, "userAnswer", !item.userAnswer)}
+                                        checked={index in knowledgeStore.module.answers ? knowledgeStore.module.answers[index].includes(indexA) : false}
                                     //onChange={handleChange}
                                     />}
 
                                 </>
                             }
                         />
-                    ))
-                }
+                    ))}
             </Grid>
-            <Grid
+            {knowledgeStore.module.type !== "test" && <Grid
+                container
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+            >
+                <Button
+                    sx={{
+                        ml: 2,
+                        mt: 1,
+                        color: 'text.main',
+                    }}
+                    variant="text"
+                    onClick={() => knowledgeStore.isAnswerRight(value.quizType, index)}
+                >
+                    Проверить
+                </Button>
+                {value.successAnswer != null && <Typography
+                    //color="success"
+                    sx={{
+                        ml: 2,
+                        mt: 1,
+                        color: 'text.main',
+                    }}
+                >
+                    {value.successAnswer ? `Ответ Верный!` : `Ответ Неправильный!`}
+                </Typography>}
+            </Grid>}
+            {/* <Grid
                 container
                 direction="row"
                 justifyContent="flex-start"
@@ -93,7 +122,7 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                     variant="text"
                     onClick={() => knowledgeStore.isAnswerRight(index)}
                 >
-                    Проверить
+                    
                 </Button>
                 {value.successAnswer != null && <Typography
                     //color="success"
@@ -105,8 +134,7 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                 >
                     {value.successAnswer ? `Ответ Верный!` : `Ответ Неправильный!`}
                 </Typography>}
-            </Grid>
-
+            </Grid> */}
         </Grid>
     );
 }));

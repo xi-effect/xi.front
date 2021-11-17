@@ -139,22 +139,22 @@ const QuizList = inject("managmentStore")(
           >
             {(provided) => (
               <Grid
-                onMouseEnter={() =>
-                  managmentStore.setPageCreationContentComponents(
-                    index,
-                    indexA,
-                    "showIcons",
-                    true
-                  )
-                }
-                onMouseLeave={() =>
-                  managmentStore.setPageCreationContentComponents(
-                    index,
-                    indexA,
-                    "showIcons",
-                    false
-                  )
-                }
+                // onMouseEnter={() =>
+                //   managmentStore.setPageCreationContentComponents(
+                //     index,
+                //     indexA,
+                //     "showIcons",
+                //     true
+                //   )
+                // }
+                // onMouseLeave={() =>
+                //   managmentStore.setPageCreationContentComponents(
+                //     index,
+                //     indexA,
+                //     "showIcons",
+                //     false
+                //   )
+                // }
                 ref={provided.innerRef}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}

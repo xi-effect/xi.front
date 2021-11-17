@@ -111,7 +111,6 @@ const ListItem = inject("managmentStore")(
               </IconButton>
             </Tooltip>
             <Tooltip title="Перетащить блок">
-              {/* className={clsx(classes.IconButtonToHidden, { [classes.hidden]: item.showIcons })} */}
               <IconButton size="large">
                 <DragIndicatorIcon />
               </IconButton>
@@ -139,22 +138,22 @@ const ListList = inject("managmentStore")(
           >
             {(provided) => (
               <Grid
-                onMouseEnter={() =>
-                  managmentStore.setPageCreationContentComponents(
-                    index,
-                    indexA,
-                    "showIcons",
-                    true
-                  )
-                }
-                onMouseLeave={() =>
-                  managmentStore.setPageCreationContentComponents(
-                    index,
-                    indexA,
-                    "showIcons",
-                    false
-                  )
-                }
+                // onMouseEnter={() =>
+                //   managmentStore.setPageCreationContentComponents(
+                //     index,
+                //     indexA,
+                //     "showIcons",
+                //     true
+                //   )
+                // }
+                // onMouseLeave={() =>
+                //   managmentStore.setPageCreationContentComponents(
+                //     index,
+                //     indexA,
+                //     "showIcons",
+                //     false
+                //   )
+                // }
                 ref={provided.innerRef}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
