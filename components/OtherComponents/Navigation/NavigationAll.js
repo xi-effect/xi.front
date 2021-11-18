@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import clsx from "clsx";
 import { inject, observer } from "mobx-react";
 
-import { Box, Button, useTheme } from "@mui/material";
+import { Box, Paper, Button, useMediaQuery, useTheme } from "@mui/material";
 
 import Sidebar from "./Sidebar";
 import Helpbar from "./Helpbar";
 import Loading from "../Loading/Loading";
 import SideDownbar from "./SideDownbar";
+import Upbar from "./Upbar";
 import ChatDialog from "../../PagesComponents/Messages/ChatDialog";
 
 import { io } from "socket.io-client";
@@ -23,9 +23,11 @@ const NavigationAll = inject(
   "uiStore",
   "messageStore"
 )(
-  observer(({ rootStore, settingsStore, uiStore, messageStore, children }) => {
+  observer(({ rootStore, settingsStore, uiStore, messageStore, hasSecondMenu = false, hasRightToolbar = false, hasRightlist = false, children }) => {
     const theme = useTheme();
     const router = useRouter();
+
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
     React.useEffect(() => {
       // Главное подключение к сокету
@@ -70,6 +72,32 @@ const NavigationAll = inject(
       });
     }
 
+    const [hoverLeft, setHoverLeft] = React.useState(false)
+    const [hoverRight, setHoverRight] = React.useState(false)
+
+    const getWidth = () => {
+      let w = 70
+      if (hasRightToolbar) w = w + 32
+      if (hasRightlist) w = w + 256
+      if (hoverLeft) w = w + 256
+      if (mobile) w = 32
+      return w
+    }
+
+    const getBorderTopRightRadius = () => {
+      let btrr = (hasRightlist || hasRightToolbar) ? 32 : 2
+      if (mobile) btrr = 24
+      return btrr
+    }
+
+    const getMarginLeft = () => {
+      let ml = "70px"
+      if (mobile) ml = 2
+      if (hoverLeft) ml = "326px" 
+      return ml
+    }
+
+
     return (
       <>
         {uiStore.loading["navigation"] && <Loading />}
@@ -77,11 +105,13 @@ const NavigationAll = inject(
           <Box
             sx={{
               zIndex: 0,
-              display: "flex",
-              backgroundColor: "background.1",
-              minHeight: "100vh",
+              // display: "flex",
+              backgroundColor: "primary.main",
+              height: "100%",
+              width: "100%",
             }}
           >
+            <Upbar/>
             <Box
               sx={{
                 display: {
@@ -93,9 +123,9 @@ const NavigationAll = inject(
                 },
               }}
             >
-              <Sidebar />
+              <Sidebar hoverLeft={hoverLeft} setHoverLeft={setHoverLeft}/>
             </Box>
-            <Box
+            {/* <Box
               sx={{
                 display: {
                   xs: "block",
@@ -107,23 +137,26 @@ const NavigationAll = inject(
               }}
             >
               <SideDownbar />
-            </Box>
+            </Box> */}
             {/* <Helpbar openHelpMenu={openHelpMenu} setOpenHelpMenu={setOpenHelpMenu} /> */}
-            <Box
+            <Paper
+                    onMouseEnter={() => setHoverLeft(false)}
+              elevation={1}
               sx={{
+                transition: '0.8s',
                 zIndex: 0,
                 margin: 0,
-                //height: "100vh",
-                width: "100%",
-                backgroundColor: "background.0",
+                height: "calc(100vh - 48px)",
+                width: `calc(100% - ${getWidth()}px)`,
+                marginLeft: getMarginLeft(),
+                borderTopLeftRadius:  mobile ? 24 : 32,
+                borderTopRightRadius: getBorderTopRightRadius(),
+                backgroundColor: "background.main",
               }}
             >
               {children}
-            </Box>
-            {/* <Button sx={{ position: 'absolute', top: 64, left: 512 }} onClick={socketClick}>
-                        Click
-                    </Button> */}
-            <ChatDialog />
+            </Paper>
+            {/* <ChatDialog /> */}
           </Box>
         )}
       </>

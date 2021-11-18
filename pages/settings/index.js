@@ -32,7 +32,6 @@ const Settings = inject('rootStore', 'settingsStore')(observer(({ rootStore, set
         <Box sx={{ width: "100%", }}>
           <Grid container direction="column" justifyContent="flex-start" alignItems="center"
             sx={{
-              marginTop: 4,
               paddingLeft: 1,
               paddingRight: 1,
               width: "100%",
@@ -44,7 +43,7 @@ const Settings = inject('rootStore', 'settingsStore')(observer(({ rootStore, set
               alignItems="flex-end"
               sx={{
                 width: '100%',
-                height: 256,
+                height: 276,
                 maxWidth: 1200,
               }}
             >

@@ -23,7 +23,7 @@ const Root = styled('div')((
         height: "100%",
         zIndex: 1100,
         overflow: "hidden",
-        backgroundColor: theme.palette.blueGrey["5"]
+        backgroundColor: theme.palette.primary.main,
     },
 
     [`& .${classes.label}`]: {

@@ -20,42 +20,22 @@ export const getDesignTokens = (mode) => ({
                     landingBlue: "#6cadee",
                     landingPink: "#d391e3",
                 },
-                green: {
-                    light: "#6fbf73",
-                    main: "#4caf50",
-                    dark: "#81ac8d",
-                },
-                background: {
-                    0: "#cfd8dc",
-                    1: "#b0bec5",
-                    2: "#90a4ae",
-                },
-
-                // Старые цвета ниже, от них избавляемся
                 primary: {
-                    light: '#2196f3',
-                    main: '#1976d2',
-                    dark: '#0d47a1',
-                    contrastText: '#fff',
+                    main: '#B2EBF2',
+                    light: '#B2EBF2',
+                    dark: '#B2EBF2',
                 },
                 secondary: {
-                    light: '#8bc34a',
-                    main: '#689f38',
-                    dark: '#33691e',
-                    contrastText: '#111',
+                    main: '#00BCD4',
+                    light: '#00BCD4',
+                    dark: '#00BCD4',
                 },
-                blueGrey: {
-                    "0": "#eceff1",
-                    "1": "#cfd8dc",
-                    "2": "#b0bec5",
-                    "3": "#90a4ae",
-                    "4": "#78909c",
-                    "5": "#607d8b",
-                    "6": "#546e7a",
-                    "7": "#455a64",
-                    "8": "#37474f",
-                    "9": "#263238",
-                },
+                tertiary: {
+                    main: '#005086',
+                }, 
+                background: {
+                    main: '#DDF4FF',
+                }
             }
             : {
                 mode: 'dark',
@@ -76,42 +56,23 @@ export const getDesignTokens = (mode) => ({
                     landingBlue: "#6cadee",
                     landingPink: "#d391e3",
                 },
-                green: {
-                    light: "#6fbf73",
-                    main: "#4caf50",
-                    dark: "#81ac8d",
-                },
-                background: {
-                    0: "#263238",
-                    1: "#37474f",
-                    2: "#455a64",
-                },
-
-                // старая палитра 
                 primary: {
-                    light: '#accef5',
-                    main: '#1976d2',
-                    dark: '#0d47a1',
-                    contrastText: '#fff',
+                    main: '#1D3461',
+                    light: '#1D3461',
+                    dark: '#1D3461',
                 },
                 secondary: {
-                    light: '#8bc34a',
-                    main: '#689f38',
-                    dark: '#33691e',
-                    contrastText: '#111',
+                    main: '#376996',
+                    light: '#376996',
+                    dark: '#376996',
                 },
-                blueGrey: {
-                    "0": "#263238",
-                    "1": "#37474f",
-                    "2": "#455a64",
-                    "3": "#546e7a",
-                    "4": "#607d8b",
-                    "5": "#78909c",
-                    "6": "#90a4ae",
-                    "7": "#b0bec5",
-                    "8": "#cfd8dc",
-                    "9": "#eceff1",
+                tertiary: {
+                    main: '#6290C8',
+                }, 
+                background: {
+                    main: '#1F487E',
                 },
+
             }),
     },
 });

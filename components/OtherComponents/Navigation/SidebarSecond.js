@@ -39,7 +39,6 @@ import AdjustIcon from '@mui/icons-material/Adjust';
 import CircleIcon from '@mui/icons-material/Circle';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
-
 const Sidebar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, setHoverLeft }) => {
     const theme = useTheme();
     const router = useRouter()
