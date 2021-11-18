@@ -7,6 +7,7 @@ import { inject, observer } from "mobx-react";
 import { Box, Paper, Button, useMediaQuery, useTheme } from "@mui/material";
 
 import Sidebar from "./Sidebar";
+import SidebarSecond from "./SidebarSecond";
 import Helpbar from "./Helpbar";
 import Loading from "../Loading/Loading";
 import SideDownbar from "./SideDownbar";
@@ -41,7 +42,6 @@ const NavigationAll = inject(
         .then((data) => {
           if (data) {
             console.log("settings/main", data);
-
             messageStore.loadChatsInMenu();
             uiStore.setLoading("navigation", false);
             settingsStore.setSettings("darkTheme", data["dark-theme"]);
@@ -72,14 +72,15 @@ const NavigationAll = inject(
       });
     }
 
-    const [hoverLeft, setHoverLeft] = React.useState(false)
+
     const [hoverRight, setHoverRight] = React.useState(false)
+    const [hoverLeftName, setHoverLeftName] = React.useState(null)
 
     const getWidth = () => {
       let w = 70
       if (hasRightToolbar) w = w + 32
-      if (hasRightlist) w = w + 256
-      if (hoverLeft) w = w + 256
+      if (hasRightlist) w = w + 128
+      if (hoverLeftName !== null) w = w + 128
       if (mobile) w = 32
       return w
     }
@@ -93,7 +94,7 @@ const NavigationAll = inject(
     const getMarginLeft = () => {
       let ml = "70px"
       if (mobile) ml = 2
-      if (hoverLeft) ml = "326px" 
+      if (hoverLeftName !== null) ml = "198px" 
       return ml
     }
 
@@ -107,24 +108,13 @@ const NavigationAll = inject(
               zIndex: 0,
               // display: "flex",
               backgroundColor: "primary.main",
-              height: "100%",
-              width: "100%",
+              minHeight: "100vh",
+              // width: "calc(100% + 16px)",
             }}
           >
             <Upbar/>
-            <Box
-              sx={{
-                display: {
-                  xs: "none",
-                  sm: "none",
-                  md: "block",
-                  lg: "block",
-                  xl: "block",
-                },
-              }}
-            >
-              <Sidebar hoverLeft={hoverLeft} setHoverLeft={setHoverLeft}/>
-            </Box>
+            <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName}/>
+            <SidebarSecond hoverLeftName={hoverLeftName}/>
             {/* <Box
               sx={{
                 display: {
@@ -140,13 +130,14 @@ const NavigationAll = inject(
             </Box> */}
             {/* <Helpbar openHelpMenu={openHelpMenu} setOpenHelpMenu={setOpenHelpMenu} /> */}
             <Paper
-                    onMouseEnter={() => setHoverLeft(false)}
-              elevation={1}
+              onMouseEnter={() => setHoverLeftName(null)}
+              elevation={2}
               sx={{
                 transition: '0.8s',
-                zIndex: 0,
+                zIndex: 1,
                 margin: 0,
-                height: "calc(100vh - 48px)",
+                minHeight: "calc(100vh - 48px)",
+                height: "calc(100% - 48px)",
                 width: `calc(100% - ${getWidth()}px)`,
                 marginLeft: getMarginLeft(),
                 borderTopLeftRadius:  mobile ? 24 : 32,

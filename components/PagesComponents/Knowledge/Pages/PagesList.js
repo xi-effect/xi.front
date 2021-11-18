@@ -1,288 +1,221 @@
 /* eslint-disable react/display-name */
-import React, { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
+import React, { useState, useEffect } from "react";
+import { styled } from "@mui/material/styles";
 import Link from "next/link";
-import cx from 'clsx';
-import clsx from 'clsx';
-import { Divider, CardContent, MenuItem, Popper, MenuList, Avatar, Paper, Accordion, IconButton, Chip, AccordionSummary, AccordionDetails, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
+import cx from "clsx";
+import clsx from "clsx";
+import {
+  Divider,
+  CardContent,
+  MenuItem,
+  Popper,
+  MenuList,
+  Avatar,
+  Paper,
+  Accordion,
+  IconButton,
+  Chip,
+  AccordionSummary,
+  AccordionDetails,
+  CardHeader,
+  Button,
+  Card,
+  CardActions,
+  Grid,
+  Collapse,
+  Box,
+  Typography,
+  useTheme,
+  Tooltip,
+  Grow,
+} from "@mui/material";
 
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react";
+
+import SVGbackground from "../../../OtherComponents/SVGbackground/SVGbackground";
 
 const Views = React.memo(({ views }) => {
-    const theme = useTheme()
+  const theme = useTheme();
 
-    if (views < 1000) {
-        return (
-            <>
-                <VisibilityIcon />
-                <Typography sx={{ color: "white" }}> {`${views}`} </Typography>
-            </>
-        )
-    }
-    if (views >= 1000 && views < 1000000) {
-        return (
-            <>
-                <VisibilityIcon />
-                <Typography sx={{ color: "white" }}> {`${Math.round(views / 1000)}к`} </Typography>
-            </>
-        )
-    }
-    if (views > 1000000) {
-        return (
-            <>
-                <VisibilityIcon />
-                <Typography sx={{ color: "white" }}> {`${Math.round(views / 1000000)} млн`} </Typography>
-            </>
-        )
-    }
-})
+  if (views < 1000) {
+    return (
+      <>
+        <VisibilityIcon />
+        <Typography sx={{ color: "white" }}> {`${views}`} </Typography>
+      </>
+    );
+  }
+  if (views >= 1000 && views < 1000000) {
+    return (
+      <>
+        <VisibilityIcon />
+        <Typography sx={{ color: "white" }}>
+          {" "}
+          {`${Math.round(views / 1000)}к`}{" "}
+        </Typography>
+      </>
+    );
+  }
+  if (views > 1000000) {
+    return (
+      <>
+        <VisibilityIcon />
+        <Typography sx={{ color: "white" }}>
+          {" "}
+          {`${Math.round(views / 1000000)} млн`}{" "}
+        </Typography>
+      </>
+    );
+  }
+});
 
-
-const PagesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
+const PagesList = inject(
+  "knowledgeStore",
+  "uiStore"
+)(
+  observer(({ knowledgeStore, uiStore }) => {
     const theme = useTheme();
 
-    const knowledgeUI = uiStore.knowledgeUI
-    const [openMenu, setOpenMenu] = React.useState(false)
+    const knowledgeUI = uiStore.knowledgeUI;
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleChange = (e, i) => {
+      setExpanded(e === i ? false : i);
+    };
 
     const kindSelect = (value) => {
-        if (value === "theory") return "Теория"
-        if (value === "practice") return "Практика"
-        if (value === "task") return "Проверочная работа"
-    }
+      if (value === "theory") return "Теория";
+      if (value === "practice") return "Практика";
+      if (value === "task") return "Проверочная работа";
+    };
 
     const buttonLabelSelect = (value) => {
-        if (value === "theory") return "теории"
-        if (value === "practice") return "практике"
-        if (value === "task") return "проверочной"
-    }
+      if (value === "theory") return "теории";
+      if (value === "practice") return "практике";
+      if (value === "task") return "проверочной";
+    };
 
     return (
-        <Grid
+      <Grid
+        container
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        sx={{
+          margin: 0,
+          pt: 1,
+          pl: 1,
+          width: "100%",
+          //backgroundColor: 'background.1',
+        }}
+      >
+        {knowledgeStore.pageList.pages.map((page, index) => (
+          <Grid
+            xs={12}
+            sm={12}
+            md={6}
+            lg={6}
+            xl={4}
+            item
+            sx={{ p: 1, transition: "0.8s", width: "100%", height: "100%" }}
             container
-            direction={knowledgeUI.gridTypeOnPage === "grid" ? "row" : "column"}
+            direction="column"
             justifyContent="center"
-            alignItems="center"
-            sx={{
-                margin: 2,
-                width: "calc(100% - 32px)",
-                borderRadius: 2,
-                //backgroundColor: 'background.1',
-            }}
-        >
-            {
-                knowledgeStore.pageList.pages.map((page, index) => (
-                    <Grid
-                        xs={12} sm={12} md={knowledgeUI.gridTypeOnPageSizes[0]} lg={knowledgeUI.gridTypeOnPageSizes[1]} xl={knowledgeUI.gridTypeOnPageSizes[2]}
-                        item
-                        sx={{ p: 1, }}
-                        container
-                        justifyContent="center"
-                        alignItems="center"
-                        key={index.toString()}>
-                        <Card elevation={24} sx={{
-                            position: 'relative',
-                            border: '2px solid',
-                            borderColor: 'primary.dark',
-                            borderRadius: 8,
-                            transition: '0.4s',
-                            '&:hover': {
-                                borderColor: 'primary.light',
-                            },
-                            width: '100%',
-                            overflow: 'initial',
-                            backgroundColor: 'background.2',
-                        }}>
-                            <IconButton
-                                sx={{
-                                    position: 'absolute',
-                                    top: 1.5,
-                                    right: 1.5,
-                                    color: 'text.main',
-                                }}
-                                variant="contained"
-                                color="primary"
-                                onClick={(event) => setOpenMenu(event.currentTarget)}
-                                size="large">
-                                <MoreVertIcon />
-                            </IconButton>
-                            <Popper sx={{ zIndex: 1000, }} id={undefined} open={Boolean(openMenu)} onClose={() => setOpenMenu(false)} anchorEl={openMenu}>
-                                <Paper sx={{ zIndex: 1000, }}>
-                                    <MenuList
-                                        id="composition-menu"
-                                        aria-labelledby="composition-button"
-                                    >
-                                        <MenuItem onClick={() => setOpenMenu(false)}>Скрыть курс</MenuItem>
-                                        <MenuItem onClick={() => setOpenMenu(false)}>Пожаловаться</MenuItem>
-                                        <MenuItem onClick={() => setOpenMenu(false)}>Logout</MenuItem>
-                                    </MenuList>
-                                </Paper>
-                            </Popper>
-                            <Grid
-                                container
-                                direction="row"
-                                justifyContent="space-between"
-                                alignItems="center"
-                                sx={{ marginBottom: 0.5, }}
-                            >
-                                {/* wrap="nowrap" spacing={2} */}
-                                <Grid item container>
-                                    <Grid container wrap="nowrap" spacing={2}>
-                                        <Grid item xs zeroMinWidth>
-                                            <Tooltip arrow title={`Название: ${page.name}`}>
-                                                <Typography sx={{
-                                                    cursor: "default",
-                                                    marginTop: 2,
-                                                    marginLeft: 2,
-                                                    marginRight: 8.5,
-                                                    fontSize: "24px",
-                                                }} noWrap>{page.name}</Typography>
-                                            </Tooltip>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item>
-
-                                </Grid>
-                            </Grid>
-                            <Divider variant="middle" sx={{
-                                marginTop: 0.5,
-                                marginBottom: 0.5,
-                                height: "1px",
-                                //width: "100%",
-                                backgroundColor: 'text.main',
-                            }} />
-                            <CardContent sx={{
-                                marginTop: 0,
-                                width: "300px",
-                                height: "196px",
-                            }}>
-                                <Grid
-                                    container
-                                    direction="column"
-                                    justifyContent="center"
-                                    alignItems="flex-start"
-                                >
-                                    {knowledgeUI.contentTypeOnPage === "info" && <Grid
-                                        container
-                                        direction="column"
-                                        justifyContent="center"
-                                        alignItems="flex-start"
-                                    >
-                                        <Grid item>
-                                            <Typography sx={{ fontWeight: "bold", }}> Тематика Страницы </Typography>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography> {page.theme} </Typography>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography sx={{
-                                                marginTop: 1,
-                                                fontWeight: "bold",
-                                            }}> Тип Страницы </Typography>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography> {kindSelect(page.kind)}</Typography>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography sx={{
-                                                marginTop: 1,
-                                                fontWeight: "bold",
-                                            }}> Просмотры </Typography>
-                                        </Grid>
-                                        <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="flex-start"
-                                            alignItems="center"
-                                        >
-                                            <Views views={page.views} />
-                                        </Grid>
-                                    </Grid>}
-                                    {knowledgeUI.contentTypeOnPage === "description" && <Grid
-                                        container
-                                        direction="column"
-                                        justifyContent="center"
-                                        alignItems="flex-start"
-                                    >
-                                        <Grid item>
-                                            <Typography sx={{ fontWeight: "bold", }}> Описание </Typography>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography> {page.description != null ? page.description : "Автор не оставил описание страницы"} </Typography>
-                                        </Grid>
-                                    </Grid>}
-                                    {knowledgeUI.contentTypeOnPage === "author" && <Grid
-                                        container
-                                        direction="row"
-                                        justifyContent="flex-start"
-                                        alignItems="flex-start"
-                                    >
-                                        <Grid item>
-                                            <Avatar sx={{
-                                                borderRadius: 2,
-                                                fontSize: "24px",
-                                                width: "72px",
-                                                height: "72px",
-                                            }}> {page["author-name"][0].toUpperCase()} </Avatar>
-                                            <Typography sx={{
-                                                marginLeft: 1,
-                                                fontWeight: "bold",
-                                            }}> Автор </Typography>
-                                            <Typography sx={{ marginLeft: 1, }}>{page["author-name"]}</Typography>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography sx={{
-                                                marginLeft: 1,
-                                                fontWeight: "bold",
-                                            }}>Об Авторе </Typography>
-                                            <Typography sx={{ marginLeft: 1, }}>Информация об авторе</Typography>
-                                        </Grid>
-                                    </Grid>}
-                                </Grid>
-                            </CardContent>
-                            <Divider variant="middle" sx={{
-                                marginTop: 0.5,
-                                marginBottom: 0.5,
-                                height: "1px",
-                                //width: "100%",
-                                backgroundColor: 'text.main',
-                            }} />
-                            <CardActions sx={{
-                                marginTop: "auto",
-                                marginBottom: 0,
-                            }}>
-                                <Grid spacing={1} container justifyContent="center" >
-                                    <Grid>
-                                        <Link
-                                            href={{
-                                                pathname: '/knowledge/page/[id]',
-                                                query: { id: page.id },
-                                            }}
-                                            passHref>
-                                            <Button variant="contained" sx={{
-                                                marginTop: "5px",
-                                                height: "40px",
-                                                marginBottom: "5px",
-                                            }}>
-                                                <Typography variant="subtitle1">{`Перейти к ${buttonLabelSelect(page.kind)}`}</Typography>
-                                                {/* <Typography variant="subtitle1">Продолжить модуль</Typography>} */}
-                                            </Button>
-                                        </Link>
-                                    </Grid>
-                                </Grid>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                ))
-
-            }
-        </Grid>
+            alignItems="flex-start"
+            key={index.toString()}
+          >
+            <Collapse
+              sx={{
+                width: "100%",
+                height: "100%"
+              }}
+    in={!(expanded === index)}
+  >
+              {/* <Box sx={{width: "100%", height: "auto"}}> */}
+              <SVGbackground width={1920} height={1080}/>
+              {/* </Box> */}
+            </Collapse>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography variant="h6" noWrap>
+                {page.name}
+              </Typography>
+              <IconButton onClick={() => handleChange(expanded, index)} size="large">
+                <ExpandMoreIcon
+                  sx={{
+                    transform:
+                      expanded === index ? "rotate(0deg)" : "rotate(-180deg)",
+                    transition: "0.2s",
+                  }}
+                />
+              </IconButton>
+            </Grid>
+            {/* </Grid> */}
+            <Collapse
+    in={expanded === index}
+  >
+              <Typography>{`${page.theme}`}</Typography>
+              <Typography sx={{ mt: 0.4 }}>{kindSelect(page.kind)}</Typography>
+              <Grid
+                container
+                direction="row"
+                sx={{
+                  paddingTop: theme.spacing(1.5),
+                  width: "auto",
+                  marginRight: "auto",
+                }}
+              >
+                {/* {course.createrAvatar} */}
+                <Grid>
+                  <Avatar
+                    sx={{
+                      borderRadius: 1,
+                      color: "text.main",
+                      backgroundColor: "tertiary.main",
+                    }}
+                  >
+                    Ξ
+                  </Avatar>
+                </Grid>
+                <Grid sx={{ paddingLeft: 1.5 }}>
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      textTransform: "uppercase",
+                      letterSpacing: 1,
+                    }}
+                  >
+                    Создатель
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Ξ Effect
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Collapse>
+          </Grid>
+        ))}
+      </Grid>
     );
-}));
-
-
+  })
+);
 
 export default PagesList;
+
+// {page.name}
+
+// {page.theme}  {kindSelect(page.kind)
+//                     <Views views={page.views} />

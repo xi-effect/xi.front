@@ -58,7 +58,7 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                     justifyContent="center"
                     alignItems="center"
                     sx={{
-                        width: '100%',
+                        // width: '100%',
                         zIndex: 1,
                     }}
                 >
@@ -74,9 +74,9 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                             width: '100%',
                         }}
                     >
-                        <Chipper />
+                        {/* <Chipper /> */}
                         {!knowledgeStore.moduleList.loadingNothing && <>
-                            {!knowledgeStore.moduleList.loadingInd && <ModulesList />}
+                            {/* {!knowledgeStore.moduleList.loadingInd && <ModulesList />} */}
                             {!knowledgeStore.moduleList.loadingInd && knowledgeStore.moduleList.modules.length < 12 && <Grid
                                 container
                                 direction="column"

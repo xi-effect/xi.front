@@ -35,10 +35,10 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
 const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
 
 
-    React.useEffect(() => {
-        uiStore.setKnowledgeUI("contentTypeOnPage", localStorage.getItem("contentTypeOnPageInKnowleadge") != undefined ? localStorage.getItem("contentTypeOnPageInKnowleadge") : "info")
-        uiStore.setKnowledgeUI("gridTypeOnPage", localStorage.getItem("gridTypeOnPageInKnowleadge") != undefined ? localStorage.getItem("gridTypeOnPageInKnowleadge") : "grid")
-    }, [])
+    // React.useEffect(() => {
+    //     uiStore.setKnowledgeUI("contentTypeOnPage", localStorage.getItem("contentTypeOnPageInKnowleadge") != undefined ? localStorage.getItem("contentTypeOnPageInKnowleadge") : "info")
+    //     uiStore.setKnowledgeUI("gridTypeOnPage", localStorage.getItem("gridTypeOnPageInKnowleadge") != undefined ? localStorage.getItem("gridTypeOnPageInKnowleadge") : "grid")
+    // }, [])
 
     React.useEffect(() => {
         knowledgeStore.loadPageList()
@@ -59,23 +59,11 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                     justifyContent="center"
                     alignItems="center"
                     sx={{
-                        width: '100%',
+                        // width: 'calc(100% - 32px)',
                         zIndex: 1,
                     }}
                 >
-                    <Grid
-                        container
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        sx={{
-                            marginTop: 2,
-                            marginBottom: 2,
-                            height: '100%',
-                            width: '100%',
-                        }}
-                    >
-                        <Chipper />
+                        {/* <Chipper /> */}
                         {!knowledgeStore.pageList.loadingNothing && <>
                             {!knowledgeStore.pageList.loadingInd && <PagesList />}
                             {!knowledgeStore.pageList.loadingInd && knowledgeStore.pageList.pages.length < 50 && <Grid
@@ -87,7 +75,7 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                                     marginTop: 2,
                                     marginBottom: 2,
                                     height: '100%',
-                                    width: '100%',
+                                    // width: '100%',
                                 }}
                             >
                                 <Typography> Это всё, что мы нашли по вашему запросу </Typography>
@@ -103,7 +91,7 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                                         marginTop: 16,
                                         marginBottom: 0,
                                         height: '100%',
-                                        width: '100%',
+                                        // width: '100%',
                                     }}
                                 >
                                     <CircularProgress />
@@ -120,7 +108,7 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                                     marginTop: 2,
                                     marginBottom: 2,
                                     height: '100%',
-                                    width: '100%',
+                                    // width: '100%',
                                 }}
                             >
                                 <Typography sx={{ marginTop: 4 }}> Ничего не найдено по запросу </Typography>
@@ -137,7 +125,6 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                                 </div>
                             </Grid>
                         }
-                    </Grid>
                 </Grid>
             </NavigationAll>
         </>

@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react'
 
-import { Grid, Stack, Drawer, Collapse, Box, List, Badge, useTheme, Tooltip, Button, ListItem, ListItemIcon, ListItemText, Typography, Divider, IconButton } from '@mui/material';
+import { Grid, Stack, Grow, Drawer, Collapse, Box, List, Badge, useTheme, Tooltip, Button, ListItem, ListItemIcon, ListItemText, Typography, Divider, IconButton } from '@mui/material';
 
 import TreeView from '@mui/lab/TreeView';
 import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
@@ -39,83 +39,98 @@ import AdjustIcon from '@mui/icons-material/Adjust';
 import CircleIcon from '@mui/icons-material/Circle';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
-const Sidebar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, setHoverLeft }) => {
+const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
     const theme = useTheme();
     const router = useRouter()
 
-    const defaultExpandedFn = () => {
-        if (router.pathname.includes("/knowledge")) return ['2']
-        if (router.pathname.includes("/managment")) return ['12']
-        // if (router.pathname.include("/knowledge")) return ['2']
-        return ['1']
-    }
-
-    const menuList = [
+    const menuKnowledge = [
             {
                 id: 0,
-                icon: <HomeIcon sx={{fontSize: 28}}/>,
-                label: "Главная",
-                href: '/main',
+                label: "Страницы",
+                href: '/knowledge/page',
             },
             {
                 id: 1,
-                icon: <MenuBookIcon sx={{fontSize: 28}}/>,
-                label: "Знания",
-                href: '/knowledge/pages',
+                label: "Модули",
+                href: '/knowledge/module',
             },
-            {
-                id: 2,
-                icon: <MessageIcon sx={{fontSize: 28}}/>,
-                label: "Общение",
-                href: '/messages',
-            },
-            {
-                id: 3,
-                icon: <AddToQueueIcon sx={{fontSize: 28}}/>,
-                label: "Студия",
-                href: '/managment/content',
-            },
-            {
-                id: 4,
-                icon: <SettingsIcon sx={{fontSize: 28}}/>,
-                label: "Настройки",
-                href: '/settings',
-            }
     ]
 
+    const menuManagment = [
+        {
+            id: 0,
+            label: "Страницы",
+            href: '/managment/content/page',
+        },
+        {
+            id: 1,
+            label: "Модули",
+            href: '/managment/content/module',
+        },
+]
+
     return (
+        <Grow
+        in={hoverLeftName !== null}
+        style={{ transformOrigin: '0 0 0' }}
+        {...(hoverLeftName !== null ? { timeout: 1500 } : {})}
+      >
         <Stack
-        onMouseEnter={() => {
-            if(router.pathname.includes('/managment') || router.pathname.includes('/messages') || router.pathname.includes('/knowledge'))   setHoverLeft(true)
-        }}
+        // onMouseEnter={() => {
+        //     if(router.pathname.includes('/managment') || router.pathname.includes('/messages') || router.pathname.includes('/knowledge'))   setHoverLeft(true)
+        // }}
   direction="column"
   justifyContent="flex-start"
-  alignItems="center"
-  spacing={2}
+  alignItems="flex-start"
+  spacing={1}
   sx={{
+    zIndex: 0,
       position: 'absolute',
       marginTop: 2,
-      width: 70,
+      marginLeft: 8,
+      width: 128,
       height: 'calc(100% - 72px)',
   }}
 >
-        {menuList.map((item, index) => (
-            <>
-            <Tooltip placement="right" title={item.label}>
-            <IconButton 
-            onClick={() => router.push(item.href)}
+        {hoverLeftName === '/knowledge' && menuKnowledge.map((item, index) => (
+            <Typography
+            onClick={() => router.push(`${item.href}s`)}
+             key={index.toString()}
              sx={{
+                 pl: 1,
+                 pr: 1,
+                 pt: 0.5,
+                 pb: 0.5,
+                 width: '100%',
+                 borderRadius: 1,
                  bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
-                 borderRadius: 2,
-                 }}
-                 >
-                {item.icon}
-            </IconButton>
-            </Tooltip>
-            </>
+                 cursor: 'pointer',
+             }}
+             >
+                {item.label}
+            </Typography>
+        ))}
+                {hoverLeftName === '/managment/content' && menuManagment.map((item, index) => (
+            <Typography
+            onClick={() => router.push(`${item.href}s`)}
+             key={index.toString()}
+             sx={{
+                 pl: 1,
+                 pr: 1,
+                 pt: 0.5,
+                 pb: 0.5,
+                 width: '100%',
+                 borderRadius: 1,
+                 bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
+                 cursor: 'pointer',
+             }}
+             >
+                {item.label}
+            </Typography>
         ))}
 </Stack>
+</Grow>
     )
 }));
 
-export default Sidebar
+export default SidebarSecond
