@@ -183,9 +183,9 @@ const CustomAvatar = inject('rootStore', 'settingsStore')(observer(({ rootStore,
         <Box sx={{
             height: '100%',
             width: '100%',
-            bgcolor: bgcolor[avatar.bgcolor] ?? null,
+            bgcolor: bgcolor[avatar.bgcolor] ?? 'none',
             borderRadius: 2,
-            transform: reverse ? 'scale(-1, 1)' : null,
+            transform: reverse ? 'scale(-1, 1)' : 'none',
         }}>
             <Peep
                 style={styles.peepStyle}

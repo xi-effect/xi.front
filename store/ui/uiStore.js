@@ -18,10 +18,10 @@ class UIStore {
         "/students": true,
         "/teachers": true,
         "/schools": true,
-        "/main": true,
+        "/home": true,
         "/registration": true,
         "/resetpassword/email": true,
-        "navigation": true,
+        "navigation": false,
     }
 
     @action setLoading = (page) => {

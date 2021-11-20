@@ -51,7 +51,7 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 </title>
             </Head>
             {/* <Background/> */}
-            <NavigationAll>
+            <NavigationAll hasRightToolbar>
                 <Grid
                     container
                     direction="column"
@@ -76,7 +76,7 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                     >
                         {/* <Chipper /> */}
                         {!knowledgeStore.moduleList.loadingNothing && <>
-                            {/* {!knowledgeStore.moduleList.loadingInd && <ModulesList />} */}
+                            {!knowledgeStore.moduleList.loadingInd && <ModulesList />}
                             {!knowledgeStore.moduleList.loadingInd && knowledgeStore.moduleList.modules.length < 12 && <Grid
                                 container
                                 direction="column"

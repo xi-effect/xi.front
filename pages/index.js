@@ -10,6 +10,7 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  Stack,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import clsx from "clsx";
@@ -32,18 +33,13 @@ const Main = inject(
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
 
-    const firstCard = React.useRef(null);
-
-    const executeScroll = () =>
-      firstCard.current.scrollIntoView({ behavior: "smooth" });
-
     return (
       <>
         <Head>
           <title>Ξffect</title>
         </Head>
         {/* <Background /> */}
-        {loading && <Loading />}
+        {/* {loading && <Loading />} */}
         <Grid
           container
           direction="column"
@@ -55,61 +51,35 @@ const Main = inject(
           }}
         >
           <Header />
-          <Grid
-            item
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            sx={{
-              position: "relative",
-              backgroundColor: "background.1",
-              width: "100%",
-              paddingTop: "41.8%",
-              background: `linear-gradient(0deg, ${theme.palette.constant.landingPink} , ${theme.palette.constant.landingBlue})`,
-            }}
-          >
-            <Image
+          <Image
               alt="alt"
-              src={"/backgroundImg.jpg"}
+              src={"/landing.svg"}
               layout="fill"
               objectFit="cover"
               quality={100}
-              onLoadingComplete={() => setLoading(false)}
+              // onLoadingComplete={() => setLoading(false)}
             />
-          </Grid>
-          <Grid
-            item
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            sx={{
-              width: "100%",
-              height: "196px",
-              background: `linear-gradient(0deg, ${theme.palette.background["2"]} , ${theme.palette.constant.landingPink})`,
-            }}
-          >
-            <Grid
-              item
-              container
-              direction="column"
-              justifyContent="flex-start"
+            <Stack
+              direction="row"
+              justifyContent="center"
               alignItems="center"
-              sx={{ maxWidth: 1200 }}
+              spacing={2}
+              sx={{zIndex: 1, mt: '10%', }}
             >
-              <IconButton onClick={executeScroll} size="large">
-                <ArrowDownwardIcon
-                  sx={{
-                    fontSize: 48,
-                    color: "constant.textWhite",
-                  }}
-                />
-              </IconButton>
-            </Grid>
-          </Grid>
-          <div ref={firstCard}> </div>
-          <CardsList />
+              <Image
+                alt="alt"
+                src={"/Something.svg"}
+                // layout="fill"
+                // objectFit="cover"
+                quality={100}
+                width={256}
+                height={232}
+                // onLoadingComplete={() => setLoading(false)}
+              />
+              <Typography variant="h6">
+                Сайт устал, мы устраняем неполадки
+              </Typography>
+            </Stack>
         </Grid>
       </>
     );

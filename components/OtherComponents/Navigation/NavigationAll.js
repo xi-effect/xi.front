@@ -8,6 +8,7 @@ import { Box, Paper, Button, useMediaQuery, useTheme } from "@mui/material";
 
 import Sidebar from "./Sidebar";
 import SidebarSecond from "./SidebarSecond";
+import RightToolbar from "./RightToolbar";
 import Helpbar from "./Helpbar";
 import Loading from "../Loading/Loading";
 import SideDownbar from "./SideDownbar";
@@ -43,7 +44,7 @@ const NavigationAll = inject(
           if (data) {
             console.log("settings/main", data);
             messageStore.loadChatsInMenu();
-            uiStore.setLoading("navigation", false);
+            // uiStore.setLoading("navigation", false);
             settingsStore.setSettings("darkTheme", data["dark-theme"]);
             settingsStore.setSettings("id", data.id);
             settingsStore.setSettings("username", data.username);
@@ -78,7 +79,7 @@ const NavigationAll = inject(
 
     const getWidth = () => {
       let w = 70
-      if (hasRightToolbar) w = w + 32
+      if (hasRightToolbar) w = w + 48
       if (hasRightlist) w = w + 128
       if (hoverLeftName !== null) w = w + 128
       if (mobile) w = 32
@@ -109,12 +110,14 @@ const NavigationAll = inject(
               // display: "flex",
               backgroundColor: "primary.main",
               minHeight: "100vh",
+              overflow: 'hidden',
               // width: "calc(100% + 16px)",
             }}
           >
-            <Upbar/>
+            <Upbar hasRightToolbar={hasRightToolbar}/>
             <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName}/>
             <SidebarSecond hoverLeftName={hoverLeftName}/>
+            {hasRightToolbar && <RightToolbar/>}
             {/* <Box
               sx={{
                 display: {
@@ -136,16 +139,37 @@ const NavigationAll = inject(
                 transition: '0.8s',
                 zIndex: 1,
                 margin: 0,
-                minHeight: "calc(100vh - 48px)",
-                height: "calc(100% - 48px)",
+                overflow: 'hidden',
                 width: `calc(100% - ${getWidth()}px)`,
                 marginLeft: getMarginLeft(),
                 borderTopLeftRadius:  mobile ? 24 : 32,
                 borderTopRightRadius: getBorderTopRightRadius(),
                 backgroundColor: "background.main",
+
               }}
             >
+              <Box
+              sx={{
+                overflow: 'auto',
+                mt: 3,
+                pl: 1,
+                pr: 1,
+                height: "calc(100vh - 72px)",
+                "&::-webkit-scrollbar": {
+                  width: "12px"
+                },
+                "&::-webkit-scrollbar-track": {
+                  boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.1)`,
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  borderRadius: "20px",
+                  bgcolor: "primary.main",
+                  outline: `1px solid slategrey`,
+                },
+              }}
+              >
               {children}
+              </Box>
             </Paper>
             {/* <ChatDialog /> */}
           </Box>

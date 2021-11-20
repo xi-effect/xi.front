@@ -85,7 +85,7 @@ const Sidebar = inject(
           id: 0,
           icon: <HomeIcon sx={{ fontSize: 28 }} />,
           label: "Главная",
-          href: "/main",
+          href: "/home",
         },
         {
           id: 1,
@@ -138,7 +138,7 @@ const Sidebar = inject(
                     )
                       setHoverLeftName(item.href);
                     if (
-                      item.href.includes("/main") ||
+                      item.href.includes("/home") ||
                       item.href.includes("/settings")
                     )
                       setHoverLeftName(null);

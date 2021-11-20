@@ -76,7 +76,7 @@ class AuthorizationStore {
                 if (data != undefined) {
                     if (data.a) { //true
                         const router = Router
-                        router.push('/main')
+                        router.push('/home')
                     } else {
                         this.setSignup("error", "emailAlreadyUsed")
                     }
@@ -107,7 +107,7 @@ class AuthorizationStore {
                 if (data != undefined) {
                     if (data.a == "Success") {
                         const router = Router
-                        router.push('/main')
+                        router.push('/home')
                         this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/`, "GET")
                             .then((data) => {
                                 console.log(data)

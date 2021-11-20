@@ -1,77 +1,42 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import cx from 'clsx';
-import { Divider, CardContent, CardMedia, Grow, ClickAwayListener, SpeedDial, MenuItem, SpeedDialAction, Popper, MenuList, Avatar, Paper, Accordion, IconButton, Chip, AccordionSummary, AccordionDetails, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
+import { useRouter } from "next/router";
+import {
+  Divider,
+  CardContent,
+  MenuItem,
+  Popper,
+  MenuList,
+  Avatar,
+  Paper,
+  Accordion,
+  IconButton,
+  Chip,
+  AccordionSummary,
+  AccordionDetails,
+  CardHeader,
+  Button,
+  Card,
+  CardActions,
+  Grid,
+  Collapse,
+  Box,
+  Typography,
+  useTheme,
+  Tooltip,
+  Grow,
+} from "@mui/material";
 
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import StarIcon from '@mui/icons-material/Star';
-import FlagIcon from '@mui/icons-material/Flag';
-import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
-import { inject, observer } from 'mobx-react'
-import { useRouter } from 'next/router'
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const PREFIX = 'ModulesList';
+import { inject, observer } from "mobx-react";
 
-const classes = {
-    container: `${PREFIX}-container`,
-    gridCard: `${PREFIX}-gridCard`,
-    card: `${PREFIX}-card`,
-    content: `${PREFIX}-content`,
-    boxCardHeader: `${PREFIX}-boxCardHeader`,
-    cardHeader: `${PREFIX}-cardHeader`,
-    avatar: `${PREFIX}-avatar`,
-    overline: `${PREFIX}-overline`,
-    name: `${PREFIX}-name`,
-    gridcreater: `${PREFIX}-gridcreater`,
-    userownerinfo: `${PREFIX}-userownerinfo`,
-    CardActionsCenterButton: `${PREFIX}-CardActionsCenterButton`,
-    CardContentGrid: `${PREFIX}-CardContentGrid`,
-    CardContentSmallActionButtom: `${PREFIX}-CardContentSmallActionButtom`,
-    icons: `${PREFIX}-icons`,
-    iconsStarPush: `${PREFIX}-iconsStarPush`,
-    iconsPinPush: `${PREFIX}-iconsPinPush`,
-    media: `${PREFIX}-media`,
-    title: `${PREFIX}-title`,
-    subtitle: `${PREFIX}-subtitle`,
-    Page: `${PREFIX}-Page`,
-    popper: `${PREFIX}-popper`,
-    MenuList: `${PREFIX}-MenuList`,
-    MenuItem: `${PREFIX}-MenuItem`
-};
+import SVGbackground from "../../../OtherComponents/SVGbackground/SVGbackground";
 
-const StyledGrid = styled(Grid)((
-    {
-        theme
-    }
-) => ({
 
-    [`& .${classes.iconsStarPush}`]: {
-
-    },
-
-    [`& .${classes.iconsPinPush}`]: {
-
-    },
-    [`& .${classes.popper}`]: {
-        zIndex: 1000,
-    },
-
-    [`& .${classes.MenuList}`]: {
-        backgroundColor: theme.palette.blueGrey["5"],
-        border: '2px solid',
-        borderColor: theme.palette.primary.dark,
-        borderRadius: 4,
-    },
-
-    [`& .${classes.MenuItem}`]: {
-        color: theme.palette.primary.contrastText,
-    }
-}));
-
-const coursesThemeList = {
+const moduleThemeList = {
     "math": "Математика",
     "algebra": "Алгебра",
     "geometry": "Геометрия",
@@ -88,7 +53,7 @@ const coursesThemeList = {
     "informatics": "Информатика",
 }
 
-const coursesImgList = {
+const modulesImgList = {
     "Робототехника": "/knowledge/robotechnik.jpg",
     "Безопасность в интернете": "/knowledge/secureInInternet.jpg",
     "Математика ЕГЭ": "/knowledge/mathEGE.jpg",
@@ -118,196 +83,134 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
     const theme = useTheme();
     const router = useRouter()
 
-    const options = [
-        'Скрыть курс',
-        'Пожаловаться',
-        'Добавить в Избранное',
-        'Закрепить',
-    ];
+    const [expanded, setExpanded] = React.useState(false);
 
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
-
-    const handleToggle = () => {
-        setOpen((prevOpen) => !prevOpen);
+    const handleChange = (e, i) => {
+      setExpanded(e === i ? false : i);
     };
 
-    const handleClose = (event) => {
-        if (anchorRef.current && anchorRef.current.contains(event.target)) {
-            return;
-        }
-        setOpen(false);
-    };
-
-    function handleListKeyDown(event) {
-        if (event.key === 'Tab') {
-            event.preventDefault();
-            setOpen(false);
-        } else if (event.key === 'Escape') {
-            setOpen(false);
-        }
-    }
-
-    // return focus to the button when we transitioned from !open -> open
-    const prevOpen = React.useRef(open);
-    React.useEffect(() => {
-        if (prevOpen.current === true && open === false) {
-            anchorRef.current.focus();
-        }
-
-        prevOpen.current = open;
-    }, [open]);
+    const kindSelect = (value) => {
+        if (value === "theory") return "Теория";
+        if (value === "practice") return "Практика";
+        if (value === "task") return "Проверочная работа";
+      };
 
     return (
-        <StyledGrid container sx={{
-            margin: 2,
-            width: "calc(100% - 32px)",
-            borderRadius: 2,
-            //backgroundColor: 'background.1',
-        }}>
+        <Grid
+        container
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        sx={{
+          margin: 0,
+          pt: 1,
+          pl: 1,
+          width: "100%",
+          //backgroundColor: 'background.1',
+        }}
+      >
             {knowledgeStore.moduleList.modules.map((module, index) => (
-                <Grid xs={12} sm={12} md={6} lg={4} xl={3} item sx={{ p: 1, }} container key={index.toString()}>
-                    <Card elevation={24} sx={{
-                        position: 'relative',
-                        border: '2px solid',
-                        borderColor: 'primary.dark',
-                        borderRadius: 8,
-                        transition: '0.4s',
-                        '&:hover': {
-                            borderColor: 'primary.light',
-                        },
-                        width: '100%',
-                        overflow: 'initial',
-                        backgroundColor: 'background.2',
-                    }}>
-                        <Box sx={{ paddingTop: -1, }}>
-                            <Grid container wrap="nowrap" spacing={2}>
-                                <Grid item xs zeroMinWidth>
-                                    <Typography variant="h5" sx={{
-                                        marginTop: 1.5,
-                                        marginLeft: 1.5,
-                                    }} noWrap>{module.name}</Typography>
-                                </Grid>
-                            </Grid>
-                            <Grid container wrap="nowrap" spacing={2}>
-                                <Grid item xs zeroMinWidth>
-                                    <Typography variant="h6" sx={{ marginLeft: 1.5, }} noWrap>{coursesThemeList[module.theme]}</Typography>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                        <div sx={{
-                            height: "320px",
-                            width: '100%',
-                            p: 0,
-                            m: 0,
-                        }}>
-                            <CardMedia
-                                src="img"
-                                sx={{
-                                    height: "320px",
-                                    width: '100%',
-                                    p: 0,
-                                    m: 0,
-                                }}
-                                image={coursesImgList[module.name] != undefined ? coursesImgList[module.name] : "/illustrations/astronaut.png"}
-                            />
-                        </div>
-
-                        <CardContent sx={{
-                            pt: 1,
-                            textAlign: 'left',
-                            overflowX: 'auto',
-                            '& table': {
-                                marginBottom: 0,
-                            }
-                        }}>
-                            <Grid container item direction="row" justifyContent="flex-end" xs={12} sx={{ width: "100%" }}>
-                                <Grid container direction='row' sx={{
-                                    paddingTop: theme.spacing(1.5),
-                                    width: 'auto',
-                                    marginRight: 'auto',
-                                }}>
-                                    {/* {course.createrAvatar} */}
-                                    <Grid><Avatar sx={{
-                                        borderRadius: 1,
-                                        backgroundColor: theme => theme.palette.blueGrey["7"],
-                                    }}> Ξ </Avatar></Grid>
-                                    <Grid sx={{ paddingLeft: 1.5, }}>
-                                        <Typography sx={{
-                                            fontSize: '12px',
-                                            textTransform: 'uppercase',
-                                            letterSpacing: 1,
-                                        }}>Создатель</Typography>
-                                        <Typography sx={{
-                                            fontSize: '16px',
-                                            fontWeight: 500,
-                                        }}>Ξ Effect</Typography>
-                                    </Grid>
-                                </Grid>
-                                <Grid sx={{ mt: 1, }}>
-                                    <IconButton
-                                        onClick={() => knowledgeStore.setPreferenceInModules(index, "starred", module.id, module.starred ? "unstar" : "star", !module.starred)}
-                                        color="primary"
-                                        aria-label="add an alarm"
-                                        size="large">
-                                        {!module.starred && <StarBorderIcon sx={{ color: 'text.main' }} />}
-                                        {module.starred && <StarIcon sx={{ color: "#ffeb3b", }} />}
-                                    </IconButton>
-                                </Grid>
-                                <Grid sx={{ mt: 1, }}>
-                                    <IconButton
-                                        onClick={() => knowledgeStore.setPreferenceInModules(index, "pinned", module.id, module.pinned ? "unpin" : "pin", !module.pinned)}
-                                        color="primary"
-                                        aria-label="add an alarm"
-                                        size="large">
-                                        {!module.pinned && <FlagOutlinedIcon sx={{ color: 'text.main' }} />}
-                                        {module.pinned && <FlagIcon sx={{ color: "#8bc34a", }} />}
-                                    </IconButton>
-                                </Grid>
-                                <Grid sx={{ mt: 1, }}>
-                                    <IconButton
-                                        onClick={(event) => {
-                                            knowledgeStore.setModuleListDataInModules(index, "openMenu", module.openMenu === undefined ? true : !module.openMenu)
-                                            knowledgeStore.setModuleListDataInModules(index, "openMenuTarget", event.currentTarget)
-                                        }}
-                                        variant="contained"
-                                        color="primary"
-                                        size="large">
-                                        <MoreVertIcon sx={{ color: 'text.main' }} />
-                                    </IconButton>
-                                    <Popper className={classes.popper} id={index} open={module.openMenu === undefined ? false : module.openMenu} anchorEl={module?.openMenuTarget}>
-                                        <Paper elevation={24} className={classes.popper}>
-                                            <MenuList
-                                                className={classes.MenuList}
-                                                id="composition-menu"
-                                                aria-labelledby="composition-button"
-                                            >
-                                                <MenuItem className={classes.MenuItem} onClick={() => {
-                                                    knowledgeStore.setPreferenceInModules(index, "hide", module.id, "hide", false)
-                                                }}>Скрыть курс</MenuItem>
-                                                {/* <MenuItem className={classes.MenuItem} onClick={null}>Пожаловаться</MenuItem> */}
-                                            </MenuList>
-                                        </Paper>
-                                    </Popper>
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                        <Divider />
-                        <CardActions>
-                            <Grid spacing={1} container justifyContent="center">
-                                <Grid>
-                                    <Button onClick={() => router.push(`/knowledge/module/${module.id}/start`)} variant="contained" color="primary" >
-                                        {!module.started && <Typography variant="subtitle1">Приступить к модулю</Typography>}
-                                        {module.started && <Typography variant="subtitle1">Продолжить модуль</Typography>}
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </CardActions>
-                    </Card>
+                <Grid
+                xs={12}
+                sm={12}
+                md={6}
+                lg={4}
+                xl={3}
+                item
+                sx={{ p: 1, transition: "0.8s", width: "100%", height: "100%" }}
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="flex-start"
+                key={index.toString()}
+              >
+                <Collapse
+                  sx={{
+                    width: "100%",
+                    height: "100%"
+                  }}
+                  in={!(expanded === index)}
+                >
+                  {/* <Box sx={{width: "100%", height: "auto"}}> */}
+                  <SVGbackground width={1920} height={1080}/>
+                  {/* </Box> */}
+                </Collapse>
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Grid sx={{width: 'calc(100% - 32px)'}} container wrap="nowrap" spacing={2}>
+                    <Grid item xs zeroMinWidth>
+                      <Typography sx={{ cursor: 'pointer', "&:hover": {textDecoration: 'underline'}}} variant="h6" noWrap>
+                        {module.name}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <IconButton onClick={() => handleChange(expanded, index)} size="large">
+                    <ExpandMoreIcon
+                      sx={{
+                        position: '',
+                        transform:
+                          expanded === index ? "rotate(0deg)" : "rotate(-180deg)",
+                        transition: "0.4s",
+                      }}
+                    />
+                  </IconButton>
                 </Grid>
+                {/* </Grid> */}
+                <Collapse
+                  in={expanded === index}
+                >
+                  <Typography>{`${module.theme}`}</Typography>
+                  <Typography sx={{ mt: 0.4 }}>{kindSelect(module.kind)}</Typography>
+                  <Grid
+                    container
+                    direction="row"
+                    sx={{
+                      paddingTop: theme.spacing(1.5),
+                      width: "auto",
+                      marginRight: "auto",
+                    }}
+                  >
+                    {/* {course.createrAvatar} */}
+                    <Grid>
+                      <Avatar
+                        sx={{
+                          borderRadius: 1,
+                          color: "text.main",
+                          backgroundColor: "tertiary.main",
+                        }}
+                      >
+                        Ξ
+                      </Avatar>
+                    </Grid>
+                    <Grid sx={{ paddingLeft: 1.5 }}>
+                      <Typography
+                        sx={{
+                          fontSize: "12px",
+                          textTransform: "uppercase",
+                          letterSpacing: 1,
+                        }}
+                      >
+                        Создатель
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "16px",
+                          fontWeight: 500,
+                        }}
+                      >
+                        Ξ Effect
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Collapse>
+              </Grid>
             ))
             }
-        </StyledGrid>
+        </Grid>
     );
 }));
 

@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router'
 import clsx from 'clsx';
+import Image from "next/image";
 import { Grid, Stack, Input, Link, useMediaQuery, TextField, useTheme, InputLabel, InputAdornment, Tooltip, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
 import { Link as LinkUI } from '@mui/material';
 import React from 'react'
@@ -51,6 +52,14 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                     backgroundColor: 'background.1',
                 }}
             >
+                    <Image
+                alt="alt"
+                src={"/landing.svg"}
+                layout="fill"
+                objectFit="cover"
+                quality={100}
+                // onLoadingComplete={() => setLoading(false)}
+                />
                 <Stack
                     direction="row"
                     justifyContent="flex-start"
@@ -59,15 +68,18 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                     sx={{ width: "100%" }}
                 >
                     <Typography
-
-                        onClick={() => router.push('/')}
-                        variant="h3"
-                        sx={{ color: 'text.main', m: 2, }}
-                    >
-                        Ξffect
-                    </Typography>
-                </Stack>
-                <Box component="form" sx={{ width: "100%", }} onSubmit={handleSubmit(onSubmit)}>
+              onClick={() => router.push("/")}
+              variant="h4"
+              sx={{ color: "text.main", m: 2, zIndex: 2, cursor: "pointer" }}
+            >
+              Ξffect
+            </Typography>
+          </Stack>
+          <Box
+            component="form"
+            sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20, bgcolor: 'rgba(1, 1, 1, 0.4)', maxWidth: 512 }}
+            onSubmit={handleSubmit(onSubmit)}
+          >
                     <Stack
                         direction="column"
                         justifyContent="center"
@@ -75,6 +87,16 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                         spacing={3}
                         sx={{ width: "100%", p: 2, cursor: "pointer", }}
                     >
+                                    <Image
+                            alt="alt"
+                            src={"/Thank.svg"}
+                            // layout="fill"
+                            // objectFit="cover"
+                            quality={100}
+                            width={456}
+                            height={256}
+                            // onLoadingComplete={() => setLoading(false)}
+                        />
                         <Controller
                             name="username"
                             control={control}

@@ -11,7 +11,7 @@ import { inject, observer } from 'mobx-react'
 //import QuiсkButtons from './../components/PagesComponents/Main/QuiсkButtons';
 //import QuiсkWidgets from '../components/PagesComponents/Main/QuiсkWidgets';
 // import Card7 from './../components/PagesComponents/Main/MainHelpApps/Card7';
-import NavigationAll from './../../components/OtherComponents/Navigation/NavigationAll';
+import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
 
 
 const Main = inject('rootStore')(observer(({ rootStore }) => {

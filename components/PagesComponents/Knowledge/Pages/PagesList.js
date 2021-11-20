@@ -1,9 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useState, useEffect } from "react";
-import { styled } from "@mui/material/styles";
 import Link from "next/link";
-import cx from "clsx";
-import clsx from "clsx";
+import { useRouter } from "next/router";
 import {
   Divider,
   CardContent,
@@ -93,11 +91,6 @@ const PagesList = inject(
       if (value === "task") return "Проверочная работа";
     };
 
-    const buttonLabelSelect = (value) => {
-      if (value === "theory") return "теории";
-      if (value === "practice") return "практике";
-      if (value === "task") return "проверочной";
-    };
 
     return (
       <Grid
@@ -118,8 +111,8 @@ const PagesList = inject(
             xs={12}
             sm={12}
             md={6}
-            lg={6}
-            xl={4}
+            lg={4}
+            xl={3}
             item
             sx={{ p: 1, transition: "0.8s", width: "100%", height: "100%" }}
             container
@@ -133,8 +126,8 @@ const PagesList = inject(
                 width: "100%",
                 height: "100%"
               }}
-    in={!(expanded === index)}
-  >
+              in={!(expanded === index)}
+            >
               {/* <Box sx={{width: "100%", height: "auto"}}> */}
               <SVGbackground width={1920} height={1080}/>
               {/* </Box> */}
@@ -145,23 +138,28 @@ const PagesList = inject(
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="h6" noWrap>
-                {page.name}
-              </Typography>
+              <Grid sx={{width: 'calc(100% - 32px)'}} container wrap="nowrap" spacing={2}>
+                <Grid item xs zeroMinWidth>
+                  <Typography sx={{ cursor: 'pointer', "&:hover": {textDecoration: 'underline'}}} variant="h6" noWrap>
+                    {page.name}
+                  </Typography>
+                </Grid>
+              </Grid>
               <IconButton onClick={() => handleChange(expanded, index)} size="large">
                 <ExpandMoreIcon
                   sx={{
+                    position: '',
                     transform:
                       expanded === index ? "rotate(0deg)" : "rotate(-180deg)",
-                    transition: "0.2s",
+                    transition: "0.4s",
                   }}
                 />
               </IconButton>
             </Grid>
             {/* </Grid> */}
             <Collapse
-    in={expanded === index}
-  >
+              in={expanded === index}
+            >
               <Typography>{`${page.theme}`}</Typography>
               <Typography sx={{ mt: 0.4 }}>{kindSelect(page.kind)}</Typography>
               <Grid

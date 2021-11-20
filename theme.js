@@ -21,20 +21,17 @@ export const getDesignTokens = (mode) => ({
                     landingPink: "#d391e3",
                 },
                 primary: {
-                    main: '#B2EBF2',
-                    light: '#B2EBF2',
-                    dark: '#B2EBF2',
+                    main: '#145fe1',
+                    light: '#2c72ed',
+                    dark: '#1150c1',
                 },
                 secondary: {
-                    main: '#00BCD4',
-                    light: '#00BCD4',
-                    dark: '#00BCD4',
+                    main: '#769234',
+                    light: '#86a73c',
+                    dark: '#647f2f',
                 },
-                tertiary: {
-                    main: '#005086',
-                }, 
                 background: {
-                    main: '#DDF4FF',
+                    main: '#b0caf8',
                 }
             }
             : {
@@ -57,21 +54,18 @@ export const getDesignTokens = (mode) => ({
                     landingPink: "#d391e3",
                 },
                 primary: {
-                    main: '#1D3461',
-                    light: '#1D3461',
-                    dark: '#1D3461',
+                    main: '#145fe1',
+                    light: '#2c72ed',
+                    dark: '#1150c1',
                 },
                 secondary: {
-                    main: '#376996',
-                    light: '#376996',
-                    dark: '#376996',
+                    main: '#145fe1',
+                    light: '#2c72ed',
+                    dark: '#1150c1',
                 },
-                tertiary: {
-                    main: '#6290C8',
-                }, 
                 background: {
-                    main: '#1F487E',
-                },
+                    main: '#4d89ef',
+                }
 
             }),
     },

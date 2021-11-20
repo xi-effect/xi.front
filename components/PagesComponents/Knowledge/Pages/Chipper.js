@@ -2,7 +2,7 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ClearIcon from '@mui/icons-material/Clear';
+
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import DescriptionIcon from '@mui/icons-material/Description';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -13,6 +13,7 @@ import RedoIcon from '@mui/icons-material/Redo';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import TuneIcon from '@mui/icons-material/Tune';
 import ViewComfyIcon from '@mui/icons-material/ViewComfy';
@@ -32,62 +33,6 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
     const [open, setOpen] = React.useState(false);
     const [mobileSearch, setMobileSearch] = React.useState(false);
     const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
-
-    const [openGlobalList, setOpenGlobalList] = React.useState(false);
-    const globalList = [
-        { key: 0, title: "Избранное", name: "starred" },
-        { key: 1, title: "Закреплённое", name: "pinned" },
-        { key: 2, title: "Начатое", name: "started" },
-    ]
-
-    const setGridType = (type) => {
-        if (type === "grid") {
-            localStorage.setItem("gridTypeOnPageInKnowleadge", "list")
-            uiStore.setKnowledgeUI("gridTypeOnPage", "list")
-            console.log(localStorage.getItem("gridTypeOnPageInKnowleadge"))
-        }
-        else if (type === "list") {
-            localStorage.setItem("gridTypeOnPageInKnowleadge", "grid")
-            uiStore.setKnowledgeUI("gridTypeOnPage", "grid")
-        }
-    }
-
-    const setContentType = (type) => {
-        if (type === "info") {
-            localStorage.setItem("contentTypeOnPageInKnowleadge", "description")
-            uiStore.setKnowledgeUI("contentTypeOnPage", "description")
-        }
-        else if (type === "description") {
-            localStorage.setItem("contentTypeOnPageInKnowleadge", "author")
-            uiStore.setKnowledgeUI("contentTypeOnPage", "author")
-        }
-        else if (type === "author") {
-            localStorage.setItem("contentTypeOnPageInKnowleadge", "info")
-            uiStore.setKnowledgeUI("contentTypeOnPage", "info")
-        }
-    }
-
-    const gridTypeIcon = (type) => {
-        if (type === "grid") return <ViewComfyIcon />
-        if (type === "list") return <ReorderIcon />
-    }
-
-    const gridTypeLabel = (type) => {
-        if (type === "grid") return "Сетка"
-        if (type === "list") return "Лента"
-    }
-
-    const cardContentIcon = (type) => {
-        if (type === "info") return <AnalyticsIcon />
-        if (type === "description") return <DescriptionIcon />
-        if (type === "author") return <AccountCircleIcon />
-    }
-
-    const cardContentLabel = (type) => {
-        if (type === "info") return "Информация"
-        if (type === "description") return "Описание"
-        if (type === "author") return "Автор"
-    }
 
     return (
         <Grid container direction="column"
@@ -152,41 +97,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                             </span>
                         </Tooltip>}
                         {/* Поиск в десктоп */}
-                        {!mobile && <InputBase
-                            value={knowledgeStore.pageList.search}
-                            onChange={(event) => knowledgeStore.setPageListData("search", event.target.value)}
-                            sx={{
-                                color: 'text.main',
-                                flex: 1,
-                                maxWidth: "500px",
-                                marginLeft: "auto",
-                            }}
-                            placeholder="Поиск страниц"
-                            inputProps={{ 'aria-label': 'Поиск страниц' }}
-                        />}
-                        {!mobile && <Tooltip title="Очистить поиск">
-                            <span>
-                                <IconButton
-                                    onClick={() => knowledgeStore.clearSearchInPages()}
-                                    disabled={knowledgeStore.pageList.search.length === 0}
-                                    type="submit"
-                                    aria-label="search"
-                                    size="large">
-                                    <ClearIcon />
-                                </IconButton>
-                            </span>
-                        </Tooltip>}
-                        {!mobile && <Tooltip title="Найти">
-                            <span>
-                                <IconButton
-                                    onClick={() => knowledgeStore.goSearchInPages()}
-                                    disabled={knowledgeStore.pageList.search.length < 3}
-                                    aria-label="search"
-                                    size="large">
-                                    <SearchIcon />
-                                </IconButton>
-                            </span>
-                        </Tooltip>}
+                        
 
                         {mobileSearch && mobile && <InputBase
                             value={knowledgeStore.pageList.search}
@@ -259,29 +170,7 @@ const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                                 marginLeft: 0,
                             }}
                         >
-                            <Tooltip title="Назад">
-                                <span>
-                                    <IconButton
-                                        onClick={knowledgeStore.prevPageInModules}
-                                        disabled={knowledgeStore.pageList.counter === 0 ? true : false}
-                                        size="large">
-                                        <NavigateBeforeIcon />
-                                    </IconButton>
-                                </span>
-                            </Tooltip>
-                            <Tooltip title="Страница">
-                                <Typography> {`${knowledgeStore.pageList.counter + 1}`} </Typography>
-                            </Tooltip>
-                            <Tooltip title="Вперёд">
-                                <span>
-                                    <IconButton
-                                        onClick={knowledgeStore.nextPageInModules}
-                                        disabled={knowledgeStore.pageList.pages.length < 50 ? true : false}
-                                        size="large">
-                                        <NavigateNextIcon />
-                                    </IconButton>
-                                </span>
-                            </Tooltip>
+                            
                         </Grid>}
                     </Grid>
                 </AccordionSummary>
