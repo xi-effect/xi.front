@@ -2,6 +2,7 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
+import { motion } from "framer-motion"
 
 import { Divider, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
 
@@ -15,6 +16,10 @@ const Header = () => {
 
     return (
         <Grid
+            component={motion.div}
+            initial={false}
+            // animate={{ rotate: 360 }}
+            // transition={{ duration: 2 }}
             item
             container
             direction="row"
@@ -28,17 +33,23 @@ const Header = () => {
                 direction="row"
                 justifyContent="space-between"
                 alignItems="center"
-                sx={{ p: 2, maxWidth: 1200, height: 64, }}
+                sx={{ p: 2, maxWidth: 1520, height: 64, }}
             >
                 <Grid item>
-                    <Typography onClick={() => {
+                    <Typography
+                    component={motion.h4}
+                     onClick={() => {
                         router.push({
                             pathname: '/',
                         })
+                     }}
+                     whileHover={{
+                        scale: 1.2,
+                        transition: { duration: 1 },
                     }}
                      variant="h4"
                      sx={{
-                         cursor: 'default'
+                        cursor: 'pointer',
                      }}
                     >
                         Ξffect

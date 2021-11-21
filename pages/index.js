@@ -22,6 +22,7 @@ import React from "react";
 import Loading from "./../components/OtherComponents/Loading/Loading";
 import CardsList from "./../components/PagesComponents/Landing/CardList";
 import Header from "./../components/PagesComponents/Landing/Header";
+import { motion } from "framer-motion"
 
 const Main = inject(
   "rootStore",
@@ -70,16 +71,24 @@ const Main = inject(
               spacing={2}
               sx={{zIndex: 1, mt: '10%', }}
             >
-              <Image
-                alt="alt"
-                src={"/Something.svg"}
-                // layout="fill"
-                // objectFit="cover"
-                quality={100}
-                width={256}
-                height={232}
-                // onLoadingComplete={() => setLoading(false)}
-              />
+              <Box
+                component={motion.div}
+                whileHover={{
+                  scale: 1.2,
+                  transition: { duration: 1 },
+                }}
+              >
+                <Image
+                  alt="alt"
+                  src={"/Something.svg"}
+                  // layout="fill"
+                  // objectFit="cover"
+                  quality={100}
+                  width={256}
+                  height={232}
+                  // onLoadingComplete={() => setLoading(false)}
+                />
+              </Box>
               <Typography variant="h6">
                 Сайт устал, мы устраняем неполадки
               </Typography>
