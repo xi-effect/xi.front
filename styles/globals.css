@@ -90,10 +90,10 @@ a {
   *::-webkit-scrollbar {
     width: 12px;  /* ширина scrollbar */
   }
-  *::-webkit-scrollbar-track {
+  /* *::-webkit-scrollbar-track {
     /* background: orange; цвет дорожки */
     /* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1), */
-  }
+  /* } */
   *::-webkit-scrollbar-thumb {
     background-color: #6b6b6b; /* цвет плашки */
     border-radius: 20px;       /* закругления плашки */

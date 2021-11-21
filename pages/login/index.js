@@ -108,7 +108,8 @@ const Login = inject(
           </Stack>
           <Box
             component="form"
-            sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20, bgcolor: 'rgba(1, 1, 1, 0.4)', maxWidth: 512 }}
+            // bgcolor: 'rgba(1, 1, 1, 0.4)',
+            sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20,  maxWidth: 512 }}
             onSubmit={handleSubmit(onSubmit)}
           >
             <Stack
@@ -147,7 +148,7 @@ const Login = inject(
                       </Typography>
                     </InputLabel>
                     <OutlinedInput
-                      sx={{ backgroundColor: "background.2", width: "100%" }}
+                      sx={{ backgroundColor: "background.main", width: "100%" }}
                       label="Адрес почты"
                       type="text"
                       // value={emailReset}
@@ -204,7 +205,7 @@ const Login = inject(
                       </Typography>
                     </InputLabel>
                     <OutlinedInput
-                      sx={{ backgroundColor: "background.2", width: "100%" }}
+                      sx={{ backgroundColor: "background.main", width: "100%" }}
                       label="Пароль"
                       type={showPassword ? "text" : "password"}
                       // value={emailReset}
@@ -297,6 +298,7 @@ const Login = inject(
                 sx={{
                   mt: 4,
                   color: "text.main",
+                  bgcolor: "background.main",
                   border: `2px solid ${theme.palette.text.dark}`,
                   "&:hover": { border: `2px solid ${theme.palette.text.dark}` },
                 }}

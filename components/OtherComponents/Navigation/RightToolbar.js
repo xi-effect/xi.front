@@ -80,6 +80,60 @@ const KnowledgeModulesTools = inject(
     })
 );
 
+const KnowledgePageTools = inject(
+  "knowledgeStore"
+)(
+  observer(({knowledgeStore }) => {
+    const theme = useTheme();
+
+    return (
+      <>
+      <Tooltip title="Информация о странице">
+          <IconButton onClick={null} size="large">
+              <InfoIcon />
+          </IconButton>
+      </Tooltip>
+      <Tooltip title="Назад">
+          <IconButton onClick={() => router.back()} size="large">
+              <UndoIcon />
+          </IconButton>
+      </Tooltip>
+      </>
+    );
+  })
+);
+
+
+const KnowledgeModuleTools = inject(
+  "knowledgeStore"
+)(
+  observer(({knowledgeStore }) => {
+    const theme = useTheme();
+
+    return (
+      <>
+      <Tooltip title="Информация о странице">
+          <IconButton onClick={null} size="large">
+              <InfoIcon />
+          </IconButton>
+      </Tooltip>
+      <Tooltip title="Назад">
+          <IconButton onClick={() => router.back()} size="large">
+              <UndoIcon />
+          </IconButton>
+      </Tooltip>
+      </>
+    );
+  })
+);
+
+
+
+
+
+
+
+
 const RightToolbar = inject(
   "rootStore",
 )(
@@ -103,6 +157,9 @@ const RightToolbar = inject(
     >
       {router.pathname === '/knowledge/pages' && <KnowledgePagesTools/>}
       {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools/>}
+      {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools/>}
+      {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools/>}
+
     </Stack>
     );
   })

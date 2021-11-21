@@ -2,20 +2,20 @@ import Head from 'next/head'
 import { styled } from '@mui/material/styles';
 import Link from 'next/link'
 import Router from 'next/router'
+import dynamic from 'next/dynamic'
 import React from 'react';
 import { Accordion, AccordionSummary, Button, useMediaQuery, Box, Stack, Tooltip, useTheme, Typography, AccordionDetails, Grid, IconButton } from '@mui/material';
-
-
 import { inject, observer } from 'mobx-react'
-import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll'
-//import Background from '../../components/OtherComponents/Background/Background.js'
+
 import SaveIcon from '@mui/icons-material/Save';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import UserAccount from '../../components/PagesComponents/Settings/UserAccount';
-import Castomize from './../../components/PagesComponents/Settings/Castomize';
 import LogoutIcon from '@mui/icons-material/Logout';
-import UserAvatar from '../../components/PagesComponents/Settings/UserAvatar';
+
+import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll'
 import CustomAvatar from '../../components/OtherComponents/Avatar/CustomAvatar';
+
+const Castomize = dynamic(() => import('./../../components/PagesComponents/Settings/Castomize'))
+const UserAvatar = dynamic(() => import('../../components/PagesComponents/Settings/UserAvatar'))
 
 const Settings = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore }) => {
   const theme = useTheme();

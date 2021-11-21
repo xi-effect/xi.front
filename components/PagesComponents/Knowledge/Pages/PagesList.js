@@ -119,7 +119,7 @@ const PagesList = inject(
             direction="column"
             justifyContent="center"
             alignItems="flex-start"
-            key={index.toString()}
+            key={page.id.toString()}
           >
             <Collapse
               sx={{
@@ -140,7 +140,7 @@ const PagesList = inject(
             >
               <Grid sx={{width: 'calc(100% - 32px)'}} container wrap="nowrap" spacing={2}>
                 <Grid item xs zeroMinWidth>
-                  <Typography sx={{ cursor: 'pointer', "&:hover": {textDecoration: 'underline'}}} variant="h6" noWrap>
+                  <Typography onClick={() => router.push(`/knowledge/page/${page.id}`)} sx={{ cursor: 'pointer', "&:hover": {textDecoration: 'underline'}}} variant="h6" noWrap>
                     {page.name}
                   </Typography>
                 </Grid>

@@ -12,6 +12,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import EmailIcon from '@mui/icons-material/Email';
 import HelpIcon from '@mui/icons-material/Help';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -77,7 +78,8 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
           </Stack>
           <Box
             component="form"
-            sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20, bgcolor: 'rgba(1, 1, 1, 0.4)', maxWidth: 512 }}
+            // bgcolor: 'rgba(1, 1, 1, 0.4)',
+            sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20,  maxWidth: 512 }}
             onSubmit={handleSubmit(onSubmit)}
           >
                     <Stack
@@ -104,7 +106,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                             render={({ field }) => <FormControl error={errors?.username?.type === "required"} fullWidth sx={{ maxWidth: 512, }} variant="outlined">
                                 <InputLabel> <Typography sx={{ color: 'text.main' }}>Имя пользователя</Typography> </InputLabel>
                                 <OutlinedInput
-                                    sx={{ backgroundColor: 'background.2', width: "100%", }}
+                                    sx={{ backgroundColor: 'background.main', width: "100%", }}
                                     label="Имя пользователя"
                                     type='text'
 
@@ -131,7 +133,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                             render={({ field }) => <FormControl error={errors?.email?.type === "required"} fullWidth sx={{ maxWidth: 512, }} variant="outlined">
                                 <InputLabel htmlFor="outlined-adornment-password"> <Typography sx={{ color: 'text.main' }}>Адрес почты</Typography> </InputLabel>
                                 <OutlinedInput
-                                    sx={{ backgroundColor: 'background.2', width: "100%", }}
+                                    sx={{ backgroundColor: 'background.main', width: "100%", }}
                                     label="Адрес почты"
                                     type='text'
                                     {...field}
@@ -157,22 +159,20 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                             render={({ field }) => <FormControl error={!!(errors?.password)} fullWidth sx={{ maxWidth: 512, }} variant="outlined">
                                 <InputLabel htmlFor="outlined-adornment-password"> <Typography sx={{ color: 'text.main' }}>Пароль</Typography> </InputLabel>
                                 <OutlinedInput
-                                    sx={{ backgroundColor: 'background.2', width: "100%", }}
+                                    sx={{ backgroundColor: 'background.main', width: "100%", }}
                                     label="Пароль"
                                     type={showPassword ? 'text' : 'password'}
                                     {...field}
                                     endAdornment={
                                         <InputAdornment position="end">
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={() => setShowPassword(!showPassword)}
-                                                    // onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                    size="large">
-                                                    {showPassword ? <Visibility sx={{ color: 'text.main' }} /> : <VisibilityOff sx={{ color: 'text.main' }} />}
-                                                </IconButton>
-                                            </InputAdornment>
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                // onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                                size="large">
+                                                {showPassword ? <Visibility sx={{ color: 'text.main' }} /> : <VisibilityOff sx={{ color: 'text.main' }} />}
+                                            </IconButton>
                                         </InputAdornment>
                                     }
 
@@ -180,6 +180,34 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                 {authorizationStore.signup.error === "serverError" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Ошибка сервера </Typography>}
                                 {errors?.password?.message === "password must be at least 6 characters" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Минимальная длинна пароля - 6 символов </Typography>}
                                 {errors?.password?.message === "password is a required field" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Обязательное поле </Typography>}
+                            </FormControl>}
+                        />
+                        <Controller
+                            name="password"
+                            control={control}
+                            defaultValue=""
+                            render={({ field }) => <FormControl error={!!(errors?.password)} fullWidth sx={{ maxWidth: 512, }} variant="outlined">
+                                <InputLabel htmlFor="outlined-adornment-password"> <Typography sx={{ color: 'text.main' }}>Код-приглашение</Typography> </InputLabel>
+                                <OutlinedInput
+                                    sx={{ backgroundColor: 'background.main', width: "100%", }}
+                                    label="Код-приглашение"
+                                    type={'text'}
+                                    {...field}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                // onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                                size="large">
+                                                    <Tooltip title="Код-приглашение. Вы можете зарегистрироватся только если у вас есть код, который вы получили у пользователя платформы" arrow>
+                                                        <VerifiedUserIcon sx={{ color: 'text.main' }}/>
+                                                    </Tooltip>
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+
+                                />
                                 <Link
                                     sx={{ color: 'text.main', m: 1, cursor: 'pointer' }}
                                     onClick={() => {
@@ -193,7 +221,10 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                 </Link>
                             </FormControl>}
                         />
-                        <Button variant="outlined" size="large" type="submit" sx={{ color: 'text.main', border: `2px solid ${theme.palette.text.dark}`, '&:hover': { border: `2px solid ${theme.palette.text.dark}` } }}>
+                        <Button variant="outlined" size="large" type="submit" sx={{ color: "text.main",
+                  bgcolor: "background.main",
+                   border: `2px solid ${theme.palette.text.dark}`,
+                    '&:hover': { border: `2px solid ${theme.palette.text.dark}` } }}>
                             Зарегистрироваться
                         </Button>
                     </Stack>

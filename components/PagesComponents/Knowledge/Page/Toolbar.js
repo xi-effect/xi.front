@@ -38,16 +38,6 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
                             <Typography variant="h5" sx={{ fontWeight: "bolder", }} noWrap>{knowledgeStore.page.name}</Typography>
                     }
                 </Grid>
-                <Tooltip title="Информация о странице">
-                    <IconButton onClick={null} size="large">
-                        <InfoIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Назад">
-                    <IconButton onClick={() => router.back()} size="large">
-                        <UndoIcon />
-                    </IconButton>
-                </Tooltip>
             </Grid>
             <Divider sx={{
                 width: "100%",

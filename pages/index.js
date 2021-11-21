@@ -33,13 +33,17 @@ const Main = inject(
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
 
+    React.useEffect(() => {
+      setTimeout(() => setLoading(false), 1000);
+    }, [])
+
     return (
       <>
         <Head>
           <title>Ξffect</title>
         </Head>
         {/* <Background /> */}
-        {/* {loading && <Loading />} */}
+        {loading && <Loading />}
         <Grid
           container
           direction="column"
@@ -51,14 +55,14 @@ const Main = inject(
           }}
         >
           <Header />
-          <Image
-              alt="alt"
-              src={"/landing.svg"}
-              layout="fill"
-              objectFit="cover"
-              quality={100}
-              // onLoadingComplete={() => setLoading(false)}
-            />
+              <Image
+                  alt="alt"
+                  src={"/landing.svg"}
+                  layout="fill"
+                  objectFit="cover"
+                  quality={100}
+                  // onLoadingComplete={() => setLoading(false)}
+                />
             <Stack
               direction="row"
               justifyContent="center"
