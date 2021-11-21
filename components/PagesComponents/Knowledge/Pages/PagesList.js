@@ -99,9 +99,8 @@ const PagesList = inject(
         justifyContent="flex-start"
         alignItems="flex-start"
         sx={{
-          margin: 0,
-          pt: 1,
-          pl: 1,
+          m: 0,
+          p: 1,
           width: "100%",
           //backgroundColor: 'background.1',
         }}

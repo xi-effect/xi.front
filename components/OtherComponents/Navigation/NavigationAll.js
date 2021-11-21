@@ -19,6 +19,8 @@ import { io } from "socket.io-client";
 
 import socket from "../../../utils/socket";
 
+import { Scrollbars } from 'react-custom-scrollbars-2';
+
 const NavigationAll = inject(
   "rootStore",
   "settingsStore",
@@ -139,8 +141,9 @@ const NavigationAll = inject(
                 transition: '0.8s',
                 zIndex: 1,
                 margin: 0,
-                overflow: 'hidden',
+                overflow: 'auto',
                 width: `calc(100% - ${getWidth()}px)`,
+                height: "calc(100vh - 48px)",
                 marginLeft: getMarginLeft(),
                 borderTopLeftRadius:  mobile ? 24 : 32,
                 borderTopRightRadius: getBorderTopRightRadius(),
@@ -148,28 +151,15 @@ const NavigationAll = inject(
 
               }}
             >
-              <Box
-              sx={{
-                overflow: 'auto',
-                mt: 3,
-                pl: 1,
-                pr: 1,
-                height: "calc(100vh - 72px)",
-                "&::-webkit-scrollbar": {
-                  width: "12px"
-                },
-                "&::-webkit-scrollbar-track": {
-                  boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.1)`,
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  borderRadius: "20px",
-                  bgcolor: "primary.main",
-                  outline: `1px solid slategrey`,
-                },
-              }}
-              >
+            <Scrollbars
+             universal={true}
+              style={{ width: "100%", height: "100%" }}
+              autoHide
+              autoHideTimeout={1000}
+              autoHideDuration={200}
+            >
               {children}
-              </Box>
+            </Scrollbars>
             </Paper>
             {/* <ChatDialog /> */}
           </Box>

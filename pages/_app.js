@@ -26,9 +26,12 @@ import Router from 'next/router';
 const clientSideEmotionCache = createEmotionCache();
 import "../styles/globals.css"
 
+import { Scrollbars } from 'react-custom-scrollbars-2';
+
 import NProgress from 'nprogress'; //nprogress module
 import 'nprogress/nprogress.css'; //styles of nprogress
 //Binding events. 
+NProgress.configure({ showSpinner: false })
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
@@ -61,7 +64,7 @@ const MyApp = (observer((props) => {
   const rootStore = useStore(pageProps.initialState)
   // console.log("darkMode", rootStore.settingsStore.settings.darkTheme)
   const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsStore.settings.darkTheme))), [rootStore.settingsStore.settings.darkTheme])
-  console.log("theme", theme)
+  // console.log("theme", theme)
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -99,21 +102,22 @@ const MyApp = (observer((props) => {
         authorizationStore={rootStore.authorizationStore}
         messageStore={rootStore.messageStore}
       >
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>
-            {/* <SnackbarProvider
-              autoHideDuration={800}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              maxSnack={3}> */}
-            {/* <MenuLayout> */}
-            <CssBaseline />
-            <Component {...pageProps} />
-            {/* </MenuLayout> */}
-            {/* </SnackbarProvider> */}
-          </ThemeProvider>
+        <StyledEngineProvider injectFirst>  
+            <ThemeProvider theme={theme}>
+              {/* <SnackbarProvider
+                autoHideDuration={800}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                maxSnack={3}> */}
+              {/* <MenuLayout> */}
+              <CssBaseline />
+              <Component {...pageProps} />
+              {/* </MenuLayout> */}
+              {/* </SnackbarProvider> */}
+            </ThemeProvider>
+
         </StyledEngineProvider>
       </Provider>
       {/* </Context.Provider> */}

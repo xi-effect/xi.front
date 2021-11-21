@@ -68,7 +68,7 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                         justifyContent="center"
                         alignItems="center"
                         sx={{
-                            marginTop: 2,
+                            marginTop: 0,
                             marginBottom: 2,
                             height: '100%',
                             width: '100%',
