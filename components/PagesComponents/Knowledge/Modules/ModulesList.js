@@ -143,7 +143,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                 >
                   <Grid sx={{width: 'calc(100% - 32px)'}} container wrap="nowrap" spacing={2}>
                     <Grid item xs zeroMinWidth>
-                      <Typography onClick={() => router.push(`/knowledge/module/${module.id}`)} sx={{ cursor: 'pointer', "&:hover": {textDecoration: 'underline'}}} variant="h6" noWrap>
+                      <Typography onClick={() => router.push(`/knowledge/module/${module.id}/start`)} sx={{ cursor: 'pointer', "&:hover": {textDecoration: 'underline'}}} variant="h6" noWrap>
                         {module.name}
                       </Typography>
                     </Grid>

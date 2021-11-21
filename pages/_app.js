@@ -61,7 +61,7 @@ const MyApp = (observer((props) => {
   const rootStore = useStore(pageProps.initialState)
   // console.log("darkMode", rootStore.settingsStore.settings.darkTheme)
   const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsStore.settings.darkTheme))), [rootStore.settingsStore.settings.darkTheme])
-  // console.log("theme", theme)
+  console.log("theme", theme)
   return (
     <CacheProvider value={emotionCache}>
       <Head>
