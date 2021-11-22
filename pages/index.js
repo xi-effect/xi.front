@@ -1,4 +1,8 @@
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import React from "react";
+
+import Head from "next/head";
+import Image from "next/image";
+
 import {
   Box,
   Button,
@@ -12,17 +16,15 @@ import {
   useTheme,
   Stack,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import clsx from "clsx";
+
 import { inject, observer } from "mobx-react";
-import Head from "next/head";
-import Image from "next/image";
-import Router, { useRouter } from "next/router";
-import React from "react";
+import { motion } from "framer-motion"
+
 import Loading from "./../components/OtherComponents/Loading/Loading";
 import CardsList from "./../components/PagesComponents/Landing/CardList";
 import Header from "./../components/PagesComponents/Landing/Header";
-import { motion } from "framer-motion"
+import MainLabel from "./../components/PagesComponents/Landing/MainLabel";
+
 
 const Main = inject(
   "rootStore",
@@ -31,7 +33,6 @@ const Main = inject(
   observer(({ rootStore, uiStore }) => {
     const theme = useTheme();
     const [loading, setLoading] = React.useState(true);
-    const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
 
     React.useEffect(() => {
@@ -44,56 +45,75 @@ const Main = inject(
           <title>Ξffect</title>
         </Head>
         {/* <Background /> */}
-        {loading && <Loading />}
-        <Grid
-          container
+        {/* {loading && <Loading />} */}
+        <Stack
+          component={motion.div}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
           direction="column"
           justifyContent="flex-start"
           alignItems="center"
           sx={{
             width: "100%",
-            height: "100%",
+            minHeight: "100vh",
+
           }}
         >
           <Header />
-              <Image
-                  alt="alt"
-                  src={"/landing.svg"}
-                  layout="fill"
-                  objectFit="cover"
-                  quality={100}
-                  // onLoadingComplete={() => setLoading(false)}
-                />
-            <Stack
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-              spacing={2}
-              sx={{zIndex: 1, mt: '10%', }}
+          <MainLabel/>
+          <Box
+            sx={{
+              position: "fixed",
+              height: "100vh",
+              width: "100vw",
+              overflow: "hidden",
+              zIndex: "-1",
+            }}
+          >
+            <Image
+                alt="alt"
+                src={"/landing.svg"}
+                layout="fill"
+                objectFit="cover"
+                quality={100}
+                // onLoadingComplete={() => setLoading(false)}
+            />
+          </Box>
+          <Stack
+            component={motion.div}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 1 }}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+            sx={{zIndex: 1, mt: '10%', }}
+          >
+            <Box
+              component={motion.div}
+              whileHover={{
+                scale: 1.2,
+                transition: { duration: 1 },
+              }}
             >
-              <Box
-                component={motion.div}
-                whileHover={{
-                  scale: 1.2,
-                  transition: { duration: 1 },
-                }}
-              >
-                <Image
-                  alt="alt"
-                  src={"/Something.svg"}
-                  // layout="fill"
-                  // objectFit="cover"
-                  quality={100}
-                  width={256}
-                  height={232}
-                  // onLoadingComplete={() => setLoading(false)}
-                />
-              </Box>
-              <Typography variant="h6">
-                Сайт устал, мы устраняем неполадки
-              </Typography>
-            </Stack>
-        </Grid>
+              <Image
+                alt="alt"
+                src={"/Something.svg"}
+                // layout="fill"
+                // objectFit="cover"
+                quality={100}
+                width={256}
+                height={232}
+                // onLoadingComplete={() => setLoading(false)}
+              />
+            </Box>
+            <Typography sx={{cursor: "default"}} variant="h6">
+              Сайт устал, мы устраняем неполадки
+            </Typography>
+          </Stack>
+        </Stack>
       </>
     );
   })

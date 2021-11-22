@@ -7,7 +7,6 @@ import { Tooltip, Skeleton, Divider, Grid, Typography, useTheme, IconButton } fr
 
 import { inject, observer } from 'mobx-react'
 
-import { useRouter } from 'next/router'
 
 import UndoIcon from '@mui/icons-material/Undo';
 import InfoIcon from '@mui/icons-material/Info';
@@ -16,7 +15,6 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
     const theme = useTheme();
 
 
-    const router = useRouter()
 
     return (
         <>

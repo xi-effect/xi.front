@@ -12,7 +12,7 @@ import { inject, observer } from 'mobx-react'
 import NavigationAll from './../../../../components/OtherComponents/Navigation/NavigationAll';
 // import PageCompList from './../../../components/PagesComponents/Knowledge/Page/PageCompList';
 // import Toolbar from '../../../components/PagesComponents/Knowledge/Page/Toolbar';
-import ModuleInfo from './../../../../components/PagesComponents/Knowledge/Module/ModuleInfo';
+// import ModuleInfo from './../../../../components/PagesComponents/Knowledge/Module/ModuleInfo';
 import PageCompList from './../../../../components/PagesComponents/Knowledge/Page/PageCompList';
 
 
@@ -35,7 +35,7 @@ const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kn
                 </title>
             </Head>
             {/* <Background/> */}
-            <NavigationAll>
+            <NavigationAll hasRightToolbar>
                 <Grid
                     sx={{
                         width: '100%',
@@ -46,11 +46,7 @@ const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kn
                     alignItems="center"
                     container
                 >
-                    <ModuleInfo>
-                        <Box sx={{ height: 50, }}>
-                        </Box>
-                        <PageCompList />
-                    </ModuleInfo>
+                    <PageCompList />
                 </Grid>
             </NavigationAll>
         </>

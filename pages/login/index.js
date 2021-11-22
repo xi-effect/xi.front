@@ -38,6 +38,8 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import { motion } from "framer-motion"
+
 const schema = yup
   .object({
     email: yup.string().email().required(),
@@ -70,7 +72,7 @@ const Login = inject(
     return (
       <>
         <Head>
-          <title>Ξ Авторизация</title>
+          <title>Ξ Вход</title>
         </Head>
         {/* {uiStore.loading["/login"] && <Loading />} */}
         <Stack
@@ -83,14 +85,24 @@ const Login = inject(
             backgroundColor: "background.1",
           }}
         >
+            <Box
+            sx={{
+              position: "fixed",
+              height: "100vh",
+              width: "100vw",
+              overflow: "hidden",
+              zIndex: "-1",
+            }}
+          >
             <Image
-              alt="alt"
-              src={"/landing.svg"}
-              layout="fill"
-              objectFit="cover"
-              quality={100}
-              // onLoadingComplete={() => setLoading(false)}
+                alt="alt"
+                src={"/landing.svg"}
+                layout="fill"
+                objectFit="cover"
+                quality={100}
+                // onLoadingComplete={() => setLoading(false)}
             />
+          </Box>
           <Stack
             direction="row"
             justifyContent="flex-start"
@@ -113,6 +125,10 @@ const Login = inject(
             onSubmit={handleSubmit(onSubmit)}
           >
             <Stack
+              component={motion.div}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 1 }}
               direction="column"
               justifyContent="center"
               alignItems="center"

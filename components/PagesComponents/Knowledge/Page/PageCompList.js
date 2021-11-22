@@ -107,25 +107,25 @@ const PageCompList = inject("knowledgeStore")(
             </Box>
           ))}
         {knowledgeStore.page.loading &&
-          [...Array(10)].map((value, index) => (
+          [...Array(20)].map((value, index) => (
             <Box
               sx={{
                 border: 0,
                 maxWidth: "800px",
                 width: "100%",
-                height: 64,
+                height: 48,
                 // margin: "1px",
                 // padding: "1px",
               }}
-              key={index}
+              key={index.toString()}
             >
               <Skeleton
                 animation="wave"
                 sx={{
-                  height: 64,
+                  height: 48,
                   ml: 1,
                   width: "100%",
-                  borderRadius: 1,
+                  borderRadius: 4,
                 }}
               />
             </Box>

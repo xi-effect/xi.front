@@ -18,6 +18,8 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
+import { motion } from "framer-motion"
+
 const schema = yup.object({
     username: yup.string().max(100).required(),
     email: yup.string().email().required(),
@@ -25,7 +27,6 @@ const schema = yup.object({
 }).required();
 
 import Loading from './../../components/OtherComponents/Loading/Loading';
-
 const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ rootStore, authorizationStore, uiStore }) => {
     const theme = useTheme()
 
@@ -40,7 +41,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
     return (
         <>
             <Head>
-                <title>Ξ Авторизация</title>
+                <title>Ξ Регистрация</title>
             </Head>
             {/* {uiStore.loading["/login"] && <Loading />} */}
             <Stack
@@ -53,14 +54,24 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                     backgroundColor: 'background.1',
                 }}
             >
-                    <Image
-                alt="alt"
-                src={"/landing.svg"}
-                layout="fill"
-                objectFit="cover"
-                quality={100}
-                // onLoadingComplete={() => setLoading(false)}
-                />
+                   <Box
+                        sx={{
+                        position: "fixed",
+                        height: "100vh",
+                        width: "100vw",
+                        overflow: "hidden",
+                        zIndex: "-1",
+                        }}
+                    >
+                        <Image
+                            alt="alt"
+                            src={"/landing.svg"}
+                            layout="fill"
+                            objectFit="cover"
+                            quality={100}
+                            // onLoadingComplete={() => setLoading(false)}
+                        />
+                    </Box>
                 <Stack
                     direction="row"
                     justifyContent="flex-start"
@@ -83,6 +94,10 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
             onSubmit={handleSubmit(onSubmit)}
           >
                     <Stack
+                        component={motion.div}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2, duration: 1 }}
                         direction="column"
                         justifyContent="center"
                         alignItems="center"

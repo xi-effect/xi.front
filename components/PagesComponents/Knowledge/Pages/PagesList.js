@@ -35,6 +35,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { inject, observer } from "mobx-react";
 
 import SVGbackground from "../../../OtherComponents/SVGbackground/SVGbackground";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Views = React.memo(({ views }) => {
   const theme = useTheme();
@@ -77,7 +78,7 @@ const PagesList = inject(
 )(
   observer(({ knowledgeStore, uiStore }) => {
     const theme = useTheme();
-
+    const router = useRouter()
     const knowledgeUI = uiStore.knowledgeUI;
     const [expanded, setExpanded] = React.useState(false);
 
@@ -120,17 +121,18 @@ const PagesList = inject(
             alignItems="flex-start"
             key={page.id.toString()}
           >
-            <Collapse
-              sx={{
-                width: "100%",
-                height: "100%"
-              }}
-              in={!(expanded === index)}
-            >
-              {/* <Box sx={{width: "100%", height: "auto"}}> */}
+            <AnimatePresence initial={false}>
+            {!(expanded === index) &&
+              <Box
+               sx={{width: "100%", height: "auto"}}
+               component={motion.div}
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ opacity: 0 }}
+              >
               <SVGbackground width={1920} height={1080}/>
-              {/* </Box> */}
-            </Collapse>
+              </Box>}
+            </AnimatePresence>
             <Grid
               container
               direction="row"
@@ -156,9 +158,15 @@ const PagesList = inject(
               </IconButton>
             </Grid>
             {/* </Grid> */}
-            <Collapse
-              in={expanded === index}
-            >
+            <AnimatePresence initial={false}>
+            {(expanded === index) &&
+              <Box
+               sx={{width: "100%", height: "auto"}}
+               component={motion.div}
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ delay: 11300, opacity: 0 }}
+              >
               <Typography>{`${page.theme}`}</Typography>
               <Typography sx={{ mt: 0.4 }}>{kindSelect(page.kind)}</Typography>
               <Grid
@@ -202,7 +210,8 @@ const PagesList = inject(
                   </Typography>
                 </Grid>
               </Grid>
-            </Collapse>
+              </Box>}
+            </AnimatePresence>
           </Grid>
         ))}
       </Grid>

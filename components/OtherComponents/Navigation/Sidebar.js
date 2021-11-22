@@ -56,6 +56,8 @@ import AdjustIcon from "@mui/icons-material/Adjust";
 import CircleIcon from "@mui/icons-material/Circle";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
+import { motion } from "framer-motion";
+
 const Sidebar = inject(
   "rootStore",
   "uiStore",
@@ -130,6 +132,9 @@ const Sidebar = inject(
             <div key={index.toString()}>
               <Tooltip placement="right" title={item.label}>
                 <IconButton
+                  component={motion.li}
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.95 }}
                   onMouseEnter={() => {
                     if (
                       item.href.includes("/managment") ||

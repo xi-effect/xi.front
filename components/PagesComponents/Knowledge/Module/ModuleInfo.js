@@ -173,7 +173,6 @@ const ModuleInfo = inject("knowledgeStore")(
     const theme = useTheme();
 
     const router = useRouter();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
     const [value, setValue] = React.useState(0);
 
@@ -262,21 +261,7 @@ const ModuleInfo = inject("knowledgeStore")(
                         </IconButton>
                       </span>
                     </Tooltip>
-                    {!mobile && (
-                      <Typography variant="h6" sx={{ ml: 1 }}>
-                        {knowledgeStore.module.name}
-                      </Typography>
-                    )}
-                    {!mobile && knowledgeStore.page.name != "" && (
-                      <Typography variant="h5" sx={{ ml: 1 }}>
-                        {"/"}
-                      </Typography>
-                    )}
-                    {!mobile && (
-                      <Typography variant="h6" sx={{ ml: 1 }}>
-                        {knowledgeStore.page.name}
-                      </Typography>
-                    )}
+                    
                   </Grid>
                 </Grid>
                 <Grid item></Grid>

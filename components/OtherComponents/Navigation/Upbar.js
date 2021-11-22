@@ -3,7 +3,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Box, Button, useTheme, useMediaQuery, InputBase, IconButton, Tooltip, Drawer, Stack, Typography } from "@mui/material";
+import { Grid, Box, Button, Skeleton, useTheme, useMediaQuery, InputBase, IconButton, Tooltip, Drawer, Stack, Typography } from "@mui/material";
 import CustomAvatar from '../Avatar/CustomAvatar'
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -104,6 +104,49 @@ const KnowledgeModulesTools = inject(
   })
 );
 
+const KnowledgePageTools = inject(
+  "knowledgeStore"
+)(
+  observer(({ knowledgeStore }) => {
+    return (
+      <>
+        <Grid item xs zeroMinWidth>
+        {knowledgeStore.page.loading ? <Skeleton animation="wave" sx={{ml: 2, mr: 1, height: 42, borderRadius: 4, maxWidth: 500}} variant="text" /> :
+          <Typography variant="h5" sx={{ fontWeight: "bolder", ml: 2, mr: 1, cursor: "default" }} noWrap>{knowledgeStore.page.name}</Typography>}
+        </Grid>
+      </>
+    );
+  })
+);
+
+const KnowledgeModuleTools = inject(
+  "knowledgeStore"
+)(
+  observer(({knowledgeStore }) => {
+    const theme = useTheme();
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
+    return (
+      <>
+      {!mobile && (
+        <Typography variant="h6" sx={{ ml: 1 }}>
+          {knowledgeStore.module.name}
+        </Typography>
+      )}
+      {!mobile && knowledgeStore.page.name != "" && (
+        <Typography variant="h5" sx={{ ml: 1 }}>
+          {"/"}
+        </Typography>
+      )}
+      {!mobile && (
+        <Typography variant="h6" sx={{ ml: 1 }}>
+          {knowledgeStore.page.name}
+        </Typography>
+      )}
+      </>
+    );
+  })
+);
 
 
 
@@ -133,6 +176,8 @@ const Upbar = inject(
     </Typography>
     {router.pathname === '/knowledge/pages' && <KnowledgePagesTools/>}
     {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools/>}
+    {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools/>}
+    {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools/>}
     <Typography variant="h6" sx={{ mt: 0, ml: 'auto', mr: 1}}>
     {settingsStore.settings.username}
     </Typography>

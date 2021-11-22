@@ -4,9 +4,13 @@ import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
 import { Box, Button, useTheme, IconButton, Tooltip, Drawer, Stack, Typography } from "@mui/material";
-import CustomAvatar from '../Avatar/CustomAvatar'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
+import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
+
+import UndoIcon from '@mui/icons-material/Undo';
+import InfoIcon from '@mui/icons-material/Info';
+
 
 const KnowledgePagesTools = inject(
     "knowledgeStore"
@@ -85,6 +89,7 @@ const KnowledgePageTools = inject(
 )(
   observer(({knowledgeStore }) => {
     const theme = useTheme();
+    const router = useRouter()
 
     return (
       <>
@@ -109,29 +114,31 @@ const KnowledgeModuleTools = inject(
 )(
   observer(({knowledgeStore }) => {
     const theme = useTheme();
+    const router = useRouter()
 
     return (
       <>
       <Tooltip title="Информация о странице">
-          <IconButton onClick={null} size="large">
-              <InfoIcon />
-          </IconButton>
+        <IconButton onClick={null} size="large">
+            <InfoIcon />
+        </IconButton>
       </Tooltip>
-      <Tooltip title="Назад">
-          <IconButton onClick={() => router.back()} size="large">
-              <UndoIcon />
+      <Tooltip title="Вперёд">,
+          <IconButton
+            onClick={() =>
+              knowledgeStore.loadPageInModule(
+                knowledgeStore.module.activeIdInMap + 1
+              )
+            }
+            size="large"
+          >
+            <DoubleArrowIcon />
           </IconButton>
       </Tooltip>
       </>
     );
   })
 );
-
-
-
-
-
-
 
 
 const RightToolbar = inject(

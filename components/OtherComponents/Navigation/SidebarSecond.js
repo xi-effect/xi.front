@@ -39,6 +39,8 @@ import AdjustIcon from '@mui/icons-material/Adjust';
 import CircleIcon from '@mui/icons-material/Circle';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
+import { motion } from "framer-motion";
+
 const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
     const theme = useTheme();
     const router = useRouter()
@@ -94,6 +96,9 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
 >
         {hoverLeftName === '/knowledge' && menuKnowledge.map((item, index) => (
             <Typography
+            component={motion.p}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => router.push(`${item.href}s`)}
              key={index.toString()}
              sx={{
@@ -112,6 +117,9 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
         ))}
                 {hoverLeftName === '/managment/content' && menuManagment.map((item, index) => (
             <Typography
+            component={motion.p}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => router.push(`${item.href}s`)}
              key={index.toString()}
              sx={{

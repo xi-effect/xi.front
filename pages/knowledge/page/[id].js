@@ -11,27 +11,6 @@ import { inject, observer } from 'mobx-react'
 
 import NavigationAll from './../../../components/OtherComponents/Navigation/NavigationAll';
 import PageCompList from './../../../components/PagesComponents/Knowledge/Page/PageCompList';
-import Toolbar from '../../../components/PagesComponents/Knowledge/Page/Toolbar';
-
-const PREFIX = 'Page';
-
-const classes = {
-    main: `${PREFIX}-main`
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.main}`]: {
-        margin: 4,
-        width: 'calc(100% - 16px)',
-        zIndex: 1,
-        //backgroundColor: 'red',
-    }
-}));
 
 const Page = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore }) => {
     const theme = useTheme();
@@ -45,26 +24,28 @@ const Page = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
 
 
     return (
-        (<Root>
+        <>
             <Head>
                 <title>
                     Ξffect
                 </title>
             </Head>
-            {/* <Background/> */}
-            <NavigationAll>
+            <NavigationAll hasRightToolbar>
                 <Grid
-                    className={classes.main}
+                    sx={{
+                        margin: "4px",
+                        width: 'calc(100% - 16px)',
+                        zIndex: 1,
+                    }}
                     direction="column"
                     justifyContent="flex-start"
                     alignItems="center"
                     container
                 >
-                    <Toolbar />
                     <PageCompList />
                 </Grid>
             </NavigationAll>
-        </Root>)
+        </>
     );
 }))
 
