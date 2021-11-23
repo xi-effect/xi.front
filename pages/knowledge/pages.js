@@ -52,7 +52,7 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                 </title>
             </Head>
             {/* <Background/> */}
-            <NavigationAll hasRightToolbar>
+            <NavigationAll haveRightToolbar>
                 <Grid
                     container
                     direction="column"

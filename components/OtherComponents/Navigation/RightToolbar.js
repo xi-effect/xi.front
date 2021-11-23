@@ -11,7 +11,6 @@ import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import UndoIcon from '@mui/icons-material/Undo';
 import InfoIcon from '@mui/icons-material/Info';
 
-
 const KnowledgePagesTools = inject(
     "knowledgeStore"
   )(
@@ -109,38 +108,6 @@ const KnowledgePageTools = inject(
 );
 
 
-const KnowledgeModuleTools = inject(
-  "knowledgeStore"
-)(
-  observer(({knowledgeStore }) => {
-    const theme = useTheme();
-    const router = useRouter()
-
-    return (
-      <>
-      <Tooltip title="Информация о странице">
-        <IconButton onClick={null} size="large">
-            <InfoIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Вперёд">
-          <IconButton
-            onClick={() =>
-              knowledgeStore.loadPageInModule(
-                knowledgeStore.module.activeIdInMap + 1
-              )
-            }
-            size="large"
-          >
-            <DoubleArrowIcon />
-          </IconButton>
-      </Tooltip>
-      </>
-    );
-  })
-);
-
-
 const RightToolbar = inject(
   "rootStore",
 )(
@@ -162,11 +129,9 @@ const RightToolbar = inject(
         pb: 2,
     }}
     >
+      {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools/>}
       {router.pathname === '/knowledge/pages' && <KnowledgePagesTools/>}
       {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools/>}
-      {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools/>}
-      {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools/>}
-
     </Stack>
     );
   })

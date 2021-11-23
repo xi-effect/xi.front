@@ -156,7 +156,7 @@ const Sidebar = inject(
                   }}
                   sx={{
                     bgcolor: router.pathname.includes(item.href)
-                      ? "tertiary.main"
+                      ? "primary.light"
                       : "secondary.main",
                     borderRadius: 2,
                   }}

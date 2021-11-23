@@ -69,6 +69,16 @@ const Login = inject(
     console.log("errors", errors);
     const onSubmit = (data) => authorizationStore.clickEnterButton(data);
 
+    React.useEffect(() => {
+      rootStore
+      .fetchDataScr(`${rootStore.url}/settings/`, "GET")
+      .then((data) => {
+        if (data !== null) {
+          router.push('/home')
+        }
+      });
+    }, [])
+
     return (
       <>
         <Head>

@@ -97,7 +97,7 @@ const PageCompList = inject("knowledgeStore")(
                 border: 0,
                 width: "calc(100% - 4px)",
                 margin: "1px",
-                padding: "1px",
+                padding: "0px",
               }}
               key={index}
             >
@@ -122,7 +122,8 @@ const PageCompList = inject("knowledgeStore")(
                 sx={{
                   height: 48,
                   ml: 1,
-                  width: "100%",
+                  mr: 1,
+                  width: "calc(100% - 16px)",
                   borderRadius: 4,
                 }}
               />

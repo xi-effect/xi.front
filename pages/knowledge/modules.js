@@ -51,7 +51,7 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 </title>
             </Head>
             {/* <Background/> */}
-            <NavigationAll hasRightToolbar>
+            <NavigationAll haveRightToolbar>
                 <Grid
                     container
                     direction="column"

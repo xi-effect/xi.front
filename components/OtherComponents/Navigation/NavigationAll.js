@@ -10,7 +10,7 @@ import Sidebar from "./Sidebar";
 import SidebarSecond from "./SidebarSecond";
 import RightToolbar from "./RightToolbar";
 import Loading from "../Loading/Loading";
-import SideDownbar from "./SideDownbar";
+import RightMenu from "./RightMenu";
 import Upbar from "./Upbar";
 import ChatDialog from "../../PagesComponents/Messages/ChatDialog";
 
@@ -26,7 +26,7 @@ const NavigationAll = inject(
   "uiStore",
   "messageStore"
 )(
-  observer(({ rootStore, settingsStore, uiStore, messageStore, hasSecondMenu = false, hasRightToolbar = false, hasRightlist = false, children }) => {
+  observer(({ rootStore, settingsStore, uiStore, messageStore, haveSecondMenu = false, haveRightToolbar = false, haveRightMenu = false, children }) => {
     const theme = useTheme();
     const router = useRouter();
 
@@ -80,15 +80,15 @@ const NavigationAll = inject(
 
     const getWidth = () => {
       let w = 70
-      if (hasRightToolbar) w = w + 48
-      if (hasRightlist) w = w + 128
+      if (haveRightToolbar) w = w + 48
+      if (haveRightMenu) w = w + 156
       if (hoverLeftName !== null) w = w + 128
       if (mobile) w = 32
       return w
     }
 
     const getBorderTopRightRadius = () => {
-      let btrr = (hasRightlist || hasRightToolbar) ? 32 : 2
+      let btrr = (haveRightMenu || haveRightToolbar) ? 32 : 2
       if (mobile) btrr = 24
       return btrr
     }
@@ -115,10 +115,11 @@ const NavigationAll = inject(
               // width: "calc(100% + 16px)",
             }}
           >
-            <Upbar hasRightToolbar={hasRightToolbar}/>
+            <Upbar haveRightToolbar={haveRightToolbar}/>
             <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName}/>
             <SidebarSecond hoverLeftName={hoverLeftName}/>
-            {hasRightToolbar && <RightToolbar/>}
+            {haveRightToolbar && <RightToolbar/>}
+            {haveRightMenu && <RightMenu/>}
             {/* <Box
               sx={{
                 display: {

@@ -36,7 +36,8 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                                     textDecoration: value.textDecoration,
                                     lineHeight: "normal",
                                     cursor: "default",
-                                }
+                                },
+                                p: "1px",
                             }}
                             placeholder="Добавить текст ответа"
                             type="text"

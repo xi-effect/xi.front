@@ -35,7 +35,7 @@ const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kn
                 </title>
             </Head>
             {/* <Background/> */}
-            <NavigationAll hasRightToolbar>
+            <NavigationAll haveRightMenu>
                 <Grid
                     sx={{
                         width: '100%',

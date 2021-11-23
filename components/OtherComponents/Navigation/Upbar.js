@@ -129,17 +129,17 @@ const KnowledgeModuleTools = inject(
     return (
       <>
       {!mobile && (
-        <Typography variant="h6" sx={{ ml: 1 }}>
+        <Typography variant="h6" sx={{ ml: 1, cursor: "default" }}>
           {knowledgeStore.module.name}
         </Typography>
       )}
       {!mobile && knowledgeStore.page.name != "" && (
-        <Typography variant="h5" sx={{ ml: 1 }}>
+        <Typography variant="h5" sx={{ ml: 1, cursor: "default" }}>
           {"/"}
         </Typography>
       )}
       {!mobile && (
-        <Typography variant="h6" sx={{ ml: 1 }}>
+        <Typography variant="h6" sx={{ ml: 1, cursor: "default" }}>
           {knowledgeStore.page.name}
         </Typography>
       )}

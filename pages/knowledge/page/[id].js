@@ -30,7 +30,7 @@ const Page = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                     Ξffect
                 </title>
             </Head>
-            <NavigationAll hasRightToolbar>
+            <NavigationAll haveRightToolbar>
                 <Grid
                     sx={{
                         margin: "4px",
