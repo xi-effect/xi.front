@@ -63,6 +63,10 @@ const Main = inject(
           <Header />
           <MainLabel/>
           <Box
+            component={motion.div}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0, duration: 0.5 }}
             sx={{
               position: "fixed",
               height: "100vh",
