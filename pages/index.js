@@ -64,7 +64,7 @@ const Main = inject(
           <MainLabel/>
           <Box
             component={motion.div}
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 0 }}Н
             animate={{ opacity: 1 }}
             transition={{ delay: 0, duration: 0.5 }}
             sx={{
@@ -77,7 +77,7 @@ const Main = inject(
           >
             <Image
                 alt="alt"
-                src={"/landing.svg"}
+                src={"/svg/BackgroundWaves.svg"}
                 layout="fill"
                 objectFit="cover"
                 quality={100}
@@ -104,7 +104,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src={"/Something.svg"}
+                src={"/svg/Something.svg"}
                 // layout="fill"
                 // objectFit="cover"
                 quality={100}

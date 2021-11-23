@@ -96,7 +96,7 @@ const Login = inject(
           >
             <Image
                 alt="alt"
-                src={"/landing.svg"}
+                src={"/svg/BackgroundWaves.svg"}
                 layout="fill"
                 objectFit="cover"
                 quality={100}
@@ -137,7 +137,7 @@ const Login = inject(
             >
               <Image
                 alt="alt"
-                src={"/Welcome.svg"}
+                src={"/svg/Secure.svg"}
                 // layout="fill"
                 // objectFit="cover"
                 quality={100}

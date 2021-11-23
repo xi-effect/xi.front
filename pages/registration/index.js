@@ -65,7 +65,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                     >
                         <Image
                             alt="alt"
-                            src={"/landing.svg"}
+                            src={"/svg/BackgroundWaves.svg"}
                             layout="fill"
                             objectFit="cover"
                             quality={100}
@@ -106,7 +106,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                     >
                                     <Image
                             alt="alt"
-                            src={"/Thank.svg"}
+                            src={"/svg/Welcome.svg"}
                             // layout="fill"
                             // objectFit="cover"
                             quality={100}

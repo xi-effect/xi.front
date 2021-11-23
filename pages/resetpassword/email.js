@@ -62,7 +62,7 @@ const PassResetEmail = inject('rootStore', 'uiStore', 'authorizationStore')(obse
                 >
                     <Image
                         alt="alt"
-                        src={"/landing.svg"}
+                        src={"/svg/BackgroundWaves.svg"}
                         layout="fill"
                         objectFit="cover"
                         quality={100}
