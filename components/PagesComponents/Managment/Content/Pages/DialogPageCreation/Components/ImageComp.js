@@ -10,7 +10,6 @@ import { Dialog, DialogContent, Input, Slider, DialogActions, DialogContentText,
 
 import CloseIcon from '@mui/icons-material/Close';
 import AvatarEditor from 'react-avatar-editor'
-import { useFileUpload } from "use-file-upload"
 
 import clsx from 'clsx';
 import QueueIcon from '@mui/icons-material/Queue';

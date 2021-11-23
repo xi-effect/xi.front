@@ -4,7 +4,6 @@ import { styled } from '@mui/material/styles';
 
 //import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { Slider, Dialog, useTheme, DialogTitle, DialogContent, DialogContentText, DialogActions, Link, InputAdornment, Tooltip, IconButton, ClickAwayListener, Divider, ButtonGroup, MenuList, MenuItem, Avatar, Paper, Grow, Popper, Badge, Grid, FormControl, InputLabel, TextField, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button } from '@mui/material'
-import { useFileUpload } from "use-file-upload"
 import { inject, observer } from 'mobx-react'
 import Image from 'next/image'
 import Visibility from '@mui/icons-material/Visibility';

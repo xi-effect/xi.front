@@ -11,7 +11,6 @@ import {
 import { useRouter } from 'next/router'
 import { Provider } from 'mobx-react'
 import { useStore } from '../store/rootStore'
-//import { useFileUpload } from "use-file-upload";
 import { inject, observer } from 'mobx-react'
 import CssBaseline from '@mui/material/CssBaseline';
 import { getDesignTokens } from '../theme'

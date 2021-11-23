@@ -8,14 +8,6 @@ import { FormControl, FormControlLabel, Grid, Switch, Button, Typography, useThe
 
 import { inject, observer } from 'mobx-react'
 
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import SaveIcon from '@mui/icons-material/Save';
-import CloseIcon from '@mui/icons-material/Close';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import AvatarEditor from 'react-avatar-editor'
-import { useFileUpload } from "use-file-upload"
-
 const PREFIX = 'StepThree';
 
 const classes = {
