@@ -9,7 +9,6 @@ import { Box, Paper, Button, useMediaQuery, useTheme } from "@mui/material";
 import Sidebar from "./Sidebar";
 import SidebarSecond from "./SidebarSecond";
 import RightToolbar from "./RightToolbar";
-import Helpbar from "./Helpbar";
 import Loading from "../Loading/Loading";
 import SideDownbar from "./SideDownbar";
 import Upbar from "./Upbar";
@@ -133,7 +132,6 @@ const NavigationAll = inject(
             >
               <SideDownbar />
             </Box> */}
-            {/* <Helpbar openHelpMenu={openHelpMenu} setOpenHelpMenu={setOpenHelpMenu} /> */}
             <Paper
               onMouseEnter={() => setHoverLeftName(null)}
               elevation={2}

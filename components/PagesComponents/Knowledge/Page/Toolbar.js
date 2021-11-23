@@ -14,8 +14,6 @@ import InfoIcon from '@mui/icons-material/Info';
 const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
     const theme = useTheme();
 
-
-
     return (
         <>
             <Grid

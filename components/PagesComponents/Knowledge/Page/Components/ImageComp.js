@@ -22,7 +22,7 @@ const ImageComp = inject('rootStore')(observer(({ rootStore, value }) => {
     }, [])
 
     return (
-        (<Root>
+        <>
             <Grid
                 container
                 direction="row"
@@ -31,7 +31,7 @@ const ImageComp = inject('rootStore')(observer(({ rootStore, value }) => {
                 sx={{ width: "100%", }}
             >
                 {value.authorId != null && value.imageId != null &&
-                    <div className={classes.imgWrapper}>
+                    <div>
                         <Image
                             width={960}
                             height={540}
@@ -43,7 +43,7 @@ const ImageComp = inject('rootStore')(observer(({ rootStore, value }) => {
                     </div>
                 }
             </Grid>
-        </Root>)
+        </>
     );
 }));
 

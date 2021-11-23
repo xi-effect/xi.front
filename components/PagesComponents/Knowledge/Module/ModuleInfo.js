@@ -304,7 +304,6 @@ const ModuleInfo = inject("knowledgeStore")(
                 paddingTop: 0,
               }}
             >
-              {/* <Divider className={classes.Divider} /> */}
               <Grid
                 container
                 direction="column"
@@ -340,11 +339,6 @@ const ModuleInfo = inject("knowledgeStore")(
                           {...a11yProps(1)}
                         />
                       )}
-                      {/* <Tab label={<Typography sx={{ color: 'text.main' }}>Статистика</Typography>} {...a11yProps(2)} /> */}
-                      {/* <Tab label={<Typography sx={{ color: 'text.main' }}>Об Авторе</Typography>} {...a11yProps(3)} /> */}
-
-                      {/* <Tab label={<Typography className={classes.tabLabel}>Модерация</Typography>} {...a11yProps(2)} /> */}
-                      {/* <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Others")} label={<Typography className={classes.tabLabel}><MoreHorizIcon /></Typography>} {...a11yProps(2)} /> */}
                     </Tabs>
                   )}
                   {mobile && (
@@ -363,9 +357,6 @@ const ModuleInfo = inject("knowledgeStore")(
                       )}
                       <Tab label={<AnalyticsIcon />} {...a11yProps(2)} />
                       <Tab label={<AccountBoxIcon />} {...a11yProps(3)} />
-
-                      {/* <Tab label={<Typography className={classes.tabLabel}>Модерация</Typography>} {...a11yProps(2)} /> */}
-                      {/* <Tab onClick={() => sessionStorage.setItem('KnowledgeTab', "Others")} label={<Typography className={classes.tabLabel}><MoreHorizIcon /></Typography>} {...a11yProps(2)} /> */}
                     </Tabs>
                   )}
                   <TabPanel value={value} index={0}>
@@ -436,7 +427,6 @@ const ModuleInfo = inject("knowledgeStore")(
                         direction="row"
                         justifyContent="flex-start"
                         alignItems="flex-start"
-                        //className={classes.gridWrapperMeta}
                       >
                         {knowledgeStore.module["map"]
                           .slice(

@@ -123,7 +123,7 @@ const KnowledgeModuleTools = inject(
             <InfoIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Вперёд">,
+      <Tooltip title="Вперёд">
           <IconButton
             onClick={() =>
               knowledgeStore.loadPageInModule(
