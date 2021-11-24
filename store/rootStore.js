@@ -13,7 +13,7 @@ import SettingsStore from "./settings/settingsStore";
 import ContentStore from "./content/contentStore";
 import AuthorizationStore from "./authorization/authorizationStore";
 import MessageStore from "./message/messageStore";
-import ProfileStore from "./profile/ProfileStore";
+import ProfileStore from "./profile/profileStore";
 
 enableStaticRendering(typeof window === 'undefined')
 
