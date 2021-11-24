@@ -13,6 +13,7 @@ import SettingsStore from "./settings/settingsStore";
 import ContentStore from "./content/contentStore";
 import AuthorizationStore from "./authorization/authorizationStore";
 import MessageStore from "./message/messageStore";
+import ProfileStore from "./profile/ProfileStore";
 
 enableStaticRendering(typeof window === 'undefined')
 
@@ -29,6 +30,7 @@ class RootStore {
     this.contentStore = new ContentStore(this)
     this.authorizationStore = new AuthorizationStore(this)
     this.messageStore = new MessageStore(this)
+    this.profileStore = new ProfileStore(this)
     makeObservable(this)
   }
 
