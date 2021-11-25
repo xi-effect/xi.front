@@ -45,17 +45,21 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
     const theme = useTheme();
     const router = useRouter()
 
+    React.useEffect(() => {
+        messageStore.loadChatsInMenu()
+    }, [])
+
     const menuKnowledge = [
-            {
-                id: 0,
-                label: "Страницы",
-                href: '/knowledge/page',
-            },
-            {
-                id: 1,
-                label: "Модули",
-                href: '/knowledge/module',
-            },
+        {
+            id: 0,
+            label: "Страницы",
+            href: '/knowledge/page',
+        },
+        {
+            id: 1,
+            label: "Модули",
+            href: '/knowledge/module',
+        },
     ]
 
     const menuManagment = [
@@ -69,75 +73,125 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
             label: "Модули",
             href: '/managment/content/module',
         },
-]
+    ]
+
+    const getUnreadCount = (counter) => {
+        if (counter < 100 && counter > 0) return counter
+        if (counter > 99) return "99+"
+    }
 
     return (
         <Grow
-        in={hoverLeftName !== null}
-        style={{ transformOrigin: '0 0 0' }}
-        {...(hoverLeftName !== null ? { timeout: 1500 } : {})}
-      >
-        <Stack
-        // onMouseEnter={() => {
-        //     if(router.pathname.includes('/managment') || router.pathname.includes('/messages') || router.pathname.includes('/knowledge'))   setHoverLeft(true)
-        // }}
-  direction="column"
-  justifyContent="flex-start"
-  alignItems="flex-start"
-  spacing={1}
-  sx={{
-    zIndex: 0,
-      position: 'absolute',
-      marginTop: 2,
-      marginLeft: 8,
-      width: 128,
-      height: 'calc(100% - 72px)',
-  }}
->
-        {hoverLeftName === '/knowledge' && menuKnowledge.map((item, index) => (
-            <Typography
-            component={motion.p}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => router.push(`${item.href}s`)}
-             key={index.toString()}
-             sx={{
-                 pl: 1,
-                 pr: 1,
-                 pt: 0.5,
-                 pb: 0.5,
-                 width: '100%',
-                 borderRadius: 1,
-                 bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
-                 cursor: 'pointer',
-             }}
-             >
-                {item.label}
-            </Typography>
-        ))}
+            in={hoverLeftName !== null}
+            style={{ transformOrigin: '0 0 0' }}
+            {...(hoverLeftName !== null ? { timeout: 1500 } : {})}
+        >
+            <Stack
+                // onMouseEnter={() => {
+                //     if(router.pathname.includes('/managment') || router.pathname.includes('/messages') || router.pathname.includes('/knowledge'))   setHoverLeft(true)
+                // }}
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                spacing={1}
+                sx={{
+                    zIndex: 0,
+                    position: 'absolute',
+                    marginTop: 2,
+                    marginLeft: 8.5,
+                    marginRight: 0.5,
+                    width: 148,
+                    height: 'calc(100% - 72px)',
+                }}
+            >
+                {hoverLeftName === '/knowledge' && menuKnowledge.map((item, index) => (
+                    <Typography
+                        component={motion.p}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => router.push(`${item.href}s`)}
+                        key={index.toString()}
+                        sx={{
+                            "&:hover": {
+                                bgcolor: 'primary.light',
+                            },
+                            pl: 0.3,
+                            pr: 0.3,
+                            pt: 0.2,
+                            pb: 0.2,
+                            width: '100%',
+                            borderRadius: 1,
+                            bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        {item.label.toLowerCase()}
+                    </Typography>
+                ))}
                 {hoverLeftName === '/managment/content' && menuManagment.map((item, index) => (
-            <Typography
-            component={motion.p}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => router.push(`${item.href}s`)}
-             key={index.toString()}
-             sx={{
-                 pl: 1,
-                 pr: 1,
-                 pt: 0.5,
-                 pb: 0.5,
-                 width: '100%',
-                 borderRadius: 1,
-                 bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
-                 cursor: 'pointer',
-             }}
-             >
-                {item.label}
-            </Typography>
-        ))}
-</Stack>
-</Grow>
+                    <Typography
+                        component={motion.p}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => router.push(`${item.href}s`)}
+                        key={index.toString()}
+                        sx={{
+                            "&:hover": {
+                                bgcolor: 'primary.light',
+                            },
+                            pl: 0.3,
+                            pr: 0.3,
+                            pt: 0.2,
+                            pb: 0.2,
+                            width: '100%',
+                            borderRadius: 1,
+                            bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        {item.label.toLowerCase()}
+                    </Typography>
+                ))}
+                {hoverLeftName === '/messages' && messageStore.menu.chats.map((item, index) => (
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        component={motion.div}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => router.push(`/messages/${item.id}/`)}
+                        key={index.toString()}
+                        sx={{
+                            "&:hover": {
+                                bgcolor: 'primary.light',
+                            },
+                            pl: 0.3,
+                            pr: 0.3,
+                            pt: 0.2,
+                            pb: 0.2,
+                            width: '100%',
+                            borderRadius: 1,
+                            bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        <Grid sx={{ width: 'calc(100% - 0px)' }} container wrap="nowrap" spacing={2}>
+                            <Grid item xs zeroMinWidth>
+                                <Typography onClick={() => router.push(`/knowledge/page/`)} sx={{ cursor: 'pointer', }} noWrap>
+                                    {item.name.toLowerCase()}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Typography variant="subtitle1">
+                            {getUnreadCount(item.unread)}
+                        </Typography>
+                    </Grid>
+                ))}
+
+            </Stack>
+        </Grow>
     )
 }));
 

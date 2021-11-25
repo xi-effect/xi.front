@@ -82,7 +82,7 @@ const NavigationAll = inject(
       let w = 70
       if (haveRightToolbar) w = w + 48
       if (haveRightMenu) w = w + 156
-      if (hoverLeftName !== null) w = w + 128
+      if (hoverLeftName !== null) w = w + 156
       if (mobile) w = 32
       return w
     }
@@ -96,7 +96,7 @@ const NavigationAll = inject(
     const getMarginLeft = () => {
       let ml = "70px"
       if (mobile) ml = 2
-      if (hoverLeftName !== null) ml = "198px" 
+      if (hoverLeftName !== null) ml = "226px" 
       return ml
     }
 
