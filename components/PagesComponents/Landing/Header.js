@@ -27,13 +27,13 @@ const Header = () => {
         >
             <Typography
                 onClick={() => {
-                router.push({
-                    pathname: '/',
-                })
+                    router.push({
+                        pathname: '/',
+                    })
                 }}
 
                 variant="h4"
-                sx={{cursor: 'pointer', }}
+                sx={{ cursor: 'pointer', }}
             >
                 Ξffect
             </Typography>
@@ -80,7 +80,7 @@ const Header = () => {
                         pathname: '/login',
                     })
                 }}
-                sx={{  color: 'text.main', }}
+                sx={{ color: 'text.main', }}
             >
                 Войти
             </Button>

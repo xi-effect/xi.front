@@ -71,12 +71,12 @@ const Login = inject(
 
     React.useEffect(() => {
       rootStore
-      .fetchDataScr(`${rootStore.url}/settings/`, "GET")
-      .then((data) => {
-        if (data !== null) {
-          router.push('/home')
-        }
-      });
+        .fetchDataScr(`${rootStore.url}/settings/`, "GET")
+        .then((data) => {
+          if (data !== null) {
+            router.push('/home')
+          }
+        });
     }, [])
 
     return (
@@ -95,7 +95,7 @@ const Login = inject(
             backgroundColor: "background.1",
           }}
         >
-            <Box
+          <Box
             sx={{
               position: "fixed",
               height: "100vh",
@@ -105,12 +105,12 @@ const Login = inject(
             }}
           >
             <Image
-                alt="alt"
-                src={"/svg/BackgroundWaves.svg"}
-                layout="fill"
-                objectFit="cover"
-                quality={100}
-                // onLoadingComplete={() => setLoading(false)}
+              alt="alt"
+              src={"/svg/BackgroundWaves.svg"}
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+            // onLoadingComplete={() => setLoading(false)}
             />
           </Box>
           <Stack
@@ -131,7 +131,7 @@ const Login = inject(
           <Box
             component="form"
             // bgcolor: 'rgba(1, 1, 1, 0.4)',
-            sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20,  maxWidth: 512 }}
+            sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20, maxWidth: 512 }}
             onSubmit={handleSubmit(onSubmit)}
           >
             <Stack
@@ -153,7 +153,7 @@ const Login = inject(
                 quality={100}
                 width={456}
                 height={256}
-                // onLoadingComplete={() => setLoading(false)}
+              // onLoadingComplete={() => setLoading(false)}
               />
               <Controller
                 name="email"

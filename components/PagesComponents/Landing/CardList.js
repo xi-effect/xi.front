@@ -98,7 +98,7 @@ const Card = ({ card }) => {
     //const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
     return (
-        (<Root sx={{width: "100%"}}>
+        (<Root sx={{ width: "100%" }}>
             <Grid
                 item
                 container

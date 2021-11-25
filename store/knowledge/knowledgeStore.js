@@ -116,24 +116,25 @@ class KnowledgeStore {
   };
 
   @action isAnswerRight = (type, index) => {
+    this.page.components[index].successAnswer = false
     if (type === 'single') {
       this.page.components[index].content.forEach((item, itemIndex)  => {
         if (this.module.answers[index] === itemIndex && !item.rightAnswer) {
-          this.page.components[index].successAnswer = false 
-          return;
+          console.log("sa", this.page.components[index].successAnswer) 
+          return this.page.components[index].successAnswer = false
         }
       })
     }
     if (type === 'multiple') {
       this.page.components[index].content.forEach((item, itemIndex)  => {
         if (this.module.answers[index].includes(itemIndex) && !item.rightAnswer) {
-          this.page.components[index].successAnswer = false 
-          return;
+          console.log("sa", this.page.components[index].successAnswer) 
+          return this.page.components[index].successAnswer = false
         }
       })
     }
     this.page.components[index].successAnswer = true 
-    // console.log("logs", this.page.components[index]);
+    console.log("logs", this.page.components[index]);
   };
 
   @action setComponentsContent = (index, indexA, name, value) => {

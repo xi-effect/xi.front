@@ -77,23 +77,21 @@ const QuizItem = inject("managmentStore")(
             {values.quizType === "single" && (
               <Radio
                 color="primary"
-                checked={item.rightAnswer}
-                onChange={() => managmentStore.setSingleQuiz(index, indexA)}
+                checked={values?.rightAnswer.includes(indexA)}
+                onChange={() => managmentStore.setAnswerQuiz(index, indexA)}
               />
             )}
             {values.quizType === "multiple" && (
               <Checkbox
                 color="primary"
-                checked={item.rightAnswer}
+                checked={values?.rightAnswer.includes(indexA)}
                 onChange={() =>
-                  managmentStore.setPageCreationContentComponents(
+                  managmentStore.setAnswerQuiz(
                     index,
                     indexA,
-                    "rightAnswer",
-                    !item.rightAnswer
                   )
                 }
-                //onChange={handleChange}
+              //onChange={handleChange}
               />
             )}
           </>

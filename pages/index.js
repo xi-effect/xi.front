@@ -15,6 +15,7 @@ import {
   useMediaQuery,
   useTheme,
   Stack,
+  Container,
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
@@ -57,14 +58,13 @@ const Main = inject(
           sx={{
             width: "100%",
             minHeight: "100vh",
-
           }}
         >
           <Header />
-          <MainLabel/>
-          <Box
+          <MainLabel />
+          <Grid
             component={motion.div}
-            initial={{ opacity: 0 }}Н
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0, duration: 0.5 }}
             sx={{
@@ -76,14 +76,13 @@ const Main = inject(
             }}
           >
             <Image
-                alt="alt"
-                src={"/svg/BackgroundWaves.svg"}
-                layout="fill"
-                objectFit="cover"
-                quality={100}
-                // onLoadingComplete={() => setLoading(false)}
+              alt="alt"
+              src={"/svg/BackgroundWaves.svg"}
+              layout="fill"
+              objectFit="cover"
+              quality={100}
             />
-          </Box>
+          </Grid>
           <Stack
             component={motion.div}
             initial={{ opacity: 0 }}
@@ -93,30 +92,19 @@ const Main = inject(
             justifyContent="center"
             alignItems="center"
             spacing={2}
-            sx={{zIndex: 1, mt: '10%', }}
+            sx={{ zIndex: 1, mt: '10%', }}
           >
-            <Box
-              component={motion.div}
-              whileHover={{
-                scale: 1.2,
-                transition: { duration: 1 },
-              }}
-            >
-              <Image
-                alt="alt"
-                src={"/svg/Something.svg"}
-                // layout="fill"
-                // objectFit="cover"
-                quality={100}
-                width={256}
-                height={232}
-                // onLoadingComplete={() => setLoading(false)}
-              />
-            </Box>
-            <Typography sx={{cursor: "default"}} variant="h6">
+            <Image
+              alt="alt"
+              src={"/svg/Something.svg"}
+              quality={100}
+              width={256}
+              height={232}
+            /> 
+            <Typography sx={{ cursor: "default" }} variant="h6">
               Сайт устал, мы устраняем неполадки
             </Typography>
-          </Stack>
+          </Stack> 
         </Stack>
       </>
     );

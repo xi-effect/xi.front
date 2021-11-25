@@ -34,9 +34,9 @@ const NavigationAll = inject(
 
     React.useEffect(() => {
       // Главное подключение к сокету
-      socket = io("https://xieffect-socketio.herokuapp.com/", {
-        withCredentials: true,
-      });
+      // socket = io("https://xieffect-socketio.herokuapp.com/", {
+      //   withCredentials: true,
+      // });
       // Каждый раз запрашиваются настройки, чтобы понимать,
       // актуален ли токен авторизации
       rootStore

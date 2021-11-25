@@ -22,7 +22,7 @@ const MainLabel = () => {
             <Typography
                 variant="h4"
                 sx={{
-                fontWeight: 400,
+                    fontWeight: 400,
                 }}
             >
                 Effect - платформа путеводитель в мире знаний
@@ -30,8 +30,8 @@ const MainLabel = () => {
             <Typography
                 variant="subtitle"
                 sx={{
-                fontWeight: 400,
-                mt: 2,
+                    fontWeight: 400,
+                    mt: 2,
                 }}
             >
                 Делитесь своим опытом и изучайте новое в одном месте

@@ -22,16 +22,16 @@ const FunctionsTabs = () => {
             <Typography
                 variant="h4"
                 sx={{
-                fontWeight: 400,
+                    fontWeight: 400,
                 }}
             >
                 Effect помогает эффективно получать знания и делиться ими в доступном формате
             </Typography>
             <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            spacing={3}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                spacing={3}
             >
                 <Button variant="text">
                     Авторам

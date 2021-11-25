@@ -83,13 +83,6 @@ class ManagmentStore {
         //this.idComponents()
         console.log("compot", this.pageCreation.components)
     }
-    
-    @action setSingleQuiz = (index, indexA) => {
-        for (let i = 0; i < this.pageCreation.components[index].content.length; i += 1) {
-            this.pageCreation.components[index].content[i].rightAnswer = false
-        };
-        this.pageCreation.components[index].content[indexA].rightAnswer = true
-    }
 
     @action setNumberList = (index, indexA) => {
         for (let i = 0; i < this.pageCreation.components[index].content.length; i += 1) {
@@ -102,6 +95,11 @@ class ManagmentStore {
         for (let i = 0; i < this.pageCreation.components[index].content.length; i += 1) {
             this.pageCreation.components[index].content[i].rightAnswer = false
         }
+    }
+
+    @action setAnswerQuiz = (index, indexAnswer) => {
+        if (!this.pageCreation.components[index].rightAnswer.includes(indexAnswer)) this.pageCreation.components[index].rightAnswer.push(indexAnswer)
+        if (this.pageCreation.components[index].rightAnswer.includes(indexAnswer)) this.pageCreation.components[index].rightAnswer = this.pageCreation.components[index].rightAnswer.filter(item => item != indexAnswer)
     }
 
     @action changeListType = (index) => {
