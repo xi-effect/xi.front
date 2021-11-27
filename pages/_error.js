@@ -43,9 +43,8 @@ export default function ComponentDidCatch() {
                 justifyContent="center"
                 alignItems="center"
             >
-                <Typography sx={{
-                    fontSize: 72,
-                    margin: 8,
+                <Typography variant="h1" sx={{
+                    margin: 2,
                     cursor: "default",
                     color: 'constant.textWhite',
                 }}> 500 </Typography>
@@ -54,9 +53,8 @@ export default function ComponentDidCatch() {
                     width: 100,
                     backgroundColor: 'constant.textWhite',
                 }} />
-                <Typography sx={{
-                    fontSize: 32,
-                    margin: 1,
+                <Typography variant="h5" sx={{
+                    margin: 2,
                     cursor: "default",
                     color: 'constant.textWhite',
                 }}> Упс, вы заблудились... </Typography>

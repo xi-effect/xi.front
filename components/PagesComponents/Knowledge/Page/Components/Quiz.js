@@ -4,6 +4,8 @@ import { useTheme, Button, Input, Grid, Radio, Checkbox, Typography, useMediaQue
 
 import { inject, observer } from 'mobx-react'
 
+const show = true
+
 const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore, index }) => {
     const value = knowledgeStore.page.components[index]
     // Simulated props for the purpose of the example
@@ -13,72 +15,81 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
     const theme = useTheme();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
+    const getIconColor = (show, userA, rightA) => {
+        if (!show) return 'text.main'
+        if (show && userA && rightA) return 'success.main'
+        if (show && userA && !rightA) return 'error.main'
+        if (show && !userA && rightA) return 'error.dark'
+    }
+
+
+
     return (
         <Grid
             container
             direction="column"
             justifyContent="flex-start"
             alignItems="flex-start"
-            sx={{mt: 2, mb: 2,}}
+            sx={{ mt: 2, mb: 2, }}
         >
             <Grid sx={{ width: "100%" }}>
                 {value.content.map((item, indexA) => (
-                        <Input
-                            key={indexA.toString()}
-                            sx={{
-                                '& .MuiInput-input': {
-                                    width: "100%",
-                                    color: 'text.main',
-                                    fontSize: mobile ? value.fontSize * 0.8 : value.fontSize,
-                                    fontStyle: value.fontStyle,
-                                    textAlign: value.textAlign,
-                                    fontWeight: value.fontWeight,
-                                    textDecoration: value.textDecoration,
-                                    lineHeight: "normal",
-                                    cursor: "default",
-                                },
-                                p: "1px",
-                            }}
-                            placeholder="Добавить текст ответа"
-                            type="text"
-                            disableUnderline
-                            multiline
-                            fullWidth
-                            readOnly
-                            onClick={() => {
-                                // if (value.quizType === 'single') knowledgeStore.setSingleQuiz(index, indexA)
-                                // if (value.quizType === 'multiple') knowledgeStore.setComponentsContent(index, indexA, "userAnswer", !item.userAnswer)
-                                knowledgeStore.setAnswer(value.quizType, index, indexA)
-                            }}
-                            value={item.label}
-                            startAdornment={
-                                <>
-                                    {value.quizType === 'single' && <Radio
-                                        sx={{
-                                            color: 'text.main',
-                                            '&.Mui-checked': {
-                                                color: 'text.main',
-                                            },
-                                        }}
-                                        //color="primary"
-                                        checked={index in knowledgeStore.module.answers ? knowledgeStore.module.answers[index] === indexA : false}
-                                    />}
-                                    {value.quizType === 'multiple' && <Checkbox
-                                        sx={{
-                                            color: 'text.main',
-                                            '&.Mui-checked': {
-                                                color: 'text.main',
-                                            },
-                                        }}
-                                        //color="primary"
-                                        checked={index in knowledgeStore.module.answers ? knowledgeStore.module.answers[index].includes(indexA) : false}
-                                    //onChange={handleChange}
-                                    />}
+                    <Input
+                        key={indexA.toString()}
+                        sx={{
+                            '& .MuiInput-input': {
+                                width: "100%",
+                                color: 'text.main',
+                                fontSize: mobile ? value.fontSize * 0.8 : value.fontSize,
+                                fontStyle: value.fontStyle,
+                                textAlign: value.textAlign,
+                                fontWeight: value.fontWeight,
+                                textDecoration: value.textDecoration,
+                                lineHeight: "normal",
+                                cursor: "default",
+                            },
+                            p: "1px",
+                        }}
+                        placeholder="Добавить текст ответа"
+                        type="text"
+                        disableUnderline
+                        multiline
+                        fullWidth
+                        readOnly
+                        onClick={() => {
+                            // if (value.quizType === 'single') knowledgeStore.setSingleQuiz(index, indexA)
+                            // if (value.quizType === 'multiple') knowledgeStore.setComponentsContent(index, indexA, "userAnswer", !item.userAnswer)
+                            knowledgeStore.setAnswer(value.quizType, index, indexA)
+                        }}
+                        value={item.label}
+                        startAdornment={
+                            <>
+                                {value.quizType === 'single' && <Radio
+                                    sx={{
+                                        color: getIconColor(show, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
+                                        '&.Mui-checked': {
+                                            color: getIconColor(show, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
+                                        },
+                                    }}
+                                    //color="primary"
+                                    checked={knowledgeStore.page.components[index].userAnswers.includes(indexA)}
+                                />}
+                                {value.quizType === 'multiple' && <Checkbox
+                                    sx={{
+                                        color: getIconColor(show, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
+                                        '&.Mui-checked': {
+                                            color: getIconColor(show, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
+                                        },
+                                    }}
+                                    //color="primary"
+                                    checked={knowledgeStore.page.components[index].userAnswers.includes(indexA)}
+                                //onChange={handleChange}
+                                />}
 
-                                </>
-                            }
-                        />
-                    ))}
+                            </>
+                        }
+                    />
+                ))}
             </Grid>
             {knowledgeStore.module.type !== "test" && <Grid
                 container
@@ -93,7 +104,7 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                         color: 'text.main',
                     }}
                     variant="text"
-                    onClick={() => knowledgeStore.isAnswerRight(value.quizType, index)}
+                    onClick={() => knowledgeStore.isAnswerRight(index)}
                 >
                     Проверить
                 </Button>

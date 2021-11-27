@@ -99,7 +99,7 @@ const KnowledgeModuleToolsWithMap = inject(
           width: "100%",
         }}
       >
-        <Button
+        {knowledgeStore.module.type === 'test' && <Button
             sx={{
               color: 'text.main',
               width: 142,
@@ -108,7 +108,7 @@ const KnowledgeModuleToolsWithMap = inject(
             onClick={null} size="large"
         >
            Завершить <TaskIcon sx={{ml: 'auto', mr: 0}} />
-        </Button>
+        </Button>}
         <Button
             sx={{
               color: 'text.main',
@@ -143,12 +143,23 @@ const KnowledgeModuleToolsWithMap = inject(
 const KnowledgeModuleTools = inject(
   "knowledgeStore",
 )(
-  observer(({knowledgeStore }) => {
+  observer(({ knowledgeStore }) => {
     const theme = useTheme();
     const router = useRouter()
 
     return (
     <>
+    <Stack
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        spacing={0}
+        sx={{
+          height: "100%",
+        }}
+      >
+
+      </Stack>
       <Stack
         direction="column"
         justifyContent="center"
@@ -158,7 +169,7 @@ const KnowledgeModuleTools = inject(
           width: "100%",
         }}
       >
-        <Button
+        {knowledgeStore.module.type === 'test' && <Button
             sx={{
               color: 'text.main',
               width: 142,
@@ -167,7 +178,7 @@ const KnowledgeModuleTools = inject(
             onClick={null} size="large"
         >
            Завершить <TaskIcon sx={{ml: 'auto', mr: 0}} />
-        </Button>
+        </Button>}
         <Button
             sx={{
               color: 'text.main',

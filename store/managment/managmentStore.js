@@ -72,10 +72,10 @@ class ManagmentStore {
             this.pageCreation.components.push({ type: "img", authorId: null, imageId: null, })
         }
         if (type === "quiz") {
-            this.pageCreation.components.push({ type: "quiz", quizType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", rightAnswer: false, }], successAnswer: null })
+            this.pageCreation.components.push({ type: "quiz", quizType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", }], rightAnswers: [], userAnswers: [], successAnswer: null })
         }
         if (type === "list") {
-            this.pageCreation.components.push({ type: "list", listType: 'dotted', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", }, ] })
+            this.pageCreation.components.push({ type: "list", listType: 'dotted', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", },] })
         }
         if (type === "markdown") {
             this.pageCreation.components.push({ type: "markdown", label: "markdown" })
@@ -92,14 +92,36 @@ class ManagmentStore {
     }
 
     @action changeQuizType = (index) => {
-        for (let i = 0; i < this.pageCreation.components[index].content.length; i += 1) {
-            this.pageCreation.components[index].content[i].rightAnswer = false
-        }
+        this.pageCreation.components[index].rightAnswers = []
     }
 
-    @action setAnswerQuiz = (index, indexAnswer) => {
-        if (!this.pageCreation.components[index].rightAnswer.includes(indexAnswer)) this.pageCreation.components[index].rightAnswer.push(indexAnswer)
-        if (this.pageCreation.components[index].rightAnswer.includes(indexAnswer)) this.pageCreation.components[index].rightAnswer = this.pageCreation.components[index].rightAnswer.filter(item => item != indexAnswer)
+    @action setAnswerQuiz = (type, index, indexAnswer) => {
+        console.log("setAQ", type, index, indexAnswer, this.pageCreation.components[index])
+        if (type === 'm') {
+            if (!(this.pageCreation.components[index].rightAnswers.includes(indexAnswer))) {
+                console.log("add")
+                this.pageCreation.components[index].rightAnswers.push(indexAnswer)
+                console.log("this.pageCreation.components[index]", this.pageCreation.components[index])
+                return;
+            }
+            if (this.pageCreation.components[index].rightAnswers.includes(indexAnswer)) {
+                console.log("remove")
+                this.pageCreation.components[index].rightAnswers = this.pageCreation.components[index].rightAnswers.filter(item => item != indexAnswer)
+                console.log("this.pageCreation.components[index]", this.pageCreation.components[index])
+                return;
+            }
+        }
+        if (type === 's') {
+            if (this.pageCreation.components[index].rightAnswers.includes(indexAnswer)) {
+                console.log("remove")
+                return this.pageCreation.components[index].rightAnswers = []
+            }
+            if (!(this.pageCreation.components[index].rightAnswers.includes(indexAnswer))) {
+                console.log("add")
+                return this.pageCreation.components[index].rightAnswers[0] = indexAnswer
+            }
+
+        }
     }
 
     @action changeListType = (index) => {
@@ -117,7 +139,7 @@ class ManagmentStore {
             this.pageCreation.components[index]["content"].push({ label: "", })
         }
         if (type === 'quiz') {
-            this.pageCreation.components[index]["content"].push({ label: "", rightAnswer: false, })
+            this.pageCreation.components[index]["content"].push({ label: "", })
         }
     }
 

@@ -172,7 +172,7 @@ const Chat = inject(
         <Head>
           <title>Ξffect</title>
         </Head>
-        <NavigationAll>
+        <NavigationAll haveRightMenu>
           {/* <Stack
                     direction="column-reverse"
                     justifyContent="flex-start"
@@ -182,7 +182,7 @@ const Chat = inject(
           <div
             id="scrollableDiv"
             style={{
-              height: "100vh",
+              height: "calc(100vh - 72px)",
               width: "100%",
               overflowY: "auto",
               overFlowX: "hidden",

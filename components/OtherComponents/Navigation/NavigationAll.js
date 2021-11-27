@@ -34,9 +34,9 @@ const NavigationAll = inject(
 
     React.useEffect(() => {
       // Главное подключение к сокету
-      // socket = io("https://xieffect-socketio.herokuapp.com/", {
-      //   withCredentials: true,
-      // });
+      socket = io("https://xieffect-socketio.herokuapp.com/", {
+        withCredentials: true,
+      });
       // Каждый раз запрашиваются настройки, чтобы понимать,
       // актуален ли токен авторизации
       rootStore
@@ -96,7 +96,7 @@ const NavigationAll = inject(
     const getMarginLeft = () => {
       let ml = "70px"
       if (mobile) ml = 2
-      if (hoverLeftName !== null) ml = "226px" 
+      if (hoverLeftName !== null) ml = "226px"
       return ml
     }
 
@@ -115,11 +115,11 @@ const NavigationAll = inject(
               // width: "calc(100% + 16px)",
             }}
           >
-            <Upbar haveRightToolbar={haveRightToolbar}/>
-            <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName}/>
-            <SidebarSecond hoverLeftName={hoverLeftName}/>
-            {haveRightToolbar && <RightToolbar/>}
-            {haveRightMenu && <RightMenu/>}
+            <Upbar haveRightToolbar={haveRightToolbar} />
+            <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+            <SidebarSecond hoverLeftName={hoverLeftName} />
+            {haveRightToolbar && <RightToolbar />}
+            {haveRightMenu && <RightMenu />}
             {/* <Box
               sx={{
                 display: {
@@ -144,21 +144,22 @@ const NavigationAll = inject(
                 width: `calc(100% - ${getWidth()}px)`,
                 height: "calc(100vh - 48px)",
                 marginLeft: getMarginLeft(),
-                borderTopLeftRadius:  mobile ? 24 : 32,
+                borderTopLeftRadius: mobile ? 24 : 32,
                 borderTopRightRadius: getBorderTopRightRadius(),
                 backgroundColor: "background.main",
 
               }}
             >
-            <Scrollbars
-             universal={true}
-              style={{ width: "100%", height: "100%" }}
-              autoHide
-              autoHideTimeout={1000}
-              autoHideDuration={200}
-            >
-              {children}
-            </Scrollbars>
+              {!(router.pathname.includes('/message')) && <Scrollbars
+                universal={true}
+                style={{ width: "100%", height: "100%" }}
+                autoHide
+                autoHideTimeout={1000}
+                autoHideDuration={200}
+              >
+                {children}
+              </Scrollbars>}
+              {router.pathname.includes('/message') && children}
             </Paper>
             {/* <ChatDialog /> */}
           </Box>

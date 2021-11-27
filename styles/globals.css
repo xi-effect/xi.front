@@ -1,4 +1,3 @@
-
 html {
   padding: 0;
   margin: 0;
@@ -6,14 +5,14 @@ html {
   height: 100%; */
   font-size: 10px;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-  Helvetica Neue, sans-serif;
+    Helvetica Neue, sans-serif;
 }
 
 body {
   padding: 0;
   margin: 0;
   /* /* height: 100%; */
-  overflow: visible !important; 
+  overflow: visible !important;
   padding-right: 0px !important;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
     Helvetica Neue, sans-serif;
@@ -76,4 +75,23 @@ a {
   to {
     background-position: 100% 50%;
   }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track-piece {
+  background: transparent;
+  border-radius: 6px;
+}
+/* ::-webkit-scrollbar-thumb:vertical {
+  height: 5px;
+  border-radius: 6px;
+  background-color: #cccccc;
+} */
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  width: 10px;
+  background-color: #cccccc;
 }

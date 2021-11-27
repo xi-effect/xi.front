@@ -90,50 +90,47 @@ class KnowledgeStore {
     updated: null,
     quizCounter: 0,
     rightAnswersCounter: 0,
+    showAnswers: false,
   };
 
-  @action setAnswer = (type, indexComp, indexAnswer) => {
-    if (type === "single") {
-      this.module.answers[indexComp] = indexAnswer;
-    }
-    if (type === "multiple") {
-      if (indexComp in this.module.answers) {
-        if (this.module.answers[indexComp].includes(indexAnswer)) {
-          this.module.answers[indexComp] = this.module.answers[
-            indexComp
-          ].filter((item) => {
-            return item !== indexAnswer;
-          });
-        } else {
-          this.module.answers[indexComp].push(indexAnswer);
-        }
-      } else {
-        this.module.answers[indexComp] = [];
-        console.log("iut", this.module.answers[indexComp]);
-        this.module.answers[indexComp].push(indexAnswer);
+  @action setAnswer = (type, index, indexAnswer) => {
+    console.log("setAQ", type, index, indexAnswer, this.page.components[index])
+    if (type === 'multiple') {
+      if (!(this.page.components[index].userAnswers.includes(indexAnswer))) {
+        console.log("add")
+        this.page.components[index].userAnswers.push(indexAnswer)
+        console.log("this.page.components[index]", this.page.components[index])
+        return;
+      }
+      if (this.page.components[index].userAnswers.includes(indexAnswer)) {
+        console.log("remove")
+        this.page.components[index].userAnswers = this.page.components[index].userAnswers.filter(item => item != indexAnswer)
+        console.log("this.page.components[index]", this.page.components[index])
+        return;
       }
     }
+    if (type === 'single') {
+      if (this.page.components[index].userAnswers.includes(indexAnswer)) {
+        console.log("remove")
+        return this.page.components[index].userAnswers = []
+      }
+      if (!(this.page.components[index].userAnswers.includes(indexAnswer))) {
+        console.log("add")
+        return this.page.components[index].userAnswers[0] = indexAnswer
+      }
+
+    }
   };
 
-  @action isAnswerRight = (type, index) => {
+  @action isAnswerRight = (index) => {
     this.page.components[index].successAnswer = false
-    if (type === 'single') {
-      this.page.components[index].content.forEach((item, itemIndex)  => {
-        if (this.module.answers[index] === itemIndex && !item.rightAnswer) {
-          console.log("sa", this.page.components[index].successAnswer) 
-          return this.page.components[index].successAnswer = false
-        }
-      })
+    this.page.components[index].rightAnswers.sort()
+    this.page.components[index].userAnswers.sort()
+    if (JSON.stringify(this.page.components[index].rightAnswers) === JSON.stringify(this.page.components[index].userAnswers)) {
+      this.page.components[index].successAnswer = true
+    } else {
+      this.page.components[index].successAnswer = false
     }
-    if (type === 'multiple') {
-      this.page.components[index].content.forEach((item, itemIndex)  => {
-        if (this.module.answers[index].includes(itemIndex) && !item.rightAnswer) {
-          console.log("sa", this.page.components[index].successAnswer) 
-          return this.page.components[index].successAnswer = false
-        }
-      })
-    }
-    this.page.components[index].successAnswer = true 
     console.log("logs", this.page.components[index]);
   };
 
@@ -161,7 +158,6 @@ class KnowledgeStore {
         this.setPage(data);
         this.setPageData("authorId", data["author-id"]);
         this.setPageData("authorName", data["author-name"]);
-        this.setPageData("answers", {});
         this.setPageData("loading", false);
       });
   };
@@ -295,6 +291,7 @@ class KnowledgeStore {
     updated: null,
     activeIdInMap: null,
     answers: {},
+    showAnswers: false,
   };
 
   @action clearModule = () => {
@@ -407,7 +404,7 @@ class KnowledgeStore {
     console.log("str", str);
     const secondId = str.slice(str.lastIndexOf("/") + 1);
     let lastId = null;
-    
+
     if (secondId === "module") lastId = firstId;
     else lastId = secondId;
     console.log("lastId", lastId);

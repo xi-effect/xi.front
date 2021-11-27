@@ -179,7 +179,7 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                     >
                         <Grid sx={{ width: 'calc(100% - 0px)' }} container wrap="nowrap" spacing={2}>
                             <Grid item xs zeroMinWidth>
-                                <Typography onClick={() => router.push(`/knowledge/page/`)} sx={{ cursor: 'pointer', }} noWrap>
+                                <Typography sx={{ cursor: 'pointer', }} noWrap>
                                     {item.name.toLowerCase()}
                                 </Typography>
                             </Grid>

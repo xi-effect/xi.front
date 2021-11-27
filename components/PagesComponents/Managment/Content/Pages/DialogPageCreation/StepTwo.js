@@ -186,7 +186,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                 }}
                 hidden={hidden}
                 icon={<SpeedDialIcon />}
-                onClose={handleClose}
+                onClose={() => setOpen(false)}
                 onOpen={handleOpen}
                 open={open}
                 direction="down"
@@ -216,7 +216,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                 <Image
                     quality={100}
                     alt="howtocreateamodule"
-                    src="/illustrations/mathTeacher.png"
+                    src="/svg/Document.svg"
                     //layout='fill'
                     width={480}
                     height={480}
