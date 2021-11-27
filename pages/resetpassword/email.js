@@ -1,304 +1,178 @@
-import React from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
-import { Grid, useTheme, TextField, useMediaQuery, Tooltip, Popper, Grow, MenuList, MenuItem, InputLabel, Checkbox, ButtonGroup, InputAdornment, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-
-import clsx from 'clsx'
+import { useRouter } from 'next/router'
+import Image from "next/image";
+import clsx from 'clsx';
+import { Grid, Stack, Input, Link, useMediaQuery, TextField, useTheme, InputLabel, InputAdornment, Tooltip, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
+import { Link as LinkUI } from '@mui/material';
+import React from 'react'
+import BackgroundImg from '../../components/OtherComponents/Background/BackgroundImg'
 import { inject, observer } from 'mobx-react'
-import HelpIcon from '@mui/icons-material/Help';
-import BackgroundImg from './../../components/OtherComponents/Background/BackgroundImg';
-import Loading from './../../components/OtherComponents/Loading/Loading';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import EmailIcon from '@mui/icons-material/Email';
+
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+import { motion } from "framer-motion"
+
+const schema = yup.object({
+    email: yup.string().email().required(),
+}).required();
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        //backgroundColor: '#2a2a2a',
-        position: 'fixed',
-        height: '100vh',
-        width: '100vw',
-        zIndex: '-1',
-        overflowY: 'auto',
-        overflowX: 'hidden',
-    },
-    gridTittle: {
-        paddingTop: 16,
-        [theme => theme.breakpoints.up('lg')]: {
-            paddingLeft: 64,
-        },
-        [theme => theme.breakpoints.only('lg')]: {
-            paddingLeft: 32,
-        },
-        [theme => theme.breakpoints.down('lg')]: {
-            paddingLeft: 16,
-        },
-        paddingLeft: 16,
-        zIndex: 999,
-        marginRight: 'auto',
-    },
-    tittle: {
-        fontSize: 32,
-        color: theme => theme.palette.primary.contrastText,
-        cursor: 'pointer',
-        zIndex: 999,
-    },
-    gridUnderPaper: {
-        zIndex: 999,
-    },
-    Paper: {
-        zIndex: 999,
-        borderRadius: 4,
-        width: 500,
-        // [theme => theme.breakpoints.only('xs')]: {
-        //     width: 400,
-        // },
-        height: 'auto',
-        backgroundColor: 'rgb(54,57,63)',
-        transition: '1s',
-        '&:hover': {
-            // background: 'linear-gradient(-90deg, rgb(80,151,136, 0.5), rgb(4,40,75, 0.5))',
-            backgroundColor: 'rgb(54,57,63, 0.85)',
-        },
-
-    },
-    PaperOnlyXs: {
-        width: 350,
-        transition: '1s',
-    },
-    typographyMain: {
-        cursor: "default",
-        zIndex: 999,
-        color: 'rgb(255,255,255)',
-        fontWeight: 'bold',
-    },
-    typographyMainly: {
-        textAlign: 'center',
-        cursor: "default",
-        zIndex: 999,
-        color: 'rgb(142,146,151)',
-    },
-    gridPaper: {
-        margin: 8,
-        marginTop: 24,
-    },
-    inputLabel: {
-        color: 'rgb(142,146,151)',
-    },
-    gridTextField: {
-        marginTop: 16,
-        paddingLeft: 16,
-        paddingRight: 32,
-        width: '100%',
-    },
-    textField: {
-        width: '100%',
-        backgroundColor: 'rgb(49,51,57)',
-    },
-    textFieldTypography: {
-        marginTop: -4,
-        color: 'rgb(142,146,151)',
-    },
-    icons: {
-        color: 'rgb(142,146,151)',
-    },
-    gridForgotPassword: {
-        marginTop: 4,
-        paddingLeft: 20,
-
-    },
-    forgotPassword: {
-        color: 'rgb(142,146,151)',
-    },
-    gridEnterButtom: {
-        marginTop: 16,
-        paddingLeft: 16,
-        paddingRight: 32,
-
-        width: '100%',
-    },
-    enterButtom: {
-        width: '100%',
-    },
-    gridForgotRegistration: {
-        marginTop: 4,
-        paddingLeft: 20,
-        paddingBottom: 20,
-    },
-    forgotRegistration: {
-        color: 'rgb(142,146,151)',
-    },
-    popper: {
-        zIndex: 1100,
-    },
-    paper: {
-        zIndex: 1100,
-    },
-    gridCheckbox: {
-        marginTop: 4,
-        paddingLeft: 16,
-        paddingRight: 32,
-        width: '100%',
-    },
-    checkboxTypography: {
-        paddingTop: 2,
-        color: 'rgb(142,146,151)',
-    },
-    tooltip: {
-
-    },
-    tooltipTypography: {
-        paddingTop: 2,
-        fontSize: 16,
-    },
-    iconHelp: {
-        marginTop: 8,
-        marginLeft: -10,
-        color: 'rgb(142,146,151)',
-    },
-    Checkbox: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-    OutlinedInput: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-    ErrorLabel: {
-        zIndex: 999,
-        fontSize: 16,
-        color: theme => theme.palette.error.main,
-    },
-    gridForgotPassword: {
-        zIndex: 999,
-        marginTop: 4,
-        paddingLeft: 20,
-        paddingRight: 20,
-
-    },
-    gridroot: {
-        width: '100vw',
-        minHeight: '100vh',
-    },
-    gridTypography: {
-        paddingLeft: 16,
-        paddingRight: 16,
-    },
-    typographyMainlySuccess: {
-        textAlign: 'center',
-        cursor: "default",
-        zIndex: 999,
-        fontSize: 18,
-        color: 'rgb(142,146,151)',
-    }
-}));
-
-
-
-const PassResetEmail = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) => {
+const PassResetEmail = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ rootStore, uiStore, authorizationStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
-
-    const [emailReset, setEmailReset] = React.useState('')
-
-    const [errorEmailReset, setErrorEmailReset] = React.useState(false)
-    const [errorEmailNotFounedReset, setErrorEmailNotFounedReset] = React.useState(false)
-    const [emailResetOk, setEmailResetOk] = React.useState(false)
-
-    const clickRegistartionButton = () => {
-        if (!emailReset.includes('@') || !emailReset.includes('.') || emailReset.length < 5) {
-            setErrorEmailReset(true)
-        }
-
-        if (!errorEmailReset && !errorEmailNotFounedReset) {
-            rootStore.fetchData(`${rootStore.url}/password-reset/${emailReset}/`, "GET")
-                .then((data) => {
-                    if (data != undefined) {
-                        if (data.a === true) { //true
-                            setEmailResetOk(true)
-                        } else if (data.a === false) {
-                            setErrorEmailNotFounedReset(true)
-                        }
-                    }
-                });
-
-        }
+    const router = useRouter()
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+    console.log("errors", errors)
+    const onSubmit = (data) => {
+        authorizationStore.clickPasswordResetButton(data)
     }
+
+
 
     return (
         <>
             <Head>
-                <title>Ξ Регистрация</title>
+                <title>Ξ Смена пароля</title>
             </Head>
-            {uiStore.loading["/registration"] && <Loading />}
-            <div className={classes.root}>
-                <BackgroundImg src="/wallpapers/hp3.jpg" />
-                <Grid
-                    className={classes.gridroot}
-                    container
-                    direction="column"
+            {/* {uiStore.loading["/login"] && <Loading />} */}
+            <Stack
+                direction="column"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{
+                    width: "100vw",
+                    height: "100vh",
+                    backgroundColor: 'background.1',
+                }}
+            >
+                <Box
+                    sx={{
+                    position: "fixed",
+                    height: "100vh",
+                    width: "100vw",
+                    overflow: "hidden",
+                    zIndex: "-1",
+                    }}
+                >
+                    <Image
+                        alt="alt"
+                        src={"/svg/BackgroundWaves.svg"}
+                        layout="fill"
+                        objectFit="cover"
+                        quality={100}
+                        // onLoadingComplete={() => setLoading(false)}
+                    />
+                </Box>
+                <Stack
+                    direction="row"
+                    justifyContent="flex-start"
                     alignItems="center"
-                    justifyContent="space-between">
-                    <Grid className={classes.gridTittle} item container justifyContent="flex-start" direction="column" alignItems="flex-start">
-                        <Link href="https://xieffect.herokuapp.com/" passHref>
-                            <Typography className={classes.tittle}> Ξ Effect </Typography>
-                        </Link>
-                    </Grid>
-                    <Grid className={classes.gridUnderPaper} item container direction="column" alignItems="center">
-                        <Paper variant="outlined" className={clsx(classes.Paper, { [classes.PaperOnlyXs]: useMediaQuery(theme.breakpoints.only('xs')) })}>
-                            <Grid container direction="column" justifyContent="center" alignItems="center" className={classes.gridPaper}>
-                                <Grid item container direction="column" justifyContent="center" alignItems="center" className={classes.gridTypography}>
-                                    <Typography variant='h5' className={classes.typographyMain}> Восстановление пароля </Typography>
-                                    <Typography variant='h7' className={classes.typographyMainly}> Введите адрес электроной почты вашего аккаунта.</Typography>
-                                    <Typography variant='h7' className={classes.typographyMainly}> Мы отправим вам письмо со ссылкой на страницу создания нового пароля. </Typography>
-                                </Grid>
-                                <Grid item container direction="column" justifyContent="center" alignItems="flex-start" className={classes.gridTextField}>
-                                    <FormControl className={classes.textField} variant="outlined">
-                                        <InputLabel className={classes.inputLabel} htmlFor="outlined-adornment-password"> <Typography className={classes.textFieldTypography}>Адрес почты</Typography> </InputLabel>
-                                        <OutlinedInput
-                                            label="Адрес почты"
-                                            className={classes.OutlinedInput}
-                                            type='text'
-                                            value={emailReset}
-                                            onChange={(event) => setEmailReset(event.target.value)}
-                                            endAdornment={
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        edge="end"
-                                                    >
-                                                        <Tooltip title="Ваш адресс электронной почты" arrow>
-                                                            <HelpIcon className={classes.icons} />
-                                                        </Tooltip>
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            }
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                {errorEmailReset && <Grid item container direction="column" justifyContent="center" alignItems="flex-start" className={classes.gridForgotPassword}>
-                                    <Typography className={classes.ErrorLabel}> Некорректный адрес почты</Typography>
-                                </Grid>}
-                                {errorEmailNotFounedReset && <Grid item container direction="column" justifyContent="center" alignItems="flex-start" className={classes.gridForgotPassword}>
-                                    <Typography className={classes.ErrorLabel}> Пользователя с таким адресом электронной почты не существует</Typography>
-                                </Grid>}
-                                {!emailResetOk && <>
-                                    <Grid item container direction="column" justifyContent="center" alignItems="center" className={classes.gridEnterButtom}>
-                                        <Button onClick={clickRegistartionButton} variant="contained" color="primary" className={classes.enterButtom}>
-                                            Отправить письмо
-                                        </Button>
-                                    </Grid>
-                                </>}
-                                {emailResetOk && <>
-                                    <Grid item container direction="column" justifyContent="center" alignItems="center" className={classes.gridTypography}>
-                                        <Typography className={classes.typographyMainlySuccess}> Письмо отправлено. С этой страницы можно безопасно уходить  </Typography>
-                                    </Grid>
-                                </>}
-                            </Grid>
-                        </Paper>
-                    </Grid>
-                    <Grid item container>
-                    </Grid>
-                </Grid>
-            </div>
+                    spacing={0}
+                    sx={{ width: "100%" }}
+                >
+                    <Typography
+                        onClick={() => router.push("/")}
+                        variant="h4"
+                        sx={{ color: "text.main", m: 2, zIndex: 2, cursor: "pointer" }}
+                    >
+                        Ξffect
+                    </Typography>
+                </Stack>
+                <Box
+                    component="form"
+                    // bgcolor: 'rgba(1, 1, 1, 0.4)',
+                    sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20,  maxWidth: 512 }}
+                    onSubmit={handleSubmit(onSubmit)}
+                >
+                    <Stack
+                        component={motion.div}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2, duration: 1 }}
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={0}
+                        sx={{ width: "100%", p: 2 }}
+                    >
+                        <Image
+                            alt="alt"
+                            src={"/Mail.svg"}
+                            quality={100}
+                            width={456}
+                            height={256}
+                        />
+                        <Controller
+                            name="email"
+                            control={control}
+                            defaultValue=""
+                            render={({ field }) => <FormControl error={errors?.email?.type === "required"} fullWidth sx={{ maxWidth: 512, mt: 1 }} variant="outlined">
+                                <InputLabel htmlFor="outlined-adornment-password"> <Typography sx={{ color: 'text.main' }}>Адрес почты</Typography> </InputLabel>
+                                <OutlinedInput
+                                    sx={{ backgroundColor: 'background.main', width: "100%", }}
+                                    label="Адрес почты"
+                                    type='text'
+
+                                    // value={emailReset}
+                                    // onChange={null}
+                                    {...field}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton edge="end" size="large">
+                                                <Tooltip title="Ваш адресс электронной почты" arrow>
+                                                    <EmailIcon sx={{ color: 'text.main' }} />
+                                                </Tooltip>
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                />
+                                {errors?.email?.message === "email is a required field" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Обязательное поле </Typography>}
+                                {errors?.email?.message === "email must be a valid email" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Ошибка валидации </Typography>}
+                                <Link
+                                    sx={{ color: 'text.main', m: 1, cursor: 'pointer' }}
+                                    onClick={() => {
+                                        router.push({
+                                            pathname: '/login',
+                                        })
+                                    }}
+                                    underline="hover"
+                                >
+                                    на страницу входа
+                                </Link>
+                            </FormControl>}
+                        />
+                        {authorizationStore.passwordReset.errorEmailNotFounedReset && <Typography variant="subtitle1" > Пользователя с таким адресом электронной почты не существует</Typography>}
+                        {!authorizationStore.passwordReset.emailResetOk &&
+                         <Button
+                            variant="outlined"
+                            size="large"
+                            type="submit"
+                            sx={{
+                            mt: 4,
+                            color: "text.main",
+                            bgcolor: "background.main",
+                            border: `2px solid ${theme.palette.text.dark}`,
+                            "&:hover": { border: `2px solid ${theme.palette.text.dark}` },
+                            }}
+                        >
+                            Отправить письмо
+                        </Button>}
+                        {authorizationStore.passwordReset.emailResetOk && <Typography variant="subtitle1"> Письмо отправлено. С этой страницы можно безопасно уходить  </Typography>}
+                    </Stack>
+                </Box>
+                <div>
+
+                </div>
+
+            </Stack>
         </>
-    )
+    );
 }))
 
 export default PassResetEmail;

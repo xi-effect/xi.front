@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { styled } from '@mui/material/styles';
+
 import { ButtonGroup, Hidden, Button, Grid, Paper, Typography, Divider, useTheme, Tooltip } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import { inject, observer } from 'mobx-react'
 
@@ -10,27 +12,36 @@ import FeedbackIcon from '@mui/icons-material/Feedback';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import Image from 'next/image'
-// import Chipper from './Modules/Chipper';
-// import ModulesList from './Modules/ModulesList';
+const PREFIX = 'Toolbar';
 
-const useStyles = makeStyles((theme) => ({
-    ButtonGroup: {
-        border: `1px solid ${theme.palette.primary.main}`,
+const classes = {
+    ButtonGroup: `${PREFIX}-ButtonGroup`,
+    Button: `${PREFIX}-Button`
+};
+
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.ButtonGroup}`]: {
+        border: `1px solid ${theme => theme.palette.primary.main}`,
     },
-    Button: {
-        border: `1px solid ${theme.palette.primary.main}`,
-    },
+
+    [`& .${classes.Button}`]: {
+        border: `1px solid ${theme => theme.palette.primary.main}`,
+    }
 }));
 
 const Toolbar = inject('store')(observer(({ store }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
 
     return (
-        <div>
+        <Root>
             <Typography> Выберите один или несколько пакетов с жалобами </Typography>
-            <Hidden mdDown>
+            <Hidden xlDown>
                 <ButtonGroup className={classes.ButtonGroup} color="primary" aria-label="text primary button group">
                     <Button color="primary" className={classes.Button}>Отметить отсутствие нарушений</Button>
                     <Button color="primary" className={classes.Button}>Оставить отзыв и отправить на доработку</Button>
@@ -50,8 +61,8 @@ const Toolbar = inject('store')(observer(({ store }) => {
                     </Tooltip>
                 </ButtonGroup>
             </Hidden>
-        </div>
-    )
+        </Root>
+    );
 }));
 
 

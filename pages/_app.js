@@ -2,110 +2,88 @@
 import React from 'react';
 import Head from "next/head";
 import PropTypes from 'prop-types';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { makeStyles } from '@mui/styles';
+import {
+  createTheme,
+  ThemeProvider,
+  StyledEngineProvider,
+  responsiveFontSizes,
+} from '@mui/material/styles';
+import { useRouter } from 'next/router'
 import { Provider } from 'mobx-react'
 import { useStore } from '../store/rootStore'
-//import { useFileUpload } from "use-file-upload";
 import { inject, observer } from 'mobx-react'
 import CssBaseline from '@mui/material/CssBaseline';
+import { getDesignTokens } from '../theme'
+import { CacheProvider } from '@emotion/react';
 //import { SnackbarProvider, useSnackbar } from 'notistack';
+import createEmotionCache from '../store/createEmotionCache';
+import 'moment/locale/ru';
 
+import { initGA, logPageView } from '../utils/analytics'
+import Router from 'next/router';
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
 import "../styles/globals.css"
 
-const MyApp = (observer(({ Component, pageProps }) => {
+import { Scrollbars } from 'react-custom-scrollbars-2';
 
-  const rootStore = useStore(pageProps.initialState)
-
-  const themeWhite = createTheme({
-    palette: {
-      //mode: 'light',
-      primary: {
-        light: '#2196f3',
-        main: '#1976d2',
-        dark: '#0d47a1',
-        contrastText: '#fff',
-      },
-      secondary: {
-        light: '#8bc34a',
-        main: '#689f38',
-        dark: '#33691e',
-        contrastText: '#111',
-      },
-      blueGrey: {
-        "0": "#eceff1",
-        "1": "#cfd8dc",
-        "2": "#b0bec5",
-        "3": "#90a4ae",
-        "4": "#78909c",
-        "5": "#607d8b",
-        "6": "#546e7a",
-        "7": "#455a64",
-        "8": "#37474f",
-        "9": "#263238",
-      }
-    },
-  });
+import NProgress from 'nprogress'; //nprogress module
+import 'nprogress/nprogress.css'; //styles of nprogress
+//Binding events. 
+NProgress.configure({ showSpinner: false })
+Router.events.on('routeChangeStart', () => NProgress.start());
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
 
 
-  const themeDark = createTheme({
-    palette: {
-      //mode: 'dark',
-      primary: {
-        light: '#2196f3',
-        main: '#1976d2',
-        dark: '#0d47a1',
-        contrastText: '#fff',
-      },
-      secondary: {
-        light: '#8bc34a',
-        main: '#689f38',
-        dark: '#33691e',
-        contrastText: '#111',
-      },
+const MyApp = (observer((props) => {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
-      blueGrey: {
-        "0": "#263238",
-        "1": "#37474f",
-        "2": "#455a64",
-        "3": "#546e7a",
-        "4": "#607d8b",
-        "5": "#78909c",
-        "6": "#90a4ae",
-        "7": "#b0bec5",
-        "8": "#cfd8dc",
-        "9": "#eceff1",
-      }
-    },
-  });
+  const router = useRouter()
 
   React.useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
+    initGA()
+    // `routeChangeComplete` won't run for the first page load unless the query string is
+    // hydrated later on, so here we log a page view if this is the first render and
+    // there's no query string
+    if (!router.asPath.includes('?')) {
+      logPageView()
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
+  React.useEffect(() => {
+    // Listen for page changes after a navigation or when the query changes
+    router.events.on('routeChangeComplete', logPageView)
+    return () => {
+      router.events.off('routeChangeComplete', logPageView)
+    }
+  }, [router.events])
+
+  const rootStore = useStore(pageProps.initialState)
+  // console.log("darkMode", rootStore.settingsStore.settings.darkTheme)
+  const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsStore.settings.darkTheme))), [rootStore.settingsStore.settings.darkTheme])
+  // console.log("theme", theme)
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         {/* <title>
           Ξ Effect
         </title> */}
         <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
-        <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=3.2" />
-        <meta name="yandex-verification" content="5fa082e60959bf8b" />
+        <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+        <meta name="yandex-verification" content="42187efe6d19061b" />
+        <meta name="google-site-verification" content="Z9F9qlZZKDIV30WIUVOkQOJa89Nbg9bOiqUaZz-XJiY" />
         <meta
           name="description"
           content="Всё, что нужно для вашего Образования."
         />
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-        <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
-        <link rel="manifest" href="/favicon/site.webmanifest" />
-        <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="msapplication-TileColor" content="#603cba" />
         <meta name="theme-color" content="#ffffff" />
         {/* <link rel="shortcut icon" href="/static/favicon.ico" /> */}
@@ -120,31 +98,37 @@ const MyApp = (observer(({ Component, pageProps }) => {
         managmentStore={rootStore.managmentStore}
         settingsStore={rootStore.settingsStore}
         contentStore={rootStore.contentStore}
+        authorizationStore={rootStore.authorizationStore}
+        profileStore={rootStore.profileStore}
+        messageStore={rootStore.messageStore}
       >
-        <ThemeProvider theme={rootStore.settingsStore.settings.darkTheme ? themeDark : themeWhite}>
-          {/* <SnackbarProvider
-            autoHideDuration={800}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            maxSnack={3}> */}
-          {/* <MenuLayout> */}
-          <CssBaseline />
-          <Component {...pageProps} />
-          {/* </MenuLayout> */}
-          {/* </SnackbarProvider> */}
-        </ThemeProvider>
+        <StyledEngineProvider injectFirst>  
+            <ThemeProvider theme={theme}>
+              {/* <SnackbarProvider
+                autoHideDuration={800}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                maxSnack={3}> */}
+              {/* <MenuLayout> */}
+              <CssBaseline />
+              <Component {...pageProps} />
+              {/* </MenuLayout> */}
+              {/* </SnackbarProvider> */}
+            </ThemeProvider>
+
+        </StyledEngineProvider>
       </Provider>
       {/* </Context.Provider> */}
-    </>
-
-  )
+    </CacheProvider>
+  );
 }))
 
 export default MyApp
 
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
+  emotionCache: PropTypes.object,
   pageProps: PropTypes.object.isRequired,
 };

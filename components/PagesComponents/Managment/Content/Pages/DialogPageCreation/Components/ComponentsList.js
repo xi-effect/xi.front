@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { styled } from '@mui/material/styles';
 import ReactDOM from "react-dom";
 import { Grid, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { inject, observer } from 'mobx-react'
@@ -11,10 +12,25 @@ import AlertComp from './AlertComp';
 import DividerComp from './DividerComp';
 import ImageComp from './ImageComp';
 import Quiz from './Quiz';
+import List from './List';
+import Markdown from "./Markdown";
 
 
-const useStyles = makeStyles((theme) => ({
-    rootPaper: {
+const PREFIX = 'ComponentsList';
+
+const classes = {
+    rootPaper: `${PREFIX}-rootPaper`,
+    rootGrid: `${PREFIX}-rootGrid`,
+    icon: `${PREFIX}-icon`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.rootPaper}`]: {
         // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
         border: 0,
         //borderRadius: 3,
@@ -25,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
         //backgroundColor: theme => theme.palette.blueGrey["7"],
         //position: "relative",
     },
-    rootGrid: {
+
+    [`& .${classes.rootGrid}`]: {
         // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
         border: 0,
         width: "calc(100% - 8px)",
@@ -33,7 +50,8 @@ const useStyles = makeStyles((theme) => ({
         padding: 8,
         position: "relative",
     },
-    icon: {
+
+    [`& .${classes.icon}`]: {
         position: "absolute",
         top: 2,
         right: 0,
@@ -44,10 +62,10 @@ const useStyles = makeStyles((theme) => ({
 
 const ModuleSelect = (component, index) => {
     if (component.type === "h") return (
-        <>
+        (<Root>
             <Header index={index} />
-        </>
-    )
+        </Root>)
+    );
     if (component.type === "text") return (
         <>
             <Text index={index} />
@@ -73,13 +91,20 @@ const ModuleSelect = (component, index) => {
             <Quiz index={index} />
         </>
     )
+    if (component.type === "list") return (
+        <>
+            <List index={index} />
+        </>
+    )
+    if (component.type === "markdown") return (
+        <>
+            <Markdown index={index} />
+        </>
+    )
 }
 
 
 function Component({ component, index }) {
-    const theme = useTheme()
-    const classes = useStyles(theme);
-
     return (
         <Draggable draggableId={`id-${index}`} index={index}>
             {provided => (
@@ -102,15 +127,5 @@ const ComponentsList = inject('managmentStore')(observer(({ managmentStore }) =>
         <Component component={component} index={index} key={index.toString()} />
     ));
 }));
-
-// const ComponentsList = ({ components }) => {
-//     return (
-//         <>
-//             {components.map((component, index) => (
-//                 <Component component={component} index={index} key={index} />
-//             ))}
-//         </>
-//     );
-// };
 
 export default ComponentsList

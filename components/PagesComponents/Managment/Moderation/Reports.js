@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { styled } from '@mui/material/styles';
+
 import { CircularProgress, Grid, Typography, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import { inject, observer } from 'mobx-react'
 
@@ -9,23 +11,25 @@ import Image from 'next/image'
 import Toolbar from './Reports/Toolbar';
 import DataList from './Reports/DataList';
 import DialogReports from './Reports/DialogReports';
-// import Chipper from './Modules/Chipper';
-// import ModulesList from './Modules/ModulesList';
+const PREFIX = 'Reports';
+const classes = {};
 
-const useStyles = makeStyles((theme) => ({
-
-}));
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({}));
 
 
 const Reports = inject('rootStore')(observer(({ rootStore }) => {
-    const theme = useTheme(theme);
-    const classes = useStyles();
+    const theme = useTheme();
+
 
     const [packageId, setPackageId] = React.useState(null)
     const [openDialogReports, setOpenDialogReports] = React.useState(false)
 
     return (
-        <Grid
+        <StyledGrid
             container
             direction="column"
             justifyContent="center"
@@ -40,8 +44,8 @@ const Reports = inject('rootStore')(observer(({ rootStore }) => {
             </Grid>
             <DataList setPackageId={setPackageId} setOpenDialogReports={setOpenDialogReports} />
             <DialogReports packageId={packageId} openDialogReports={openDialogReports} setOpenDialogReports={setOpenDialogReports} />
-        </Grid>
-    )
+        </StyledGrid>
+    );
 }));
 
 

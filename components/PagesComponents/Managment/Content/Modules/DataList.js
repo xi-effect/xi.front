@@ -3,9 +3,7 @@
 import React from 'react';
 
 import { Tooltip, IconButton, CircularProgress, Grid, Button, Pagination, PaginationItem, Typography, useTheme } from '@mui/material';
-import { DataGrid, useGridSlotComponentProps } from '@material-ui/data-grid';
-import { makeStyles } from '@mui/styles';
-import { createTheme } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
@@ -13,8 +11,6 @@ import Image from 'next/image'
 
 import { inject, observer } from 'mobx-react'
 
-// import Chipper from './Modules/Chipper';
-// import ModulesList from './Modules/ModulesList';
 
 function customCheckbox(theme) {
     return {
@@ -22,7 +18,7 @@ function customCheckbox(theme) {
             width: 16,
             height: 16,
             backgroundColor: 'transparent',
-            border: `1px solid ${theme.palette.type === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'
+            border: `1px solid ${theme.palette.mode === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'
                 }`,
             borderRadius: 2,
         },
@@ -59,73 +55,11 @@ function customCheckbox(theme) {
     };
 }
 
-const defaultTheme = createTheme();
-const useStyles = makeStyles(
-    (theme) => ({
-        root: {
-            border: 0,
-            color: theme => theme.palette.primary.contrastText,
-            fontFamily: [
-                '-apple-system',
-                'BlinkMacSystemFont',
-                '"Segoe UI"',
-                'Roboto',
-                '"Helvetica Neue"',
-                'Arial',
-                'sans-serif',
-                '"Apple Color Emoji"',
-                '"Segoe UI Emoji"',
-                '"Segoe UI Symbol"',
-            ].join(','),
-            WebkitFontSmoothing: 'auto',
-            letterSpacing: 'normal',
-            '& .MuiDataGrid-columnsContainer': {
-                backgroundColor: theme => theme.palette.primary.main,
-            },
-            '& .MuiDataGrid-iconSeparator': {
-                display: 'none',
-            },
-            '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
-                borderRight: `1px solid ${theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
-                    }`,
-            },
-            '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-                borderBottom: `1px solid ${theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
-                    }`,
-            },
-            '& .MuiDataGrid-cell': {
-                // color:
-                //     theme.palette.type === 'light'
-                //         ? 'rgba(0,0,0,.85)'
-                //         : 'rgba(255,255,255,0.65)',
-            },
-            '& .MuiPaginationItem-root': {
-                borderRadius: 0,
-            },
-            ...customCheckbox(theme),
-            '& .super-app-theme--rows': {
-                backgroundColor: theme => theme.palette.blueGrey["5"],
-                '&:hover': {
-                    backgroundColor: theme => theme.palette.blueGrey["5"],
-                },
-                color: theme => theme.palette.primary.contrastText,
-            },
-        },
-        IconButton: {
-            color: theme => theme.palette.primary.contrastText,
-        }
-    }),
-    { defaultTheme },
-);
-
-
-
 
 
 
 const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
 
     React.useEffect(() => {
         managmentStore.LoadModuleList()
@@ -260,7 +194,6 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                             variant="contained"
                             //color="primary"
                             size="small"
-                            className={classes.IconButton}
                             style={{ marginLeft: 16, marginTop: -4, color: theme => theme.palette.primary.contrastText }}
                         >
                             <EditIcon />
@@ -272,7 +205,6 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                             variant="contained"
                             //color="primary"
                             size="small"
-                            className={classes.IconButton}
                             style={{ marginLeft: 16, marginTop: -4, color: theme => theme.palette.primary.contrastText }}
                         >
                             <DeleteForeverIcon />
@@ -296,13 +228,61 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
     // ];
 
     return (
-        <div style={{ display: 'flex', height: '100%', width: '100%', marginTop: 16, }} className={classes.root}>
+        <div style={{ display: 'flex', height: '100%', width: '100%', marginTop: 16, }}>
             <div style={{ flexGrow: 1 }}>
                 <DataGrid
                     rows={[...managmentStore.moduleCreationList.modules]}
                     //rows={rows}
                     columns={columns}
-                    className={classes.root}
+                    sx={{
+                        border: 0,
+                        color: theme => theme.palette.primary.contrastText,
+                        fontFamily: [
+                            '-apple-system',
+                            'BlinkMacSystemFont',
+                            '"Segoe UI"',
+                            'Roboto',
+                            '"Helvetica Neue"',
+                            'Arial',
+                            'sans-serif',
+                            '"Apple Color Emoji"',
+                            '"Segoe UI Emoji"',
+                            '"Segoe UI Symbol"',
+                        ].join(','),
+                        WebkitFontSmoothing: 'auto',
+                        letterSpacing: 'normal',
+                        '& .MuiDataGrid-columnsContainer': {
+                            backgroundColor: theme => theme.palette.primary.main,
+                        },
+                        '& .MuiDataGrid-iconSeparator': {
+                            display: 'none',
+                        },
+                        '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
+                            borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
+                                }`,
+                        },
+                        '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
+                            borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
+                                }`,
+                        },
+                        '& .MuiDataGrid-cell': {
+                            // color:
+                            //     theme.palette.mode === 'light'
+                            //         ? 'rgba(0,0,0,.85)'
+                            //         : 'rgba(255,255,255,0.65)',
+                        },
+                        '& .MuiPaginationItem-root': {
+                            borderRadius: 0,
+                        },
+                        ...customCheckbox(theme),
+                        '& .super-app-theme--rows': {
+                            backgroundColor: theme => theme.palette.blueGrey["5"],
+                            '&:hover': {
+                                backgroundColor: theme => theme.palette.blueGrey["5"],
+                            },
+                            color: theme => theme.palette.primary.contrastText,
+                        },
+                    }}
                     autoHeight
                     //checkboxSelection
                     autoPageSize

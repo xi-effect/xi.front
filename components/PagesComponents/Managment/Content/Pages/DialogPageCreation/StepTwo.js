@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import Image from 'next/image';
 import Link from "next/link";
 import clsx from 'clsx';
 import { ToggleButton, ToggleButtonGroup, SpeedDial, SpeedDialIcon, SpeedDialAction, Tabs, Tab, ButtonGroup, Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 
 import { inject, observer } from 'mobx-react'
@@ -18,27 +19,34 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import VerticalAlignCenterIcon from '@mui/icons-material/VerticalAlignCenter';
 import ImageIcon from '@mui/icons-material/Image';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import LineStyleIcon from '@mui/icons-material/LineStyle';
 
 
-const defaultInitializer = (index) => index;
-function createRange(length, initializer = defaultInitializer) {
-    return [...new Array(length)].map((_, index) => initializer(index));
-}
+const PREFIX = 'StepTwo';
 
-const useStyles = makeStyles((theme) => ({
-    gridRoot: {
+const classes = {
+    gridRoot: `${PREFIX}-gridRoot`,
+    gridMain: `${PREFIX}-gridMain`,
+    gridWrapperMap: `${PREFIX}-gridWrapperMap`,
+    gridMainImgWrapper: `${PREFIX}-gridMainImgWrapper`,
+    speedDial: `${PREFIX}-speedDial`,
+    speedDialAction: `${PREFIX}-speedDialAction`,
+    infoLabel: `${PREFIX}-infoLabel`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.gridRoot}`]: {
         //margin: "8px",
-        width: "calc(100% - 16px)",
-        height: "100%",
+
     },
-    gridMain: {
-        margin: 0,
-        //paddingLeft: 4,
-        padding: 0,
-        width: "100%",
-        height: "100%",
-        maxWidth: 1200,
-        display: "block",
+
+    [`& .${classes.gridMain}`]: {
+
         //overflow: "auto",
         // '&::-webkit-scrollbar': {
         //     width: "0! important",
@@ -47,7 +55,8 @@ const useStyles = makeStyles((theme) => ({
         //     background: "transparent",
         // }
     },
-    gridWrapperMap: {
+
+    [`& .${classes.gridWrapperMap}`]: {
         backgroundColor: theme => theme.palette.blueGrey["4"],
         margin: "8px",
         width: "calc(100% - 16px)",
@@ -55,22 +64,30 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 32,
         cursor: "default !important",
     },
-    gridMainImgWrapper: {
+
+    [`& .${classes.gridMainImgWrapper}`]: {
         height: "calc(100vh - 156px)",
     },
-    speedDial: {
-        position: 'absolute',
-        top: theme => theme.spacing(10),
-        left: theme => theme.spacing(2),
+
+    [`& .${classes.speedDial}`]: {
+
     },
-    speedDialAction: {
+
+    [`& .${classes.speedDialAction}`]: {
         height: 48,
         width: 48,
     },
-    infoLabel: {
+
+    [`& .${classes.infoLabel}`]: {
         color: theme => theme.palette.primary.contrastText,
     }
 }));
+
+
+const defaultInitializer = (index) => index;
+function createRange(length, initializer = defaultInitializer) {
+    return [...new Array(length)].map((_, index) => initializer(index));
+}
 
 const initial = Array.from({ length: 2 }, (v, k) => k).map(k => {
     const custom = {
@@ -93,7 +110,7 @@ const reorder = (list, startIndex, endIndex) => {
 
 const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const [state, setState] = useState({
         quotes: [
@@ -123,10 +140,12 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
     const components = [
         { name: "Текст", icon: <TextFieldsIcon />, type: "text" },
         { name: "Заголовок", icon: <TitleIcon />, type: "h" },
+        { name: "Markdown", icon: <LineStyleIcon />, type: "markdown" },
         { name: "Изображение", icon: <ImageIcon />, type: "img" },
         { name: "Опрос", icon: <QuestionAnswerIcon />, type: "quiz" },
         { name: "Замечание", icon: <NotificationsIcon />, type: "alert" },
         { name: "Разделитель", icon: <VerticalAlignCenterIcon />, type: "divider" },
+        { name: "Список", icon: <ListAltIcon />, type: "list" },
     ]
 
 
@@ -148,8 +167,11 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
 
 
     return (
-        <Grid
-            className={classes.gridRoot}
+        <StyledGrid
+            sx={{
+                width: "calc(100% - 16px)",
+                height: "100%",
+            }}
             container
             direction="row"
             justifyContent="center"
@@ -157,10 +179,14 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
         >
             <SpeedDial
                 ariaLabel="SpeedDial tooltip example"
-                className={classes.speedDial}
+                sx={{
+                    position: 'absolute',
+                    top: "72px",
+                    left: 2,
+                }}
                 hidden={hidden}
                 icon={<SpeedDialIcon />}
-                onClose={handleClose}
+                onClose={() => setOpen(false)}
                 onOpen={handleOpen}
                 open={open}
                 direction="down"
@@ -190,7 +216,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                 <Image
                     quality={100}
                     alt="howtocreateamodule"
-                    src="/illustrations/mathTeacher.png"
+                    src="/svg/Document.svg"
                     //layout='fill'
                     width={480}
                     height={480}
@@ -201,12 +227,23 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="center"
-                className={classes.gridMain}
+                sx={{
+                    ml: 12,
+                    mt: 2,
+                    mb: 2,
+                    mr: 12,
+                    //paddingLeft: 4,
+                    padding: 0,
+                    width: "100%",
+                    height: "100%",
+                    maxWidth: 1200,
+                    display: "block",
+                }}
             >
                 <DnDList state={managmentStore.pageCreation.components} setState={managmentStore.setPageCreation} ComponentsList={<ComponentsList />} />
             </Grid >}
-        </Grid>
-    )
+        </StyledGrid>
+    );
 }))
 
 export default StepTwo

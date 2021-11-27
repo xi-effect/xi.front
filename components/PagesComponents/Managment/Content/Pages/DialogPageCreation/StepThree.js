@@ -1,57 +1,74 @@
 import React, { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import Link from "next/link";
 import cx from 'clsx';
 import { FormControl, FormControlLabel, Grid, Switch, Button, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 
 import { inject, observer } from 'mobx-react'
 
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import SaveIcon from '@mui/icons-material/Save';
-import CloseIcon from '@mui/icons-material/Close';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import AvatarEditor from 'react-avatar-editor'
-import { useFileUpload } from "use-file-upload"
+const PREFIX = 'StepThree';
 
-const useStyles = makeStyles((theme) => ({
-    gridWrapper: {
+const classes = {
+    gridWrapper: `${PREFIX}-gridWrapper`,
+    stepLabel: `${PREFIX}-stepLabel`,
+    stepSecondLabel: `${PREFIX}-stepSecondLabel`,
+    FormControl: `${PREFIX}-FormControl`,
+    categoryLabel: `${PREFIX}-categoryLabel`,
+    InputLabel: `${PREFIX}-InputLabel`,
+    NativeSelect: `${PREFIX}-NativeSelect`,
+    Button: `${PREFIX}-Button`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.gridWrapper}`]: {
         margin: 16,
         width: "calc(100% - 32px)",
     },
-    stepLabel: {
+
+    [`& .${classes.stepLabel}`]: {
         marginLeft: 16,
         fontSize: 24,
         cursor: 'default',
         color: theme => theme.palette.primary.contrastText,
     },
-    stepSecondLabel: {
+
+    [`& .${classes.stepSecondLabel}`]: {
         marginLeft: 16,
         fontSize: 20,
         cursor: 'default',
         color: theme => theme.palette.primary.contrastText,
         // color: theme => theme.main.palette.content.border,
     },
-    FormControl: {
+
+    [`& .${classes.FormControl}`]: {
         width: "calc(100% - 64px)",
         color: theme => theme.palette.primary.contrastText,
         // height: "32px",
         marginTop: 8,
         marginLeft: 16,
     },
-    categoryLabel: {
+
+    [`& .${classes.categoryLabel}`]: {
         paddingTop: 12,
         fontSize: 20,
         color: theme => theme.palette.primary.contrastText,
     },
-    InputLabel: {
+
+    [`& .${classes.InputLabel}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    NativeSelect: {
+
+    [`& .${classes.NativeSelect}`]: {
         color: theme => theme.palette.primary.main
     },
-    Button: {
+
+    [`& .${classes.Button}`]: {
         marginTop: 8,
         marginLeft: 16,
     }
@@ -59,11 +76,11 @@ const useStyles = makeStyles((theme) => ({
 
 const StepThree = inject('managmentStore')(observer(({ managmentStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
 
     return (
-        <Grid
+        <StyledGrid
             className={classes.gridWrapper}
             xs={12} sm={12} md={6} lg={6} xl={6}
             container
@@ -104,8 +121,8 @@ const StepThree = inject('managmentStore')(observer(({ managmentStore }) => {
             <Button onClick={() => managmentStore.savePage(true)} variant="contained" color="primary" className={classes.Button}>
                 Завершить работу над страницей
             </Button>
-        </Grid>
-    )
+        </StyledGrid>
+    );
 }))
 
 export default StepThree

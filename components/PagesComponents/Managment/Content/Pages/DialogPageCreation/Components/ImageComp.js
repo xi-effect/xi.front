@@ -1,41 +1,73 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import ClearIcon from '@mui/icons-material/Clear';
 import { inject, observer } from 'mobx-react'
 import Image from 'next/image'
 import { Dialog, DialogContent, Input, Slider, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
 
 import CloseIcon from '@mui/icons-material/Close';
 import AvatarEditor from 'react-avatar-editor'
-import { useFileUpload } from "use-file-upload"
 
 import clsx from 'clsx';
 import QueueIcon from '@mui/icons-material/Queue';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-const useStylesDialogImgSelect = makeStyles((theme) => ({
-    button: {
+const PREFIX = 'ImageComp';
+
+const classes = {
+    button: `${PREFIX}-button`,
+    mobileStepper: `${PREFIX}-mobileStepper`,
+    icon: `${PREFIX}-icon`,
+    mainLabel: `${PREFIX}-mainLabel`,
+    listMainLabel: `${PREFIX}-listMainLabel`,
+    gridListItem: `${PREFIX}-gridListItem`,
+    divider: `${PREFIX}-divider`,
+    EditIcon: `${PREFIX}-EditIcon`,
+    DeleteForeverIcon: `${PREFIX}-DeleteForeverIcon`,
+    loadMoreButton: `${PREFIX}-loadMoreButton`,
+    dialogTitle: `${PREFIX}-dialogTitle`,
+    dialogContent: `${PREFIX}-dialogContent`,
+    dialogContentText: `${PREFIX}-dialogContentText`,
+    dialogActions: `${PREFIX}-dialogActions`,
+    gridDialogAv: `${PREFIX}-gridDialogAv`,
+    uploadButton: `${PREFIX}-uploadButton`,
+    Button: `${PREFIX}-Button`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.button}`]: {
         marginLeft: 4,
         marginRight: 4,
         color: theme => theme.palette.primary.contrastText,
     },
-    mobileStepper: {
+
+    [`& .${classes.mobileStepper}`]: {
         width: "100%",
         backgroundColor: theme => theme.palette.blueGrey["5"],
     },
-    icon: {
+
+    [`& .${classes.icon}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    mainLabel: {
+
+    [`& .${classes.mainLabel}`]: {
         fontSize: 20,
         marginLeft: 8,
     },
-    listMainLabel: {
+
+    [`& .${classes.listMainLabel}`]: {
         cursor: 'default',
     },
-    gridListItem: {
+
+    [`& .${classes.gridListItem}`]: {
         paddingTop: 12,
         paddingLeft: 0,
         paddingRight: 0,
@@ -46,45 +78,56 @@ const useStylesDialogImgSelect = makeStyles((theme) => ({
         //     border: `${theme.main.palette.content.border} solid 2px`,
         // },
     },
-    divider: {
+
+    [`& .${classes.divider}`]: {
         marginTop: '-4px',
         color: theme => theme.palette.primary.dark,
         width: '100%',
         height: '2px',
     },
-    EditIcon: {
+
+    [`& .${classes.EditIcon}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    DeleteForeverIcon: {
+
+    [`& .${classes.DeleteForeverIcon}`]: {
         color: theme => theme.palette.primary.contrastText,
 
     },
-    loadMoreButton: {
+
+    [`& .${classes.loadMoreButton}`]: {
         borderRadius: '16px'
     },
-    dialogTitle: {
+
+    [`& .${classes.dialogTitle}`]: {
         padding: 8,
         backgroundColor: theme => theme.palette.blueGrey["6"],
         color: theme => theme.palette.primary.contrastText,
     },
-    dialogContent: {
+
+    [`& .${classes.dialogContent}`]: {
         backgroundColor: theme => theme.palette.blueGrey["6"],
     },
-    dialogContentText: {
+
+    [`& .${classes.dialogContentText}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    dialogActions: {
+
+    [`& .${classes.dialogActions}`]: {
         backgroundColor: theme => theme.palette.blueGrey["6"],
     },
-    gridDialogAv: {
+
+    [`& .${classes.gridDialogAv}`]: {
         height: '100%',
         padding: 16,
         //width: "550px",
     },
-    uploadButton: {
+
+    [`& .${classes.uploadButton}`]: {
         marginTop: 8,
     },
-    Button: {
+
+    [`& .${classes.Button}`]: {
         color: theme => theme.palette.primary.contrastText,
     }
 }));
@@ -92,7 +135,7 @@ const useStylesDialogImgSelect = makeStyles((theme) => ({
 const DialogImgSelect = inject('managmentStore')(observer(({ managmentStore, saveNewAvatar, files, selectFiles, setEditorRef, uploadImg, openDialog, setOpenDialog }) => {
     // Simulated props for the purpose of the example
     const theme = useTheme();
-    const classes = useStylesDialogImgSelect(theme);
+
 
 
     const [value, setValue] = React.useState(10);
@@ -122,7 +165,7 @@ const DialogImgSelect = inject('managmentStore')(observer(({ managmentStore, sav
                 </Grid>
                 <Grid>
                     <Tooltip title="Закрыть">
-                        <IconButton onClick={() => setOpenDialog(false)}>
+                        <IconButton onClick={() => setOpenDialog(false)} size="large">
                             <CloseIcon className={classes.icon} />
                         </IconButton>
                     </Tooltip>
@@ -216,94 +259,19 @@ const DialogImgSelect = inject('managmentStore')(observer(({ managmentStore, sav
                 </Button>
             </DialogActions>
         </Dialog>
-    )
+    );
 }));
 
-
-const useStyles = makeStyles((theme) => ({
-    gridButtons: {
-        marginLeft: "auto",
-    },
-    divider: {
-        backgroundColor: theme => theme.palette.primary.main,
-        width: "100%",
-        height: 1,
-        margin: theme => theme.spacing(1, 0.5),
-    },
-    gridTextWrapper: {
-        width: "calc(100% - 4px)",
-    },
-    text: {
-        width: "100%",
-        color: theme => theme.palette.primary.contrastText,
-        fontSize: props => props.fontSize,
-        fontStyle: props => props.fontStyle,
-        textAlign: props => props.textAlign,
-        fontWeight: props => props.fontWeight,
-        textDecoration: props => props.textDecoration,
-        lineHeight: "normal",
-    },
-    icon: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-    speedDial: {
-        height: 36,
-        width: 36,
-        marginTop: 4,
-        marginLeft: 16,
-        // position: 'absolute',
-        // top: theme => theme.spacing(10),
-        // left: theme => theme.spacing(2),
-    },
-    speedDialActionFirst: {
-        marginLeft: 16,
-        color: theme => theme.palette.primary.main,
-    },
-
-    speedDialAction: {
-        marginLeft: 16,
-        color: theme => theme.palette.primary.main,
-    },
-    disableIcon: {
-        color: theme => theme.palette.error.main,
-    },
-    activeIcon: {
-        color: theme => theme.palette.primary.contrastText,
-        backgroundColor: theme => theme.palette.primary.main,
-        '&:hover': {
-            color: theme => theme.palette.primary.contrastText,
-            backgroundColor: theme => theme.palette.primary.main,
-        }
-    },
-    iconSpeedDial: {
-        height: 24,
-        width: 24,
-    },
-    IconButtonSpeedDial: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-    leftIconButton: {
-        marginLeft: "auto"
-    },
-    imgWrapper: {
-        display: "block",
-        position: "relative",
-        width: "100%",
-        height: "100%",
-        maxWidth: 960,
-        //paddingBottom: "56.2%",
-    }
-}));
 
 const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managmentStore')(observer(({ rootStore, knowledgeStore, contentStore, managmentStore, index }) => {
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
     //const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
-    // Pass the props as the first argument of useStyles()
+
     //console.log("props", props)
     let props = {}
     const theme = useTheme();
-    const classes = useStyles({ ...theme, ...props });
+
 
     const [openDialog, setOpenDialog] = React.useState(false)
 
@@ -354,7 +322,7 @@ const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managme
     };
 
     return (
-        <>
+        <Root>
             <Grid
                 container
                 direction="row"
@@ -427,20 +395,22 @@ const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managme
                         </IconButton>
                     </Tooltip> */}
                     <Tooltip title="Удалить блок">
-                        <IconButton className={classes.leftIconButton} onClick={() => managmentStore.deleteComponent(index)}>
+                        <IconButton
+                            className={classes.leftIconButton}
+                            onClick={() => managmentStore.deleteComponent(index)}
+                            size="large">
                             <DeleteForeverIcon className={classes.icon} />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Перетащить блок">
-                        <IconButton>
+                        <IconButton size="large">
                             <DragIndicatorIcon className={classes.icon} />
                         </IconButton>
                     </Tooltip>
                 </Grid>
             </Grid>
             <DialogImgSelect saveNewAvatar={saveNewAvatar} files={files} selectFiles={selectFiles} setEditorRef={setEditorRef} uploadImg={uploadImg} openDialog={openDialog} setOpenDialog={setOpenDialog} />
-        </>
-
+        </Root>
     );
 }));
 

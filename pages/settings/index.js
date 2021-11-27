@@ -1,82 +1,94 @@
 import Head from 'next/head'
+import { styled } from '@mui/material/styles';
 import Link from 'next/link'
 import Router from 'next/router'
+import dynamic from 'next/dynamic'
 import React from 'react';
-import { Accordion, AccordionSummary, useTheme, Typography, AccordionDetails, Grid } from '@mui/material';
-import { makeStyles } from '@mui/styles'
-
+import { Accordion, AccordionSummary, Button, useMediaQuery, Box, Stack, Tooltip, useTheme, Typography, AccordionDetails, Grid, IconButton } from '@mui/material';
 import { inject, observer } from 'mobx-react'
-import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll'
-//import Background from '../../components/OtherComponents/Background/Background.js'
 
+import SaveIcon from '@mui/icons-material/Save';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import UserAccount from '../../components/PagesComponents/Settings/UserAccount';
-import Castomize from './../../components/PagesComponents/Settings/Castomize';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
-  main: {
-    marginTop: 32,
-    paddingLeft: 8,
-    paddingRight: 8,
-    width: "100%",
-  },
-  gridMain: {
-    width: "100%",
-    maxWidth: 1200,
-  },
-  heading: {
-    fontSize: theme => theme.typography.pxToRem(15),
-    fontWeight: theme => theme.typography.fontWeightRegular,
-    color: theme => theme.palette.primary.contrastText,
-  },
-  accordion: {
-    width: "100%",
-    backgroundColor: theme => theme.palette.blueGrey["4"]
-  },
-  icon: {
-    color: theme => theme.palette.primary.contrastText,
-    fontSize: 36,
-  }
-}));
+import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll'
+import CustomAvatar from '../../components/OtherComponents/Avatar/CustomAvatar';
 
-const Settings = inject('rootStore')(observer(({ rootStore }) => {
+const Castomize = dynamic(() => import('./../../components/PagesComponents/Settings/Castomize'))
+const UserAvatar = dynamic(() => import('../../components/PagesComponents/Settings/UserAvatar'))
+
+const Settings = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore }) => {
   const theme = useTheme();
-  const classes = useStyles(theme);
+  const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
   return (
     <>
       <Head>
         <title>
-          Ξ Effect
+          Ξffect
         </title>
       </Head>
-      {/* <Background/> */}
       <NavigationAll>
-        <div className={classes.root}>
-          <Grid container direction="column" justifyContent="flex-start" alignItems="center" className={classes.main}>
-            <Grid className={classes.gridMain}>
-              <Accordion className={classes.accordion}>
+        <Box sx={{ width: "100%", }}>
+          <Grid container direction="column" justifyContent="flex-start" alignItems="center"
+            sx={{
+              paddingLeft: 1,
+              paddingRight: 1,
+              width: "100%",
+            }}
+          >
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="flex-end"
+              sx={{
+                width: '100%',
+                height: 276,
+                maxWidth: 1200,
+              }}
+            >
+              {/* <Typography variant="h6" sx={{ pl: 1 }}> {settingsStore.settings.username} </Typography> */}
+              <Box sx={{ height: 290, width: 290, }}>
+              <CustomAvatar avatar={{...settingsStore.settings.avatar, bgcolor: null}} viewBox={{ x: '-175', y: '-100', width: '1256', height: '1256' }} />
+              </Box>
+              {!mobile && <Button sx={{ ml: "auto", mr: 1, mb: 1.2, }} onClick={() => settingsStore.saveNewSettimgs()} color="inherit">
+                Сохранить изменения
+              </Button>}
+              {mobile && <Tooltip title="Сохранить изменения">
+                <IconButton sx={{ ml: "auto", mr: 1, mb: 1, }} onClick={() => settingsStore.saveNewSettimgs()} color="inherit">
+                  <SaveIcon />
+                </IconButton>
+              </Tooltip>}
+              <Tooltip title="Выйти">
+                <IconButton sx={{ m: 1 }} onClick={() => settingsStore.logout()} color="error">
+                  <LogoutIcon />
+                </IconButton>
+              </Tooltip>
+            </Stack>
+            <Grid sx={{
+              width: "100%",
+              maxWidth: 1200,
+            }}>
+              <Accordion sx={{ width: "100%", backgroundColor: 'background.1' }}>
                 <AccordionSummary
-                  expandIcon={<ExpandMoreIcon className={classes.icon} />}
+                  expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography className={classes.heading}>Учётная запись</Typography>
+                  <Typography >Настройка Аватара</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <UserAccount />
+                  {/* <UserAccount /> */}
+                  <UserAvatar />
                 </AccordionDetails>
               </Accordion>
-              <Accordion className={classes.accordion}>
+              <Accordion sx={{ width: "100%", backgroundColor: 'background.1' }}>
                 <AccordionSummary
-                  expandIcon={<ExpandMoreIcon className={classes.icon} />}
+                  expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel2a-content"
                   id="panel2a-header"
                 >
-                  <Typography className={classes.heading}>Внешний вид</Typography>
+                  <Typography>Внешний вид приложения</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Castomize />
@@ -84,10 +96,8 @@ const Settings = inject('rootStore')(observer(({ rootStore }) => {
               </Accordion>
             </Grid>
           </Grid>
-        </div>
-
+        </Box>
       </NavigationAll>
-
     </>
   );
 }))

@@ -13,10 +13,15 @@ class UIStore {
 
     //Loading Screen
     @observable loading = {
-        "/login": true,
         "/": true,
+        "/login": true,
+        "/students": true,
+        "/teachers": true,
+        "/schools": true,
+        "/home": true,
         "/registration": true,
         "/resetpassword/email": true,
+        "navigation": false,
     }
 
     @action setLoading = (page) => {
@@ -32,7 +37,6 @@ class UIStore {
     @action setKnowledgeUI = (name, value) => {
         this.knowledgeUI[name] = value
     }
-
 
 }
 

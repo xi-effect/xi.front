@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { SpeedDial, SpeedDialIcon, SpeedDialAction, Alert, Input, Divider, IconButton, Grid, useTheme, Tooltip, InputAdornment } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
+import { SpeedDial, SpeedDialIcon, SpeedDialAction, Fade, Alert, Input, Divider, IconButton, Grid, useTheme, Tooltip, InputAdornment, Typography } from '@mui/material';
+
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import InfoIcon from '@mui/icons-material/Info';
@@ -24,20 +25,45 @@ import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
 
 import { inject, observer } from 'mobx-react'
 
-const useStyles = makeStyles((theme) => ({
-    gridButtons: {
+const PREFIX = 'AlertComp';
+
+const classes = {
+    gridButtons: `${PREFIX}-gridButtons`,
+    divider: `${PREFIX}-divider`,
+    gridTextWrapper: `${PREFIX}-gridTextWrapper`,
+    text: `${PREFIX}-text`,
+    icon: `${PREFIX}-icon`,
+    speedDial: `${PREFIX}-speedDial`,
+    speedDialActionFirst: `${PREFIX}-speedDialActionFirst`,
+    speedDialAction: `${PREFIX}-speedDialAction`,
+    disableIcon: `${PREFIX}-disableIcon`,
+    activeIcon: `${PREFIX}-activeIcon`,
+    iconSpeedDial: `${PREFIX}-iconSpeedDial`,
+    IconButtonSpeedDial: `${PREFIX}-IconButtonSpeedDial`,
+    leftIconButton: `${PREFIX}-leftIconButton`,
+    Alert: `${PREFIX}-Alert`,
+    AlertMessage: `${PREFIX}-AlertMessage`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.gridButtons}`]: {
         marginLeft: "auto",
     },
-    divider: {
-        backgroundColor: props => props.palette.primary.main,
-        width: "100%",
-        height: 1,
-        margin: props => props.spacing(1, 0.5),
+
+    [`& .${classes.divider}`]: {
+
     },
-    gridTextWrapper: {
+
+    [`& .${classes.gridTextWrapper}`]: {
         width: "calc(100% - 4px)",
     },
-    text: {
+
+    [`& .${classes.text}`]: {
         width: "100%",
         color: props => props.palette.primary.contrastText,
         fontSize: props => props.fontSize,
@@ -47,10 +73,12 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: props => props.textDecoration,
         lineHeight: "normal",
     },
-    icon: {
+
+    [`& .${classes.icon}`]: {
         color: props => props.palette.primary.contrastText,
     },
-    speedDial: {
+
+    [`& .${classes.speedDial}`]: {
         height: 36,
         width: 36,
         marginTop: 4,
@@ -59,19 +87,22 @@ const useStyles = makeStyles((theme) => ({
         // top: theme => theme.spacing(10),
         // left: theme => theme.spacing(2),
     },
-    speedDialActionFirst: {
+
+    [`& .${classes.speedDialActionFirst}`]: {
         marginLeft: 16,
         color: props => props.palette.primary.main,
     },
 
-    speedDialAction: {
+    [`& .${classes.speedDialAction}`]: {
         marginLeft: 16,
         color: props => props.palette.primary.main,
     },
-    disableIcon: {
+
+    [`& .${classes.disableIcon}`]: {
         color: props => props.palette.error.main,
     },
-    activeIcon: {
+
+    [`& .${classes.activeIcon}`]: {
         color: props => props.palette.primary.contrastText,
         backgroundColor: props => props.palette.primary.main,
         '&:hover': {
@@ -79,22 +110,27 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: props => props.palette.primary.main,
         }
     },
-    iconSpeedDial: {
+
+    [`& .${classes.iconSpeedDial}`]: {
         height: 24,
         width: 24,
     },
-    IconButtonSpeedDial: {
+
+    [`& .${classes.IconButtonSpeedDial}`]: {
         color: props => props.palette.primary.contrastText,
     },
-    leftIconButton: {
+
+    [`& .${classes.leftIconButton}`]: {
         marginLeft: "auto"
     },
-    Alert: {
+
+    [`& .${classes.Alert}`]: {
         width: "100%",
     },
-    AlertMessage: {
+
+    [`& .${classes.AlertMessage}`]: {
         width: "100%",
-    },
+    }
 }));
 
 const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) => {
@@ -102,10 +138,9 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
     const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
-    // Pass the props as the first argument of useStyles()
+
     // console.log("props", props)
     const theme = useTheme();
-    const classes = useStyles({ ...theme, ...props });
 
     const handleAlertType = (type) => {
         //console.log(index, "fontSize", newFormats)
@@ -127,14 +162,14 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
         if (values.fontSize != 12) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
     };
 
-    const handleTextAlign = (align) => {
-        let newAlignment = null
-        if (align === 'left') newAlignment = 'center'
-        else if (align === 'center') newAlignment = 'right'
-        else if (align === 'right') newAlignment = 'justify'
-        else if (align === 'justify') newAlignment = 'left'
-        managmentStore.setPageCreationComponents(index, "textAlign", newAlignment)
-    };
+    // const handleTextAlign = (align) => {
+    //     let newAlignment = null
+    //     if (align === 'left') newAlignment = 'center'
+    //     else if (align === 'center') newAlignment = 'right'
+    //     else if (align === 'right') newAlignment = 'justify'
+    //     else if (align === 'justify') newAlignment = 'left'
+    //     managmentStore.setPageCreationComponents(index, "textAlign", newAlignment)
+    // };
 
     const handleFontStyle = () => {
         if (values.fontStyle === "normal") return managmentStore.setPageCreationComponents(index, "fontStyle", "italic")
@@ -151,28 +186,19 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
         return managmentStore.setPageCreationComponents(index, "textDecoration", "none");
     };
 
-    const [open, setOpen] = React.useState(false);
-    const handleClose = () => {
-        setOpen(false);
-    };
+    // const textAlignLabelSelect = (type) => {
+    //     if (type === 'left') return 'по левому краю'
+    //     if (type === 'center') return 'по правому краю'
+    //     if (type === 'right') return 'по центру'
+    //     if (type === 'justify') return 'по ширине'
+    // }
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const textAlignLabelSelect = (type) => {
-        if (type === 'left') return 'по левому краю'
-        if (type === 'center') return 'по правому краю'
-        if (type === 'right') return 'по центру'
-        if (type === 'justify') return 'по ширине'
-    }
-
-    const textAlignIconSelect = (align) => {
-        if (align === 'left') return <FormatAlignLeftIcon />
-        if (align === 'center') return <FormatAlignCenterIcon />
-        if (align === 'right') return <FormatAlignRightIcon />
-        if (align === 'justify') return <FormatAlignJustifyIcon />
-    }
+    // const textAlignIconSelect = (align) => {
+    //     if (align === 'left') return <FormatAlignLeftIcon />
+    //     if (align === 'center') return <FormatAlignCenterIcon />
+    //     if (align === 'right') return <FormatAlignRightIcon />
+    //     if (align === 'justify') return <FormatAlignJustifyIcon />
+    // }
 
     const alertTypeLabelSelect = (align) => {
         if (align === 'success') return 'Успех'
@@ -188,11 +214,13 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
         if (type === 'error') return <ErrorIcon />
     }
 
-
+    const [hover, setHover] = React.useState(false)
 
     return (
-        <>
+        <Root>
             <Grid
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
                 container
                 direction="column"
                 justifyContent="center"
@@ -210,8 +238,17 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
                         icon={<span></span>}
                     >
                         <Input
-                            classes={{
-                                input: classes.text
+                            sx={{
+                                '& .MuiInput-input': {
+                                    width: "100%",
+                                    color: 'text.main',
+                                    fontSize: values.fontSize,
+                                    fontStyle: values.fontStyle,
+                                    textAlign: values.textAlign,
+                                    fontWeight: values.fontWeight,
+                                    textDecoration: values.textDecoration,
+                                    lineHeight: "normal",
+                                }
                             }}
                             type="text"
                             disableUnderline
@@ -230,97 +267,65 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
                         />
                     </Alert>
                 </Grid>
-                <Divider className={classes.divider} />
-                <Grid
-                    container
-                    direction="row"
-                    className={classes.gridButtons}
+                <Fade
+                    in={hover}
+                    style={{ transformOrigin: '0 0 0' }}
+                    {...(hover ? { timeout: 1000 } : {})}
                 >
-                    <SpeedDial
-                        ariaLabel="SpeedDial tooltip example"
-                        className={classes.speedDial}
-                        // hidden={hidden}
-                        icon={<TuneIcon className={classes.iconSpeedDial} />}
-                        onClose={handleClose}
-                        onOpen={handleOpen}
-                        open={open}
-                        direction="right"
+                    <Grid
+                        container
+                        direction="row"
+                        className={classes.gridButtons}
                     >
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialActionFirst)}
-                            tooltipPlacement="bottom"
-                            icon={alertTypeIconSelect(values.alertType)}
-                            tooltipTitle={`Тип. Сейчас - ${alertTypeLabelSelect(values.alertType)}`}
-                            //tooltipOpen
-                            onClick={() => handleAlertType(values.alertType)}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.disableIcon]: values.fontSize === 48 })}
-                            tooltipPlacement="bottom"
-                            icon={<ZoomInIcon />}
-                            tooltipTitle={`Увеличить шрифт. Сейчас - ${values.fontSize}`}
-                            //tooltipOpen
-                            onClick={() => handleFontSizeUp()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.disableIcon]: values.fontSize === 12 })}
-                            tooltipPlacement="bottom"
-                            icon={<ZoomOutIcon />}
-                            tooltipTitle={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}
-                            //tooltipOpen
-                            onClick={() => handleFontSizeDown()}
-                        />
-                        <SpeedDialAction
-                            className={classes.speedDialAction}
-                            tooltipPlacement="bottom"
-                            icon={textAlignIconSelect(values.textAlign)}
-                            tooltipTitle={`Изменить выравнивание текста. Сейчас - ${textAlignLabelSelect(values.textAlign)}`}
-                            //tooltipOpen
-                            onClick={() => handleTextAlign(values.textAlign)}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontWeight === 'bold' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatBoldIcon />}
-                            tooltipTitle="Полужирный"
-                            //tooltipOpen
-                            onClick={() => handleFontWeight()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontStyle === 'italic' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatItalicIcon />}
-                            tooltipTitle="Курсив"
-                            //tooltipOpen
-                            onClick={() => handleFontStyle()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.textDecoration === 'underline' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatUnderlinedIcon />}
-                            tooltipTitle="Подчёркнутый"
-                            //tooltipOpen
-                            onClick={() => handleTextDecoration()}
-                        />
-                    </SpeedDial>
-                    {/* <Tooltip title="Дублировать блок">
-                        <IconButton className={classes.leftIconButton} onClick={() => managmentStore.duplicateComponent(index)}>
-                            <QueueIcon className={classes.icon} />
+                        {/* <Typography sx={{color: 'main.dark', ml: 1, mt: 1.5,}} variant="subtitle2"> настройки: </Typography> */}
+                        <IconButton onClick={() => handleAlertType(values.alertType)} sx={{ ml: 1, color: 'text.main', }} edge="end" size="large">
+                            <Tooltip title={`Тип. Сейчас - ${alertTypeLabelSelect(values.alertType)}`}>
+                                {alertTypeIconSelect(values.alertType)}
+                            </Tooltip>
                         </IconButton>
-                    </Tooltip> */}
-                    <Tooltip title="Удалить блок">
-                        <IconButton className={classes.leftIconButton} onClick={() => managmentStore.deleteComponent(index)}>
-                            <DeleteForeverIcon className={classes.icon} />
+                        <IconButton onClick={() => handleFontSizeUp()} sx={{ ml: 1, color: values.fontSize === 48 ? 'error.main' : 'text.main', }} edge="end" size="large">
+                            <Tooltip title={`Увеличить шрифт. Сейчас - ${values.fontSize}`}>
+                                <ZoomInIcon />
+                            </Tooltip>
                         </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Перетащить блок">
-                        <IconButton>
-                            <DragIndicatorIcon className={classes.icon} />
+                        <IconButton onClick={() => handleFontSizeDown()} sx={{ ml: 1, color: values.fontSize === 12 ? 'error.main' : 'text.main', }} edge="end" size="large">
+                            <Tooltip title={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}>
+                                <ZoomOutIcon />
+                            </Tooltip>
                         </IconButton>
-                    </Tooltip>
-                </Grid>
+                        <IconButton onClick={() => handleFontWeight()} sx={{ ml: 1, color: values.fontWeight === 'bold' ? 'text.main' : 'text.dark', }} edge="end" size="large">
+                            <Tooltip title={`Полужирный`}>
+                                <FormatBoldIcon />
+                            </Tooltip>
+                        </IconButton>
+                        <IconButton onClick={() => handleFontStyle()} sx={{ ml: 1, color: values.fontStyle === 'italic' ? 'text.main' : 'text.dark', }} edge="end" size="large">
+                            <Tooltip title={`Курсив`}>
+                                <FormatItalicIcon />
+                            </Tooltip>
+                        </IconButton>
+                        <IconButton onClick={() => handleTextDecoration()} sx={{ ml: 1, color: values.textDecoration === 'underline' ? 'text.main' : 'text.dark', }} edge="end" size="large">
+                            <Tooltip title={`Подчёркнутый`}>
+                                <FormatUnderlinedIcon />
+                            </Tooltip>
+                        </IconButton>
+                        <Tooltip title="Удалить блок">
+                            <IconButton
+                                className={classes.leftIconButton}
+                                onClick={() => managmentStore.deleteComponent(index)}
+                                size="large">
+                                <DeleteForeverIcon className={classes.icon} />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Перетащить блок">
+                            <IconButton size="large">
+                                <DragIndicatorIcon className={classes.icon} />
+                            </IconButton>
+                        </Tooltip>
+                    </Grid>
+                </Fade>
+
             </Grid>
-        </>
+        </Root>
     );
 }));
 

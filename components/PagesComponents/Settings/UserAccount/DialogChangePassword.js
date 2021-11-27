@@ -1,82 +1,121 @@
 import React, { useState } from 'react'
 
+import { styled } from '@mui/material/styles';
+
 //import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { Slider, Dialog, DialogTitle, useTheme, DialogContent, DialogContentText, DialogActions, Link, InputAdornment, Tooltip, IconButton, ClickAwayListener, Divider, ButtonGroup, MenuList, MenuItem, Avatar, Paper, Grow, Popper, Badge, Grid, FormControl, InputLabel, TextField, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button } from '@mui/material'
-import { makeStyles, withStyles } from '@mui/styles';
+
 
 import { inject, observer } from 'mobx-react'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
-let Crypto = require('crypto-js')
+const PREFIX = 'DialogChangePassword';
 
+const classes = {
+    dialogTitle: `${PREFIX}-dialogTitle`,
+    dialogContent: `${PREFIX}-dialogContent`,
+    dialogContentText: `${PREFIX}-dialogContentText`,
+    dialogActions: `${PREFIX}-dialogActions`,
+    textFieldDialog: `${PREFIX}-textFieldDialog`,
+    OutlinedInput: `${PREFIX}-OutlinedInput`,
+    icons: `${PREFIX}-icons`,
+    inputLabel: `${PREFIX}-inputLabel`,
+    textFieldTypography: `${PREFIX}-textFieldTypography`,
+    cancelButton: `${PREFIX}-cancelButton`,
+    gridDialogItem: `${PREFIX}-gridDialogItem`,
+    gridRootDialogItem: `${PREFIX}-gridRootDialogItem`,
+    ErrorLabel: `${PREFIX}-ErrorLabel`,
+    gridErrorLabel: `${PREFIX}-gridErrorLabel`
+};
 
-const useStyles = makeStyles((theme) => ({
-    dialogTitle: {
+const StyledDialog = styled(Dialog)((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.dialogTitle}`]: {
         backgroundColor: theme => theme.palette.blueGrey["6"],
         color: theme => theme.palette.primary.contrastText,
     },
-    dialogContent: {
+
+    [`& .${classes.dialogContent}`]: {
         backgroundColor: theme => theme.palette.blueGrey["6"],
     },
-    dialogContentText: {
+
+    [`& .${classes.dialogContentText}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    dialogActions: {
+
+    [`& .${classes.dialogActions}`]: {
         backgroundColor: theme => theme.palette.blueGrey["6"],
     },
-    textFieldDialog: {
+
+    [`& .${classes.textFieldDialog}`]: {
         marginLeft: 12,
         marginRight: 0,
         width: "100%",
         backgroundColor: theme => theme.palette.blueGrey["7"],
     },
-    OutlinedInput: {
+
+    [`& .${classes.OutlinedInput}`]: {
         zIndex: 999,
         color: theme => theme.palette.primary.contrastText,
     },
-    icons: {
+
+    [`& .${classes.icons}`]: {
         //color: 'rgb(142,146,151)',
     },
-    inputLabel: {
+
+    [`& .${classes.inputLabel}`]: {
         zIndex: 999,
         color: theme => theme.palette.primary.contrastText,
 
     },
-    textFieldTypography: {
+
+    [`& .${classes.textFieldTypography}`]: {
         zIndex: 999,
         marginTop: -4,
         color: theme => theme.palette.primary.contrastText,
     },
-    cancelButton: {
+
+    [`& .${classes.cancelButton}`]: {
         color: theme => theme.palette.primary.contrastText
     },
-    gridDialogItem: {
+
+    [`& .${classes.gridDialogItem}`]: {
         width: '100%',
         paddingTop: 16,
         paddingLeft: -4,
     },
-    gridRootDialogItem: {
+
+    [`& .${classes.gridRootDialogItem}`]: {
         width: '100%',
         paddingRight: 24,
     },
-    ErrorLabel: {
+
+    [`& .${classes.ErrorLabel}`]: {
         zIndex: 999,
         fontSize: 16,
         color: theme => theme.palette.error.main,
     },
-    gridErrorLabel: {
+
+    [`& .${classes.gridErrorLabel}`]: {
         zIndex: 999,
         marginTop: 4,
         paddingLeft: 20,
         paddingRight: 20,
-    },
+    }
 }));
+
+
+let Crypto = require('crypto-js')
+
 
 const DialogChangePassword = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore, openPasswordChangeDialog, setOpenPasswordChangeDialog }) => {
     const theme = useTheme()
-    const classes = useStyles(theme);
+
 
     const [password, setPassword] = React.useState('')
     const [newPassword, setNewPassword] = React.useState('')
@@ -127,7 +166,7 @@ const DialogChangePassword = inject('rootStore', 'settingsStore')(observer(({ ro
     }
 
     return (
-        <Dialog open={openPasswordChangeDialog} onClose={() => setOpenPasswordChangeDialog(false)} aria-labelledby="form-dialog-title">
+        <StyledDialog open={openPasswordChangeDialog} onClose={() => setOpenPasswordChangeDialog(false)} aria-labelledby="form-dialog-title">
             <DialogTitle className={classes.dialogTitle} id="form-dialog-title">Изменение пароля</DialogTitle>
             <DialogContent className={classes.dialogContent}>
                 <DialogContentText className={classes.dialogContentText}>
@@ -157,7 +196,7 @@ const DialogChangePassword = inject('rootStore', 'settingsStore')(observer(({ ro
                                             onClick={() => setShowPassword(!showPassword)}
                                             onMouseDown={handleMouseDownPassword}
                                             edge="end"
-                                        >
+                                            size="large">
                                             {showPassword ? <Visibility className={classes.icons} /> : <VisibilityOff className={classes.icons} />}
                                         </IconButton>
                                     </InputAdornment>
@@ -184,7 +223,7 @@ const DialogChangePassword = inject('rootStore', 'settingsStore')(observer(({ ro
                                             onClick={() => setShowPasswordNew(!showPasswordNew)}
                                             onMouseDown={handleMouseDownPassword}
                                             edge="end"
-                                        >
+                                            size="large">
                                             {showPasswordNew ? <Visibility className={classes.icons} /> : <VisibilityOff className={classes.icons} />}
                                         </IconButton>
                                     </InputAdornment>
@@ -207,7 +246,7 @@ const DialogChangePassword = inject('rootStore', 'settingsStore')(observer(({ ro
                 <Button className={classes.cancelButton} onClick={() => setOpenPasswordChangeDialog(false)}>отмена</Button>
                 <Button color="primary" variant="contained" onClick={clickReadyPassword}>Готово</Button>
             </DialogActions>
-        </Dialog>
+        </StyledDialog>
     );
 }))
 

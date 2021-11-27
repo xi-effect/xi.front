@@ -1,6 +1,9 @@
 import { action, observable, computed, runInAction, makeObservable } from 'mobx'
 import { enableStaticRendering } from 'mobx-react'
 import { useMemo } from 'react'
+import Router from 'next/router'
+
+import { io } from "socket.io-client";
 
 import UIStore from "./ui/uiStore";
 import MainStore from "./main/mainStore";
@@ -8,6 +11,9 @@ import KnowledgeStore from "./knowledge/knowledgeStore";
 import ManagmentStore from "./managment/managmentStore";
 import SettingsStore from "./settings/settingsStore";
 import ContentStore from "./content/contentStore";
+import AuthorizationStore from "./authorization/authorizationStore";
+import MessageStore from "./message/messageStore";
+import ProfileStore from "./profile/profileStore";
 
 enableStaticRendering(typeof window === 'undefined')
 
@@ -22,16 +28,18 @@ class RootStore {
     this.managmentStore = new ManagmentStore(this)
     this.settingsStore = new SettingsStore(this)
     this.contentStore = new ContentStore(this)
+    this.authorizationStore = new AuthorizationStore(this)
+    this.messageStore = new MessageStore(this)
+    this.profileStore = new ProfileStore(this)
     makeObservable(this)
   }
 
 
+  // socket = io("http://f877-188-242-138-193.ngrok.io/", {
+  //   withCredentials: true,
+  // });
 
-
-
-
-
-  @action async getCookie(name) {
+  @action getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
@@ -71,9 +79,15 @@ class RootStore {
         });
       }
       //console.log(response.headers)
-      const string = await response.text();
-      const json = string === "" ? {} : JSON.parse(string);
-      return json; // parses JSON response into native JavaScript objects
+      if (response.ok) {
+        const string = await response.text();
+        const json = string === "" ? {} : JSON.parse(string);
+        return json; // parses JSON response into native JavaScript objects
+      } else {
+        const string = await response.text();
+        const json = string === "" ? {} : JSON.parse(string);
+        return json;
+      }
     } catch (error) {
       //console.log(error)
       console.log('Возникла проблема с вашим fetch запросом: ', error.message);
@@ -116,12 +130,20 @@ class RootStore {
           // referrerPolicy, // no-referrer, *client
         });
       }
-      //console.log(response.headers)
-      const string = await response.text();
-      const json = string === "" ? {} : JSON.parse(string);
-      return json; // parses JSON response into native JavaScript objects
+      console.log("response", response)
+      if (response.ok) {
+        const string = await response.text();
+        const json = string === "" ? {} : JSON.parse(string);
+        return json; // parses JSON response into native JavaScript objects
+      }
+      if (response.status === 422 || response.status === 401) {
+        const router = Router
+        router.push('/login')
+        return null
+      }
+
     } catch (error) {
-      //console.log(error)
+      console.log(error)
       console.log('Возникла проблема с вашим fetch запросом: ', error.message);
     }
   }

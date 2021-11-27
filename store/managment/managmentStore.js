@@ -72,13 +72,19 @@ class ManagmentStore {
             this.pageCreation.components.push({ type: "img", authorId: null, imageId: null, })
         }
         if (type === "quiz") {
-            this.pageCreation.components.push({ type: "quiz", quizType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [], successAnswer: null })
+            this.pageCreation.components.push({ type: "quiz", quizType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", }], rightAnswers: [], userAnswers: [], successAnswer: null })
+        }
+        if (type === "list") {
+            this.pageCreation.components.push({ type: "list", listType: 'dotted', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", },] })
+        }
+        if (type === "markdown") {
+            this.pageCreation.components.push({ type: "markdown", label: "markdown" })
         }
         //this.idComponents()
         console.log("compot", this.pageCreation.components)
     }
-    S
-    @action setSingleQuiz = (index, indexA) => {
+
+    @action setNumberList = (index, indexA) => {
         for (let i = 0; i < this.pageCreation.components[index].content.length; i += 1) {
             this.pageCreation.components[index].content[i].rightAnswer = false
         }
@@ -86,6 +92,39 @@ class ManagmentStore {
     }
 
     @action changeQuizType = (index) => {
+        this.pageCreation.components[index].rightAnswers = []
+    }
+
+    @action setAnswerQuiz = (type, index, indexAnswer) => {
+        console.log("setAQ", type, index, indexAnswer, this.pageCreation.components[index])
+        if (type === 'm') {
+            if (!(this.pageCreation.components[index].rightAnswers.includes(indexAnswer))) {
+                console.log("add")
+                this.pageCreation.components[index].rightAnswers.push(indexAnswer)
+                console.log("this.pageCreation.components[index]", this.pageCreation.components[index])
+                return;
+            }
+            if (this.pageCreation.components[index].rightAnswers.includes(indexAnswer)) {
+                console.log("remove")
+                this.pageCreation.components[index].rightAnswers = this.pageCreation.components[index].rightAnswers.filter(item => item != indexAnswer)
+                console.log("this.pageCreation.components[index]", this.pageCreation.components[index])
+                return;
+            }
+        }
+        if (type === 's') {
+            if (this.pageCreation.components[index].rightAnswers.includes(indexAnswer)) {
+                console.log("remove")
+                return this.pageCreation.components[index].rightAnswers = []
+            }
+            if (!(this.pageCreation.components[index].rightAnswers.includes(indexAnswer))) {
+                console.log("add")
+                return this.pageCreation.components[index].rightAnswers[0] = indexAnswer
+            }
+
+        }
+    }
+
+    @action changeListType = (index) => {
         for (let i = 0; i < this.pageCreation.components[index].content.length; i += 1) {
             this.pageCreation.components[index].content[i].rightAnswer = false
         }
@@ -95,8 +134,13 @@ class ManagmentStore {
         this.pageCreation.components[index]["content"] = value
     }
 
-    @action pushContentToComponent = (index) => {
-        this.pageCreation.components[index]["content"].push({ label: "", rightAnswer: false, showIcons: false, userAnswer: false, })
+    @action pushContentToComponent = (index, type) => {
+        if (type === 'list') {
+            this.pageCreation.components[index]["content"].push({ label: "", })
+        }
+        if (type === 'quiz') {
+            this.pageCreation.components[index]["content"].push({ label: "", })
+        }
     }
 
     @action duplicateComponent = (index) => {
@@ -176,8 +220,8 @@ class ManagmentStore {
     @action LoadPageList = () => {
         this.rootStore.fetchDataScr(`${this.rootStore.url}/wip/pages/index/`, "POST", { "counter": this.pageCreationList.counter }).then(
             (data) => {
-                console.log("log", data)
-                this.setPageCreationList("pages", data)
+                console.log("log", data.results)
+                this.setPageCreationList("pages", data.results)
             })
     }
 
@@ -250,6 +294,7 @@ class ManagmentStore {
             points: [],
         }
     }
+
 
     @action setModuleCreationAll = (value) => {
         this.moduleCreation = value
@@ -340,9 +385,6 @@ class ManagmentStore {
     }
 
 
-
-
-
     @observable moduleCreationList = {
         modules: [],
         counter: 0,
@@ -358,8 +400,8 @@ class ManagmentStore {
     @action LoadModuleList = () => {
         this.rootStore.fetchDataScr(`${this.rootStore.url}/wip/modules/index/`, "POST", { "counter": this.moduleCreationList.counter }).then(
             (data) => {
-                console.log("log", data)
-                this.setModuleCreationList("modules", data)
+                console.log("log", data.results)
+                this.setModuleCreationList("modules", data.results)
             })
     }
 
@@ -403,9 +445,6 @@ class ManagmentStore {
 
             })
     }
-
-
-
 }
 
 export default ManagmentStore;

@@ -1,28 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
+import { styled } from '@mui/material/styles';
 import Head from 'next/head'
 import { useRouter } from "next/router";
 
 import { Divider, Paper, Grid, FormControlLabel, Button, useTheme, Menu, Hidden, IconButton, InputBase, Switch, Typography } from '@mui/material'
-import { makeStyles, withStyles } from '@mui/styles';
+
 
 import { inject, observer } from 'mobx-react'
 
 import NavigationAll from './../../../components/OtherComponents/Navigation/NavigationAll';
 import PageCompList from './../../../components/PagesComponents/Knowledge/Page/PageCompList';
-import Toolbar from '../../../components/PagesComponents/Knowledge/Page/Toolbar';
-
-const useStyles = makeStyles((theme) => ({
-    main: {
-        width: '100%',
-        zIndex: 1,
-        //backgroundColor: 'red',
-    },
-}));
 
 const Page = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     React.useEffect(() => {
         // LoadComponents()
@@ -35,25 +27,26 @@ const Page = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
         <>
             <Head>
                 <title>
-                    Ξ Effect
+                    Ξffect
                 </title>
             </Head>
-            {/* <Background/> */}
-            <NavigationAll>
+            <NavigationAll haveRightToolbar>
                 <Grid
-                    className={classes.main}
+                    sx={{
+                        margin: "4px",
+                        width: 'calc(100% - 16px)',
+                        zIndex: 1,
+                    }}
                     direction="column"
                     justifyContent="flex-start"
                     alignItems="center"
                     container
                 >
-                    <Toolbar />
                     <PageCompList />
                 </Grid>
             </NavigationAll>
-
         </>
-    )
+    );
 }))
 
 

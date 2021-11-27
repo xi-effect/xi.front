@@ -1,333 +1,343 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import Router from 'next/router';
-import clsx from 'clsx';
-import { Grid, InputLabel, useMediaQuery, InputAdornment, useTheme, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
-import { Link as LinkUI } from '@mui/material';
-import React from 'react'
-import BackgroundImg from '../../components/OtherComponents/Background/BackgroundImg'
-import { inject, observer } from 'mobx-react'
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import EmailIcon from '@mui/icons-material/Email';
-import { makeStyles, withStyles } from '@mui/styles';
+import Head from "next/head";
+import { styled } from "@mui/material/styles";
+import { useRouter } from "next/router";
+import Image from "next/image";
+import {
+  Grid,
+  Stack,
+  Input,
+  Link,
+  useMediaQuery,
+  TextField,
+  useTheme,
+  InputLabel,
+  InputAdornment,
+  Tooltip,
+  IconButton,
+  FormControl,
+  OutlinedInput,
+  FormControlLabel,
+  Switch,
+  AppBar,
+  Tabs,
+  Tab,
+  Typography,
+  Box,
+  Button,
+  Paper,
+} from "@mui/material";
+import { Link as LinkUI } from "@mui/material";
+import React from "react";
+import BackgroundImg from "../../components/OtherComponents/Background/BackgroundImg";
+import { inject, observer } from "mobx-react";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import EmailIcon from "@mui/icons-material/Email";
 
-import Loading from './../../components/OtherComponents/Loading/Loading';
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
-let Crypto = require('crypto-js')
+import { motion } from "framer-motion"
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        //backgroundColor: '#2a2a2a',
-        position: 'fixed',
-        height: '100vh',
-        width: '100vw',
-        zIndex: '-1',
-        overflowY: 'auto',
-        overflowX: 'hidden',
-    },
-    main: {
-        zIndex: 999,
-    },
-    gridTittle: {
-        paddingTop: 16,
-        [theme => theme.breakpoints.up('lg')]: {
-            paddingLeft: 64,
-        },
-        [theme => theme.breakpoints.only('lg')]: {
-            paddingLeft: 32,
-        },
-        [theme => theme.breakpoints.down('lg')]: {
-            paddingLeft: 16,
-        },
-        paddingLeft: 16,
-        zIndex: 999,
-        marginRight: 'auto',
-    },
-    tittle: {
-        fontSize: 32,
-        color: theme => theme.palette.primary.contrastText,
-        cursor: 'pointer',
-        zIndex: 999,
-    },
-    gridUnderPaper: {
-        zIndex: 999,
-    },
-    Paper: {
-        zIndex: 999,
-        borderRadius: 4,
-        width: 500,
-        // [theme => theme.breakpoints.only('xs')]: {
-        //     width: 400,
-        // },
-        height: 'auto',
-        backgroundColor: 'rgb(54,57,63)',
-        transition: '1s',
-        '&:hover': {
-            // background: 'linear-gradient(-90deg, rgb(80,151,136, 0.5), rgb(4,40,75, 0.5))',
-            backgroundColor: 'rgb(54,57,63, 0.85)',
-        },
+const schema = yup
+  .object({
+    email: yup.string().email().required(),
+    password: yup.string().min(6).max(100).required(),
+  })
+  .required();
 
-    },
-    PaperOnlyXs: {
-        width: 350,
-        transition: '1s',
-    },
-    typographyMain: {
-        cursor: "default",
-        zIndex: 999,
-        color: 'rgb(255,255,255)',
-        fontWeight: 'bold',
-        fontSize: 32,
-    },
-    typographyMainly: {
-        cursor: "default",
-        fontSize: 16,
-        zIndex: 999,
-        color: 'rgb(142,146,151)',
-    },
-    gridPaper: {
-        zIndex: 999,
-        margin: 8,
-        marginTop: 24,
-    },
-    inputLabel: {
-        zIndex: 999,
-        color: 'rgb(142,146,151)',
+import Loading from "./../../components/OtherComponents/Loading/Loading";
 
-    },
-    OutlinedInput: {
-        zIndex: 999,
-        color: theme => theme.palette.primary.contrastText,
-    },
-    textFieldTypography: {
-        zIndex: 999,
-        marginTop: -4,
-        color: 'rgb(142,146,151)',
-    },
-    gridTextField: {
-        zIndex: 999,
-        marginTop: 16,
-        paddingLeft: 16,
-        paddingRight: 32,
-        width: '100%',
-    },
-    textField: {
-        zIndex: 999,
-        width: '100%',
-        backgroundColor: 'rgb(49,51,57)',
-    },
-    icons: {
-        zIndex: 999,
-        color: 'rgb(142,146,151)',
-    },
-    gridForgotPassword: {
-        zIndex: 999,
-        marginTop: 4,
-        paddingLeft: 20,
+const Login = inject(
+  "rootStore",
+  "uiStore",
+  "authorizationStore"
+)(
+  observer(({ rootStore, authorizationStore, uiStore }) => {
+    const theme = useTheme();
 
-    },
-    forgotPassword: {
-        zIndex: 999,
-        color: 'rgb(142,146,151)',
-    },
-    gridEnterButtom: {
-        zIndex: 999,
-        marginTop: 16,
-        paddingLeft: 16,
-        paddingRight: 32,
-        width: '100%',
-    },
-    enterButtom: {
-        zIndex: 999,
-        width: '100%',
-    },
-    gridForgotRegistration: {
-        zIndex: 999,
-        marginTop: 4,
-        paddingLeft: 20,
-        paddingBottom: 20,
+    const router = useRouter();
+    const [showPassword, setShowPassword] = React.useState(false);
+    const {
+      control,
+      handleSubmit,
+      formState: { errors },
+    } = useForm({
+      resolver: yupResolver(schema),
+    });
+    console.log("errors", errors);
+    const onSubmit = (data) => authorizationStore.clickEnterButton(data);
 
-    },
-    forgotRegistration: {
-        zIndex: 999,
-        color: 'rgb(142,146,151)',
-        cursor: "pointer",
-        fontSize: 16,
-    },
-    ErrorLabel: {
-        zIndex: 999,
-        fontSize: 16,
-        color: theme => theme.palette.error.main,
-    },
-    gridroot: {
-        width: '100vw',
-        minHeight: '100vh',
-    },
-}));
-
-const Login = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) => {
-    const theme = useTheme()
-    const classes = useStyles(theme);
-
-    const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
-
-    const [showPassword, setShowPassword] = React.useState(false)
-
-    const [error, setError] = React.useState(false)
-    const [errorEmail, setErrorEmail] = React.useState(false)
-    const [errorPassword, setErrorPassword] = React.useState(false)
-    const [errorServer, setErrorServer] = React.useState(false)
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    const gotoRegistration = (event) => {
-        event.preventDefault();
-        const router = Router
-        router.push('/registration')
-    }
-
-    const clickEnterButton = () => {
-        setError(false)
-        setErrorEmail(false)
-        setErrorPassword(false)
-        setErrorServer(false)
-        if (email.length > 0 && password.length > 0) {
-            rootStore.fetchData(`${rootStore.url}/auth/`, "POST", { "email": email, "password": Crypto.SHA384(password).toString() })
-                .then((data) => {
-                    if (data != undefined) {
-                        if (data.a == "Success") {
-                            const router = Router
-                            router.push('/')
-                            setTimeout(() => {
-                                setEmail('')
-                                setPassword('')
-                            }, 10000)
-                        } else if (data.a == "User doesn't exist") {
-                            setErrorEmail(true)
-                        } else if (data.a == "Wrong password") {
-                            setErrorPassword(true)
-                        }
-                    } else {
-                        setErrorServer(true)
-                    }
-                });
-        }
-        else {
-            setError(true)
-        }
-    }
+    React.useEffect(() => {
+      rootStore
+        .fetchDataScr(`${rootStore.url}/settings/`, "GET")
+        .then((data) => {
+          if (data !== null) {
+            router.push('/home')
+          }
+        });
+    }, [])
 
     return (
-        <>
-            <Head>
-                <title>Ξ Авторизация</title>
-            </Head>
-            {uiStore.loading["/login"] && <Loading />}
-            <div className={classes.root}>
-                <BackgroundImg src="/wallpapers/hp4.jpg" />
-                <Grid
-                    className={classes.gridroot}
-                    container
-                    direction="column"
-                    alignItems="center"
-                    justifyContent="space-between">
-                    <Grid className={classes.gridTittle} item container justifyContent="flex-start" direction="column" alignItems="flex-start">
-                        <Link href="https://xieffect.herokuapp.com/" passHref>
-                            <Typography className={classes.tittle}> Ξ Effect </Typography>
-                        </Link>
-                    </Grid>
-                    <Grid className={classes.gridUnderPaper} item container direction="column" alignItems="center">
-                        <Paper variant="outlined" className={clsx(classes.Paper, { [classes.PaperOnlyXs]: useMediaQuery(theme.breakpoints.only('xs')) })}>
-                            <Grid container direction="column" justifyContent="center" alignItems="center" className={classes.gridPaper}>
-                                <Grid item container direction="column" justifyContent="center" alignItems="center" className={classes.gridTypography}>
-                                    <Typography className={classes.typographyMain}> Добро пожаловать! </Typography>
-                                    <Typography className={classes.typographyMainly}> Вас привела жажда знаний, не так ли? </Typography>
-                                </Grid>
-                                <Grid item container direction="column" justifyContent="center" alignItems="flex-start" className={classes.gridTextField}>
-                                    <FormControl className={classes.textField} variant="outlined">
-                                        <InputLabel className={classes.inputLabel} htmlFor="outlined-adornment-password"><Typography className={classes.textFieldTypography}>Адрес Электронной почты </Typography></InputLabel>
-                                        <OutlinedInput
-                                            label="Адрес Электронной почты"
-                                            className={classes.OutlinedInput}
-                                            type='text'
-                                            value={email}
-                                            onChange={(event) => setEmail(event.target.value)}
-                                            endAdornment={
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        edge="end"
-                                                    >
-                                                        <EmailIcon className={classes.icons} />
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            }
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                {errorEmail && <Grid item container direction="column" justifyContent="center" alignItems="flex-start" className={classes.gridForgotPassword}>
-                                    <Typography className={classes.ErrorLabel}> Пользователя с таким адресом почты не существует </Typography>
-                                </Grid>}
-                                <Grid item container direction="column" justifyContent="center" alignItems="flex-start" className={classes.gridTextField}>
-                                    <FormControl className={classes.textField} variant="outlined">
-                                        <InputLabel className={classes.inputLabel} htmlFor="outlined-adornment-password"> <Typography className={classes.textFieldTypography}>Пароль</Typography> </InputLabel>
-                                        <OutlinedInput
-                                            label="Пароль"
-                                            className={classes.OutlinedInput}
-                                            type={showPassword ? 'text' : 'password'}
-                                            value={password}
-                                            onChange={(event) => setPassword(event.target.value)}
-                                            endAdornment={
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        aria-label="toggle password visibility"
-                                                        onClick={() => setShowPassword(!showPassword)}
-                                                        onMouseDown={handleMouseDownPassword}
-                                                        edge="end"
-                                                    >
-                                                        {showPassword ? <Visibility className={classes.icons} /> : <VisibilityOff className={classes.icons} />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            }
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                {errorPassword && <Grid item container direction="column" justifyContent="center" alignItems="flex-start" className={classes.gridForgotPassword}>
-                                    <Typography className={classes.ErrorLabel}> Неправильный пароль </Typography>
-                                </Grid>}
-                                {error && <Grid item container direction="column" justifyContent="center" alignItems="flex-start" className={classes.gridForgotPassword}>
-                                    <Typography className={classes.ErrorLabel}> Нужно ввести адрес почты и пароль! </Typography>
-                                </Grid>}
-                                {errorServer && <Grid item container direction="column" justifyContent="center" alignItems="flex-start" className={classes.gridForgotPassword}>
-                                    <Typography className={classes.ErrorLabel}> Ошибка сервера :( </Typography>
-                                </Grid>}
-                                <Grid item container direction="column" justifyContent="center" alignItems="flex-start" className={classes.gridForgotPassword}>
-                                    <LinkUI className={classes.forgotPassword} href="/resetpassword/email">
-                                        Забыли пароль?
-                                    </LinkUI>
-                                </Grid>
-                                <Grid item container direction="column" justifyContent="center" alignItems="center" className={classes.gridEnterButtom}>
-                                    <Button onClick={clickEnterButton} variant="contained" color="primary" className={classes.enterButtom}>
-                                        Вход
-                                    </Button>
-                                </Grid>
-                                <Grid item container direction="column" justifyContent="center" alignItems="flex-start" className={classes.gridForgotRegistration}>
-                                    <LinkUI className={classes.forgotRegistration} onClick={gotoRegistration}>
-                                        Нужна учётная запись? Зарегистрироваться!
-                                    </LinkUI>
-                                </Grid>
-                            </Grid>
-                        </Paper>
-                    </Grid>
-                    <Grid item container>
-                    </Grid>
-                </Grid>
-            </div>
-        </>
-    )
-}))
+      <>
+        <Head>
+          <title>Ξ Вход</title>
+        </Head>
+        {/* {uiStore.loading["/login"] && <Loading />} */}
+        <Stack
+          direction="column"
+          justifyContent="space-between"
+          alignItems="center"
+          sx={{
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "background.1",
+          }}
+        >
+          <Box
+            sx={{
+              position: "fixed",
+              height: "100vh",
+              width: "100vw",
+              overflow: "hidden",
+              zIndex: "-1",
+            }}
+          >
+            <Image
+              alt="alt"
+              src={"/svg/BackgroundWaves.svg"}
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+            // onLoadingComplete={() => setLoading(false)}
+            />
+          </Box>
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={1}
+            sx={{ width: "100%" }}
+          >
+            <Typography
+              onClick={() => router.push("/")}
+              variant="h4"
+              sx={{ color: "text.main", m: 2, zIndex: 2, cursor: "pointer" }}
+            >
+              Ξffect
+            </Typography>
+          </Stack>
+          <Box
+            component="form"
+            // bgcolor: 'rgba(1, 1, 1, 0.4)',
+            sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20, maxWidth: 512 }}
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Stack
+              component={motion.div}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 1 }}
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={0}
+              sx={{ width: "100%", p: 2 }}
+            >
+              <Image
+                alt="alt"
+                src={"/svg/Secure.svg"}
+                // layout="fill"
+                // objectFit="cover"
+                quality={100}
+                width={456}
+                height={256}
+              // onLoadingComplete={() => setLoading(false)}
+              />
+              <Controller
+                name="email"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <FormControl
+                    error={
+                      errors?.email?.type === "required" ||
+                      authorizationStore.login.error === "User doesn't exist"
+                    }
+                    fullWidth
+                    variant="outlined"
+                  >
+                    <InputLabel htmlFor="outlined-adornment-password">
+                      <Typography sx={{ color: "text.main" }}>
+                        Адрес почты
+                      </Typography>
+                    </InputLabel>
+                    <OutlinedInput
+                      sx={{ backgroundColor: "background.main", width: "100%" }}
+                      label="Адрес почты"
+                      type="text"
+                      // value={emailReset}
+                      // onChange={null}
+                      {...field}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton edge="end" size="large">
+                            <Tooltip title="Ваш адресс электронной почты" arrow>
+                              <EmailIcon sx={{ color: "text.main" }} />
+                            </Tooltip>
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                  </FormControl>
+                )}
+              />
+              <Stack
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                spacing={1}
+                sx={{ width: "100%", minHeight: 16, mb: 1.2 }}
+              >
+                {authorizationStore.login.error === "User doesn't exist" && (
+                  <Typography
+                    varinat="subtitle1"
+                    sx={{ mt: 1, ml: 1 }}
+                    color="error"
+                  >
+                    Пользователь не найден
+                  </Typography>
+                )}
+              </Stack>
+              <Controller
+                name="password"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <FormControl
+                    error={
+                      errors?.password?.type === "min" ||
+                      errors?.password?.type === "required" ||
+                      authorizationStore.login.error === "Wrong password"
+                    }
+                    fullWidth
+                    sx={{ maxWidth: 512 }}
+                    variant="outlined"
+                  >
+                    <InputLabel htmlFor="outlined-adornment-password">
+                      <Typography sx={{ color: "text.main" }}>
+                        Пароль
+                      </Typography>
+                    </InputLabel>
+                    <OutlinedInput
+                      sx={{ backgroundColor: "background.main", width: "100%" }}
+                      label="Пароль"
+                      type={showPassword ? "text" : "password"}
+                      // value={emailReset}
+                      // onChange={null}
+                      {...field}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={() => setShowPassword(!showPassword)}
+                              // onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                              size="large"
+                            >
+                              {showPassword ? (
+                                <Visibility sx={{ color: "text.main" }} />
+                              ) : (
+                                <VisibilityOff sx={{ color: "text.main" }} />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        </InputAdornment>
+                      }
+                    />
+                  </FormControl>
+                )}
+              />
+              <Stack
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                spacing={1}
+                sx={{ width: "100%", minHeight: 4, mb: 1.2 }}
+              >
+                {authorizationStore.login.error === "Wrong password" && (
+                  <Typography
+                    varinat="subtitle1"
+                    sx={{ mt: 1, ml: 1 }}
+                    color="error"
+                  >
+                    Неверный Пароль
+                  </Typography>
+                )}
+                {authorizationStore.login.error === "Server error" && (
+                  <Typography
+                    varinat="subtitle1"
+                    sx={{ mt: 1, ml: 1 }}
+                    color="error"
+                  >
+                    Ошибка сервера
+                  </Typography>
+                )}
+              </Stack>
+              <Stack
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing={1}
+                sx={{ width: "100%" }}
+              >
+                <Link
+                  sx={{ color: "text.main", m: 1, cursor: "pointer" }}
+                  onClick={() => {
+                    router.push({
+                      pathname: "/registration",
+                    });
+                  }}
+                  underline="hover"
+                >
+                  Регистрация
+                </Link>
+                {"/"}
+                <Link
+                  sx={{ color: "text.main", m: 1, cursor: "pointer" }}
+                  onClick={() => {
+                    router.push({
+                      pathname: "/resetpassword/email",
+                    });
+                  }}
+                  underline="hover"
+                >
+                  Смена пароля
+                </Link>
+              </Stack>
+              <Button
+                variant="outlined"
+                size="large"
+                type="submit"
+                sx={{
+                  mt: 4,
+                  color: "text.main",
+                  bgcolor: "background.main",
+                  border: `2px solid ${theme.palette.text.dark}`,
+                  "&:hover": { border: `2px solid ${theme.palette.text.dark}` },
+                }}
+              >
+                Войти
+              </Button>
+            </Stack>
+          </Box>
+          <div></div>
+        </Stack>
+      </>
+    );
+  })
+);
 
-export default Login
+export default Login;

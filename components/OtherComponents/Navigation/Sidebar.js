@@ -1,295 +1,175 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import clsx from 'clsx';
-import { inject, observer } from 'mobx-react'
-import { makeStyles } from '@mui/styles';
-import { Grid, Drawer, Collapse, List, useTheme, Tooltip, Button, ListItem, ListItemIcon, ListItemText, Typography, Divider, IconButton } from '@mui/material';
+import React from "react";
+import { styled } from "@mui/material/styles";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import clsx from "clsx";
+import PropTypes from "prop-types";
+import { inject, observer } from "mobx-react";
 
-import HomeIcon from '@mui/icons-material/Home';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import SettingsIcon from '@mui/icons-material/Settings';
-import AddToQueueIcon from '@mui/icons-material/AddToQueue';
-import SubjectIcon from '@mui/icons-material/Subject';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
+import {
+  Grid,
+  Stack,
+  Drawer,
+  Collapse,
+  Box,
+  List,
+  Badge,
+  useTheme,
+  Tooltip,
+  Button,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  Divider,
+  IconButton,
+} from "@mui/material";
 
-const useStyles = makeStyles((theme) => ({
-    drawer: {
-        zIndex: 1,
-        width: 72,
-        flexShrink: 0,
-    },
-    drawerGrid: {
-        //width: 76,
-    },
-    drawerPaper: {
-        zIndex: 1,
-        width: 72,
-        backgroundColor: theme => theme.palette.blueGrey["0"]
-    },
-    // necessary for content to be below app bar
-    listItem: {
-        display: "flex",
-        justifyContent: "center",
-        alignContent: "center",
-        marginTop: 12,
-        height: 56,
-        width: 56,
-        backgroundColor: theme => theme.palette.blueGrey["2"],
-        cursor: "pointer",
-        transition: '0.4s',
-        borderRadius: 18,
-        '&:hover': {
-            borderRadius: 8,
-        },
-    },
-    listItemIcon: {
-        display: "flex",
-        justifyContent: "center",
-        alignContent: "center",
-        color: theme => theme.palette.primary.contrastText,
-    },
-    icon: {
-        fontSize: "38px !important",
-        height: 38,
-        width: 38,
-        color: theme => theme.palette.primary.contrastText,
-    },
-    smallIcon: {
-        fontSize: "32px !important",
-        height: 32,
-        width: 32,
-        color: theme => theme.palette.primary.contrastText,
-    },
-    content: {
-        flexGrow: 1,
-        backgroundColor: theme => theme.palette.background.default,
-        padding: theme => theme.spacing(3),
-    },
-    divider: {
-        marginTop: 12,
-        backgroundColor: theme => theme.palette.background.default,
-        width: 56,
-    },
-    dividerVert: {
-        marginTop: 0,
-        backgroundColor: theme => theme.palette.background.default,
-        height: 12,
-        width: 4,
-    },
-    dividerButton: {
-        cursor: "pointer",
-        height: 8,
-        width: 38,
-        borderRadius: 4,
-        marginTop: 2,
-        padding: 0,
-        backgroundColor: theme => theme.palette.primary.dark,
-        transition: '0.4s',
-        '&:hover': {
-            transition: '0.4s',
-            backgroundColor: theme => theme.palette.primary.light,
-        },
-    },
-    smallListItem: {
-        display: "flex",
-        justifyContent: "center",
-        alignContent: "center",
-        marginTop: 0,
-        height: 42,
-        width: 42,
-        backgroundColor: theme => theme.palette.blueGrey["2"],
-        cursor: "pointer",
-        transition: '0.4s',
-        borderRadius: 18,
-        '&:hover': {
-            borderRadius: 8,
-        },
-    },
-    listItemActive: {
-        backgroundColor: theme => theme.palette.primary.main,
-        '&:hover': {
-            backgroundColor: theme => theme.palette.primary.main,
-        },
-        borderRadius: 8,
-    },
-}));
+import MailIcon from "@mui/icons-material/Mail";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Label from "@mui/icons-material/Label";
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+import InfoIcon from "@mui/icons-material/Info";
+import ForumIcon from "@mui/icons-material/Forum";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
+import HomeIcon from "@mui/icons-material/Home";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import SettingsIcon from "@mui/icons-material/Settings";
+import AddToQueueIcon from "@mui/icons-material/AddToQueue";
+import MessageIcon from "@mui/icons-material/Message";
+import SubjectIcon from "@mui/icons-material/Subject";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import SettingsEthernetIcon from "@mui/icons-material/SettingsEthernet";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import AdjustIcon from "@mui/icons-material/Adjust";
+import CircleIcon from "@mui/icons-material/Circle";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
-const FadeMenuManagment = (props) => {
-    const theme = useTheme();
-    const classes = useStyles(theme);
-    const router = useRouter()
+import { motion } from "framer-motion";
 
-    return (
-        <Grid
-            container
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="center"
-            {...props}>
-            <Divider orientation="vertical" className={classes.dividerVert} />
-            <Tooltip title="Управление контентом" placement="right" arrow>
-                <ListItem onClick={() => router.push('/managment/content')} className={clsx(classes.smallListItem, { [classes.listItemActive]: router.pathname === '/managment/content' })}>
-                    <SubjectIcon fontSize="large" className={classes.smallIcon} />
-                </ListItem>
-            </Tooltip>
-            <Divider orientation="vertical" className={classes.dividerVert} />
-            <Tooltip title="Модерация контента" placement="right" arrow>
-                <ListItem onClick={() => router.push('/managment/moderation')} className={clsx(classes.smallListItem, { [classes.listItemActive]: router.pathname === '/managment/moderation' })}>
-                    <SettingsEthernetIcon fontSize="large" className={classes.smallIcon} />
-                </ListItem>
-            </Tooltip>
-            <Divider orientation="vertical" className={classes.dividerVert} />
-            <Tooltip title="Создать учебное заведение" placement="right" arrow>
-                <ListItem className={classes.smallListItem} onClick={null}>
-                    <AddBoxIcon fontSize="large" className={classes.smallIcon} />
-                </ListItem>
-            </Tooltip>
-        </Grid>
-    );
-}
+const Sidebar = inject(
+  "rootStore",
+  "uiStore",
+  "messageStore"
+)(
+  observer(
+    ({
+      rootStore,
+      uiStore,
+      messageStore,
+      hoverLeft,
+      setHoverLeft,
+      setHoverLeftName,
+    }) => {
+      const theme = useTheme();
+      const router = useRouter();
 
-const Sidebar = inject('store')(observer(({ store, openSideMenu, setOpenSideMenu }) => {
-    const theme = useTheme();
-    const classes = useStyles(theme);
+      const defaultExpandedFn = () => {
+        if (router.pathname.includes("/knowledge")) return ["2"];
+        if (router.pathname.includes("/managment")) return ["12"];
+        // if (router.pathname.include("/knowledge")) return ['2']
+        return ["1"];
+      };
 
-    const router = useRouter()
-
-    const [openManagment, setOpenManagment] = React.useState(false)
-
-    // const handleChange = () => {
-    //     if (router.pathname.includes('/managment/') && openManagment) router.push('/managment/')
-    //     setOpenManagment((prev) => !prev);
-    //     //console.log("openManagment", openManagment)
-    // };
-
-    // React.useEffect(() => {
-    // })
-
-    const HomeIconClicked = () => {
-        router.push('/')
-        setOpenManagment(false)
-    }
-
-    const MenuBookIconClicked = () => {
-        router.push('/knowledge')
-        setOpenManagment(false)
-    }
-
-    const AddToQueueIconClicked = () => {
-        router.push('/managment')
-        setOpenManagment(true)
-    }
-
-    const SettingsIconClicked = () => {
-        router.push('/settings')
-        setOpenManagment(false)
-    }
-
-    React.useEffect(() => {
-        if (router.pathname.includes('/managment')) setOpenManagment(true)
-    })
-
-    const [menuList, setMenuList] = React.useState([
+      const menuList = [
         {
-            id: 0,
-            icon: <HomeIcon fontSize="large" className={classes.icon} />,
-            label: "Главная",
-            href: '/',
+          id: 0,
+          icon: <HomeIcon sx={{ fontSize: 28 }} />,
+          label: "Главная",
+          href: "/home",
         },
         {
-            id: 1,
-            icon: <MenuBookIcon fontSize="large" className={classes.icon} />,
-            label: "Знания",
-            href: '/knowledge',
+          id: 1,
+          icon: <MenuBookIcon sx={{ fontSize: 28 }} />,
+          label: "Знания",
+          href: "/knowledge",
         },
         {
-            id: 2,
-            icon: <SettingsIcon fontSize="large" className={classes.icon} />,
-            label: "Настройки",
-            href: '/settings',
-        }
-    ])
+          id: 2,
+          icon: <MessageIcon sx={{ fontSize: 28 }} />,
+          label: "Общение",
+          href: "/messages",
+        },
+        {
+          id: 3,
+          icon: <AddToQueueIcon sx={{ fontSize: 28 }} />,
+          label: "Студия",
+          href: "/managment/content",
+        },
+        {
+          id: 4,
+          icon: <SettingsIcon sx={{ fontSize: 28 }} />,
+          label: "Настройки",
+          href: "/settings",
+        },
+      ];
 
-    return (
-        <Drawer
-            className={classes.drawer}
-            variant="permanent"
-            classes={{
-                paper: classes.drawerPaper,
-            }}
-            anchor="left"
+      return (
+        <Stack
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="center"
+          spacing={2}
+          sx={{
+            position: "absolute",
+            marginTop: 2,
+            width: 70,
+            height: "calc(100% - 72px)",
+          }}
         >
-            <Grid
-                className={classes.drawerGrid}
-                container
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="center"
-            >
-                {/* <List>
-                    {menuList.map((item, index) =>
-                        <Grid key={item.id}>
-                            <Tooltip title={item.label} placement="right" arrow>
-                                <ListItem onClick={() => router.push(item.href)} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === item.href })}>
-                                    <ListItemIcon className={classes.listItemIcon}>
-                                        {item.icon}
-                                    </ListItemIcon>
-                                </ListItem>
-                            </Tooltip>
-                        </Grid>
-                    )}
-                </List> */}
-                <List>
-                    <Grid
-                        className={classes.drawerGrid}
-                        container
-                        direction="column"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                    >
-                        <Tooltip title="Главная" placement="right" arrow>
-                            <ListItem onClick={HomeIconClicked} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === '/' })}>
-                                <ListItemIcon className={classes.listItemIcon}>
-                                    <HomeIcon fontSize="large" className={classes.icon} />
-                                </ListItemIcon>
-                            </ListItem>
-                        </Tooltip>
-                        <Tooltip title="Знания" placement="right" arrow>
-                            <ListItem onClick={MenuBookIconClicked} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname.includes('/knowledge') })}>
-                                <ListItemIcon className={classes.listItemIcon}>
-                                    <MenuBookIcon fontSize="large" className={classes.icon} />
-                                </ListItemIcon>
-                            </ListItem>
-                        </Tooltip>
-                        <Tooltip title="Управление" placement="right" arrow>
-                            <ListItem onClick={AddToQueueIconClicked} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === '/managment' })}>
-                                <ListItemIcon className={classes.listItemIcon}>
-                                    <AddToQueueIcon fontSize="large" className={classes.icon} />
-                                </ListItemIcon>
-                            </ListItem>
-                        </Tooltip>
-                        {openManagment && <Collapse in={openManagment}>
-                            <FadeMenuManagment />
-                        </Collapse>}
-                        {/* <Divider orientation="vertical" className={classes.dividerVert}/> */}
-                        <Divider className={classes.divider} />
-                        <Tooltip title="Настройки" placement="right" arrow>
-                            <ListItem onClick={SettingsIconClicked} className={clsx(classes.listItem, { [classes.listItemActive]: router.pathname === '/settings' })}>
-                                <ListItemIcon className={classes.listItemIcon}>
-                                    <SettingsIcon fontSize="large" className={classes.icon} />
-                                </ListItemIcon>
-                            </ListItem>
-                        </Tooltip>
-                    </Grid>
-                </List>
-            </Grid>
+          {menuList.map((item, index) => (
+            <div key={index.toString()}>
+              <Tooltip placement="right" title={item.label}>
+                <IconButton
+                  component={motion.li}
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.95 }}
+                  onMouseEnter={() => {
+                    if (
+                      item.href.includes("/managment") ||
+                      item.href.includes("/messages") ||
+                      item.href.includes("/knowledge")
+                    )
+                      setHoverLeftName(item.href);
+                    if (
+                      item.href.includes("/home") ||
+                      item.href.includes("/settings")
+                    )
+                      setHoverLeftName(null);
+                  }}
+                  onClick={() => {
+                    if (
+                      !item.href.includes("/knowledge") &&
+                      !item.href.includes("/messages") &&
+                      !item.href.includes("/managment")
+                    )
+                      router.push(item.href);
+                  }}
+                  sx={{
+                    bgcolor: router.pathname.includes(item.href)
+                      ? "primary.light"
+                      : "secondary.main",
+                    borderRadius: 2,
+                  }}
+                >
+                  {item.icon}
+                </IconButton>
+              </Tooltip>
+            </div>
+          ))}
+        </Stack>
+      );
+    }
+  )
+);
 
-        </Drawer >
-    );
-}));
-
-export default Sidebar
+export default Sidebar;

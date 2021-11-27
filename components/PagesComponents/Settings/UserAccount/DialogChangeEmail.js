@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { makeStyles, withStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
+
 
 //import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { Slider, Dialog, DialogTitle, useTheme, DialogContent, DialogContentText, DialogActions, InputAdornment, Tooltip, IconButton, Avatar, Grid, FormControl, InputLabel, TextField, OutlinedInput, Typography, Box, Button } from '@mui/material'
@@ -9,75 +10,110 @@ import SaveIcon from '@mui/icons-material/Save';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-let Crypto = require('crypto-js')
+const PREFIX = 'DialogChangeEmail';
 
+const classes = {
+    dialogTitle: `${PREFIX}-dialogTitle`,
+    dialogContent: `${PREFIX}-dialogContent`,
+    dialogContentText: `${PREFIX}-dialogContentText`,
+    dialogActions: `${PREFIX}-dialogActions`,
+    textFieldDialog: `${PREFIX}-textFieldDialog`,
+    OutlinedInput: `${PREFIX}-OutlinedInput`,
+    icons: `${PREFIX}-icons`,
+    inputLabel: `${PREFIX}-inputLabel`,
+    textFieldTypography: `${PREFIX}-textFieldTypography`,
+    cancelButton: `${PREFIX}-cancelButton`,
+    gridDialogItem: `${PREFIX}-gridDialogItem`,
+    gridRootDialogItem: `${PREFIX}-gridRootDialogItem`,
+    ErrorLabel: `${PREFIX}-ErrorLabel`,
+    gridErrorLabel: `${PREFIX}-gridErrorLabel`
+};
 
-const useStyles = makeStyles((theme) => ({
-    dialogTitle: {
+const StyledDialog = styled(Dialog)((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.dialogTitle}`]: {
         backgroundColor: theme => theme.palette.blueGrey["6"],
         color: theme => theme.palette.primary.contrastText,
     },
-    dialogContent: {
+
+    [`& .${classes.dialogContent}`]: {
         backgroundColor: theme => theme.palette.blueGrey["6"],
     },
-    dialogContentText: {
+
+    [`& .${classes.dialogContentText}`]: {
         color: theme => theme.palette.primary.contrastText,
     },
-    dialogActions: {
+
+    [`& .${classes.dialogActions}`]: {
         backgroundColor: theme => theme.palette.blueGrey["6"],
     },
-    textFieldDialog: {
+
+    [`& .${classes.textFieldDialog}`]: {
         marginLeft: 12,
         marginRight: 0,
         width: "100%",
         backgroundColor: theme => theme.palette.blueGrey["7"],
     },
-    OutlinedInput: {
+
+    [`& .${classes.OutlinedInput}`]: {
         zIndex: 999,
         color: theme => theme.palette.primary.contrastText,
     },
-    icons: {
+
+    [`& .${classes.icons}`]: {
         //color: 'rgb(142,146,151)',
     },
-    inputLabel: {
+
+    [`& .${classes.inputLabel}`]: {
         zIndex: 999,
         color: theme => theme.palette.primary.contrastText,
 
     },
-    textFieldTypography: {
+
+    [`& .${classes.textFieldTypography}`]: {
         zIndex: 999,
         marginTop: -4,
         color: theme => theme.palette.primary.contrastText,
     },
-    cancelButton: {
+
+    [`& .${classes.cancelButton}`]: {
         color: theme => theme.palette.primary.contrastText
     },
-    gridDialogItem: {
+
+    [`& .${classes.gridDialogItem}`]: {
         width: '100%',
         paddingTop: 16,
         paddingLeft: -4,
     },
-    gridRootDialogItem: {
+
+    [`& .${classes.gridRootDialogItem}`]: {
         width: '100%',
         paddingRight: 24,
     },
-    ErrorLabel: {
+
+    [`& .${classes.ErrorLabel}`]: {
         zIndex: 999,
         fontSize: 16,
         color: theme => theme.palette.error.main,
     },
-    gridErrorLabel: {
+
+    [`& .${classes.gridErrorLabel}`]: {
         zIndex: 999,
         marginTop: 4,
         paddingLeft: 20,
         paddingRight: 20,
-    },
-
+    }
 }));
+
+let Crypto = require('crypto-js')
+
 
 const DialogChangeEmail = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore, openEmailChangeDialog, setOpenEmailChangeDialog }) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
+
 
     const [newEmail, setNewEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -118,7 +154,7 @@ const DialogChangeEmail = inject('rootStore', 'settingsStore')(observer(({ rootS
     }
 
     return (
-        <Dialog open={openEmailChangeDialog} onClose={() => setOpenEmailChangeDialog(false)} aria-labelledby="form-dialog-title">
+        <StyledDialog open={openEmailChangeDialog} onClose={() => setOpenEmailChangeDialog(false)} aria-labelledby="form-dialog-title">
             <DialogTitle className={classes.dialogTitle} id="form-dialog-title">Изменение адреса электронной почты </DialogTitle>
             <DialogContent className={classes.dialogContent}>
                 <DialogContentText className={classes.dialogContentText}>
@@ -148,7 +184,7 @@ const DialogChangeEmail = inject('rootStore', 'settingsStore')(observer(({ rootS
                                             onClick={() => setShowPassword(!showPassword)}
                                             onMouseDown={handleMouseDownPassword}
                                             edge="end"
-                                        >
+                                            size="large">
                                             {showPassword ? <Visibility className={classes.icons} /> : <VisibilityOff className={classes.icons} />}
                                         </IconButton>
                                     </InputAdornment>
@@ -170,10 +206,7 @@ const DialogChangeEmail = inject('rootStore', 'settingsStore')(observer(({ rootS
                                 onChange={(event) => setNewEmail(event.target.value)}
                                 endAdornment={
                                     <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            edge="end"
-                                        >
+                                        <IconButton aria-label="toggle password visibility" edge="end" size="large">
                                             <Tooltip title="Сохранить изменения" arrow>
                                                 <SaveIcon className={classes.icons} />
                                             </Tooltip>
@@ -192,7 +225,7 @@ const DialogChangeEmail = inject('rootStore', 'settingsStore')(observer(({ rootS
                 <Button className={classes.cancelButton} onClick={() => setOpenEmailChangeDialog(false)}>отмена</Button>
                 <Button color="primary" variant="contained" onClick={clickReadyEmail}>Готово</Button>
             </DialogActions>
-        </Dialog>
+        </StyledDialog>
     );
 }))
 

@@ -1,408 +1,508 @@
-import React, { useState } from 'react';
-import { SpeedDial, SpeedDialIcon, Fade, Radio, SpeedDialAction, Input, Divider, IconButton, Grid, useTheme, Tooltip, Checkbox, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import React, { useState } from "react";
+import { styled } from "@mui/material/styles";
+import {
+  SpeedDial,
+  SpeedDialIcon,
+  Fade,
+  Radio,
+  SpeedDialAction,
+  Input,
+  Divider,
+  IconButton,
+  Grid,
+  useTheme,
+  Tooltip,
+  Checkbox,
+  Typography,
+} from "@mui/material";
 
-import clsx from 'clsx';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import QueueIcon from '@mui/icons-material/Queue';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import TuneIcon from '@mui/icons-material/Tune';
-import ZoomInIcon from '@mui/icons-material/ZoomIn';
-import ZoomOutIcon from '@mui/icons-material/ZoomOut';
-import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
-import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
-import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
-import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
-import FormatBoldIcon from '@mui/icons-material/FormatBold';
-import FormatItalicIcon from '@mui/icons-material/FormatItalic';
-import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
-import AddIcon from '@mui/icons-material/Add';
-import { inject, observer } from 'mobx-react'
+import clsx from "clsx";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import QueueIcon from "@mui/icons-material/Queue";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import TuneIcon from "@mui/icons-material/Tune";
+import ZoomInIcon from "@mui/icons-material/ZoomIn";
+import ZoomOutIcon from "@mui/icons-material/ZoomOut";
+import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
+import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
+import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
+import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
+import FormatBoldIcon from "@mui/icons-material/FormatBold";
+import FormatItalicIcon from "@mui/icons-material/FormatItalic";
+import FormatUnderlinedIcon from "@mui/icons-material/FormatUnderlined";
+import AddIcon from "@mui/icons-material/Add";
+import { inject, observer } from "mobx-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import ListIcon from '@mui/icons-material/List';
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import ListIcon from "@mui/icons-material/List";
 
+const QuizItem = inject("managmentStore")(
+  observer(({ managmentStore, show, index, indexA }) => {
+    const values = managmentStore.pageCreation.components[index];
+    const item = managmentStore.pageCreation.components[index].content[indexA];
 
+    // console.log("props", props)
+    const theme = useTheme();
 
-const useStyles = makeStyles((theme) => ({
-    gridButtons: {
-        marginLeft: "auto",
-    },
-    divider: {
-        backgroundColor: props => props.palette.primary.main,
-        width: "100%",
-        height: 1,
-        margin: props => props.spacing(1, 0.5),
-    },
-    gridTextWrapper: {
-        width: "calc(100% - 4px)",
-    },
-    text: {
-        width: "100%",
-        color: props => props.palette.primary.contrastText,
-        fontSize: props => props.fontSize,
-        fontStyle: props => props.fontStyle,
-        textAlign: props => props.textAlign,
-        fontWeight: props => props.fontWeight,
-        textDecoration: props => props.textDecoration,
-        lineHeight: "normal",
-    },
-    icon: {
-        color: props => props.palette.primary.contrastText,
-    },
-    speedDial: {
-        height: 36,
-        width: 36,
-        marginTop: 2,
-        marginLeft: 22,
-        // position: 'absolute',
-        // top: theme => theme.spacing(10),
-        // left: theme => theme.spacing(2),
-    },
-    speedDialActionFirst: {
-        marginLeft: 16,
-        color: props => props.palette.primary.main,
-    },
-
-    speedDialAction: {
-        marginLeft: 16,
-        color: props => props.palette.primary.main,
-    },
-    disableIcon: {
-        color: props => props.palette.error.main,
-    },
-    activeIcon: {
-        color: props => props.palette.primary.contrastText,
-        backgroundColor: props => props.palette.primary.main,
-        '&:hover': {
-            color: props => props.palette.primary.contrastText,
-            backgroundColor: props => props.palette.primary.main,
+    return (
+      <Input
+        placeholder="Добавить текст ответа"
+        sx={{
+          "& .MuiInput-input": {
+            width: "100%",
+            color: "text.main",
+            fontSize: values.fontSize,
+            fontStyle: values.fontStyle,
+            textAlign: values.textAlign,
+            fontWeight: values.fontWeight,
+            textDecoration: values.textDecoration,
+            lineHeight: "normal",
+          },
+        }}
+        type="text"
+        disableUnderline
+        multiline
+        fullWidth
+        value={item.label}
+        onChange={(event) =>
+          managmentStore.setPageCreationContentComponents(
+            index,
+            indexA,
+            "label",
+            event.target.value
+          )
         }
-    },
-    iconSpeedDial: {
-        height: 24,
-        width: 24,
-    },
-    IconButtonSpeedDial: {
-        color: props => props.palette.primary.contrastText,
-    },
-    leftIconButton: {
-        marginLeft: "auto"
-    },
-    IconButtonToHidden: {
-        transition: "0.8s",
-        display: "none",
-    },
-    hidden: {
-        transition: "0.4s",
-        display: "block",
-    }
-}));
-
-const QuizItem = inject('managmentStore')(observer(({ managmentStore, show, index, indexA }) => {
-    const values = managmentStore.pageCreation.components[index]
-    const item = managmentStore.pageCreation.components[index].content[indexA]
-    const props = { fontSize: values.fontSize, textAlign: "left", fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
-    // Pass the props as the first argument of useStyles()
-    // console.log("props", props)
-    const theme = useTheme();
-    const classes = useStyles({ ...theme, ...props });
-    return (
-        <Input
-            classes={{
-                input: classes.text
-            }}
-            placeholder="Добавить текст ответа"
-            className={classes.text}
-            type="text"
-            disableUnderline
-            multiline
-            fullWidth
-            value={item.label}
-            onChange={(event) => managmentStore.setPageCreationContentComponents(index, indexA, "label", event.target.value)}
-            startAdornment={
-                <>
-                    {values.quizType === 'single' && <Radio
-                        color="primary"
-                        checked={item.rightAnswer}
-                        onChange={() => managmentStore.setSingleQuiz(index, indexA)}
-
-                    />}
-                    {values.quizType === 'multiple' && <Checkbox
-                        color="primary"
-                        checked={item.rightAnswer}
-                        onChange={() => managmentStore.setPageCreationContentComponents(index, indexA, "rightAnswer", !item.rightAnswer)}
-                    //onChange={handleChange}
-                    />}
-
-                </>
-            }
-            endAdornment={
-                <>
-                    <Tooltip title="Удалить блок">
-                        <IconButton onClick={() => managmentStore.deleteComponentContent(index, indexA)}>
-                            <DeleteForeverIcon className={classes.icon} />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Перетащить блок">
-                        {/* className={clsx(classes.IconButtonToHidden, { [classes.hidden]: item.showIcons })} */}
-                        <IconButton >
-                            <DragIndicatorIcon className={classes.icon} />
-                        </IconButton>
-                    </Tooltip>
-                </>
-            }
-        />
+        startAdornment={
+          <>
+            {values.quizType === "single" && (
+              <Radio
+                color="primary"
+                checked={values?.rightAnswers.includes(indexA)}
+                onClick={() => managmentStore.setAnswerQuiz('s', index, indexA)}
+              />
+            )}
+            {values.quizType === "multiple" && (
+              <Checkbox
+                color="primary"
+                checked={values?.rightAnswers.includes(indexA)}
+                onClick={() =>
+                  managmentStore.setAnswerQuiz(
+                    'm',
+                    index,
+                    indexA,
+                  )
+                }
+              //onChange={handleChange}
+              />
+            )}
+          </>
+        }
+        endAdornment={
+          <>
+            <Tooltip title="Удалить блок">
+              <IconButton
+                onClick={() =>
+                  managmentStore.deleteComponentContent(index, indexA)
+                }
+                size="large"
+              >
+                <DeleteForeverIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Перетащить блок">
+              {/* className={clsx(classes.IconButtonToHidden, { [classes.hidden]: item.showIcons })} */}
+              <IconButton size="large">
+                <DragIndicatorIcon />
+              </IconButton>
+            </Tooltip>
+          </>
+        }
+      />
     );
-}));
+  })
+);
 
-const QuizList = inject('managmentStore')(observer(({ managmentStore, index }) => {
-    const values = managmentStore.pageCreation.components[index]
-    const props = { fontSize: values.fontSize, textAlign: "left", fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
-    // Pass the props as the first argument of useStyles()
+const QuizList = inject("managmentStore")(
+  observer(({ managmentStore, index }) => {
     // console.log("props", props)
     const theme = useTheme();
-    const classes = useStyles({ ...theme, ...props });
+    const values = managmentStore.pageCreation.components[index];
+
     return (
-        <>
-            {
-                values.content.map((item, indexA) => (
-                    <Draggable key={indexA.toString()} draggableId={`quiz-${indexA}`} index={indexA}>
-                        {provided => (
-                            <Grid
-                                onMouseEnter={() => managmentStore.setPageCreationContentComponents(index, indexA, "showIcons", true)}
-                                onMouseLeave={() => managmentStore.setPageCreationContentComponents(index, indexA, "showIcons", false)}
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                container
-                                direction="row"
-                                justifyContent="flex-start"
-                                alignItems="center"
-                                className={classes.gridTextWrapper}
-                            >
-                                <QuizItem index={index} indexA={indexA} />
-                            </Grid>
-                        )
-                        }
-                    </Draggable >
-                ))}
-        </>
+      <>
+        {values.content.map((item, indexA) => (
+          <Draggable
+            key={indexA.toString()}
+            draggableId={`quiz-${indexA}`}
+            index={indexA}
+          >
+            {(provided) => (
+              <Grid
+                // onMouseEnter={() =>
+                //   managmentStore.setPageCreationContentComponents(
+                //     index,
+                //     indexA,
+                //     "showIcons",
+                //     true
+                //   )
+                // }
+                // onMouseLeave={() =>
+                //   managmentStore.setPageCreationContentComponents(
+                //     index,
+                //     indexA,
+                //     "showIcons",
+                //     false
+                //   )
+                // }
+                ref={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                container
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                sx={{
+                  width: "calc(100% - 4px)",
+                }}
+              >
+                <QuizItem index={index} indexA={indexA} />
+              </Grid>
+            )}
+          </Draggable>
+        ))}
+      </>
     );
-}));
+  })
+);
 
-
-const Quiz = inject('managmentStore')(observer(({ managmentStore, index }) => {
+const Quiz = inject("managmentStore")(
+  observer(({ managmentStore, index }) => {
     // Simulated props for the purpose of the example
-    const values = managmentStore.pageCreation.components[index]
+    const values = managmentStore.pageCreation.components[index];
     // Simulated props for the purpose of the example
-    const props = { fontSize: values.fontSize, textAlign: "left", fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
-    // Pass the props as the first argument of useStyles()
     // console.log("props", props)
     const theme = useTheme();
-    const classes = useStyles({ ...theme, ...props });
 
     const handleFontSizeUp = (event, newFormats) => {
-        //console.log(index, "fontSize", newFormats)
-        if (values.fontSize != 48) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
+      //console.log(index, "fontSize", newFormats)
+      if (values.fontSize != 48)
+        managmentStore.setPageCreationComponents(
+          index,
+          "fontSize",
+          values.fontSize + 2
+        );
     };
 
     const handleFontSizeDown = (event, newFormats) => {
-        //console.log(index, "fontSize", newFormats)
-        if (values.fontSize != 12) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
+      //console.log(index, "fontSize", newFormats)
+      if (values.fontSize != 12)
+        managmentStore.setPageCreationComponents(
+          index,
+          "fontSize",
+          values.fontSize - 2
+        );
     };
 
     const handleQuizType = (type) => {
-        let newType = null
-        if (type === 'single') newType = 'multiple'
-        else if (type === 'multiple') {
-            newType = 'single'
-            managmentStore.changeQuizType(index)
-        }
-        managmentStore.setPageCreationComponents(index, "quizType", newType)
+      let newType = null;
+      if (type === "single") newType = "multiple";
+      else if (type === "multiple") {
+        newType = "single";
+        managmentStore.changeQuizType(index);
+      }
+      managmentStore.setPageCreationComponents(index, "quizType", newType);
     };
 
     const handleFontStyle = () => {
-        if (values.fontStyle === "normal") return managmentStore.setPageCreationComponents(index, "fontStyle", "italic")
-        return managmentStore.setPageCreationComponents(index, "fontStyle", "normal");
+      if (values.fontStyle === "normal")
+        return managmentStore.setPageCreationComponents(
+          index,
+          "fontStyle",
+          "italic"
+        );
+      return managmentStore.setPageCreationComponents(
+        index,
+        "fontStyle",
+        "normal"
+      );
     };
 
     const handleFontWeight = () => {
-        if (values.fontWeight === "normal") return managmentStore.setPageCreationComponents(index, "fontWeight", "bold");
-        return managmentStore.setPageCreationComponents(index, "fontWeight", "normal");
+      if (values.fontWeight === "normal")
+        return managmentStore.setPageCreationComponents(
+          index,
+          "fontWeight",
+          "bold"
+        );
+      return managmentStore.setPageCreationComponents(
+        index,
+        "fontWeight",
+        "normal"
+      );
     };
 
     const handleTextDecoration = () => {
-        if (values.textDecoration === "none") return managmentStore.setPageCreationComponents(index, "textDecoration", "underline");
-        return managmentStore.setPageCreationComponents(index, "textDecoration", "none");
+      if (values.textDecoration === "none")
+        return managmentStore.setPageCreationComponents(
+          index,
+          "textDecoration",
+          "underline"
+        );
+      return managmentStore.setPageCreationComponents(
+        index,
+        "textDecoration",
+        "none"
+      );
     };
 
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
-        setOpen(false);
+      setOpen(false);
     };
 
     const handleOpen = () => {
-        setOpen(true);
+      setOpen(true);
     };
 
     const quizTypeIconSelect = (type) => {
-        if (type === 'single') return <FormatListBulletedIcon />
-        if (type === 'multiple') return <ListIcon />
-    }
+      if (type === "single") return <FormatListBulletedIcon />;
+      if (type === "multiple") return <ListIcon />;
+    };
 
     const quizTypeLabelSelect = (type) => {
-        if (type === 'single') return 'Один правильный ответ'
-        if (type === 'multiple') return 'Множество правильных ответов'
-    }
+      if (type === "single") return "Один правильный ответ";
+      if (type === "multiple") return "Множество правильных ответов";
+    };
 
     const reorder = (list, startIndex, endIndex) => {
-        const result = Array.from(list);
-        const [removed] = result.splice(startIndex, 1);
-        result.splice(endIndex, 0, removed);
+      const result = Array.from(list);
+      const [removed] = result.splice(startIndex, 1);
+      result.splice(endIndex, 0, removed);
 
-        return result;
+      return result;
     };
 
     function onDragEnd(result) {
-        if (!result.destination) {
-            return;
-        }
+      if (!result.destination) {
+        return;
+      }
 
-        if (result.destination.index === result.source.index) {
-            return;
-        }
+      if (result.destination.index === result.source.index) {
+        return;
+      }
 
-        const newState = reorder(
-            values.content,
-            result.source.index,
-            result.destination.index
-        );
-        console.log("newState", newState)
-        managmentStore.setContentToComponent(index, newState);
+      const newState = reorder(
+        values.content,
+        result.source.index,
+        result.destination.index
+      );
+      managmentStore.setContentToComponent(index, newState);
     }
 
+    const textAlignIconSelect = (align) => {
+      if (align === "left") return <FormatAlignLeftIcon />;
+      if (align === "center") return <FormatAlignCenterIcon />;
+      if (align === "right") return <FormatAlignRightIcon />;
+      if (align === "justify") return <FormatAlignJustifyIcon />;
+    };
+
+    const textAlignLabelSelect = (align) => {
+      if (align === "left") return "по левому краю";
+      if (align === "center") return "по правому краю";
+      if (align === "right") return "по центру";
+      if (align === "justify") return "по ширине";
+    };
+
+    const handleTextAlign = (align) => {
+      let newAlignment = null;
+      if (align === "left") newAlignment = "center";
+      else if (align === "center") newAlignment = "right";
+      else if (align === "right") newAlignment = "justify";
+      else if (align === "justify") newAlignment = "left";
+      managmentStore.setPageCreationComponents(
+        index,
+        "textAlign",
+        newAlignment
+      );
+    };
+
+    const [hover, setHover] = React.useState(false);
+
     return (
-        <>
+      <>
+        <Grid
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          onClick={() => managmentStore.setPageCreationList("selectId", index)}
+        >
+          <Grid
+            container
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            sx={{
+              width: "calc(100% - 4px)",
+            }}
+          >
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable droppableId={`quiz-${index}`}>
+                {(provided) => (
+                  <Grid
+                    sx={{ width: "calc(100% - 4px)" }}
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                  >
+                    <QuizList index={index} />
+                    {provided.placeholder}
+                  </Grid>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </Grid>
+          <Fade
+            in={hover}
+            style={{ transformOrigin: "0 0 0" }}
+            {...(hover ? { timeout: 1000 } : {})}
+          >
             <Grid
-                container
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                onClick={() => managmentStore.setPageCreationList("selectId", index)}
+              container
+              direction="row"
+              sx={{
+                marginLeft: "auto",
+              }}
             >
-                <Grid
-                    container
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="flex-start"
-                    className={classes.gridTextWrapper}
+              <Tooltip title="Добавить">
+                <IconButton
+                  onClick={() => managmentStore.pushContentToComponent(index, "quiz")}
+                  size="large"
                 >
-                    <DragDropContext onDragEnd={onDragEnd}>
-                        <Droppable droppableId={`quiz-${index}`}>
-                            {provided => (
-                                <Grid className={classes.gridTextWrapper} ref={provided.innerRef} {...provided.droppableProps} >
-                                    <QuizList index={index} />
-                                    {provided.placeholder}
-                                </Grid>
-                            )}
-                        </Droppable>
-                    </DragDropContext>
-
-
-                </Grid>
-                <Divider className={classes.divider} />
-                <Grid
-                    container
-                    direction="row"
-                    className={classes.gridButtons}
+                  <AddIcon />
+                </IconButton>
+              </Tooltip>
+              <IconButton
+                onClick={() => handleQuizType(values.quizType)}
+                sx={{
+                  ml: 1,
+                }}
+                edge="end"
+                size="large"
+              >
+                <Tooltip
+                  title={`Изменить тип опроса. Сейчас - ${quizTypeLabelSelect(
+                    values.quizType
+                  )}`}
                 >
-                    <Tooltip title="Добавить">
-                        <IconButton onClick={() => managmentStore.pushContentToComponent(index)}>
-                            <AddIcon className={classes.icon} />
-                        </IconButton>
-                    </Tooltip>
-                    <SpeedDial
-                        ariaLabel="SpeedDial tooltip example"
-                        className={classes.speedDial}
-                        // hidden={hidden}
-                        icon={<TuneIcon className={classes.iconSpeedDial} />}
-                        onClose={handleClose}
-                        onOpen={handleOpen}
-                        open={open}
-                        direction="right"
-                    >
-                        <SpeedDialAction
-                            className={classes.speedDialAction}
-                            tooltipPlacement="bottom"
-                            icon={quizTypeIconSelect(values.quizType)}
-                            tooltipTitle={`Изменить тип опроса. Сейчас - ${quizTypeLabelSelect(values.quizType)}`}
-                            //tooltipOpen
-                            onClick={() => handleQuizType(values.quizType)}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialActionFirst, { [classes.disableIcon]: values.fontSize === 48 })}
-                            tooltipPlacement="bottom"
-                            icon={<ZoomInIcon />}
-                            tooltipTitle={`Увеличить шрифт. Сейчас - ${values.fontSize}`}
-                            //tooltipOpen
-                            onClick={() => handleFontSizeUp()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.disableIcon]: values.fontSize === 12 })}
-                            tooltipPlacement="bottom"
-                            icon={<ZoomOutIcon />}
-                            tooltipTitle={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}
-                            //tooltipOpen
-                            onClick={() => handleFontSizeDown()}
-                        />
-
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontWeight === 'bold' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatBoldIcon />}
-                            tooltipTitle="Полужирный"
-                            //tooltipOpen
-                            onClick={() => handleFontWeight()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.fontStyle === 'italic' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatItalicIcon />}
-                            tooltipTitle="Курсив"
-                            //tooltipOpen
-                            onClick={() => handleFontStyle()}
-                        />
-                        <SpeedDialAction
-                            className={clsx(classes.speedDialAction, { [classes.activeIcon]: values.textDecoration === 'underline' })}
-                            tooltipPlacement="bottom"
-                            icon={<FormatUnderlinedIcon />}
-                            tooltipTitle="Подчёркнутый"
-                            //tooltipOpen
-                            onClick={() => handleTextDecoration()}
-                        />
-                    </SpeedDial>
-                    {/* <Tooltip title="Дублировать блок">
-                        <IconButton className={classes.leftIconButton} onClick={() => managmentStore.duplicateComponent(index)}>
-                            <QueueIcon className={classes.icon} />
-                        </IconButton>
-                    </Tooltip> */}
-                    <Tooltip title="Удалить блок">
-                        <IconButton className={classes.leftIconButton} onClick={() => managmentStore.deleteComponent(index)}>
-                            <DeleteForeverIcon className={classes.icon} />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Перетащить блок">
-                        <IconButton>
-                            <DragIndicatorIcon className={classes.icon} />
-                        </IconButton>
-                    </Tooltip>
-                </Grid>
+                  {quizTypeIconSelect(values.quizType)}
+                </Tooltip>
+              </IconButton>
+              <IconButton
+                onClick={() => handleFontSizeUp()}
+                sx={{
+                  ml: 1,
+                  color: values.fontSize === 48 ? "error.main" : "text.main",
+                }}
+                edge="end"
+                size="large"
+              >
+                <Tooltip title={`Увеличить шрифт. Сейчас - ${values.fontSize}`}>
+                  <ZoomInIcon />
+                </Tooltip>
+              </IconButton>
+              <IconButton
+                onClick={() => handleFontSizeDown()}
+                sx={{
+                  ml: 1,
+                  color: values.fontSize === 12 ? "error.main" : "text.main",
+                }}
+                edge="end"
+                size="large"
+              >
+                <Tooltip title={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}>
+                  <ZoomOutIcon />
+                </Tooltip>
+              </IconButton>
+              <IconButton
+                onClick={() => handleTextAlign(values.textAlign)}
+                sx={{ ml: 1, color: "text.main" }}
+                edge="end"
+                size="large"
+              >
+                <Tooltip
+                  title={`Изменить выравнивание текста. Сейчас - ${textAlignLabelSelect(
+                    values.textAlign
+                  )}`}
+                >
+                  {textAlignIconSelect(values.textAlign)}
+                </Tooltip>
+              </IconButton>
+              <IconButton
+                onClick={() => handleFontWeight()}
+                sx={{
+                  ml: 1,
+                  color:
+                    values.fontWeight === "bold" ? "text.main" : "text.dark",
+                }}
+                edge="end"
+                size="large"
+              >
+                <Tooltip title={`Полужирный`}>
+                  <FormatBoldIcon />
+                </Tooltip>
+              </IconButton>
+              <IconButton
+                onClick={() => handleFontStyle()}
+                sx={{
+                  ml: 1,
+                  color:
+                    values.fontStyle === "italic" ? "text.main" : "text.dark",
+                }}
+                edge="end"
+                size="large"
+              >
+                <Tooltip title={`Курсив`}>
+                  <FormatItalicIcon />
+                </Tooltip>
+              </IconButton>
+              <IconButton
+                onClick={() => handleTextDecoration()}
+                sx={{
+                  ml: 1,
+                  color:
+                    values.textDecoration === "underline"
+                      ? "text.main"
+                      : "text.dark",
+                }}
+                edge="end"
+                size="large"
+              >
+                <Tooltip title={`Подчёркнутый`}>
+                  <FormatUnderlinedIcon />
+                </Tooltip>
+              </IconButton>
+              <Tooltip title="Удалить блок">
+                <IconButton
+                  sx={{ marginLeft: "auto" }}
+                  onClick={() => managmentStore.deleteComponent(index)}
+                  size="large"
+                >
+                  <DeleteForeverIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Перетащить блок">
+                <IconButton size="large">
+                  <DragIndicatorIcon />
+                </IconButton>
+              </Tooltip>
             </Grid>
-        </>
+          </Fade>
+        </Grid>
+      </>
     );
-}));
+  })
+);
 
-export default Quiz
-
-
+export default Quiz;

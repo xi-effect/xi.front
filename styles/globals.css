@@ -1,9 +1,21 @@
-html,
+html {
+  padding: 0;
+  margin: 0;
+  /* overflow: visible;
+  height: 100%; */
+  font-size: 10px;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
+}
+
 body {
   padding: 0;
   margin: 0;
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* /* height: 100%; */
+  overflow: visible !important;
+  padding-right: 0px !important;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
 }
 
 a {
@@ -40,7 +52,20 @@ a {
   position: absolute;
   left: 0;
   top: 0;
-  background: linear-gradient(to right, #141562, #486FBC, #EAB5A1, #8DD6FF, #4973C9, #D07CA7, #F4915E, #F5919E, #B46F89, #141562, #486FBC);
+  background: linear-gradient(
+    to right,
+    #141562,
+    #486fbc,
+    #eab5a1,
+    #8dd6ff,
+    #4973c9,
+    #d07ca7,
+    #f4915e,
+    #f5919e,
+    #b46f89,
+    #141562,
+    #486fbc
+  );
   background-position: 0% 50%;
   background-size: 1000% 1000%;
   overflow: hidden;
@@ -52,20 +77,21 @@ a {
   }
 }
 
-/* Скролл */
-
-::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  background-color: #6b6b6b;
-  min-height: 24px;
-  border: 3px solid #2b2b2b;
-}
-
 ::-webkit-scrollbar {
-  background-color: #2b2b2b;
+  width: 6px;
+  height: 6px;
 }
-
-::backdrop {
-  background-color: #121212;
+::-webkit-scrollbar-track-piece {
+  background: transparent;
+  border-radius: 6px;
 }
-
+/* ::-webkit-scrollbar-thumb:vertical {
+  height: 5px;
+  border-radius: 6px;
+  background-color: #cccccc;
+} */
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  width: 10px;
+  background-color: #cccccc;
+}
