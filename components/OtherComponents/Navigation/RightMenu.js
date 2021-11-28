@@ -20,105 +20,115 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 const KnowledgeModuleToolsWithMap = inject(
   "knowledgeStore",
 )(
-  observer(({knowledgeStore }) => {
+  observer(({ knowledgeStore }) => {
     const theme = useTheme();
     const router = useRouter()
 
     return (
-    <>
-      <Typography variant="subtitle1" sx={{ml: 0.5}}>карта модуля:</Typography>
-      <Stack
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        spacing={0}
-        sx={{
-          height: "100%",
-        }}
-      >
-        <Scrollbars
+      <>
+        <Typography variant="subtitle1" sx={{ ml: 0.5 }}>карта модуля:</Typography>
+        <Stack
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          spacing={0}
+          sx={{
+            height: "100%",
+          }}
+        >
+          <Scrollbars
             universal={true}
             style={{ width: 156, height: "100%" }}
             autoHide
             autoHideTimeout={1000}
             autoHideDuration={200}
-        >
+          >
             {knowledgeStore.module["map"].map((name, index) => (
-                <Stack
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  key={index.toString()}
-                >
-                  {knowledgeStore.module.activeIdInMap ===
-                    index && (
+              <Stack
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                key={index.toString()}
+              >
+                {knowledgeStore.module.activeIdInMap ===
+                  index && (
                     <ArrowRightIcon />
                   )}
-                  {/* {knowledgeStore.module.activeIdInMap !== (index + (paginationCounter - 1) * 10) && <CircleIcon sx={{fontSize: "8px", m: 1}} />} */}
-                  <Link
-                    sx={{
-                      cursor:
-                        knowledgeStore.module.activeIdInMap ===
-                        index
-                          ? "default"
-                          : "pointer",
-                      ml:
-                        knowledgeStore.module.activeIdInMap ===
-                        index
-                          ? 0
-                          : 3,
-                    }}
-                    onClick={() =>
-                      knowledgeStore.loadPageInModule(
-                        index
-                      )
-                    }
-                    color="inherit"
-                    underline={
+                {/* {knowledgeStore.module.activeIdInMap !== (index + (paginationCounter - 1) * 10) && <CircleIcon sx={{fontSize: "8px", m: 1}} />} */}
+                <Link
+                  sx={{
+                    cursor:
                       knowledgeStore.module.activeIdInMap ===
+                        index
+                        ? "default"
+                        : "pointer",
+                    ml:
+                      knowledgeStore.module.activeIdInMap ===
+                        index
+                        ? 0
+                        : 3,
+                  }}
+                  onClick={() =>
+                    knowledgeStore.loadPageInModule(
                       index
-                        ? "none"
-                        : "hover"
-                    }
-                  >
-                    {name}
-                  </Link>
-                  {/* <Typography>
+                    )
+                  }
+                  color="inherit"
+                  underline={
+                    knowledgeStore.module.activeIdInMap ===
+                      index
+                      ? "none"
+                      : "hover"
+                  }
+                >
+                  {name}
+                </Link>
+                {/* <Typography>
                                         {item.name}
                                     </Typography> */}
-                </Stack>
-              ))}
-        </Scrollbars>
-      </Stack>
-      <Stack
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        spacing={0}
-        sx={{
-          width: "100%",
-        }}
-      >
-        {knowledgeStore.module.type === 'test' && <Button
+              </Stack>
+            ))}
+          </Scrollbars>
+        </Stack>
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={0}
+          sx={{
+            width: "100%",
+          }}
+        >
+          {router.pathname.includes('/knowledge/module/results') && <Button
             sx={{
               color: 'text.main',
               width: 142,
               alignItems: 'space-between',
             }}
             onClick={null} size="large"
-        >
-           Завершить <TaskIcon sx={{ml: 'auto', mr: 0}} />
-        </Button>}
-        <Button
+          >
+            Закрыть тест <TaskIcon sx={{ ml: 'auto', mr: 0 }} />
+          </Button>}
+          {knowledgeStore.module.type === 'test' && <Button
+            sx={{
+              color: 'text.main',
+              width: 142,
+              alignItems: 'space-between',
+            }}
+            onClick={() => knowledgeStore.getTeatModuleResults()} size="large"
+          >
+            Завершить <TaskIcon sx={{ ml: 'auto', mr: 0 }} />
+          </Button>}
+          <Button
             sx={{
               color: 'text.main',
               width: 142,
               alignItems: 'space-between',
             }}
             onClick={null} size="large"
-        >
-           Инфо <InfoIcon sx={{ml: 'auto', mr: 0}} />
-        </Button>
+          >
+            Инфо <InfoIcon sx={{ ml: 'auto', mr: 0 }} />
+          </Button>
           <Button
             sx={{
               color: 'text.main',
@@ -132,10 +142,10 @@ const KnowledgeModuleToolsWithMap = inject(
             }
             size="large"
           >
-            Вперёд <DoubleArrowIcon sx={{ml: 'auto', mr: 0}}/>
+            Вперёд <DoubleArrowIcon sx={{ ml: 'auto', mr: 0 }} />
           </Button>
-      </Stack>
-    </>
+        </Stack>
+      </>
     );
   })
 );
@@ -148,64 +158,74 @@ const KnowledgeModuleTools = inject(
     const router = useRouter()
 
     return (
-    <>
-    <Stack
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        spacing={0}
-        sx={{
-          height: "100%",
-        }}
-      >
-
-      </Stack>
-      <Stack
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        spacing={0}
-        sx={{
-          width: "100%",
-        }}
-      >
-        {knowledgeStore.module.type === 'test' && <Button
-            sx={{
-              color: 'text.main',
-              width: 142,
-              alignItems: 'space-between',
-            }}
-            onClick={null} size="large"
-        >
-           Завершить <TaskIcon sx={{ml: 'auto', mr: 0}} />
-        </Button>}
-        <Button
-            sx={{
-              color: 'text.main',
-              width: 142,
-              alignItems: 'space-between',
-            }}
-            onClick={null} size="large"
-        >
-           Инфо <InfoIcon sx={{ml: 'auto', mr: 0}} />
-        </Button>
-        <Button
+      <>
+        <Stack
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          spacing={0}
           sx={{
-            color: 'text.main',
-            width: 142,
-            alignItems: 'space-between',
+            height: "100%",
           }}
-          onClick={() =>
-            knowledgeStore.loadPageInModule(
-              knowledgeStore.module.activeIdInMap + 1
-            )
-          }
-          size="large"
         >
-          Вперёд <DoubleArrowIcon sx={{ml: 'auto', mr: 0}}/>
-        </Button>
-      </Stack>
-    </>
+
+        </Stack>
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={0}
+          sx={{
+            width: "100%",
+          }}
+        >
+          {router.pathname.includes('/knowledge/module/results') && <Button
+            sx={{
+              color: 'text.main',
+              width: 142,
+              alignItems: 'space-between',
+            }}
+            onClick={() => router.push('/knowledge/modules/')} size="large"
+          >
+            Закрыть тест
+          </Button>}
+          {knowledgeStore.module.type === 'test' && <Button
+            sx={{
+              color: 'text.main',
+              width: 142,
+              alignItems: 'space-between',
+            }}
+            onClick={null} size="large"
+          >
+            Завершить <TaskIcon sx={{ ml: 'auto', mr: 0 }} />
+          </Button>}
+          <Button
+            sx={{
+              color: 'text.main',
+              width: 142,
+              alignItems: 'space-between',
+            }}
+            onClick={null} size="large"
+          >
+            Инфо <InfoIcon sx={{ ml: 'auto', mr: 0 }} />
+          </Button>
+          <Button
+            sx={{
+              color: 'text.main',
+              width: 142,
+              alignItems: 'space-between',
+            }}
+            onClick={() =>
+              knowledgeStore.loadPageInModule(
+                knowledgeStore.module.activeIdInMap + 1
+              )
+            }
+            size="large"
+          >
+            Вперёд <DoubleArrowIcon sx={{ ml: 'auto', mr: 0 }} />
+          </Button>
+        </Stack>
+      </>
     );
   })
 );
@@ -236,11 +256,11 @@ const RightMenu = inject(
           width: '156px',
           pb: 2,
           pt: 8,
-      }}
+        }}
       >
-        
-        {!(knowledgeStore.module["map"] != undefined) && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools/>}
-        {knowledgeStore.module["map"] != undefined && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleToolsWithMap/>}
+
+        {(!(knowledgeStore.module["map"] != undefined) || knowledgeStore.module["map"].length === 0) && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools />}
+        {knowledgeStore.module["map"] != undefined && knowledgeStore.module["map"].length != 0 && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleToolsWithMap />}
       </Stack>
     );
   })

@@ -131,19 +131,23 @@ class RootStore {
         });
       }
       console.log("response", response)
-      if (response.ok) {
-        const string = await response.text();
-        const json = string === "" ? {} : JSON.parse(string);
-        return json; // parses JSON response into native JavaScript objects
-      }
+
       if (response.status === 422 || response.status === 401) {
         const router = Router
         router.push('/login')
         return null
       }
-
+      if (response.ok) {
+        const string = await response.text();
+        const json = string === "" ? {} : JSON.parse(string);
+        return json; // parses JSON response into native JavaScript objects
+      } else {
+        const string = await response.text();
+        const json = string === "" ? {} : JSON.parse(string);
+        return json;
+      }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       console.log('Возникла проблема с вашим fetch запросом: ', error.message);
     }
   }

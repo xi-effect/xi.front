@@ -10,16 +10,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import RedoIcon from '@mui/icons-material/Redo';
-import ReorderIcon from '@mui/icons-material/Reorder';
 import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import SearchIcon from '@mui/icons-material/Search';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
-import TuneIcon from '@mui/icons-material/Tune';
-import ViewComfyIcon from '@mui/icons-material/ViewComfy';
-import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import { Accordion, AccordionDetails, AccordionSummary, Button, Chip, ClickAwayListener, Divider, FormControl, FormControlLabel, FormLabel, Grid, IconButton, InputBase, MenuItem, MenuList, Paper, Popper, Radio, RadioGroup, SpeedDial, SpeedDialAction, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import clsx from 'clsx';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 

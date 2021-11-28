@@ -4,7 +4,6 @@ import { useTheme, Button, Input, Grid, Radio, Checkbox, Typography, useMediaQue
 
 import { inject, observer } from 'mobx-react'
 
-const show = true
 
 const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore, index }) => {
     const value = knowledgeStore.page.components[index]
@@ -66,9 +65,9 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                             <>
                                 {value.quizType === 'single' && <Radio
                                     sx={{
-                                        color: getIconColor(show, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
+                                        color: getIconColor(knowledgeStore.module.showAnswers ?? false, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
                                         '&.Mui-checked': {
-                                            color: getIconColor(show, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
+                                            color: getIconColor(knowledgeStore.module.showAnswers ?? false, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
                                         },
                                     }}
                                     //color="primary"
@@ -76,9 +75,9 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                                 />}
                                 {value.quizType === 'multiple' && <Checkbox
                                     sx={{
-                                        color: getIconColor(show, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
+                                        color: getIconColor(knowledgeStore.module.showAnswers ?? false, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
                                         '&.Mui-checked': {
-                                            color: getIconColor(show, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
+                                            color: getIconColor(knowledgeStore.module.showAnswers ?? false, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
                                         },
                                     }}
                                     //color="primary"
