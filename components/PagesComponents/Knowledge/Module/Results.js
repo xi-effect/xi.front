@@ -116,34 +116,38 @@ const Results = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kno
                  rows.slice().sort(getComparator(order, orderBy)) */}
                             {knowledgeStore.moduleCompleted.results.map((result, index) => {
                                 const labelId = `enhanced-table-checkbox-${index}`;
-
-                                return (
-                                    <TableRow
-                                        hover
-                                        onClick={null}
-                                        role="checkbox"
-                                        tabIndex={-1}
-                                        key={index.toString()}
-                                    >
-                                        <TableCell padding="checkbox">
-                                            <Tooltip title="перейти к странице">
-                                                <IconButton>
-                                                    <ArrowCircleRightIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                        </TableCell>
-                                        <TableCell
-                                            component="th"
-                                            id={labelId}
-                                            scope="row"
-                                            padding="none"
+                                if (result["total-answers"] !== 0) {
+                                    return (
+                                        <TableRow
+                                            hover
+                                            onClick={null}
+                                            role="checkbox"
+                                            tabIndex={-1}
+                                            key={index.toString()}
                                         >
-                                            {result.answers.pageName}
-                                        </TableCell>
-                                        <TableCell align="left">{result["right-answers"]}</TableCell>
-                                        <TableCell align="left">{result["total-answers"]}</TableCell>
-                                    </TableRow>
-                                );
+                                            <TableCell padding="checkbox">
+                                                <Tooltip title="перейти к странице">
+                                                    <IconButton onClick={() => knowledgeStore.uploadPageForResults(result["page-id"], index)}>
+                                                        <ArrowCircleRightIcon />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </TableCell>
+                                            <TableCell
+                                                component="th"
+                                                id={labelId}
+                                                scope="row"
+                                                padding="none"
+                                            >
+                                                {result.answers.pageName}
+                                            </TableCell>
+                                            <TableCell align="left">{result["right-answers"] ?? 0}</TableCell>
+                                            <TableCell align="left">{result["total-answers"] ?? 0}</TableCell>
+                                        </TableRow>
+                                    );
+                                } else {
+                                    return null
+                                }
+
                             })}
                             {/* {emptyRows > 0 && (
                                 <TableRow

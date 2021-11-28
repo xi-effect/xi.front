@@ -512,16 +512,62 @@ class KnowledgeStore {
     this.moduleCompleted[name] = value
   }
 
-  @action getTeatModuleResults = () => {
+  @action getTestModuleResults = () => {
+    this.setModuleData("answers", {});
+    this.setPageData("quizCounter", 0);
+    this.setPageData("rightAnswersCounter", 0);
+    this.getAnswersResults()
+    console.log("uA", this.module.answers)
+    this.page.components.forEach((item) => {
+      if (item.type === "quiz")
+        this.setPageData("quizCounter", this.page.quizCounter + 1);
+    });
     this.rootStore
       .fetchDataScr(
-        `${this.rootStore.url}/modules/${this.module.id}/results/`,
-        "GET"
+        `${this.rootStore.url}/modules/${this.module.id}/points/${this.module.activeIdInMap}/reply/`,
+        "POST",
+        {
+          answers: {
+            pageName: this.page.name,
+            ...this.module.answers,
+          },
+          "right-answers": this.page.rightAnswersCounter,
+          "total-answers": this.page.quizCounter,
+        }
       )
       .then((data) => {
-        console.log("results", data)
-        this.setModuleCompleted("results", data)
-        router.push(`/knowledge/module/results`)
+        console.log(data)
+        this.rootStore
+          .fetchDataScr(
+            `${this.rootStore.url}/modules/${this.module.id}/results/`,
+            "GET"
+          )
+          .then((data) => {
+            console.log("results", data)
+            this.setModuleCompleted("results", data)
+            this.setModuleData("showAnswers", true)
+            router.push(`/knowledge/module/results`)
+          });
+      });
+
+  }
+
+  @action uploadPageForResults = (id, indx) => {
+    this.setPageData("loading", true);
+    this.rootStore
+      .fetchDataScr(`${this.rootStore.url}/pages/${id}/`, "GET")
+      .then((data) => {
+        console.log("meta", data);
+        this.setPage(data);
+        this.setPageData("authorId", data["author-id"]);
+        this.setPageData("authorName", data["author-name"]);
+        this.page.components.forEach((item, index) => {
+          if (item.type === 'quiz') {
+            this.setPageComponentsData(index, 'userAnswers', this.moduleCompleted.results[indx].answers[index])
+          }
+        })
+        router.push(`/knowledge/module/results/${id}/`)
+        this.setPageData("loading", false);
       });
   }
 }

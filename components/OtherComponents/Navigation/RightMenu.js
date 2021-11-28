@@ -20,7 +20,7 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 const KnowledgeModuleToolsWithMap = inject(
   "knowledgeStore",
 )(
-  observer(({ knowledgeStore }) => {
+  observer(({ knowledgeStore, goNext }) => {
     const theme = useTheme();
     const router = useRouter()
 
@@ -83,9 +83,6 @@ const KnowledgeModuleToolsWithMap = inject(
                 >
                   {name}
                 </Link>
-                {/* <Typography>
-                                        {item.name}
-                                    </Typography> */}
               </Stack>
             ))}
           </Scrollbars>
@@ -99,23 +96,33 @@ const KnowledgeModuleToolsWithMap = inject(
             width: "100%",
           }}
         >
+          {knowledgeStore.moduleCompleted.isFinished && !router.pathname.includes('/knowledge/module/results') && <Button
+            sx={{
+              color: 'text.main',
+              width: 152,
+              alignItems: 'space-between',
+            }}
+            onClick={() => router.push('/knowledge/module/results')} size="large"
+          >
+            К результатам
+          </Button>}
           {router.pathname.includes('/knowledge/module/results') && <Button
             sx={{
               color: 'text.main',
               width: 142,
               alignItems: 'space-between',
             }}
-            onClick={null} size="large"
+            onClick={() => router.push('/knowledge/modules/')} size="large"
           >
-            Закрыть тест <TaskIcon sx={{ ml: 'auto', mr: 0 }} />
+            Закрыть тест
           </Button>}
-          {knowledgeStore.module.type === 'test' && <Button
+          {knowledgeStore.module.type === 'test' && !router.pathname.includes('/knowledge/module/results') && <Button
             sx={{
               color: 'text.main',
               width: 142,
               alignItems: 'space-between',
             }}
-            onClick={() => knowledgeStore.getTeatModuleResults()} size="large"
+            onClick={() => knowledgeStore.getTestModuleResults()} size="large"
           >
             Завершить <TaskIcon sx={{ ml: 'auto', mr: 0 }} />
           </Button>}
@@ -135,11 +142,7 @@ const KnowledgeModuleToolsWithMap = inject(
               width: 142,
               alignItems: 'space-between',
             }}
-            onClick={() =>
-              knowledgeStore.loadPageInModule(
-                knowledgeStore.module.activeIdInMap + 1
-              )
-            }
+            onClick={goNext}
             size="large"
           >
             Вперёд <DoubleArrowIcon sx={{ ml: 'auto', mr: 0 }} />
@@ -153,7 +156,7 @@ const KnowledgeModuleToolsWithMap = inject(
 const KnowledgeModuleTools = inject(
   "knowledgeStore",
 )(
-  observer(({ knowledgeStore }) => {
+  observer(({ knowledgeStore, goNext }) => {
     const theme = useTheme();
     const router = useRouter()
 
@@ -179,6 +182,16 @@ const KnowledgeModuleTools = inject(
             width: "100%",
           }}
         >
+          {knowledgeStore.moduleCompleted.isFinished && !router.pathname.includes('/knowledge/module/results') && <Button
+            sx={{
+              color: 'text.main',
+              width: 152,
+              alignItems: 'space-between',
+            }}
+            onClick={() => router.push('/knowledge/module/results')} size="large"
+          >
+            К результатам
+          </Button>}
           {router.pathname.includes('/knowledge/module/results') && <Button
             sx={{
               color: 'text.main',
@@ -195,7 +208,7 @@ const KnowledgeModuleTools = inject(
               width: 142,
               alignItems: 'space-between',
             }}
-            onClick={null} size="large"
+            onClick={() => knowledgeStore.getTestModuleResults()} size="large"
           >
             Завершить <TaskIcon sx={{ ml: 'auto', mr: 0 }} />
           </Button>}
@@ -215,11 +228,7 @@ const KnowledgeModuleTools = inject(
               width: 142,
               alignItems: 'space-between',
             }}
-            onClick={() =>
-              knowledgeStore.loadPageInModule(
-                knowledgeStore.module.activeIdInMap + 1
-              )
-            }
+            onClick={goNext}
             size="large"
           >
             Вперёд <DoubleArrowIcon sx={{ ml: 'auto', mr: 0 }} />
@@ -237,6 +246,25 @@ const RightMenu = inject(
 )(
   observer(({ rootStore, knowledgeStore }) => {
     const router = useRouter();
+
+    const goNext = () => {
+      if (!router.pathname.includes('/knowledge/module/results')) {
+        knowledgeStore.loadPageInModule(
+          knowledgeStore.module.activeIdInMap + 1
+        )
+      }
+      if (router.pathname.includes('/knowledge/module/results')) {
+        console.log("r", knowledgeStore.moduleCompleted.results)
+        let indx = knowledgeStore.moduleCompleted.results.findIndex((item, index) => {
+          console.log(item, knowledgeStore.page.id)
+          if (item["page-id"] == knowledgeStore.page.id) return true
+        })
+        console.log("indx", indx)
+        if (indx + 1 === knowledgeStore.moduleCompleted.results.length) return knowledgeStore.uploadPageForResults(knowledgeStore.moduleCompleted.results[0]["page-id"], 0)
+        indx += 1
+        return knowledgeStore.uploadPageForResults(knowledgeStore.moduleCompleted.results[indx]["page-id"], indx)
+      }
+    }
 
     return (
       <Stack
@@ -259,8 +287,8 @@ const RightMenu = inject(
         }}
       >
 
-        {(!(knowledgeStore.module["map"] != undefined) || knowledgeStore.module["map"].length === 0) && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools />}
-        {knowledgeStore.module["map"] != undefined && knowledgeStore.module["map"].length != 0 && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleToolsWithMap />}
+        {(knowledgeStore.moduleCompleted.isFinished || !(knowledgeStore.module["map"] != undefined) || knowledgeStore.module["map"].length === 0) && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools goNext={goNext} />}
+        {!knowledgeStore.moduleCompleted.isFinished && knowledgeStore.module["map"] != undefined && knowledgeStore.module["map"].length != 0 && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleToolsWithMap goNext={goNext} />}
       </Stack>
     );
   })

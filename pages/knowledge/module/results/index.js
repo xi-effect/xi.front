@@ -7,8 +7,8 @@ import { Divider, Box, Grid, FormControlLabel, Button, useTheme, Menu, Hidden, I
 
 import { inject, observer } from 'mobx-react'
 
-import NavigationAll from './../../../components/OtherComponents/Navigation/NavigationAll';
-import Results from '../../../components/PagesComponents/Knowledge/Module/Results';
+import NavigationAll from '../../../../components/OtherComponents/Navigation/NavigationAll';
+import Results from '../../../../components/PagesComponents/Knowledge/Module/Results';
 
 
 const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore }) => {
