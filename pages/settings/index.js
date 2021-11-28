@@ -30,6 +30,7 @@ import CustomAvatar from "../../components/OtherComponents/Avatar/CustomAvatar";
 const Castomize = dynamic(() =>
   import("./../../components/PagesComponents/Settings/Castomize")
 );
+
 const UserAvatar = dynamic(() =>
   import("../../components/PagesComponents/Settings/UserAvatar")
 );
