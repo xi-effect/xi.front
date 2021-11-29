@@ -27,6 +27,8 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 import { inject, observer } from "mobx-react";
 
+import { useCopyToClipboard } from "react-use";
+
 const Invite = inject(
   "rootStore",
   "settingsStore"
@@ -38,12 +40,7 @@ const Invite = inject(
     const [inviteCode, setInviteCode] = useState("M36P07lB2FTP");
     const [statusCopy, setStatusCopy] = useState(false);
 
-    const copyInviteCode = (e) => {
-      let codeInput = document.getElementById("invite-code");
-      codeInput.select();
-      document.execCommand("copy");
-      setStatusCopy(true);
-    };
+    const [state, copyToClipboard] = useCopyToClipboard();
 
     return (
       <Grid
@@ -66,18 +63,23 @@ const Invite = inject(
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
+                  <Button sx={{color: 'text.main'}} onClick={() => {
+                    copyToClipboard(inviteCode)
+                    setStatusCopy(true)
+                  }}>
                   <ContentCopyIcon />
+                </Button>
                 </InputAdornment>
-              ),
-              readOnly: true,
-              style: {
-                cursor: "pointer",
+        ),
+        readOnly: true,
+        style: {
+          cursor: "pointer",
               },
             }}
-            onClick={copyInviteCode}
+            // onClick={copyInviteCode}
           />
-        </Tooltip>
-      </Grid>
+      </Tooltip>
+      </Grid >
     );
   })
 );

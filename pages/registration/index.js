@@ -24,19 +24,25 @@ const schema = yup.object({
     username: yup.string().max(100).required(),
     email: yup.string().email().required(),
     password: yup.string().min(6).max(100).required(),
+    invite: yup.string().required(),
 }).required();
 
 import Loading from './../../components/OtherComponents/Loading/Loading';
 const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ rootStore, authorizationStore, uiStore }) => {
     const theme = useTheme()
-
     const router = useRouter()
     const [showPassword, setShowPassword] = React.useState(false)
-    const { control, handleSubmit, formState: { errors } } = useForm({
+    const { control, setValue, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
     console.log("errors", errors)
     const onSubmit = data => authorizationStore.clickRegistrationButton(data);
+
+    React.useEffect(() => {
+        console.log("query", router.query)
+        if (router.query.invite) setValue("invite", router.query.invite)
+    }, [router.query])
+    // console.log("query1", router.query)
 
     return (
         <>
@@ -54,24 +60,24 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                     backgroundColor: 'background.1',
                 }}
             >
-                   <Box
-                        sx={{
+                <Box
+                    sx={{
                         position: "fixed",
                         height: "100vh",
                         width: "100vw",
                         overflow: "hidden",
                         zIndex: "-1",
-                        }}
-                    >
-                        <Image
-                            alt="alt"
-                            src={"/svg/BackgroundWaves.svg"}
-                            layout="fill"
-                            objectFit="cover"
-                            quality={100}
-                            // onLoadingComplete={() => setLoading(false)}
-                        />
-                    </Box>
+                    }}
+                >
+                    <Image
+                        alt="alt"
+                        src={"/svg/BackgroundWaves.svg"}
+                        layout="fill"
+                        objectFit="cover"
+                        quality={100}
+                    // onLoadingComplete={() => setLoading(false)}
+                    />
+                </Box>
                 <Stack
                     direction="row"
                     justifyContent="flex-start"
@@ -80,19 +86,19 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                     sx={{ width: "100%" }}
                 >
                     <Typography
-              onClick={() => router.push("/")}
-              variant="h4"
-              sx={{ color: "text.main", m: 2, zIndex: 2, cursor: "pointer" }}
-            >
-              Ξffect
-            </Typography>
-          </Stack>
-          <Box
-            component="form"
-            // bgcolor: 'rgba(1, 1, 1, 0.4)',
-            sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20,  maxWidth: 512 }}
-            onSubmit={handleSubmit(onSubmit)}
-          >
+                        onClick={() => router.push("/")}
+                        variant="h4"
+                        sx={{ color: "text.main", m: 2, zIndex: 2, cursor: "pointer" }}
+                    >
+                        Ξffect
+                    </Typography>
+                </Stack>
+                <Box
+                    component="form"
+                    // bgcolor: 'rgba(1, 1, 1, 0.4)',
+                    sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20, maxWidth: 512 }}
+                    onSubmit={handleSubmit(onSubmit)}
+                >
                     <Stack
                         component={motion.div}
                         initial={{ opacity: 0 }}
@@ -104,7 +110,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                         spacing={3}
                         sx={{ width: "100%", p: 2, cursor: "pointer", }}
                     >
-                                    <Image
+                        <Image
                             alt="alt"
                             src={"/svg/Welcome.svg"}
                             // layout="fill"
@@ -112,7 +118,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                             quality={100}
                             width={456}
                             height={256}
-                            // onLoadingComplete={() => setLoading(false)}
+                        // onLoadingComplete={() => setLoading(false)}
                         />
                         <Controller
                             name="username"
@@ -198,10 +204,10 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                             </FormControl>}
                         />
                         <Controller
-                            name="password"
+                            name="invite"
                             control={control}
                             defaultValue=""
-                            render={({ field }) => <FormControl error={!!(errors?.password)} fullWidth sx={{ maxWidth: 512, }} variant="outlined">
+                            render={({ field }) => <FormControl error={!!(errors?.invite)} fullWidth sx={{ maxWidth: 512, }} variant="outlined">
                                 <InputLabel htmlFor="outlined-adornment-password"> <Typography sx={{ color: 'text.main' }}>Код-приглашение</Typography> </InputLabel>
                                 <OutlinedInput
                                     sx={{ backgroundColor: 'background.main', width: "100%", }}
@@ -215,9 +221,9 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                                 // onMouseDown={handleMouseDownPassword}
                                                 edge="end"
                                                 size="large">
-                                                    <Tooltip title="Код-приглашение. Вы можете зарегистрироватся только если у вас есть код, который вы получили у пользователя платформы" arrow>
-                                                        <VerifiedUserIcon sx={{ color: 'text.main' }}/>
-                                                    </Tooltip>
+                                                <Tooltip title="Код-приглашение. Вы можете зарегистрироватся только если у вас есть код, который вы получили у пользователя платформы" arrow>
+                                                    <VerifiedUserIcon sx={{ color: 'text.main' }} />
+                                                </Tooltip>
                                             </IconButton>
                                         </InputAdornment>
                                     }
@@ -236,10 +242,12 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                 </Link>
                             </FormControl>}
                         />
-                        <Button variant="outlined" size="large" type="submit" sx={{ color: "text.main",
-                  bgcolor: "background.main",
-                   border: `2px solid ${theme.palette.text.dark}`,
-                    '&:hover': { border: `2px solid ${theme.palette.text.dark}` } }}>
+                        <Button variant="outlined" size="large" type="submit" sx={{
+                            color: "text.main",
+                            bgcolor: "background.main",
+                            border: `2px solid ${theme.palette.text.dark}`,
+                            '&:hover': { border: `2px solid ${theme.palette.text.dark}` }
+                        }}>
                             Зарегистрироваться
                         </Button>
                     </Stack>
