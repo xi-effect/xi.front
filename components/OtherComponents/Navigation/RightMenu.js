@@ -96,7 +96,7 @@ const KnowledgeModuleToolsWithMap = inject(
             width: "100%",
           }}
         >
-          {knowledgeStore.moduleCompleted.isFinished && !router.pathname.includes('/knowledge/module/results') && <Button
+          {knowledgeStore.moduleCompleted.isFinished && router.pathname.includes('/knowledge/module/results') && router.pathname === '/knowledge/module/results' && <Button
             sx={{
               color: 'text.main',
               width: 152,
@@ -106,7 +106,7 @@ const KnowledgeModuleToolsWithMap = inject(
           >
             К результатам
           </Button>}
-          {router.pathname.includes('/knowledge/module/results') && <Button
+          {router.pathname === '/knowledge/module/results' && <Button
             sx={{
               color: 'text.main',
               width: 142,
@@ -116,7 +116,7 @@ const KnowledgeModuleToolsWithMap = inject(
           >
             Закрыть тест
           </Button>}
-          {knowledgeStore.module.type === 'test' && !router.pathname.includes('/knowledge/module/results') && <Button
+          {knowledgeStore.module.type === 'test' && !(router.pathname.includes('/knowledge/module/results')) && <Button
             sx={{
               color: 'text.main',
               width: 142,
@@ -136,7 +136,7 @@ const KnowledgeModuleToolsWithMap = inject(
           >
             Инфо <InfoIcon sx={{ ml: 'auto', mr: 0 }} />
           </Button>
-          <Button
+          {!(router.pathname === '/knowledge/module/results') && <Button
             sx={{
               color: 'text.main',
               width: 142,
@@ -146,7 +146,7 @@ const KnowledgeModuleToolsWithMap = inject(
             size="large"
           >
             Вперёд <DoubleArrowIcon sx={{ ml: 'auto', mr: 0 }} />
-          </Button>
+          </Button>}
         </Stack>
       </>
     );
@@ -182,7 +182,7 @@ const KnowledgeModuleTools = inject(
             width: "100%",
           }}
         >
-          {knowledgeStore.moduleCompleted.isFinished && !router.pathname.includes('/knowledge/module/results') && <Button
+          {knowledgeStore.moduleCompleted.isFinished && router.pathname.includes('/knowledge/module/results') && !(router.pathname === '/knowledge/module/results') && <Button
             sx={{
               color: 'text.main',
               width: 152,
@@ -192,7 +192,7 @@ const KnowledgeModuleTools = inject(
           >
             К результатам
           </Button>}
-          {router.pathname.includes('/knowledge/module/results') && <Button
+          {router.pathname === '/knowledge/module/results' && <Button
             sx={{
               color: 'text.main',
               width: 142,
@@ -202,7 +202,7 @@ const KnowledgeModuleTools = inject(
           >
             Закрыть тест
           </Button>}
-          {knowledgeStore.module.type === 'test' && <Button
+          {knowledgeStore.module.type === 'test' && !(router.pathname.includes('/knowledge/module/results')) && <Button
             sx={{
               color: 'text.main',
               width: 142,
@@ -222,7 +222,7 @@ const KnowledgeModuleTools = inject(
           >
             Инфо <InfoIcon sx={{ ml: 'auto', mr: 0 }} />
           </Button>
-          <Button
+          {!(router.pathname === '/knowledge/module/results') && <Button
             sx={{
               color: 'text.main',
               width: 142,
@@ -232,7 +232,7 @@ const KnowledgeModuleTools = inject(
             size="large"
           >
             Вперёд <DoubleArrowIcon sx={{ ml: 'auto', mr: 0 }} />
-          </Button>
+          </Button>}
         </Stack>
       </>
     );
@@ -275,7 +275,7 @@ const RightMenu = inject(
         component={motion.div}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
         sx={{
           position: "absolute",
           top: 0,

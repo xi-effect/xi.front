@@ -545,6 +545,7 @@ class KnowledgeStore {
           .then((data) => {
             console.log("results", data)
             this.setModuleCompleted("results", data)
+            this.setModuleCompleted("isFinished", true)
             this.setModuleData("showAnswers", true)
             router.push(`/knowledge/module/results`)
           });
