@@ -26,6 +26,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
 import CustomAvatar from "../../components/OtherComponents/Avatar/CustomAvatar";
+import Invite from "../../components/PagesComponents/Settings/Invite";
 
 const Castomize = dynamic(() =>
   import("./../../components/PagesComponents/Settings/Castomize")
@@ -158,7 +159,9 @@ const Settings = inject(
                   >
                     <Typography>Приглашения</Typography>
                   </AccordionSummary>
-                  <AccordionDetails>Приглашения тута</AccordionDetails>
+                  <AccordionDetails>
+                    <Invite />
+                  </AccordionDetails>
                 </Accordion>
               </Grid>
             </Grid>
