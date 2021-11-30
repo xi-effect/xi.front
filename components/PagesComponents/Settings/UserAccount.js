@@ -10,8 +10,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import AvatarEditor from 'react-avatar-editor'
-import DialogChangePassword from './UserAccount/DialogChangePassword'
-import DialogChangeEmail from './UserAccount/DialogChangeEmail';
+import DialogChangePassword from './Secure/DialogChangePassword'
+import DialogChangeEmail from './Secure/DialogChangeEmail';
 import SaveIcon from '@mui/icons-material/Save';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 const PREFIX = 'UserAccount';

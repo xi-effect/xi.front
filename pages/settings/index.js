@@ -26,7 +26,14 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
 import CustomAvatar from "../../components/OtherComponents/Avatar/CustomAvatar";
-import Invite from "../../components/PagesComponents/Settings/Invite";
+
+const Secure = dynamic(() =>
+  import("./../../components/PagesComponents/Settings/Secure")
+);
+
+const Invite = dynamic(() =>
+  import("./../../components/PagesComponents/Settings/Invite")
+);
 
 const Castomize = dynamic(() =>
   import("./../../components/PagesComponents/Settings/Castomize")
@@ -60,6 +67,7 @@ const Settings = inject(
                 paddingLeft: 1,
                 paddingRight: 1,
                 width: "100%",
+                pb: 4,
               }}
             >
               <Stack
@@ -72,7 +80,6 @@ const Settings = inject(
                   maxWidth: 1200,
                 }}
               >
-                {/* <Typography variant="h6" sx={{ pl: 1 }}> {settingsStore.settings.username} </Typography> */}
                 <Box sx={{ height: 290, width: 290 }}>
                   <CustomAvatar
                     avatar={{ ...settingsStore.settings.avatar, bgcolor: null }}
@@ -128,10 +135,23 @@ const Settings = inject(
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                   >
+                    <Typography>Безопасность</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Secure />
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion
+                  sx={{ width: "100%", backgroundColor: "background.1" }}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
                     <Typography>Настройка Аватара</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    {/* <UserAccount /> */}
                     <UserAvatar />
                   </AccordionDetails>
                 </Accordion>

@@ -56,6 +56,10 @@ const NavigationAll = inject(
         .then((data) => {
           if (data) {
             console.log("settings", data);
+            let emailArr = data.email.split("@", 2)
+            settingsStore.setSettings("emailBefore", emailArr[0])
+            settingsStore.setSettings("emailAfter", "@" + emailArr[1])
+            settingsStore.setSettings("emailConfirmed", data["email-confirmed"])
             settingsStore.setSettings("avatar", data["avatar"]);
           }
         });

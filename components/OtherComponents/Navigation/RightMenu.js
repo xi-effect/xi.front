@@ -278,12 +278,12 @@ const RightMenu = inject(
         transition={{ delay: 0.5, duration: 0.5 }}
         sx={{
           position: "absolute",
-          top: 0,
+          top: 72,
           right: 0,
-          height: '100vh',
+          height: 'calc(100vh - 72px)',
           width: '156px',
           pb: 2,
-          pt: 8,
+          pt: 0,
         }}
       >
 

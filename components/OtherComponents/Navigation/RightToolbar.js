@@ -12,96 +12,96 @@ import UndoIcon from '@mui/icons-material/Undo';
 import InfoIcon from '@mui/icons-material/Info';
 
 const KnowledgePagesTools = inject(
-    "knowledgeStore"
-  )(
-    observer(({ knowledgeStore }) => {
-  
-      return (
-        <>
+  "knowledgeStore"
+)(
+  observer(({ knowledgeStore }) => {
+
+    return (
+      <>
         <Tooltip placement="left" title="Назад">
-            <span>
-                <IconButton
-                    onClick={knowledgeStore.prevPageInModules}
-                    disabled={knowledgeStore.pageList.counter === 0 ? true : false}
-                    size="large">
-                    <NavigateBeforeIcon />
-                </IconButton>
-            </span>
+          <span>
+            <IconButton
+              onClick={knowledgeStore.prevPageInModules}
+              disabled={knowledgeStore.pageList.counter === 0 ? true : false}
+              size="large">
+              <NavigateBeforeIcon />
+            </IconButton>
+          </span>
         </Tooltip>
         <Tooltip placement="left" title="Страница">
-            <Typography sx={{cursor: 'default'}}> {`${knowledgeStore.pageList.counter + 1}`} </Typography>
+          <Typography sx={{ cursor: 'default' }}> {`${knowledgeStore.pageList.counter + 1}`} </Typography>
         </Tooltip>
         <Tooltip placement="left" title="Вперёд">
-            <span>
-                <IconButton
-                    onClick={knowledgeStore.nextPageInModules}
-                    disabled={knowledgeStore.pageList.pages.length < 50 ? true : false}
-                    size="large">
-                    <NavigateNextIcon />
-                </IconButton>
-            </span>
+          <span>
+            <IconButton
+              onClick={knowledgeStore.nextPageInModules}
+              disabled={knowledgeStore.pageList.pages.length < 50 ? true : false}
+              size="large">
+              <NavigateNextIcon />
+            </IconButton>
+          </span>
         </Tooltip>
-        </>
-      );
-    })
+      </>
+    );
+  })
 );
-  
+
 const KnowledgeModulesTools = inject(
-    "knowledgeStore"
-  )(
-    observer(({knowledgeStore }) => {
-      const theme = useTheme();
-  
-      return (
-        <>
+  "knowledgeStore"
+)(
+  observer(({ knowledgeStore }) => {
+    const theme = useTheme();
+
+    return (
+      <>
         <Tooltip placement="left" title="Назад">
-            <span>
-                <IconButton
-                    onClick={knowledgeStore.prevPageInModules}
-                    disabled={knowledgeStore.moduleList.counter === 0 ? true : false}
-                    size="large">
-                    <NavigateBeforeIcon />
-                </IconButton>
-            </span>
+          <span>
+            <IconButton
+              onClick={knowledgeStore.prevPageInModules}
+              disabled={knowledgeStore.moduleList.counter === 0 ? true : false}
+              size="large">
+              <NavigateBeforeIcon />
+            </IconButton>
+          </span>
         </Tooltip>
         <Tooltip placement="left" title="Страница">
-            <Typography sx={{cursor: 'default'}}> {`${knowledgeStore.moduleList.counter + 1}`} </Typography>
+          <Typography sx={{ cursor: 'default' }}> {`${knowledgeStore.moduleList.counter + 1}`} </Typography>
         </Tooltip>
         <Tooltip placement="left" title="Вперёд">
-            <span>
-                <IconButton
-                    // sx={{p: "2px"}}
-                    onClick={knowledgeStore.nextPageInModules}
-                    disabled={knowledgeStore.moduleList.modules.length < 12 ? true : false}
-                    size="large">
-                    <NavigateNextIcon />
-                </IconButton>
-            </span>
+          <span>
+            <IconButton
+              // sx={{p: "2px"}}
+              onClick={knowledgeStore.nextPageInModules}
+              disabled={knowledgeStore.moduleList.modules.length < 12 ? true : false}
+              size="large">
+              <NavigateNextIcon />
+            </IconButton>
+          </span>
         </Tooltip>
-        </>
-      );
-    })
+      </>
+    );
+  })
 );
 
 const KnowledgePageTools = inject(
   "knowledgeStore"
 )(
-  observer(({knowledgeStore }) => {
+  observer(({ knowledgeStore }) => {
     const theme = useTheme();
     const router = useRouter()
 
     return (
       <>
-      <Tooltip title="Информация о странице">
+        <Tooltip title="Информация о странице">
           <IconButton onClick={null} size="large">
-              <InfoIcon />
+            <InfoIcon />
           </IconButton>
-      </Tooltip>
-      <Tooltip title="Назад">
+        </Tooltip>
+        <Tooltip title="Назад">
           <IconButton onClick={() => router.back()} size="large">
-              <UndoIcon />
+            <UndoIcon />
           </IconButton>
-      </Tooltip>
+        </Tooltip>
       </>
     );
   })
@@ -115,24 +115,25 @@ const RightToolbar = inject(
     const router = useRouter();
 
     return (
-    <Stack
-    direction="column"
-    justifyContent="flex-end"
-    alignItems="center"
-    spacing={2}
-    sx={{
-        position: "absolute",
-        top: 0,
-        right: 0,
-        height: '100vh',
-        width: '48px',
-        pb: 2,
-    }}
-    >
-      {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools/>}
-      {router.pathname === '/knowledge/pages' && <KnowledgePagesTools/>}
-      {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools/>}
-    </Stack>
+      <Stack
+        direction="column"
+        justifyContent="flex-end"
+        alignItems="center"
+        spacing={2}
+        sx={{
+          position: "absolute",
+          top: 72,
+          right: 0,
+          height: 'calc(100vh - 72px)',
+          width: '156px',
+          pb: 2,
+          pt: 0,
+        }}
+      >
+        {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools />}
+        {router.pathname === '/knowledge/pages' && <KnowledgePagesTools />}
+        {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools />}
+      </Stack>
     );
   })
 );
