@@ -27,6 +27,12 @@ const Secure = inject(
         const [openEmailChangeDialog, setOpenEmailChangeDialog] = React.useState(false)
         const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = React.useState(false)
 
+        const getStars = () => {
+            if (settingsStore.settings.emailBefore) {
+                return "*".repeat(settingsStore.settings.emailBefore.length)
+            }
+            return "****"
+        }
 
         return (
             <Stack
@@ -43,7 +49,7 @@ const Secure = inject(
                 >
                     <Typography sx={{ mr: 0.5 }}> почта - </Typography>
                     {!hiddenEmail && <Typography > {settingsStore.settings.emailBefore} </Typography>}
-                    {hiddenEmail && <Typography > {"*".repeat(settingsStore.settings.emailBefore.length)} </Typography>}
+                    {hiddenEmail && <Typography > {getStars()} </Typography>}
                     <Typography > {settingsStore.settings.emailAfter} </Typography>
                     {hiddenEmail && <Link sx={{ color: 'text.main', cursor: 'pointer', pl: 1 }} onClick={() => setHiddenEmail(false)}> показать </Link>}
                     {!hiddenEmail && <Link sx={{ color: 'text.main', cursor: 'pointer', pl: 1 }} onClick={() => setHiddenEmail(true)}> скрыть </Link>}

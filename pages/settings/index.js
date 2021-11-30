@@ -27,9 +27,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
 import CustomAvatar from "../../components/OtherComponents/Avatar/CustomAvatar";
 
-const Secure = dynamic(() =>
-  import("./../../components/PagesComponents/Settings/Secure")
-);
+import Secure from "./../../components/PagesComponents/Settings/Secure";
+
 
 const Invite = dynamic(() =>
   import("./../../components/PagesComponents/Settings/Invite")
@@ -45,11 +44,39 @@ const UserAvatar = dynamic(() =>
 
 const Settings = inject(
   "rootStore",
-  "settingsStore"
+  "settingsStore",
+  "messageStore"
 )(
-  observer(({ rootStore, settingsStore }) => {
+  observer(({ rootStore, settingsStore, messageStore }) => {
     const theme = useTheme();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
+
+    React.useEffect(() => {
+      rootStore
+        .fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
+        .then((data) => {
+          if (data) {
+            console.log("settings/main", data);
+            messageStore.loadChatsInMenu();
+            // uiStore.setLoading("navigation", false);
+            settingsStore.setSettings("darkTheme", data["dark-theme"]);
+            settingsStore.setSettings("id", data.id);
+            settingsStore.setSettings("username", data.username);
+          }
+        });
+      rootStore
+        .fetchDataScr(`${rootStore.url}/settings/`, "GET")
+        .then((data) => {
+          if (data) {
+            console.log("settings", data);
+            let emailArr = data.email.split("@", 2)
+            settingsStore.setSettings("emailBefore", emailArr[0])
+            settingsStore.setSettings("emailAfter", "@" + emailArr[1])
+            settingsStore.setSettings("emailConfirmed", data["email-confirmed"])
+            settingsStore.setSettings("avatar", data["avatar"]);
+          }
+        });
+    }, []);
 
     return (
       <>
