@@ -47,7 +47,7 @@ class AuthorizationStore {
     @action clickPasswordResetButton = (data) => {
         this.setPasswordReset("errorEmailNotFounedReset", false)
         this.setPasswordReset("emailResetOk", false)
-        this.rootStore.fetchData(`${this.rootStore.url}/password-reset/${data.email}/`, "GET")
+        this.rootStore.fetchData(`${this.rootStore.url}/password-reset/`, {email: data.email}, "POST")
             .then((data) => {
                 if (data != undefined) {
                     if (data.a === true) {

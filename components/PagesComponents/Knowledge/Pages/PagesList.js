@@ -114,7 +114,7 @@ const PagesList = inject(
             lg={4}
             xl={3}
             item
-            sx={{ p: 1, transition: "0.8s", width: "100%", height: "100%" }}
+            sx={{ p: 1, transition: "0.8s", width: "100%", height: "100%", maxHeight: "100%" }}
             container
             direction="column"
             justifyContent="center"
@@ -122,95 +122,94 @@ const PagesList = inject(
             key={page.id.toString()}
           >
             <AnimatePresence initial={false}>
-            {!(expanded === index) &&
-              <Box
-               sx={{width: "100%", height: "auto"}}
-               component={motion.div}
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               exit={{ opacity: 0 }}
-              >
-              <SVGbackground width={1920} height={1080}/>
-              </Box>}
-            </AnimatePresence>
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Grid sx={{width: 'calc(100% - 32px)'}} container wrap="nowrap" spacing={2}>
-                <Grid item xs zeroMinWidth>
-                  <Typography onClick={() => router.push(`/knowledge/page/${page.id}`)} sx={{ cursor: 'pointer', "&:hover": {textDecoration: 'underline'}}} variant="h6" noWrap>
-                    {page.name}
-                  </Typography>
-                </Grid>
-              </Grid>
-              <IconButton onClick={() => handleChange(expanded, index)} size="large">
-                <ExpandMoreIcon
-                  sx={{
-                    position: '',
-                    transform:
-                      expanded === index ? "rotate(0deg)" : "rotate(-180deg)",
-                    transition: "0.4s",
-                  }}
-                />
-              </IconButton>
-            </Grid>
-            {/* </Grid> */}
-            <AnimatePresence initial={false}>
-            {(expanded === index) &&
-              <Box
-               sx={{width: "100%", height: "auto"}}
-               component={motion.div}
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               exit={{ delay: 11300, opacity: 0 }}
-              >
-              <Typography>{`${page.theme}`}</Typography>
-              <Typography sx={{ mt: 0.4 }}>{kindSelect(page.kind)}</Typography>
+              {!(expanded === index) &&
+                <Box
+                  sx={{ width: "100%", height: "auto" }}
+                  component={motion.div}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.6 }}
+                  exit={{ opacity: 0, height: 0 }}
+                >
+                  <SVGbackground width={1920} height={1080} />
+                </Box>}
               <Grid
                 container
                 direction="row"
-                sx={{
-                  paddingTop: theme.spacing(1.5),
-                  width: "auto",
-                  marginRight: "auto",
-                }}
+                justifyContent="space-between"
+                alignItems="center"
               >
-                {/* {course.createrAvatar} */}
-                <Grid>
-                  <Avatar
-                    sx={{
-                      borderRadius: 1,
-                      color: "text.main",
-                      backgroundColor: "tertiary.main",
-                    }}
-                  >
-                    Ξ
-                  </Avatar>
+                <Grid sx={{ width: 'calc(100% - 32px)' }} container wrap="nowrap" spacing={2}>
+                  <Grid item xs zeroMinWidth>
+                    <Typography onClick={() => router.push(`/knowledge/page/${page.id}`)} sx={{ cursor: 'pointer', "&:hover": { textDecoration: 'underline' } }} variant="h6" noWrap>
+                      {page.name}
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid sx={{ paddingLeft: 1.5 }}>
-                  <Typography
+                <IconButton onClick={() => handleChange(expanded, index)} size="large">
+                  <ExpandMoreIcon
                     sx={{
-                      fontSize: "12px",
-                      textTransform: "uppercase",
-                      letterSpacing: 1,
+                      position: '',
+                      transform:
+                        expanded === index ? "rotate(0deg)" : "rotate(-180deg)",
+                      transition: "0.4s",
                     }}
-                  >
-                    Создатель
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: 500,
-                    }}
-                  >
-                    Ξ Effect
-                  </Typography>
-                </Grid>
+                  />
+                </IconButton>
               </Grid>
-              </Box>}
+              {(expanded === index) &&
+                <Box
+                  sx={{ width: "100%", height: "auto" }}
+                  component={motion.div}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.6 }}
+                  exit={{ opacity: 0, height: 0 }}
+                >
+                  <Typography>{`${page.theme}`}</Typography>
+                  <Typography sx={{ mt: 0.4 }}>{kindSelect(page.kind)}</Typography>
+                  <Grid
+                    container
+                    direction="row"
+                    sx={{
+                      paddingTop: theme.spacing(1.5),
+                      width: "auto",
+                      marginRight: "auto",
+                    }}
+                  >
+                    {/* {course.createrAvatar} */}
+                    <Grid>
+                      <Avatar
+                        sx={{
+                          borderRadius: 1,
+                          color: "text.main",
+                          backgroundColor: "tertiary.main",
+                        }}
+                      >
+                        Ξ
+                      </Avatar>
+                    </Grid>
+                    <Grid sx={{ paddingLeft: 1.5 }}>
+                      <Typography
+                        sx={{
+                          fontSize: "12px",
+                          textTransform: "uppercase",
+                          letterSpacing: 1,
+                        }}
+                      >
+                        Создатель
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "16px",
+                          fontWeight: 500,
+                        }}
+                      >
+                        Ξ Effect
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Box>}
             </AnimatePresence>
           </Grid>
         ))}

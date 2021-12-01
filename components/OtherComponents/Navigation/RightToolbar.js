@@ -125,7 +125,7 @@ const RightToolbar = inject(
           top: 72,
           right: 0,
           height: 'calc(100vh - 72px)',
-          width: '156px',
+          width: '48px',
           pb: 2,
           pt: 0,
         }}

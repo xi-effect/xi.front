@@ -169,7 +169,7 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                             pt: 2, pl: 2, pr: 2, pb: 0,
                         }}
                     >
-                         <Input
+                        <Input
                             sx={{ backgroundColor: 'background.2', width: "100%", }}
                             type='text'
                             value={messageStore.chat.newMessage}
@@ -302,7 +302,7 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                             </Link>
                                             <Box sx={{ ml: 'auto', mr: 1 }}>
                                             </Box>
-                                            {((messageStore.chat.role === 'admin' && item.role !== 'owner' && item.role !== 'admin' ) || (messageStore.chat.role === 'moder' && item.role !== 'owner' && item.role !== 'admin' && item.role !== 'moder' ) || messageStore.chat.role === 'owner') && <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 1, mr: 1, color: 'error.dark' }} edge="end" size="large">
+                                            {((messageStore.chat.role === 'admin' && item.role !== 'owner' && item.role !== 'admin') || (messageStore.chat.role === 'moder' && item.role !== 'owner' && item.role !== 'admin' && item.role !== 'moder') || messageStore.chat.role === 'owner') && <IconButton onClick={() => messageStore.sendMessage()} sx={{ ml: 1, mr: 1, color: 'error.dark' }} edge="end" size="large">
                                                 <Tooltip title="Удалить пользователя" arrow>
                                                     <PersonRemoveIcon />
                                                 </Tooltip>
