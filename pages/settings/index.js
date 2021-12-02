@@ -48,20 +48,19 @@ const Settings = inject(
   "messageStore"
 )(
   observer(({ rootStore, settingsStore, messageStore }) => {
-    const theme = useTheme();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
+    const theme = useTheme()
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"))
 
     React.useEffect(() => {
       rootStore
         .fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
         .then((data) => {
           if (data) {
-            console.log("settings/main", data);
-            messageStore.loadChatsInMenu();
-            // uiStore.setLoading("navigation", false);
-            settingsStore.setSettings("darkTheme", data["dark-theme"]);
-            settingsStore.setSettings("id", data.id);
-            settingsStore.setSettings("username", data.username);
+            console.log("settings/main", data)
+            messageStore.loadChatsInMenu()
+            settingsStore.setSettings("darkTheme", data["dark-theme"])
+            settingsStore.setSettings("id", data.id)
+            settingsStore.setSettings("username", data.username)
           }
         });
       rootStore
@@ -73,7 +72,8 @@ const Settings = inject(
             settingsStore.setSettings("emailBefore", emailArr[0])
             settingsStore.setSettings("emailAfter", "@" + emailArr[1])
             settingsStore.setSettings("emailConfirmed", data["email-confirmed"])
-            settingsStore.setSettings("avatar", data["avatar"]);
+            settingsStore.setSettings("avatar", data["avatar"])
+            settingsStore.setSettings("invite", data.code)
           }
         });
     }, []);

@@ -47,7 +47,7 @@ class AuthorizationStore {
     @action clickPasswordResetButton = (data) => {
         this.setPasswordReset("errorEmailNotFounedReset", false)
         this.setPasswordReset("emailResetOk", false)
-        this.rootStore.fetchData(`${this.rootStore.url}/password-reset/`, {email: data.email}, "POST")
+        this.rootStore.fetchData(`${this.rootStore.url}/password-reset/`, { email: data.email }, "POST")
             .then((data) => {
                 if (data != undefined) {
                     if (data.a === true) {
@@ -70,7 +70,7 @@ class AuthorizationStore {
 
     @action clickRegistrationButton = (data) => {
         this.setSignup("error", null)
-        this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString(), "username": data.username })
+        this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString(), "username": data.username, "code": data.invite })
             .then((data) => {
                 console.log(data)
                 if (data != undefined) {

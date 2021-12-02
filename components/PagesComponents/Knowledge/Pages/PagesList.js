@@ -121,7 +121,7 @@ const PagesList = inject(
             alignItems="flex-start"
             key={page.id.toString()}
           >
-            <AnimatePresence initial={false}>
+            <AnimatePresence exitBeforeEnter initial={false}>
               {!(expanded === index) &&
                 <Box
                   sx={{ width: "100%", height: "auto" }}

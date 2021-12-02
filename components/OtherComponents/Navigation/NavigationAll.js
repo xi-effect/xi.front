@@ -60,7 +60,8 @@ const NavigationAll = inject(
             settingsStore.setSettings("emailBefore", emailArr[0])
             settingsStore.setSettings("emailAfter", "@" + emailArr[1])
             settingsStore.setSettings("emailConfirmed", data["email-confirmed"])
-            settingsStore.setSettings("avatar", data["avatar"]);
+            settingsStore.setSettings("avatar", data["avatar"])
+            settingsStore.setSettings("invite", data.code)
           }
         });
     }, []);
@@ -119,7 +120,7 @@ const NavigationAll = inject(
               // width: "calc(100% + 16px)",
             }}
           >
-            <Upbar haveRightToolbar={haveRightToolbar} />
+            <Upbar haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
             <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
             <SidebarSecond hoverLeftName={hoverLeftName} />
             {haveRightToolbar && <RightToolbar />}

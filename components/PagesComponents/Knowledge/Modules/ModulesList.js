@@ -123,7 +123,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
           alignItems="flex-start"
           key={index.toString()}
         >
-          <AnimatePresence initial={false}>
+          <AnimatePresence exitBeforeEnter initial={false}>
             {!(expanded === index) &&
               <Box
                 sx={{ width: "100%", height: "auto" }}

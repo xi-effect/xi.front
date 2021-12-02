@@ -52,33 +52,35 @@ const Invite = inject(
         <Tooltip
           title={
             statusCopy
-              ? "Код успешно скопирован в буфер!"
-              : "Кликните чтобы скопировать код"
+              ? "Ссылка успешно скопирован в буфер обмена!"
+              : "Кликните чтобы скопировать ссылку"
           }
         >
           <TextField
             id="invite-code"
-            label="Код приглашения"
-            defaultValue={inviteCode}
+            label="Код-приглашение"
+            defaultValue={settingsStore.settings.invite}
+            onClick={() => {
+              copyToClipboard("https://xieffect.netlify.app/registration?invite=" + settingsStore.settings.invite)
+              setStatusCopy(true)
+            }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <Button sx={{color: 'text.main'}} onClick={() => {
-                    copyToClipboard(inviteCode)
-                    setStatusCopy(true)
-                  }}>
-                  <ContentCopyIcon />
-                </Button>
+                  <Button sx={{ color: 'text.main' }}>
+                    <ContentCopyIcon />
+                  </Button>
                 </InputAdornment>
-        ),
-        readOnly: true,
-        style: {
-          cursor: "pointer",
+              ),
+              readOnly: true,
+              style: {
+                cursor: "pointer",
+                minWidth: 450,
               },
             }}
-            // onClick={copyInviteCode}
+          // onClick={copyInviteCode}
           />
-      </Tooltip>
+        </Tooltip>
       </Grid >
     );
   })

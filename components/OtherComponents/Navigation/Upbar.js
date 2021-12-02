@@ -160,7 +160,7 @@ const Upbar = inject(
   "uiStore",
   "messageStore"
 )(
-  observer(({ rootStore, settingsStore, uiStore, messageStore, children, hasRightToolbar }) => {
+  observer(({ rootStore, settingsStore, uiStore, messageStore, children, haveRightMenu,  haveRightToolbar }) => {
     const theme = useTheme();
     const router = useRouter();
 
@@ -186,6 +186,11 @@ const Upbar = inject(
       }
     }
 
+    const getWidth = () => {
+      if (haveRightMenu) return 'calc(100% - 196px)'
+      if (haveRightToolbar) return 'calc(100% - 18px)'
+      return '100%'
+    }
 
     return (
       <Stack
@@ -195,7 +200,7 @@ const Upbar = inject(
         // spacing={2}
         sx={{
           height: '48px',
-          width: '100%',
+          width: getWidth(),
         }}
       >
         <Typography onClick={() => router.push('/home')} variant="h4" sx={{ ml: 1.5, mr: 'auto', cursor: 'pointer' }}>
@@ -209,7 +214,7 @@ const Upbar = inject(
           {settingsStore.settings.username}
         </Typography>
         <Box
-          sx={{ height: 48, width: 48, m: 1, mb: "22px", mr: hasRightToolbar ? 8 : 1, cursor: 'pointer' }}
+          sx={{ height: 48, width: 48, m: 1, mb: "22px", mr: haveRightToolbar ? 8 : 1, cursor: 'pointer' }}
           ref={anchorRef}
           id="composition-button"
           aria-controls={open ? 'composition-menu' : undefined}
