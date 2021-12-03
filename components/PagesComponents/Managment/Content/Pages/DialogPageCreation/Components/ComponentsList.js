@@ -14,7 +14,7 @@ import ImageComp from './ImageComp';
 import Quiz from './Quiz';
 import List from './List';
 import Markdown from "./Markdown";
-
+import NumberAnswer from "./NumberAnswer";
 
 const PREFIX = 'ComponentsList';
 
@@ -99,6 +99,11 @@ const ModuleSelect = (component, index) => {
     if (component.type === "markdown") return (
         <>
             <Markdown index={index} />
+        </>
+    )
+    if (component.type === "numanswer") return (
+        <>
+            <NumberAnswer index={index} />
         </>
     )
 }

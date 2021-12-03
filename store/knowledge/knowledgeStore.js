@@ -122,14 +122,23 @@ class KnowledgeStore {
     }
   };
 
-  @action isAnswerRight = (index) => {
+  @action isAnswerRight = (index, type = null) => {
     this.page.components[index].successAnswer = false
-    this.page.components[index].rightAnswers.sort()
-    this.page.components[index].userAnswers.sort()
-    if (JSON.stringify(this.page.components[index].rightAnswers) === JSON.stringify(this.page.components[index].userAnswers)) {
-      this.page.components[index].successAnswer = true
-    } else {
-      this.page.components[index].successAnswer = false
+    if (type === "numanswer") {
+      this.page.components[index].userAnswer.replace(",", ".")
+      this.page.components[index].label.replace(",", ".")
+      if (this.page.components[index].userAnswer === this.page.components[index].label) {
+        this.page.components[index].successAnswer = true
+      }
+    }
+    if (type === null) {
+      this.page.components[index].rightAnswers.sort()
+      this.page.components[index].userAnswers.sort()
+      if (JSON.stringify(this.page.components[index].rightAnswers) === JSON.stringify(this.page.components[index].userAnswers)) {
+        this.page.components[index].successAnswer = true
+      } else {
+        this.page.components[index].successAnswer = false
+      }
     }
     console.log("logs", this.page.components[index]);
   };

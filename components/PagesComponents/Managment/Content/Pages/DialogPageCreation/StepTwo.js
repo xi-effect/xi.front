@@ -21,7 +21,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import LineStyleIcon from '@mui/icons-material/LineStyle';
-
+import QuizIcon from '@mui/icons-material/Quiz';
 
 const PREFIX = 'StepTwo';
 
@@ -146,6 +146,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
         { name: "Замечание", icon: <NotificationsIcon />, type: "alert" },
         { name: "Разделитель", icon: <VerticalAlignCenterIcon />, type: "divider" },
         { name: "Список", icon: <ListAltIcon />, type: "list" },
+        { name: "Численный ответ", icon: <QuizIcon />, type: "numanswer" }
     ]
 
 
