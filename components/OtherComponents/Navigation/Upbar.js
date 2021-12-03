@@ -160,7 +160,7 @@ const Upbar = inject(
   "uiStore",
   "messageStore"
 )(
-  observer(({ rootStore, settingsStore, uiStore, messageStore, children, haveRightMenu,  haveRightToolbar }) => {
+  observer(({ rootStore, settingsStore, uiStore, messageStore, children, haveRightMenu, haveRightToolbar }) => {
     const theme = useTheme();
     const router = useRouter();
 
@@ -248,7 +248,10 @@ const Upbar = inject(
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem sx={{ cursor: 'pointer' }} onClick={handleClose}>
+                    <MenuItem sx={{ cursor: 'pointer' }} onClick={() => {
+                      router.push(`/profile/${settingsStore.settings.id}/`)
+                      handleClose()
+                    }}>
                       <ListItemIcon>
                         <AccountCircleIcon fontSize="small" />
                       </ListItemIcon>
