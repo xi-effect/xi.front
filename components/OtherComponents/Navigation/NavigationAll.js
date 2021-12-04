@@ -20,6 +20,7 @@ import socket from "../../../utils/socket";
 
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { motion, useMotionValue, useTransform, useDragControls, useAnimation } from "framer-motion"
+import { useSwipeable } from 'react-swipeable';
 
 const NavigationAll = inject(
   "rootStore",
@@ -120,7 +121,26 @@ const NavigationAll = inject(
     // function startDrag(event) {
     //   dragControls.start(event, { snapToCursor: true })
     // }
+    const config = {
+      delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
+      preventDefaultTouchmoveEvent: false,  // call e.preventDefault *See Details*
+      trackTouch: true,                     // track touch input
+      trackMouse: false,                    // track mouse input
+      rotationAngle: 0,                     // set a rotation angle
+    }
 
+    const handlers = useSwipeable({
+      onSwiped: (eventData) => console.log("User Swiped!", eventData),
+      onSwipedLeft: () => {
+        if (drag === 'center') setDrag('left')
+        if (drag === 'right') setDrag('center')
+      },
+      onSwipedRight: () => {
+        if (drag === 'center') setDrag('right')
+        if (drag === 'left') setDrag('center')
+      },
+      ...config,
+    });
 
     if (!mobile) {
       return (
@@ -221,8 +241,9 @@ const NavigationAll = inject(
                 backgroundColor: "primary.main",
                 minHeight: "100vh",
                 overflow: 'hidden',
-                // width: "calc(100% + 16px)",
+                width: "100%",
               }}
+              component={motion.div}
             >
               <Upbar haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
               {/* <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} /> */}
@@ -265,10 +286,15 @@ const NavigationAll = inject(
                 }}
                 // drag="x"
                 // dragDirectionLock
+                // dragPropagation
+                // dragSnapToOrigin
                 // onDirectionLock={axis => console.log(axis)}
                 // style={{ opacity }}
-                // dragConstraints={{ top: 0, left: 200, right: 200, bottom: 0 }}
+                // onPan={(e, info) => containerX.set(info.offset.x)}
+                // dragConstraints={{ top: 0, left: -200, right: 200, bottom: 200 }}
                 // dragElastic={{ left: 0.5, top: 0, bottom: 0, right: 0.5 }}
+                // dragMomentum
+                // dragElastic={2}
                 variants={dragVariants}
                 // dragTransition={{ bounceStiffness: 10000, bounceDamping: 10 }}
                 // animate={controls}
@@ -280,6 +306,7 @@ const NavigationAll = inject(
                   if (drag === "bottom") return "bottom"
                 }}
                 // style={{ x: containerX }}
+                // onPan={(e, info) => containerX.set(info.offset.x)}
                 // onDrag={(e, info) => {
                 //   console.log('beforeDrag', info, info.offset.x, controls)
                 //   if (info.offset.x > 5) {
@@ -303,43 +330,44 @@ const NavigationAll = inject(
                 // }}
                 // style={{ x: containerX }}
                 component={motion.div}
-                onPan={(e, info) => {
-                  console.log("info", info)
-                  if (info.offset.x > 4 && drag === 'center') {
-                    console.log('goRight')
-                    setDrag('right')
-                  }
-                  if (info.offset.x < -4 && drag === 'right') {
-                    console.log('goCenterFromRight')
-                    setDrag('center')
-                  }
-                  if (info.offset.x < -4 && drag === 'center') {
-                    console.log('goLeft')
-                    setDrag('left')
-                  }
-                  if (info.offset.x > 4 && drag === 'left') {
-                    console.log('goCenterFromLeft')
-                    setDrag('center')
-                  }
-                  if (info.offset.y > 4 && drag === 'center') {
-                    console.log('goBottom')
-                    setDrag('bottom')
-                  }
-                  if (info.offset.y < -4 && drag === 'bottom') {
-                    console.log('goCenterFromBottom')
-                    setDrag('center')
-                  }
-                }}
-              // onPan={onPan}
-              // onDragStart={
-              //   (event, info) => {
-              //     console.log("onDragStart", info, info.point.x, info.point.y)
-              //     if (info.delta.x > 3 && drag === 'center') {
-              //       console.log('goRight')
-              //       setDrag('right')
-              //     }
-              //   } 
-              // }
+                // onPan={(e, info) => {
+                //   console.log("info", info)
+                //   if (info.offset.x > 4 && drag === 'center') {
+                //     console.log('goRight')
+                //     setDrag('right')
+                //   }
+                //   if (info.offset.x < -4 && drag === 'right') {
+                //     console.log('goCenterFromRight')
+                //     setDrag('center')
+                //   }
+                //   if (info.offset.x < -4 && drag === 'center') {
+                //     console.log('goLeft')
+                //     setDrag('left')
+                //   }
+                //   if (info.offset.x > 4 && drag === 'left') {
+                //     console.log('goCenterFromLeft')
+                //     setDrag('center')
+                //   }
+                //   if (info.offset.y > 4 && drag === 'center') {
+                //     console.log('goBottom')
+                //     setDrag('bottom')
+                //   }
+                //   if (info.offset.y < -4 && drag === 'bottom') {
+                //     console.log('goCenterFromBottom')
+                //     setDrag('center')
+                //   }
+                // }}
+                // onPan={onPan}
+                // onDragStart={
+                //   (event, info) => {
+                //     console.log("onDragStart", info, info.point.x, info.point.y)
+                //     if (info.delta.x > 3 && drag === 'center') {
+                //       console.log('goRight')
+                //       setDrag('right')
+                //     }
+                //   } 
+                // }
+                {...handlers}
 
               >
                 {!(router.pathname.includes('/message')) && <Scrollbars
