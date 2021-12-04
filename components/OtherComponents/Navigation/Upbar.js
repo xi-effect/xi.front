@@ -11,6 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ReportIcon from '@mui/icons-material/Report';
 import ReportDialog from "./ReportDialog";
+import MenuIcon from '@mui/icons-material/Menu';
 
 const KnowledgePagesTools = inject(
   "knowledgeStore"
@@ -160,9 +161,10 @@ const Upbar = inject(
   "uiStore",
   "messageStore"
 )(
-  observer(({ rootStore, settingsStore, uiStore, messageStore, children, haveRightMenu, haveRightToolbar }) => {
+  observer(({ rootStore, settingsStore, uiStore, messageStore, children, drag, setDrag, haveRightMenu, haveRightToolbar }) => {
     const theme = useTheme();
     const router = useRouter();
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
     const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -203,7 +205,13 @@ const Upbar = inject(
           width: getWidth(),
         }}
       >
-        <Typography onClick={() => router.push('/home')} variant="h4" sx={{ ml: 1.5, mr: 'auto', cursor: 'pointer' }}>
+        {mobile && <IconButton onClick={() => {
+          if (drag === 'right') setDrag('center')
+          if (drag === 'center') setDrag('right')
+        }} sx={{ ml: 0.4, mr: 0.4, cursor: 'pointer' }}>
+          <MenuIcon sx={{ fontSize: 32 }} />
+        </IconButton>}
+        <Typography onClick={() => router.push('/home')} variant="h4" sx={{ ml: 0.4, mr: 'auto', cursor: 'pointer' }}>
           Ξffect
         </Typography>
         {router.pathname === '/knowledge/pages' && <KnowledgePagesTools />}
