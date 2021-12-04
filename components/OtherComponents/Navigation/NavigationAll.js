@@ -19,7 +19,7 @@ import { io } from "socket.io-client";
 import socket from "../../../utils/socket";
 
 import { Scrollbars } from 'react-custom-scrollbars-2';
-import { motion, useMotionValue, useTransform, useDragControls } from "framer-motion"
+import { motion, useMotionValue, useTransform, useDragControls, useAnimation } from "framer-motion"
 
 const NavigationAll = inject(
   "rootStore",
@@ -109,15 +109,18 @@ const NavigationAll = inject(
     }
 
     const x = useMotionValue(0)
+    const containerX = useMotionValue(0)
     const opacity = useTransform(x, [-100, 0, 100], [0.4, 1, 0.4])
+    const controls = useAnimation()
 
-    const [dragX, setDragX] = React.useState('center')
+    const [drag, setDrag] = React.useState('center')
 
     // const dragControls = useDragControls()
 
     // function startDrag(event) {
     //   dragControls.start(event, { snapToCursor: true })
     // }
+
 
     if (!mobile) {
       return (
@@ -189,13 +192,20 @@ const NavigationAll = inject(
 
     const dragVariants = {
       left: {
-        x: "200px",
+        x: -200,
+        y: 0,
       },
       center: {
         x: 0,
+        y: 0,
       },
       right: {
-        x: "-200px",
+        x: 200,
+        y: 0,
+      },
+      bottom: {
+        x: 0,
+        y: 200,
       }
     }
 
@@ -232,6 +242,9 @@ const NavigationAll = inject(
               >
                 <SideDownbar />
               </Box> */}
+              <Button sx={{ position: 'fixed', top: 8, left: 124, bgcolor: 'text.main' }} onClick={() => setDrag('right')}>
+                Изменить
+              </Button>
               <Paper
                 onMouseEnter={() => setHoverLeftName(null)}
                 elevation={2}
@@ -250,23 +263,84 @@ const NavigationAll = inject(
                   borderTopRightRadius: 24,
                   backgroundColor: "background.main",
                 }}
-                drag
-                dragDirectionLock
-                onDirectionLock={axis => console.log(axis)}
-                style={{ opacity }}
-                // dragConstraints={{ left: 100, right: 100 }}
+                // drag="x"
+                // dragDirectionLock
+                // onDirectionLock={axis => console.log(axis)}
+                // style={{ opacity }}
+                // dragConstraints={{ top: 0, left: 200, right: 200, bottom: 0 }}
+                // dragElastic={{ left: 0.5, top: 0, bottom: 0, right: 0.5 }}
                 variants={dragVariants}
+                // dragTransition={{ bounceStiffness: 10000, bounceDamping: 10 }}
+                // animate={controls}
                 animate={() => {
-                  if (dragX === "left") return "left"
-                  if (dragX === "center") return "center"
-                  if (dragX === "right") return "right"
+                  console.log("animate", drag)
+                  if (drag === "left") return "left"
+                  if (drag === "center") return "center"
+                  if (drag === "right") return "right"
+                  if (drag === "bottom") return "bottom"
                 }}
+                // style={{ x: containerX }}
+                // onDrag={(e, info) => {
+                //   console.log('beforeDrag', info, info.offset.x, controls)
+                //   if (info.offset.x > 5) {
+                //     console.log('goRight', controls)
+                //     controls.stop("center")
+                //     controls.start("right")
+                //   }
+                //   if (info.offset.x < -5) {
+                //     console.log('goCenterFromRight')
+                //     controls.stop("right")
+                //     controls.start("center")
+                //   }
+                // }}
+                // onDragEnd={() => {
+                //   console.log('onDragEnd', containerX)
+                //   if (containerX.current > 2) {
+                //     console.log('goRight')
+                //     // setDrag('right')
+                //     containerX.set(700)
+                //   }
+                // }}
+                // style={{ x: containerX }}
                 component={motion.div}
-                // onPan={onPan}
-                dragElastic={0.8}
-                onDragStart={
-                  (event, info) => console.log("onDragStart", info, info.point.x, info.point.y)
-                }
+                onPan={(e, info) => {
+                  console.log("info", info)
+                  if (info.offset.x > 4 && drag === 'center') {
+                    console.log('goRight')
+                    setDrag('right')
+                  }
+                  if (info.offset.x < -4 && drag === 'right') {
+                    console.log('goCenterFromRight')
+                    setDrag('center')
+                  }
+                  if (info.offset.x < -4 && drag === 'center') {
+                    console.log('goLeft')
+                    setDrag('left')
+                  }
+                  if (info.offset.x > 4 && drag === 'left') {
+                    console.log('goCenterFromLeft')
+                    setDrag('center')
+                  }
+                  if (info.offset.y > 4 && drag === 'center') {
+                    console.log('goBottom')
+                    setDrag('bottom')
+                  }
+                  if (info.offset.y < -4 && drag === 'bottom') {
+                    console.log('goCenterFromBottom')
+                    setDrag('center')
+                  }
+                }}
+              // onPan={onPan}
+              // onDragStart={
+              //   (event, info) => {
+              //     console.log("onDragStart", info, info.point.x, info.point.y)
+              //     if (info.delta.x > 3 && drag === 'center') {
+              //       console.log('goRight')
+              //       setDrag('right')
+              //     }
+              //   } 
+              // }
+
               >
                 {!(router.pathname.includes('/message')) && <Scrollbars
                   universal={true}
@@ -276,13 +350,13 @@ const NavigationAll = inject(
                   autoHideDuration={200}
                 >
                   {children}
-
                 </Scrollbars>}
                 {router.pathname.includes('/message') && children}
               </Paper>
               {/* <ChatDialog /> */}
             </Box>
-          )}
+          )
+          }
         </>
       );
     }
