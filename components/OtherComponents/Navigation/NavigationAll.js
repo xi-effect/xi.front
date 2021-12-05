@@ -95,14 +95,9 @@ const NavigationAll = inject(
 
     const getWidth = () => {
       let w = 240
-      if (haveRightToolbar) w = w + 48
+      if (haveRightToolbar) w = w + 64
       if (haveRightMenu) w = w + 156
       return w
-    }
-
-    const getBorderTopRightRadius = () => {
-      let btrr = (haveRightMenu || haveRightToolbar) ? 32 : 2
-      return btrr
     }
 
     const getMarginLeft = () => {
@@ -218,12 +213,14 @@ const NavigationAll = inject(
 
     const getRightDV = () => {
       // if (router.pathname === '/home' || router.pathname === '/settings') return 64
-      return 256
+      if (haveRightToolbar) return -64
+      if (haveRightMenu) return -256
+      return -256
     }
 
     const dragVariants = {
       left: {
-        x: -256,
+        x: getRightDV(),
         y: 0,
       },
       center: {
@@ -231,7 +228,7 @@ const NavigationAll = inject(
         y: 0,
       },
       right: {
-        x: getRightDV(),
+        x: 256,
         y: 0,
       },
       bottom: {
@@ -240,7 +237,16 @@ const NavigationAll = inject(
       }
     }
 
-    const SidebarVariants = {
+    const SidebarVariantsLeft = {
+      visible: {
+        x: 0,
+      },
+      hidden: {
+        x: 200
+      }
+    }
+
+    const SidebarVariantsRight = {
       visible: {
         x: 0,
       },
@@ -261,24 +267,57 @@ const NavigationAll = inject(
                 backgroundColor: "primary.main",
                 minHeight: "100vh",
                 overflow: 'hidden',
-                width: "100%",
+                // width: "100%",
               }}
+              {...handlers}
             >
               <AnimatePresence initial={false}>
                 {drag === 'right' && <Box
                   component={motion.div}
-                  variants={SidebarVariants}
+                  variants={SidebarVariantsRight}
                   initial={{ x: -200 }}
                   animate="visible"
                   transition={{
                     delay: 0,
                     duration: 0.5,
                   }}
-                  exit={{ x: -200 }}
+                  exit={{ x: -200, opacity: 0 }}
                   sx={{ zIndex: 100 }}
                 >
                   <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
                   <SidebarSecond hoverLeftName={hoverLeftName} />
+                </Box>}
+              </AnimatePresence>
+              <AnimatePresence initial={false}>
+                {drag === 'left' && haveRightToolbar && <Box
+                  component={motion.div}
+                  variants={SidebarVariantsLeft}
+                  initial={{ x: 200 }}
+                  animate="visible"
+                  transition={{
+                    delay: 0,
+                    duration: 0.5,
+                  }}
+                  exit={{ x: 200, opacity: 0 }}
+                  sx={{ zIndex: 100 }}
+                >
+                  <RightToolbar />
+                </Box>}
+              </AnimatePresence>
+              <AnimatePresence initial={false}>
+                {drag === 'left' && haveRightMenu && <Box
+                  component={motion.div}
+                  variants={SidebarVariantsLeft}
+                  initial={{ x: 200 }}
+                  animate="visible"
+                  transition={{
+                    delay: 0,
+                    duration: 0.5,
+                  }}
+                  exit={{ x: 200, opacity: 0 }}
+                  sx={{ zIndex: 100 }}
+                >
+                  <RightMenu />
                 </Box>}
               </AnimatePresence>
               <Box
@@ -303,7 +342,6 @@ const NavigationAll = inject(
                   delay: 0,
                   duration: 0.5,
                 }}
-                {...handlers}
               >
                 <Upbar drag={drag} setDrag={setDrag} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
                 <Paper
@@ -324,7 +362,6 @@ const NavigationAll = inject(
                     borderTopRightRadius: 24,
                     backgroundColor: "background.main",
                   }}
-
                 >
                   {!(router.pathname.includes('/message')) && <Scrollbars
                     universal={true}

@@ -33,8 +33,8 @@ const Invite = dynamic(() =>
   import("./../../components/PagesComponents/Settings/Invite")
 );
 
-const Castomize = dynamic(() =>
-  import("./../../components/PagesComponents/Settings/Castomize")
+const Customize = dynamic(() =>
+  import("./../../components/PagesComponents/Settings/Customize")
 );
 
 const UserAvatar = dynamic(() =>
@@ -210,7 +210,7 @@ const Settings = inject(
                     <Typography>Внешний вид приложения</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Castomize />
+                    <Customize />
                   </AccordionDetails>
                 </Accordion>
                 <Accordion

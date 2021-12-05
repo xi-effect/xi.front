@@ -4,7 +4,7 @@ import { Grid, FormControl, useTheme, InputLabel, TextField, OutlinedInput, Form
 import { inject, observer } from 'mobx-react'
 import DarkModeToggle from "react-dark-mode-toggle"
 
-const Castomize = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore }) => {
+const Customize = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore }) => {
     const theme = useTheme()
 
     // const [isDarkMode, setIsDarkMode] = useState(() => false);
@@ -51,4 +51,4 @@ const Castomize = inject('rootStore', 'settingsStore')(observer(({ rootStore, se
     );
 }))
 
-export default Castomize
+export default Customize
