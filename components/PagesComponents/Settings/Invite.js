@@ -48,6 +48,9 @@ const Invite = inject(
         direction="row"
         justifyContent="flex-start"
         alignItems="flex-start"
+        sx={{
+          width: "100%"
+        }}
       >
         <Tooltip
           title={
@@ -75,7 +78,7 @@ const Invite = inject(
               readOnly: true,
               style: {
                 cursor: "pointer",
-                minWidth: 450,
+                width: "100%",
               },
             }}
           // onClick={copyInviteCode}

@@ -49,6 +49,24 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
         messageStore.loadChatsInMenu()
     }, [])
 
+    const menuHome = [
+        {
+            id: 0,
+            label: "Профиль 1",
+            href: '/home?profile=1',
+        },
+        {
+            id: 1,
+            label: "Профиль 2",
+            href: '/home?profile=2',
+        },
+        {
+            id: 2,
+            label: "Профиль 3",
+            href: '/home?profile=3',
+        },
+    ]
+
     const menuKnowledge = [
         {
             id: 0,
@@ -62,16 +80,26 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
         },
     ]
 
-    const menuManagment = [
+    const menuSettings = [
         {
             id: 0,
-            label: "Страницы",
-            href: '/managment/content/page',
+            label: "# Безопасность",
+            href: 'secure',
         },
         {
             id: 1,
-            label: "Модули",
-            href: '/managment/content/module',
+            label: "# Аватар",
+            href: 'useravatar',
+        },
+        {
+            id: 2,
+            label: "# Внешний вид",
+            href: 'castomize',
+        },
+        {
+            id: 3,
+            label: "# Приглашения",
+            href: 'invite',
         },
     ]
 
@@ -81,30 +109,93 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
     }
 
     return (
-        <Grow
-            in={hoverLeftName !== null}
-            style={{ transformOrigin: '0 0 0' }}
-            {...(hoverLeftName !== null ? { timeout: 1500 } : {})}
+        <Stack
+            // onMouseEnter={() => {
+            //     if(router.pathname.includes('/managment') || router.pathname.includes('/messages') || router.pathname.includes('/knowledge'))   setHoverLeft(true)
+            // }}
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            spacing={1}
+            sx={{
+                zIndex: 0,
+                position: 'absolute',
+                left: 64,
+                m: 0,
+                p: 0,
+                width: 186,
+                height: '100%',
+            }}
         >
-            <Stack
-                // onMouseEnter={() => {
-                //     if(router.pathname.includes('/managment') || router.pathname.includes('/messages') || router.pathname.includes('/knowledge'))   setHoverLeft(true)
-                // }}
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                spacing={1}
+            <Typography
                 sx={{
-                    zIndex: 0,
-                    position: 'absolute',
-                    marginTop: 2,
-                    marginLeft: 8.5,
-                    marginRight: 0.5,
-                    width: 148,
-                    height: 'calc(100% - 72px)',
+                    width: "100%",
+                    height: "48px",
+                    bgcolor: '#000',
+                    borderBottomLeftRadius: "16px",
+                    borderBottomRightRadius: "16px",
+                    // mt: '16px',
+                    fontSize: 24,
+                    p: 1
                 }}
             >
-                {hoverLeftName === '/knowledge' && menuKnowledge.map((item, index) => (
+                {hoverLeftName === '/home' && "Главная"}
+                {hoverLeftName === '/knowledge' && "Знания"}
+                {hoverLeftName === '/messages' && "Общение"}
+                {hoverLeftName === '/settings' && "Настройки"}
+            </Typography>
+            {
+                hoverLeftName === '/home' && menuHome.map((item, index) => (
+                    <Typography
+                        component={motion.p}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => router.push(`${item.href}`)}
+                        key={index.toString()}
+                        sx={{
+                            "&:hover": {
+                                bgcolor: 'primary.light',
+                            },
+                            pl: 1,
+                            pr: 1,
+                            pt: 0.2,
+                            pb: 0.2,
+                            fontSize: 22,
+                            width: '100%',
+                            borderRadius: 1,
+                            bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        {item.label.toLowerCase()}
+                    </Typography>
+                ))
+            }
+            {
+                hoverLeftName === '/home' &&
+                <Typography
+                    component={motion.p}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    sx={{
+                        "&:hover": {
+                            bgcolor: 'primary.light',
+                        },
+                        pl: 1,
+                        pr: 1,
+                        pt: 0.2,
+                        pb: 0.2,
+                        fontSize: 18,
+                        width: '100%',
+                        borderRadius: 1,
+                        cursor: 'pointer',
+                    }}
+                >
+                    {'Создать профиль'}
+                </Typography>
+            }
+            {
+                hoverLeftName === '/knowledge' && menuKnowledge.map((item, index) => (
                     <Typography
                         component={motion.p}
                         whileHover={{ scale: 1.1 }}
@@ -115,10 +206,11 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                             "&:hover": {
                                 bgcolor: 'primary.light',
                             },
-                            pl: 0.3,
-                            pr: 0.3,
+                            pl: 1,
+                            pr: 1,
                             pt: 0.2,
                             pb: 0.2,
+                            fontSize: 22,
                             width: '100%',
                             borderRadius: 1,
                             bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
@@ -127,32 +219,10 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                     >
                         {item.label.toLowerCase()}
                     </Typography>
-                ))}
-                {hoverLeftName === '/managment/content' && menuManagment.map((item, index) => (
-                    <Typography
-                        component={motion.p}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => router.push(`${item.href}s`)}
-                        key={index.toString()}
-                        sx={{
-                            "&:hover": {
-                                bgcolor: 'primary.light',
-                            },
-                            pl: 0.3,
-                            pr: 0.3,
-                            pt: 0.2,
-                            pb: 0.2,
-                            width: '100%',
-                            borderRadius: 1,
-                            bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
-                            cursor: 'pointer',
-                        }}
-                    >
-                        {item.label.toLowerCase()}
-                    </Typography>
-                ))}
-                {hoverLeftName === '/messages' && messageStore.menu.chats.map((item, index) => (
+                ))
+            }
+            {
+                hoverLeftName === '/messages' && messageStore.menu.chats.map((item, index) => (
                     <Grid
                         container
                         direction="row"
@@ -188,10 +258,37 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                             {getUnreadCount(item.unread)}
                         </Typography>
                     </Grid>
-                ))}
+                ))
+            }
+            {
+                hoverLeftName === '/settings' && menuSettings.map((item, index) => (
+                    <Typography
+                        component={motion.p}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => router.push(`/settings?option=${item.href}`)}
+                        key={index.toString()}
+                        sx={{
+                            "&:hover": {
+                                bgcolor: 'primary.light',
+                            },
+                            pl: 1,
+                            pr: 1,
+                            pt: 0.2,
+                            pb: 0.2,
+                            fontSize: 22,
+                            width: '100%',
+                            borderRadius: 1,
+                            cursor: 'pointer',
+                            bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
+                        }}
+                    >
+                        {item.label.toLowerCase()}
+                    </Typography>
+                ))
+            }
 
-            </Stack>
-        </Grow>
+        </Stack >
     )
 }));
 

@@ -1,7 +1,6 @@
 import Head from "next/head";
-import { styled } from "@mui/material/styles";
 import Link from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import React from "react";
 import {
@@ -50,6 +49,7 @@ const Settings = inject(
   observer(({ rootStore, settingsStore, messageStore }) => {
     const theme = useTheme()
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"))
+    const router = useRouter()
 
     React.useEffect(() => {
       rootStore
@@ -77,6 +77,17 @@ const Settings = inject(
           }
         });
     }, []);
+
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleChange = (panel) => (event, isExpanded) => {
+      setExpanded(isExpanded ? panel : false);
+    };
+
+    React.useEffect(() => {
+      console.log("query", router.query)
+      if (router.query.option) setExpanded(router.query.option)
+    }, [router.query])
 
     return (
       <>
@@ -156,6 +167,8 @@ const Settings = inject(
               >
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "background.1" }}
+                  expanded={expanded === 'secure'}
+                  onChange={handleChange('secure')}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -170,6 +183,8 @@ const Settings = inject(
                 </Accordion>
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "background.1" }}
+                  expanded={expanded === 'useravatar'}
+                  onChange={handleChange('useravatar')}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -184,6 +199,8 @@ const Settings = inject(
                 </Accordion>
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "background.1" }}
+                  expanded={expanded === 'castomize'}
+                  onChange={handleChange('castomize')}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -198,6 +215,8 @@ const Settings = inject(
                 </Accordion>
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "background.1" }}
+                  expanded={expanded === 'invite'}
+                  onChange={handleChange('invite')}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}

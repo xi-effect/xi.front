@@ -12,6 +12,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ReportIcon from '@mui/icons-material/Report';
 import ReportDialog from "./ReportDialog";
 import MenuIcon from '@mui/icons-material/Menu';
+import InfoIcon from '@mui/icons-material/Info';
 
 const KnowledgePagesTools = inject(
   "knowledgeStore"
@@ -294,6 +295,12 @@ const Upbar = inject(
             </Grow>
           )}
         </Popper>
+        {mobile && <IconButton onClick={() => {
+          if (drag === 'left') setDrag('center')
+          if (drag === 'center') setDrag('left')
+        }} sx={{ ml: 0.4, mr: 0.4, cursor: 'pointer' }}>
+          <InfoIcon sx={{ fontSize: 32 }} />
+        </IconButton>}
         <ReportDialog open={openDialog} setOpen={setOpenDialog} />
       </Stack>
     );

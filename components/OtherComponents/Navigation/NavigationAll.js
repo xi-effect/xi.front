@@ -82,14 +82,21 @@ const NavigationAll = inject(
     }
 
 
+
     const [hoverRight, setHoverRight] = React.useState(false)
-    const [hoverLeftName, setHoverLeftName] = React.useState(null)
+    const [hoverLeftName, setHoverLeftName] = React.useState('')
+
+    React.useEffect(() => {
+      if (router.pathname.includes('/home'))  setHoverLeftName('/home')
+      if (router.pathname.includes('/knowledge'))  setHoverLeftName('/knowledge')
+      if (router.pathname.includes('/messages'))  setHoverLeftName('/messages')
+      if (router.pathname.includes('/settings'))  setHoverLeftName('/settings')
+    }, [router.pathname]);
 
     const getWidth = () => {
       let w = 70
       if (haveRightToolbar) w = w + 48
       if (haveRightMenu) w = w + 156
-      if (hoverLeftName !== null) w = w + 156
       return w
     }
 
@@ -99,8 +106,7 @@ const NavigationAll = inject(
     }
 
     const getMarginLeft = () => {
-      let ml = "70px"
-      if (hoverLeftName !== null) ml = "226px"
+      let ml = "226px"
       return ml
     }
 
@@ -205,12 +211,12 @@ const NavigationAll = inject(
 
     const getRightDV = () => {
       // if (router.pathname === '/home' || router.pathname === '/settings') return 64
-      return 200
+      return 256
     }
 
     const dragVariants = {
       left: {
-        x: -200,
+        x: -256,
         y: 0,
       },
       center: {
@@ -252,7 +258,6 @@ const NavigationAll = inject(
               }}
               component={motion.div}
             >
-              <Upbar drag={drag} setDrag={setDrag} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
               <AnimatePresence initial={false}>
                 {drag === 'right' && <Box
                   component={motion.div}
@@ -270,42 +275,16 @@ const NavigationAll = inject(
                   <SidebarSecond hoverLeftName={hoverLeftName} />
                 </Box>}
               </AnimatePresence>
-              {/* {haveRightToolbar && <RightToolbar />} */}
-              {/* {haveRightMenu && <RightMenu />} */}
-              {/* <Box
+              <Box
                 sx={{
-                  display: {
-                    xs: "block",
-                    sm: "block",
-                    md: "none",
-                    lg: "none",
-                    xl: "none",
-                  },
+                  zIndex: 0,
+                  // display: "flex",
+                  backgroundColor: "primary.main",
+                  minHeight: "100vh",
+                  overflow: 'hidden',
+                  width: "100%",
                 }}
-              >
-                <SideDownbar />
-              </Box> */}
-              {/* <Button sx={{ position: 'fixed', top: 8, left: 124, bgcolor: 'text.main' }} onClick={() => setDrag('right')}>
-                Изменить
-              </Button> */}
-              <Paper
-                onMouseEnter={() => setHoverLeftName(null)}
-                elevation={2}
-                sx={{
-                  transition: '0.8s',
-                  zIndex: 1,
-                  margin: 0,
-                  overflow: 'auto',
-                  width: `calc(100% - ${getWidthMobile()}px)`,
-                  // width: `100%`,
-                  height: "calc(100vh - 48px)",
-                  // marginLeft: getMarginLeftMobile(),
-                  ml: 2,
-                  // mr: 1,
-                  borderTopLeftRadius: 24,
-                  borderTopRightRadius: 24,
-                  backgroundColor: "background.main",
-                }}
+                component={motion.div}
                 variants={dragVariants}
                 animate={() => {
                   console.log("animate", drag)
@@ -316,24 +295,44 @@ const NavigationAll = inject(
                 }}
                 transition={{
                   delay: 0,
-                  duration: 0.05,
+                  duration: 0.5,
                 }}
-                component={motion.div}
                 {...handlers}
-
               >
-                {!(router.pathname.includes('/message')) && <Scrollbars
-                  universal={true}
-                  style={{ width: "100%", height: "100%" }}
-                  autoHide
-                  autoHideTimeout={1000}
-                  autoHideDuration={200}
+                <Upbar drag={drag} setDrag={setDrag} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
+                <Paper
+                  onMouseEnter={() => setHoverLeftName(null)}
+                  elevation={2}
+                  sx={{
+                    transition: '0.8s',
+                    zIndex: 1,
+                    margin: 0,
+                    overflow: 'auto',
+                    width: `calc(100% - ${getWidthMobile()}px)`,
+                    // width: `100%`,
+                    height: "calc(100vh - 48px)",
+                    // marginLeft: getMarginLeftMobile(),
+                    ml: 2,
+                    // mr: 1,
+                    borderTopLeftRadius: 24,
+                    borderTopRightRadius: 24,
+                    backgroundColor: "background.main",
+                  }}
+
                 >
-                  {children}
-                </Scrollbars>}
-                {router.pathname.includes('/message') && children}
-              </Paper>
-              {/* <ChatDialog /> */}
+                  {!(router.pathname.includes('/message')) && <Scrollbars
+                    universal={true}
+                    style={{ width: "100%", height: "100%" }}
+                    autoHide
+                    autoHideTimeout={1000}
+                    autoHideDuration={200}
+                  >
+                    {children}
+                  </Scrollbars>}
+                  {router.pathname.includes('/message') && children}
+                </Paper>
+                {/* <ChatDialog /> */}
+              </Box>
             </Box>
           )
           }

@@ -68,18 +68,12 @@ const Sidebar = inject(
       messageStore,
       hoverLeft,
       setHoverLeft,
+      hoverLeftName,
       setHoverLeftName,
     }) => {
       const theme = useTheme();
       const router = useRouter();
-
-      const defaultExpandedFn = () => {
-        if (router.pathname.includes("/knowledge")) return ["2"];
-        if (router.pathname.includes("/managment")) return ["12"];
-        // if (router.pathname.include("/knowledge")) return ['2']
-        return ["1"];
-      };
-
+      // console.log("rerenderSidebar")
       const menuList = [
         {
           id: 0,
@@ -101,12 +95,6 @@ const Sidebar = inject(
         },
         {
           id: 3,
-          icon: <AddToQueueIcon sx={{ fontSize: 28 }} />,
-          label: "Студия",
-          href: "/managment/content",
-        },
-        {
-          id: 4,
           icon: <SettingsIcon sx={{ fontSize: 28 }} />,
           label: "Настройки",
           href: "/settings",
@@ -121,52 +109,42 @@ const Sidebar = inject(
           spacing={2}
           sx={{
             position: "absolute",
-            marginTop: 2,
-            width: 70,
+            marginTop: 1.5,
+            width: 60,
             height: "calc(100% - 72px)",
           }}
         >
           {menuList.map((item, index) => (
-            <div key={index.toString()}>
-              <Tooltip placement="right" title={item.label}>
-                <IconButton
-                  component={motion.li}
-                  whileHover={{ scale: 1.15 }}
-                  whileTap={{ scale: 0.95 }}
-                  onMouseEnter={() => {
-                    if (
-                      item.href.includes("/managment") ||
-                      item.href.includes("/messages") ||
-                      item.href.includes("/knowledge")
-                    )
-                      setHoverLeftName(item.href);
-                    if (
-                      item.href.includes("/home") ||
-                      item.href.includes("/settings")
-                    )
-                      setHoverLeftName(null);
-                  }}
-                  onClick={() => {
-                    if (
-                      !item.href.includes("/knowledge") &&
-                      !item.href.includes("/messages") &&
-                      !item.href.includes("/managment")
-                    )
-                      router.push(item.href);
-                  }}
-                  sx={{
-                    bgcolor: router.pathname.includes(item.href)
-                      ? "primary.light"
-                      : "secondary.main",
-                    borderRadius: 2,
-                  }}
-                >
-                  {item.icon}
-                </IconButton>
-              </Tooltip>
-            </div>
+            <Tooltip key={index.toString()} placement="right" title={item.label}>
+              <IconButton
+                component={motion.li}
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                onMouseEnter={() => {
+                  console.log("setHoverLeftName", item.href)
+                  setHoverLeftName(item.href)
+                }}
+                // onClick={() => {
+                //   if (
+                //     !item.href.includes("/knowledge") &&
+                //     !item.href.includes("/messages") &&
+                //     !item.href.includes("/managment")
+                //   )
+                //     router.push(item.href);
+                // }}
+                sx={{
+                  bgcolor: hoverLeftName === item.href ? "#002" : "secondary.main",
+                  borderRadius: 2,
+                  "&:hover": {
+                    bgcolor: hoverLeftName === item.href ? "#002" : "secondary.main",
+                  },
+                }}
+              >
+                {item.icon}
+              </IconButton>
+            </Tooltip>
           ))}
-        </Stack>
+        </Stack >
       );
     }
   )
