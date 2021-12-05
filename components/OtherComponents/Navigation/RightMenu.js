@@ -3,7 +3,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Box, Button, Link, useTheme, IconButton, Tooltip, Drawer, Stack, Typography } from "@mui/material";
+import { Box, Button, useMediaQuery, Link, useTheme, IconButton, Tooltip, Drawer, Stack, Typography } from "@mui/material";
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
@@ -21,9 +21,8 @@ const KnowledgeModuleToolsWithMap = inject(
   "knowledgeStore",
 )(
   observer(({ knowledgeStore, goNext }) => {
-    const theme = useTheme();
+    const theme = useTheme()
     const router = useRouter()
-
     return (
       <>
         <Typography variant="subtitle1" sx={{ ml: 0.5 }}>карта модуля:</Typography>
@@ -246,6 +245,7 @@ const RightMenu = inject(
 )(
   observer(({ rootStore, knowledgeStore }) => {
     const router = useRouter();
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"))
 
     const goNext = () => {
       if (!router.pathname.includes('/knowledge/module/results')) {
@@ -282,7 +282,7 @@ const RightMenu = inject(
           right: 0,
           height: 'calc(100vh - 72px)',
           width: '156px',
-          pb: 2,
+          pb: mobile ? 10 : 2,
           pt: 0,
         }}
       >

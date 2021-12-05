@@ -110,11 +110,6 @@ const NavigationAll = inject(
       return w
     }
 
-    const [drag, setDrag] = React.useState('center')
-
-    // function startDrag(event) {
-    //   dragControls.start(event, { snapToCursor: true })
-    // }
     const config = {
       delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
       preventDefaultTouchmoveEvent: false,  // call e.preventDefault *See Details*
@@ -126,12 +121,12 @@ const NavigationAll = inject(
     const handlers = useSwipeable({
       onSwiped: (eventData) => console.log("User Swiped!", eventData),
       onSwipedLeft: () => {
-        if (drag === 'center') setDrag('left')
-        if (drag === 'right') setDrag('center')
+        if (uiStore.navigation.swipe === 'center' && (haveRightMenu || haveRightToolbar)) uiStore.setNavigation('swipe', 'left')
+        if (uiStore.navigation.swipe === 'right') uiStore.setNavigation('swipe', 'center')
       },
       onSwipedRight: () => {
-        if (drag === 'center') setDrag('right')
-        if (drag === 'left') setDrag('center')
+        if (uiStore.navigation.swipe === 'center') uiStore.setNavigation('swipe', 'right')
+        if (uiStore.navigation.swipe === 'left') uiStore.setNavigation('swipe', 'center')
       },
       ...config,
     });
@@ -170,7 +165,7 @@ const NavigationAll = inject(
                   ml: 32,
                 }}
               >
-                <Upbar drag={drag} setDrag={setDrag} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
+                <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
                 <Paper
                   onMouseEnter={() => setHoverLeftName(null)}
                   elevation={2}
@@ -211,16 +206,16 @@ const NavigationAll = inject(
       );
     }
 
-    const getRightDV = () => {
+    const getLeftDV = () => {
       // if (router.pathname === '/home' || router.pathname === '/settings') return 64
       if (haveRightToolbar) return -64
-      if (haveRightMenu) return -256
-      return -256
+      if (haveRightMenu) return -156
+      return 0
     }
 
     const dragVariants = {
       left: {
-        x: getRightDV(),
+        x: getLeftDV(),
         y: 0,
       },
       center: {
@@ -272,10 +267,10 @@ const NavigationAll = inject(
               {...handlers}
             >
               <AnimatePresence initial={false}>
-                {drag === 'right' && <Box
+                {uiStore.navigation.swipe === 'right' && <Box
                   component={motion.div}
                   variants={SidebarVariantsRight}
-                  initial={{ x: -200 }}
+                  // initial={{ x: -200 }}
                   animate="visible"
                   transition={{
                     delay: 0,
@@ -289,10 +284,10 @@ const NavigationAll = inject(
                 </Box>}
               </AnimatePresence>
               <AnimatePresence initial={false}>
-                {drag === 'left' && haveRightToolbar && <Box
+                {uiStore.navigation.swipe === 'left' && haveRightToolbar && <Box
                   component={motion.div}
                   variants={SidebarVariantsLeft}
-                  initial={{ x: 200 }}
+                  // initial={{ x: 200 }}
                   animate="visible"
                   transition={{
                     delay: 0,
@@ -305,10 +300,10 @@ const NavigationAll = inject(
                 </Box>}
               </AnimatePresence>
               <AnimatePresence initial={false}>
-                {drag === 'left' && haveRightMenu && <Box
+                {uiStore.navigation.swipe === 'left' && haveRightMenu && <Box
                   component={motion.div}
                   variants={SidebarVariantsLeft}
-                  initial={{ x: 200 }}
+                  // initial={{ x: 200 }}
                   animate="visible"
                   transition={{
                     delay: 0,
@@ -331,19 +326,20 @@ const NavigationAll = inject(
                 }}
                 component={motion.div}
                 variants={dragVariants}
+                initial={{ x: uiStore.navigation.swipe === 'right' ? 200 : 0 }}
                 animate={() => {
-                  console.log("animate", drag)
-                  if (drag === "left") return "left"
-                  if (drag === "center") return "center"
-                  if (drag === "right") return "right"
-                  if (drag === "bottom") return "bottom"
+                  console.log("animate", uiStore.navigation.swipe)
+                  if (uiStore.navigation.swipe === "left") return "left"
+                  if (uiStore.navigation.swipe === "center") return "center"
+                  if (uiStore.navigation.swipe === "right") return "right"
+                  if (uiStore.navigation.swipe === "bottom") return "bottom"
                 }}
                 transition={{
                   delay: 0,
                   duration: 0.5,
                 }}
               >
-                <Upbar drag={drag} setDrag={setDrag} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
+                <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
                 <Paper
                   onMouseEnter={() => setHoverLeftName(null)}
                   elevation={2}

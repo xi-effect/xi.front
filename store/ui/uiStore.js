@@ -11,6 +11,14 @@ class UIStore {
         makeObservable(this)
     }
 
+    @observable navigation = {
+        swipe: 'center',
+    }
+
+    @action setNavigation = (name, value) => {
+        this.navigation[name] = value
+    }
+
     //Loading Screen
     @observable loading = {
         "/": true,

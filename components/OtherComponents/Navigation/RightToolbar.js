@@ -3,7 +3,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Box, Button, useTheme, IconButton, Tooltip, Drawer, Stack, Typography } from "@mui/material";
+import { Box, Button, useTheme, useMediaQuery, IconButton, Tooltip, Drawer, Stack, Typography } from "@mui/material";
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
@@ -113,6 +113,7 @@ const RightToolbar = inject(
 )(
   observer(({ rootStore }) => {
     const router = useRouter();
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"))
 
     return (
       <Stack
@@ -126,7 +127,7 @@ const RightToolbar = inject(
           right: 0,
           height: 'calc(100vh - 72px)',
           width: '64px',
-          pb: 2,
+          pb: mobile ? 10 : 2,
           pt: 0,
         }}
       >

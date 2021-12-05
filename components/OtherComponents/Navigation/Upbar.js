@@ -162,7 +162,7 @@ const Upbar = inject(
   "uiStore",
   "messageStore"
 )(
-  observer(({ rootStore, settingsStore, uiStore, messageStore, children, drag, setDrag, haveRightMenu, haveRightToolbar }) => {
+  observer(({ rootStore, settingsStore, uiStore, messageStore, children, swipe, setSwipe, haveRightMenu, haveRightToolbar }) => {
     const theme = useTheme();
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -189,11 +189,11 @@ const Upbar = inject(
       }
     }
 
-    const getWidth = () => {
-      if (haveRightMenu) return 'calc(100% - 196px)'
-      if (haveRightToolbar) return 'calc(100% - 18px)'
-      return '100%'
-    }
+    // const getWidth = () => {
+    //   if (haveRightMenu) return 'calc(100% - 196px)'
+    //   if (haveRightToolbar) return 'calc(100% - 18px)'
+    //   return '100%'
+    // }
 
     return (
       <Stack
@@ -203,12 +203,13 @@ const Upbar = inject(
         // spacing={2}
         sx={{
           height: '48px',
-          width: getWidth(),
+          // width: getWidth(),
+          width: '100%',
         }}
       >
         {mobile && <IconButton onClick={() => {
-          if (drag === 'right') setDrag('center')
-          if (drag === 'center') setDrag('right')
+          if (swipe === 'right') setSwipe('swipe', 'center')
+          if (swipe === 'center') setSwipe('swipe', 'right')
         }} sx={{ ml: 0.4, mr: 0.4, cursor: 'pointer' }}>
           <MenuIcon sx={{ fontSize: 32 }} />
         </IconButton>}
@@ -223,7 +224,7 @@ const Upbar = inject(
           {settingsStore.settings.username}
         </Typography>
         <Box
-          sx={{ height: 48, width: 48, m: 1, mb: "22px", mr: haveRightToolbar ? 8 : 4, cursor: 'pointer' }}
+          sx={{ height: 48, width: 48, m: 1, mb: "22px", mr: !(haveRightMenu || haveRightToolbar) ? 4 : 0, cursor: 'pointer' }}
           ref={anchorRef}
           id="composition-button"
           aria-controls={open ? 'composition-menu' : undefined}
@@ -295,14 +296,14 @@ const Upbar = inject(
             </Grow>
           )}
         </Popper>
-        {mobile && <IconButton onClick={() => {
-          if (drag === 'left') setDrag('center')
-          if (drag === 'center') setDrag('left')
+        {mobile && (haveRightMenu || haveRightToolbar) && <IconButton onClick={() => {
+          if (swipe === 'left') setSwipe('swipe', 'center')
+          if (swipe === 'center') setSwipe('swipe', 'left')
         }} sx={{ ml: 0.4, mr: 0.4, cursor: 'pointer' }}>
           <InfoIcon sx={{ fontSize: 32 }} />
         </IconButton>}
         <ReportDialog open={openDialog} setOpen={setOpenDialog} />
-      </Stack>
+      </Stack >
     );
   })
 );
