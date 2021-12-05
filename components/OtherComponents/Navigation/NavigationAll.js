@@ -32,7 +32,7 @@ const NavigationAll = inject(
     const theme = useTheme();
     const router = useRouter();
 
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
     React.useEffect(() => {
       // Главное подключение к сокету
@@ -87,14 +87,14 @@ const NavigationAll = inject(
     const [hoverLeftName, setHoverLeftName] = React.useState('')
 
     React.useEffect(() => {
-      if (router.pathname.includes('/home'))  setHoverLeftName('/home')
-      if (router.pathname.includes('/knowledge'))  setHoverLeftName('/knowledge')
-      if (router.pathname.includes('/messages'))  setHoverLeftName('/messages')
-      if (router.pathname.includes('/settings'))  setHoverLeftName('/settings')
+      if (router.pathname.includes('/home')) setHoverLeftName('/home')
+      if (router.pathname.includes('/knowledge')) setHoverLeftName('/knowledge')
+      if (router.pathname.includes('/messages')) setHoverLeftName('/messages')
+      if (router.pathname.includes('/settings')) setHoverLeftName('/settings')
     }, [router.pathname]);
 
     const getWidth = () => {
-      let w = 70
+      let w = 240
       if (haveRightToolbar) w = w + 48
       if (haveRightMenu) w = w + 156
       return w
@@ -153,58 +153,65 @@ const NavigationAll = inject(
                 backgroundColor: "primary.main",
                 minHeight: "100vh",
                 overflow: 'hidden',
-                // width: "calc(100% + 16px)",
+                width: "100%",
               }}
             >
-              <Upbar haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
-              <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
-              <SidebarSecond hoverLeftName={hoverLeftName} />
+              <Box
+                sx={{ zIndex: 100 }}
+              >
+                <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+                <SidebarSecond hoverLeftName={hoverLeftName} />
+              </Box>
               {haveRightToolbar && <RightToolbar />}
               {haveRightMenu && <RightMenu />}
-              {/* <Box
+              <Box
                 sx={{
-                  display: {
-                    xs: "block",
-                    sm: "block",
-                    md: "none",
-                    lg: "none",
-                    xl: "none",
-                  },
-                }}
-              >
-                <SideDownbar />
-              </Box> */}
-              <Paper
-                onMouseEnter={() => setHoverLeftName(null)}
-                elevation={2}
-                sx={{
-                  transition: '0.8s',
-                  zIndex: 1,
-                  margin: 0,
-                  overflow: 'auto',
+                  zIndex: 0,
+                  // display: "flex",
+                  backgroundColor: "primary.main",
+                  minHeight: "100vh",
+                  overflow: 'hidden',
                   width: `calc(100% - ${getWidth()}px)`,
-                  height: "calc(100vh - 48px)",
-                  marginLeft: getMarginLeft(),
-                  borderTopLeftRadius: 32,
-                  borderTopRightRadius: getBorderTopRightRadius(),
-                  backgroundColor: "background.main",
-
+                  ml: 32,
                 }}
               >
-                {!(router.pathname.includes('/message')) && <Scrollbars
-                  universal={true}
-                  style={{ width: "100%", height: "100%" }}
-                  autoHide
-                  autoHideTimeout={1000}
-                  autoHideDuration={200}
+                <Upbar drag={drag} setDrag={setDrag} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
+                <Paper
+                  onMouseEnter={() => setHoverLeftName(null)}
+                  elevation={2}
+                  sx={{
+                    transition: '0.8s',
+                    zIndex: 1,
+                    margin: 0,
+                    overflow: 'auto',
+                    width: `calc(100% - 32px)`,
+                    // width: `100%`,
+                    height: "calc(100vh - 48px)",
+                    // marginLeft: getMarginLeftMobile(),
+                    ml: 2,
+                    // mr: 1,
+                    borderTopLeftRadius: 24,
+                    borderTopRightRadius: 24,
+                    backgroundColor: "background.main",
+                  }}
+
                 >
-                  {children}
-                </Scrollbars>}
-                {router.pathname.includes('/message') && children}
-              </Paper>
-              {/* <ChatDialog /> */}
+                  {!(router.pathname.includes('/message')) && <Scrollbars
+                    universal={true}
+                    style={{ width: "100%", height: "100%" }}
+                    autoHide
+                    autoHideTimeout={1000}
+                    autoHideDuration={200}
+                  >
+                    {children}
+                  </Scrollbars>}
+                  {router.pathname.includes('/message') && children}
+                </Paper>
+                {/* <ChatDialog /> */}
+              </Box>
             </Box>
-          )}
+          )
+          }
         </>
       );
     }
@@ -256,7 +263,6 @@ const NavigationAll = inject(
                 overflow: 'hidden',
                 width: "100%",
               }}
-              component={motion.div}
             >
               <AnimatePresence initial={false}>
                 {drag === 'right' && <Box

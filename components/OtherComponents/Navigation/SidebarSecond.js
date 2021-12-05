@@ -139,40 +139,37 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                     p: 1
                 }}
             >
-                {hoverLeftName === '/home' && "Главная"}
-                {hoverLeftName === '/knowledge' && "Знания"}
-                {hoverLeftName === '/messages' && "Общение"}
-                {hoverLeftName === '/settings' && "Настройки"}
+                {router.pathname.includes('/home') && "Главная"}
+                {router.pathname.includes('/knowledge') && "Знания"}
+                {router.pathname.includes('/messages') && "Общение"}
+                {router.pathname.includes('/settings') && "Настройки"}
             </Typography>
-            {
-                hoverLeftName === '/home' && menuHome.map((item, index) => (
-                    <Typography
-                        component={motion.p}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => router.push(`${item.href}`)}
-                        key={index.toString()}
-                        sx={{
-                            "&:hover": {
-                                bgcolor: 'primary.light',
-                            },
-                            pl: 1,
-                            pr: 1,
-                            pt: 0.2,
-                            pb: 0.2,
-                            fontSize: 22,
-                            width: '100%',
-                            borderRadius: 1,
-                            bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
-                            cursor: 'pointer',
-                        }}
-                    >
-                        {item.label.toLowerCase()}
-                    </Typography>
-                ))
-            }
-            {
-                hoverLeftName === '/home' &&
+            {router.pathname.includes('/home') && menuHome.map((item, index) => (
+                <Typography
+                    component={motion.p}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => router.push(`${item.href}`)}
+                    key={index.toString()}
+                    sx={{
+                        "&:hover": {
+                            bgcolor: 'primary.light',
+                        },
+                        pl: 1,
+                        pr: 1,
+                        pt: 0.2,
+                        pb: 0.2,
+                        fontSize: 22,
+                        width: '100%',
+                        borderRadius: 1,
+                        bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
+                        cursor: 'pointer',
+                    }}
+                >
+                    {item.label.toLowerCase()}
+                </Typography>
+            ))}
+            {router.pathname.includes('/home') &&
                 <Typography
                     component={motion.p}
                     whileHover={{ scale: 1.1 }}
@@ -194,8 +191,7 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                     {'Создать профиль'}
                 </Typography>
             }
-            {
-                hoverLeftName === '/knowledge' && menuKnowledge.map((item, index) => (
+            {router.pathname.includes('/knowledge') && menuKnowledge.map((item, index) => (
                     <Typography
                         component={motion.p}
                         whileHover={{ scale: 1.1 }}
@@ -221,8 +217,7 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                     </Typography>
                 ))
             }
-            {
-                hoverLeftName === '/messages' && messageStore.menu.chats.map((item, index) => (
+            {router.pathname.includes('/messages') && messageStore.menu.chats.map((item, index) => (
                     <Grid
                         container
                         direction="row"
@@ -260,8 +255,7 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                     </Grid>
                 ))
             }
-            {
-                hoverLeftName === '/settings' && menuSettings.map((item, index) => (
+            {router.pathname.includes('/settings') && menuSettings.map((item, index) => (
                     <Typography
                         component={motion.p}
                         whileHover={{ scale: 1.1 }}

@@ -165,7 +165,7 @@ const Upbar = inject(
   observer(({ rootStore, settingsStore, uiStore, messageStore, children, drag, setDrag, haveRightMenu, haveRightToolbar }) => {
     const theme = useTheme();
     const router = useRouter();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
     const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -212,7 +212,7 @@ const Upbar = inject(
         }} sx={{ ml: 0.4, mr: 0.4, cursor: 'pointer' }}>
           <MenuIcon sx={{ fontSize: 32 }} />
         </IconButton>}
-        <Typography onClick={() => router.push('/home')} variant="h4" sx={{ ml: 0.4, mr: 'auto', cursor: 'pointer' }}>
+        <Typography onClick={() => router.push('/home')} variant="h4" sx={{ ml: mobile ? 1 : 4, mr: 'auto', cursor: 'pointer' }}>
           Ξffect
         </Typography>
         {router.pathname === '/knowledge/pages' && <KnowledgePagesTools />}
@@ -223,7 +223,7 @@ const Upbar = inject(
           {settingsStore.settings.username}
         </Typography>
         <Box
-          sx={{ height: 48, width: 48, m: 1, mb: "22px", mr: haveRightToolbar ? 8 : 1, cursor: 'pointer' }}
+          sx={{ height: 48, width: 48, m: 1, mb: "22px", mr: haveRightToolbar ? 8 : 4, cursor: 'pointer' }}
           ref={anchorRef}
           id="composition-button"
           aria-controls={open ? 'composition-menu' : undefined}

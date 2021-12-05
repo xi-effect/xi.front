@@ -119,24 +119,16 @@ const Sidebar = inject(
               <IconButton
                 component={motion.li}
                 whileHover={{ scale: 1.15 }}
-                whileTap={{ scale: 0.9 }}
-                onMouseEnter={() => {
-                  console.log("setHoverLeftName", item.href)
-                  setHoverLeftName(item.href)
+                whileTap={{ scale: 0.9 }} 
+                onClick={() => {
+                  if (item.href === "/knowledge") router.push(`${item.href}/pages`);
+                  else router.push(item.href);
                 }}
-                // onClick={() => {
-                //   if (
-                //     !item.href.includes("/knowledge") &&
-                //     !item.href.includes("/messages") &&
-                //     !item.href.includes("/managment")
-                //   )
-                //     router.push(item.href);
-                // }}
                 sx={{
-                  bgcolor: hoverLeftName === item.href ? "#002" : "secondary.main",
+                  bgcolor: router.pathname.includes(item.href) ? "#002" : "secondary.main",
                   borderRadius: 2,
                   "&:hover": {
-                    bgcolor: hoverLeftName === item.href ? "#002" : "secondary.main",
+                    bgcolor: router.pathname.includes(item.href) ? "#002" : "secondary.main",
                   },
                 }}
               >
