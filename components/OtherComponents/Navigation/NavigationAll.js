@@ -47,7 +47,6 @@ const NavigationAll = inject(
           if (data) {
             console.log("settings/main", data);
             messageStore.loadChatsInMenu();
-            // uiStore.setLoading("navigation", false);
             settingsStore.setSettings("darkTheme", data["dark-theme"]);
             settingsStore.setSettings("id", data.id);
             settingsStore.setSettings("username", data.username);
@@ -134,8 +133,24 @@ const NavigationAll = inject(
     if (!mobile) {
       return (
         <>
-          {uiStore.loading["navigation"] && <Loading />}
-          {!uiStore.loading["navigation"] && (
+          <Box
+            sx={{
+              zIndex: 0,
+              // display: "flex",
+              backgroundColor: "primary.main",
+              minHeight: "100vh",
+              overflow: 'hidden',
+              width: "100%",
+            }}
+          >
+            <Box
+              sx={{ zIndex: 100 }}
+            >
+              <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+              <SidebarSecond hoverLeftName={hoverLeftName} />
+            </Box>
+            {haveRightToolbar && <RightToolbar />}
+            {haveRightMenu && <RightMenu />}
             <Box
               sx={{
                 zIndex: 0,
@@ -143,65 +158,45 @@ const NavigationAll = inject(
                 backgroundColor: "primary.main",
                 minHeight: "100vh",
                 overflow: 'hidden',
-                width: "100%",
+                width: `calc(100% - ${getWidth()}px)`,
+                ml: 32,
               }}
             >
-              <Box
-                sx={{ zIndex: 100 }}
-              >
-                <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
-                <SidebarSecond hoverLeftName={hoverLeftName} />
-              </Box>
-              {haveRightToolbar && <RightToolbar />}
-              {haveRightMenu && <RightMenu />}
-              <Box
+              <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
+              <Paper
+                onMouseEnter={() => setHoverLeftName(null)}
+                elevation={2}
                 sx={{
-                  zIndex: 0,
-                  // display: "flex",
-                  backgroundColor: "primary.main",
-                  minHeight: "100vh",
-                  overflow: 'hidden',
-                  width: `calc(100% - ${getWidth()}px)`,
-                  ml: 32,
+                  transition: '0.8s',
+                  zIndex: 1,
+                  margin: 0,
+                  overflow: 'auto',
+                  width: `calc(100% - 32px)`,
+                  // width: `100%`,
+                  height: "calc(100vh - 48px)",
+                  // marginLeft: getMarginLeftMobile(),
+                  ml: 2,
+                  // mr: 1,
+                  borderTopLeftRadius: 24,
+                  borderTopRightRadius: 24,
+                  backgroundColor: "background.main",
                 }}
-              >
-                <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
-                <Paper
-                  onMouseEnter={() => setHoverLeftName(null)}
-                  elevation={2}
-                  sx={{
-                    transition: '0.8s',
-                    zIndex: 1,
-                    margin: 0,
-                    overflow: 'auto',
-                    width: `calc(100% - 32px)`,
-                    // width: `100%`,
-                    height: "calc(100vh - 48px)",
-                    // marginLeft: getMarginLeftMobile(),
-                    ml: 2,
-                    // mr: 1,
-                    borderTopLeftRadius: 24,
-                    borderTopRightRadius: 24,
-                    backgroundColor: "background.main",
-                  }}
 
+              >
+                {!(router.pathname.includes('/message')) && <Scrollbars
+                  universal={true}
+                  style={{ width: "100%", height: "100%" }}
+                  autoHide
+                  autoHideTimeout={1000}
+                  autoHideDuration={200}
                 >
-                  {!(router.pathname.includes('/message')) && <Scrollbars
-                    universal={true}
-                    style={{ width: "100%", height: "100%" }}
-                    autoHide
-                    autoHideTimeout={1000}
-                    autoHideDuration={200}
-                  >
-                    {children}
-                  </Scrollbars>}
-                  {router.pathname.includes('/message') && children}
-                </Paper>
-                {/* <ChatDialog /> */}
-              </Box>
+                  {children}
+                </Scrollbars>}
+                {router.pathname.includes('/message') && children}
+              </Paper>
+              {/* <ChatDialog /> */}
             </Box>
-          )
-          }
+          </Box>
         </>
       );
     }
@@ -253,8 +248,66 @@ const NavigationAll = inject(
     if (mobile) {
       return (
         <>
-          {uiStore.loading["navigation"] && <Loading />}
-          {!uiStore.loading["navigation"] && (
+          <Box
+            sx={{
+              zIndex: 0,
+              // display: "flex",
+              backgroundColor: "primary.main",
+              minHeight: "100vh",
+              overflow: 'hidden',
+              // width: "100%",
+            }}
+            {...handlers}
+          >
+            <AnimatePresence initial={false}>
+              {uiStore.navigation.swipe === 'right' && <Box
+                component={motion.div}
+                variants={SidebarVariantsRight}
+                // initial={{ x: -200 }}
+                animate="visible"
+                transition={{
+                  delay: 0,
+                  duration: 0.5,
+                }}
+                exit={{ x: -200, opacity: 0 }}
+                sx={{ zIndex: 100 }}
+              >
+                <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+                <SidebarSecond hoverLeftName={hoverLeftName} />
+              </Box>}
+            </AnimatePresence>
+            <AnimatePresence initial={false}>
+              {uiStore.navigation.swipe === 'left' && haveRightToolbar && <Box
+                component={motion.div}
+                variants={SidebarVariantsLeft}
+                // initial={{ x: 200 }}
+                animate="visible"
+                transition={{
+                  delay: 0,
+                  duration: 0.5,
+                }}
+                exit={{ x: 200, opacity: 0 }}
+                sx={{ zIndex: 100 }}
+              >
+                <RightToolbar />
+              </Box>}
+            </AnimatePresence>
+            <AnimatePresence initial={false}>
+              {uiStore.navigation.swipe === 'left' && haveRightMenu && <Box
+                component={motion.div}
+                variants={SidebarVariantsLeft}
+                // initial={{ x: 200 }}
+                animate="visible"
+                transition={{
+                  delay: 0,
+                  duration: 0.5,
+                }}
+                exit={{ x: 200, opacity: 0 }}
+                sx={{ zIndex: 100 }}
+              >
+                <RightMenu />
+              </Box>}
+            </AnimatePresence>
             <Box
               sx={{
                 zIndex: 0,
@@ -262,119 +315,57 @@ const NavigationAll = inject(
                 backgroundColor: "primary.main",
                 minHeight: "100vh",
                 overflow: 'hidden',
-                // width: "100%",
+                width: "100%",
               }}
-              {...handlers}
+              component={motion.div}
+              variants={dragVariants}
+              initial={{ x: uiStore.navigation.swipe === 'right' ? 200 : 0 }}
+              animate={() => {
+                console.log("animate", uiStore.navigation.swipe)
+                if (uiStore.navigation.swipe === "left") return "left"
+                if (uiStore.navigation.swipe === "center") return "center"
+                if (uiStore.navigation.swipe === "right") return "right"
+                if (uiStore.navigation.swipe === "bottom") return "bottom"
+              }}
+              transition={{
+                delay: 0,
+                duration: 0.5,
+              }}
             >
-              <AnimatePresence initial={false}>
-                {uiStore.navigation.swipe === 'right' && <Box
-                  component={motion.div}
-                  variants={SidebarVariantsRight}
-                  // initial={{ x: -200 }}
-                  animate="visible"
-                  transition={{
-                    delay: 0,
-                    duration: 0.5,
-                  }}
-                  exit={{ x: -200, opacity: 0 }}
-                  sx={{ zIndex: 100 }}
-                >
-                  <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
-                  <SidebarSecond hoverLeftName={hoverLeftName} />
-                </Box>}
-              </AnimatePresence>
-              <AnimatePresence initial={false}>
-                {uiStore.navigation.swipe === 'left' && haveRightToolbar && <Box
-                  component={motion.div}
-                  variants={SidebarVariantsLeft}
-                  // initial={{ x: 200 }}
-                  animate="visible"
-                  transition={{
-                    delay: 0,
-                    duration: 0.5,
-                  }}
-                  exit={{ x: 200, opacity: 0 }}
-                  sx={{ zIndex: 100 }}
-                >
-                  <RightToolbar />
-                </Box>}
-              </AnimatePresence>
-              <AnimatePresence initial={false}>
-                {uiStore.navigation.swipe === 'left' && haveRightMenu && <Box
-                  component={motion.div}
-                  variants={SidebarVariantsLeft}
-                  // initial={{ x: 200 }}
-                  animate="visible"
-                  transition={{
-                    delay: 0,
-                    duration: 0.5,
-                  }}
-                  exit={{ x: 200, opacity: 0 }}
-                  sx={{ zIndex: 100 }}
-                >
-                  <RightMenu />
-                </Box>}
-              </AnimatePresence>
-              <Box
+              <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
+              <Paper
+                onMouseEnter={() => setHoverLeftName(null)}
+                elevation={2}
                 sx={{
-                  zIndex: 0,
-                  // display: "flex",
-                  backgroundColor: "primary.main",
-                  minHeight: "100vh",
-                  overflow: 'hidden',
-                  width: "100%",
-                }}
-                component={motion.div}
-                variants={dragVariants}
-                initial={{ x: uiStore.navigation.swipe === 'right' ? 200 : 0 }}
-                animate={() => {
-                  console.log("animate", uiStore.navigation.swipe)
-                  if (uiStore.navigation.swipe === "left") return "left"
-                  if (uiStore.navigation.swipe === "center") return "center"
-                  if (uiStore.navigation.swipe === "right") return "right"
-                  if (uiStore.navigation.swipe === "bottom") return "bottom"
-                }}
-                transition={{
-                  delay: 0,
-                  duration: 0.5,
+                  transition: '0.8s',
+                  zIndex: 1,
+                  margin: 0,
+                  overflow: 'auto',
+                  width: `calc(100% - ${getWidthMobile()}px)`,
+                  // width: `100%`,
+                  height: "calc(100vh - 48px)",
+                  // marginLeft: getMarginLeftMobile(),
+                  ml: 2,
+                  // mr: 1,
+                  borderTopLeftRadius: 24,
+                  borderTopRightRadius: 24,
+                  backgroundColor: "background.main",
                 }}
               >
-                <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
-                <Paper
-                  onMouseEnter={() => setHoverLeftName(null)}
-                  elevation={2}
-                  sx={{
-                    transition: '0.8s',
-                    zIndex: 1,
-                    margin: 0,
-                    overflow: 'auto',
-                    width: `calc(100% - ${getWidthMobile()}px)`,
-                    // width: `100%`,
-                    height: "calc(100vh - 48px)",
-                    // marginLeft: getMarginLeftMobile(),
-                    ml: 2,
-                    // mr: 1,
-                    borderTopLeftRadius: 24,
-                    borderTopRightRadius: 24,
-                    backgroundColor: "background.main",
-                  }}
+                {!(router.pathname.includes('/message')) && <Scrollbars
+                  universal={true}
+                  style={{ width: "100%", height: "100%" }}
+                  autoHide
+                  autoHideTimeout={1000}
+                  autoHideDuration={200}
                 >
-                  {!(router.pathname.includes('/message')) && <Scrollbars
-                    universal={true}
-                    style={{ width: "100%", height: "100%" }}
-                    autoHide
-                    autoHideTimeout={1000}
-                    autoHideDuration={200}
-                  >
-                    {children}
-                  </Scrollbars>}
-                  {router.pathname.includes('/message') && children}
-                </Paper>
-                {/* <ChatDialog /> */}
-              </Box>
+                  {children}
+                </Scrollbars>}
+                {router.pathname.includes('/message') && children}
+              </Paper>
+              {/* <ChatDialog /> */}
             </Box>
-          )
-          }
+          </Box>
         </>
       );
     }

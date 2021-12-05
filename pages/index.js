@@ -33,11 +33,11 @@ const Main = inject(
 )(
   observer(({ rootStore, uiStore }) => {
     const theme = useTheme();
-    const [loading, setLoading] = React.useState(true);
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
 
     React.useEffect(() => {
-      setTimeout(() => setLoading(false), 1000);
+      uiStore.setLoading("loading", true)
+      setTimeout(() => uiStore.setLoading("loading", false), 3000);
     }, [])
 
     return (
@@ -46,7 +46,6 @@ const Main = inject(
           <title>Ξffect</title>
         </Head>
         {/* <Background /> */}
-        {/* {loading && <Loading />} */}
         <Stack
           component={motion.div}
           initial={{ opacity: 0 }}
@@ -100,11 +99,11 @@ const Main = inject(
               quality={100}
               width={256}
               height={232}
-            /> 
+            />
             <Typography sx={{ cursor: "default" }} variant="h6">
               Сайт устал, мы устраняем неполадки
             </Typography>
-          </Stack> 
+          </Stack>
         </Stack>
       </>
     );

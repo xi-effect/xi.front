@@ -70,6 +70,7 @@ const Login = inject(
     const onSubmit = (data) => authorizationStore.clickEnterButton(data);
 
     React.useEffect(() => {
+      uiStore.setLoading("loading", true)
       rootStore
         .fetchDataScr(`${rootStore.url}/settings/`, "GET")
         .then((data) => {
@@ -77,6 +78,7 @@ const Login = inject(
             router.push('/home')
           }
         });
+      setTimeout(() => uiStore.setLoading("loading", false), 3000);
     }, [])
 
     return (
@@ -84,7 +86,6 @@ const Login = inject(
         <Head>
           <title>Ξ Вход</title>
         </Head>
-        {/* {uiStore.loading["/login"] && <Loading />} */}
         <Stack
           direction="column"
           justifyContent="space-between"

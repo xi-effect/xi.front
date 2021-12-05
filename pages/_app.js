@@ -29,6 +29,7 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 
 import NProgress from 'nprogress'; //nprogress module
 import 'nprogress/nprogress.css'; //styles of nprogress
+import Loading from '../components/OtherComponents/Loading/Loading';
 //Binding events. 
 NProgress.configure({ showSpinner: false })
 Router.events.on('routeChangeStart', () => NProgress.start());
@@ -102,21 +103,22 @@ const MyApp = (observer((props) => {
         profileStore={rootStore.profileStore}
         messageStore={rootStore.messageStore}
       >
-        <StyledEngineProvider injectFirst>  
-            <ThemeProvider theme={theme}>
-              {/* <SnackbarProvider
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            {/* <SnackbarProvider
                 autoHideDuration={800}
                 anchorOrigin={{
                   vertical: 'bottom',
                   horizontal: 'right',
                 }}
                 maxSnack={3}> */}
-              {/* <MenuLayout> */}
-              <CssBaseline />
-              <Component {...pageProps} />
-              {/* </MenuLayout> */}
-              {/* </SnackbarProvider> */}
-            </ThemeProvider>
+            {/* <MenuLayout> */}
+            <CssBaseline />
+            {rootStore.uiStore.load.loading && <Loading />}
+            <Component {...pageProps} />
+            {/* </MenuLayout> */}
+            {/* </SnackbarProvider> */}
+          </ThemeProvider>
 
         </StyledEngineProvider>
       </Provider>

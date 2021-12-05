@@ -20,20 +20,12 @@ class UIStore {
     }
 
     //Loading Screen
-    @observable loading = {
-        "/": true,
-        "/login": true,
-        "/students": true,
-        "/teachers": true,
-        "/schools": true,
-        "/home": true,
-        "/registration": true,
-        "/resetpassword/email": true,
-        "navigation": false,
+    @observable load = {
+        loading: false
     }
 
-    @action setLoading = (page) => {
-        this.loading[page] = false
+    @action setLoading = (name, value) => {
+        this.load[name] = value
     }
 
     @observable knowledgeUI = {
