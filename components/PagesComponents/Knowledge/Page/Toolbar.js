@@ -1,18 +1,8 @@
 import React from 'react';
-
-import { styled } from '@mui/material/styles';
-
-import { Tooltip, Skeleton, Divider, Grid, Typography, useTheme, IconButton } from '@mui/material';
-
-
+import { Skeleton, Divider, Grid, Typography } from '@mui/material';
 import { inject, observer } from 'mobx-react'
 
-
-import UndoIcon from '@mui/icons-material/Undo';
-import InfoIcon from '@mui/icons-material/Info';
-
 const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
-    const theme = useTheme();
 
     return (
         <>

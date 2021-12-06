@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { useTheme, Input, Grid, useMediaQuery } from '@mui/material';
-
+import React from 'react';
+import { Input, Grid, useMediaQuery } from '@mui/material';
 import { inject, observer } from 'mobx-react'
 
 const Header = inject('rootStore')(observer(({ rootStore, value }) => {

@@ -1,17 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
-import { useTheme, Input, Grid } from '@mui/material';
+import React from 'react';
+import { useTheme, Grid } from '@mui/material';
 
 import { inject, observer } from 'mobx-react'
 import Image from 'next/image'
 
 const ImageComp = inject('rootStore')(observer(({ rootStore, value }) => {
-
-    // Simulated props for the purpose of the example
     const props = { fontSize: value.fontSize, textAlign: value.textAlign, fontStyle: value.fontStyle, fontWeight: value.fontWeight, textDecoration: value.textDecoration, backgroundColor: 'black', color: 'white' };
-
-    //console.log( "props", props )
     const theme = useTheme();
 
 

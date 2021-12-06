@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Slider, Stack, Dialog, DialogTitle, useTheme, DialogContent, DialogContentText, DialogActions, InputAdornment, Tooltip, IconButton, Avatar, Grid, FormControl, InputLabel, TextField, OutlinedInput, Typography, Box, Button } from '@mui/material'
+import React from 'react'
+import { Stack, Dialog, DialogTitle, useTheme, DialogContent, DialogContentText, DialogActions, InputAdornment, Tooltip, IconButton, Avatar, Grid, FormControl, InputLabel, TextField, OutlinedInput, Typography, Box, Button } from '@mui/material'
 import { inject, observer } from 'mobx-react'
 
 import SaveIcon from '@mui/icons-material/Save';

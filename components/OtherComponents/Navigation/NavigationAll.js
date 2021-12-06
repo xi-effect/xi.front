@@ -4,22 +4,20 @@ import { useRouter } from "next/router";
 import clsx from "clsx";
 import { inject, observer } from "mobx-react";
 
-import { Box, Paper, Button, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Paper, useMediaQuery, useTheme } from "@mui/material";
 
 import Sidebar from "./Sidebar";
 import SidebarSecond from "./SidebarSecond";
 import RightToolbar from "./RightToolbar";
-import Loading from "../Loading/Loading";
 import RightMenu from "./RightMenu";
 import Upbar from "./Upbar";
-import ChatDialog from "../../PagesComponents/Messages/ChatDialog";
 
 import { io } from "socket.io-client";
 
 import socket from "../../../utils/socket";
 
 import { Scrollbars } from 'react-custom-scrollbars-2';
-import { motion, useMotionValue, useTransform, useDragControls, AnimatePresence, useAnimation } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { useSwipeable } from 'react-swipeable';
 
 const NavigationAll = inject(
@@ -58,7 +56,7 @@ const NavigationAll = inject(
             settingsStore.setSettings("username", data.username);
 
           } else {
-            
+
           }
         });
       rootStore

@@ -1,36 +1,6 @@
-import React, { useState } from "react";
-import { styled } from '@mui/material/styles';
-import ReactDOM from "react-dom";
-import { Typography } from '@mui/material';
+import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { inject, observer } from 'mobx-react'
 
-const PREFIX = 'DnDList';
-
-const classes = {
-    Container: `${PREFIX}-Container`
-};
-
-const StyledDragDropContext = styled(DragDropContext)((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.Container}`]: {
-        marginTop: 8,
-        marginLeft: 8,
-        marginRight: 8,
-        height: "calc(100vh - 220px)",
-        //display: "block",
-        //overflow: "auto",
-        '&::-webkit-scrollbar': {
-            width: "0! important",
-            height: 0,
-            display: "none !important",
-            background: "transparent",
-        }
-    }
-}));
 
 const initial = Array.from({ length: 10 }, (v, k) => k).map(k => {
     const custom = {
@@ -78,12 +48,23 @@ function DnDList({ state, setState, ComponentsList }) {
         <StyledDragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="list">
                 {provided => (
-                    <div className={classes.Container} ref={provided.innerRef} {...provided.droppableProps}>
+                    <Box sx={{
+                        marginTop: 8,
+                        marginLeft: 8,
+                        marginRight: 8,
+                        height: "calc(100vh - 220px)",
+                        '&::-webkit-scrollbar': {
+                            width: "0! important",
+                            height: 0,
+                            display: "none !important",
+                            background: "transparent",
+                        }
+                    }} ref={provided.innerRef} {...provided.droppableProps}>
                         {/* <ComponentsList components={state.quotes} /> */}
                         {ComponentsList}
                         {/* <QuoteList quotes={state.quotes} /> */}
                         {provided.placeholder}
-                    </div>
+                    </Box>
                 )}
             </Droppable>
         </StyledDragDropContext>

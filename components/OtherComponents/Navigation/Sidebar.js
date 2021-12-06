@@ -8,51 +8,17 @@ import PropTypes from "prop-types";
 import { inject, observer } from "mobx-react";
 
 import {
-  Grid,
   Stack,
-  Drawer,
-  Collapse,
-  Box,
-  List,
-  Badge,
   useTheme,
   Tooltip,
-  Button,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  Divider,
   IconButton,
 } from "@mui/material";
-
-import MailIcon from "@mui/icons-material/Mail";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Label from "@mui/icons-material/Label";
-import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
-import InfoIcon from "@mui/icons-material/Info";
-import ForumIcon from "@mui/icons-material/Forum";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 import HomeIcon from "@mui/icons-material/Home";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SettingsIcon from "@mui/icons-material/Settings";
-import AddToQueueIcon from "@mui/icons-material/AddToQueue";
 import MessageIcon from "@mui/icons-material/Message";
-import SubjectIcon from "@mui/icons-material/Subject";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-import SettingsEthernetIcon from "@mui/icons-material/SettingsEthernet";
-import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import AdjustIcon from "@mui/icons-material/Adjust";
-import CircleIcon from "@mui/icons-material/Circle";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+
 
 import { motion } from "framer-motion";
 

@@ -17,11 +17,6 @@ import { Accordion, AccordionDetails, AccordionSummary, Button, Chip, ClickAwayL
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 
-
-
-
-
-
 const Chipper = inject('rootStore', 'knowledgeStore', 'uiStore')(observer(({ rootStore, knowledgeStore, uiStore }) => {
     const theme = useTheme();
 

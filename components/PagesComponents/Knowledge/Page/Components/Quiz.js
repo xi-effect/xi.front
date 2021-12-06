@@ -21,8 +21,6 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
         if (show && !userA && rightA) return 'error.dark'
     }
 
-
-
     return (
         <Grid
             container

@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useRouter } from 'next/router'
-import Link from 'next/link'
-import clsx from 'clsx';
 import { inject, observer } from 'mobx-react'
 
-import { Grid, Stack, Grow, Drawer, Collapse, Box, List, Badge, useTheme, Tooltip, Button, ListItem, ListItemIcon, ListItemText, Typography, Divider, IconButton } from '@mui/material';
+import { Grid, Stack,  Box, useTheme, Typography } from '@mui/material';
 
 import { motion } from "framer-motion";
 

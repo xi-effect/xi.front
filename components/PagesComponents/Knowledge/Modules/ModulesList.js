@@ -105,7 +105,6 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
         m: 0,
         p: 1,
         width: "100%",
-        //backgroundColor: 'background.1',
       }}
     >
       {knowledgeStore.moduleList.modules.map((module, index) => (
@@ -135,7 +134,6 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
               >
                 <SVGbackground width={1920} height={1080} />
               </Box>}
-            {/* </AnimatePresence> */}
             <Grid
               container
               direction="row"
