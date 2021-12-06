@@ -75,8 +75,12 @@ class AuthorizationStore {
                 console.log(data)
                 if (data != undefined) {
                     if (data.a) { //true
+                        this.rootStore.uiStore.setLoading("loading", true)
                         const router = Router
                         router.push('/home')
+                        setTimeout(() => {
+                            this.rootStore.uiStore.setLoading("loading", false)
+                        }, 3000);
                     } else {
                         this.setSignup("error", "emailAlreadyUsed")
                     }
@@ -106,6 +110,7 @@ class AuthorizationStore {
             .then((data) => {
                 if (data != undefined) {
                     if (data.a == "Success") {
+                        this.rootStore.uiStore.setLoading("loading", true)
                         const router = Router
                         router.push('/home')
                         this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/`, "GET")
@@ -121,6 +126,9 @@ class AuthorizationStore {
                                 } else {
                                     console.log("Проблемы с сервером")
                                 }
+                                setTimeout(() => {
+                                    this.rootStore.uiStore.setLoading("loading", false)
+                                }, 3000);
                             });
                     } else if (data.a === "User doesn't exist") {
                         this.setLogin("error", "User doesn't exist")

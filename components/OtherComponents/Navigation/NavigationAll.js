@@ -41,15 +41,24 @@ const NavigationAll = inject(
       });
       // Каждый раз запрашиваются настройки, чтобы понимать,
       // актуален ли токен авторизации
+      if (uiStore.load.app) uiStore.setLoading("loading", true)
+      setTimeout(() => {
+        uiStore.setLoading("loading", false)
+        uiStore.setLoading("app", false)
+      }, 3000);
       rootStore
         .fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
         .then((data) => {
+          console.log("data1", data)
           if (data) {
             console.log("settings/main", data);
             messageStore.loadChatsInMenu();
             settingsStore.setSettings("darkTheme", data["dark-theme"]);
             settingsStore.setSettings("id", data.id);
             settingsStore.setSettings("username", data.username);
+
+          } else {
+            
           }
         });
       rootStore

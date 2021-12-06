@@ -77,7 +77,7 @@ const Header = () => {
             <Button
                 onClick={() => {
                     router.push({
-                        pathname: '/login',
+                        pathname: '/home',
                     })
                 }}
                 sx={{ color: 'text.main', }}

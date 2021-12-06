@@ -36,8 +36,11 @@ const Main = inject(
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
 
     React.useEffect(() => {
-      uiStore.setLoading("loading", true)
-      setTimeout(() => uiStore.setLoading("loading", false), 3000);
+      if (uiStore.load.landing) uiStore.setLoading("loading", true)
+      setTimeout(() => {
+        uiStore.setLoading("loading", false)
+        uiStore.setLoading("landing", false)
+      }, 3000);
     }, [])
 
     return (

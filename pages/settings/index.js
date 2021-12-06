@@ -57,7 +57,6 @@ const Settings = inject(
         .then((data) => {
           if (data) {
             console.log("settings/main", data)
-            messageStore.loadChatsInMenu()
             settingsStore.setSettings("darkTheme", data["dark-theme"])
             settingsStore.setSettings("id", data.id)
             settingsStore.setSettings("username", data.username)

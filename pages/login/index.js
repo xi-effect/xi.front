@@ -28,7 +28,6 @@ import {
 } from "@mui/material";
 import { Link as LinkUI } from "@mui/material";
 import React from "react";
-import BackgroundImg from "../../components/OtherComponents/Background/BackgroundImg";
 import { inject, observer } from "mobx-react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -47,7 +46,6 @@ const schema = yup
   })
   .required();
 
-import Loading from "./../../components/OtherComponents/Loading/Loading";
 
 const Login = inject(
   "rootStore",
@@ -70,15 +68,11 @@ const Login = inject(
     const onSubmit = (data) => authorizationStore.clickEnterButton(data);
 
     React.useEffect(() => {
-      uiStore.setLoading("loading", true)
-      rootStore
-        .fetchDataScr(`${rootStore.url}/settings/`, "GET")
-        .then((data) => {
-          if (data !== null) {
-            router.push('/home')
-          }
-        });
-      setTimeout(() => uiStore.setLoading("loading", false), 3000);
+      if (uiStore.load.login) uiStore.setLoading("loading", true)
+      setTimeout(() => {
+        uiStore.setLoading("loading", false)
+        uiStore.setLoading("login", false)
+      }, 3000);
     }, [])
 
     return (
