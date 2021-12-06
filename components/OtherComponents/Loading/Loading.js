@@ -29,16 +29,18 @@ const Loading = () => {
                 {isDarkTheme && <Image
                     alt="alt"
                     src={"/loaderWhite.gif"}
-                    quality={100}
+                    quality={90}
                     width={96}
                     height={96}
+                    priority
                 />}
                 {!isDarkTheme && <Image
                     alt="alt"
                     src={"/loaderDark.gif"}
-                    quality={100}
+                    quality={90}
                     width={96}
                     height={96}
+                    priority
                 />}
             </Box>
         </Grid>
