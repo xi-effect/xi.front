@@ -72,7 +72,7 @@ const Login = inject(
       setTimeout(() => {
         uiStore.setLoading("loading", false)
         uiStore.setLoading("login", false)
-      }, 3000);
+      }, 1500);
     }, [])
 
     return (

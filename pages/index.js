@@ -40,7 +40,7 @@ const Main = inject(
       setTimeout(() => {
         uiStore.setLoading("loading", false)
         uiStore.setLoading("landing", false)
-      }, 3000);
+      }, 1500);
     }, [])
 
     return (
@@ -53,7 +53,7 @@ const Main = inject(
           component={motion.div}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
+          transition={{ delay: 0.2, duration: 1 }}
           direction="column"
           justifyContent="flex-start"
           alignItems="center"

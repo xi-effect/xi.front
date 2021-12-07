@@ -114,7 +114,7 @@ const MyApp = (observer((props) => {
                 maxSnack={3}> */}
             {/* <MenuLayout> */}
             <CssBaseline />
-            {rootStore.uiStore.load.loading && <Loading />}
+            <Loading />
             <Component {...pageProps} />
             {/* </MenuLayout> */}
             {/* </SnackbarProvider> */}

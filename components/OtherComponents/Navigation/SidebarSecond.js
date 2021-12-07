@@ -3,12 +3,11 @@ import React from 'react';
 import { useRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
 
-import { Grid, Stack,  Box, useTheme, Typography } from '@mui/material';
+import { Grid, Stack, Box, Divider, Typography } from '@mui/material';
 
 import { motion } from "framer-motion";
 
-const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
-    const theme = useTheme();
+const MenuHomeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
     const router = useRouter()
 
     const menuHome = [
@@ -29,18 +28,203 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
         },
     ]
 
-    const menuKnowledge = [
-        {
-            id: 0,
-            label: "Страницы",
-            href: '/knowledge/page',
-        },
-        {
-            id: 1,
-            label: "Модули",
-            href: '/knowledge/module',
-        },
-    ]
+
+    return (
+        <>
+            {menuHome.map((item, index) => (
+                <Typography
+                    component={motion.p}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => router.push(`${item.href}`)}
+                    key={index.toString()}
+                    sx={{
+                        "&:hover": {
+                            bgcolor: 'primary.light',
+                        },
+                        pl: 1,
+                        pr: 1,
+                        pt: 0.2,
+                        pb: 0.2,
+                        fontSize: 22,
+                        width: '100%',
+                        borderRadius: 1,
+                        bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
+                        cursor: 'pointer',
+                    }}
+                >
+                    {item.label.toLowerCase()}
+                </Typography>))}
+            <Typography
+                component={motion.p}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                sx={{
+                    "&:hover": {
+                        bgcolor: 'primary.light',
+                    },
+                    pl: 1,
+                    pr: 1,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: 18,
+                    width: '100%',
+                    borderRadius: 1,
+                    cursor: 'pointer',
+                }}
+            >
+                {'Создать профиль'}
+            </Typography>
+        </>
+    )
+}));
+
+const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+    const router = useRouter()
+
+
+    return (
+        <>
+            <Typography
+                component={motion.p}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => router.push('/knowledge/page')}
+                sx={{
+                    "&:hover": {
+                        bgcolor: 'primary.light',
+                    },
+                    pl: 1,
+                    pr: 1,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: 22,
+                    width: '100%',
+                    borderRadius: 1,
+                    cursor: 'pointer',
+                    bgcolor: router.pathname.includes('/knowledge/page') ? 'tertiary.main' : 'secondary.main',
+                }}
+            >
+                {'cтраницы'}
+            </Typography>
+            <Typography
+                component={motion.p}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => router.push('/knowledge/module')}
+                sx={{
+                    "&:hover": {
+                        bgcolor: 'primary.light',
+                    },
+                    pl: 1,
+                    pr: 1,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: 22,
+                    width: '100%',
+                    borderRadius: 1,
+                    cursor: 'pointer',
+                    bgcolor: router.pathname.includes('/knowledge/module') ? 'tertiary.main' : 'secondary.main',
+                }}
+            >
+                {'модули'}
+            </Typography>
+            <Divider flexItem light />
+            <Typography
+                component={motion.p}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => router.push('/knowledge/createpage')}
+                sx={{
+                    "&:hover": {
+                        bgcolor: 'primary.light',
+                    },
+                    pl: 1,
+                    pr: 1,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: 22,
+                    width: '100%',
+                    borderRadius: 1,
+                    cursor: 'pointer',
+                    bgcolor: router.pathname.includes('/knowledge/page') ? 'tertiary.main' : 'secondary.main',
+                }}
+            >
+                {'создание страницы'}
+            </Typography>
+            <Typography
+                component={motion.p}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => router.push('/knowledge/createmodule')}
+                sx={{
+                    "&:hover": {
+                        bgcolor: 'primary.light',
+                    },
+                    pl: 1,
+                    pr: 1,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: 22,
+                    width: '100%',
+                    borderRadius: 1,
+                    cursor: 'pointer',
+                    bgcolor: router.pathname.includes('/knowledge/module') ? 'tertiary.main' : 'secondary.main',
+                }}
+            >
+                {'создание модуля'}
+            </Typography>
+            <Divider flexItem light />
+            <Typography
+                component={motion.p}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => router.push('/knowledge/yourpages')}
+                sx={{
+                    "&:hover": {
+                        bgcolor: 'primary.light',
+                    },
+                    pl: 1,
+                    pr: 1,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: 22,
+                    width: '100%',
+                    borderRadius: 1,
+                    cursor: 'pointer',
+                    bgcolor: router.pathname.includes('/knowledge/page') ? 'tertiary.main' : 'secondary.main',
+                }}
+            >
+                {'ваши страницы'}
+            </Typography>
+            <Typography
+                component={motion.p}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => router.push('/knowledge/yourmodules')}
+                sx={{
+                    "&:hover": {
+                        bgcolor: 'primary.light',
+                    },
+                    pl: 1,
+                    pr: 1,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: 22,
+                    width: '100%',
+                    borderRadius: 1,
+                    cursor: 'pointer',
+                    bgcolor: router.pathname.includes('/knowledge/module') ? 'tertiary.main' : 'secondary.main',
+                }}
+            >
+                {'ваши модули'}
+            </Typography>
+        </>
+    )
+}));
+
+const MenuSettingsComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+    const router = useRouter()
 
     const menuSettings = [
         {
@@ -64,6 +248,40 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
             href: 'invite',
         },
     ]
+
+    return (
+        <>
+            {menuSettings.map((item, index) => (
+                <Typography
+                    component={motion.p}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => router.push(`/settings?option=${item.href}`)}
+                    key={index.toString()}
+                    sx={{
+                        "&:hover": {
+                            bgcolor: 'primary.light',
+                        },
+                        pl: 1,
+                        pr: 1,
+                        pt: 0.2,
+                        pb: 0.2,
+                        fontSize: 22,
+                        width: '100%',
+                        borderRadius: 1,
+                        cursor: 'pointer',
+                        bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
+                    }}
+                >
+                    {item.label.toLowerCase()}
+                </Typography>
+            ))}
+        </>
+    )
+}));
+
+const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+    const router = useRouter()
 
     const getUnreadCount = (counter) => {
         if (counter < 100 && counter > 0) return counter
@@ -114,79 +332,8 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                     {router.pathname.includes('/settings') && "Настройки"}
                 </Typography>
             </Box>
-            {router.pathname.includes('/home') && menuHome.map((item, index) => (
-                <Typography
-                    component={motion.p}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => router.push(`${item.href}`)}
-                    key={index.toString()}
-                    sx={{
-                        "&:hover": {
-                            bgcolor: 'primary.light',
-                        },
-                        pl: 1,
-                        pr: 1,
-                        pt: 0.2,
-                        pb: 0.2,
-                        fontSize: 22,
-                        width: '100%',
-                        borderRadius: 1,
-                        bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
-                        cursor: 'pointer',
-                    }}
-                >
-                    {item.label.toLowerCase()}
-                </Typography>
-            ))}
-            {router.pathname.includes('/home') &&
-                <Typography
-                    component={motion.p}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    sx={{
-                        "&:hover": {
-                            bgcolor: 'primary.light',
-                        },
-                        pl: 1,
-                        pr: 1,
-                        pt: 0.2,
-                        pb: 0.2,
-                        fontSize: 18,
-                        width: '100%',
-                        borderRadius: 1,
-                        cursor: 'pointer',
-                    }}
-                >
-                    {'Создать профиль'}
-                </Typography>
-            }
-            {router.pathname.includes('/knowledge') && menuKnowledge.map((item, index) => (
-                <Typography
-                    component={motion.p}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => router.push(`${item.href}s`)}
-                    key={index.toString()}
-                    sx={{
-                        "&:hover": {
-                            bgcolor: 'primary.light',
-                        },
-                        pl: 1,
-                        pr: 1,
-                        pt: 0.2,
-                        pb: 0.2,
-                        fontSize: 22,
-                        width: '100%',
-                        borderRadius: 1,
-                        bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
-                        cursor: 'pointer',
-                    }}
-                >
-                    {item.label.toLowerCase()}
-                </Typography>
-            ))
-            }
+            {router.pathname.includes('/home') && <MenuHomeComp />}
+            {router.pathname.includes('/knowledge') && <MenuKnowledgeComp />}
             {router.pathname.includes('/messages') && messageStore.menu.chats.map((item, index) => (
                 <Grid
                     container
@@ -225,32 +372,7 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                 </Grid>
             ))
             }
-            {router.pathname.includes('/settings') && menuSettings.map((item, index) => (
-                <Typography
-                    component={motion.p}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => router.push(`/settings?option=${item.href}`)}
-                    key={index.toString()}
-                    sx={{
-                        "&:hover": {
-                            bgcolor: 'primary.light',
-                        },
-                        pl: 1,
-                        pr: 1,
-                        pt: 0.2,
-                        pb: 0.2,
-                        fontSize: 22,
-                        width: '100%',
-                        borderRadius: 1,
-                        cursor: 'pointer',
-                        bgcolor: router.pathname.includes(item.href) ? 'tertiary.main' : 'secondary.main',
-                    }}
-                >
-                    {item.label.toLowerCase()}
-                </Typography>
-            ))
-            }
+            {router.pathname.includes('/settings') && <MenuSettingsComp />}
 
         </Stack >
     )

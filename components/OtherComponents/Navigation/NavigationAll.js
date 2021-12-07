@@ -33,17 +33,13 @@ const NavigationAll = inject(
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
     React.useEffect(() => {
+      if (uiStore.load.app) uiStore.setLoading("loading", true)
       // Главное подключение к сокету
       socket = io("https://xieffect-socketio.herokuapp.com/", {
         withCredentials: true,
       });
       // Каждый раз запрашиваются настройки, чтобы понимать,
       // актуален ли токен авторизации
-      if (uiStore.load.app) uiStore.setLoading("loading", true)
-      setTimeout(() => {
-        uiStore.setLoading("loading", false)
-        uiStore.setLoading("app", false)
-      }, 3000);
       rootStore
         .fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
         .then((data) => {
@@ -54,7 +50,8 @@ const NavigationAll = inject(
             settingsStore.setSettings("darkTheme", data["dark-theme"]);
             settingsStore.setSettings("id", data.id);
             settingsStore.setSettings("username", data.username);
-
+            uiStore.setLoading("loading", false)
+            uiStore.setLoading("app", false)
           } else {
 
           }
@@ -70,6 +67,8 @@ const NavigationAll = inject(
             settingsStore.setSettings("emailConfirmed", data["email-confirmed"])
             settingsStore.setSettings("avatar", data["avatar"])
             settingsStore.setSettings("invite", data.code)
+            uiStore.setLoading("loading", false)
+            uiStore.setLoading("app", false)
           }
         });
     }, []);
