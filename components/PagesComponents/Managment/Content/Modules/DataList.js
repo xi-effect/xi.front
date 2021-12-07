@@ -1,307 +1,515 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/display-name */
-import React from 'react';
-
-import { Tooltip, IconButton, CircularProgress, Grid, Button, Pagination, PaginationItem, Typography, useTheme } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
-import Image from 'next/image'
-
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { alpha } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { visuallyHidden } from '@mui/utils';
 import { inject, observer } from 'mobx-react'
+import EditIcon from '@mui/icons-material/Edit';
 
-
-function customCheckbox(theme) {
-    return {
-        '& .MuiCheckbox-root svg': {
-            width: 16,
-            height: 16,
-            backgroundColor: 'transparent',
-            border: `1px solid ${theme.palette.mode === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'
-                }`,
-            borderRadius: 2,
-        },
-        '& .MuiCheckbox-root svg path': {
-            display: 'none',
-        },
-        '& .MuiCheckbox-root.Mui-checked:not(.MuiCheckbox-indeterminate) svg': {
-            backgroundColor: '#1890ff',
-            borderColor: '#1890ff',
-        },
-        '& .MuiCheckbox-root.Mui-checked .MuiIconButton-label:after': {
-            position: 'absolute',
-            display: 'table',
-            border: '2px solid #fff',
-            borderTop: 0,
-            borderLeft: 0,
-            transform: 'rotate(45deg) translate(-50%,-50%)',
-            opacity: 1,
-            transition: 'all .2s cubic-bezier(.12,.4,.29,1.46) .1s',
-            content: '""',
-            top: '50%',
-            left: '39%',
-            width: 5.71428571,
-            height: 9.14285714,
-        },
-        '& .MuiCheckbox-root.MuiCheckbox-indeterminate .MuiIconButton-label:after': {
-            width: 8,
-            height: 8,
-            backgroundColor: '#1890ff',
-            transform: 'none',
-            top: '39%',
-            border: 0,
-        },
-    };
+function descendingComparator(a, b, orderBy) {
+    if (b[orderBy] < a[orderBy]) {
+        return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+        return 1;
+    }
+    return 0;
 }
 
+function getComparator(order, orderBy) {
+    return order === 'desc'
+        ? (a, b) => descendingComparator(a, b, orderBy)
+        : (a, b) => -descendingComparator(a, b, orderBy);
+}
 
+// This method is created for cross-browser compatibility, if you don't
+// need to support IE11, you can use Array.prototype.sort() directly
+function stableSort(array, comparator) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+        const order = comparator(a[0], b[0]);
+        if (order !== 0) {
+            return order;
+        }
+        return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+}
 
+const headCells = [
+    {
+        id: 'name',
+        numeric: false,
+        disablePadding: true,
+        label: 'Название',
+    },
+    {
+        id: 'status',
+        numeric: false,
+        disablePadding: false,
+        label: 'Статус',
+    },
+    {
+        id: 'views',
+        numeric: false,
+        disablePadding: false,
+        label: 'Просмотры',
+    },
+    {
+        id: 'blueprint',
+        numeric: false,
+        disablePadding: false,
+        label: 'Чертёж',
+    },
+    {
+        id: 'type',
+        numeric: false,
+        disablePadding: false,
+        label: 'Тип',
+    },
+    {
+        id: 'theme',
+        numeric: false,
+        disablePadding: false,
+        label: 'Тема',
+    },
+    {
+        id: 'category',
+        numeric: false,
+        disablePadding: false,
+        label: 'Категория',
+    },
+    {
+        id: 'difficulty',
+        numeric: false,
+        disablePadding: false,
+        label: 'Сложность',
+    },
+];
 
-const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore }) => {
-    const theme = useTheme();
-
-    React.useEffect(() => {
-        managmentStore.LoadModuleList()
-        // console.log("pages", toJS(managmentStore.pageCreationList.pages))
-    }, []);
-
-
-
-    const kindSelect = (value) => {
-        if (value === "practice") return "Практика"
-        if (value === "task") return "Задание"
-        if (value === "theory") return "Теория"
-    }
-
-    const statusSelect = (value) => {
-        if (value === "wip") return "В Разработке"
-        if (value === "published") return "Опубликован"
-    }
-
-    const columns = [
-        {
-            field: 'name',
-            headerName: 'Название',
-            //type: 'number',
-            width: 220,
-            renderCell: (params) => (
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item xs zeroMinWidth>
-                        <Tooltip title={params.value != null ? params.value : ""}>
-                            <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
-                        </Tooltip>
-                    </Grid>
-                </Grid>
-            ),
-        },
-        {
-            field: 'status',
-            headerName: 'Статус',
-            width: 180,
-            renderCell: (params) => (
-                <Typography style={{ cursor: "default" }}> {statusSelect(params.value)} </Typography>
-            ),
-        },
-        {
-            field: 'views',
-            headerName: 'Просмотры',
-            width: 180,
-            renderCell: (params) => (
-                <Typography style={{ cursor: "default" }}> {params.value} </Typography>
-            ),
-        },
-        // {
-        //     field: 'blueprint',
-        //     headerName: 'Тип',
-        //     width: 180,
-        // },
-        {
-            field: 'type',
-            headerName: 'Тип',
-            width: 200,
-            renderCell: (params) => (
-                <Typography style={{ cursor: "default" }}> {kindSelect(params.value)} </Typography>
-            ),
-        },
-        {
-            field: 'theme',
-            headerName: 'Тема',
-            width: 210,
-            renderCell: (params) => (
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item xs zeroMinWidth>
-                        <Tooltip title={params.value != null ? params.value : ""}>
-                            <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
-                        </Tooltip>
-                    </Grid>
-                </Grid>
-            ),
-        },
-        {
-            field: 'category',
-            headerName: 'Категория',
-            width: 210,
-            renderCell: (params) => (
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item xs zeroMinWidth>
-                        <Tooltip title={params.value != null ? params.value : ""}>
-                            <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
-                        </Tooltip>
-                    </Grid>
-                </Grid>
-            ),
-        },
-        {
-            field: 'difficulty',
-            headerName: 'Сложность',
-            width: 210,
-            renderCell: (params) => (
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item xs zeroMinWidth>
-                        <Tooltip title={params.value != null ? params.value : ""}>
-                            <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
-                        </Tooltip>
-                    </Grid>
-                </Grid>
-            ),
-        },
-        {
-            field: 'description',
-            headerName: 'Описание',
-            flex: 1,
-            minWidth: 150,
-            renderCell: (params) => (
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item xs zeroMinWidth>
-                        <Tooltip title={params.value != null ? params.value : ""}>
-                            <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
-                        </Tooltip>
-                    </Grid>
-                </Grid>
-            ),
-        },
-        {
-            field: '',
-            headerName: '',
-            //type: 'number',
-            width: 130,
-            renderCell: (params) => (
-                <Grid>
-                    <Tooltip title="Изменить">
-                        <IconButton
-                            onClick={() => managmentStore.changeOldModuleList(params.row.id)}
-                            variant="contained"
-                            //color="primary"
-                            size="small"
-                            style={{ marginLeft: 16, marginTop: -4, color: theme => theme.palette.primary.contrastText }}
-                        >
-                            <EditIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Удалить">
-                        <IconButton
-                            onClick={() => managmentStore.deleteModuleInList(params.row.id)}
-                            variant="contained"
-                            //color="primary"
-                            size="small"
-                            style={{ marginLeft: 16, marginTop: -4, color: theme => theme.palette.primary.contrastText }}
-                        >
-                            <DeleteForeverIcon />
-                        </IconButton>
-                    </Tooltip>
-                </Grid>
-            ),
-        },
-    ];
-
-    // const rows = [
-    //     { id: 1, valueReports: 1, reportType: 'Не исторично', contentType: 'Страница', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>', },
-    //     { id: 2, valueReports: 2, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-    //     { id: 3, valueReports: 3, reportType: 'Не исторично', contentType: 'Страница', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-    //     { id: 4, valueReports: 4, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-    //     { id: 5, valueReports: 5, reportType: 'Не исторично', contentType: 'Страница', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-    //     { id: 6, valueReports: 6, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-    //     { id: 7, valueReports: 7, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-    //     { id: 8, valueReports: 8, reportType: 'Не исторично', contentType: 'Модуль', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-    //     { id: 9, valueReports: 9, reportType: 'Не исторично', contentType: 'Страница', contentAuthor: 'Ξ Effect', reportValue: 'Разработчики, вы, <дальше следует непереводимая игра слов с использованием местных идиоматических выражений>' },
-    // ];
+function EnhancedTableHead(props) {
+    const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
+        props;
+    const createSortHandler = (property) => (event) => {
+        onRequestSort(event, property);
+    };
 
     return (
-        <div style={{ display: 'flex', height: '100%', width: '100%', marginTop: 16, }}>
-            <div style={{ flexGrow: 1 }}>
-                <DataGrid
-                    rows={[...managmentStore.moduleCreationList.modules]}
-                    //rows={rows}
-                    columns={columns}
-                    sx={{
-                        border: 0,
-                        color: theme => theme.palette.primary.contrastText,
-                        fontFamily: [
-                            '-apple-system',
-                            'BlinkMacSystemFont',
-                            '"Segoe UI"',
-                            'Roboto',
-                            '"Helvetica Neue"',
-                            'Arial',
-                            'sans-serif',
-                            '"Apple Color Emoji"',
-                            '"Segoe UI Emoji"',
-                            '"Segoe UI Symbol"',
-                        ].join(','),
-                        WebkitFontSmoothing: 'auto',
-                        letterSpacing: 'normal',
-                        '& .MuiDataGrid-columnsContainer': {
-                            backgroundColor: theme => theme.palette.primary.main,
-                        },
-                        '& .MuiDataGrid-iconSeparator': {
-                            display: 'none',
-                        },
-                        '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
-                            borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
-                                }`,
-                        },
-                        '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-                            borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
-                                }`,
-                        },
-                        '& .MuiDataGrid-cell': {
-                            // color:
-                            //     theme.palette.mode === 'light'
-                            //         ? 'rgba(0,0,0,.85)'
-                            //         : 'rgba(255,255,255,0.65)',
-                        },
-                        '& .MuiPaginationItem-root': {
-                            borderRadius: 0,
-                        },
-                        ...customCheckbox(theme),
-                        '& .super-app-theme--rows': {
-                            backgroundColor: theme => theme.palette.blueGrey["5"],
-                            '&:hover': {
-                                backgroundColor: theme => theme.palette.blueGrey["5"],
-                            },
-                            color: theme => theme.palette.primary.contrastText,
-                        },
-                    }}
-                    autoHeight
-                    //checkboxSelection
-                    autoPageSize
-                    disableSelectionOnClick
-                    getRowClassName={(params) =>
-                        `super-app-theme--rows`
-                    }
-                    disableColumnMenu
-                    // disableColumnSelector
-                    hideFooter
-                // components={{
-                //     Pagination: CustomPagination,
-                // }}
+        <TableHead>
+            <TableRow>
+                <TableCell padding="checkbox">
+                    <Checkbox
+                        color="primary"
+                        indeterminate={numSelected > 0 && numSelected < rowCount}
+                        checked={rowCount > 0 && numSelected === rowCount}
+                        onChange={onSelectAllClick}
+                        inputProps={{
+                            'aria-label': 'select all desserts',
+                        }}
+                    />
+                </TableCell>
+                {headCells.map((headCell) => (
+                    <TableCell
+                        key={headCell.id}
+                        align={headCell.numeric ? 'right' : 'left'}
+                        padding={headCell.disablePadding ? 'none' : 'normal'}
+                        sortDirection={orderBy === headCell.id ? order : false}
+                    >
+                        <TableSortLabel
+                            active={orderBy === headCell.id}
+                            direction={orderBy === headCell.id ? order : 'asc'}
+                            onClick={createSortHandler(headCell.id)}
+                        >
+                            {headCell.label}
+                            {orderBy === headCell.id ? (
+                                <Box component="span" sx={visuallyHidden}>
+                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                                </Box>
+                            ) : null}
+                        </TableSortLabel>
+                    </TableCell>
+                ))}
+            </TableRow>
+        </TableHead>
+    );
+}
 
+EnhancedTableHead.propTypes = {
+    numSelected: PropTypes.number.isRequired,
+    onRequestSort: PropTypes.func.isRequired,
+    onSelectAllClick: PropTypes.func.isRequired,
+    order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+    orderBy: PropTypes.string.isRequired,
+    rowCount: PropTypes.number.isRequired,
+};
+
+const EnhancedTableToolbar = (props) => {
+    const { managmentStore, rows, selected, numSelected, deletePages } = props;
+
+    return (
+        <Toolbar
+            sx={{
+                pl: { sm: 2 },
+                pr: { xs: 1, sm: 1 },
+                ...(numSelected > 0 && {
+                    bgcolor: (theme) =>
+                        alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+                }),
+            }}
+        >
+            {numSelected > 0 ? (
+                <Typography
+                    sx={{ flex: '1 1 100%' }}
+                    color="inherit"
+                    variant="subtitle1"
+                    component="div"
+                >
+                    {numSelected} выбрано
+                </Typography>
+            ) : (
+                <Typography
+                    sx={{ flex: '1 1 100%' }}
+                    variant="h6"
+                    id="tableTitle"
+                    component="div"
+                >
+                    Ваши модули
+                </Typography>
+            )}
+            {numSelected === 1 &&
+                <Tooltip title="Редактировать">
+                    <IconButton onClick={() => managmentStore.changeOldPageList(rows[selected[0]].id)}>
+                        <EditIcon />
+                    </IconButton>
+                </Tooltip>}
+            {numSelected > 0 &&
+                <Tooltip title="Удалить">
+                    <IconButton onClick={deletePages}>
+                        <DeleteIcon />
+                    </IconButton>
+                </Tooltip>}
+        </Toolbar>
+    );
+};
+
+EnhancedTableToolbar.propTypes = {
+    numSelected: PropTypes.number.isRequired,
+};
+
+const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore }) => {
+
+    const [rows, setRows] = React.useState([])
+    const [order, setOrder] = React.useState('asc');
+    const [orderBy, setOrderBy] = React.useState('calories');
+    const [selected, setSelected] = React.useState([]);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    React.useEffect(() => {
+        rootStore.fetchDataScr(`${rootStore.url}/wip/modules/index/`, "POST", { "counter": 0 }).then(
+            (data) => {
+                console.log("log", data.results)
+                setRows(data.results)
+            })
+    }, [])
+
+    const handleRequestSort = (event, property) => {
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
+    };
+
+    const handleSelectAllClick = (event) => {
+        if (event.target.checked) {
+            const newSelecteds = rows.map((n, index) => index);
+            setSelected(newSelecteds);
+            return;
+        }
+        setSelected([]);
+    };
+
+    const handleClick = (event, index) => {
+        console.log("clkc")
+        let newSelected = [...selected]
+        if (selected.includes(index)) {
+            newSelected = newSelected.filter((el) => el !== index)
+        }
+        if (!(selected.includes(index))) {
+            newSelected.push(index)
+        }
+        setSelected(newSelected);
+    };
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    // Avoid a layout jump when reaching the last page with empty rows.
+    const emptyRows =
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+    const deletePages = () => {
+        console.log("selected", selected)
+        let newRows = rows.filter((el, index) => !(selected.includes(index)))
+        selected.forEach((item, index) => {
+            rootStore.fetchDataScr(`${rootStore.url}/wip/modules/${rows[item].id}/`, "DELETE").then(
+                (data) => {
+                    console.log("data", data)
+                }
+            )
+        })
+        setSelected([])
+        setRows(newRows)
+        console.log("rows", rows)
+    }
+
+    return (
+        <Box sx={{ width: '100%', mt: 2 }}>
+            <Paper sx={{ width: '100%', mb: 2 }}>
+                <EnhancedTableToolbar managmentStore={managmentStore} rows={rows} selected={selected} deletePages={deletePages} numSelected={selected.length} />
+                <TableContainer>
+                    <Table
+                        sx={{ minWidth: 750 }}
+                        aria-labelledby="tableTitle"
+                        size={'medium'}
+                    >
+                        <EnhancedTableHead
+                            numSelected={selected.length}
+                            order={order}
+                            orderBy={orderBy}
+                            onSelectAllClick={handleSelectAllClick}
+                            onRequestSort={handleRequestSort}
+                            rowCount={rows.length}
+                        />
+                        <TableBody>
+                            {/* if you don't need to support IE11, you can replace the `stableSort` call with:
+                 rows.slice().sort(getComparator(order, orderBy)) */}
+                            {stableSort(rows, getComparator(order, orderBy))
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row, index) => {
+                                    const labelId = `enhanced-table-checkbox-${index}`;
+
+                                    return (
+                                        <TableRow
+                                            hover
+                                            onClick={(event) => handleClick(event, index)}
+                                            role="checkbox"
+                                            aria-checked={selected.includes(index)}
+                                            tabIndex={-1}
+                                            key={row.name}
+                                            selected={selected.includes(index)}
+                                        >
+                                            <TableCell padding="checkbox">
+                                                <Checkbox
+                                                    color="primary"
+                                                    checked={selected.includes(index)}
+                                                    inputProps={{
+                                                        'aria-labelledby': labelId,
+                                                    }}
+                                                />
+                                            </TableCell>
+                                            <TableCell
+                                                component="th"
+                                                id={labelId}
+                                                scope="row"
+                                                padding="none"
+                                            >
+                                                {row.name}
+                                            </TableCell>
+                                            <TableCell align="left">{row.status}</TableCell>
+                                            <TableCell align="left">{row.views}</TableCell>
+                                            <TableCell align="left">{row.blueprint}</TableCell>
+                                            <TableCell align="left">{row.type}</TableCell>
+                                            <TableCell align="left">{row.theme}</TableCell>
+                                            <TableCell align="left">{row.category}</TableCell>
+                                            <TableCell align="left">{row.difficulty}</TableCell>
+                                        </TableRow>
+                                    );
+                                })}
+                            {emptyRows > 0 && (
+                                <TableRow
+                                    style={{
+                                        height: 53 * emptyRows,
+                                    }}
+                                >
+                                    <TableCell colSpan={6} />
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    labelRowsPerPage={'Строк на странице'}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-            </div>
-        </div>
+            </Paper>
+        </Box>
     )
 }));
 
+export default DataList
 
-export default DataList;
+// const columns = [
+//     {
+//         field: 'name',
+//         headerName: 'Название',
+//         //type: 'number',
+//         width: 220,
+//         renderCell: (params) => (
+//             <Grid container wrap="nowrap" spacing={2}>
+//                 <Grid item xs zeroMinWidth>
+//                     <Tooltip title={params.value != null ? params.value : ""}>
+//                         <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
+//                     </Tooltip>
+//                 </Grid>
+//             </Grid>
+//         ),
+//     },
+//     {
+//         field: 'status',
+//         headerName: 'Статус',
+//         width: 180,
+//         renderCell: (params) => (
+//             <Typography style={{ cursor: "default" }}> {statusSelect(params.value)} </Typography>
+//         ),
+//     },
+//     {
+//         field: 'views',
+//         headerName: 'Просмотры',
+//         width: 180,
+//         renderCell: (params) => (
+//             <Typography style={{ cursor: "default" }}> {params.value} </Typography>
+//         ),
+//     },
+//     // {
+//     //     field: 'blueprint',
+//     //     headerName: 'Тип',
+//     //     width: 180,
+//     // },
+//     {
+//         field: 'type',
+//         headerName: 'Тип',
+//         width: 200,
+//         renderCell: (params) => (
+//             <Typography style={{ cursor: "default" }}> {kindSelect(params.value)} </Typography>
+//         ),
+//     },
+//     {
+//         field: 'theme',
+//         headerName: 'Тема',
+//         width: 210,
+//         renderCell: (params) => (
+//             <Grid container wrap="nowrap" spacing={2}>
+//                 <Grid item xs zeroMinWidth>
+//                     <Tooltip title={params.value != null ? params.value : ""}>
+//                         <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
+//                     </Tooltip>
+//                 </Grid>
+//             </Grid>
+//         ),
+//     },
+//     {
+//         field: 'category',
+//         headerName: 'Категория',
+//         width: 210,
+//         renderCell: (params) => (
+//             <Grid container wrap="nowrap" spacing={2}>
+//                 <Grid item xs zeroMinWidth>
+//                     <Tooltip title={params.value != null ? params.value : ""}>
+//                         <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
+//                     </Tooltip>
+//                 </Grid>
+//             </Grid>
+//         ),
+//     },
+//     {
+//         field: 'difficulty',
+//         headerName: 'Сложность',
+//         width: 210,
+//         renderCell: (params) => (
+//             <Grid container wrap="nowrap" spacing={2}>
+//                 <Grid item xs zeroMinWidth>
+//                     <Tooltip title={params.value != null ? params.value : ""}>
+//                         <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
+//                     </Tooltip>
+//                 </Grid>
+//             </Grid>
+//         ),
+//     },
+//     {
+//         field: 'description',
+//         headerName: 'Описание',
+//         flex: 1,
+//         minWidth: 150,
+//         renderCell: (params) => (
+//             <Grid container wrap="nowrap" spacing={2}>
+//                 <Grid item xs zeroMinWidth>
+//                     <Tooltip title={params.value != null ? params.value : ""}>
+//                         <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
+//                     </Tooltip>
+//                 </Grid>
+//             </Grid>
+//         ),
+//     },
+//     {
+//         field: '',
+//         headerName: '',
+//         //type: 'number',
+//         width: 130,
+//         renderCell: (params) => (
+//             <Grid>
+//                 <Tooltip title="Изменить">
+//                     <IconButton
+//                         onClick={() => managmentStore.changeOldModuleList(params.row.id)}
+//                         variant="contained"
+//                         //color="primary"
+//                         size="small"
+//                         style={{ marginLeft: 16, marginTop: -4, color: theme => theme.palette.primary.contrastText }}
+//                     >
+//                         <EditIcon />
+//                     </IconButton>
+//                 </Tooltip>
+//                 <Tooltip title="Удалить">
+//                     <IconButton
+//                         onClick={() => managmentStore.deleteModuleInList(params.row.id)}
+//                         variant="contained"
+//                         //color="primary"
+//                         size="small"
+//                         style={{ marginLeft: 16, marginTop: -4, color: theme => theme.palette.primary.contrastText }}
+//                     >
+//                         <DeleteForeverIcon />
+//                     </IconButton>
+//                 </Tooltip>
+//             </Grid>
+//         ),
+//     },
+// ];

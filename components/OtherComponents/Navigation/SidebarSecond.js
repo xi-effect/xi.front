@@ -73,7 +73,7 @@ const MenuHomeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ 
                     cursor: 'pointer',
                 }}
             >
-                {'Создать профиль'}
+                {'создать профиль'}
             </Typography>
         </>
     )
@@ -89,7 +89,7 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                 component={motion.p}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => router.push('/knowledge/page')}
+                onClick={() => router.push('/knowledge/pages')}
                 sx={{
                     "&:hover": {
                         bgcolor: 'primary.light',
@@ -102,7 +102,7 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                     width: '100%',
                     borderRadius: 1,
                     cursor: 'pointer',
-                    bgcolor: router.pathname.includes('/knowledge/page') ? 'tertiary.main' : 'secondary.main',
+                    bgcolor: router.pathname.includes('/knowledge/pages') ? 'tertiary.main' : 'secondary.main',
                 }}
             >
                 {'cтраницы'}
@@ -111,7 +111,7 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                 component={motion.p}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => router.push('/knowledge/module')}
+                onClick={() => router.push('/knowledge/modules')}
                 sx={{
                     "&:hover": {
                         bgcolor: 'primary.light',
@@ -124,7 +124,7 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                     width: '100%',
                     borderRadius: 1,
                     cursor: 'pointer',
-                    bgcolor: router.pathname.includes('/knowledge/module') ? 'tertiary.main' : 'secondary.main',
+                    bgcolor: router.pathname.includes('/knowledge/modules') ? 'tertiary.main' : 'secondary.main',
                 }}
             >
                 {'модули'}
