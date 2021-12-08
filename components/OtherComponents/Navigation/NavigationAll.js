@@ -26,7 +26,7 @@ const NavigationAll = inject(
   "uiStore",
   "messageStore"
 )(
-  observer(({ rootStore, settingsStore, uiStore, messageStore, haveSecondMenu = false, haveRightToolbar = false, haveRightMenu = false, children }) => {
+  observer(({ rootStore, settingsStore, uiStore, messageStore, haveSecondMenu = false, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
     const theme = useTheme();
     const router = useRouter();
 
@@ -86,9 +86,6 @@ const NavigationAll = inject(
       });
     }
 
-
-
-    const [hoverRight, setHoverRight] = React.useState(false)
     const [hoverLeftName, setHoverLeftName] = React.useState('')
 
     React.useEffect(() => {
@@ -100,9 +97,9 @@ const NavigationAll = inject(
 
     const getWidth = () => {
       let w = 240
-      if (haveRightToolbar) w = w + 64
-      if (haveRightMenu) w = w + 156
-      return w
+      if (haveRightToolbar) return w + 64
+      if (haveRightMenu) return w + 156
+      if (haveRightMenuMore) return w + 256
     }
 
     const getMarginLeft = () => {
@@ -156,7 +153,7 @@ const NavigationAll = inject(
               <SidebarSecond hoverLeftName={hoverLeftName} />
             </Box>
             {haveRightToolbar && <RightToolbar />}
-            {haveRightMenu && <RightMenu />}
+            {(haveRightMenu || haveRightMenuMore) && <RightMenu haveRightMenuMore={haveRightMenuMore} />}
             <Box
               sx={{
                 zIndex: 0,
@@ -168,7 +165,7 @@ const NavigationAll = inject(
                 ml: 32,
               }}
             >
-              <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
+              <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
               <Paper
                 onMouseEnter={() => setHoverLeftName(null)}
                 elevation={2}

@@ -1,5 +1,6 @@
 import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Box } from "@mui/material";
 
 
 const initial = Array.from({ length: 10 }, (v, k) => k).map(k => {
@@ -45,7 +46,7 @@ function DnDList({ state, setState, ComponentsList }) {
     }
 
     return (
-        <StyledDragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="list">
                 {provided => (
                     <Box sx={{
@@ -67,7 +68,7 @@ function DnDList({ state, setState, ComponentsList }) {
                     </Box>
                 )}
             </Droppable>
-        </StyledDragDropContext>
+        </DragDropContext>
     );
 }
 

@@ -7,6 +7,10 @@ import Image from 'next/image';
 import React from 'react';
 import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
 
+import StepOne from '../../components/PagesComponents/Managment/Content/Pages/DialogPageCreation/StepOne';
+import StepTwo from '../../components/PagesComponents/Managment/Content/Pages/DialogPageCreation/StepTwo';
+import StepThree from '../../components/PagesComponents/Managment/Content/Pages/DialogPageCreation/StepThree';
+
 
 const Createpage = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
     const theme = useTheme();
@@ -19,18 +23,20 @@ const Createpage = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStor
                     Ξffect
                 </title>
             </Head>
-            <NavigationAll haveRightToolbar>
+            <NavigationAll haveRightMenuMore>
                 <Grid
                     container
-                    direction="column"
+                    direction="row"
                     justifyContent="center"
-                    alignItems="center"
+                    alignItems="flex-start"
                     sx={{
-                        // width: '100%',
+                        width: '100%',
                         zIndex: 1,
                     }}
                 >
-                    
+                    {uiStore.knowledge.activeStep == 0 && <StepOne />}
+                    {uiStore.knowledge.activeStep == 1 && <StepTwo />}
+                    {uiStore.knowledge.activeStep == 2 && <StepThree />}
                 </Grid>
             </NavigationAll>
         </>

@@ -83,7 +83,9 @@ class ManagmentStore {
         if (type === "numanswer") {
             this.pageCreation.components.push({ type: "numanswer", label: 0, userAnswer: null })
         }
-        //this.idComponents()
+        if (type === "code") {
+            this.pageCreation.components.push({ type: "code", label: "code", lang: 0,  })
+        }
         console.log("compot", this.pageCreation.components)
     }
 

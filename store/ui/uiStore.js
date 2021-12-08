@@ -32,15 +32,14 @@ class UIStore {
         this.load[name] = value
     }
 
-    @observable knowledgeUI = {
-        contentTypeOnPage: "info",
-        gridTypeOnPage: "grid",
-        gridTypeOnPageSizes: [6, 4, 3]
+    @observable knowledge = {
+        activeStep: 0,
     }
 
-    @action setKnowledgeUI = (name, value) => {
-        this.knowledgeUI[name] = value
+    @action setKnowledge = (name, value) => {
+        this.knowledge[name] = value
     }
+
 
 }
 

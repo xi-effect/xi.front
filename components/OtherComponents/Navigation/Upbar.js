@@ -162,7 +162,7 @@ const Upbar = inject(
   "uiStore",
   "messageStore"
 )(
-  observer(({ rootStore, settingsStore, uiStore, messageStore, children, swipe, setSwipe, haveRightMenu, haveRightToolbar }) => {
+  observer(({ rootStore, settingsStore, uiStore, messageStore, children, swipe, setSwipe, haveRightMenu, haveRightToolbar, haveRightMenuMore }) => {
     const theme = useTheme();
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -224,7 +224,7 @@ const Upbar = inject(
           {settingsStore.settings.username}
         </Typography>
         <Box
-          sx={{ height: 48, width: 48, m: 1, mb: "22px", mr: !(haveRightMenu || haveRightToolbar) ? 4 : 0, cursor: 'pointer' }}
+          sx={{ height: 48, width: 48, m: 1, mb: "22px", mr: (haveRightMenu || haveRightToolbar || haveRightMenuMore) ? 6 : 4, cursor: 'pointer' }}
           ref={anchorRef}
           id="composition-button"
           aria-controls={open ? 'composition-menu' : undefined}
