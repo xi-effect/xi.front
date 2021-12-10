@@ -3,6 +3,9 @@ export const getDesignTokens = (mode) => ({
     typography: {
         // Tell MUI what's the font-size on the html element is.
         htmlFontSize: 10,
+        button: {
+            textTransform: 'none'
+        },
     },
     palette: {
         ...(!mode

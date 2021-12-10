@@ -1,10 +1,9 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { motion } from "framer-motion"
 
-import { Divider, Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
+import { Divider, Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, Container } from '@mui/material';
 
 
 const Header = () => {
@@ -23,20 +22,64 @@ const Header = () => {
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ zIndex: 1, p: 2, maxWidth: 1520, height: 64, width: '100%', }}
+            sx={{ height: "140px", width: '100%', }}
         >
-            <Typography
-                onClick={() => {
-                    router.push({
-                        pathname: '/',
-                    })
-                }}
-
-                variant="h4"
-                sx={{ cursor: 'pointer', }}
+            <Stack
+                direction="row"
             >
-                Ξffect
-            </Typography>
+                <Typography
+                    onClick={() => {
+                        router.push({
+                            pathname: '/',
+                        })
+                    }}
+
+                    variant="h4"
+                    sx={{
+                        '&.MuiTypography-root': {
+                            mt: '0.5px',
+                            cursor: 'pointer',
+                            fontFamily: 'Roboto',
+                            fontStyle: 'normal',
+                            fontWeight: 500,
+                            fontSize: '40px !important',
+                            lineHeight: '50px',
+                            letterSpacing: '-0.03em',
+                            color: '#1D63FF',
+                        }
+                        // background: '-webkit-linear-gradient(0deg, #1D63FF -0.36%, #A056FF 46.64%, #32B5FF 96.61%)',
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent"
+                    }}
+                >
+                    Ξ
+                </Typography>
+                <Typography
+                    onClick={() => {
+                        router.push({
+                            pathname: '/',
+                        })
+                    }}
+
+                    variant="h4"
+                    sx={{
+                        '&.MuiTypography-root': {
+                            cursor: 'pointer',
+                            fontFamily: 'IBM Plex Mono',
+                            fontStyle: 'normal',
+                            fontWeight: 500,
+                            fontSize: '40px',
+                            lineHeight: '50px',
+                            letterSpacing: '-0.03em',
+                            background: '-webkit-linear-gradient(0deg, #1D63FF -0.36%, #A056FF 46.64%, #32B5FF 96.61%)',
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent"
+                        },
+                    }}
+                >
+                    ffect
+                </Typography>
+            </Stack>
             {/* <Grid item>
                 {!mobile && <>
                     <Link
@@ -80,7 +123,22 @@ const Header = () => {
                         pathname: '/home',
                     })
                 }}
-                sx={{ color: 'text.main', }}
+                sx={{
+                    fontFamily: 'Open Sans, sans-serif',
+                    fontStyle: 'normal',
+                    fontWeight: 600,
+                    fontSize: '18px',
+                    lineHeight: '25px',
+                    width: '180px',
+                    height: '60px',
+                    color: 'text.main',
+                    bgcolor: '#1D63FF',
+                    borderRadius: '88px',
+
+                    '&:hover': {
+                        bgcolor: '#1D63FF',
+                    },
+                }}
             >
                 Войти
             </Button>

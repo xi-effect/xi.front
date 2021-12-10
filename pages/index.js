@@ -50,62 +50,33 @@ const Main = inject(
         </Head>
         {/* <Background /> */}
         <Stack
-          component={motion.div}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 1 }}
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="center"
+          direction="row"
+          justifyContent="center"
+          alignItems="flex-start"
           sx={{
-            width: "100%",
+            width: "100vw",
             minHeight: "100vh",
+            bgcolor: '#F8FAFF'
           }}
         >
-          <Header />
-          <MainLabel />
-          <Grid
-            component={motion.div}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0, duration: 0.5 }}
-            sx={{
-              position: "fixed",
-              height: "100vh",
-              width: "100vw",
-              overflow: "hidden",
-              zIndex: "-1",
-            }}
-          >
-            <Image
-              alt="alt"
-              src={"/svg/BackgroundWaves.svg"}
-              layout="fill"
-              objectFit="cover"
-              quality={100}
-            />
-          </Grid>
           <Stack
             component={motion.div}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 1 }}
-            direction="row"
-            justifyContent="center"
+            transition={{ delay: 0.2, duration: 1 }}
+            direction="column"
+            justifyContent="flex-start"
             alignItems="center"
-            spacing={2}
-            sx={{ zIndex: 1, mt: '10%', }}
+            sx={{
+              maxWidth: 1920,
+              pl: 2,
+              pr: 2,
+              width: '100%',
+              // minHeight: "100vh",
+            }}
           >
-            <Image
-              alt="alt"
-              src={"/svg/Something.svg"}
-              quality={100}
-              width={256}
-              height={232}
-            />
-            <Typography sx={{ cursor: "default" }} variant="h6">
-              Сайт устал, мы устраняем неполадки
-            </Typography>
+            <Header />
+            <MainLabel />
           </Stack>
         </Stack>
       </>
