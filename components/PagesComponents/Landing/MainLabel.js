@@ -10,7 +10,7 @@ const MainLabel = () => {
     const theme = useTheme();
 
     const router = useRouter()
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
 
     return (
@@ -61,9 +61,9 @@ const MainLabel = () => {
                 sx={{
                     zIndex: 10,
                     mt: "20px",
-                    width: 'calc(100% - 200px)',
-                    ml: "100px",
-                    mr: "100px",
+                    width: mobile ? 'calc(100% - 32px)' : 'calc(100% - 200px)',
+                    ml: mobile ? "16px" : "100px",
+                    mr: mobile ? "16px" : "100px",
                     boxShadow: "0px 24px 65px 0px rgba(29, 99, 255, 0.05)",
                     background: "linear-gradient(180deg, #FFFFFF 0%, #FBFDFF 100%)",
                     borderRadius: "20px",
@@ -88,7 +88,6 @@ const MainLabel = () => {
                     />
                 </Box>
 
-
                 <Box
                     sx={{
                         position: 'absolute',
@@ -106,39 +105,49 @@ const MainLabel = () => {
                     />
                 </Box>
                 <Typography
-                    variant="h1"
+                    // component={"h1"}
+                    variant="OpenSans700MainLabel"
                     sx={{
                         '&.MuiTypography-root': {
                             color: '#272731',
-                            fontFamily: 'Open Sans',
-                            fontStyle: 'normal',
-                            fontWeight: 700,
-                            fontSize: '60px',
-                            lineHeight: '71px',
-                            letterSpacing: '-1%',
                             textAlign: 'center',
                             p: 2,
-                        }
+
+                        },
+                        fontSize: {
+                            xs: '28px',
+                            sm: '36px',
+                            md: '44px',
+                            lg: '60px',
+                        },
+                        lineHeight: {
+                            xs: '44px',
+                            sm: '44px',
+                            md: '71px',
+                            lg: '71px',
+                        },
+                        mt: mobile ? "20px" : "5px",
                     }}
                 >
-                    Effect - платформа путеводитель в мире знаний
+                    Effect - платформа для построения образовательных процессов
                 </Typography>
                 <Typography
-                    variant="subtitle"
+                    // component={"h2"}
+                    variant="OpenSans400MainLabel"
                     sx={{
                         '&.MuiTypography-root': {
                             color: '#555569',
-                            fontFamily: 'Open Sans',
-                            fontStyle: 'normal',
-                            fontWeight: 400,
-                            fontSize: '20px',
-                            lineHeight: '27px',
                             textAlign: 'center',
                             p: 2,
-                        }
+                        },
+                        fontSize: {
+                            sm: '16px',
+                            md: '18px',
+                            lg: '20px',
+                        },
                     }}
                 >
-                    Делитесь своим опытом и изучайте новое в одном месте
+                    Создавайте образовательные сообщества и настраивайте образовательные процессы
                 </Typography>
                 <Button
                     onClick={() => {
@@ -148,7 +157,6 @@ const MainLabel = () => {
                     }}
                     sx={{
                         '&.MuiButton-root': {
-
                             width: '272px',
                             height: '60px',
                             color: 'text.main',
@@ -160,6 +168,7 @@ const MainLabel = () => {
                             },
                         },
                         mt: '50px',
+                        mb: '60px',
                     }}
                 >
                     <Typography

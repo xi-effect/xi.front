@@ -21,10 +21,13 @@ import {
 import { inject, observer } from "mobx-react";
 import { motion } from "framer-motion"
 
+import { Scrollbars } from 'react-custom-scrollbars-2';
+
 import Loading from "./../components/OtherComponents/Loading/Loading";
-import CardsList from "./../components/PagesComponents/Landing/CardList";
 import Header from "./../components/PagesComponents/Landing/Header";
 import MainLabel from "./../components/PagesComponents/Landing/MainLabel";
+import WhyLabel from "../components/PagesComponents/Landing/WhyLabel";
+import EffectFor from "../components/PagesComponents/Landing/EffectFor";
 
 
 const Main = inject(
@@ -33,15 +36,15 @@ const Main = inject(
 )(
   observer(({ rootStore, uiStore }) => {
     const theme = useTheme();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
-    React.useEffect(() => {
-      if (uiStore.load.landing) uiStore.setLoading("loading", true)
-      setTimeout(() => {
-        uiStore.setLoading("loading", false)
-        uiStore.setLoading("landing", false)
-      }, 1500);
-    }, [])
+    // React.useEffect(() => {
+    //   if (uiStore.load.landing) uiStore.setLoading("loading", true)
+    //   setTimeout(() => {
+    //     uiStore.setLoading("loading", false)
+    //     uiStore.setLoading("landing", false)
+    //   }, 1500);
+    // }, [])
 
     return (
       <>
@@ -50,13 +53,17 @@ const Main = inject(
         </Head>
         {/* <Background /> */}
         <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="flex-start"
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="center"
           sx={{
-            width: "100vw",
-            minHeight: "100vh",
-            bgcolor: '#F8FAFF'
+            // transition: '0.8s',
+            zIndex: 1,
+            margin: 0,
+            overflow: 'auto',
+            // width: `100vw`,
+            height: "100vh",
+            bgcolor: '#F8FAFF',
           }}
         >
           <Stack
@@ -68,15 +75,20 @@ const Main = inject(
             justifyContent="flex-start"
             alignItems="center"
             sx={{
+
+              // pl: mobile ? 1 : 2,
+              // pr: mobile ? 1 : 2,
               maxWidth: 1920,
-              pl: 2,
-              pr: 2,
-              width: '100%',
+              // width: '100vw',
+              height: "100%",
+              // overflowY: 'none',
               // minHeight: "100vh",
             }}
           >
             <Header />
             <MainLabel />
+            <WhyLabel />
+            {/* <EffectFor /> */}
           </Stack>
         </Stack>
       </>

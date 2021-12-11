@@ -35,7 +35,7 @@ const Loading = inject('uiStore')(observer(({ uiStore }) => {
                         quality={90}
                         width={96}
                         height={96}
-                    // priority
+                        prirotiy
                     />}
                     {!isDarkTheme && <Image
                         alt="alt"
@@ -43,7 +43,7 @@ const Loading = inject('uiStore')(observer(({ uiStore }) => {
                         quality={90}
                         width={96}
                         height={96}
-                    // priority
+                        prirotiy
                     />}
                 </Box>
             </Grid>}

@@ -10,7 +10,7 @@ const Header = () => {
     const theme = useTheme();
 
     const router = useRouter()
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
 
     return (
@@ -22,31 +22,29 @@ const Header = () => {
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ height: "140px", width: '100%', }}
+            sx={{ height: mobile ? '100px' : "140px", p: mobile ? '20px' : '40px', width: '100%', }}
         >
             <Stack
                 direction="row"
             >
                 <Typography
+                    component={"h1"}
                     onClick={() => {
                         router.push({
                             pathname: '/',
                         })
                     }}
 
-                    variant="h4"
+                    variant="Roboto500XiLabel"
                     sx={{
-                        '&.MuiTypography-root': {
-                            mt: '0.5px',
-                            cursor: 'pointer',
-                            fontFamily: 'Roboto',
-                            fontStyle: 'normal',
-                            fontWeight: 500,
-                            fontSize: '40px !important',
-                            lineHeight: '50px',
-                            letterSpacing: '-0.03em',
-                            color: '#1D63FF',
-                        }
+                        mt: '0.5px',
+                        cursor: 'pointer',
+                        color: '#1D63FF',
+                        fontSize: {
+                            sm: '28px',
+                            md: '34px',
+                            lg: '40px',
+                        },
                         // background: '-webkit-linear-gradient(0deg, #1D63FF -0.36%, #A056FF 46.64%, #32B5FF 96.61%)',
                         // WebkitBackgroundClip: "text",
                         // WebkitTextFillColor: "transparent"
@@ -55,25 +53,25 @@ const Header = () => {
                     Ξ
                 </Typography>
                 <Typography
+                    component={"h1"}
                     onClick={() => {
                         router.push({
                             pathname: '/',
                         })
                     }}
 
-                    variant="h4"
+                    variant="IBMPlexMono500XiLabelEnd"
                     sx={{
                         '&.MuiTypography-root': {
                             cursor: 'pointer',
-                            fontFamily: 'IBM Plex Mono',
-                            fontStyle: 'normal',
-                            fontWeight: 500,
-                            fontSize: '40px',
-                            lineHeight: '50px',
-                            letterSpacing: '-0.03em',
                             background: '-webkit-linear-gradient(0deg, #1D63FF -0.36%, #A056FF 46.64%, #32B5FF 96.61%)',
                             WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent"
+                            WebkitTextFillColor: "transparent",
+                        },
+                        fontSize: {
+                            sm: '28px',
+                            md: '34px',
+                            lg: '40px',
                         },
                     }}
                 >
@@ -124,20 +122,21 @@ const Header = () => {
                     })
                 }}
                 sx={{
-                    fontFamily: 'Open Sans, sans-serif',
-                    fontStyle: 'normal',
-                    fontWeight: 600,
-                    fontSize: '18px',
-                    lineHeight: '25px',
-                    width: '180px',
-                    height: '60px',
-                    color: 'text.main',
-                    bgcolor: '#1D63FF',
-                    borderRadius: '88px',
-
-                    '&:hover': {
+                    '&.MuiButton-root': {
+                        fontFamily: 'Open Sans, sans-serif',
+                        fontStyle: 'normal',
+                        fontWeight: 600,
+                        fontSize: '18px',
+                        lineHeight: '25px',
+                        width: mobile ? '120px' : '180px',
+                        height: mobile ? '40px' : '60px',
+                        color: 'text.main',
                         bgcolor: '#1D63FF',
-                    },
+                        borderRadius: mobile ? '62px' : '88px',
+                        '&:hover': {
+                            bgcolor: '#1D63FF',
+                        },
+                    }
                 }}
             >
                 Войти

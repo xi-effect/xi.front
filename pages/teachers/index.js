@@ -77,7 +77,7 @@ const Teachers = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }
           sx={{
             width: '100%',
             height: "396px",
-            background: `linear-gradient(0deg, ${theme.palette.background["2"]} , #d391e3)`,
+            background: `linear-gradient(0deg, ${theme.palette.background["2"]}, #d391e3)`,
           }}
         >
           <Grid
