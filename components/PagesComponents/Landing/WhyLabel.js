@@ -46,9 +46,6 @@ const WhyLabel = () => {
                 textAlign="center"
                 variant="IBMPlexSans700WhyLabel"
                 sx={{
-                    '&.MuiTypography-root': {
-                        color: '#272731',
-                    },
                     fontSize: {
                         xs: '28px',
                         sm: '30px',
@@ -65,97 +62,102 @@ const WhyLabel = () => {
                 justifyContent="center"
                 alignItems="center"
                 sx={{
-                    mt: mobile ? '30px' : '100px',
+                    mt: mobile ? '30px' : '80px',
                     width: '100%',
                     zIndex: 10,
                 }}
             >
                 {cards.map((item, index) => (
-                    <Grid
-                        item
+                    <Paper
                         key={index.toString()}
-                        container
-                        direction="column"
-                        justifyContent="flex-start"
-                        alignItems="center"
+                        elevation={24}
                         sx={{
+                            zIndex: 10,
                             ml: 2,
                             mr: 2,
                             mt: 2,
                             mb: 2,
                             width: '400px',
                             height: '500px',
-                            background: 'linear-gradient(180deg, #FFFFFF 0%, #FBFDFF 100%)',
-                            boxShadow: '0px 24px 67px rgba(0, 0, 0, 0.08)',
-                            borderRadius: '20px',
+                            bgcolor: "grey.400",
+                            borderRadius: "20px",
                         }}
                     >
-                        <Grid item>
-                            <Typography
-                                component={"h4"}
-                                variant='OpenSans600WhyLabel'
-                                sx={{
-                                    color: '#272731',
-                                    pt: '40px',
-                                    pl: '32px',
-                                    pr: '32px',
-                                    textAlign: 'center',
-                                    fontSize: {
-                                        xs: '20px',
-                                        sm: '20px',
-                                        md: '20px',
-                                        lg: '20px',
-                                    },
-                                }}
-                            >
-                                {item.title}
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography
-                                component={"p"}
-                                variant='OpenSans400WhyLabel'
-                                sx={{
-                                    color: '#555569',
-                                    pt: '20px',
-                                    pl: '32px',
-                                    pr: '32px',
-                                    fontSize: {
-                                        xs: '18px',
-                                        sm: '18px',
-                                        md: '18px',
-                                        lg: '18px',
-                                    },
-                                }}
-                            >
-                                {item.label}
-                            </Typography>
-                        </Grid>
-                        <Grid item
+                        <Grid
+                            item
+                            container
+                            direction="column"
+                            justifyContent="flex-start"
+                            alignItems="center"
                             sx={{
-                                width: '210px',
-                                height: '210px',
-                                mt: 'auto',
-                                mb: '60px',
                             }}
                         >
-                            <Image
-                                alt="alt"
-                                src={item.image}
-                                quality={100}
-                                width={210}
-                                height={210}
-                            />
+                            <Grid item>
+                                <Typography
+                                    component={"h4"}
+                                    variant='OpenSans600WhyLabel'
+                                    sx={{
+                                        color: '#272731',
+                                        pt: '40px',
+                                        pl: '32px',
+                                        pr: '32px',
+                                        textAlign: 'center',
+                                        fontSize: {
+                                            xs: '20px',
+                                            sm: '20px',
+                                            md: '20px',
+                                            lg: '20px',
+                                        },
+                                    }}
+                                >
+                                    {item.title}
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography
+                                    component={"p"}
+                                    variant='OpenSans400WhyLabel'
+                                    sx={{
+                                        color: '#555569',
+                                        pt: '20px',
+                                        pl: '32px',
+                                        pr: '32px',
+                                        fontSize: {
+                                            xs: '18px',
+                                            sm: '18px',
+                                            md: '18px',
+                                            lg: '18px',
+                                        },
+                                    }}
+                                >
+                                    {item.label}
+                                </Typography>
+                            </Grid>
+                            <Grid item
+                                sx={{
+                                    width: '210px',
+                                    height: '210px',
+                                    mt: 'auto',
+                                    mb: '60px',
+                                }}
+                            >
+                                <Image
+                                    alt="alt"
+                                    src={item.image}
+                                    quality={100}
+                                    width={210}
+                                    height={210}
+                                />
+                            </Grid>
                         </Grid>
-                    </Grid>
-
+                    </Paper>
                 ))}
             </Grid >
             <Box
                 sx={{
                     width: 'calc(100vw - 8px)',
                     height: '333px',
-                    bgcolor: '#FEE24D',
+                    bgcolor: 'primary.main',
                     position: 'absolute',
                     bottom: '-210px',
                     zIndex: 0,

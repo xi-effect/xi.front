@@ -39,15 +39,12 @@ const Header = () => {
                     sx={{
                         mt: '0.5px',
                         cursor: 'pointer',
-                        color: '#1D63FF',
+                        color: 'secondary.main',
                         fontSize: {
                             sm: '28px',
                             md: '34px',
                             lg: '40px',
                         },
-                        // background: '-webkit-linear-gradient(0deg, #1D63FF -0.36%, #A056FF 46.64%, #32B5FF 96.61%)',
-                        // WebkitBackgroundClip: "text",
-                        // WebkitTextFillColor: "transparent"
                     }}
                 >
                     Ξ
@@ -64,9 +61,7 @@ const Header = () => {
                     sx={{
                         '&.MuiTypography-root': {
                             cursor: 'pointer',
-                            background: '-webkit-linear-gradient(0deg, #1D63FF -0.36%, #A056FF 46.64%, #32B5FF 96.61%)',
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
+                            color: 'secondary.main',
                         },
                         fontSize: {
                             sm: '28px',
@@ -130,11 +125,11 @@ const Header = () => {
                         lineHeight: '25px',
                         width: mobile ? '120px' : '180px',
                         height: mobile ? '40px' : '60px',
-                        color: 'text.main',
-                        bgcolor: '#1D63FF',
+                        color: 'text.primary',
+                        bgcolor: 'primary.main',
                         borderRadius: mobile ? '62px' : '88px',
                         '&:hover': {
-                            bgcolor: '#1D63FF',
+                            bgcolor: 'primary.main',
                         },
                     }
                 }}

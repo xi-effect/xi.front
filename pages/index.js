@@ -63,7 +63,7 @@ const Main = inject(
             overflow: 'auto',
             // width: `100vw`,
             height: "100vh",
-            bgcolor: '#F8FAFF',
+            bgcolor: 'background.main',
           }}
         >
           <Stack
@@ -88,7 +88,7 @@ const Main = inject(
             <Header />
             <MainLabel />
             <WhyLabel />
-            {/* <EffectFor /> */}
+            <EffectFor />
           </Stack>
         </Stack>
       </>

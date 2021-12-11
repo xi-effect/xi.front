@@ -24,9 +24,9 @@ export const getDesignTokens = (mode) => ({
             lineHeight: '71px',
             letterSpacing: '0',
         },
-        OpenSans400MainLabel: {
+        OpenSans500MainLabel: {
             fontFamily: 'Open Sans',
-            fontWeight: 400,
+            fontWeight: 500,
             lineHeight: '27px',
             letterSpacing: '0',
         },
@@ -55,67 +55,36 @@ export const getDesignTokens = (mode) => ({
         ...(!mode
             ? {
                 mode: 'light',
-                text: {
-                    main: "#212121",
-                    dark: "#616161",
-                    reverseMain: "#fafafa",
-                    reverseDark: "#bdbdbd",
-
-                    disabled: "rgba(0, 0, 0, 0.38)",
-                    primary: "rgba(0, 0, 0, 0.87)",
-                    secondary: "rgba(0, 0, 0, 0.6)",
-                },
-                constant: {
-                    textWhite: "#fafafa",
-                    textBlack: "#212121",
-                    landingBlue: "#6cadee",
-                    landingPink: "#d391e3",
-                },
                 primary: {
-                    main: '#145fe1',
-                    light: '#2c72ed',
-                    dark: '#1150c1',
+                    main: '#5F85D8',
+                    light: '#7f9ddf',
+                    dark: '#425d97',
                 },
                 secondary: {
-                    main: '#769234',
-                    light: '#86a73c',
-                    dark: '#647f2f',
+                    main: '#53BF80',
+                    light: '#75cb99',
+                    dark: '#3a8559',
                 },
                 background: {
-                    main: '#b0caf8',
+                    main: '#26282B',
+                    secondary: '#353941',
                 }
             }
             : {
                 mode: 'dark',
-                // palette values for dark mode
-                text: {
-                    main: "#fafafa",
-                    dark: "#bdbdbd",
-                    reverseMain: "#212121",
-                    reverseDark: "#616161",
-                    disabled: "rgba(255, 255, 255, 0.38)",
-                    primary: "rgba(255, 255, 255, 0.87)",
-                    secondary: "rgba(255, 255, 255, 0.6)",
-                    icon: "rgba(255, 255, 255, 0.8)",
-                },
-                constant: {
-                    textWhite: "#fafafa",
-                    textBlack: "#212121",
-                    landingBlue: "#6cadee",
-                    landingPink: "#d391e3",
-                },
                 primary: {
-                    main: '#145fe1',
-                    light: '#2c72ed',
-                    dark: '#1150c1',
+                    main: '#5F85D8',
+                    light: '#7f9ddf',
+                    dark: '#425d97',
                 },
                 secondary: {
-                    main: '#145fe1',
-                    light: '#2c72ed',
-                    dark: '#1150c1',
+                    main: '#53BF80',
+                    light: '#75cb99',
+                    dark: '#3a8559',
                 },
                 background: {
-                    main: '#4d89ef',
+                    main: '#26282B',
+                    secondary: '#353941',
                 }
 
             }),
