@@ -9,7 +9,6 @@ import { useRouter } from 'next/router'
 import { Divider, useMediaQuery, Link, Button, IconButton, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
 import Loading from './../../components/OtherComponents/Loading/Loading';
 import Header from './../../components/PagesComponents/Landing/Header';
-import CardsList from './../../components/PagesComponents/Landing/CardList';
 
 import { inject, observer } from 'mobx-react'
 

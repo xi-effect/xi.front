@@ -11,7 +11,6 @@ import { Divider, useMediaQuery, Link, Button, IconButton, Grid, Box, Paper, use
 import { inject, observer } from 'mobx-react'
 import Loading from './../../components/OtherComponents/Loading/Loading';
 import Header from './../../components/PagesComponents/Landing/Header';
-import CardsList from './../../components/PagesComponents/Landing/CardList';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 const Teachers = inject('rootStore', 'uiStore')(observer(({ rootStore, uiStore }) => {
