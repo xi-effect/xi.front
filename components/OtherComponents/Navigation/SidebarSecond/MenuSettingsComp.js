@@ -3,39 +3,44 @@ import React from 'react';
 import { useRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
 
-import { Typography } from '@mui/material';
+import { Typography, MenuItem, MenuList, ListItemText } from '@mui/material';
 
 import { motion } from "framer-motion";
 
-const menuHome = [
+const menuSettings = [
     {
         id: 0,
-        label: "Профиль 1",
-        href: '/home?profile=1',
+        label: "# Безопасность",
+        href: 'secure',
     },
     {
         id: 1,
-        label: "Профиль 2",
-        href: '/home?profile=2',
+        label: "# Аватар",
+        href: 'useravatar',
     },
     {
         id: 2,
-        label: "Профиль 3",
-        href: '/home?profile=3',
+        label: "# Внешний вид",
+        href: 'customize',
+    },
+    {
+        id: 3,
+        label: "# Приглашения",
+        href: 'invite',
     },
 ]
 
-const MenuHomeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+const MenuSettingsComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
     const router = useRouter()
 
+
+
     return (
-        <>
-            {menuHome.map((item, index) => (
-                <Typography
-                    component={motion.p}
-                    whileHover={{ scale: 1.1, marginLeft: 10 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => router.push(`${item.href}`)}
+        <MenuList sx={{ width: '100%', }}>
+            {menuSettings.map((item, index) => (
+                <MenuItem
+                    selected={router.pathname.includes(item.href)}
+                    onClick={() => router.push(`/settings?option=${item.href}`)}
                     key={index.toString()}
                     sx={{
                         "&:hover": {
@@ -43,39 +48,22 @@ const MenuHomeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ 
                         },
                         pl: 1,
                         pr: 1,
-                        pt: 0.2,
-                        pb: 0.2,
+                        pt: 0.4,
+                        pb: 0.4,
                         fontSize: 22,
                         width: '100%',
                         borderRadius: 1,
-                        bgcolor: router.pathname.includes(item.href) ? '' : '',
                         cursor: 'pointer',
+                        bgcolor: router.pathname.includes(item.href) ? '' : '',
                     }}
                 >
-                    {item.label.toLowerCase()}
-                </Typography>))}
-            <Typography
-                component={motion.p}
-                whileHover={{ scale: 1.1, marginLeft: 10 }}
-                whileTap={{ scale: 0.95 }}
-                sx={{
-                    "&:hover": {
-                        bgcolor: '',
-                    },
-                    pl: 1,
-                    pr: 1,
-                    pt: 0.2,
-                    pb: 0.2,
-                    fontSize: 18,
-                    width: '100%',
-                    borderRadius: 1,
-                    cursor: 'pointer',
-                }}
-            >
-                {'создать профиль'}
-            </Typography>
-        </>
+                    <ListItemText>
+                        {item.label.toLowerCase()}
+                    </ListItemText>
+                </MenuItem>
+            ))}
+        </MenuList>
     )
 }));
 
-export default MenuHomeComp;
+export default MenuSettingsComp;

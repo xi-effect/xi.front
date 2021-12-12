@@ -19,13 +19,12 @@ import { CacheProvider } from '@emotion/react';
 import createEmotionCache from '../store/createEmotionCache';
 import 'moment/locale/ru';
 
-import { initGA, logPageView } from '../utils/analytics'
 import Router from 'next/router';
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 import "../styles/globals.css"
 
-import { Scrollbars } from 'react-custom-scrollbars-2';
+import PlausibleProvider from 'next-plausible'
 
 import NProgress from 'nprogress'; //nprogress module
 import 'nprogress/nprogress.css'; //styles of nprogress
@@ -41,25 +40,6 @@ const MyApp = (observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const router = useRouter()
-
-  React.useEffect(() => {
-    initGA()
-    // `routeChangeComplete` won't run for the first page load unless the query string is
-    // hydrated later on, so here we log a page view if this is the first render and
-    // there's no query string
-    if (!router.asPath.includes('?')) {
-      logPageView()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  React.useEffect(() => {
-    // Listen for page changes after a navigation or when the query changes
-    router.events.on('routeChangeComplete', logPageView)
-    return () => {
-      router.events.off('routeChangeComplete', logPageView)
-    }
-  }, [router.events])
 
   const rootStore = useStore(pageProps.initialState)
   // console.log("darkMode", rootStore.settingsStore.settings.darkTheme)
@@ -115,7 +95,9 @@ const MyApp = (observer((props) => {
             {/* <MenuLayout> */}
             <CssBaseline />
             <Loading />
-            <Component {...pageProps} />
+            <PlausibleProvider domain={"xieffect.netlify.app"}>
+              <Component {...pageProps} />
+            </PlausibleProvider>
             {/* </MenuLayout> */}
             {/* </SnackbarProvider> */}
           </ThemeProvider>

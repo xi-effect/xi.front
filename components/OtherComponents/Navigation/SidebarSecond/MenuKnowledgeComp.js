@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
 
-import { Grid, Stack, Paper, Box, Divider, Typography } from '@mui/material';
+import { Grid, Stack, Paper, Box, Divider, Typography, MenuItem, MenuList, ListItemText } from '@mui/material';
 
 import { motion } from "framer-motion";
 
@@ -13,42 +13,46 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
 
 
     return (
-        <>
-            <Typography
-                component={motion.p}
-                whileHover={{ scale: 1.1, x: 10 }}
-                whileTap={{ scale: 0.95 }}
+        <MenuList sx={{ width: '100%', }}>
+            <MenuItem
+                selected={router.pathname.includes('/knowledge/pages')}
                 onClick={() => router.push('/knowledge/pages')}
                 sx={{
-                    "&:hover": {
-                        bgcolor: '',
+                    "&.Mui-selected": {
+                        bgcolor: 'primary.light',
+                        '&:hover': {
+                            bgcolor: 'primary.light',
+                        }
                     },
                     pl: 1,
                     pr: 1,
-                    pt: 0.2,
-                    pb: 0.2,
+                    pt: 0.4,
+                    pb: 0.4,
                     fontSize: 22,
                     width: '100%',
                     borderRadius: 1,
                     cursor: 'pointer',
-                    bgcolor: router.pathname.includes('/knowledge/pages') ? '' : '',
+                    // bgcolor: router.pathname.includes('/knowledge/pages') ? '' : '',
                 }}
             >
-                {'cтраницы'}
-            </Typography>
-            <Typography
-                component={motion.p}
-                whileHover={{ scale: 1.1, x: 10 }}
-                whileTap={{ scale: 0.95 }}
+                <ListItemText>
+                    {'cтраницы'}
+                </ListItemText>
+            </MenuItem>
+            <MenuItem
+                selected={router.pathname.includes('/knowledge/modules')}
                 onClick={() => router.push('/knowledge/modules')}
                 sx={{
-                    "&:hover": {
-                        bgcolor: '',
+                    "&.Mui-selected": {
+                        bgcolor: 'primary.light',
+                        '&:hover': {
+                            bgcolor: 'primary.light',
+                        }
                     },
                     pl: 1,
                     pr: 1,
-                    pt: 0.2,
-                    pb: 0.2,
+                    pt: 0.4,
+                    pb: 0.4,
                     fontSize: 22,
                     width: '100%',
                     borderRadius: 1,
@@ -57,43 +61,44 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                 }}
             >
                 {'модули'}
-            </Typography>
+            </MenuItem>
             <Divider flexItem light />
-            <Typography
-                component={motion.p}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+            <MenuItem
+                selected={router.pathname.includes('/knowledge/createpage')}
                 onClick={() => router.push('/knowledge/createpage')}
                 sx={{
-                    "&:hover": {
-                        bgcolor: '',
+                    "&.Mui-selected": {
+                        bgcolor: 'primary.light',
+                        '&:hover': {
+                            bgcolor: 'primary.light',
+                        }
                     },
                     pl: 1,
                     pr: 1,
-                    pt: 0.2,
-                    pb: 0.2,
+                    pt: 0.4,
+                    pb: 0.4,
                     fontSize: 22,
                     width: '100%',
                     borderRadius: 1,
                     cursor: 'pointer',
-                    bgcolor: router.pathname.includes('/knowledge/page') ? '' : '',
                 }}
             >
                 {'создание страницы'}
-            </Typography>
-            <Typography
-                component={motion.p}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+            </MenuItem>
+            <MenuItem
+                selected={router.pathname.includes('/knowledge/createmodule')}
                 onClick={() => router.push('/knowledge/createmodule')}
                 sx={{
-                    "&:hover": {
+                    "&.Mui-selected": {
                         bgcolor: 'primary.light',
+                        '&:hover': {
+                            bgcolor: 'primary.light',
+                        }
                     },
                     pl: 1,
                     pr: 1,
-                    pt: 0.2,
-                    pb: 0.2,
+                    pt: 0.4,
+                    pb: 0.4,
                     fontSize: 22,
                     width: '100%',
                     borderRadius: 1,
@@ -102,21 +107,22 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                 }}
             >
                 {'создание модуля'}
-            </Typography>
+            </MenuItem>
             <Divider flexItem light />
-            <Typography
-                component={motion.p}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+            <MenuItem
+                selected={router.pathname.includes('/knowledge/yourpages')}
                 onClick={() => router.push('/knowledge/yourpages')}
                 sx={{
-                    "&:hover": {
-                        bgcolor: '',
+                    "&.Mui-selected": {
+                        bgcolor: 'primary.light',
+                        '&:hover': {
+                            bgcolor: 'primary.light',
+                        }
                     },
                     pl: 1,
                     pr: 1,
-                    pt: 0.2,
-                    pb: 0.2,
+                    pt: 0.4,
+                    pb: 0.4,
                     fontSize: 22,
                     width: '100%',
                     borderRadius: 1,
@@ -125,20 +131,21 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                 }}
             >
                 {'ваши страницы'}
-            </Typography>
-            <Typography
-                component={motion.p}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+            </MenuItem>
+            <MenuItem
+                selected={router.pathname.includes('/knowledge/yourmodules')}
                 onClick={() => router.push('/knowledge/yourmodules')}
                 sx={{
-                    "&:hover": {
-                        bgcolor: '',
+                    "&.Mui-selected": {
+                        bgcolor: 'primary.light',
+                        '&:hover': {
+                            bgcolor: 'primary.light',
+                        }
                     },
                     pl: 1,
                     pr: 1,
-                    pt: 0.2,
-                    pb: 0.2,
+                    pt: 0.4,
+                    pb: 0.4,
                     fontSize: 22,
                     width: '100%',
                     borderRadius: 1,
@@ -147,8 +154,8 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                 }}
             >
                 {'ваши модули'}
-            </Typography>
-        </>
+            </MenuItem>
+        </MenuList>
     )
 }));
 
