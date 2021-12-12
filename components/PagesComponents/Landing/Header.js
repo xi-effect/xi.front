@@ -15,10 +15,10 @@ const Header = () => {
 
     return (
         <Stack
-            component={motion.div}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 1 }}
+            // component={motion.div}
+            // initial={{ opacity: 0 }}
+            // animate={{ opacity: 1 }}
+            // transition={{ delay: 1, duration: 1 }}
             direction="row"
             justifyContent="space-between"
             alignItems="center"

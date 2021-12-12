@@ -33,9 +33,9 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,600&display=swap"
-            rel="stylesheet" 
+            rel="stylesheet"
           />
-          <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&display=swap" rel="stylesheet"/>
+          <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&display=swap" rel="stylesheet" />
           <meta name="msapplication-TileColor" content="#603cba" />
           <meta name="theme-color" content="#ffffff" />
 

@@ -210,7 +210,7 @@ const EffectFor = () => {
                         color: '#FFFFFF',
                         bgcolor: 'primary.main',
                         boxShadow: 12,
-                        width: '232px',
+                        width: '200px',
                         height: '64px',
                         borderRadius: '88px',
                         fontFamily: 'Open Sans',

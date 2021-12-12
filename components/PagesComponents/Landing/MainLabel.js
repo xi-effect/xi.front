@@ -52,7 +52,7 @@ const MainLabel = () => {
                 <Box
                     sx={{
                         position: 'absolute',
-                        bottom: mobile ? '330px' : '-20px',
+                        bottom: mobile ? '320px' : '-20px',
                         right: 0,
                     }}
                 >
@@ -103,15 +103,14 @@ const MainLabel = () => {
                         // component={"h2"}
                         variant="OpenSans500MainLabel"
                         sx={{
-                            '&.MuiTypography-root': {
-                                color: '#555569',
-                                textAlign: 'center',
-                                p: 2,
-                            },
+                            color: '#555569',
+                            textAlign: 'center',
+                            p: 2,
                             fontSize: {
-                                sm: '20px',
-                                md: '22px',
-                                lg: '24px',
+                                xs: '16px',
+                                sm: '18px',
+                                md: '20px',
+                                lg: '22px',
                             },
                         }}
                     >

@@ -71,19 +71,13 @@ const Main = inject(
             component={motion.div}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 1 }}
+            transition={{ delay: 0.4, duration: 2 }}
             direction="column"
             justifyContent="flex-start"
             alignItems="center"
             sx={{
-
-              // pl: mobile ? 1 : 2,
-              // pr: mobile ? 1 : 2,
               maxWidth: 1920,
-              // width: '100vw',
               height: "100%",
-              // overflowY: 'none',
-              // minHeight: "100vh",
             }}
           >
             <Header />
