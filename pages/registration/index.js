@@ -57,7 +57,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                 sx={{
                     width: "100vw",
                     height: "100vh",
-                    backgroundColor: 'background.1',
+                    backgroundColor: 'background.main',
                 }}
             >
                 <Stack
@@ -372,8 +372,8 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                         fontWeight: 600,
                                         fontSize: '16px',
                                         lineHeight: '25px',
-                                        width: mobile ? '200px' : '260px',
-                                        height: mobile ? '30px' : '50px',
+                                        width: mobile ? '220px' : '260px',
+                                        height: mobile ? '40px' : '50px',
                                         color: 'text.primary',
                                         bgcolor: 'secondary.main',
                                         borderRadius: mobile ? '62px' : '88px',

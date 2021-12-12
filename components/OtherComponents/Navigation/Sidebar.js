@@ -78,6 +78,7 @@ const Sidebar = inject(
             pt: 2,
             width: 80,
             height: "100%",
+            // bgcolor: 'grey.800',
           }}
         >
           {menuList.map((item, index) => (

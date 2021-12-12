@@ -169,25 +169,6 @@ const Upbar = inject(
 
     const [openDialog, setOpenDialog] = React.useState(false);
 
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
-
-    const handleToggle = () => {
-      setOpen((prevOpen) => !prevOpen);
-    };
-
-    const handleClose = (event) => {
-      setOpen(false);
-    };
-
-    function handleListKeyDown(event) {
-      if (event.key === 'Tab') {
-        event.preventDefault();
-        setOpen(false);
-      } else if (event.key === 'Escape') {
-        setOpen(false);
-      }
-    }
 
     // const getWidth = () => {
     //   if (haveRightMenu) return 'calc(100% - 196px)'
@@ -272,82 +253,7 @@ const Upbar = inject(
         {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools />}
         {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools />}
         {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools />}
-        <Typography variant="h6" sx={{ mt: 0, ml: 'auto', mr: 1 }}>
-          {settingsStore.settings.username}
-        </Typography>
-        <Box
-          sx={{ height: 48, width: 48, m: 1, mb: "22px", mr: (haveRightMenu || haveRightToolbar || haveRightMenuMore) ? 6 : 4, cursor: 'pointer' }}
-          ref={anchorRef}
-          id="composition-button"
-          aria-controls={open ? 'composition-menu' : undefined}
-          aria-expanded={open ? 'true' : undefined}
-          aria-haspopup="true"
-          onClick={handleToggle}
-        >
-          <CustomAvatar avatar={{ ...settingsStore.settings.avatar, bgcolor: 'rgba(0,0,0,0)' }} viewBox={{ x: '50', y: '-110', width: '690', height: '790' }} reverse={true} />
-        </Box>
-        <Popper
-          open={open}
-          anchorEl={anchorRef.current}
-          role={undefined}
-          placement="bottom-start"
-          transition
-        // disablePortal
-        >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin:
-                  placement === 'bottom-start' ? 'left top' : 'left bottom',
-              }}
-            >
-              <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList
-                    autoFocusItem={open}
-                    id="composition-menu"
-                    aria-labelledby="composition-button"
-                    onKeyDown={handleListKeyDown}
-                  >
-                    <MenuItem sx={{ cursor: 'pointer' }} onClick={() => {
-                      router.push(`/profile/${settingsStore.settings.id}/`)
-                      handleClose()
-                    }}>
-                      <ListItemIcon>
-                        <AccountCircleIcon fontSize="small" />
-                      </ListItemIcon>
-                      <ListItemText>
-                        Профиль
-                      </ListItemText>
-                    </MenuItem>
-                    <MenuItem sx={{ cursor: 'pointer' }} onClick={() => {
-                      setOpenDialog(true)
-                      handleClose()
-                    }}>
-                      <ListItemIcon>
-                        <ReportIcon fontSize="small" />
-                      </ListItemIcon>
-                      <ListItemText>
-                        Оставить отзыв
-                      </ListItemText>
-                    </MenuItem>
-                    <MenuItem sx={{ '& .MuiMenuItem-root': { cursor: 'pointer' } }} onClick={() => {
-                      settingsStore.logout()
-                    }}>
-                      <ListItemIcon>
-                        <LogoutIcon sx={{ color: 'error.main' }} fontSize="small" />
-                      </ListItemIcon>
-                      <ListItemText>
-                        Выйти
-                      </ListItemText>
-                    </MenuItem>
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
+
         {mobile && (haveRightMenu || haveRightToolbar) && <IconButton onClick={() => {
           if (swipe === 'left') setSwipe('swipe', 'center')
           if (swipe === 'center') setSwipe('swipe', 'left')

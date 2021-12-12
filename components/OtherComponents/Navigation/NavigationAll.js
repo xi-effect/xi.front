@@ -142,14 +142,10 @@ const NavigationAll = inject(
               width: "100%",
             }}
           >
-            <Box
-              sx={{ zIndex: 100 }}
-            >
-              <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
-              <SidebarSecond hoverLeftName={hoverLeftName} />
-            </Box>
-            {haveRightToolbar && <RightToolbar />}
-            {(haveRightMenu || haveRightMenuMore) && <RightMenu haveRightMenuMore={haveRightMenuMore} />}
+            <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+            <SidebarSecond hoverLeftName={hoverLeftName} />
+            {/* {haveRightToolbar && <RightToolbar />} */}
+            <RightMenu />
             <Box
               sx={{
                 zIndex: 0,

@@ -34,7 +34,7 @@ const MenuHomeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ 
             {menuHome.map((item, index) => (
                 <Typography
                     component={motion.p}
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.1, marginLeft: 10 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => router.push(`${item.href}`)}
                     key={index.toString()}
@@ -57,7 +57,7 @@ const MenuHomeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ 
                 </Typography>))}
             <Typography
                 component={motion.p}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.1, marginLeft: 10 }}
                 whileTap={{ scale: 0.95 }}
                 sx={{
                     "&:hover": {
@@ -87,7 +87,7 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
         <>
             <Typography
                 component={motion.p}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.1, left: 10 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => router.push('/knowledge/pages')}
                 sx={{
@@ -109,7 +109,7 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
             </Typography>
             <Typography
                 component={motion.p}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.1, left: 10 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => router.push('/knowledge/modules')}
                 sx={{

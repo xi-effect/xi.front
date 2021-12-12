@@ -121,9 +121,9 @@ const RightToolbar = inject(
         spacing={2}
         sx={{
           position: "absolute",
-          top: 72,
+          top: 0,
           right: 0,
-          height: 'calc(100vh - 72px)',
+          height: '100vh',
           width: '64px',
           pb: mobile ? 10 : 2,
           pt: 0,
