@@ -264,7 +264,7 @@ const EffectFor = () => {
                 >
                     <Image
                         alt="alt"
-                        src={"/landing/LearningСuate.svg"}
+                        src={"/landing/Learning.svg"}
                         quality={100}
                         width={256}
                         height={256}
@@ -279,7 +279,7 @@ const EffectFor = () => {
                 >
                     <Image
                         alt="alt"
-                        src={"/landing/BookLoverСuate.svg"}
+                        src={"/landing/BookLover.svg"}
                         quality={100}
                         width={256}
                         height={256}

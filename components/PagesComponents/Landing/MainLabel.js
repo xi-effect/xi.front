@@ -43,7 +43,7 @@ const MainLabel = () => {
                 >
                     <Image
                         alt="alt"
-                        src={"/landing/KnowledgeСuate.svg"}
+                        src={"/landing/Knowledge.svg"}
                         quality={100}
                         width={256}
                         height={256}
@@ -58,7 +58,7 @@ const MainLabel = () => {
                 >
                     <Image
                         alt="alt"
-                        src={"/landing/OnlineLearningCuate.svg"}
+                        src={"/landing/OnlineLearning.svg"}
                         quality={100}
                         width={256}
                         height={256}
