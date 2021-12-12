@@ -532,6 +532,7 @@ const RightMenu = inject(
                 onClick={() => setOpen(!open)}
                 sx={{
                   cursor: 'pointer',
+                  width: '100%',
                 }}
               >
                 <Box
@@ -622,8 +623,7 @@ const RightMenu = inject(
           {(knowledgeStore.moduleCompleted.isFinished || !(knowledgeStore.module["map"] != undefined) || knowledgeStore.module["map"].length === 0) && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools goNext={goNext} />}
           {!knowledgeStore.moduleCompleted.isFinished && knowledgeStore.module["map"] != undefined && knowledgeStore.module["map"].length != 0 && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleToolsWithMap goNext={goNext} />}
           {router.pathname.includes('/knowledge/createpage') && <KnowledgeСreatePage />}
-          {router.pathname.includes('/knowledge/createmodule') && <KnowledgeСreateModule />}
-
+          {/* {router.pathname.includes('/knowledge/createmodule') && <KnowledgeСreateModule />} */}
         </Stack >
       </Paper >
     );

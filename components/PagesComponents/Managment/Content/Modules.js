@@ -30,7 +30,7 @@ const Modules = inject('store')(observer(({ store }) => {
             <Grid>
                 <Typography variant="h5"> Управление контентом </Typography>
             </Grid>
-            <Grid className={classes.gridToolbar}>
+            <Grid>
                 <Toolbar setDialogModuleCreation={setDialogModuleCreation} />
             </Grid>
             <DialogModuleCreation dialogModuleCreation={dialogModuleCreation} setDialogModuleCreation={setDialogModuleCreation} />

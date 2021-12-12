@@ -144,17 +144,17 @@ const NavigationAll = inject(
           >
             <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
             <SidebarSecond hoverLeftName={hoverLeftName} />
-            {/* {haveRightToolbar && <RightToolbar />} */}
             <RightMenu />
             <Box
               sx={{
                 zIndex: 0,
                 // display: "flex",
                 backgroundColor: "background.main",
-                minHeight: "100vh",
+                height: "100vh",
                 overflow: 'hidden',
-                width: `calc(100% - ${getWidth()}px)`,
-                ml: 40,
+                width: `calc(100% - 592px)`,
+                ml: '336px',
+                mr: '256px',
               }}
             >
               <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
