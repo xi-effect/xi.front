@@ -1,29 +1,15 @@
 import React from "react";
-
 import Head from "next/head";
 import Image from "next/image";
-
 import {
   Box,
-  Button,
-  Divider,
-  Grid,
-  IconButton,
-  Link,
-  Paper,
-  Typography,
   useMediaQuery,
   useTheme,
   Stack,
-  Container,
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
 import { motion } from "framer-motion"
-
-import { Scrollbars } from 'react-custom-scrollbars-2';
-
-import Loading from "./../components/OtherComponents/Loading/Loading";
 import Header from "./../components/PagesComponents/Landing/Header";
 import MainLabel from "./../components/PagesComponents/Landing/MainLabel";
 import WhyLabel from "../components/PagesComponents/Landing/WhyLabel";

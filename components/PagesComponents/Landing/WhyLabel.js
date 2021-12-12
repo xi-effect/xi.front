@@ -35,6 +35,10 @@ const WhyLabel = () => {
             direction="column"
             justifyContent="center"
             alignItems="center"
+            component={motion.div}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 2 }}
             sx={{
                 mt: mobile ? '90px' : '180px',
                 width: '100%',

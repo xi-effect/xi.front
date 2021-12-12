@@ -165,7 +165,7 @@ const Settings = inject(
                 }}
               >
                 <Accordion
-                  sx={{ width: "100%", backgroundColor: "background.1" }}
+                  sx={{ width: "100%", backgroundColor: "primary.dark" }}
                   expanded={expanded === 'secure'}
                   onChange={handleChange('secure')}
                 >
@@ -181,7 +181,7 @@ const Settings = inject(
                   </AccordionDetails>
                 </Accordion>
                 <Accordion
-                  sx={{ width: "100%", backgroundColor: "background.1" }}
+                  sx={{ width: "100%", backgroundColor: "primary.dark" }}
                   expanded={expanded === 'useravatar'}
                   onChange={handleChange('useravatar')}
                 >
@@ -197,7 +197,7 @@ const Settings = inject(
                   </AccordionDetails>
                 </Accordion>
                 <Accordion
-                  sx={{ width: "100%", backgroundColor: "background.1" }}
+                  sx={{ width: "100%", backgroundColor: "primary.dark" }}
                   expanded={expanded === 'castomize'}
                   onChange={handleChange('castomize')}
                 >
@@ -213,7 +213,7 @@ const Settings = inject(
                   </AccordionDetails>
                 </Accordion>
                 <Accordion
-                  sx={{ width: "100%", backgroundColor: "background.1" }}
+                  sx={{ width: "100%", backgroundColor: "primary.dark" }}
                   expanded={expanded === 'invite'}
                   onChange={handleChange('invite')}
                 >

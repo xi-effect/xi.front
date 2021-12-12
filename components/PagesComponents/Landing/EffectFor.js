@@ -103,6 +103,10 @@ const EffectFor = () => {
 
     return (
         <Stack
+            component={motion.div}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 2 }}
             direction="column"
             justifyContent="center"
             alignItems="center"

@@ -51,8 +51,8 @@ const Secure = inject(
                     {!hiddenEmail && <Typography > {settingsStore.settings.emailBefore} </Typography>}
                     {hiddenEmail && <Typography > {getStars()} </Typography>}
                     <Typography > {settingsStore.settings.emailAfter} </Typography>
-                    {hiddenEmail && <Link sx={{ color: 'text.main', cursor: 'pointer', pl: 1 }} onClick={() => setHiddenEmail(false)}> показать </Link>}
-                    {!hiddenEmail && <Link sx={{ color: 'text.main', cursor: 'pointer', pl: 1 }} onClick={() => setHiddenEmail(true)}> скрыть </Link>}
+                    {hiddenEmail && <Link sx={{ color: 'text.primary', cursor: 'pointer', pl: 1 }} onClick={() => setHiddenEmail(false)}> показать </Link>}
+                    {!hiddenEmail && <Link sx={{ color: 'text.primary', cursor: 'pointer', pl: 1 }} onClick={() => setHiddenEmail(true)}> скрыть </Link>}
                 </Stack>
                 <Stack
                     direction="row"

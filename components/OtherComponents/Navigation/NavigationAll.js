@@ -8,7 +8,6 @@ import { Box, Paper, useMediaQuery, useTheme } from "@mui/material";
 
 import Sidebar from "./Sidebar";
 import SidebarSecond from "./SidebarSecond";
-import RightToolbar from "./RightToolbar";
 import RightMenu from "./RightMenu";
 import Upbar from "./Upbar";
 
