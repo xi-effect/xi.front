@@ -28,7 +28,6 @@ const MainLabel = () => {
                     width: mobile ? 'calc(100% - 16px)' : 'calc(100% - 200px)',
                     ml: mobile ? "8px" : "100px",
                     mr: mobile ? "8px" : "100px",
-                    // boxShadow: "0px 24px 65px 0px rgba(29, 99, 255, 0.05)",
                     bgcolor: "grey.400",
                     borderRadius: "20px",
                     minHeight: mobile ? '900px' : '500px',
@@ -38,7 +37,7 @@ const MainLabel = () => {
                 <Box
                     sx={{
                         position: 'absolute',
-                        bottom: -20,
+                        bottom: '-20px',
                         left: 0,
                     }}
                 >
@@ -53,7 +52,7 @@ const MainLabel = () => {
                 <Box
                     sx={{
                         position: 'absolute',
-                        bottom: mobile ? 330 : -20,
+                        bottom: mobile ? '330px' : '-20px',
                         right: 0,
                     }}
                 >
@@ -73,21 +72,6 @@ const MainLabel = () => {
 
                     }}
                 >
-                    {/* <Box
-                        sx={{
-                            position: 'absolute',
-                            top: -8,
-                            right: 52,
-                        }}
-                    >
-                        <Image
-                            alt="alt"
-                            src={"/landing/BookmarkBlue.svg"}
-                            quality={100}
-                            width={38}
-                            height={46}
-                        />
-                    </Box> */}
                     <Typography
                         // component={"h1"}
                         variant="OpenSans700MainLabel"

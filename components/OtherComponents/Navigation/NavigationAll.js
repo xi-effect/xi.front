@@ -96,16 +96,12 @@ const NavigationAll = inject(
     }, [router.pathname]);
 
     const getWidth = () => {
-      let w = 240
+      let w = 440
       if (haveRightToolbar) return w + 64
       if (haveRightMenu) return w + 156
       if (haveRightMenuMore) return w + 256
     }
 
-    const getMarginLeft = () => {
-      let ml = "226px"
-      return ml
-    }
 
     const getWidthMobile = () => {
       let w = 32
@@ -140,7 +136,7 @@ const NavigationAll = inject(
             sx={{
               zIndex: 0,
               // display: "flex",
-              backgroundColor: "primary.main",
+              backgroundColor: "background.main",
               minHeight: "100vh",
               overflow: 'hidden',
               width: "100%",
@@ -158,7 +154,7 @@ const NavigationAll = inject(
               sx={{
                 zIndex: 0,
                 // display: "flex",
-                backgroundColor: "primary.main",
+                backgroundColor: "background.main",
                 minHeight: "100vh",
                 overflow: 'hidden',
                 width: `calc(100% - ${getWidth()}px)`,

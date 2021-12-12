@@ -258,7 +258,7 @@ const EffectFor = () => {
                 <Box
                     sx={{
                         position: 'absolute',
-                        bottom: -20,
+                        bottom: '-20px',
                         left: 0,
                     }}
                 >
@@ -273,7 +273,7 @@ const EffectFor = () => {
                 {!mobile && <Box
                     sx={{
                         position: 'absolute',
-                        bottom: mobile ? 330 : -20,
+                        bottom: mobile ? '330px' : '-20px',
                         right: 0,
                     }}
                 >

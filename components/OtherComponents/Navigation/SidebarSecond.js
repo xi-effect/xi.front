@@ -303,7 +303,7 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                 left: 64,
                 m: 0,
                 p: 0,
-                width: 186,
+                width: 216,
                 height: '100%',
             }}
         >
