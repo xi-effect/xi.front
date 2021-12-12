@@ -54,6 +54,10 @@ const Main = inject(
         </Head>
         {/* <Background /> */}
         <Stack
+          component={motion.div}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 2 }}
           direction="column"
           justifyContent="flex-start"
           alignItems="center"
@@ -65,19 +69,80 @@ const Main = inject(
             // width: `100vw`,
             height: "100vh",
             bgcolor: 'background.main',
+            position: 'relative',
           }}
         >
+          {!mobile && <>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 700,
+                right: 10,
+              }}
+            >
+              <Image
+                alt="alt"
+                src={"/landing/blob1.svg"}
+                quality={100}
+                width={512}
+                height={512}
+              />
+            </Box>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 500,
+                left: 10,
+              }}
+            >
+              <Image
+                alt="alt"
+                src={"/landing/blob2.svg"}
+                quality={100}
+                width={512}
+                height={512}
+              />
+            </Box>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 1800,
+                right: 40,
+              }}
+            >
+              <Image
+                alt="alt"
+                src={"/landing/blob4.svg"}
+                quality={100}
+                width={512}
+                height={512}
+              />
+            </Box>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 2500,
+                left: 20,
+              }}
+            >
+              <Image
+                alt="alt"
+                src={"/landing/blob3.svg"}
+                quality={100}
+                width={512}
+                height={512}
+              />
+            </Box>
+          </>}
+
           <Stack
-            component={motion.div}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 2 }}
             direction="column"
             justifyContent="flex-start"
             alignItems="center"
             sx={{
               maxWidth: 1920,
               height: "100%",
+
             }}
           >
             <Header />

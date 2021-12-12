@@ -96,7 +96,7 @@ const NavigationAll = inject(
     }, [router.pathname]);
 
     const getWidth = () => {
-      let w = 440
+      let w = 240
       if (haveRightToolbar) return w + 64
       if (haveRightMenu) return w + 156
       if (haveRightMenuMore) return w + 256
@@ -158,41 +158,20 @@ const NavigationAll = inject(
                 minHeight: "100vh",
                 overflow: 'hidden',
                 width: `calc(100% - ${getWidth()}px)`,
-                ml: 32,
+                ml: 40,
               }}
             >
               <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
-              <Paper
-                onMouseEnter={() => setHoverLeftName(null)}
-                elevation={2}
-                sx={{
-                  transition: '0.8s',
-                  zIndex: 1,
-                  margin: 0,
-                  overflow: 'auto',
-                  width: `calc(100% - 32px)`,
-                  // width: `100%`,
-                  height: "calc(100vh - 48px)",
-                  // marginLeft: getMarginLeftMobile(),
-                  ml: 2,
-                  // mr: 1,
-                  borderTopLeftRadius: 24,
-                  borderTopRightRadius: 24,
-                  backgroundColor: "background.main",
-                }}
-
+              {!(router.pathname.includes('/message')) && <Scrollbars
+                universal={true}
+                style={{ width: "100%", height: "100%" }}
+                autoHide
+                autoHideTimeout={1000}
+                autoHideDuration={200}
               >
-                {!(router.pathname.includes('/message')) && <Scrollbars
-                  universal={true}
-                  style={{ width: "100%", height: "100%" }}
-                  autoHide
-                  autoHideTimeout={1000}
-                  autoHideDuration={200}
-                >
-                  {children}
-                </Scrollbars>}
-                {router.pathname.includes('/message') && children}
-              </Paper>
+                {children}
+              </Scrollbars>}
+              {router.pathname.includes('/message') && children}
               {/* <ChatDialog /> */}
             </Box>
           </Box>

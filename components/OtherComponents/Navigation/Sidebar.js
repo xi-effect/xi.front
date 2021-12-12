@@ -75,9 +75,9 @@ const Sidebar = inject(
           spacing={2}
           sx={{
             position: "absolute",
-            marginTop: 1.5,
-            width: 60,
-            height: "calc(100% - 72px)",
+            pt: 2,
+            width: 80,
+            height: "100%",
           }}
         >
           {menuList.map((item, index) => (
@@ -91,10 +91,10 @@ const Sidebar = inject(
                   else router.push(item.href);
                 }}
                 sx={{
-                  bgcolor: router.pathname.includes(item.href) ? "#002" : "secondary.main",
+                  bgcolor: router.pathname.includes(item.href) ? "primary.main" : "",
                   borderRadius: 2,
                   "&:hover": {
-                    bgcolor: router.pathname.includes(item.href) ? "#002" : "secondary.main",
+                    bgcolor: router.pathname.includes(item.href) ? "primary.main" : "",
                   },
                 }}
               >

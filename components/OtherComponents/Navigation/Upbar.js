@@ -213,9 +213,61 @@ const Upbar = inject(
         }} sx={{ ml: 0.4, mr: 0.4, cursor: 'pointer' }}>
           <MenuIcon sx={{ fontSize: 32 }} />
         </IconButton>}
-        <Typography onClick={() => router.push('/home')} variant="h4" sx={{ ml: mobile ? 1 : 4, mr: 'auto', cursor: 'pointer' }}>
-          Ξffect
-        </Typography>
+        <Stack
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="baseline"
+          sx={{
+            ml: mobile ? 1 : 4,
+            mr: 'auto',
+          }}
+        >
+          <Typography
+            component={"h1"}
+            onClick={() => {
+              router.push({
+                pathname: '/',
+              })
+            }}
+
+            variant="Roboto500XiLabel"
+            sx={{
+              mt: '1px',
+              cursor: 'pointer',
+              color: 'secondary.main',
+              fontSize: {
+                sm: '22px',
+                md: '26px',
+                lg: '30px',
+              },
+            }}
+          >
+            Ξ
+          </Typography>
+          <Typography
+            component={"h1"}
+            onClick={() => {
+              router.push({
+                pathname: '/',
+              })
+            }}
+
+            variant="IBMPlexMono500XiLabelEnd"
+            sx={{
+              '&.MuiTypography-root': {
+                cursor: 'pointer',
+                color: 'secondary.main',
+              },
+              fontSize: {
+                sm: '22px',
+                md: '26px',
+                lg: '30px',
+              },
+            }}
+          >
+            ffect
+          </Typography>
+        </Stack>
         {router.pathname === '/knowledge/pages' && <KnowledgePagesTools />}
         {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools />}
         {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools />}

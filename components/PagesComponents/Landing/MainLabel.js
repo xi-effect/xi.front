@@ -25,9 +25,9 @@ const MainLabel = () => {
                 sx={{
                     zIndex: 10,
                     mt: "20px",
-                    width: mobile ? 'calc(100% - 16px)' : 'calc(100% - 200px)',
-                    ml: mobile ? "8px" : "100px",
-                    mr: mobile ? "8px" : "100px",
+                    width: mobile ? 'calc(100% - 0px)' : 'calc(100% - 200px)',
+                    ml: mobile ? "0px" : "100px",
+                    mr: mobile ? "0px" : "100px",
                     bgcolor: "grey.400",
                     borderRadius: "20px",
                     minHeight: mobile ? '900px' : '500px',
