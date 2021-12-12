@@ -28,6 +28,7 @@ import Header from "./../components/PagesComponents/Landing/Header";
 import MainLabel from "./../components/PagesComponents/Landing/MainLabel";
 import WhyLabel from "../components/PagesComponents/Landing/WhyLabel";
 import EffectFor from "../components/PagesComponents/Landing/EffectFor";
+import Footer from "../components/PagesComponents/Landing/Footer";
 
 
 const Main = inject(
@@ -89,6 +90,7 @@ const Main = inject(
             <MainLabel />
             <WhyLabel />
             <EffectFor />
+            <Footer />
           </Stack>
         </Stack>
       </>

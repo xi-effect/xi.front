@@ -26,6 +26,8 @@ const Header = () => {
         >
             <Stack
                 direction="row"
+                justifyContent="flex-start"
+                alignItems="baseline"
             >
                 <Typography
                     component={"h1"}
@@ -37,7 +39,7 @@ const Header = () => {
 
                     variant="Roboto500XiLabel"
                     sx={{
-                        mt: '0.5px',
+                        mt: '1px',
                         cursor: 'pointer',
                         color: 'secondary.main',
                         fontSize: {
@@ -126,10 +128,10 @@ const Header = () => {
                         width: mobile ? '120px' : '180px',
                         height: mobile ? '40px' : '60px',
                         color: 'text.primary',
-                        bgcolor: 'primary.main',
+                        bgcolor: 'secondary.main',
                         borderRadius: mobile ? '62px' : '88px',
                         '&:hover': {
-                            bgcolor: 'primary.main',
+                            bgcolor: 'secondary.main',
                         },
                     }
                 }}

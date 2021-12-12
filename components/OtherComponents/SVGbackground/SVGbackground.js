@@ -15,7 +15,7 @@ const SVGbackground = inject("uiStore")(
         height="100%"
         // viewBox="0 0 1088 1088"
       >
-        <rect width={width} height={height} fill="#496bf3"></rect>
+        <rect width={width} height={height} fill="#5F85D8"></rect>
         <g transform="matrix(0.8131727983645296,0.8131727983645295,-0.8131727983645295,0.8131727983645296,609.554028777352,-640.9632886467698)">
           <path
             d="M0,-1080C-0.12006950945982453,-1008.6160738341146,14.97268135191851,-825.7830896633557,-0.7204170567589472,-651.6964430046874C-16.413515465436404,-477.60979634601904,-107.10253637498052,-241.45723328955202,-94.15859045206474,-35.48012004798994C-81.21464452914897,170.49699319357214,55.494871583838474,397.7877008703666,76.94325848073566,584.1662364446852C98.39164537763286,770.5447720190037,61.13964944216913,930.8688906552816,34.53173092931837,1082.7910933979213C7.923812416467616,1234.713296140561,-76.94896410814913,1316.1646351335103,-82.70425259636886,1495.6994529005233C-88.4595410845886,1675.2342706675363,-13.78404209939481,2049.283242150087,0,2160L 1920 2160 L 1920 -1080 Z"
@@ -50,8 +50,8 @@ const SVGbackground = inject("uiStore")(
             y2="1"
             id="SvgjsLinearGradient1042"
           >
-            <stop stopColor="#496bf3" offset="0"></stop>
-            <stop stopColor="#4987f3" offset="0"></stop>
+            <stop stopColor="#5F85D8" offset="0"></stop>
+            <stop stopColor="#26282B" offset="0"></stop>
           </linearGradient>
           <linearGradient
             x1="0.1"
@@ -60,8 +60,8 @@ const SVGbackground = inject("uiStore")(
             y2="1"
             id="SvgjsLinearGradient1043"
           >
-            <stop stopColor="#264ef1" offset="0"></stop>
-            <stop stopColor="#2670f1" offset="0.16666666666666666"></stop>
+            <stop stopColor="#26282B" offset="0"></stop>
+            <stop stopColor="#3a8559" offset="0.16666666666666666"></stop>
           </linearGradient>
           <linearGradient
             x1="0.1"
