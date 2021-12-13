@@ -8,13 +8,13 @@ import { Grid, Stack, Paper, Box, Divider, Typography, IconButton, Tooltip } fro
 import { motion } from "framer-motion";
 
 import PlusOneIcon from '@mui/icons-material/PlusOne';
-
+import { useSnackbar } from 'notistack';
 import MenuHomeComp from "./SidebarSecond/MenuHomeComp";
 import MenuKnowledgeComp from "./SidebarSecond/MenuKnowledgeComp";
 import MenuSettingsComp from "./SidebarSecond/MenuSettingsComp.js";
 
 const HeaderHome = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
-
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     return (
         <Stack
             direction="row"
@@ -44,6 +44,9 @@ const HeaderHome = inject('rootStore', 'uiStore', 'messageStore')(observer(({ ro
                         },
                         boxShadow: 6,
                     }}
+                    onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
+                        variant: 'info',
+                    })}
                 >
                     <PlusOneIcon />
                 </IconButton>
@@ -130,7 +133,7 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
         <Paper
             elevation={12}
             sx={{
-                zIndex: 0,
+                zIndex: 20,
                 position: 'absolute',
                 left: 80,
                 m: 0,

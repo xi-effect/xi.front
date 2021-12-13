@@ -14,7 +14,7 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 
 import { motion, AnimatePresence } from "framer-motion"
 
-const KnowledgeModuleToolsWithMap = inject(
+const KnowledgeModuleMap = inject(
     "knowledgeStore",
 )(
     observer(({ knowledgeStore, goNext }) => {
@@ -83,70 +83,9 @@ const KnowledgeModuleToolsWithMap = inject(
                         ))}
                     </Scrollbars>
                 </Stack>
-                <Stack
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={0}
-                    sx={{
-                        width: "100%",
-                    }}
-                >
-                    {knowledgeStore.moduleCompleted.isFinished && router.pathname.includes('/knowledge/module/results') && router.pathname === '/knowledge/module/results' && <Button
-                        sx={{
-                            color: 'text.primary',
-                            width: 152,
-                            alignItems: 'space-between',
-                        }}
-                        onClick={() => router.push('/knowledge/module/results')} size="large"
-                    >
-                        К результатам
-                    </Button>}
-                    {router.pathname === '/knowledge/module/results' && <Button
-                        sx={{
-                            color: 'text.primary',
-                            width: 142,
-                            alignItems: 'space-between',
-                        }}
-                        onClick={() => router.push('/knowledge/modules/')} size="large"
-                    >
-                        Закрыть тест
-                    </Button>}
-                    {knowledgeStore.module.type === 'test' && !(router.pathname.includes('/knowledge/module/results')) && <Button
-                        sx={{
-                            color: 'text.primary',
-                            width: 142,
-                            alignItems: 'space-between',
-                        }}
-                        onClick={() => knowledgeStore.getTestModuleResults()} size="large"
-                    >
-                        Завершить <TaskIcon sx={{ ml: 'auto', mr: 0 }} />
-                    </Button>}
-                    <Button
-                        sx={{
-                            color: 'text.primary',
-                            width: 142,
-                            alignItems: 'space-between',
-                        }}
-                        onClick={null} size="large"
-                    >
-                        Инфо <InfoIcon sx={{ ml: 'auto', mr: 0 }} />
-                    </Button>
-                    {!(router.pathname === '/knowledge/module/results') && <Button
-                        sx={{
-                            color: 'text.primary',
-                            width: 142,
-                            alignItems: 'space-between',
-                        }}
-                        onClick={goNext}
-                        size="large"
-                    >
-                        Вперёд <DoubleArrowIcon sx={{ ml: 'auto', mr: 0 }} />
-                    </Button>}
-                </Stack>
             </>
         );
     })
 );
 
-export default KnowledgeModuleToolsWithMap;
+export default KnowledgeModuleMap;

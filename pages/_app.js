@@ -15,9 +15,10 @@ import { inject, observer } from 'mobx-react'
 import CssBaseline from '@mui/material/CssBaseline';
 import { getDesignTokens } from '../theme'
 import { CacheProvider } from '@emotion/react';
-//import { SnackbarProvider, useSnackbar } from 'notistack';
 import createEmotionCache from '../store/createEmotionCache';
 import 'moment/locale/ru';
+
+import { SnackbarProvider } from 'notistack';
 
 import Router from 'next/router';
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -96,7 +97,17 @@ const MyApp = (observer((props) => {
             <CssBaseline />
             <Loading />
             <PlausibleProvider domain={"xieffect.netlify.app"}>
-              <Component {...pageProps} />
+              <SnackbarProvider
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                maxSnack={3}
+                preventDuplicate
+                dense
+              >
+                <Component {...pageProps} />
+              </SnackbarProvider>
             </PlausibleProvider>
             {/* </MenuLayout> */}
             {/* </SnackbarProvider> */}

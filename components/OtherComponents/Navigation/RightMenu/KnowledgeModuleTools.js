@@ -19,29 +19,10 @@ const KnowledgeModuleTools = inject(
 
         return (
             <>
-                <Stack
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="flex-start"
-                    spacing={0}
-                    sx={{
-                        height: "100%",
-                    }}
-                >
-
-                </Stack>
-                <Stack
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={0}
-                    sx={{
-                        width: "100%",
-                    }}
-                >
+                <>
                     {knowledgeStore.moduleCompleted.isFinished && router.pathname.includes('/knowledge/module/results') && !(router.pathname === '/knowledge/module/results') && <Button
                         sx={{
-                            color: 'text.main',
+                            color: 'text.primary',
                             width: 152,
                             alignItems: 'space-between',
                         }}
@@ -51,7 +32,7 @@ const KnowledgeModuleTools = inject(
                     </Button>}
                     {router.pathname === '/knowledge/module/results' && <Button
                         sx={{
-                            color: 'text.main',
+                            color: 'text.primary',
                             width: 142,
                             alignItems: 'space-between',
                         }}
@@ -61,7 +42,7 @@ const KnowledgeModuleTools = inject(
                     </Button>}
                     {knowledgeStore.module.type === 'test' && !(router.pathname.includes('/knowledge/module/results')) && <Button
                         sx={{
-                            color: 'text.main',
+                            color: 'text.primary',
                             width: 142,
                             alignItems: 'space-between',
                         }}
@@ -71,7 +52,7 @@ const KnowledgeModuleTools = inject(
                     </Button>}
                     <Button
                         sx={{
-                            color: 'text.main',
+                            color: 'text.primary',
                             width: 142,
                             alignItems: 'space-between',
                         }}
@@ -81,7 +62,7 @@ const KnowledgeModuleTools = inject(
                     </Button>
                     {!(router.pathname === '/knowledge/module/results') && <Button
                         sx={{
-                            color: 'text.main',
+                            color: 'text.primary',
                             width: 142,
                             alignItems: 'space-between',
                         }}
@@ -90,7 +71,10 @@ const KnowledgeModuleTools = inject(
                     >
                         Вперёд <DoubleArrowIcon sx={{ ml: 'auto', mr: 0 }} />
                     </Button>}
-                </Stack>
+                </>
+                {(knowledgeStore.moduleCompleted.isFinished || !(knowledgeStore.module["map"] != undefined) || knowledgeStore.module["map"].length === 0) && <>
+
+                </>}
             </>
         );
     })

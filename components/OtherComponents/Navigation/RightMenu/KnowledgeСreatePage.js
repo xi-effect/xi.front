@@ -107,7 +107,7 @@ const KnowledgeСreatePage = inject(
                 >
                     <Button
                         sx={{
-                            color: 'text.main',
+                            color: 'text.primary',
                             width: 142,
                             alignItems: 'space-between',
                         }}
@@ -117,7 +117,7 @@ const KnowledgeСreatePage = inject(
                     </Button>
                     <Button
                         sx={{
-                            color: 'text.main',
+                            color: 'text.primary',
                             width: 142,
                             alignItems: 'space-between',
                         }}
@@ -136,7 +136,7 @@ const KnowledgeСreatePage = inject(
                                 <IconButton
                                     disabled={uiStore.knowledge.activeStep === 0}
                                     sx={{
-                                        color: 'text.main',
+                                        color: 'text.primary',
                                     }}
                                     onClick={() => uiStore.setKnowledge("activeStep", uiStore.knowledge.activeStep - 1)}
                                     size="large"
@@ -151,7 +151,7 @@ const KnowledgeСreatePage = inject(
                                 <IconButton
                                     disabled={uiStore.knowledge.activeStep === 2}
                                     sx={{
-                                        color: 'text.main',
+                                        color: 'text.primary',
                                     }}
                                     onClick={() => uiStore.setKnowledge("activeStep", uiStore.knowledge.activeStep + 1)}
                                     size="large"

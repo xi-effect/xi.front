@@ -87,6 +87,8 @@ const NavigationAll = inject(
 
     const [hoverLeftName, setHoverLeftName] = React.useState('')
 
+    
+
     React.useEffect(() => {
       if (router.pathname.includes('/home')) setHoverLeftName('/home')
       if (router.pathname.includes('/knowledge')) setHoverLeftName('/knowledge')

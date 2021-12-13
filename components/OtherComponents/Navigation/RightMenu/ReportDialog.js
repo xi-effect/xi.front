@@ -105,7 +105,7 @@ const ReportDialog = inject(
     "rootStore",
     "knowledgeStore",
 )(
-    observer(({ rootStore, knowledgeStore, open, setOpen }) => {
+    observer(({ rootStore, knowledgeStore, openDialog, setOpenDialog }) => {
         const router = useRouter();
         const [type, setType] = React.useState('general');
 
@@ -115,8 +115,8 @@ const ReportDialog = inject(
 
         return (
             <Dialog
-                open={open}
-                onClose={() => setOpen(false)}
+                open={openDialog}
+                onClose={() => setOpenDialog(false)}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
@@ -196,7 +196,7 @@ const ReportDialog = inject(
                     </AnimatePresence>
                 </DialogContent>
                 <DialogActions>
-                    <Button sx={{ color: 'text.main' }} onClick={() => setOpen(false)}>Отмена</Button>
+                    <Button sx={{ color: 'text.main' }} onClick={() => setOpenDialog(false)}>Отмена</Button>
                     <Button variant="contained" onClick={null} autoFocus>
                         Отправить отзыв
                     </Button>

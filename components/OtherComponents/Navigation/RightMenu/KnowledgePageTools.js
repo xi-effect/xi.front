@@ -3,7 +3,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { useTheme, useMediaQuery, IconButton, Tooltip, Stack, Typography } from "@mui/material";
+import { useTheme, useMediaQuery, IconButton, Button, Tooltip, Stack, Typography } from "@mui/material";
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import UndoIcon from '@mui/icons-material/Undo';
@@ -21,16 +21,27 @@ const KnowledgePageTools = inject(
 
         return (
             <>
-                <Tooltip title="Информация о странице">
-                    <IconButton onClick={null} size="large">
-                        <InfoIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Назад">
-                    <IconButton onClick={() => router.back()} size="large">
-                        <UndoIcon />
-                    </IconButton>
-                </Tooltip>
+                <Button
+                    sx={{
+                        color: 'text.primary',
+                        width: 142,
+                        alignItems: 'space-between',
+                    }}
+                    onClick={null} size="large"
+                >
+                    Инфо <InfoIcon sx={{ ml: 'auto', mr: 0 }} />
+                </Button>
+                <Button
+                    sx={{
+                        color: 'text.primary',
+                        width: 142,
+                        alignItems: 'space-between',
+                    }}
+                    onClick={() => router.back()}
+                    size="large"
+                >
+                    Назад <UndoIcon sx={{ ml: 'auto', mr: 0 }} />
+                </Button>
             </>
         );
     })

@@ -10,7 +10,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ReportIcon from '@mui/icons-material/Report';
-import ReportDialog from "./ReportDialog";
+import ReportDialog from "./RightMenu/ReportDialog";
 import MenuIcon from '@mui/icons-material/Menu';
 import InfoIcon from '@mui/icons-material/Info';
 
@@ -200,7 +200,7 @@ const Upbar = inject(
           alignItems="baseline"
           sx={{
             ml: mobile ? 1 : 4,
-            mr: 'auto',
+            mr: 1,
           }}
         >
           <Typography

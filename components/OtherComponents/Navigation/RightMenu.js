@@ -11,13 +11,15 @@ import CustomAvatar from '../Avatar/CustomAvatar'
 
 import KnowledgeСreatePage from "./RightMenu/KnowledgeСreatePage";
 import KnowledgeModuleTools from "./RightMenu/KnowledgeModuleTools";
-import KnowledgeModuleToolsWithMap from "./RightMenu/KnowledgeModuleToolsWithMap";
 import KnowledgePageTools from "./RightMenu/KnowledgePageTools";
 import KnowledgePagesTools from "./RightMenu/KnowledgePagesTools";
 import KnowledgeModulesTools from "./RightMenu/KnowledgeModulesTools";
+import KnowledgeModuleMap from "./RightMenu/KnowledgeModuleMap";
+
 
 
 import { motion, AnimatePresence } from "framer-motion"
+import ReportDialog from "./RightMenu/ReportDialog";
 
 const sidebar = {
   open: {
@@ -99,12 +101,15 @@ const RightMenu = inject(
 
 
     const [open, setOpen] = React.useState(false);
+    const [openDialog, setOpenDialog] = React.useState(false);
+
 
     return (
       <Paper
         elevation={12}
         sx={{
           position: "absolute",
+          zIndex: 20,
           top: 0,
           right: 0,
           height: '100vh',
@@ -119,13 +124,9 @@ const RightMenu = inject(
           justifyContent="flex-start"
           alignItems="center"
           spacing={1}
-        // component={motion.div}
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: 1 }}
-        // transition={{ delay: 0.5, duration: 0.5 }}
-        // sx={{
-
-        // }}
+          sx={{
+            height: '100%',
+          }}
         >
           <Paper
             elevation={6}
@@ -204,7 +205,6 @@ const RightMenu = inject(
               >
                 <MenuItem disabled={!open} component={motion.li} variants={variantsChild} sx={{ cursor: 'pointer' }} onClick={() => {
                   router.push(`/profile/${settingsStore.settings.id}/`)
-                  handleClose()
                 }}>
                   <ListItemIcon>
                     <AccountCircleIcon fontSize="small" />
@@ -215,7 +215,6 @@ const RightMenu = inject(
                 </MenuItem>
                 <MenuItem disabled={!open} component={motion.li} variants={variantsChild} sx={{ cursor: 'pointer' }} onClick={() => {
                   setOpenDialog(true)
-                  handleClose()
                 }}>
                   <ListItemIcon>
                     <ReportIcon fontSize="small" />
@@ -236,15 +235,35 @@ const RightMenu = inject(
                 </MenuItem>
               </MenuList>
             </Stack>
-
           </Paper>
-          {(knowledgeStore.moduleCompleted.isFinished || !(knowledgeStore.module["map"] != undefined) || knowledgeStore.module["map"].length === 0) && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools goNext={goNext} />}
-          {!knowledgeStore.moduleCompleted.isFinished && knowledgeStore.module["map"] != undefined && knowledgeStore.module["map"].length != 0 && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleToolsWithMap goNext={goNext} />}
-          {router.pathname.includes('/knowledge/createpage') && <KnowledgeСreatePage />}
+          <Stack
+            direction="column"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+            sx={{ height: '100%', }}
+          >
+            <Stack sx={{ height: '100%', mt: 1, mb: 'auto' }}>
+              {!knowledgeStore.moduleCompleted.isFinished && knowledgeStore.module["map"] != undefined && knowledgeStore.module["map"].length != 0 && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleMap goNext={goNext} />}
+            </Stack>
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={1}
+              sx={{ mt: 'auto', pb: 2 }}
+            >
+              {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools goNext={goNext} />}
+              {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools />}
+              {router.pathname === '/knowledge/pages' && <KnowledgePagesTools />}
+              {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools />}
+              {router.pathname.includes('/knowledge/createpage') && <KnowledgeСreatePage />}
+
+            </Stack>
+          </Stack>
           {/* {router.pathname.includes('/knowledge/createmodule') && <KnowledgeСreateModule />} */}
-          {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools />}
-          {router.pathname === '/knowledge/pages' && <KnowledgePagesTools />}
-          {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools />}
+
+          <ReportDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
         </Stack >
       </Paper >
     );

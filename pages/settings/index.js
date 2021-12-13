@@ -28,6 +28,7 @@ import CustomAvatar from "../../components/OtherComponents/Avatar/CustomAvatar";
 
 import Secure from "./../../components/PagesComponents/Settings/Secure";
 
+import { useSnackbar } from 'notistack';
 
 const Invite = dynamic(() =>
   import("./../../components/PagesComponents/Settings/Invite")

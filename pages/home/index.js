@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import Link from 'next/link'
 import Router from 'next/router'
 import React from 'react';
-import { Divider, Box, Grid, useTheme } from '@mui/material';
+import { Divider, Stack, Box, Grid, useTheme } from '@mui/material';
 
 
 import { inject, observer } from 'mobx-react'
@@ -12,26 +12,40 @@ import { inject, observer } from 'mobx-react'
 //import QuiсkWidgets from '../components/PagesComponents/Main/QuiсkWidgets';
 // import Card7 from './../components/PagesComponents/Main/MainHelpApps/Card7';
 import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
+import Stories from '../../components/PagesComponents/Home/Stories';
 
 
-const Main = inject('rootStore')(observer(({ rootStore }) => {
+const Home = inject('rootStore')(observer(({ rootStore }) => {
   const theme = useTheme();
 
   return (
     (
       <>
-      <Head>
-        <title>
-          Ξffect
-        </title>
-      </Head>
-      {/* <Background /> */}
-      <NavigationAll>
-
-      </NavigationAll>
+        <Head>
+          <title>
+            Ξffect
+          </title>
+        </Head>
+        {/* <Background /> */}
+        <NavigationAll>
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={0}
+            sx={{
+              width: '100%',
+              pt: 1,
+              pl: 3,
+              pr: 3,
+            }}
+          >
+            <Stories />
+          </Stack>
+        </NavigationAll>
       </>
     )
   );
 }))
 
-export default Main
+export default Home
