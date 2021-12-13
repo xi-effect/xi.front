@@ -9,17 +9,17 @@ const cards = [
     {
         title: 'Бесплатно и без рекламы',
         label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
-        image: '/svg/Card.svg',
+        image: '/landing/WorkingFromAnywhere.svg',
     },
     {
         title: 'Все образовательные сервисы в одном месте',
         label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
-        image: '/svg/SEO.svg',
+        image: '/landing/Spreadsheets.svg',
     },
     {
         title: 'Гибкая система настроек процесса обучения',
         label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
-        image: '/svg/Empty.svg',
+        image: '/landing/Preferences.svg',
     },
 ]
 
@@ -140,8 +140,8 @@ const WhyLabel = () => {
                             </Grid>
                             <Grid item
                                 sx={{
-                                    width: '210px',
-                                    height: '210px',
+                                    width: '312px',
+                                    height: '312px',
                                     mt: 'auto',
                                     mb: '60px',
                                 }}
@@ -150,8 +150,8 @@ const WhyLabel = () => {
                                     alt="alt"
                                     src={item.image}
                                     quality={100}
-                                    width={210}
-                                    height={210}
+                                    width={312}
+                                    height={312}
                                 />
                             </Grid>
                         </Grid>

@@ -115,7 +115,7 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                             <div>
                                 <Image
                                     alt="img"
-                                    src="/svg/No.svg"
+                                    src="/app/NoData.svg"
                                     //layout="fill"
                                     width={256}
                                     height={236}

@@ -128,7 +128,8 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                         zIndex: 10,
                         width: 'calc(100% - 32px)',
                         maxWidth: 512,
-                        mt: mobile ? "2px" : -32,
+                        // mt: mobile ? "2px" : -32,
+                        mt: 0,
                         ml: mobile ? "16px" : "100px",
                         mr: mobile ? "16px" : "100px",
                         bgcolor: "grey.800",
@@ -148,14 +149,14 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                             justifyContent="center"
                             alignItems="center"
                             spacing={0}
-                            sx={{ width: "100%", p: 2, mt: 4, }}
+                            sx={{ width: "100%", pl: 2, pr: 2, pb: 2, mt: 0, }}
                         >
                             <Image
                                 alt="alt"
-                                src={"/svg/Welcome.svg"}
+                                src={"/auth/MobileLogin.svg"}
                                 quality={100}
                                 width={456}
-                                height={256}
+                                height={456}
                             />
                             <Controller
                                 name="username"

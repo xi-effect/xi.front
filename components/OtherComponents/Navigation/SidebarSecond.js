@@ -3,13 +3,120 @@ import React from 'react';
 import { useRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
 
-import { Grid, Stack, Paper, Box, Divider, Typography } from '@mui/material';
+import { Grid, Stack, Paper, Box, Divider, Typography, IconButton, Tooltip } from '@mui/material';
 
 import { motion } from "framer-motion";
+
+import PlusOneIcon from '@mui/icons-material/PlusOne';
 
 import MenuHomeComp from "./SidebarSecond/MenuHomeComp";
 import MenuKnowledgeComp from "./SidebarSecond/MenuKnowledgeComp";
 import MenuSettingsComp from "./SidebarSecond/MenuSettingsComp.js";
+
+const HeaderHome = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+
+    return (
+        <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+        >
+            <Typography
+                variant="h6"
+                sx={{
+                    // fontSize: 22,
+                    // p: 1
+                }}
+            >
+                Главная
+            </Typography>
+            <Tooltip arrow title="Создать профиль">
+                <IconButton
+                    // disableRipple
+                    sx={{
+                        height: 36,
+                        width: 36,
+                        borderRadius: '8px',
+                        bgcolor: 'secondary.dark',
+                        '&:hover': {
+                            bgcolor: 'secondary.dark',
+                        },
+                        boxShadow: 6,
+                    }}
+                >
+                    <PlusOneIcon />
+                </IconButton>
+            </Tooltip>
+        </Stack>
+    )
+}));
+
+const HeaderKnowledge = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+
+    return (
+        <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+        >
+            <Typography
+                variant="h6"
+                sx={{
+                    // fontSize: 22,
+                    // p: 1
+                }}
+            >
+                Знания
+            </Typography>
+        </Stack>
+    )
+}));
+
+const HeaderMessages = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+
+    return (
+        <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+        >
+            <Typography
+                variant="h6"
+                sx={{
+                    // fontSize: 22,
+                    // p: 1
+                }}
+            >
+                Общение
+            </Typography>
+        </Stack>
+    )
+}));
+
+const HeaderSettings = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+
+    return (
+        <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+        >
+            <Typography
+                variant="h6"
+                sx={{
+                    // fontSize: 22,
+                    // p: 1
+                }}
+            >
+                Настройки
+            </Typography>
+        </Stack>
+    )
+}));
 
 const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
     const router = useRouter()
@@ -51,18 +158,11 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                         p: 1
                     }}
                 >
-                    <Typography
-                        variant="h6"
-                        sx={{
-                            // fontSize: 22,
-                            // p: 1
-                        }}
-                    >
-                        {router.pathname.includes('/home') && "Главная"}
-                        {router.pathname.includes('/knowledge') && "Знания"}
-                        {router.pathname.includes('/messages') && "Общение"}
-                        {router.pathname.includes('/settings') && "Настройки"}
-                    </Typography>
+
+                    {router.pathname.includes('/home') && <HeaderHome />}
+                    {router.pathname.includes('/knowledge') && <HeaderKnowledge />}
+                    {router.pathname.includes('/messages') && <HeaderMessages />}
+                    {router.pathname.includes('/settings') && <HeaderSettings />}
                 </Box>
                 {router.pathname.includes('/home') && <MenuHomeComp />}
                 {router.pathname.includes('/knowledge') && <MenuKnowledgeComp />}
@@ -107,7 +207,7 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                 {router.pathname.includes('/settings') && <MenuSettingsComp />}
 
             </Stack >
-        </Paper>
+        </Paper >
 
     )
 }));

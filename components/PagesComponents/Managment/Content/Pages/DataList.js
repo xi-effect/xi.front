@@ -284,7 +284,7 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                     >
                         <Image
                             alt="alt"
-                            src={"/svg/No.svg"}
+                            src={"/app/NoData.svg"}
                             quality={100}
                             width={256}
                             height={232}
