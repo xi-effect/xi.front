@@ -10,6 +10,7 @@ import {
   MenuList,
   Avatar,
   Paper,
+  Stack,
   Accordion,
   IconButton,
   Chip,
@@ -31,6 +32,7 @@ import {
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { inject, observer } from "mobx-react";
 
@@ -106,121 +108,186 @@ const PagesList = inject(
           //backgroundColor: 'background.1',
         }}
       >
-        {knowledgeStore.pageList.pages.map((page, index) => (
-          <Grid
-            xs={12}
-            sm={12}
-            md={6}
-            lg={4}
-            xl={3}
-            item
-            sx={{ p: 1, transition: "0.8s", width: "100%", height: "100%", maxHeight: "100%" }}
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="flex-start"
-            key={page.id.toString()}
-          >
-            <AnimatePresence exitBeforeEnter initial={false}>
-              {!(expanded === index) &&
-                <Box
-                  sx={{ width: "100%", height: "auto" }}
-                  component={motion.div}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  transition={{ duration: 0.6 }}
-                  exit={{ opacity: 0, height: 0 }}
-                >
-                  <SVGbackground width={1920} height={1080} />
-                </Box>}
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
+        {knowledgeStore.pageList.pages.map((page, index) => {
+          const [hover, setHover] = React.useState(false)
+          return (
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              lg={4}
+              xl={3}
+              item
+              sx={{
+                p: 1,
+                transition: "0.8s",
+                width: "100%",
+                height: 400,
+                maxHeight: "100%"
+              }}
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="flex-start"
+              key={page.id.toString()}
+            >
+              <Paper
+                elevation={12}
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  bgcolor: 'primary.main',
+                  borderRadius: 2,
+                  position: 'relative',
+                }}
               >
-                <Grid sx={{ width: 'calc(100% - 32px)' }} container wrap="nowrap" spacing={2}>
-                  <Grid item xs zeroMinWidth>
-                    <Typography onClick={() => router.push(`/knowledge/page/${page.id}`)} sx={{ cursor: 'pointer', "&:hover": { textDecoration: 'underline' } }} variant="h6" noWrap>
+                <IconButton
+                  sx={{
+                    position: 'absolute',
+                    top: 4,
+                    right: 4,
+                  }}
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+                <Stack
+                  direction="column"
+                  justifyContent="flex-start"
+                  alignItems="flex-start"
+                  spacing={2}
+                  sx={{
+                    // width: '100%',
+                    // height: '100%',
+                    p: 1.5,
+                  }}
+                >
+                  <Tooltip title={page.name}>
+                    <Typography
+                      variant="OpenSans700MainLabel"
+                      noWrap
+                      sx={{
+                        width: 'calc(100% - 32px)',
+                        lineHeight: "26px",
+                        cursor: 'default',
+                        fontSize: 20,
+                      }}
+                    >
                       {page.name}
                     </Typography>
-                  </Grid>
-                </Grid>
-                <IconButton onClick={() => handleChange(expanded, index)} size="large">
-                  <ExpandMoreIcon
+                  </Tooltip>
+                  <Box
+                    component={"p"}
                     sx={{
-                      position: '',
-                      transform:
-                        expanded === index ? "rotate(0deg)" : "rotate(-180deg)",
-                      transition: "0.4s",
+                      maxHeight: 290,
+                      width: '100%',
+                      lineHeight: "26px",
+                      cursor: 'default',
+                      fontSize: 16,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
                     }}
-                  />
-                </IconButton>
-              </Grid>
-              {(expanded === index) &&
-                <Box
-                  sx={{ width: "100%", height: "auto" }}
-                  component={motion.div}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  transition={{ duration: 0.6 }}
-                  exit={{ opacity: 0, height: 0 }}
-                >
-                  <Typography>{`${page.theme}`}</Typography>
-                  <Typography sx={{ mt: 0.4 }}>{kindSelect(page.kind)}</Typography>
-                  <Grid
-                    container
-                    direction="row"
+
+                  >
+                    {page.description}
+                  </Box>
+
+                </Stack>
+                <Tooltip title={`${kindSelect(page.kind)} / ${page.theme}`}>
+                  <Typography
+                    variant="OpenSans700MainLabel"
+                    noWrap
                     sx={{
-                      paddingTop: theme.spacing(1.5),
-                      width: "auto",
-                      marginRight: "auto",
+                      position: 'absolute',
+                      color: 'text.secondary',
+                      borderRadius: 8,
+                      bottom: 8,
+                      left: 8,
+                      width: 'calc(100% - 64px)',
+                      lineHeight: "26px",
+                      cursor: 'default',
+                      fontSize: 14,
                     }}
                   >
-                    {/* {course.createrAvatar} */}
-                    <Grid>
-                      <Avatar
+                    {`${kindSelect(page.kind)} / ${page.theme}`}
+                  </Typography>
+                </Tooltip>
+                <Button
+                  component={motion.button}
+                  animate={{ width: hover ? 232 : 36 }}
+                  transition={{ delay: 0.4, duration: 0.4, }}
+                  onMouseEnter={() => setHover(true)}
+                  onMouseLeave={() => setHover(false)}
+                  onClick={() => router.push(`/knowledge/page/${page.id}`)}
+                  sx={{
+                    '&.MuiButtonBase-root': {
+                      height: 36,
+                      width: 36,
+                      minWidth: 36,
+                    },
+                    position: 'absolute',
+                    color: 'text.primary',
+                    borderRadius: 8,
+                    bottom: 8,
+                    right: 8,
+                    boxShadow: 4,
+                    bgcolor: 'secondary.main',
+                    '&:hover': {
+                      bgcolor: 'secondary.main',
+                    }
+                  }}
+                >
+                  <AnimatePresence initial={false} exitBeforeEnter>
+                    {hover &&
+                      <Stack
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={2}
                         sx={{
-                          borderRadius: 1,
-                          color: "text.main",
-                          backgroundColor: "tertiary.main",
+                          width: '100%',
+                          height: '100%',
                         }}
+                        key="textButton1"
+                        component={motion.div}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.6, }}
                       >
-                        Ξ
-                      </Avatar>
-                    </Grid>
-                    <Grid sx={{ paddingLeft: 1.5 }}>
-                      <Typography
-                        sx={{
-                          fontSize: "12px",
-                          textTransform: "uppercase",
-                          letterSpacing: 1,
-                        }}
+                        <Typography
+                          variant="IBMPlexMono500XiLabelEnd"
+                          sx={{
+                            lineHeight: "20px",
+                            cursor: 'pointer',
+                            fontSize: 16,
+                          }}
+                        >
+                          Перейти к странице
+                        </Typography>
+                        <ArrowForwardIcon />
+                      </Stack>
+                    }
+                    {!hover &&
+                      <Stack
+                        direction="row"
+                        key="textButton2"
+                        component={motion.div}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.6, }}
                       >
-                        Создатель
-                      </Typography>
-                      <Typography
-                        sx={{
-                          fontSize: "16px",
-                          fontWeight: 500,
-                        }}
-                      >
-                        Ξ Effect
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Box>}
-            </AnimatePresence>
-          </Grid>
-        ))}
+                        <ArrowForwardIcon />
+                      </Stack>}
+                  </AnimatePresence>
+                </Button>
+              </Paper>
+            </Grid>
+          )
+        })}
       </Grid>
     );
   })
 );
 
 export default PagesList;
-
-// {page.name}
-
-// {page.theme}  {kindSelect(page.kind)
-//                     <Views views={page.views} />

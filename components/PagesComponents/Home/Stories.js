@@ -95,6 +95,7 @@ const Story = inject('rootStore', 'managmentStore')(observer(({ rootStore, manag
                         position: 'absolute',
                         bottom: -8,
                         right: 8,
+                        boxShadow: 4,
                         bgcolor: 'secondary.main',
                         '&:hover': {
                             bgcolor: 'secondary.main',

@@ -40,7 +40,17 @@ class UIStore {
         this.knowledge[name] = value
     }
 
+    @observable reportData = {
 
+    }
+
+    @action setReportData = (name, value) => {
+        this.reportData[name] = value
+    }
+
+    @action clearReportData = () => {
+        this.reportData = {}
+    }
 }
 
 export default UIStore;

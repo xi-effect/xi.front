@@ -75,7 +75,7 @@ const MyApp = (observer((props) => {
         store={rootStore}
         rootStore={rootStore}
         uiStore={rootStore.uiStore}
-        mainStore={rootStore.mainStore}
+        homeStore={rootStore.homeStore}
         knowledgeStore={rootStore.knowledgeStore}
         managmentStore={rootStore.managmentStore}
         settingsStore={rootStore.settingsStore}

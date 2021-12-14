@@ -1,7 +1,7 @@
 import { action, observable, computed, runInAction, makeObservable } from 'mobx'
 
 
-class MainStore {
+class HomeStore {
     // `this` from rootstore passed to the constructor and we can 
     // assign it to a variable accessible in this class called 
     // `rootStore`. Therefore, we can access other store like 
@@ -11,9 +11,9 @@ class MainStore {
         makeObservable(this)
     }
 
-    @observable mainStore = {
+    @observable homeStore = {
 
     }
 }
 
-export default MainStore;
+export default HomeStore;

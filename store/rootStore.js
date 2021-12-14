@@ -6,7 +6,7 @@ import Router from 'next/router'
 import { io } from "socket.io-client";
 
 import UIStore from "./ui/uiStore";
-import MainStore from "./main/mainStore";
+import HomeStore from "./home/homeStore";
 import KnowledgeStore from "./knowledge/knowledgeStore";
 import ManagmentStore from "./managment/managmentStore";
 import SettingsStore from "./settings/settingsStore";
@@ -23,7 +23,7 @@ class RootStore {
   url = 'https://xieffect.pythonanywhere.com'
   constructor() {
     this.uiStore = new UIStore(this)
-    this.mainStore = new MainStore(this)
+    this.homeStore = new HomeStore(this)
     this.knowledgeStore = new KnowledgeStore(this)
     this.managmentStore = new ManagmentStore(this)
     this.settingsStore = new SettingsStore(this)
@@ -57,7 +57,6 @@ class RootStore {
           credentials: "include", // include, *same-origin, omit
           headers: {
             'Content-Type': 'application/json',
-            // 'Content-Type': 'application/x-www-form-urlencoded',
           },
           // redirect, // manual, *follow, error
           // referrerPolicy, // no-referrer, *client
@@ -72,7 +71,6 @@ class RootStore {
           credentials: "include", // include, *same-origin, omit
           headers: {
             'Content-Type': 'application/json',
-            // 'Content-Type': 'application/x-www-form-urlencoded',
           },
           // redirect, // manual, *follow, error
           // referrerPolicy, // no-referrer, *client
@@ -107,8 +105,6 @@ class RootStore {
           credentials: "include", // include, *same-origin, omit
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': this.getCookie('csrf_access_token'),
-            // 'Content-Type': 'application/x-www-form-urlencoded',
           },
           // redirect, // manual, *follow, error
           // referrerPolicy, // no-referrer, *client
@@ -123,8 +119,6 @@ class RootStore {
           credentials: "include", // include, *same-origin, omit
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': this.getCookie('csrf_access_token'),
-            // 'Content-Type': 'application/x-www-form-urlencoded',
           },
           // redirect, // manual, *follow, error
           // referrerPolicy, // no-referrer, *client
