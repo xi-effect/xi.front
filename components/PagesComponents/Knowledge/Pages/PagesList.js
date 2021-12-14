@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import {
   Divider,
@@ -175,10 +176,11 @@ const PagesList = inject(
                       {page.name}
                     </Typography>
                   </Tooltip>
-                  <Box
+                  {page.description && <Box
                     component={"p"}
                     sx={{
                       maxHeight: 290,
+                      minWidth: 220,
                       width: '100%',
                       lineHeight: "26px",
                       cursor: 'default',
@@ -189,7 +191,28 @@ const PagesList = inject(
 
                   >
                     {page.description}
-                  </Box>
+                  </Box>}
+                  {!page.description && <Stack
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                      width: '100%',
+                      maxHeight: 290,
+                    }}
+
+                  >
+                    <Image
+                      alt="alt"
+                      src={"/app/NoData.svg"}
+                      quality={100}
+                      width={290}
+                      height={290}
+                    />
+                    <Typography sx={{ mt: -6, }}>
+                      Автор не оставил описания
+                    </Typography>
+                  </Stack>}
 
                 </Stack>
                 <Tooltip title={`${kindSelect(page.kind)} / ${page.theme}`}>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import {
   Divider,
@@ -19,7 +20,7 @@ import {
   Card,
   CardActions,
   Grid,
-  Collapse,
+  Stack,
   Box,
   Typography,
   useTheme,
@@ -30,6 +31,7 @@ import {
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { inject, observer } from "mobx-react";
 
@@ -90,9 +92,10 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
   };
 
   const kindSelect = (value) => {
-    if (value === "theory") return "Теория";
-    if (value === "practice") return "Практика";
-    if (value === "task") return "Проверочная работа";
+    if (value === "standard") return "Стандартный";
+    if (value === "theory-block") return "Теория";
+    if (value === "practice-block") return "Практика";
+    if (value === "test") return "Проверочная работа";
   };
 
   return (
@@ -107,115 +110,204 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
         width: "100%",
       }}
     >
-      {knowledgeStore.moduleList.modules.map((module, index) => (
-        <Grid
-          xs={12}
-          sm={12}
-          md={6}
-          lg={4}
-          xl={3}
-          item
-          sx={{ p: 1, transition: "0.8s", width: "100%", height: "100%" }}
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="flex-start"
-          key={index.toString()}
-        >
-          <AnimatePresence exitBeforeEnter initial={false}>
-            {!(expanded === index) &&
-              <Box
-                sx={{ width: "100%", height: "auto" }}
-                component={motion.div}
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                transition={{ duration: 0.6 }}
-                exit={{ opacity: 0, height: 0 }}
-              >
-                <SVGbackground width={1920} height={1080} />
-              </Box>}
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
+      {knowledgeStore.moduleList.modules.map((module, index) => {
+        const [hover, setHover] = React.useState(false)
+        return (
+          <Grid
+            xs={12}
+            sm={12}
+            md={6}
+            lg={4}
+            xl={3}
+            item
+            sx={{
+              p: 1,
+              transition: "0.8s",
+              width: "100%",
+              height: 400,
+              maxHeight: "100%"
+            }}
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="flex-start"
+            key={module.id.toString()}
+          >
+            <Paper
+              elevation={12}
+              sx={{
+                width: "100%",
+                height: "100%",
+                bgcolor: 'primary.main',
+                borderRadius: 2,
+                position: 'relative',
+              }}
             >
-              <Grid sx={{ width: 'calc(100% - 32px)' }} container wrap="nowrap" spacing={2}>
-                <Grid item xs zeroMinWidth>
-                  <Typography onClick={() => router.push(`/knowledge/module/${module.id}/start`)} sx={{ cursor: 'pointer', "&:hover": { textDecoration: 'underline' } }} variant="h6" noWrap>
+              <IconButton
+                sx={{
+                  position: 'absolute',
+                  top: 4,
+                  right: 4,
+                }}
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+              <Stack
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                spacing={2}
+                sx={{
+                  // width: '100%',
+                  // height: '100%',
+                  p: 1.5,
+                }}
+              >
+                <Tooltip title={module.name}>
+                  <Typography
+                    variant="OpenSans700MainLabel"
+                    noWrap
+                    sx={{
+                      width: 'calc(100% - 32px)',
+                      lineHeight: "26px",
+                      cursor: 'default',
+                      fontSize: 20,
+                    }}
+                  >
                     {module.name}
                   </Typography>
-                </Grid>
-              </Grid>
-              <IconButton onClick={() => handleChange(expanded, index)} size="large">
-                <ExpandMoreIcon
+                </Tooltip>
+                {module.description && <Box
+                  component={"p"}
                   sx={{
-                    position: '',
-                    transform:
-                      expanded === index ? "rotate(0deg)" : "rotate(-180deg)",
-                    transition: "0.4s",
+                    maxHeight: 290,
+                    minWidth: 220,
+                    width: '100%',
+                    lineHeight: "26px",
+                    cursor: 'default',
+                    fontSize: 16,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
                   }}
-                />
-              </IconButton>
-            </Grid>
-            {/* </Grid> */}
-            {/* <AnimatePresence initial={false}> */}
-            {(expanded === index) &&
-              <Box
-                sx={{ width: "100%", height: "auto" }}
-                component={motion.div}
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                transition={{ duration: 0.6 }}
-                exit={{ opacity: 0, height: 0 }}
-              >
-                <Typography>{`${module.theme}`}</Typography>
-                <Typography sx={{ mt: 0.4 }}>{kindSelect(module.kind)}</Typography>
-                <Grid
-                  container
-                  direction="row"
+
+                >
+                  {module.description}
+                </Box>}
+                {!module.description && <Stack
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
                   sx={{
-                    paddingTop: theme.spacing(1.5),
-                    width: "auto",
-                    marginRight: "auto",
+                    width: '100%',
+                    maxHeight: 290,
+                  }}
+
+                >
+                  <Image
+                    alt="alt"
+                    src={"/app/NoData.svg"}
+                    quality={100}
+                    width={290}
+                    height={290}
+                  />
+                  <Typography sx={{ mt: -6, }}>
+                    Автор не оставил описания
+                  </Typography>
+                </Stack>}
+              </Stack>
+              <Tooltip title={`${kindSelect(module.type)} / ${moduleThemeList[module.theme]}`}>
+                <Typography
+                  variant="OpenSans700MainLabel"
+                  noWrap
+                  sx={{
+                    position: 'absolute',
+                    color: 'text.secondary',
+                    borderRadius: 8,
+                    bottom: 8,
+                    left: 8,
+                    width: 'calc(100% - 64px)',
+                    lineHeight: "26px",
+                    cursor: 'default',
+                    fontSize: 14,
                   }}
                 >
-                  {/* {course.createrAvatar} */}
-                  <Grid>
-                    <Avatar
+                  {`${kindSelect(module.type)} / ${moduleThemeList[module.theme]}`}
+                </Typography>
+              </Tooltip>
+              <Button
+                component={motion.button}
+                animate={{ width: hover ? 232 : 36 }}
+                transition={{ delay: 0.4, duration: 0.4, }}
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+                onClick={() => router.push(`/knowledge/module/${module.id}/start`)}
+                sx={{
+                  '&.MuiButtonBase-root': {
+                    height: 36,
+                    width: 36,
+                    minWidth: 36,
+                  },
+                  position: 'absolute',
+                  color: 'text.primary',
+                  borderRadius: 8,
+                  bottom: 8,
+                  right: 8,
+                  boxShadow: 4,
+                  bgcolor: 'secondary.main',
+                  '&:hover': {
+                    bgcolor: 'secondary.main',
+                  }
+                }}
+              >
+                <AnimatePresence initial={false} exitBeforeEnter>
+                  {hover &&
+                    <Stack
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                      spacing={2}
                       sx={{
-                        borderRadius: 1,
-                        color: "text.main",
-                        backgroundColor: "tertiary.main",
+                        width: '100%',
+                        height: '100%',
                       }}
+                      key="textButton1"
+                      component={motion.div}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.6, }}
                     >
-                      Ξ
-                    </Avatar>
-                  </Grid>
-                  <Grid sx={{ paddingLeft: 1.5 }}>
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        textTransform: "uppercase",
-                        letterSpacing: 1,
-                      }}
+                      <Typography
+                        variant="IBMPlexMono500XiLabelEnd"
+                        sx={{
+                          lineHeight: "20px",
+                          cursor: 'pointer',
+                          fontSize: 16,
+                        }}
+                      >
+                        Перейти к модулю
+                      </Typography>
+                      <ArrowForwardIcon />
+                    </Stack>
+                  }
+                  {!hover &&
+                    <Stack
+                      direction="row"
+                      key="textButton2"
+                      component={motion.div}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.6, }}
                     >
-                      Создатель
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: 500,
-                      }}
-                    >
-                      Ξ Effect
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Box>}
-          </AnimatePresence>
-        </Grid>
-      ))
+                      <ArrowForwardIcon />
+                    </Stack>}
+                </AnimatePresence>
+              </Button>
+            </Paper>
+          </Grid>
+        )
+      })
       }
     </Grid>
   );
