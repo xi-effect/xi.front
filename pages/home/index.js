@@ -34,10 +34,12 @@ const Home = inject('rootStore')(observer(({ rootStore }) => {
             alignItems="center"
             spacing={0}
             sx={{
-              width: '100%',
+              maxWidth: '100%',
               pt: 1,
-              pl: 3,
-              pr: 3,
+              ml: 0,
+              mr: 0,
+              position: 'relative',
+              overflow: 'hidden',
             }}
           >
             <Stories />

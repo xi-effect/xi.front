@@ -254,10 +254,10 @@ const Upbar = inject(
         {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools />}
         {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools />}
 
-        {mobile && (haveRightMenu || haveRightToolbar) && <IconButton onClick={() => {
+        {mobile && <IconButton onClick={() => {
           if (swipe === 'left') setSwipe('swipe', 'center')
           if (swipe === 'center') setSwipe('swipe', 'left')
-        }} sx={{ ml: 0.4, mr: 0.4, cursor: 'pointer' }}>
+        }} sx={{ ml: 'auto', mr: 0.4, cursor: 'pointer' }}>
           <InfoIcon sx={{ fontSize: 32 }} />
         </IconButton>}
         <ReportDialog open={openDialog} setOpen={setOpenDialog} />

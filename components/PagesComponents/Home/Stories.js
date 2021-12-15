@@ -119,10 +119,11 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
             <Stack
                 direction="row"
                 justifyContent="space-between"
-                alignItems="flex-start"
+                alignItems="center"
                 spacing={2}
                 sx={{
                     width: '100%',
+                    p: 1,
                 }}
             >
                 <Typography
@@ -181,9 +182,9 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                 transition={{ duration: 0.6 }}
                 sx={{
                     width: '100%',
-                    mt: 7,
-                    ml: 4,
-                    position: 'absolute',
+                    mt: 1,
+                    ml: 2,
+                    position: 'relative',
                 }}
             >
                 {stories.map((item, index) => (
