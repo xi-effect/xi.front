@@ -292,6 +292,7 @@ const NavigationAll = inject(
                 zIndex: 0,
                 // display: "flex",
                 backgroundColor: "background.main",
+                filter: uiStore.navigation.swipe === 'right' || uiStore.navigation.swipe === 'left' ? 'brightness(40%)' : 'none',
                 height: "100vh",
                 overflow: 'hidden',
                 width: `100vw`,
