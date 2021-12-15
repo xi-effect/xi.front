@@ -3,13 +3,14 @@ import React from 'react';
 import { useRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
 
-import { Grid, Stack, Paper, Box, Divider, Typography, MenuItem, MenuList, ListItemText } from '@mui/material';
+import { Grid, Stack, Paper, Box, useMediaQuery, Divider, Typography, MenuItem, MenuList, ListItemText } from '@mui/material';
 
 import { motion } from "framer-motion";
 
 
 const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
     const router = useRouter()
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"))
 
 
     return (
@@ -26,18 +27,16 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                     },
                     pl: 1,
                     pr: 1,
-                    pt: 0.4,
-                    pb: 0.4,
-                    fontSize: 22,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: mobile ? 18 : 22,
                     width: '100%',
                     borderRadius: 1,
                     cursor: 'pointer',
                     // bgcolor: router.pathname.includes('/knowledge/pages') ? '' : '',
                 }}
             >
-                <ListItemText>
-                    {'cтраницы'}
-                </ListItemText>
+                {'cтраницы'}
             </MenuItem>
             <MenuItem
                 selected={router.pathname.includes('/knowledge/modules')}
@@ -51,9 +50,9 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                     },
                     pl: 1,
                     pr: 1,
-                    pt: 0.4,
-                    pb: 0.4,
-                    fontSize: 22,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: mobile ? 18 : 22,
                     width: '100%',
                     borderRadius: 1,
                     cursor: 'pointer',
@@ -75,9 +74,9 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                     },
                     pl: 1,
                     pr: 1,
-                    pt: 0.4,
-                    pb: 0.4,
-                    fontSize: 22,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: mobile ? 18 : 22,
                     width: '100%',
                     borderRadius: 1,
                     cursor: 'pointer',
@@ -97,9 +96,9 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                     },
                     pl: 1,
                     pr: 1,
-                    pt: 0.4,
-                    pb: 0.4,
-                    fontSize: 22,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: mobile ? 18 : 22,
                     width: '100%',
                     borderRadius: 1,
                     cursor: 'pointer',
@@ -121,9 +120,9 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                     },
                     pl: 1,
                     pr: 1,
-                    pt: 0.4,
-                    pb: 0.4,
-                    fontSize: 22,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: mobile ? 18 : 22,
                     width: '100%',
                     borderRadius: 1,
                     cursor: 'pointer',
@@ -144,9 +143,9 @@ const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observe
                     },
                     pl: 1,
                     pr: 1,
-                    pt: 0.4,
-                    pb: 0.4,
-                    fontSize: 22,
+                    pt: 0.2,
+                    pb: 0.2,
+                    fontSize: mobile ? 18 : 22,
                     width: '100%',
                     borderRadius: 1,
                     cursor: 'pointer',

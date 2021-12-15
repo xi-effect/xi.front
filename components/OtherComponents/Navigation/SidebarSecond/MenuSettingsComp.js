@@ -3,37 +3,36 @@ import React from 'react';
 import { useRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
 
-import { Typography, MenuItem, MenuList, ListItemText } from '@mui/material';
+import { Typography, MenuItem, useMediaQuery, MenuList, ListItemText } from '@mui/material';
 
 import { motion } from "framer-motion";
 
 const menuSettings = [
     {
         id: 0,
-        label: "# Безопасность",
+        label: "#Безопасность",
         href: 'secure',
     },
     {
         id: 1,
-        label: "# Аватар",
+        label: "#Аватар",
         href: 'useravatar',
     },
     {
         id: 2,
-        label: "# Внешний вид",
+        label: "#Внешний вид",
         href: 'customize',
     },
     {
         id: 3,
-        label: "# Приглашения",
+        label: "#Приглашения",
         href: 'invite',
     },
 ]
 
 const MenuSettingsComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
     const router = useRouter()
-
-
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"))
 
     return (
         <MenuList sx={{ width: '100%', }}>
@@ -48,18 +47,15 @@ const MenuSettingsComp = inject('rootStore', 'uiStore', 'messageStore')(observer
                         },
                         pl: 1,
                         pr: 1,
-                        pt: 0.4,
-                        pb: 0.4,
-                        fontSize: 22,
+                        pt: 0.2,
+                        pb: 0.2,
+                        fontSize: mobile ? 18 : 22,
                         width: '100%',
                         borderRadius: 1,
                         cursor: 'pointer',
-                        bgcolor: router.pathname.includes(item.href) ? '' : '',
                     }}
                 >
-                    <ListItemText>
-                        {item.label.toLowerCase()}
-                    </ListItemText>
+                    {item.label.toLowerCase()}
                 </MenuItem>
             ))}
         </MenuList>

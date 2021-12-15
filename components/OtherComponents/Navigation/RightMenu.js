@@ -21,54 +21,6 @@ import KnowledgeModuleMap from "./RightMenu/KnowledgeModuleMap";
 import { motion, AnimatePresence } from "framer-motion"
 import ReportDialog from "./RightMenu/ReportDialog";
 
-const sidebar = {
-  open: {
-    height: '200px',
-    transition: {
-      type: "tween",
-      stiffness: 20,
-      restDelta: 2
-    }
-  },
-  closed: {
-    height: '72px',
-    transition: {
-      delay: 0.5,
-      type: "tween",
-      stiffness: 400,
-      damping: 40
-    }
-  }
-};
-
-const variantsCont = {
-  open: {
-    transition: {
-      staggerChildren: 0.07, delayChildren: 0.2
-    }
-  },
-  closed: {
-    transition: { staggerChildren: 0.05, staggerDirection: -1 }
-  }
-};
-
-const variantsChild = {
-  open: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      y: { stiffness: 1000, velocity: -100 }
-    }
-  },
-  closed: {
-    y: -10,
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      y: { stiffness: 1000 }
-    }
-  }
-};
 
 
 const RightMenu = inject(
@@ -79,6 +31,55 @@ const RightMenu = inject(
   observer(({ rootStore, knowledgeStore, settingsStore }) => {
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"))
+
+    const sidebar = {
+      open: {
+        height: mobile ? '300px' : '200px',
+        transition: {
+          type: "tween",
+          stiffness: 20,
+          restDelta: 2
+        }
+      },
+      closed: {
+        height: '72px',
+        transition: {
+          delay: 0.5,
+          type: "tween",
+          stiffness: 400,
+          damping: 40
+        }
+      }
+    };
+
+    const variantsCont = {
+      open: {
+        transition: {
+          staggerChildren: 0.07, delayChildren: 0.2
+        }
+      },
+      closed: {
+        transition: { staggerChildren: 0.05, staggerDirection: -1 }
+      }
+    };
+
+    const variantsChild = {
+      open: {
+        y: 0,
+        opacity: 1,
+        transition: {
+          y: { stiffness: 1000, velocity: -100 }
+        }
+      },
+      closed: {
+        y: -10,
+        opacity: 0,
+        transition: {
+          duration: 0.2,
+          y: { stiffness: 1000 }
+        }
+      }
+    };
 
     const goNext = () => {
       if (!router.pathname.includes('/knowledge/module/results')) {

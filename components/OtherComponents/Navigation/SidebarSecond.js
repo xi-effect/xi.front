@@ -23,9 +23,9 @@ const HeaderHome = inject('rootStore', 'uiStore', 'messageStore')(observer(({ ro
             spacing={2}
         >
             <Typography
-                variant="h6"
+                variant="Roboto500XiLabel"
                 sx={{
-                    // fontSize: 22,
+                    fontSize: 18,
                     // p: 1
                 }}
             >
@@ -65,9 +65,9 @@ const HeaderKnowledge = inject('rootStore', 'uiStore', 'messageStore')(observer(
             spacing={2}
         >
             <Typography
-                variant="h6"
+                variant="Roboto500XiLabel"
                 sx={{
-                    // fontSize: 22,
+                    fontSize: 18,
                     // p: 1
                 }}
             >
@@ -87,9 +87,9 @@ const HeaderMessages = inject('rootStore', 'uiStore', 'messageStore')(observer((
             spacing={2}
         >
             <Typography
-                variant="h6"
+                variant="Roboto500XiLabel"
                 sx={{
-                    // fontSize: 22,
+                    fontSize: 18,
                     // p: 1
                 }}
             >
@@ -109,9 +109,9 @@ const HeaderSettings = inject('rootStore', 'uiStore', 'messageStore')(observer((
             spacing={2}
         >
             <Typography
-                variant="h6"
+                variant="Roboto500XiLabel"
                 sx={{
-                    // fontSize: 22,
+                    fontSize: 18,
                     // p: 1
                 }}
             >

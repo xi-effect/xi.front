@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
 
-import { Typography, MenuItem, Box, MenuList, ListItemText } from '@mui/material';
+import { Typography, MenuItem, Box, MenuList, ListItemText, useMediaQuery } from '@mui/material';
 import Image from "next/image";
 
 import { motion } from "framer-motion";
@@ -18,6 +18,7 @@ const menuHome = [
 
 const MenuHomeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
     const router = useRouter()
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"))
 
     return (
         <>
@@ -36,9 +37,9 @@ const MenuHomeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ 
                             },
                             pl: 1,
                             pr: 1,
-                            pt: 0.4,
-                            pb: 0.4,
-                            fontSize: 22,
+                            pt: 0.2,
+                            pb: 0.2,
+                            fontSize: mobile ? 18 : 22,
                             width: '100%',
                             borderRadius: 1,
                             cursor: 'pointer',

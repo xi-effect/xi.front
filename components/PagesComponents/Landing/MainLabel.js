@@ -151,7 +151,7 @@ const MainLabel = () => {
                                 color: 'text.primary',
                             }}
                         >
-                            Присоедениться
+                            Присоединиться
                         </Typography>
                         <Stack
                             direction="column"
