@@ -130,7 +130,7 @@ const KnowledgeModuleTools = inject(
 )(
   observer(({ knowledgeStore }) => {
     const theme = useTheme();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
       <>
@@ -165,7 +165,7 @@ const Upbar = inject(
   observer(({ rootStore, settingsStore, uiStore, messageStore, children, swipe, setSwipe, haveRightMenu, haveRightToolbar, haveRightMenuMore }) => {
     const theme = useTheme();
     const router = useRouter();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     const [openDialog, setOpenDialog] = React.useState(false);
 

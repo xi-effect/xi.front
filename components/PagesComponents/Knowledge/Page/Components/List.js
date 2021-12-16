@@ -29,7 +29,7 @@ const List = inject(
       backgroundColor: "black",
       color: "white",
     };
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
     console.log("props", props);
     const theme = useTheme();
 
@@ -71,7 +71,7 @@ const List = inject(
                         mr: "5px",
                         fontSize: "12px",
                       }}
-                      color="main.dark"                      
+                      color="main.dark"
                     />
                   )}
                   {value.listType === "numberded" && (

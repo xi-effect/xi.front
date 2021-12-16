@@ -23,7 +23,7 @@ const Main = inject(
 )(
   observer(({ rootStore, uiStore }) => {
     const theme = useTheme();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     // React.useEffect(() => {
     //   if (uiStore.load.landing) uiStore.setLoading("loading", true)

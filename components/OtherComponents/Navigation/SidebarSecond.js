@@ -37,12 +37,12 @@ const HeaderHome = inject('rootStore', 'uiStore', 'messageStore')(observer(({ ro
                     sx={{
                         height: 36,
                         width: 36,
-                        borderRadius: '8px',
-                        bgcolor: 'secondary.dark',
-                        '&:hover': {
-                            bgcolor: 'secondary.dark',
-                        },
-                        boxShadow: 6,
+                        // borderRadius: '8px',
+                        // bgcolor: 'secondary.dark',
+                        // '&:hover': {
+                        //     bgcolor: 'secondary.dark',
+                        // },
+                        // boxShadow: 6,
                     }}
                     onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
                         variant: 'info',
@@ -78,13 +78,13 @@ const HeaderKnowledge = inject('rootStore', 'uiStore', 'messageStore')(observer(
 }));
 
 const HeaderMessages = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
-
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     return (
         <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            spacing={2}
+            // spacing={2}
         >
             <Typography
                 variant="Roboto500XiLabel"
@@ -95,6 +95,27 @@ const HeaderMessages = inject('rootStore', 'uiStore', 'messageStore')(observer((
             >
                 Общение
             </Typography>
+            <Tooltip arrow title="Начать диалог">
+                <IconButton
+                    // disableRipple
+                    sx={{
+                        height: 36,
+                        width: 36,
+                        // borderRadius: '8px',
+                        // bgcolor: 'secondary.dark',
+                        // '&:hover': {
+                        //     bgcolor: 'secondary.dark',
+                        // },
+                        // boxShadow: 6,
+                        mt: 0,
+                    }}
+                    onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
+                        variant: 'info',
+                    })}
+                >
+                    <PlusOneIcon />
+                </IconButton>
+            </Tooltip>
         </Stack>
     )
 }));

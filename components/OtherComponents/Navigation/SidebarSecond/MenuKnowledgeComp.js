@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 const MenuKnowledgeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
     const router = useRouter()
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"))
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
 
 
     return (

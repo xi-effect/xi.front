@@ -114,10 +114,13 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
         const [hover, setHover] = React.useState(false)
         return (
           <Grid
+            ax={12}
             xs={12}
             sm={12}
             md={6}
-            lg={4}
+            dl={12}
+            lg={6}
+            gx={4}
             xl={3}
             item
             sx={{

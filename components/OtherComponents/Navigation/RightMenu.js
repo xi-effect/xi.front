@@ -10,6 +10,7 @@ import ReportIcon from '@mui/icons-material/Report';
 import CustomAvatar from '../Avatar/CustomAvatar'
 
 import KnowledgeСreatePage from "./RightMenu/KnowledgeСreatePage";
+import KnowledgeСreatePageMap from "./RightMenu/KnowledgeСreatePageMap";
 import KnowledgeModuleTools from "./RightMenu/KnowledgeModuleTools";
 import KnowledgePageTools from "./RightMenu/KnowledgePageTools";
 import KnowledgePagesTools from "./RightMenu/KnowledgePagesTools";
@@ -30,7 +31,7 @@ const RightMenu = inject(
 )(
   observer(({ rootStore, knowledgeStore, settingsStore }) => {
     const router = useRouter();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"))
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
 
     const sidebar = {
       open: {
@@ -241,10 +242,11 @@ const RightMenu = inject(
             direction="column"
             justifyContent="space-between"
             alignItems="center"
-            spacing={2}
-            sx={{ height: '100%', }}
+            // spacing={12}
+            sx={{ height: '100%', width: '100%', zIndex: 100, }}
           >
-            <Stack sx={{ height: '100%', mt: 1, mb: 'auto' }}>
+            <Stack sx={{ height: '100%', width: '100%', mt: 1, mb: 'auto' }}>
+              {router.pathname.includes('/knowledge/createpage') && <KnowledgeСreatePageMap />}
               {!knowledgeStore.moduleCompleted.isFinished && knowledgeStore.module["map"] != undefined && knowledgeStore.module["map"].length != 0 && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleMap goNext={goNext} />}
             </Stack>
             <Stack

@@ -29,7 +29,7 @@ const NavigationAll = inject(
     const theme = useTheme();
     const router = useRouter();
 
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     React.useEffect(() => {
       if (uiStore.load.app) uiStore.setLoading("loading", true)
