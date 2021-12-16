@@ -161,7 +161,7 @@ const NavigationAll = inject(
               <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
               {!(router.pathname.includes('/message')) && <Scrollbars
                 universal={true}
-                style={{ width: "100%", height: "100%" }}
+                style={{ width: "100%", height: "100%", }}
                 autoHide
                 autoHideTimeout={1000}
                 autoHideDuration={200}
@@ -317,7 +317,7 @@ const NavigationAll = inject(
               <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
               {!(router.pathname.includes('/message')) && <Scrollbars
                 universal={true}
-                style={{ width: "100vw", height: "100%", overflowY: 'hidden !important', }}
+                style={{ width: "100vw", height: "100%", overflowY: 'hidden !important', backgroundСolor: '#cccccc', }}
                 autoHide
                 autoHideTimeout={1000}
                 autoHideDuration={200}
