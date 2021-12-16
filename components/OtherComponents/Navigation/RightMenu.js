@@ -10,7 +10,9 @@ import ReportIcon from '@mui/icons-material/Report';
 import CustomAvatar from '../Avatar/CustomAvatar'
 
 import KnowledgeСreatePage from "./RightMenu/KnowledgeСreatePage";
+import KnowledgeСreateModule from "./RightMenu/KnowledgeСreateModule";
 import KnowledgeСreatePageMap from "./RightMenu/KnowledgeСreatePageMap";
+import KnowledgeСreateModuleMap from "./RightMenu/KnowledgeСreateModuleMap";
 import KnowledgeModuleTools from "./RightMenu/KnowledgeModuleTools";
 import KnowledgePageTools from "./RightMenu/KnowledgePageTools";
 import KnowledgePagesTools from "./RightMenu/KnowledgePagesTools";
@@ -247,6 +249,7 @@ const RightMenu = inject(
           >
             <Stack sx={{ height: '100%', width: '100%', mt: 1, mb: 'auto' }}>
               {router.pathname.includes('/knowledge/createpage') && <KnowledgeСreatePageMap />}
+              {router.pathname.includes('/knowledge/createmodule') && <KnowledgeСreateModuleMap />}
               {!knowledgeStore.moduleCompleted.isFinished && knowledgeStore.module["map"] != undefined && knowledgeStore.module["map"].length != 0 && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleMap goNext={goNext} />}
             </Stack>
             <Stack
@@ -261,6 +264,7 @@ const RightMenu = inject(
               {router.pathname === '/knowledge/pages' && <KnowledgePagesTools />}
               {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools />}
               {router.pathname.includes('/knowledge/createpage') && <KnowledgeСreatePage />}
+              {router.pathname.includes('/knowledge/createmodule') && <KnowledgeСreateModule />}
 
             </Stack>
           </Stack>
