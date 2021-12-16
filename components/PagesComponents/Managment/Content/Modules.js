@@ -14,23 +14,6 @@ import DataList from './Modules/DataList';
 // import ModulesList from './Modules/ModulesList';
 import DialogModuleCreation from './Modules/DialogModuleCreation';
 
-const PREFIX = 'Modules';
-
-const classes = {
-    gridToolbar: `${PREFIX}-gridToolbar`
-};
-
-const StyledGrid = styled(Grid)((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.gridToolbar}`]: {
-        
-    }
-}));
-
-
 const Modules = inject('store')(observer(({ store }) => {
     const theme = useTheme();
 
@@ -38,7 +21,7 @@ const Modules = inject('store')(observer(({ store }) => {
     const [dialogModuleCreation, setDialogModuleCreation] = React.useState(false)
 
     return (
-        <StyledGrid
+        <Grid
             container
             direction="column"
             justifyContent="center"
@@ -47,12 +30,12 @@ const Modules = inject('store')(observer(({ store }) => {
             <Grid>
                 <Typography variant="h5"> Управление контентом </Typography>
             </Grid>
-            <Grid className={classes.gridToolbar}>
+            <Grid>
                 <Toolbar setDialogModuleCreation={setDialogModuleCreation} />
             </Grid>
             <DialogModuleCreation dialogModuleCreation={dialogModuleCreation} setDialogModuleCreation={setDialogModuleCreation} />
             <DataList />
-        </StyledGrid>
+        </Grid>
     );
 }));
 

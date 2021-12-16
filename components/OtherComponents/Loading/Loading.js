@@ -1,55 +1,104 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
-import { Grid, Typography, useTheme } from '@mui/material';
+import { Grid, Typography, useMediaQuery, Stack, Box, useTheme } from '@mui/material';
 import Image from 'next/image'
-import Loader from './Loader';
+import { motion, AnimatePresence } from "framer-motion"
+import { inject, observer } from 'mobx-react'
 
-
-const PREFIX = 'Loading';
-
-const classes = {
-    gridRoot: `${PREFIX}-gridRoot`,
-    label: `${PREFIX}-label`
-};
-
-const Root = styled('div')((
-    {
-        theme
-    }
-) => ({
-    [`&.${classes.gridRoot}`]: {
-        position: "fixed",
-        width: "100%",
-        height: "100%",
-        zIndex: 1100,
-        overflow: "hidden",
-        backgroundColor: theme.palette.primary.main,
-    },
-
-    [`& .${classes.label}`]: {
-        color: "#fff"
-    }
-}));
-
-const Loading = () => {
+const Loading = inject('uiStore')(observer(({ uiStore }) => {
     const theme = useTheme();
-
+    const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)")
 
     return (
-        <Root id="content" className={classes.gridRoot}>
-            <Grid
+        <AnimatePresence>
+            {uiStore.load.loading && <Grid
+                component={motion.div}
                 container
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                // className={classes.gridRoot}
-                sx={{ height: "100%" }}
+                sx={{ position: 'absolute', height: "100vh", width: '100vw', zIndex: 99999, bgcolor: isDarkTheme ? "#26282B" : '#fafafa', }}
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, delay: 1, }}
             >
-                <Typography sx={{color: 'constant.textWhite', cursor: 'default'}} variant='h3' noWrap>Ξffect</Typography>
-                <Loader />
-            </Grid>
-        </Root>
-    );
-};
+                <Stack
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="baseline"
+                >
+                    <Typography
+                        component={"h1"}
+                        onClick={() => {
+                            router.push({
+                                pathname: '/',
+                            })
+                        }}
+
+                        variant="Roboto500XiLabel"
+                        sx={{
+                            mt: '1px',
+                            cursor: 'pointer',
+                            color: 'secondary.main',
+                            fontSize: {
+                                sm: '28px',
+                                md: '34px',
+                                lg: '40px',
+                            },
+                        }}
+                    >
+                        Ξ
+                    </Typography>
+                    <Typography
+                        component={"h1"}
+                        onClick={() => {
+                            router.push({
+                                pathname: '/',
+                            })
+                        }}
+
+                        variant="IBMPlexMono500XiLabelEnd"
+                        sx={{
+                            '&.MuiTypography-root': {
+                                cursor: 'pointer',
+                                color: 'secondary.main',
+                            },
+                            fontSize: {
+                                sm: '28px',
+                                md: '34px',
+                                lg: '40px',
+                            },
+                        }}
+                    >
+                        ffect
+                    </Typography>
+                </Stack>
+                <Box
+                    component={motion.div}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 2, }}
+                >
+                    {isDarkTheme && <Image
+                        alt="alt"
+                        src={"/loaderForDarkTheme.gif"}
+                        quality={90}
+                        width={96}
+                        height={96}
+                        priority
+                    />}
+                    {!isDarkTheme && <Image
+                        alt="alt"
+                        src={"/loaderForWhiteTheme.gif"}
+                        quality={90}
+                        width={96}
+                        height={96}
+                        priority
+                    />}
+                </Box>
+            </Grid>}
+        </AnimatePresence>
+    )
+}));
 
 export default Loading;

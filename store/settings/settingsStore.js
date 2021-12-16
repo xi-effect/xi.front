@@ -24,6 +24,7 @@ class SettingsStore {
         username: '',
         darkTheme: true,
         emailConfirmed: null,
+        invite: null,
     }
 
     @action setSettings = (item, value) => {

@@ -63,68 +63,68 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                         zIndex: 1,
                     }}
                 >
-                        {/* <Chipper /> */}
-                        {!knowledgeStore.pageList.loadingNothing && <>
-                            {!knowledgeStore.pageList.loadingInd && <PagesList />}
-                            {!knowledgeStore.pageList.loadingInd && knowledgeStore.pageList.pages.length < 50 && <Grid
-                                container
-                                direction="column"
-                                justifyContent="center"
-                                alignItems="center"
-                                sx={{
-                                    marginTop: 2,
-                                    marginBottom: 2,
-                                    height: '100%',
-                                    // width: '100%',
-                                }}
-                            >
-                                <Typography> Это всё, что мы нашли по вашему запросу </Typography>
-                            </Grid>}
-                            {!knowledgeStore.pageList.loadingInd && <Toolbar />}
-                            {knowledgeStore.pageList.loadingInd &&
-                                <Grid
-                                    container
-                                    direction="row"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    sx={{
-                                        marginTop: 16,
-                                        marginBottom: 0,
-                                        height: '100%',
-                                        // width: '100%',
-                                    }}
-                                >
-                                    <CircularProgress />
-                                </Grid>
-                            }
-                        </>}
-                        {knowledgeStore.pageList.loadingNothing &&
+                    {/* <Chipper /> */}
+                    {!knowledgeStore.pageList.loadingNothing && <>
+                        {!knowledgeStore.pageList.loadingInd && <PagesList />}
+                        {!knowledgeStore.pageList.loadingInd && knowledgeStore.pageList.pages.length < 50 && <Grid
+                            container
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="center"
+                            sx={{
+                                marginTop: 2,
+                                marginBottom: 2,
+                                height: '100%',
+                                // width: '100%',
+                            }}
+                        >
+                            <Typography> Это всё, что мы нашли по вашему запросу </Typography>
+                        </Grid>}
+                        {!knowledgeStore.pageList.loadingInd && <Toolbar />}
+                        {knowledgeStore.pageList.loadingInd &&
                             <Grid
                                 container
-                                direction="column"
+                                direction="row"
                                 justifyContent="center"
                                 alignItems="center"
                                 sx={{
-                                    marginTop: 2,
-                                    marginBottom: 2,
+                                    marginTop: 16,
+                                    marginBottom: 0,
                                     height: '100%',
                                     // width: '100%',
                                 }}
                             >
-                                <Typography sx={{ marginTop: 4 }}> Ничего не найдено по запросу </Typography>
-                                <div>
-                                    <Image
-                                        alt="img"
-                                        src="/illustrations/astronaut.png"
-                                        //layout="fill"
-                                        width={600}
-                                        height={562}
-                                    //objectFit="cover"
-                                    //quality={100}
-                                    />
-                                </div>
+                                <CircularProgress />
                             </Grid>
                         }
+                    </>}
+                    {knowledgeStore.pageList.loadingNothing &&
+                        <Grid
+                            container
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="center"
+                            sx={{
+                                marginTop: 2,
+                                marginBottom: 2,
+                                height: '100%',
+                                // width: '100%',
+                            }}
+                        >
+                            <Typography sx={{ marginTop: 4 }}> Ничего не найдено по запросу </Typography>
+                            <div>
+                                <Image
+                                    alt="img"
+                                    src="/app/NoData.svg"
+                                    //layout="fill"
+                                    width={256}
+                                    height={236}
+                                //objectFit="cover"
+                                //quality={100}
+                                />
+                            </div>
+                        </Grid>
+                    }
                 </Grid>
             </NavigationAll>
         </>

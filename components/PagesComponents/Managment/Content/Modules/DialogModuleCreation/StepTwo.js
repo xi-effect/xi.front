@@ -405,7 +405,6 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                                     margin: 1,
                                                     borderRadius: 1,
                                                 }}
-                                                // className={clsx(classes.pageBlock, { [classes.pageBlockTheory]: page.kind === "theory" }, { [classes.pageBlockPractice]: page.kind === "practice" }, { [classes.pageBlockTest]: page.kind === "task" })}
                                                 container
                                                 direction="row"
                                                 justifyContent="center"
@@ -519,7 +518,6 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                     direction="left"
                                 >
                                     <SpeedDialAction
-                                        // className={clsx(classes.speedDialAction)}
                                         tooltipPlacement="bottom"
                                         icon={<DeleteForeverIcon />}
                                         tooltipTitle={`Удалить точку`}
@@ -527,7 +525,6 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                         onClick={() => managmentStore.deletePoint(index)}
                                     />
                                     <SpeedDialAction
-                                        // className={clsx(classes.speedDialAction)}
                                         tooltipPlacement="bottom"
                                         icon={<ArrowCircleDownIcon />}
                                         tooltipTitle={`Переместить точку ниже`}
@@ -535,7 +532,6 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                         onClick={() => managmentStore.setPointDown(index)}
                                     />
                                     <SpeedDialAction
-                                        // className={clsx(classes.speedDialActionFirst)}
                                         tooltipPlacement="bottom"
                                         icon={<ArrowCircleUpIcon />}
                                         tooltipTitle={`Переместить точку выше`}

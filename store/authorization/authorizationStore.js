@@ -47,7 +47,7 @@ class AuthorizationStore {
     @action clickPasswordResetButton = (data) => {
         this.setPasswordReset("errorEmailNotFounedReset", false)
         this.setPasswordReset("emailResetOk", false)
-        this.rootStore.fetchData(`${this.rootStore.url}/password-reset/${data.email}/`, "GET")
+        this.rootStore.fetchData(`${this.rootStore.url}/password-reset/`, { email: data.email }, "POST")
             .then((data) => {
                 if (data != undefined) {
                     if (data.a === true) {
@@ -70,13 +70,17 @@ class AuthorizationStore {
 
     @action clickRegistrationButton = (data) => {
         this.setSignup("error", null)
-        this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString(), "username": data.username })
+        this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString(), "username": data.username, "code": data.invite })
             .then((data) => {
                 console.log(data)
                 if (data != undefined) {
                     if (data.a) { //true
+                        this.rootStore.uiStore.setLoading("loading", true)
                         const router = Router
                         router.push('/home')
+                        setTimeout(() => {
+                            this.rootStore.uiStore.setLoading("loading", false)
+                        }, 3000);
                     } else {
                         this.setSignup("error", "emailAlreadyUsed")
                     }
@@ -106,6 +110,7 @@ class AuthorizationStore {
             .then((data) => {
                 if (data != undefined) {
                     if (data.a == "Success") {
+                        this.rootStore.uiStore.setLoading("loading", true)
                         const router = Router
                         router.push('/home')
                         this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/`, "GET")
@@ -121,6 +126,9 @@ class AuthorizationStore {
                                 } else {
                                     console.log("Проблемы с сервером")
                                 }
+                                setTimeout(() => {
+                                    this.rootStore.uiStore.setLoading("loading", false)
+                                }, 3000);
                             });
                     } else if (data.a === "User doesn't exist") {
                         this.setLogin("error", "User doesn't exist")

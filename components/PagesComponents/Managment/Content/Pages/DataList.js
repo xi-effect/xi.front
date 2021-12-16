@@ -14,6 +14,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
+import { Stack } from '@mui/material'
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -23,6 +24,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { inject, observer } from 'mobx-react'
 import EditIcon from '@mui/icons-material/Edit';
+import Image from "next/image";
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -273,7 +275,25 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
             <Paper sx={{ width: '100%', mb: 2 }}>
                 <EnhancedTableToolbar managmentStore={managmentStore} rows={rows} selected={selected} deletePages={deletePages} numSelected={selected.length} />
                 <TableContainer>
-                    <Table
+                    {rows.length === 0 && <Stack
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={2}
+                        sx={{ width: '100%', height: 400 }}
+                    >
+                        <Image
+                            alt="alt"
+                            src={"/app/NoData.svg"}
+                            quality={100}
+                            width={256}
+                            height={232}
+                        />
+                        <Typography sx={{ cursor: "default" }} variant="h6">
+                            У вас нет ни одной Страницы
+                        </Typography>
+                    </Stack>}
+                    {rows.length != 0 && <Table
                         sx={{ minWidth: 750 }}
                         aria-labelledby="tableTitle"
                         size={'medium'}
@@ -338,9 +358,9 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                                 </TableRow>
                             )}
                         </TableBody>
-                    </Table>
+                    </Table>}
                 </TableContainer>
-                <TablePagination
+                {rows.length != 0 && <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
                     count={rows.length}
@@ -349,7 +369,7 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                     labelRowsPerPage={'Строк на странице'}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                />}
             </Paper>
         </Box>
     )

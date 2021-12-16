@@ -19,6 +19,8 @@ import ImageComp from "./Components/ImageComp";
 import Quiz from "./Components/Quiz";
 import Markdown from "./Components/Markdown";
 import List from "./Components/List";
+import NumberAnswer from "./Components/NumberAnswer";
+import Code from "./Components/Code";
 
 const PageCompList = inject("knowledgeStore")(
   observer(({ knowledgeStore }) => {
@@ -71,6 +73,18 @@ const PageCompList = inject("knowledgeStore")(
         return (
           <>
             <List value={value} index={index} />
+          </>
+        );
+      if (value.type === "numanswer")
+        return (
+          <>
+            <NumberAnswer value={value} index={index} />
+          </>
+        );
+      if (value.type === "code")
+        return (
+          <>
+            <Code value={value} index={index} />
           </>
         );
     };

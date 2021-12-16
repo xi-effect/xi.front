@@ -80,7 +80,12 @@ class ManagmentStore {
         if (type === "markdown") {
             this.pageCreation.components.push({ type: "markdown", label: "markdown" })
         }
-        //this.idComponents()
+        if (type === "numanswer") {
+            this.pageCreation.components.push({ type: "numanswer", label: 0, userAnswer: null })
+        }
+        if (type === "code") {
+            this.pageCreation.components.push({ type: "code", label: "code", lang: 0,  })
+        }
         console.log("compot", this.pageCreation.components)
     }
 

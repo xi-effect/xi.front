@@ -37,7 +37,7 @@ const BackgroundImg = inject('uiStore')(observer(({ uiStore, src, alt = 'backgro
   )
 
 
-  // < Image className = { classes.background } src = { src } alt = { alt } priority = "true" layout = "responsive" />; //objectFit="cover"
+  // < Image src = { src } alt = { alt } priority = "true" layout = "responsive" />; //objectFit="cover"
 }));
 
 export default BackgroundImg;

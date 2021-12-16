@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
+import React from 'react';
 import { useTheme, Input, Grid, Alert, InputAdornment, useMediaQuery } from '@mui/material';
 
 import { inject, observer } from 'mobx-react'
@@ -10,11 +9,7 @@ import WarningIcon from '@mui/icons-material/Warning';
 import ErrorIcon from '@mui/icons-material/Error';
 
 const AlertComp = inject('rootStore')(observer(({ rootStore, value }) => {
-
-    // Simulated props for the purpose of the example
-    //console.log( "props", props )
-    const theme = useTheme();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
         <Grid sx={{ width: "100%", }}>

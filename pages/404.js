@@ -47,24 +47,24 @@ export default function _404() {
                 <Typography variant="h1" sx={{
                     margin: 2,
                     cursor: "default",
-                    color: 'constant.textWhite',
+                    color: 'text.primary',
                 }}> 404 </Typography>
                 <Divider sx={{
                     height: 3,
                     width: 100,
-                    backgroundColor: 'constant.textWhite',
+                    backgroundColor: 'text.primary',
                 }} />
                 <Typography variant="h5" sx={{
                     margin: 2,
                     cursor: "default",
-                    color: 'constant.textWhite',
+                    color: 'text.primary',
                 }}> Упс, вы заблудились... </Typography>
                 <Link
                     sx={{
                         fontSize: mobile ? 34 : 28,
                         margin: 1,
                         cursor: "pointer",
-                        color: theme.palette.constant.textWhite,
+                        color: 'text.primary',
                     }}
                     onClick={() => {
                         router.push({

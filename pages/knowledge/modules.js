@@ -126,10 +126,10 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                                 <div>
                                     <Image
                                         alt="img"
-                                        src="/illustrations/astronaut.png"
+                                        src="/app/NoData.svg"
                                         //layout="fill"
-                                        width={600}
-                                        height={562}
+                                        width={256}
+                                        height={236}
                                     //objectFit="cover"
                                     //quality={100}
                                     />

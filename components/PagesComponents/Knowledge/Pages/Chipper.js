@@ -1,31 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-
-import ClearAllIcon from '@mui/icons-material/ClearAll';
-import DescriptionIcon from '@mui/icons-material/Description';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MenuIcon from '@mui/icons-material/Menu';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import RedoIcon from '@mui/icons-material/Redo';
-import ReorderIcon from '@mui/icons-material/Reorder';
-import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
-import SearchOffIcon from '@mui/icons-material/SearchOff';
-import TuneIcon from '@mui/icons-material/Tune';
-import ViewComfyIcon from '@mui/icons-material/ViewComfy';
-import ZoomInIcon from '@mui/icons-material/ZoomIn';
-import { Accordion, AccordionDetails, AccordionSummary, Button, Chip, ClickAwayListener, Divider, FormControl, FormControlLabel, FormLabel, Grid, IconButton, InputBase, MenuItem, MenuList, Paper, Popper, Radio, RadioGroup, SpeedDial, SpeedDialAction, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import clsx from 'clsx';
+import { Accordion, AccordionDetails, AccordionSummary, Divider, Grid, IconButton, InputBase, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
-
-
-
 
 const Chipper = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
     const theme = useTheme();

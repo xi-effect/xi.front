@@ -15,20 +15,21 @@ import { inject, observer } from 'mobx-react'
 import CssBaseline from '@mui/material/CssBaseline';
 import { getDesignTokens } from '../theme'
 import { CacheProvider } from '@emotion/react';
-//import { SnackbarProvider, useSnackbar } from 'notistack';
 import createEmotionCache from '../store/createEmotionCache';
 import 'moment/locale/ru';
 
-import { initGA, logPageView } from '../utils/analytics'
+import { SnackbarProvider } from 'notistack';
+
 import Router from 'next/router';
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 import "../styles/globals.css"
 
-import { Scrollbars } from 'react-custom-scrollbars-2';
+import PlausibleProvider from 'next-plausible'
 
 import NProgress from 'nprogress'; //nprogress module
 import 'nprogress/nprogress.css'; //styles of nprogress
+import Loading from '../components/OtherComponents/Loading/Loading';
 //Binding events. 
 NProgress.configure({ showSpinner: false })
 Router.events.on('routeChangeStart', () => NProgress.start());
@@ -40,25 +41,6 @@ const MyApp = (observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const router = useRouter()
-
-  React.useEffect(() => {
-    initGA()
-    // `routeChangeComplete` won't run for the first page load unless the query string is
-    // hydrated later on, so here we log a page view if this is the first render and
-    // there's no query string
-    if (!router.asPath.includes('?')) {
-      logPageView()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  React.useEffect(() => {
-    // Listen for page changes after a navigation or when the query changes
-    router.events.on('routeChangeComplete', logPageView)
-    return () => {
-      router.events.off('routeChangeComplete', logPageView)
-    }
-  }, [router.events])
 
   const rootStore = useStore(pageProps.initialState)
   // console.log("darkMode", rootStore.settingsStore.settings.darkTheme)
@@ -93,7 +75,7 @@ const MyApp = (observer((props) => {
         store={rootStore}
         rootStore={rootStore}
         uiStore={rootStore.uiStore}
-        mainStore={rootStore.mainStore}
+        homeStore={rootStore.homeStore}
         knowledgeStore={rootStore.knowledgeStore}
         managmentStore={rootStore.managmentStore}
         settingsStore={rootStore.settingsStore}
@@ -102,21 +84,34 @@ const MyApp = (observer((props) => {
         profileStore={rootStore.profileStore}
         messageStore={rootStore.messageStore}
       >
-        <StyledEngineProvider injectFirst>  
-            <ThemeProvider theme={theme}>
-              {/* <SnackbarProvider
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            {/* <SnackbarProvider
                 autoHideDuration={800}
                 anchorOrigin={{
                   vertical: 'bottom',
                   horizontal: 'right',
                 }}
                 maxSnack={3}> */}
-              {/* <MenuLayout> */}
-              <CssBaseline />
-              <Component {...pageProps} />
-              {/* </MenuLayout> */}
-              {/* </SnackbarProvider> */}
-            </ThemeProvider>
+            {/* <MenuLayout> */}
+            <CssBaseline />
+            <Loading />
+            <PlausibleProvider domain={"xieffect.netlify.app"}>
+              <SnackbarProvider
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                maxSnack={3}
+                preventDuplicate
+                dense
+              >
+                <Component {...pageProps} />
+              </SnackbarProvider>
+            </PlausibleProvider>
+            {/* </MenuLayout> */}
+            {/* </SnackbarProvider> */}
+          </ThemeProvider>
 
         </StyledEngineProvider>
       </Provider>

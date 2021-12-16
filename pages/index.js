@@ -1,30 +1,20 @@
 import React from "react";
-
 import Head from "next/head";
 import Image from "next/image";
-
 import {
   Box,
-  Button,
-  Divider,
-  Grid,
-  IconButton,
-  Link,
-  Paper,
-  Typography,
   useMediaQuery,
   useTheme,
   Stack,
-  Container,
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
 import { motion } from "framer-motion"
-
-import Loading from "./../components/OtherComponents/Loading/Loading";
-import CardsList from "./../components/PagesComponents/Landing/CardList";
 import Header from "./../components/PagesComponents/Landing/Header";
 import MainLabel from "./../components/PagesComponents/Landing/MainLabel";
+import WhyLabel from "../components/PagesComponents/Landing/WhyLabel";
+import EffectFor from "../components/PagesComponents/Landing/EffectFor";
+import Footer from "../components/PagesComponents/Landing/Footer";
 
 
 const Main = inject(
@@ -33,12 +23,15 @@ const Main = inject(
 )(
   observer(({ rootStore, uiStore }) => {
     const theme = useTheme();
-    const [loading, setLoading] = React.useState(true);
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
-    React.useEffect(() => {
-      setTimeout(() => setLoading(false), 1000);
-    }, [])
+    // React.useEffect(() => {
+    //   if (uiStore.load.landing) uiStore.setLoading("loading", true)
+    //   setTimeout(() => {
+    //     uiStore.setLoading("loading", false)
+    //     uiStore.setLoading("landing", false)
+    //   }, 1500);
+    // }, [])
 
     return (
       <>
@@ -46,65 +39,104 @@ const Main = inject(
           <title>Ξffect</title>
         </Head>
         {/* <Background /> */}
-        {/* {loading && <Loading />} */}
         <Stack
           component={motion.div}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
+          transition={{ delay: 0.4, duration: 2 }}
           direction="column"
           justifyContent="flex-start"
           alignItems="center"
           sx={{
-            width: "100%",
-            minHeight: "100vh",
+            // transition: '0.8s',
+            zIndex: 1,
+            margin: 0,
+            overflow: 'auto',
+            // width: `100vw`,
+            height: "100vh",
+            bgcolor: 'background.main',
+            position: 'relative',
           }}
         >
-          <Header />
-          <MainLabel />
-          <Grid
-            component={motion.div}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0, duration: 0.5 }}
+          {!mobile && <>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 700,
+                right: 10,
+              }}
+            >
+              <Image
+                alt="alt"
+                src={"/landing/blob1.svg"}
+                quality={100}
+                width={512}
+                height={512}
+              />
+            </Box>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 500,
+                left: 10,
+              }}
+            >
+              <Image
+                alt="alt"
+                src={"/landing/blob2.svg"}
+                quality={100}
+                width={512}
+                height={512}
+              />
+            </Box>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 1800,
+                right: 40,
+              }}
+            >
+              <Image
+                alt="alt"
+                src={"/landing/blob4.svg"}
+                quality={100}
+                width={512}
+                height={512}
+              />
+            </Box>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 2500,
+                left: 20,
+              }}
+            >
+              <Image
+                alt="alt"
+                src={"/landing/blob3.svg"}
+                quality={100}
+                width={512}
+                height={512}
+              />
+            </Box>
+          </>}
+
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
             sx={{
-              position: "fixed",
-              height: "100vh",
-              width: "100vw",
-              overflow: "hidden",
-              zIndex: "-1",
+              maxWidth: 1920,
+              height: "100%",
+
             }}
           >
-            <Image
-              alt="alt"
-              src={"/svg/BackgroundWaves.svg"}
-              layout="fill"
-              objectFit="cover"
-              quality={100}
-            />
-          </Grid>
-          <Stack
-            component={motion.div}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 1 }}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            spacing={2}
-            sx={{ zIndex: 1, mt: '10%', }}
-          >
-            <Image
-              alt="alt"
-              src={"/svg/Something.svg"}
-              quality={100}
-              width={256}
-              height={232}
-            /> 
-            <Typography sx={{ cursor: "default" }} variant="h6">
-              Сайт устал, мы устраняем неполадки
-            </Typography>
-          </Stack> 
+            <Header />
+            <MainLabel />
+            <WhyLabel />
+            <EffectFor />
+            <Footer />
+          </Stack>
         </Stack>
       </>
     );

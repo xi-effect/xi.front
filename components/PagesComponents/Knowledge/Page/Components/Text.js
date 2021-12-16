@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
-import { Input, Grid, useTheme, useMediaQuery } from '@mui/material';
-
+import react from 'react';
+import { Input, Grid, useMediaQuery } from '@mui/material';
 import { inject, observer } from 'mobx-react'
 
-
 const Text = inject('rootStore')(observer(({ rootStore, value }) => {
-
-    // console.log("props", props)
-    const theme = useTheme();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
         <Grid sx={{ width: "100%", }}>

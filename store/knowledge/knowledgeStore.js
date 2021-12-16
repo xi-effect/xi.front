@@ -122,21 +122,28 @@ class KnowledgeStore {
     }
   };
 
-  @action isAnswerRight = (index) => {
+  @action isAnswerRight = (index, type = null) => {
     this.page.components[index].successAnswer = false
-    this.page.components[index].rightAnswers.sort()
-    this.page.components[index].userAnswers.sort()
-    if (JSON.stringify(this.page.components[index].rightAnswers) === JSON.stringify(this.page.components[index].userAnswers)) {
-      this.page.components[index].successAnswer = true
-    } else {
-      this.page.components[index].successAnswer = false
+    if (type === "numanswer") {
+      this.page.components[index].userAnswer.replace(",", ".")
+      this.page.components[index].label.replace(",", ".")
+      if (this.page.components[index].userAnswer === this.page.components[index].label) {
+        this.page.components[index].successAnswer = true
+      }
+    }
+    if (type === null) {
+      this.page.components[index].rightAnswers.sort()
+      this.page.components[index].userAnswers.sort()
+      if (JSON.stringify(this.page.components[index].rightAnswers) === JSON.stringify(this.page.components[index].userAnswers)) {
+        this.page.components[index].successAnswer = true
+      } else {
+        this.page.components[index].successAnswer = false
+      }
     }
     console.log("logs", this.page.components[index]);
   };
 
-  @action setComponentsContent = (index, indexA, name, value) => {
-    this.page.components[index].content[indexA][name] = value;
-  };
+
 
   @action setPage = (value) => {
     this.page = value;
@@ -145,6 +152,30 @@ class KnowledgeStore {
   @action setPageData = (name, value) => {
     this.page[name] = value;
   };
+
+  @action setPageComponentsData = (index, name, value) => {
+    this.page.components[index][name] = value;
+  };
+
+  @action setComponentsContent = (index, indexA, name, value) => {
+    this.page.components[index].content[indexA][name] = value;
+  };
+
+  @action getAnswersResults = () => {
+    this.page.components.rightAnswersCounter = 0
+    this.page.components.forEach((item, index) => {
+      if (item.type === "quiz") {
+        let ra = item.rightAnswers
+        let ua = item.userAnswers
+        ra.sort()
+        ua.sort()
+        if (JSON.stringify(ra) === JSON.stringify(ua)) {
+          this.page.components.rightAnswersCounter += 1
+        }
+      }
+      this.module.answers[index] = item.userAnswers
+    });
+  }
 
   @action loadPage = () => {
     this.setPageData("loading", true);
@@ -306,7 +337,7 @@ class KnowledgeStore {
     this.module[name] = value;
   };
 
-  @action loadPageInModule = (pageId = null, first = null) => {
+  @action loadPageInModule = (nextPageId = null, first = null) => {
     this.setPageData("loading", true);
     if (
       this.module.type === "practice-block" ||
@@ -332,62 +363,79 @@ class KnowledgeStore {
     if (this.module.type === "theory-block") {
       this.rootStore
         .fetchDataScr(
-          `${this.rootStore.url}/modules/${this.module.id}/points/${pageId}/`,
+          `${this.rootStore.url}/modules/${this.module.id}/points/${nextPageId}/`,
           "GET"
         )
         .then((data) => {
           console.log("pageInModule", data);
-          if (pageId === this.module.map.length) {
+          if (nextPageId === this.module.map.length) {
             this.loadPageInModule(0);
           } else {
-            this.setModuleData("activeIdInMap", pageId);
+            this.setModuleData("activeIdInMap", nextPageId);
             this.setPage(data);
-            router.push(`/knowledge/module/${this.module.id}/${pageId}`)
+            router.push(`/knowledge/module/${this.module.id}/${nextPageId}`)
             this.setPageData("loading", false);
           }
         });
     }
     if (this.module.type === "test") {
       if (first === null) {
-        this.setModuleData("answers", { a: true });
+        this.setModuleData("answers", {});
         this.setPageData("quizCounter", 0);
         this.setPageData("rightAnswersCounter", 0);
+        this.getAnswersResults()
+        console.log("uA", this.module.answers)
         this.page.components.forEach((item) => {
           if (item.type === "quiz")
             this.setPageData("quizCounter", this.page.quizCounter + 1);
         });
         this.rootStore
           .fetchDataScr(
-            `${this.rootStore.url}/modules/${this.module.id}/points/${pageId}/reply/`,
+            `${this.rootStore.url}/modules/${this.module.id}/points/${this.module.activeIdInMap}/reply/`,
             "POST",
             {
               answers: {
                 pageName: this.page.name,
                 ...this.module.answers,
               },
-              "right-answers": this.page.components.rightAnswersCounter,
-              "total-answers": this.page.components.quizCounter,
+              "right-answers": this.page.rightAnswersCounter,
+              "total-answers": this.page.quizCounter,
             }
           )
           .then((data) => {
-
+            console.log(data)
           });
       }
       this.rootStore
         .fetchDataScr(
-          `${this.rootStore.url}/modules/${this.module.id}/points/${pageId}/`,
+          `${this.rootStore.url}/modules/${this.module.id}/points/${nextPageId}/`,
           "GET"
         )
         .then((data) => {
           console.log("pageInModule", data);
-          if (pageId === this.module.map.length) {
+          if (nextPageId === this.module.map.length) {
             this.loadPageInModule(0);
           } else {
-            this.setModuleData("activeIdInMap", pageId);
+            this.setModuleData("activeIdInMap", nextPageId);
             this.setPage(data);
-            router.push(`/knowledge/module/${this.module.id}/${pageId}`)
-            this.setPageData("loading", false);
+            router.push(`/knowledge/module/${this.module.id}/${nextPageId}`)
             console.log("pageInModule2", this.page);
+            this.rootStore
+              .fetchDataScr(
+                `${this.rootStore.url}/modules/${this.module.id}/points/${nextPageId}/reply/`,
+                "GET"
+              )
+              .then((data) => {
+                console.log("uaData", data)
+                for (let key in data) {
+                  console.log("key", key)
+                  if (key !== "pageName") {
+                    this.setPageComponentsData(key, "userAnswers", data[key])
+                  }
+                  /* ... делать что-то с obj[key] ... */
+                }
+                this.setPageData("loading", false);
+              });
           }
         });
     }
@@ -463,6 +511,75 @@ class KnowledgeStore {
         }
       });
   };
+
+  @observable moduleCompleted = {
+    isFinished: false,
+    results: [],
+  }
+
+  @action setModuleCompleted = (name, value) => {
+    this.moduleCompleted[name] = value
+  }
+
+  @action getTestModuleResults = () => {
+    this.setModuleData("answers", {});
+    this.setPageData("quizCounter", 0);
+    this.setPageData("rightAnswersCounter", 0);
+    this.getAnswersResults()
+    console.log("uA", this.module.answers)
+    this.page.components.forEach((item) => {
+      if (item.type === "quiz")
+        this.setPageData("quizCounter", this.page.quizCounter + 1);
+    });
+    this.rootStore
+      .fetchDataScr(
+        `${this.rootStore.url}/modules/${this.module.id}/points/${this.module.activeIdInMap}/reply/`,
+        "POST",
+        {
+          answers: {
+            pageName: this.page.name,
+            ...this.module.answers,
+          },
+          "right-answers": this.page.rightAnswersCounter,
+          "total-answers": this.page.quizCounter,
+        }
+      )
+      .then((data) => {
+        console.log(data)
+        this.rootStore
+          .fetchDataScr(
+            `${this.rootStore.url}/modules/${this.module.id}/results/`,
+            "GET"
+          )
+          .then((data) => {
+            console.log("results", data)
+            this.setModuleCompleted("results", data)
+            this.setModuleCompleted("isFinished", true)
+            this.setModuleData("showAnswers", true)
+            router.push(`/knowledge/module/results`)
+          });
+      });
+
+  }
+
+  @action uploadPageForResults = (id, indx) => {
+    this.setPageData("loading", true);
+    this.rootStore
+      .fetchDataScr(`${this.rootStore.url}/pages/${id}/`, "GET")
+      .then((data) => {
+        console.log("meta", data);
+        this.setPage(data);
+        this.setPageData("authorId", data["author-id"]);
+        this.setPageData("authorName", data["author-name"]);
+        this.page.components.forEach((item, index) => {
+          if (item.type === 'quiz') {
+            this.setPageComponentsData(index, 'userAnswers', this.moduleCompleted.results[indx].answers[index])
+          }
+        })
+        router.push(`/knowledge/module/results/${id}/`)
+        this.setPageData("loading", false);
+      });
+  }
 }
 
 export default KnowledgeStore;

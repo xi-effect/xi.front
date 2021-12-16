@@ -14,7 +14,8 @@ import ImageComp from './ImageComp';
 import Quiz from './Quiz';
 import List from './List';
 import Markdown from "./Markdown";
-
+import NumberAnswer from "./NumberAnswer";
+import Code from "./Code";
 
 const PREFIX = 'ComponentsList';
 
@@ -62,9 +63,9 @@ const Root = styled('div')((
 
 const ModuleSelect = (component, index) => {
     if (component.type === "h") return (
-        (<Root>
+        <>
             <Header index={index} />
-        </Root>)
+        </>
     );
     if (component.type === "text") return (
         <>
@@ -99,6 +100,16 @@ const ModuleSelect = (component, index) => {
     if (component.type === "markdown") return (
         <>
             <Markdown index={index} />
+        </>
+    )
+    if (component.type === "numanswer") return (
+        <>
+            <NumberAnswer index={index} />
+        </>
+    )
+    if (component.type === "code") return (
+        <>
+            <Code index={index} />
         </>
     )
 }
