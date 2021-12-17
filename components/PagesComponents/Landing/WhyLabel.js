@@ -76,7 +76,6 @@ const WhyLabel = () => {
                         key={index.toString()}
                         component={motion.div}
                         whileHover={{ y: -20 }}
-                        whileTap={{ scale: 0.8 }}
                         elevation={24}
                         sx={{
                             zIndex: 10,
