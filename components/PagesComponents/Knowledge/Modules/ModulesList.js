@@ -26,6 +26,7 @@ import {
   useTheme,
   Tooltip,
   Grow,
+  Container,
 } from "@mui/material";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -36,7 +37,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { inject, observer } from "mobx-react";
 
 import SVGbackground from "../../../OtherComponents/SVGbackground/SVGbackground";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 
 const moduleThemeList = {
   "math": "Математика",
@@ -81,6 +82,15 @@ const modulesImgList = {
   "Физика: термодинамика": "/knowledge/phi.jpeg",
 }
 
+const variantsIcon = {
+  open: {
+    rotate: 180,
+  },
+  close: {
+    rotate: 0,
+  }
+}
+
 const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
   const theme = useTheme();
   const router = useRouter()
@@ -111,6 +121,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
       }}
     >
       {knowledgeStore.moduleList.modules.map((module, index) => {
+        const [open, setOpen] = React.useState(false)
         const [hover, setHover] = React.useState(false)
         return (
           <Grid
@@ -146,77 +157,135 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                 position: 'relative',
               }}
             >
-              <IconButton
-                sx={{
-                  position: 'absolute',
-                  top: 4,
-                  right: 4,
-                }}
-              >
-                <ExpandMoreIcon />
-              </IconButton>
               <Stack
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-                spacing={2}
+                // spacing={2}
                 sx={{
-                  // width: '100%',
+                  width: '100%',
                   // height: '100%',
                   p: 1.5,
                 }}
               >
-                <Tooltip title={module.name}>
-                  <Typography
-                    variant="OpenSans700MainLabel"
-                    noWrap
-                    sx={{
-                      width: 'calc(100% - 32px)',
-                      lineHeight: "26px",
-                      cursor: 'default',
-                      fontSize: 20,
-                    }}
-                  >
-                    {module.name}
-                  </Typography>
-                </Tooltip>
-                {module.description && <Box
-                  component={"p"}
-                  sx={{
-                    maxHeight: 290,
-                    minWidth: 220,
-                    width: '100%',
-                    lineHeight: "26px",
-                    cursor: 'default',
-                    fontSize: 16,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-
-                >
-                  {module.description}
-                </Box>}
-                {!module.description && <Stack
-                  direction="column"
-                  justifyContent="center"
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
                   alignItems="center"
                   sx={{
                     width: '100%',
-                    maxHeight: 290,
+                    maxWidth: '100%',
                   }}
-
                 >
-                  <Image
-                    alt="alt"
-                    src={"/app/NoData.svg"}
-                    quality={100}
-                    width={290}
-                    height={290}
-                  />
-                  <Typography sx={{ mt: -6, }}>
-                    Автор не оставил описания
-                  </Typography>
-                </Stack>}
+                  <Tooltip title={module.name}>
+                    <Typography
+                      variant="OpenSans700MainLabel"
+                      noWrap
+                      sx={{
+                        width: 'calc(100% - 32px)',
+                        lineHeight: "26px",
+                        cursor: 'default',
+                        fontSize: 20,
+                      }}
+                    >
+                      {module.name}
+                    </Typography>
+                  </Tooltip>
+                  <IconButton
+                    component={motion.button}
+                    variants={variantsIcon}
+                    animate={open ? "open" : "close"}
+                    transition={{ duration: 0.4 }}
+                    sx={{
+                      width: 36,
+                      height: 36,
+                    }}
+                    onClick={() => setOpen(!open)}
+                  >
+                    <ExpandMoreIcon />
+                  </IconButton>
+                </Stack>
+                <AnimatePresence initial={false} exitBeforeEnter>
+                  {open && <Stack
+                    key="menu"
+                    component={motion.div}
+                    initial={{ y: -50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -50, opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                    }}
+                  >
+                    <MenuList>
+                      <MenuItem>
+                        Текст
+                      </MenuItem>
+                      <MenuItem>
+                        Текст
+                      </MenuItem>
+                    </MenuList>
+                  </Stack>}
+                  {!open && <Stack
+                    key="desc"
+                    component={motion.div}
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 50, opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      pl: 1,
+                      pr: 1,
+                    }}
+                  >
+                    {module.description && <Box
+                      component={motion.p}
+                      sx={{
+                        maxHeight: 290,
+                        minWidth: 220,
+                        width: '100%',
+                        lineHeight: "26px",
+                        cursor: 'default',
+                        fontSize: 16,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+
+                    >
+                      {module.description}
+                    </Box>}
+                    {!module.description && <Stack
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="center"
+                      sx={{
+                        width: '100%',
+                        maxHeight: 290,
+                      }}
+
+                    >
+                      <Image
+                        alt="alt"
+                        src={"/app/NoData.svg"}
+                        quality={100}
+                        width={290}
+                        height={290}
+                      />
+                      <Typography sx={{ mt: -6, }}>
+                        Автор не оставил описания
+                      </Typography>
+                    </Stack>}
+                  </Stack>}
+                </AnimatePresence>
               </Stack>
               <Tooltip title={`${kindSelect(module.type)} / ${moduleThemeList[module.theme]}`}>
                 <Typography

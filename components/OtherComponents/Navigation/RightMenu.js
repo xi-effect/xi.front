@@ -18,6 +18,7 @@ import KnowledgePageTools from "./RightMenu/KnowledgePageTools";
 import KnowledgePagesTools from "./RightMenu/KnowledgePagesTools";
 import KnowledgeModulesTools from "./RightMenu/KnowledgeModulesTools";
 import KnowledgeModuleMap from "./RightMenu/KnowledgeModuleMap";
+import KnowledgeModulesFilters from "./RightMenu/KnowledgeModulesFilters";
 
 
 
@@ -250,6 +251,7 @@ const RightMenu = inject(
             <Stack sx={{ height: '100%', width: '100%', mt: 1, mb: 'auto' }}>
               {router.pathname.includes('/knowledge/createpage') && <KnowledgeСreatePageMap />}
               {router.pathname.includes('/knowledge/createmodule') && <KnowledgeСreateModuleMap />}
+              {router.pathname.includes('/knowledge/modules') && <KnowledgeModulesFilters />}
               {!knowledgeStore.moduleCompleted.isFinished && knowledgeStore.module["map"] != undefined && knowledgeStore.module["map"].length != 0 && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleMap goNext={goNext} />}
             </Stack>
             <Stack
