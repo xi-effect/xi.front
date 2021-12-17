@@ -7,8 +7,7 @@ import React from 'react';
 import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
 import Chipper from '../../components/PagesComponents/Knowledge/Pages/Chipper';
 import PagesList from '../../components/PagesComponents/Knowledge/Pages/PagesList';
-
-
+import PagesListLoading from '../../components/PagesComponents/Knowledge/Pages/PagesListLoading';
 
 const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
     return (
@@ -64,9 +63,10 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                     }}
                 >
                     {/* <Chipper /> */}
+                    {knowledgeStore.pageList.loadingInd && <PagesListLoading />}
                     {!knowledgeStore.pageList.loadingNothing && <>
-                        {!knowledgeStore.pageList.loadingInd && <PagesList />}
-                        {!knowledgeStore.pageList.loadingInd && knowledgeStore.pageList.pages.length < 50 && <Grid
+                        <PagesList />
+                        {knowledgeStore.pageList.pages.length < 50 && <Grid
                             container
                             direction="column"
                             justifyContent="center"
@@ -81,22 +81,6 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                             <Typography> Это всё, что мы нашли по вашему запросу </Typography>
                         </Grid>}
                         {!knowledgeStore.pageList.loadingInd && <Toolbar />}
-                        {knowledgeStore.pageList.loadingInd &&
-                            <Grid
-                                container
-                                direction="row"
-                                justifyContent="center"
-                                alignItems="center"
-                                sx={{
-                                    marginTop: 16,
-                                    marginBottom: 0,
-                                    height: '100%',
-                                    // width: '100%',
-                                }}
-                            >
-                                <CircularProgress />
-                            </Grid>
-                        }
                     </>}
                     {knowledgeStore.pageList.loadingNothing &&
                         <Grid

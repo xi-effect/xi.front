@@ -27,7 +27,7 @@ import {
   Typography,
   useTheme,
   Tooltip,
-  Grow,
+  Skeleton,
 } from "@mui/material";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -135,6 +135,16 @@ const PagesList = inject(
               alignItems="flex-start"
               key={page.id.toString()}
             >
+              {/* {!knowledgeStore.pageList.loadingInd &&
+                <Skeleton
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: 2,
+                    // position: 'relative',
+                  }}
+                />} */}
+
               <Paper
                 elevation={12}
                 sx={{

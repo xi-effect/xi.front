@@ -13,12 +13,13 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
+import { useSnackbar } from 'notistack';
 
 import HomeIcon from "@mui/icons-material/Home";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MessageIcon from "@mui/icons-material/Message";
-
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 import { motion } from "framer-motion";
 
@@ -37,6 +38,8 @@ const Sidebar = inject(
       hoverLeftName,
       setHoverLeftName,
     }) => {
+      const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
       const theme = useTheme();
       const router = useRouter();
       // console.log("rerenderSidebar")
@@ -61,10 +64,17 @@ const Sidebar = inject(
         },
         {
           id: 3,
+          icon: <AddBoxIcon sx={{ fontSize: 28 }} />,
+          label: "Создать сообщество",
+          href: "createcommunity",
+        },
+        {
+          id: 4,
           icon: <SettingsIcon sx={{ fontSize: 28 }} />,
           label: "Настройки",
           href: "/settings",
         },
+
       ];
 
       return (
@@ -86,9 +96,16 @@ const Sidebar = inject(
               <IconButton
                 component={motion.li}
                 whileHover={{ scale: 1.15 }}
-                whileTap={{ scale: 0.9 }} 
+                whileTap={{ scale: 0.9 }}
                 onClick={() => {
-                  if (item.href === "/knowledge") router.push(`${item.href}/pages`);
+                  if (item.href === "/knowledge") {
+                    router.push(`${item.href}/pages`);
+                  }
+                  else if (item.href === "createcommunity") {
+                    enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
+                      variant: 'info',
+                    })
+                  }
                   else router.push(item.href);
                 }}
                 sx={{

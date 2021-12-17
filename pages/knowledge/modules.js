@@ -8,6 +8,7 @@ import React from 'react';
 import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
 import Chipper from '../../components/PagesComponents/Knowledge/Modules/Chipper';
 import ModulesList from '../../components/PagesComponents/Knowledge/Modules/ModulesList';
+import ModulesListLoading from '../../components/PagesComponents/Knowledge/Modules/ModulesListLoading';
 
 
 
@@ -74,7 +75,7 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                             width: '100%',
                         }}
                     >
-                        {/* <Chipper /> */}
+                        {knowledgeStore.moduleList.loadingInd && <ModulesListLoading />}
                         {!knowledgeStore.moduleList.loadingNothing && <>
                             {!knowledgeStore.moduleList.loadingInd && <ModulesList />}
                             {!knowledgeStore.moduleList.loadingInd && knowledgeStore.moduleList.modules.length < 12 && <Grid
@@ -92,22 +93,7 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                                 <Typography> Это всё, что мы нашли по вашему запросу </Typography>
                             </Grid>}
                             {!knowledgeStore.moduleList.loadingInd && <Toolbar />}
-                            {knowledgeStore.moduleList.loadingInd &&
-                                <Grid
-                                    container
-                                    direction="row"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    sx={{
-                                        marginTop: 16,
-                                        marginBottom: 0,
-                                        height: '100%',
-                                        width: '100%',
-                                    }}
-                                >
-                                    <CircularProgress />
-                                </Grid>
-                            }
+
                         </>}
                         {knowledgeStore.moduleList.loadingNothing &&
                             <Grid
