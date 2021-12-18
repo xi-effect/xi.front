@@ -27,6 +27,7 @@ const ModulesListLoading = inject(
       >
         {[...Array(20)].map((page, index) => (
           <Grid
+            key={index.toString()}
             ax={12}
             xs={12}
             sm={12}
@@ -47,7 +48,6 @@ const ModulesListLoading = inject(
             direction="column"
             justifyContent="center"
             alignItems="flex-start"
-            key={index.toString()}
           >
             <Skeleton
               animation="wave"

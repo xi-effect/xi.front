@@ -25,7 +25,7 @@ import {
   Typography,
   useTheme,
   Tooltip,
-  Grow,
+  Switch,
   Container,
 } from "@mui/material";
 
@@ -91,15 +91,47 @@ const variantsIcon = {
   }
 }
 
+const Views = React.memo(({ views }) => {
+  const theme = useTheme();
+
+  if (views < 1000) {
+    return (
+      <>
+        <VisibilityIcon sx={{ ml: 1 }} />
+        <Typography sx={{ ml: 1, color: "white" }}> {`${views}`} </Typography>
+      </>
+    );
+  }
+  if (views >= 1000 && views < 1000000) {
+    return (
+      <>
+        <VisibilityIcon sx={{ ml: 1 }} />
+        <Typography sx={{ ml: 1, color: "white" }}>
+          {" "}
+          {`${Math.round(views / 1000)}к`}{" "}
+        </Typography>
+      </>
+    );
+  }
+  if (views > 1000000) {
+    return (
+      <>
+        <VisibilityIcon sx={{ ml: 1 }} />
+        <Typography sx={{ ml: 1, color: "white" }}>
+          {" "}
+          {`${Math.round(views / 1000000)} млн`}{" "}
+        </Typography>
+      </>
+    );
+  }
+});
+
 const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
   const theme = useTheme();
   const router = useRouter()
 
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleChange = (e, i) => {
-    setExpanded(e === i ? false : i);
-  };
+  const [open, setOpen] = React.useState(false)
+  const [hover, setHover] = React.useState(false)
 
   const kindSelect = (value) => {
     if (value === "standard") return "Стандартный";
@@ -121,8 +153,6 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
       }}
     >
       {knowledgeStore.moduleList.modules.map((module, index) => {
-        const [open, setOpen] = React.useState(false)
-        const [hover, setHover] = React.useState(false)
         return (
           <Grid
             ax={12}
@@ -194,19 +224,22 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                   <IconButton
                     component={motion.button}
                     variants={variantsIcon}
-                    animate={open ? "open" : "close"}
+                    animate={open === index ? "open" : "close"}
                     transition={{ duration: 0.4 }}
                     sx={{
                       width: 36,
                       height: 36,
                     }}
-                    onClick={() => setOpen(!open)}
+                    onClick={() => {
+                      if (open === index) return setOpen(null)
+                      if (!(open === index)) return setOpen(index)
+                    }}
                   >
                     <ExpandMoreIcon />
                   </IconButton>
                 </Stack>
                 <AnimatePresence initial={false} exitBeforeEnter>
-                  {open && <Stack
+                  {open === index && <Stack
                     key="menu"
                     component={motion.div}
                     initial={{ y: -50, opacity: 0 }}
@@ -221,16 +254,72 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                       maxWidth: '100%',
                     }}
                   >
-                    <MenuList>
+                    <MenuList
+                      sx={{
+                        width: '100%',
+                      }}
+                    >
                       <MenuItem>
-                        Текст
+                        <Stack
+                          direction="row"
+                          justifyContent="flex-start"
+                          alignItems="center"
+                          spacing={2}
+                          sx={{
+                            ml: 1,
+                          }}
+                        >
+                          <Avatar sx={{ borderRadius: 2, bgcolor: 'grey.400' }}>
+                            {module["author-name"][0].toUpperCase()}
+                          </Avatar>
+                          <Stack
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="flex-start"
+                          // spacing={1}
+                          >
+                            <Typography
+                              variant="subtitle1"
+                              sx={{
+                                // fontSize: 8,
+                                // textTransform: 'uppercase',
+                                // letterSpacing: 1,
+                                color: 'text.secondary',
+                              }}>
+                              Создатель
+                            </Typography>
+                            <Typography
+                              variant="subtitle2"
+                            >
+                              {module["author-name"]}
+                            </Typography>
+                          </Stack>
+                        </Stack>
+                      </MenuItem>
+                      <Tooltip title={"Просмотры"}>
+                        <MenuItem>
+                          <Views views={module.views} />
+                        </MenuItem>
+                      </Tooltip>
+                      <MenuItem>
+                        <Switch
+                          onClick={() => knowledgeStore.setPreferenceInModules(index, "starred", module.id, module.starred ? "unstar" : "star", !module.starred)}
+                          checked={module.starred}
+                          color="default"
+                        />
+                        Избранное
                       </MenuItem>
                       <MenuItem>
-                        Текст
+                        <Switch
+                          onClick={() => knowledgeStore.setPreferenceInModules(index, "pinned", module.id, module.pinned ? "unpin" : "pin", !module.pinned)}
+                          checked={module.pinned}
+                          color="default"
+                        />
+                        Смотреть позже
                       </MenuItem>
                     </MenuList>
                   </Stack>}
-                  {!open && <Stack
+                  {!(open === index) && <Stack
                     key="desc"
                     component={motion.div}
                     initial={{ y: 50, opacity: 0 }}
@@ -308,10 +397,10 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
               </Tooltip>
               <Button
                 component={motion.button}
-                animate={{ width: hover ? 232 : 36 }}
+                animate={{ width: hover === index ? 232 : 36 }}
                 transition={{ delay: 0.4, duration: 0.4, }}
-                onMouseEnter={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}
+                onMouseEnter={() => setHover(index)}
+                onMouseLeave={() => setHover(null)}
                 onClick={() => router.push(`/knowledge/module/${module.id}/start`)}
                 sx={{
                   '&.MuiButtonBase-root': {
@@ -332,7 +421,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                 }}
               >
                 <AnimatePresence initial={false} exitBeforeEnter>
-                  {hover &&
+                  {hover === index &&
                     <Stack
                       direction="row"
                       justifyContent="center"
@@ -362,7 +451,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                       <ArrowForwardIcon />
                     </Stack>
                   }
-                  {!hover &&
+                  {!(hover === index) &&
                     <Stack
                       direction="row"
                       key="textButton2"
@@ -377,11 +466,11 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                 </AnimatePresence>
               </Button>
             </Paper>
-          </Grid>
+          </Grid >
         )
       })
       }
-    </Grid>
+    </Grid >
   );
 }));
 

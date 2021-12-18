@@ -16,7 +16,7 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
             direction="row"
             justifyContent="center"
             alignItems="center"
-            sx={{ marginBottom: 10, }}
+            sx={{ height: 64 }}
         >
             <Button onClick={knowledgeStore.prevPageInPages} sx={{ mr: 2, ml: 2, color: 'text.main' }} variant="contained" color="primary" disabled={knowledgeStore.pageList.counter === 0 ? true : false}>
                 Назад
@@ -59,6 +59,8 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                     alignItems="center"
                     sx={{
                         // width: 'calc(100% - 32px)',
+                        pb: 20,
+                        width: '100%',
                         zIndex: 1,
                     }}
                 >
@@ -72,10 +74,10 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                             justifyContent="center"
                             alignItems="center"
                             sx={{
-                                marginTop: 2,
+                                pt: 6,
                                 marginBottom: 2,
                                 height: '100%',
-                                // width: '100%',
+                                width: '100%',
                             }}
                         >
                             <Typography> Это всё, что мы нашли по вашему запросу </Typography>
