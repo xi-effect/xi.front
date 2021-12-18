@@ -130,9 +130,10 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                     variant='OpenSans600WhyLabel'
                     sx={{
                         fontSize: 22,
+                        ml: 2,
                     }}
                 >
-                    Истории:
+                    Гид по платформе:
                 </Typography>
                 <Stack
                     direction="row"
@@ -183,7 +184,7 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                 sx={{
                     width: '100%',
                     mt: 1,
-                    ml: 2,
+                    ml: 3,
                     position: 'relative',
                 }}
             >

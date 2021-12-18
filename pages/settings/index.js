@@ -210,7 +210,7 @@ const Settings = inject(
                     <Typography>Внешний вид приложения</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Customize />
+                    {/* <Customize /> */}
                   </AccordionDetails>
                 </Accordion>
                 <Accordion

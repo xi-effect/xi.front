@@ -56,12 +56,12 @@ const Sidebar = inject(
           label: "Знания",
           href: "/knowledge",
         },
-        {
-          id: 2,
-          icon: <MessageIcon sx={{ fontSize: 28 }} />,
-          label: "Общение",
-          href: "/messages",
-        },
+        // {
+        //   id: 2,
+        //   icon: <MessageIcon sx={{ fontSize: 28 }} />,
+        //   label: "Общение",
+        //   href: "/messages",
+        // },
         {
           id: 3,
           icon: <AddBoxIcon sx={{ fontSize: 28 }} />,
