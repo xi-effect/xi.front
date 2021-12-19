@@ -6,9 +6,7 @@ import { Button, Paper, Stack, Box, Grid, Divider, Tooltip, Typography, useTheme
 import { inject, observer } from 'mobx-react'
 
 import Image from 'next/image'
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
 import { motion } from "framer-motion"
 import moment from 'moment';
@@ -16,57 +14,57 @@ import { useSnackbar } from 'notistack';
 
 const tasks = [
     {
-        startTime: '2012-01-26T07:00:00.000+04:00',
-        endTime: '2012-01-26T07:20:00.000+04:00',
+        startTime: '2021-12-19T06:50:00.000+04:00',
+        endTime: '2021-12-19T07:20:00.000+04:00',
         label: 'Зарядка и умывание',
         type: 'live',
     },
     {
-        startTime: '2012-01-26T07:30:00.000+04:00',
-        endTime: '2012-01-26T07:45:00.000+04:00',
+        startTime: '2021-12-19T07:30:00.000+04:00',
+        endTime: '2021-12-19T07:45:00.000+04:00',
         label: 'Медитация',
         type: 'live',
     },
     {
-        startTime: '2012-01-26T08:00:00.000+04:00',
-        endTime: '2012-01-26T08:30:00.000+04:00',
+        startTime: '2021-12-19T08:00:00.000+04:00',
+        endTime: '2021-12-19T08:30:00.000+04:00',
         label: 'Завтрак',
         type: 'live',
     },
     {
-        startTime: '2012-01-26T09:00:00.000+04:00',
-        endTime: '2012-01-26T09:45:00.000+04:00',
+        startTime: '2021-12-19T09:00:00.000+04:00',
+        endTime: '2021-12-19T09:45:00.000+04:00',
         label: 'Математика',
         type: 'school',
     },
     {
-        startTime: '2012-01-26T10:00:00.000+04:00',
-        endTime: '2012-01-26T10:45:00.000+04:00',
+        startTime: '2021-12-19T10:00:00.000+04:00',
+        endTime: '2021-12-19T10:45:00.000+04:00',
         label: 'Литература',
         type: 'school',
     },
     {
-        startTime: '2012-01-26T11:00:00.000+04:00',
-        endTime: '2012-01-26T12:45:00.000+04:00',
+        startTime: '2021-12-19T11:00:00.000+04:00',
+        endTime: '2021-12-19T12:45:00.000+04:00',
         label: 'История',
         type: 'school',
     },
 
     {
-        startTime: '2012-01-26T13:45:00.000+04:00',
-        endTime: '2012-01-26T16:00:00.000+04:00',
+        startTime: '2021-12-19T13:45:00.000+04:00',
+        endTime: '2021-12-19T16:00:00.000+04:00',
         label: 'Обед',
         type: 'live',
     },
     {
-        startTime: '2012-01-26T16:45:00.000+04:00',
-        endTime: '2012-01-26T19:00:00.000+04:00',
+        startTime: '2021-12-19T16:45:00.000+04:00',
+        endTime: '2021-12-19T19:00:00.000+04:00',
         label: 'Кружок исторических реконструкций',
         type: 'club',
     },
     {
-        startTime: '2012-01-26T20:45:00.000+04:00',
-        endTime: '2012-01-26T21:00:00.000+04:00',
+        startTime: '2021-12-19T20:45:00.000+04:00',
+        endTime: '2021-12-19T21:00:00.000+04:00',
         label: 'Домашнее задание. Информатика',
         type: 'homework',
     },
@@ -136,6 +134,8 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
 
     }
 
+    // console.log("isBetween", moment().isBetween(dateStart, dateEnd))
+
     return (
         <>
             <Box
@@ -146,6 +146,12 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
                     ml: 16,
                 }}
             >
+                {moment().isBetween(dateStart, dateEnd) && <ArrowForwardIosIcon sx={{
+                    color: 'secondary.main',
+                    position: 'absolute',
+                    top: "0px",
+                    left: "-70px",
+                }} />}
                 <Typography
                     varinat="subtitle1"
                     sx={{

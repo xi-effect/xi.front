@@ -60,7 +60,7 @@ const Home = inject('rootStore')(observer(({ rootStore }) => {
                 ax={12}
                 xs={12}
                 sm={12}
-                md={6}
+                md={12}
                 dl={12}
                 lg={12}
                 gx={6}
