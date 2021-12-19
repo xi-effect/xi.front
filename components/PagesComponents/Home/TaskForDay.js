@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 
-import { Button, Paper, Stack, Box, Grid, Divider, Typography, useTheme, IconButton } from '@mui/material';
+import { Button, Paper, Stack, Box, Grid, Divider, Tooltip, Typography, useTheme, IconButton } from '@mui/material';
 
 import { inject, observer } from 'mobx-react'
 
@@ -9,8 +9,10 @@ import Image from 'next/image'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import PlusOneIcon from '@mui/icons-material/PlusOne';
 import { motion } from "framer-motion"
 import moment from 'moment';
+import { useSnackbar } from 'notistack';
 
 const tasks = [
     {
@@ -139,9 +141,9 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
             <Box
                 sx={{
                     mt: 2,
-                    width: 'calc(100% - 100px)',
+                    width: '100%',
                     position: 'relative',
-                    ml: 0.5,
+                    ml: 16,
                 }}
             >
                 <Typography
@@ -168,7 +170,7 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
                     {`${dateEnd.get('hour')}:${gM(dateEnd.get('minute'))}`}
                 </Typography>
                 <Paper
-                    elevation={6}
+                    elevation={12}
                     // direction="row"
                     // justifyContent="flex-start"
                     // alignItems="center"
@@ -177,7 +179,7 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
                         // top: 60 * (dateStart.getHours() - 6) + dateStart.getMinutes(),
                         height: 60 * (dateEnd.get('hour') - dateStart.get('hour')) + (dateEnd.get('minute') - dateStart.get('minute')),
                         minHeight: "64px",
-                        width: '100%',
+                        width: 'calc(100% - 88px)',
                         // minWidth: 300,
                         // bgcolor: 'primary.main',
                         borderRadius: 2,
@@ -216,7 +218,7 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
                             variant="h5"
                             sx={{
                                 // color: getTaskColor(task.type),
-                                width: 'calc(100% - 12px)',
+                                width: 'calc(100% - 16px)',
                                 ml: 2,
                             }}
                             noWrap
@@ -234,19 +236,46 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
 
 const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore, }) => {
     const theme = useTheme();
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 
     return (
         <>
-            <Typography
-                variant='OpenSans600WhyLabel'
+            <Stack
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
                 sx={{
-                    fontSize: 22,
-                    ml: 2,
+                    height: '100%',
+                    width: '100%',
                 }}
             >
-                Задачи на день:
-            </Typography>
+                <Typography
+                    variant='OpenSans600WhyLabel'
+                    sx={{
+                        fontSize: 22,
+                        ml: 2,
+                    }}
+                >
+                    Задачи на день:
+                </Typography>
+                <Tooltip arrow title="Добавить задачу">
+                    <IconButton
+                        sx={{
+                            mt: 1,
+                            mr: 2,
+                            height: 36,
+                            width: 36,
+                            ml: 'auto',
+                        }}
+                        onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
+                            variant: 'info',
+                        })}
+                    >
+                        <PlusOneIcon />
+                    </IconButton>
+                </Tooltip>
+            </Stack>
             <Stack
                 direction="column"
                 justifyContent="flex-start"
