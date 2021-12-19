@@ -19,6 +19,8 @@ import KnowledgePagesTools from "./RightMenu/KnowledgePagesTools";
 import KnowledgeModulesTools from "./RightMenu/KnowledgeModulesTools";
 import KnowledgeModuleMap from "./RightMenu/KnowledgeModuleMap";
 import KnowledgeModulesFilters from "./RightMenu/KnowledgeModulesFilters";
+import HomeNotifications from "./RightMenu/HomeNotifications";
+
 
 
 
@@ -72,7 +74,7 @@ const RightMenu = inject(
         y: 0,
         opacity: 1,
         transition: {
-          
+
         }
       },
       closed: {
@@ -249,6 +251,7 @@ const RightMenu = inject(
             sx={{ height: '100%', width: '100%', zIndex: 100, }}
           >
             <Stack sx={{ height: '100%', width: '100%', mt: 1, mb: 'auto' }}>
+              {router.pathname.includes('/home') && <HomeNotifications />}
               {router.pathname.includes('/knowledge/createpage') && <KnowledgeСreatePageMap />}
               {router.pathname.includes('/knowledge/createmodule') && <KnowledgeСreateModuleMap />}
               {router.pathname.includes('/knowledge/modules') && <KnowledgeModulesFilters />}

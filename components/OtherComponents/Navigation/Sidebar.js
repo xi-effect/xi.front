@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import clsx from "clsx";

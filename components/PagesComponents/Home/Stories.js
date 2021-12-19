@@ -52,7 +52,7 @@ const Story = inject('rootStore', 'managmentStore')(observer(({ rootStore, manag
             sx={{
                 height: 300,
                 minWidth: 300,
-                bgcolor: 'primary.light',
+                bgcolor: 'primary.main',
                 borderRadius: 2,
             }}
         >
