@@ -22,7 +22,7 @@ const KnowledgeModuleToolsWithMap = inject(
         const router = useRouter()
         return (
             <>
-                <Typography variant="subtitle1" sx={{ ml: 0.5 }}>карта модуля:</Typography>
+                <Typography variant="subtitle1" sx={{ ml: 0.5 }}>Карта модуля:</Typography>
                 <Stack
                     direction="column"
                     justifyContent="flex-start"

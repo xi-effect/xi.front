@@ -199,8 +199,8 @@ const Settings = inject(
                 </Accordion>
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === 'castomize'}
-                  onChange={handleChange('castomize')}
+                  expanded={expanded === 'customize'}
+                  onChange={handleChange('customize')}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -210,7 +210,7 @@ const Settings = inject(
                     <Typography>Внешний вид приложения</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Customize />
+                    {/* <Customize /> */}
                   </AccordionDetails>
                 </Accordion>
                 <Accordion

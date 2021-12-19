@@ -223,6 +223,7 @@ class ManagmentStore {
     }
 
     @action LoadPageList = () => {
+        console.log('LoadPageList')
         this.rootStore.fetchDataScr(`${this.rootStore.url}/wip/pages/index/`, "POST", { "counter": this.pageCreationList.counter }).then(
             (data) => {
                 console.log("log", data.results)

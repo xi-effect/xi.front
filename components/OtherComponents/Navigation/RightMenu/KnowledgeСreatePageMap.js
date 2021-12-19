@@ -31,8 +31,6 @@ const KnowledgeСreatePageMap = inject(
     "uiStore",
 )(
     observer(({ knowledgeStore, uiStore, managmentStore }) => {
-        const theme = useTheme();
-        const router = useRouter()
 
         const components = [
             { name: "Текст", icon: <TextFieldsIcon />, type: "text" },
@@ -50,7 +48,7 @@ const KnowledgeСreatePageMap = inject(
         return (
             <>
                 {uiStore.knowledge.activeStep === 1 && <>
-                    <Typography sx={{ ml: 1 }}>компоненты:</Typography>
+                    <Typography sx={{ ml: 1 }}> Компоненты: </Typography>
                     {components.map((component, index) => {
 
                         return (

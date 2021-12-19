@@ -28,6 +28,7 @@ const KnowledgePagesTools = inject(
             color: 'text.main',
             flex: 1,
             maxWidth: "500px",
+            minWidth: "300px",
             marginLeft: "auto",
           }}
           placeholder="Поиск страниц"
@@ -77,6 +78,7 @@ const KnowledgeModulesTools = inject(
             color: 'text.main',
             flex: 1,
             maxWidth: "500px",
+            minWidth: "300px",
             marginLeft: "auto",
           }}
           placeholder="Поиск модулей"
@@ -179,7 +181,7 @@ const Upbar = inject(
     return (
       <Stack
         direction="row"
-        justifyContent="flex-start"
+        justifyContent="space-between"
         alignItems="center"
         // spacing={2}
         sx={{
@@ -188,79 +190,88 @@ const Upbar = inject(
           width: '100%',
         }}
       >
-        {mobile && <IconButton onClick={() => {
-          if (swipe === 'right') setSwipe('swipe', 'center')
-          if (swipe === 'center') setSwipe('swipe', 'right')
-        }} sx={{ ml: 0.4, mr: 0.4, cursor: 'pointer' }}>
-          <MenuIcon sx={{ fontSize: 32 }} />
-        </IconButton>}
         <Stack
           direction="row"
           justifyContent="flex-start"
-          alignItems="baseline"
-          sx={{
-            ml: mobile ? 1 : 4,
-            mr: 1,
-          }}
+          alignItems="center"
         >
-          <Typography
-            component={"h1"}
-            onClick={() => {
-              router.push({
-                pathname: '/',
-              })
-            }}
-
-            variant="Roboto500XiLabel"
+          {mobile && <IconButton onClick={() => {
+            if (swipe === 'right') setSwipe('swipe', 'center')
+            if (swipe === 'center') setSwipe('swipe', 'right')
+          }} sx={{ ml: 0.4, mr: 0.4, cursor: 'pointer' }}>
+            <MenuIcon sx={{ fontSize: 32 }} />
+          </IconButton>}
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="baseline"
             sx={{
-              mt: '1px',
-              cursor: 'pointer',
-              color: 'secondary.main',
-              fontSize: {
-                sm: '22px',
-                md: '26px',
-                lg: '30px',
-              },
+              ml: mobile ? 1 : 4,
+              mr: 1,
             }}
           >
-            Ξ
-          </Typography>
-          <Typography
-            component={"h1"}
-            onClick={() => {
-              router.push({
-                pathname: '/',
-              })
-            }}
+            <Typography
+              component={"h1"}
+              onClick={() => {
+                router.push({
+                  pathname: '/',
+                })
+              }}
 
-            variant="IBMPlexMono500XiLabelEnd"
-            sx={{
-              '&.MuiTypography-root': {
+              variant="Roboto500XiLabel"
+              sx={{
+                mt: '1px',
                 cursor: 'pointer',
                 color: 'secondary.main',
-              },
-              fontSize: {
-                sm: '22px',
-                md: '26px',
-                lg: '30px',
-              },
-            }}
-          >
-            ffect
-          </Typography>
-        </Stack>
-        {router.pathname === '/knowledge/pages' && <KnowledgePagesTools />}
-        {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools />}
-        {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools />}
-        {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools />}
+                fontSize: {
+                  sm: '22px',
+                  md: '26px',
+                  lg: '30px',
+                },
+              }}
+            >
+              Ξ
+            </Typography>
+            <Typography
+              component={"h1"}
+              onClick={() => {
+                router.push({
+                  pathname: '/',
+                })
+              }}
 
-        {mobile && <IconButton onClick={() => {
-          if (swipe === 'left') setSwipe('swipe', 'center')
-          if (swipe === 'center') setSwipe('swipe', 'left')
-        }} sx={{ ml: 'auto', mr: 0.4, cursor: 'pointer' }}>
-          <InfoIcon sx={{ fontSize: 32 }} />
-        </IconButton>}
-        <ReportDialog open={openDialog} setOpen={setOpenDialog} />
+              variant="IBMPlexMono500XiLabelEnd"
+              sx={{
+                '&.MuiTypography-root': {
+                  cursor: 'pointer',
+                  color: 'secondary.main',
+                },
+                fontSize: {
+                  sm: '22px',
+                  md: '26px',
+                  lg: '30px',
+                },
+              }}
+            >
+              ffect
+            </Typography>
+          </Stack>
+        </Stack>
+        <Box>
+          {router.pathname === '/knowledge/pages' && <KnowledgePagesTools />}
+          {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools />}
+          {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools />}
+          {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools />}
+        </Box>
+        <Box>
+          {mobile && <IconButton onClick={() => {
+            if (swipe === 'left') setSwipe('swipe', 'center')
+            if (swipe === 'center') setSwipe('swipe', 'left')
+          }} sx={{ ml: 'auto', mr: 0.4, cursor: 'pointer' }}>
+            <InfoIcon sx={{ fontSize: 32 }} />
+          </IconButton>}
+          <ReportDialog open={openDialog} setOpen={setOpenDialog} />
+        </Box>
       </Stack >
     );
   })

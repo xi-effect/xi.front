@@ -74,6 +74,8 @@ const WhyLabel = () => {
                 {cards.map((item, index) => (
                     <Paper
                         key={index.toString()}
+                        component={motion.div}
+                        whileHover={{ y: -20 }}
                         elevation={24}
                         sx={{
                             zIndex: 10,
