@@ -25,7 +25,14 @@ const StepOne = inject('managmentStore')(observer(({ managmentStore }) => {
                 maxWidth: 800,
             }}
         >
-            <Typography> Шаг 1. Основная информация</Typography>
+            <Typography
+                variant='Roboto500XiLabel'
+                sx={{
+                    marginLeft: 2,
+                    fontSize: 24,
+                    cursor: 'default',
+                }}
+            > Шаг 1. Основная информация</Typography>
             <Typography> Заполните основную информацию о вашем новой страницы</Typography>
             <FormControl fullWidth>
                 <InputLabel variant="standard" htmlFor="uncontrolled-native">

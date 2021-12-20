@@ -203,7 +203,6 @@ class ManagmentStore {
                 })
         }
         if (close) {
-            this.setPageCreationList("dialogOpen", false)
             this.setPagecreationDefault()
             this.setPageCreationList("counter", 0)
             this.LoadPageList()
@@ -383,7 +382,6 @@ class ManagmentStore {
                 })
         }
         if (close) {
-            this.setModuleCreationList("dialogOpen", false)
             this.setModulecreationDefault()
             this.setModuleCreationList("counter", 0)
             this.LoadModuleList()

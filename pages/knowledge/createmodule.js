@@ -11,11 +11,19 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import StepOne from '../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation/StepOne';
 import StepTwo from '../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation/StepTwo';
 import StepThree from '../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation/StepThree';
-
-
+import { useUnmount } from 'react-use';
+import { useSnackbar } from 'notistack';
 
 const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(observer(({ knowledgeStore, managmentStore, uiStore }) => {
-    const theme = useTheme();
+
+    useUnmount(() => {
+        if (managmentStore.moduleCreation.id) {
+            managmentStore.saveModule(true)
+            enqueueSnackbar('Модуль сохранен', {
+                variant: 'success',
+            })
+        }
+    });
 
     React.useEffect(() => {
         console.log("Createmodule")
@@ -40,9 +48,6 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
             return;
 
         }
-
-
-        //
 
         //Перетаскивание в рамках одной точки
         if (result.destination.droppableId === result.source.droppableId) {
@@ -75,23 +80,23 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
 
     }
 
-    const onBeforeCapture = () => {
-        console.log("onBeforeCapture")
-    };
+    // const onBeforeCapture = () => {
+    //     console.log("onBeforeCapture")
+    // };
 
-    const onBeforeDragStart = () => {
-        console.log("onBeforeDragStart")
-        /*...*/
-    };
+    // const onBeforeDragStart = () => {
+    //     console.log("onBeforeDragStart")
+    //     /*...*/
+    // };
 
-    const onDragStart = () => {
-        console.log("onDragStart")
-        /*...*/
-    };
-    const onDragUpdate = () => {
-        console.log("onDragUpdate")
-        /*...*/
-    };
+    // const onDragStart = () => {
+    //     console.log("onDragStart")
+    //     /*...*/
+    // };
+    // const onDragUpdate = () => {
+    //     console.log("onDragUpdate")
+    //     /*...*/
+    // };
 
     return (
         <>

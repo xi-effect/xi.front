@@ -154,7 +154,7 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
                     left: "-70px",
                 }} />}
                 <Typography
-                    varinat="subtitle1"
+                    variant="subtitle1"
                     sx={{
                         color: 'text.secondary',
                         position: 'absolute',
@@ -166,7 +166,7 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
 
                 </Typography>
                 <Typography
-                    varinat="subtitle1"
+                    variant="subtitle1"
                     sx={{
                         color: 'text.secondary',
                         position: 'absolute',
