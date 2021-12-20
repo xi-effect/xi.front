@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, Container, IconButton } from '@mui/material';
-import Terms from "./TermsOfUse";
+import TermsOfUse from "./TermsOfUse";
 
 
 
@@ -16,14 +16,14 @@ const Footer = () => {
     const router = useRouter()
     const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
-    // Открытие закрытие и сам тип диалога
+
     const [open, setOpen] = React.useState(false);
     const [scroll, setScroll] = React.useState('paper');
 
     const dialogMenu = (ScrollDialog) => () =>{
 
     };
-// открытие то что я передаю в <Link>
+
     const handleClickOpen = (scrollType) => () => {
         setOpen(true);
         setScroll(scrollType);
@@ -117,8 +117,6 @@ const Footer = () => {
                             }}
                         >
                             <Typography> © 2022 xieffect.netlify.app  </Typography>
-
-                            // Вот сама ссылка которая не работает
                             <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }} onClick={handleClickOpen('paper') }> Пользовательское соглашение </Link>
                             <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }} > Лицензионное соглашение </Link>
                         </Grid>
@@ -167,6 +165,7 @@ const Footer = () => {
                     <Link sx={{ color: 'text.primary', mt: 2, cursor: 'pointer' }}>  Пользовательское соглашение </Link>
                     <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Лицензионное соглашение </Link>
                     <Typography sx={{ mt: 3 }}> © 2022 xieffect.netlify.app  </Typography>
+                    <TermsOfUse   escriptionElementRef = {descriptionElementRef} handleClose={handleClose} />
                 </Grid>}
             </Container>
         </Box>
