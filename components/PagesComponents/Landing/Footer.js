@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, Container, IconButton } from '@mui/material';
 import TermsOfUse from "./TermsOfUse";
+import License from "./License";
 
 
 
@@ -18,15 +19,10 @@ const Footer = () => {
 
 
     const [open, setOpen] = React.useState(false);
-    const [scroll, setScroll] = React.useState('paper');
 
-    const dialogMenu = (ScrollDialog) => () =>{
 
-    };
-
-    const handleClickOpen = (scrollType) => () => {
+    const handleClickOpen = () => () => {
         setOpen(true);
-        setScroll(scrollType);
     };
 
 
@@ -109,10 +105,10 @@ const Footer = () => {
                             }}
                         >
                             <Typography> © 2022 xieffect.netlify.app  </Typography>
-                            <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }} onClick={handleClickOpen('paper') }> Пользовательское соглашение </Link>
+                            <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }} onClick={handleClickOpen('paper')}> Пользовательское соглашение </Link>
                             <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }} > Лицензионное соглашение </Link>
                         </Grid>
-                        <TermsOfUse handleClose={handleClose} open={open} onClose={handleClose} scroll={scroll} dialogMenu = {dialogMenu}/>
+                        <TermsOfUse handleClose={handleClose} open={open}/>
                         <Grid item
                             sx={{
                                 ml: 'auto', mr: 1

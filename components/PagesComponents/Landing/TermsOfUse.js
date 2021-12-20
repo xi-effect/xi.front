@@ -5,21 +5,19 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {useState} from "react";
 
 
 
-const TermsOfUse = ({handleClose={handleClose},open={open},onClose={handleClose},scroll={scroll}, dialogMenu = {dialogMenu}}) =>  {
+
+const TermsOfUse = ({ handleClose, open }) => {
 
     return (
         <Dialog
             open={open}
             onClose={handleClose}
-            scroll={scroll}
-            aria-labelledby="scroll-dialog-title"
         >
-            <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
-            <DialogContent dividers={scroll === 'paper'}>
+            <DialogTitle id="dialog-title">Subscribe</DialogTitle>
+            <DialogContent dividers={'paper'}>
                 <DialogContentText
 
                     tabIndex={-1}
