@@ -349,7 +349,7 @@ const PagesList = inject(
                   transition={{ delay: 0.4, duration: 0.4, }}
                   onMouseEnter={() => setHover(index)}
                   onMouseLeave={() => setHover(null)}
-                  onClick={() => router.push(`/knowledge/page/${page.id}/start`)}
+                  onClick={() => router.push(`/knowledge/page/${page.id}`)}
                   sx={{
                     '&.MuiButtonBase-root': {
                       height: 36,

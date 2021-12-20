@@ -18,6 +18,7 @@ const Page = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
 
     React.useEffect(() => {
         // LoadComponents()
+        console.log("knowledgeStore.loadPage()")
         knowledgeStore.loadPage()
     }, []);
 
@@ -30,7 +31,7 @@ const Page = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                     Ξffect
                 </title>
             </Head>
-            <NavigationAll haveRightToolbar>
+            <NavigationAll>
                 <Grid
                     sx={{
                         margin: "4px",

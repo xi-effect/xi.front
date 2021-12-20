@@ -7,6 +7,7 @@ import { inject, observer } from 'mobx-react'
 
 import Image from 'next/image'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
 import { motion } from "framer-motion"
 import moment from 'moment';
@@ -265,14 +266,30 @@ const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, 
                 >
                     Задачи на день:
                 </Typography>
+                <Tooltip arrow title="Фильтр">
+                    <IconButton
+                        sx={{
+                            mt: 1,
+                            mr: 0.5,
+                            height: 36,
+                            width: 36,
+                            ml: 'auto',
+                        }}
+                        onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
+                            variant: 'info',
+                        })}
+                    >
+                        <FilterListIcon />
+                    </IconButton>
+                </Tooltip>
                 <Tooltip arrow title="Добавить задачу">
                     <IconButton
                         sx={{
                             mt: 1,
                             mr: 2,
+                            ml: 0.5,
                             height: 36,
                             width: 36,
-                            ml: 'auto',
                         }}
                         onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
                             variant: 'info',

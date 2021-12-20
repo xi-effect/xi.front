@@ -15,7 +15,7 @@ import InfoIcon from '@mui/icons-material/Info';
 const KnowledgePageTools = inject(
     "knowledgeStore"
 )(
-    observer(({ knowledgeStore }) => {
+    observer(({ knowledgeStore, setOpenDialog }) => {
         const theme = useTheme();
         const router = useRouter()
 
@@ -27,7 +27,7 @@ const KnowledgePageTools = inject(
                         width: 142,
                         alignItems: 'space-between',
                     }}
-                    onClick={null} size="large"
+                    onClick={() => setOpenDialog(true)} size="large"
                 >
                     Инфо <InfoIcon sx={{ ml: 'auto', mr: 0 }} />
                 </Button>
