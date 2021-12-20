@@ -34,15 +34,7 @@ const Footer = () => {
         setOpen(false);
     };
 
-    const descriptionElementRef = React.useRef(null);
-    React.useEffect(() => {
-        if (open) {
-            const { current: descriptionElement } = descriptionElementRef;
-            if (descriptionElement !== null) {
-                descriptionElement.focus();
-            }
-        }
-    }, [open]);
+
 
 
     return (
@@ -120,6 +112,7 @@ const Footer = () => {
                             <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }} onClick={handleClickOpen('paper') }> Пользовательское соглашение </Link>
                             <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }} > Лицензионное соглашение </Link>
                         </Grid>
+                        <TermsOfUse handleClose={handleClose} open={open} onClose={handleClose} scroll={scroll} dialogMenu = {dialogMenu}/>
                         <Grid item
                             sx={{
                                 ml: 'auto', mr: 1
@@ -165,7 +158,6 @@ const Footer = () => {
                     <Link sx={{ color: 'text.primary', mt: 2, cursor: 'pointer' }}>  Пользовательское соглашение </Link>
                     <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Лицензионное соглашение </Link>
                     <Typography sx={{ mt: 3 }}> © 2022 xieffect.netlify.app  </Typography>
-                    <TermsOfUse   escriptionElementRef = {descriptionElementRef} handleClose={handleClose} />
                 </Grid>}
             </Container>
         </Box>
