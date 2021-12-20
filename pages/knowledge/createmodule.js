@@ -115,10 +115,10 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
                 }}
             >
                 <DragDropContext
-                    onBeforeCapture={onBeforeCapture}
-                    onBeforeDragStart={onBeforeDragStart}
-                    onDragStart={onDragStart}
-                    onDragUpdate={onDragUpdate}
+                    // onBeforeCapture={onBeforeCapture}
+                    // onBeforeDragStart={onBeforeDragStart}
+                    // onDragStart={onDragStart}
+                    // onDragUpdate={onDragUpdate}
                     onDragEnd={onDragEnd}
                 >
                     <NavigationAll haveRightToolbar>
