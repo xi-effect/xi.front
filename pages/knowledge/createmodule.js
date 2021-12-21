@@ -14,6 +14,14 @@ import StepThree from '../../components/PagesComponents/Managment/Content/Module
 import { useUnmount } from 'react-use';
 import { useSnackbar } from 'notistack';
 
+const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+};
+
 const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(observer(({ knowledgeStore, managmentStore, uiStore }) => {
 
     useUnmount(() => {

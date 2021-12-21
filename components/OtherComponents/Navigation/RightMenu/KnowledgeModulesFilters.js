@@ -77,13 +77,13 @@ const KnowledgeModulesFilters = inject(
                             p: 0,
                             pl: 0.5,
                         }}
+                        onClick={() => {
+                            knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                        }}
                     >
                         <ListItemIcon>
                             <Radio
                                 checked={knowledgeStore.moduleList.filters.global === "default"}
-                                onClick={() => {
-                                    knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
-                                }}
                                 color="default"
                             />
                         </ListItemIcon>
@@ -94,14 +94,14 @@ const KnowledgeModulesFilters = inject(
                             p: 0,
                             pl: 0.5,
                         }}
+                        onClick={() => {
+                            if (knowledgeStore.moduleList.filters.global == "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                            if (knowledgeStore.moduleList.filters.global != "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "starred")
+                        }}
                     >
                         <ListItemIcon>
                             <Radio
                                 checked={knowledgeStore.moduleList.filters.global === "starred"}
-                                onClick={() => {
-                                    if (knowledgeStore.moduleList.filters.global == "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
-                                    if (knowledgeStore.moduleList.filters.global != "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "starred")
-                                }}
                                 color="default"
                             />
                         </ListItemIcon>
@@ -112,14 +112,14 @@ const KnowledgeModulesFilters = inject(
                             p: 0,
                             pl: 0.5,
                         }}
+                        onClick={() => {
+                            if (knowledgeStore.moduleList.filters.global != "started") return knowledgeStore.setModuleListDataSecondary("filters", "global", "started")
+                            if (knowledgeStore.moduleList.filters.global === "started") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                        }}
                     >
                         <ListItemIcon>
                             <Radio
                                 checked={knowledgeStore.moduleList.filters.global === "started"}
-                                onClick={() => {
-                                    if (knowledgeStore.moduleList.filters.global != "started") return knowledgeStore.setModuleListDataSecondary("filters", "global", "started")
-                                    if (knowledgeStore.moduleList.filters.global === "started") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
-                                }}
                                 color="default"
                             />
                         </ListItemIcon>
@@ -130,14 +130,14 @@ const KnowledgeModulesFilters = inject(
                             p: 0,
                             pl: 0.5,
                         }}
+                        onClick={() => {
+                            if (knowledgeStore.moduleList.filters.global != "pinned") return knowledgeStore.setModuleListDataSecondary("filters", "global", "pinned")
+                            if (knowledgeStore.moduleList.filters.global === "pinned") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                        }}
                     >
                         <ListItemIcon>
                             <Radio
                                 checked={knowledgeStore.moduleList.filters.global === "pinned"}
-                                onClick={() => {
-                                    if (knowledgeStore.moduleList.filters.global != "pinned") return knowledgeStore.setModuleListDataSecondary("filters", "global", "pinned")
-                                    if (knowledgeStore.moduleList.filters.global === "pinned") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
-                                }}
                                 color="default"
                             />
                         </ListItemIcon>

@@ -186,6 +186,7 @@ const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managme
                     {values.authorId && values.imageId && <Image
                         alt="alt"
                         src={`https://xieffect.pythonanywhere.com/wip/images/${values.imageId}/`}
+                        // layout='fill'
                         quality={100}
                         width={1920}
                         height={1080}

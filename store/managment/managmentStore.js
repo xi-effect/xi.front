@@ -157,6 +157,7 @@ class ManagmentStore {
             if (id == index) return false
             return true
         })
+        console.log("deleteComponent", this.pageCreation.components)
     }
 
     @action deleteComponentContent = (index, indexContent) => {
