@@ -19,15 +19,22 @@ const Footer = () => {
 
 
     const [open, setOpen] = React.useState(false);
-
+    const [openLic,setOpenLic] = React.useState(false);
 
     const handleClickOpen = () => () => {
         setOpen(true);
     };
 
+    const handleClickOpenLic = (License) => () => {
+        setOpenLic(true);
+    };
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleCloseLic = () => {
+        setOpenLic(false);
     };
 
 
@@ -106,9 +113,10 @@ const Footer = () => {
                         >
                             <Typography> © 2022 xieffect.netlify.app  </Typography>
                             <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }} onClick={handleClickOpen('paper')}> Пользовательское соглашение </Link>
-                            <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }} > Лицензионное соглашение </Link>
+                            <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }} onClick={handleClickOpenLic('paper')}> Лицензионное соглашение </Link>
                         </Grid>
                         <TermsOfUse handleClose={handleClose} open={open}/>
+                        <License  handleClose={handleClose} LicOnClose={handleClose}/>
                         <Grid item
                             sx={{
                                 ml: 'auto', mr: 1

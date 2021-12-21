@@ -5,7 +5,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import {IconButton} from "@mui/material";
 
 
 
@@ -16,7 +17,7 @@ const TermsOfUse = ({ handleClose, open }) => {
             open={open}
             onClose={handleClose}
         >
-            <DialogTitle id="dialog-title">Subscribe</DialogTitle>
+            <DialogTitle id="dialog-title"><IconButton><ContentCopyIcon/></IconButton>Subscribe</DialogTitle>
             <DialogContent dividers={'paper'}>
                 <DialogContentText
 
