@@ -139,7 +139,10 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                     direction="row"
                     justifyContent="center"
                     alignItems="center"
-                    spacing={2}
+                    spacing={1}
+                    sx={{
+                        pr: 2
+                    }}
                 >
                     <Button
                         variant="contained"

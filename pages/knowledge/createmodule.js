@@ -46,7 +46,7 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
         }
 
         if (result.source.droppableId === 'list-pages') {
-            let newArray = managmentStore.moduleCreation.points[result.destination.droppableId.slice(5)].pages
+            let newArray = [...managmentStore.moduleCreation.points[result.destination.droppableId.slice(5)].pages]
             let newPage = {}
             newPage.id = managmentStore.pageCreationList.pages[result.source.index].id
             newPage.name = managmentStore.pageCreationList.pages[result.source.index].name
@@ -60,7 +60,7 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
         //Перетаскивание в рамках одной точки
         if (result.destination.droppableId === result.source.droppableId) {
             const quotes = reorder(
-                managmentStore.moduleCreation.points[result.destination.droppableId.slice(5)].pages,
+                [...managmentStore.moduleCreation.points[result.destination.droppableId.slice(5)].pages],
                 result.source.index,
                 result.destination.index
             );
@@ -72,7 +72,7 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
 
         //Перетаскивание между точками 
         if (result.source.droppableId != 'list-pages' && result.destination.droppableId != result.source.droppableId) {
-            let newArray = managmentStore.moduleCreation.points[Number(result.destination.droppableId.slice(5))].pages
+            let newArray = [...managmentStore.moduleCreation.points[Number(result.destination.droppableId.slice(5))].pages]
             let newPage = managmentStore.moduleCreation.points[Number(result.source.droppableId.slice(5))].pages[result.source.index]
             newArray.splice(result.destination.index, 0, newPage)
             managmentStore.setModuleCreationPoints(Number(result.destination.droppableId.slice(5)), "pages", newArray)

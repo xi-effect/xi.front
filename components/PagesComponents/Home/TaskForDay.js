@@ -9,7 +9,8 @@ import Image from 'next/image'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
-import { motion } from "framer-motion"
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import { AnimatePresence, motion } from "framer-motion"
 import moment from 'moment';
 import { useSnackbar } from 'notistack';
 
@@ -266,7 +267,7 @@ const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, 
                 >
                     Задачи на день:
                 </Typography>
-                <Tooltip arrow title="Фильтр">
+                <Tooltip arrow title="День">
                     <IconButton
                         sx={{
                             mt: 1,
@@ -274,6 +275,22 @@ const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, 
                             height: 36,
                             width: 36,
                             ml: 'auto',
+                        }}
+                        onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
+                            variant: 'info',
+                        })}
+                    >
+                        <CalendarTodayIcon />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip arrow title="Фильтр">
+                    <IconButton
+                        sx={{
+                            mt: 1,
+                            mr: 0.5,
+                            height: 36,
+                            width: 36,
+                            ml: 0.5,
                         }}
                         onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
                             variant: 'info',
@@ -299,6 +316,9 @@ const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, 
                     </IconButton>
                 </Tooltip>
             </Stack>
+            <AnimatePresence>
+
+            </AnimatePresence>
             <Stack
                 direction="column"
                 justifyContent="flex-start"
