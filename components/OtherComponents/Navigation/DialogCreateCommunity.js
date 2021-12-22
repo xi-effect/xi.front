@@ -3,16 +3,17 @@ import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 import { motion, AnimatePresence } from "framer-motion"
-import { Box, Button, Dialog, Step, Stepper, Radio, StepLabel, StepContent, FormControl, InputLabel, Input, InputBase, MenuItem, Select, DialogTitle, DialogContent, DialogActions, Link, useTheme, IconButton, Tooltip, Drawer, Stack, Typography } from "@mui/material";
+import { Box, Button, Dialog, Step, Stepper, Radio, StepLabel, StepContent, FormControl, InputLabel, Input, InputBase, MenuItem, Select, DialogTitle, DialogContent, DialogActions, Link, useTheme, IconButton, Tooltip, Drawer, Stack, Typography, Container } from "@mui/material";
 import Image from "next/image";
-
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const CommunityType = inject(
     "rootStore",
     "knowledgeStore",
     "uiStore",
 )(
-    observer(({ rootStore, knowledgeStore, uiStore }) => {
+    observer(({ rootStore, knowledgeStore, uiStore, handleNext }) => {
 
         return (
             <Stack
@@ -21,58 +22,294 @@ const CommunityType = inject(
                 alignItems="flex-start"
                 spacing={2}
             >
-                <Box
+                <Typography
                     sx={{
-                        width: 128,
-                        height: 128,
+                        ml: 4
                     }}
                 >
-                    <Image
-                        alt="alt"
-                        src={"/landing/OnlineLearning.svg"}
-                        quality={100}
-                        width={128}
-                        height={128}
-                    />
-                </Box>
-                <Stack
-                    direction="row"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    spacing={2}
-                >
-                    <Radio />
-                    <Typography
-                        variant="subtitle1"
-                    >
-                        Школа
-                    </Typography>
-                </Stack>
-                <Box
+                    Сообщество - место, где вы ... ... ... ... ... ... ... ... ... ...
+                </Typography>
+                <Button
+                    onClick={() => handleNext(1)}
                     sx={{
-                        width: 128,
-                        height: 128,
+                        width: '100%',
+                        height: 96,
+                        bgcolor: 'primary.main',
+                        '&:hover': {
+                            bgcolor: 'primary.main',
+                        },
+                        borderRadius: 8,
                     }}
                 >
-                    <Image
-                        alt="alt"
-                        src={"/landing/OnlineLearning.svg"}
-                        quality={100}
-                        width={128}
-                        height={128}
-                    />
-                </Box>
+                    <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        sx={{
+                            width: '100%'
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                width: 100,
+                                height: 100,
+                                ml: 1,
+                                mr: 1,
+                            }}
+                        >
+                            <Image
+                                alt="alt"
+                                src={"/app/AdvancedCustomization.svg"}
+                                quality={100}
+                                width={100}
+                                height={100}
+                            />
+                        </Box>
+                        <Stack
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="flex-start"
+                            sx={{
+                                mr: 'auto',
+                            }}
+                        >
+                            <Typography
+                                variant="Roboto500XiLabel"
+                                sx={{
+                                    color: 'text.primary',
+                                    fontSize: 24
+                                }}
+                            >
+                                Пустой шаблон
+                            </Typography>
+                            <Typography
+                                textAlign={'left'}
+                                sx={{
+                                    color: 'text.secondary'
+                                }}
+                                variant="subtitle1"
+                            >
+                                Здесь нет каких-либо базовых настроек, иногда, это полезно
+                            </Typography>
+                        </Stack>
+                        <ArrowForwardIcon sx={{ color: 'text.primary', ml: 'auto', mr: 1 }} fontSize="large" />
+                    </Stack>
+                </Button>
+                <Button
+                    onClick={() => handleNext(1)}
+                    sx={{
+                        width: '100%',
+                        height: 96,
+                        bgcolor: 'primary.main',
+                        '&:hover': {
+                            bgcolor: 'primary.main',
+                        },
+                        borderRadius: 8,
+                    }}
+                >
+                    <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        sx={{
+                            width: '100%'
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                width: 100,
+                                height: 100,
+                                ml: 1,
+                                mr: 1,
+                            }}
+                        >
+                            <Image
+                                alt="alt"
+                                src={"/app/Professor.svg"}
+                                quality={100}
+                                width={100}
+                                height={100}
+                            />
+                        </Box>
+                        <Stack
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="flex-start"
+                            sx={{
+                                mr: 'auto',
+                            }}
+                        >
+                            <Typography
+                                variant="Roboto500XiLabel"
+                                sx={{
+                                    color: 'text.primary',
+                                    fontSize: 24
+                                }}
+                            >
+                                Для Репетиторов
+                            </Typography>
+                            <Typography
+                                textAlign={'left'}
+                                sx={{
+                                    color: 'text.secondary'
+                                }}
+                                variant="subtitle1"
+                            >
+                                Идеальное место для взаимодействия с вашими учениками
+                            </Typography>
+                        </Stack>
+                        <ArrowForwardIcon sx={{ color: 'text.primary', ml: 'auto', mr: 1 }} fontSize="large" />
+                    </Stack>
+                </Button>
+                <Button
+                    onClick={() => handleNext(1)}
+                    sx={{
+                        width: '100%',
+                        height: 96,
+                        bgcolor: 'primary.main',
+                        '&:hover': {
+                            bgcolor: 'primary.main',
+                        },
+                        borderRadius: 8,
+                    }}
+                >
+                    <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        sx={{
+                            width: '100%'
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                width: 100,
+                                height: 100,
+                                ml: 1,
+                                mr: 1,
+                            }}
+                        >
+                            <Image
+                                alt="alt"
+                                src={"/app/Connecting.svg"}
+                                quality={100}
+                                width={100}
+                                height={100}
+                            />
+                        </Box>
+                        <Stack
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="flex-start"
+                            sx={{
+                                mr: 'auto',
+                            }}
+                        >
+                            <Typography
+                                variant="Roboto500XiLabel"
+                                sx={{
+                                    color: 'text.primary',
+                                    fontSize: 24
+                                }}
+                            >
+                                Для Учебных групп
+                            </Typography>
+                            <Typography
+                                textAlign={'left'}
+                                sx={{
+                                    color: 'text.secondary'
+                                }}
+                                variant="subtitle1"
+                            >
+                                Учиться вместе гораздо интереснее! Не так ли?)
+                            </Typography>
+                        </Stack>
+                        <ArrowForwardIcon sx={{ color: 'text.primary', ml: 'auto', mr: 1 }} fontSize="large" />
+                    </Stack>
+                </Button>
+                <Button
+                    onClick={() => handleNext(1)}
+                    sx={{
+                        width: '100%',
+                        height: 96,
+                        bgcolor: 'primary.main',
+                        '&:hover': {
+                            bgcolor: 'primary.main',
+                        },
+                        borderRadius: 8,
+                    }}
+                >
+                    <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        sx={{
+                            width: '100%'
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                width: 100,
+                                height: 100,
+                                ml: 1,
+                                mr: 1,
+                            }}
+                        >
+                            <Image
+                                alt="alt"
+                                src={"/app/Classroom.svg"}
+                                quality={100}
+                                width={100}
+                                height={100}
+                            />
+                        </Box>
+                        <Stack
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="flex-start"
+                            sx={{
+                                mr: 'auto',
+                            }}
+                        >
+                            <Typography
+                                variant="Roboto500XiLabel"
+                                sx={{
+                                    color: 'text.primary',
+                                    fontSize: 24
+                                }}
+                            >
+                                Для образовательных организаций
+                            </Typography>
+                            <Typography
+                                textAlign={'left'}
+                                sx={{
+                                    color: 'text.secondary'
+                                }}
+                                variant="subtitle1"
+                            >
+                                Технологии в сфере образования делают мир лучше
+                            </Typography>
+                        </Stack>
+                        <ArrowForwardIcon sx={{ color: 'text.primary', ml: 'auto', mr: 1 }} fontSize="large" />
+                    </Stack>
+                </Button>
                 <Stack
                     direction="row"
-                    justifyContent="flex-start"
+                    justifyContent="center"
                     alignItems="center"
-                    spacing={2}
+                    sx={{
+                        width: '100%',
+                        pt: 2,
+                    }}
                 >
-                    <Radio />
                     <Typography
-                        variant="subtitle1"
+                        textAlign={'center'}
+                        sx={{
+                            width: 400,
+                            color: 'text.secondary',
+                        }}
                     >
-                        Школа
+                        Выберите шаблон для вашей организаций, это поможет быстрее начать работать
                     </Typography>
                 </Stack>
             </Stack>
@@ -90,13 +327,37 @@ const CommunityFunctions = inject(
         return (
             <Stack
                 direction="column"
-                justifyContent="center"
+                justifyContent="flex-start"
                 alignItems="flex-start"
                 spacing={2}
             >
-                <Typography>
-                    В данной форме мы хотели бы спросить вас о платформе.
+                <Typography
+                    sx={{
+                        ml: 4
+                    }}
+                >
+                    Выберите функции, которые нужны вам
                 </Typography>
+                
+                <Stack
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                        width: '100%',
+                        pt: 2,
+                    }}
+                >
+                    <Typography
+                        textAlign={'center'}
+                        sx={{
+                            width: 400,
+                            color: 'text.secondary',
+                        }}
+                    >
+                        В дальнейшем этот набор функций можно будет изменить и подробнее настроить
+                    </Typography>
+                </Stack>
             </Stack>
         );
     })
@@ -198,60 +459,30 @@ const DialogCreateCommunity = inject(
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 fullWidth
+                maxWidth="md"
             >
                 <Stack
                     direction="row"
-                    justifyContent="flex-start"
+                    justifyContent="center"
                     alignItems="center"
-                    spacing={2}
+                    // spacing={2}
                     sx={{
                         height: 64,
                         width: '100%',
                         p: 1,
                     }}
                 >
-                    <Typography sx={{ mt: 2, ml: 2 }} variant="h5">
+                    <Typography sx={{ mt: 2, ml: 2, mr: 'auto' }} variant="h5">
                         Создание сообщества
                     </Typography>
+                    <IconButton sx={{ color: 'text.secondary', ml: 'auto', mt: 2, mr: 1 }} onClick={() => setOpenDialogCC(false)}>
+                        <CloseIcon />
+                    </IconButton>
                 </Stack>
                 <DialogContent>
-                    <Stepper activeStep={activeStep} orientation="vertical">
-                        {steps.map((step, index) => (
-                            <Step key={step.label}>
-                                <StepLabel>
-                                    {step.label}
-                                </StepLabel>
-                                <StepContent>
-                                    {activeStep === 0 && <CommunityType />}
-                                    <Box sx={{ mb: 2 }}>
-                                        <div>
-                                            <Button
-                                                variant="contained"
-                                                onClick={handleNext}
-                                                sx={{ mt: 1, mr: 1 }}
-                                            >
-                                                {index === steps.length - 1 ? 'Завершить' : 'Вперёд'}
-                                            </Button>
-                                            <Button
-                                                disabled={index === 0}
-                                                onClick={handleBack}
-                                                sx={{ mt: 1, mr: 1 }}
-                                            >
-                                                Назад
-                                            </Button>
-                                        </div>
-                                    </Box>
-                                </StepContent>
-                            </Step>
-                        ))}
-                    </Stepper>
+                    {activeStep === 0 && <CommunityType handleNext={handleNext} />}
+                    {activeStep === 1 && <CommunityFunctions handleNext={handleNext} />}
                 </DialogContent>
-                <DialogActions>
-                    <Button sx={{ color: 'text.main' }} onClick={() => setOpenDialogCC(false)}>Отмена</Button>
-                    <Button variant="contained" onClick={null} autoFocus>
-                        Создать
-                    </Button>
-                </DialogActions>
             </Dialog >
         );
     })
