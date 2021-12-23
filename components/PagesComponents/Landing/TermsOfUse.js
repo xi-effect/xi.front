@@ -7,30 +7,31 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import {IconButton} from "@mui/material";
+import {useState} from "react";
+import {useCopyToClipboard} from "react-use-copy-to-clipboard";
 
 
 
-const TermsOfUse = ({ handleClose, open }) => {
+const TermsOfUse = ({ handleClose, open}) => {
+
+    const [text, setText] = React.useState('');
+    const [state, copyToClipboard] = useCopyToClipboard();
+
+    const textLisence = "Cras mattis consectetur purus sit amet fermentum.\n" +
+        "Cras justo odio, dapibus ac facilisis in, egestas eget quam.\n" +
+        "Morbi leo risus, porta ac consectetur ac, vestibulum at eros.\n" +
+        "Praesent commodo cursus magna, vel scelerisque nisl consectetur et."
 
     return (
         <Dialog
             open={open}
             onClose={handleClose}
         >
-            <DialogTitle id="dialog-title"><IconButton><ContentCopyIcon/></IconButton>Subscribe</DialogTitle>
+            <DialogTitle id="dialog-title"><IconButton type="button" onClick={() => copyToClipboard(text)}><ContentCopyIcon/></IconButton>Subscribe</DialogTitle>
             <DialogContent dividers={'paper'}>
-                <DialogContentText
 
-                    tabIndex={-1}
-                >
-                    {[...new Array(50)]
-                        .map(
-                            () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
-                        )
-                        .join('\n')}
+                <DialogContentText value={text} onChange={e => setText(e.target.value)}>
+                    {textLisence}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -40,4 +41,5 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
         </Dialog>
     );
 }
+
 export default TermsOfUse
