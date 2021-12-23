@@ -11,83 +11,13 @@ import {
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
-import Text from "./Components/Text";
-import AlertComp from "./Components/AlertComp";
-import Header from "./Components/Header";
-import DividerComp from "./Components/DividerComp";
-import ImageComp from "./Components/ImageComp";
-import Quiz from "./Components/Quiz";
-import Markdown from "./Components/Markdown";
-import List from "./Components/List";
-import NumberAnswer from "./Components/NumberAnswer";
-import Code from "./Components/Code";
+
+import ComponentsSelect from './Components/ComponentsSelect'
+
 
 const PageCompList = inject("knowledgeStore")(
   observer(({ knowledgeStore }) => {
-    const theme = useTheme();
 
-    const componentsSelect = (value, index) => {
-      if (value.type === "h")
-        return (
-          <>
-            <Header value={value} index={index} />
-          </>
-        );
-      if (value.type === "text")
-        return (
-          <>
-            <Text value={value} index={index} />
-          </>
-        );
-      if (value.type === "divider")
-        return (
-          <>
-            <DividerComp value={value} index={index} />
-          </>
-        );
-      if (value.type === "alert")
-        return (
-          <>
-            <AlertComp value={value} index={index} />
-          </>
-        );
-      if (value.type === "quiz")
-        return (
-          <>
-            <Quiz value={value} index={index} />
-          </>
-        );
-      if (value.type === "img")
-        return (
-          <>
-            <ImageComp value={value} index={index} />
-          </>
-        );
-      if (value.type === "markdown")
-        return (
-          <>
-            <Markdown value={value} index={index} />
-          </>
-        );
-      if (value.type === "list")
-        return (
-          <>
-            <List value={value} index={index} />
-          </>
-        );
-      if (value.type === "numanswer")
-        return (
-          <>
-            <NumberAnswer value={value} index={index} />
-          </>
-        );
-      if (value.type === "code")
-        return (
-          <>
-            <Code value={value} index={index} />
-          </>
-        );
-    };
 
     return (
       <Stack
@@ -115,7 +45,7 @@ const PageCompList = inject("knowledgeStore")(
               }}
               key={index}
             >
-              {componentsSelect(value, index)}
+              <ComponentsSelect value={value} index={index} />
             </Box>
           ))}
         {knowledgeStore.page.loading &&

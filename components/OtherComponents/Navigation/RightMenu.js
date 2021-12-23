@@ -26,6 +26,7 @@ import HomeNotifications from "./RightMenu/HomeNotifications";
 
 import { motion, AnimatePresence } from "framer-motion"
 import ReportDialog from "./RightMenu/ReportDialog";
+import InfoDialog from "./RightMenu/InfoDialog";
 
 
 
@@ -109,6 +110,7 @@ const RightMenu = inject(
 
     const [open, setOpen] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
+    const [openDialogInfo, setOpenDialogInfo] = React.useState(false);
 
 
     return (
@@ -166,7 +168,7 @@ const RightMenu = inject(
                 }}
               >
                 <Box
-                  sx={{ height: 64, width: 64, m: 1, mt: "-2px", mr: 1, cursor: 'pointer' }}
+                  sx={{ height: 64, width: 64, m: 1, mt: "-2px", mr: 0, cursor: 'pointer' }}
                 >
                   <CustomAvatar avatar={{ ...settingsStore.settings.avatar, bgcolor: 'rgba(0,0,0,0)' }} viewBox={{ x: '50', y: '-110', width: '690', height: '790' }} reverse={true} />
                 </Box>
@@ -174,16 +176,17 @@ const RightMenu = inject(
                   direction="column"
                   justifyContent="center"
                   alignItems="flex-start"
-                  spacing={0}
                   sx={{
-                    pt: 1
+                    pt: 1,
+                    width: 'calc(100% - 80px)'
                   }}
                 >
-                  <Typography variant="h6" sx={{ mt: 0, ml: 0, mr: 0 }}>
+                  <Typography variant="h6" sx={{ mt: 0, ml: 0, mr: 0, width: 'calc(100% - 0px)' }} noWrap>
                     {settingsStore.settings.username}
+                    {/* asfbdvasbfdafbdafbdab */}
                   </Typography>
-                  <Typography variant="subtitle1" sx={{ mt: 0, ml: 0, mr: 0 }}>
-                    {'Иванов Иван'}
+                  <Typography variant="subtitle1" sx={{ mt: 0, ml: 0, mr: 0, width: 'calc(100% - 0px)' }}>
+                    {`${settingsStore.settings.username} ${settingsStore.settings.username}`}
                   </Typography>
                 </Stack>
               </Stack>
@@ -264,8 +267,8 @@ const RightMenu = inject(
               spacing={1}
               sx={{ mt: 'auto', pb: 2 }}
             >
-              {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools goNext={goNext} />}
-              {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools />}
+              {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools goNext={goNext} setOpenDialog={setOpenDialogInfo} />}
+              {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools setOpenDialog={setOpenDialogInfo} />}
               {router.pathname === '/knowledge/pages' && <KnowledgePagesTools />}
               {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools />}
               {router.pathname.includes('/knowledge/createpage') && <KnowledgeСreatePage />}
@@ -276,6 +279,8 @@ const RightMenu = inject(
           {/* {router.pathname.includes('/knowledge/createmodule') && <KnowledgeСreateModule />} */}
 
           <ReportDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
+          <InfoDialog openDialog={openDialogInfo} setOpenDialog={setOpenDialogInfo} />
+
         </Stack >
       </Paper >
     );

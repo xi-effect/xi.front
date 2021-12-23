@@ -53,11 +53,11 @@ const PassResetEmail = inject('rootStore', 'uiStore', 'authorizationStore')(obse
             >
                 <Box
                     sx={{
-                    position: "fixed",
-                    height: "100vh",
-                    width: "100vw",
-                    overflow: "hidden",
-                    zIndex: "-1",
+                        position: "fixed",
+                        height: "100vh",
+                        width: "100vw",
+                        overflow: "hidden",
+                        zIndex: "-1",
                     }}
                 >
                     <Image
@@ -66,7 +66,7 @@ const PassResetEmail = inject('rootStore', 'uiStore', 'authorizationStore')(obse
                         layout="fill"
                         objectFit="cover"
                         quality={100}
-                        // onLoadingComplete={() => setLoading(false)}
+                    // onLoadingComplete={() => setLoading(false)}
                     />
                 </Box>
                 <Stack
@@ -87,7 +87,7 @@ const PassResetEmail = inject('rootStore', 'uiStore', 'authorizationStore')(obse
                 <Box
                     component="form"
                     // bgcolor: 'rgba(1, 1, 1, 0.4)',
-                    sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20,  maxWidth: 512 }}
+                    sx={{ zIndex: 2, p: 1, borderRadius: 16, width: "100%", mt: -20, maxWidth: 512 }}
                     onSubmit={handleSubmit(onSubmit)}
                 >
                     <Stack
@@ -132,8 +132,8 @@ const PassResetEmail = inject('rootStore', 'uiStore', 'authorizationStore')(obse
                                         </InputAdornment>
                                     }
                                 />
-                                {errors?.email?.message === "email is a required field" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Обязательное поле </Typography>}
-                                {errors?.email?.message === "email must be a valid email" && <Typography varinat="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Ошибка валидации </Typography>}
+                                {errors?.email?.message === "email is a required field" && <Typography variant="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Обязательное поле </Typography>}
+                                {errors?.email?.message === "email must be a valid email" && <Typography variant="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Ошибка валидации </Typography>}
                                 <Link
                                     sx={{ color: 'text.main', m: 1, cursor: 'pointer' }}
                                     onClick={() => {
@@ -149,20 +149,20 @@ const PassResetEmail = inject('rootStore', 'uiStore', 'authorizationStore')(obse
                         />
                         {authorizationStore.passwordReset.errorEmailNotFounedReset && <Typography variant="subtitle1" > Пользователя с таким адресом электронной почты не существует</Typography>}
                         {!authorizationStore.passwordReset.emailResetOk &&
-                         <Button
-                            variant="outlined"
-                            size="large"
-                            type="submit"
-                            sx={{
-                            mt: 4,
-                            color: "text.main",
-                            bgcolor: "background.main",
-                            border: `2px solid ${theme.palette.text.dark}`,
-                            "&:hover": { border: `2px solid ${theme.palette.text.dark}` },
-                            }}
-                        >
-                            Отправить письмо
-                        </Button>}
+                            <Button
+                                variant="outlined"
+                                size="large"
+                                type="submit"
+                                sx={{
+                                    mt: 4,
+                                    color: "text.main",
+                                    bgcolor: "background.main",
+                                    border: `2px solid ${theme.palette.text.dark}`,
+                                    "&:hover": { border: `2px solid ${theme.palette.text.dark}` },
+                                }}
+                            >
+                                Отправить письмо
+                            </Button>}
                         {authorizationStore.passwordReset.emailResetOk && <Typography variant="subtitle1"> Письмо отправлено. С этой страницы можно безопасно уходить  </Typography>}
                     </Stack>
                 </Box>

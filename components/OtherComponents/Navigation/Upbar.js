@@ -257,12 +257,16 @@ const Upbar = inject(
             </Typography>
           </Stack>
         </Stack>
-        <Box>
+        <Stack
+          direction="row"
+          sx={{
+            // width: '100%',
+          }}>
           {router.pathname === '/knowledge/pages' && <KnowledgePagesTools />}
           {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools />}
           {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools />}
           {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools />}
-        </Box>
+        </Stack>
         <Box>
           {mobile && <IconButton onClick={() => {
             if (swipe === 'left') setSwipe('swipe', 'center')

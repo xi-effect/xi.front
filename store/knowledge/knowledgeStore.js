@@ -186,6 +186,7 @@ class KnowledgeStore {
       .fetchDataScr(`${this.rootStore.url}/pages/${id}/`, "GET")
       .then((data) => {
         console.log("meta", data);
+        if (data.a === 'Page not found') return this.setPageData("loading", true)
         this.setPage(data);
         this.setPageData("authorId", data["author-id"]);
         this.setPageData("authorName", data["author-name"]);

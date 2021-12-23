@@ -25,6 +25,7 @@ import { visuallyHidden } from '@mui/utils';
 import { inject, observer } from 'mobx-react'
 import EditIcon from '@mui/icons-material/Edit';
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -147,6 +148,7 @@ EnhancedTableHead.propTypes = {
 
 const EnhancedTableToolbar = (props) => {
     const { managmentStore, rows, selected, numSelected, deletePages } = props;
+    const router = useRouter();
 
     return (
         <Toolbar
@@ -180,7 +182,10 @@ const EnhancedTableToolbar = (props) => {
             )}
             {numSelected === 1 &&
                 <Tooltip title="Редактировать">
-                    <IconButton onClick={() => managmentStore.changeOldPageList(rows[selected[0]].id)}>
+                    <IconButton onClick={() => {
+                        managmentStore.changeOldPageList(rows[selected[0]].id)
+                        router.push(`/knowledge/createpage`)
+                    }}>
                         <EditIcon />
                     </IconButton>
                 </Tooltip>}

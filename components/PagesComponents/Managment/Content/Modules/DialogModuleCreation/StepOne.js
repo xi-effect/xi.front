@@ -23,7 +23,7 @@ const StepOne = inject('managmentStore')(observer(({ managmentStore }) => {
             }}
         >
             <Typography variant="Roboto500XiLabel" sx={{ cursor: 'default', fontSize: 20 }}> Шаг 1. Основная информация</Typography>
-            <Typography varinat="h6" sx={{ cursor: 'default' }}> Заполните основную информацию о вашем новом модуле</Typography>
+            <Typography variant="h6" sx={{ cursor: 'default' }}> Заполните основную информацию о вашем новом модуле</Typography>
             <FormControl sx={{
                 width: "calc(100% - 64px)",
                 color: 'text.main',

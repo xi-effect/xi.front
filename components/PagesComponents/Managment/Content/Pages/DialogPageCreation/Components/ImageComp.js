@@ -5,132 +5,14 @@ import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import ClearIcon from '@mui/icons-material/Clear';
 import { inject, observer } from 'mobx-react'
 import Image from 'next/image'
-import { Dialog, DialogContent, Input, Slider, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
-
+import { Dialog, DialogContent, Stack, Input, Slider, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
 
 import CloseIcon from '@mui/icons-material/Close';
-import AvatarEditor from 'react-avatar-editor'
 
 import clsx from 'clsx';
 import QueueIcon from '@mui/icons-material/Queue';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
-const PREFIX = 'ImageComp';
-
-const classes = {
-    button: `${PREFIX}-button`,
-    mobileStepper: `${PREFIX}-mobileStepper`,
-    icon: `${PREFIX}-icon`,
-    mainLabel: `${PREFIX}-mainLabel`,
-    listMainLabel: `${PREFIX}-listMainLabel`,
-    gridListItem: `${PREFIX}-gridListItem`,
-    divider: `${PREFIX}-divider`,
-    EditIcon: `${PREFIX}-EditIcon`,
-    DeleteForeverIcon: `${PREFIX}-DeleteForeverIcon`,
-    loadMoreButton: `${PREFIX}-loadMoreButton`,
-    dialogTitle: `${PREFIX}-dialogTitle`,
-    dialogContent: `${PREFIX}-dialogContent`,
-    dialogContentText: `${PREFIX}-dialogContentText`,
-    dialogActions: `${PREFIX}-dialogActions`,
-    gridDialogAv: `${PREFIX}-gridDialogAv`,
-    uploadButton: `${PREFIX}-uploadButton`,
-    Button: `${PREFIX}-Button`
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.button}`]: {
-        marginLeft: 4,
-        marginRight: 4,
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.mobileStepper}`]: {
-        width: "100%",
-        backgroundColor: theme => theme.palette.blueGrey["5"],
-    },
-
-    [`& .${classes.icon}`]: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.mainLabel}`]: {
-        fontSize: 20,
-        marginLeft: 8,
-    },
-
-    [`& .${classes.listMainLabel}`]: {
-        cursor: 'default',
-    },
-
-    [`& .${classes.gridListItem}`]: {
-        paddingTop: 12,
-        paddingLeft: 0,
-        paddingRight: 0,
-        paddingBottom: 4,
-        // borderRadius: 8,
-        // border: `${theme.main.palette.content.border} solid 2px`,
-        // '&:hover': {
-        //     border: `${theme.main.palette.content.border} solid 2px`,
-        // },
-    },
-
-    [`& .${classes.divider}`]: {
-        marginTop: '-4px',
-        color: theme => theme.palette.primary.dark,
-        width: '100%',
-        height: '2px',
-    },
-
-    [`& .${classes.EditIcon}`]: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.DeleteForeverIcon}`]: {
-        color: theme => theme.palette.primary.contrastText,
-
-    },
-
-    [`& .${classes.loadMoreButton}`]: {
-        borderRadius: '16px'
-    },
-
-    [`& .${classes.dialogTitle}`]: {
-        padding: 8,
-        backgroundColor: theme => theme.palette.blueGrey["6"],
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.dialogContent}`]: {
-        backgroundColor: theme => theme.palette.blueGrey["6"],
-    },
-
-    [`& .${classes.dialogContentText}`]: {
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.dialogActions}`]: {
-        backgroundColor: theme => theme.palette.blueGrey["6"],
-    },
-
-    [`& .${classes.gridDialogAv}`]: {
-        height: '100%',
-        padding: 16,
-        //width: "550px",
-    },
-
-    [`& .${classes.uploadButton}`]: {
-        marginTop: 8,
-    },
-
-    [`& .${classes.Button}`]: {
-        color: theme => theme.palette.primary.contrastText,
-    }
-}));
+import { useDropzone } from 'react-dropzone';
 
 const DialogImgSelect = inject('managmentStore')(observer(({ managmentStore, saveNewAvatar, files, selectFiles, setEditorRef, uploadImg, openDialog, setOpenDialog }) => {
     // Simulated props for the purpose of the example
@@ -158,28 +40,26 @@ const DialogImgSelect = inject('managmentStore')(observer(({ managmentStore, sav
                 direction="row"
                 justifyContent="space-between"
                 alignItems="center"
-                className={classes.dialogTitle}
             >
                 <Grid>
-                    <Typography className={classes.mainLabel}> Загрузка Изображения </Typography>
+                    <Typography> Загрузка Изображения </Typography>
                 </Grid>
                 <Grid>
                     <Tooltip title="Закрыть">
                         <IconButton onClick={() => setOpenDialog(false)} size="large">
-                            <CloseIcon className={classes.icon} />
+                            <CloseIcon />
                         </IconButton>
                     </Tooltip>
                 </Grid>
 
             </Grid>
             {/* </DialogTitle> */}
-            <DialogContent className={classes.dialogContent} dividers={true}>
+            <DialogContent dividers={true}>
                 <Grid
                     container
                     direction="column"
                     justifyContent="flex-start"
                     alignItems="center"
-                    className={classes.gridDialogAv}
                 >
 
                     <Grid
@@ -215,13 +95,12 @@ const DialogImgSelect = inject('managmentStore')(observer(({ managmentStore, sav
                                 saveNewAvatar()
                             }
                             }
-                            className={classes.uploadButton}
                             variant="contained"
                             color="primary"
                         >
                             Загрузить изображение
                         </Button>
-                        <Typography className={classes.changeLabel}> Изменить масштаб изображения </Typography>
+                        <Typography> Изменить масштаб изображения </Typography>
 
                     </Grid>
                     <Grid
@@ -231,7 +110,6 @@ const DialogImgSelect = inject('managmentStore')(observer(({ managmentStore, sav
                         alignItems="center"
                     >
                         <Slider
-                            className={classes.slider}
                             value={value}
                             min={10}
                             max={30}
@@ -241,20 +119,9 @@ const DialogImgSelect = inject('managmentStore')(observer(({ managmentStore, sav
                         />
                     </Grid>
                 </Grid>
-                {
-                    // store.hiddenCourses.length != 0 && !store.allHiddenCoursesLoad && <Grid
-                    //     container
-                    //     direction="row"
-                    //     justifyContent="center"
-                    //     alignItems="center"
-                    // >
-                    //     <Button variant="contained" onClick={() => loadMore()} className={classes.loadMoreButton}> Загрузить ещё </Button>
-                    // </Grid>
-
-                }
             </DialogContent>
-            <DialogActions className={classes.dialogActions}>
-                <Button onClick={uploadImg} className={classes.Button}>
+            <DialogActions>
+                <Button onClick={uploadImg}>
                     Сохранить
                 </Button>
             </DialogActions>
@@ -269,40 +136,25 @@ const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managme
     //const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
 
     //console.log("props", props)
-    let props = {}
-    const theme = useTheme();
 
-
-    const [openDialog, setOpenDialog] = React.useState(false)
-
-    React.useEffect(() => {
-        if (values.authorId && values.imageId) {
-            contentStore.loadImgFromServer(values.authorId, values.imageId)
-        }
-    }, [])
-
-    const [files, selectFiles] = useFileUpload();
-    const setEditorRef = React.useRef(null);
-    const [img, setImg] = React.useState(null)
-
-    const saveNewAvatar = () => {
-        const canvas = setEditorRef.current.getImage()
-        const imgL = canvas.toDataURL()
-        setImg(imgL)
-        //contentStore.setImage(authorId, imageId, imgL)
-        //console.log("img", store.nowEditModule.img)
-    }
-
-    const uploadImg = () => {
-        if (img != null) {
-            rootStore.fetchDataScr(`${rootStore.url}/wip/images/`, "POST", img).then(
+    const onDrop = React.useCallback((acceptedFile) => {
+        if (values.imageId === null) {
+            rootStore.fetchDataScr(`${rootStore.url}/wip/images/`, "POST", acceptedFile).then(
                 (data) => {
                     if (data) {
                         console.log("done", data)
-                        contentStore.setImage(data.authorId, data.imageId, img)
-                        managmentStore.setPageCreationComponents(index, "author-id", data.authorId)
-                        managmentStore.setPageCreationComponents(index, "image-id", data.imageId)
-                        setOpenDialog(false)
+                        managmentStore.setPageCreationComponents(index, "authorId", data["author-id"])
+                        managmentStore.setPageCreationComponents(index, "imageId", data["image-id"])
+                    } else {
+                        console.log("fail", data)
+                    }
+
+                })
+        } else if (values.imageId != null) {
+            rootStore.fetchDataScr(`${rootStore.url}/wip/images/${values.imageId}/`, "PUT", acceptedFile).then(
+                (data) => {
+                    if (data) {
+                        console.log("done", data)
 
                     } else {
                         console.log("fail", data)
@@ -310,19 +162,13 @@ const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managme
 
                 })
         }
-    }
 
-    const [open, setOpen] = React.useState(false);
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleOpen = () => {
-        setOpen(true);
-    };
+    }, [])
+    const [openDialog, setOpenDialog] = React.useState(false)
+    const { acceptedFiles, getRootProps, getInputProps } = useDropzone({ onDrop, multiple: false });
 
     return (
-        <Root>
+        <>
             <Grid
                 container
                 direction="row"
@@ -334,27 +180,40 @@ const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managme
                     container
                     direction="row"
                     justifyContent="center"
-                    // alignItems="center"
-                    className={classes.gridTextWrapper}
+                // alignItems="center"
                 >
-                    {values.authorId != null && values.imageId != null &&
-                        <div className={classes.imgWrapper}>
-                            <Image
-                                width={960}
-                                height={540}
-                                //objectFit="contain"
-                                layout='responsive'
-                                src={contentStore.images[`${values.authorId}-${values.imageId}`]}
-                                alt="Picture of the author"
-                            />
-                        </div>
-                    }
+
+                    {values.authorId && values.imageId && <Image
+                        alt="alt"
+                        src={`https://xieffect.pythonanywhere.com/wip/images/${values.imageId}/`}
+                        // layout='fill'
+                        quality={100}
+                        width={1920}
+                        height={1080}
+                    />}
+                    <Stack
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={2}
+                        sx={{
+                            width: '100%',
+                            minHeight: 200,
+                            border: '2px dashed #fafafa',
+                            borderRadius: 4,
+                        }}
+                        {...getRootProps()}
+                    >
+                        <input {...getInputProps()} />
+                        <Typography sx={{
+                            p: 2,
+                        }}> Перетащите изображение или нажмите, чтобы выбрать на своём компьютере </Typography>
+                    </Stack>
                 </Grid>
-                <Divider className={classes.divider} />
+                <Divider />
                 <Grid
                     container
                     direction="row"
-                    className={classes.gridButtons}
                 >
                     {/* <SpeedDial
                         ariaLabel="SpeedDial tooltip example"
@@ -386,9 +245,6 @@ const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managme
                         />
 
                     </SpeedDial> */}
-                    <Button size="small" variant="contained" color="primary" onClick={() => setOpenDialog(true)}>
-                        Загрузить изборажение
-                    </Button>
                     {/* <Tooltip title="Дублировать блок">
                         <IconButton className={classes.leftIconButton} onClick={() => managmentStore.duplicateComponent(index)}>
                             <QueueIcon className={classes.icon} />
@@ -396,21 +252,36 @@ const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managme
                     </Tooltip> */}
                     <Tooltip title="Удалить блок">
                         <IconButton
-                            className={classes.leftIconButton}
-                            onClick={() => managmentStore.deleteComponent(index)}
-                            size="large">
-                            <DeleteForeverIcon className={classes.icon} />
+                            onClick={() => {
+                                if (values.imageId) {
+                                    rootStore.fetchDataScr(`${rootStore.url}/wip/images/${values.imageId}/`, "DELETE").then(
+                                        (data) => {
+                                            if (data) {
+                                                console.log("done", data)
+                                            } else {
+                                                console.log("fail", data)
+                                            }
+                                        })
+                                }
+                                managmentStore.deleteComponent(index)
+                            }}
+                            size="large"
+                            sx={{
+                                ml: 'auto'
+                            }}
+                        >
+                            <DeleteForeverIcon />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Перетащить блок">
                         <IconButton size="large">
-                            <DragIndicatorIcon className={classes.icon} />
+                            <DragIndicatorIcon />
                         </IconButton>
                     </Tooltip>
                 </Grid>
             </Grid>
-            <DialogImgSelect saveNewAvatar={saveNewAvatar} files={files} selectFiles={selectFiles} setEditorRef={setEditorRef} uploadImg={uploadImg} openDialog={openDialog} setOpenDialog={setOpenDialog} />
-        </Root>
+            {/* <DialogImgSelect saveNewAvatar={saveNewAvatar} files={files} selectFiles={selectFiles} setEditorRef={setEditorRef} uploadImg={uploadImg} openDialog={openDialog} setOpenDialog={setOpenDialog} /> */}
+        </>
     );
 }));
 

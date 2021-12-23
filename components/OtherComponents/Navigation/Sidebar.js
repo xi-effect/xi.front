@@ -21,6 +21,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
 import { motion } from "framer-motion";
+import DialogCreateCommunity from "./DialogCreateCommunity";
 
 const Sidebar = inject(
   "rootStore",
@@ -38,7 +39,7 @@ const Sidebar = inject(
       setHoverLeftName,
     }) => {
       const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
+      const [openDialogCC, setOpenDialogCC] = React.useState(false)
       const theme = useTheme();
       const router = useRouter();
       // console.log("rerenderSidebar")
@@ -101,6 +102,7 @@ const Sidebar = inject(
                     router.push(`${item.href}/pages`);
                   }
                   else if (item.href === "createcommunity") {
+                    setOpenDialogCC(true)
                     enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
                       variant: 'info',
                     })
@@ -119,6 +121,7 @@ const Sidebar = inject(
               </IconButton>
             </Tooltip>
           ))}
+          <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC}/>
         </Stack >
       );
     }

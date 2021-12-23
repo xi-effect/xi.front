@@ -26,7 +26,7 @@ const KnowledgeСreateModule = inject(
                         width: 142,
                         alignItems: 'space-between',
                     }}
-                    onClick={null} size="large"
+                    onClick={() => managmentStore.saveModule()} size="large"
                 >
                     Сохранить <SaveAltIcon sx={{ ml: 'auto', mr: 0 }} />
                 </Button>

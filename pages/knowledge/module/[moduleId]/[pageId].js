@@ -40,6 +40,7 @@ const ModuleId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kn
                     sx={{
                         width: '100%',
                         zIndex: 1,
+                        pb: 10,
                     }}
                     direction="column"
                     justifyContent="flex-start"

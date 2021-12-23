@@ -54,9 +54,9 @@ const KnowledgeСreateModuleMap = inject(
                                                     zIndex: 100,
                                                     width: '100%',
                                                     cursor: 'default',
-                                                    bgcolor: 'primary.main',
+                                                    // bgcolor: 'primary.dark',
                                                     "&:hover": {
-                                                        bgcolor: 'primary.light',
+                                                        bgcolor: 'primary.main',
                                                     }
                                                 }}
                                                 ref={provided.innerRef}

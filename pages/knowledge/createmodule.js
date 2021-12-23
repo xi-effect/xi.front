@@ -11,11 +11,27 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import StepOne from '../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation/StepOne';
 import StepTwo from '../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation/StepTwo';
 import StepThree from '../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation/StepThree';
+import { useUnmount } from 'react-use';
+import { useSnackbar } from 'notistack';
 
+const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
 
+    return result;
+};
 
 const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(observer(({ knowledgeStore, managmentStore, uiStore }) => {
-    const theme = useTheme();
+
+    useUnmount(() => {
+        if (managmentStore.moduleCreation.id) {
+            managmentStore.saveModule(true)
+            enqueueSnackbar('Модуль сохранен', {
+                variant: 'success',
+            })
+        }
+    });
 
     React.useEffect(() => {
         console.log("Createmodule")
@@ -30,7 +46,7 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
         }
 
         if (result.source.droppableId === 'list-pages') {
-            let newArray = managmentStore.moduleCreation.points[result.destination.droppableId.slice(5)].pages
+            let newArray = [...managmentStore.moduleCreation.points[result.destination.droppableId.slice(5)].pages]
             let newPage = {}
             newPage.id = managmentStore.pageCreationList.pages[result.source.index].id
             newPage.name = managmentStore.pageCreationList.pages[result.source.index].name
@@ -41,13 +57,10 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
 
         }
 
-
-        //
-
         //Перетаскивание в рамках одной точки
         if (result.destination.droppableId === result.source.droppableId) {
             const quotes = reorder(
-                managmentStore.moduleCreation.points[result.destination.droppableId.slice(5)].pages,
+                [...managmentStore.moduleCreation.points[result.destination.droppableId.slice(5)].pages],
                 result.source.index,
                 result.destination.index
             );
@@ -59,7 +72,7 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
 
         //Перетаскивание между точками 
         if (result.source.droppableId != 'list-pages' && result.destination.droppableId != result.source.droppableId) {
-            let newArray = managmentStore.moduleCreation.points[Number(result.destination.droppableId.slice(5))].pages
+            let newArray = [...managmentStore.moduleCreation.points[Number(result.destination.droppableId.slice(5))].pages]
             let newPage = managmentStore.moduleCreation.points[Number(result.source.droppableId.slice(5))].pages[result.source.index]
             newArray.splice(result.destination.index, 0, newPage)
             managmentStore.setModuleCreationPoints(Number(result.destination.droppableId.slice(5)), "pages", newArray)
@@ -75,23 +88,23 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
 
     }
 
-    const onBeforeCapture = () => {
-        console.log("onBeforeCapture")
-    };
+    // const onBeforeCapture = () => {
+    //     console.log("onBeforeCapture")
+    // };
 
-    const onBeforeDragStart = () => {
-        console.log("onBeforeDragStart")
-        /*...*/
-    };
+    // const onBeforeDragStart = () => {
+    //     console.log("onBeforeDragStart")
+    //     /*...*/
+    // };
 
-    const onDragStart = () => {
-        console.log("onDragStart")
-        /*...*/
-    };
-    const onDragUpdate = () => {
-        console.log("onDragUpdate")
-        /*...*/
-    };
+    // const onDragStart = () => {
+    //     console.log("onDragStart")
+    //     /*...*/
+    // };
+    // const onDragUpdate = () => {
+    //     console.log("onDragUpdate")
+    //     /*...*/
+    // };
 
     return (
         <>
@@ -110,10 +123,10 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
                 }}
             >
                 <DragDropContext
-                    onBeforeCapture={onBeforeCapture}
-                    onBeforeDragStart={onBeforeDragStart}
-                    onDragStart={onDragStart}
-                    onDragUpdate={onDragUpdate}
+                    // onBeforeCapture={onBeforeCapture}
+                    // onBeforeDragStart={onBeforeDragStart}
+                    // onDragStart={onDragStart}
+                    // onDragUpdate={onDragUpdate}
                     onDragEnd={onDragEnd}
                 >
                     <NavigationAll haveRightToolbar>

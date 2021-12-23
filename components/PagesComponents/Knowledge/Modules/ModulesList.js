@@ -397,16 +397,16 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
               </Tooltip>
               <Button
                 component={motion.button}
-                animate={{ width: hover === index ? 232 : 36 }}
+                animate={{ width: hover === index ? 232 : 48 }}
                 transition={{ delay: 0.4, duration: 0.4, }}
                 onMouseEnter={() => setHover(index)}
                 onMouseLeave={() => setHover(null)}
                 onClick={() => router.push(`/knowledge/module/${module.id}/start`)}
                 sx={{
                   '&.MuiButtonBase-root': {
-                    height: 36,
-                    width: 36,
-                    minWidth: 36,
+                    height: 48,
+                    width: 48,
+                    minWidth: 48,
                   },
                   position: 'absolute',
                   color: 'text.primary',
@@ -448,7 +448,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                       >
                         Перейти к модулю
                       </Typography>
-                      <ArrowForwardIcon />
+                      <ArrowForwardIcon fontSize="large"/>
                     </Stack>
                   }
                   {!(hover === index) &&
@@ -461,7 +461,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.6, }}
                     >
-                      <ArrowForwardIcon />
+                      <ArrowForwardIcon fontSize="large"/>
                     </Stack>}
                 </AnimatePresence>
               </Button>

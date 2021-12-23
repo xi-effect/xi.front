@@ -290,7 +290,7 @@ const Code = inject('managmentStore')(observer(({ managmentStore, index }) => {
                             onChange={(event) => managmentStore.setPageCreationComponents(index, "lang", event.target.value)}
                         >
                             {languages.map((item, index) => (
-                                <MenuItem sx={{ color: 'text.main' }} value={index}> {item} </MenuItem>
+                                <MenuItem sx={{ color: 'text.main' }} key={index.toString()} value={index}> {item} </MenuItem>
                             ))}
                         </Select>
                     </FormControl>
