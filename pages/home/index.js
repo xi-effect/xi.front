@@ -40,6 +40,7 @@ const Home = inject('rootStore')(observer(({ rootStore }) => {
               pt: 1,
               ml: 0,
               mr: 0,
+              pb: 10,
               position: 'relative',
               overflow: 'hidden',
             }}

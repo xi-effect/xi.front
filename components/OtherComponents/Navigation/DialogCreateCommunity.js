@@ -3,10 +3,11 @@ import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 import { motion, AnimatePresence } from "framer-motion"
-import { Box, Button, Dialog, Step, Stepper, Radio, StepLabel, StepContent, FormControl, InputLabel, Input, InputBase, MenuItem, Select, DialogTitle, DialogContent, DialogActions, Link, useTheme, IconButton, Tooltip, Drawer, Stack, Typography, Container } from "@mui/material";
+import { Box, Button, Dialog, Step, Checkbox, Stepper, Radio, StepLabel, StepContent, FormControl, InputLabel, Input, InputBase, MenuItem, Select, DialogTitle, DialogContent, DialogActions, Link, useTheme, IconButton, Tooltip, Drawer, Stack, Typography, Container } from "@mui/material";
 import Image from "next/image";
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import UndoIcon from '@mui/icons-material/Undo';
 
 const CommunityType = inject(
     "rootStore",
@@ -23,11 +24,12 @@ const CommunityType = inject(
                 spacing={2}
             >
                 <Typography
+                    textAlign={'center'}
                     sx={{
                         ml: 4
                     }}
                 >
-                    Сообщество - место, где вы ... ... ... ... ... ... ... ... ... ...
+                    Сообщество - место, где вы можете безопасно учить и учиться, используя цифровые технологии в процессе образования
                 </Typography>
                 <Button
                     onClick={() => handleNext(1)}
@@ -309,7 +311,7 @@ const CommunityType = inject(
                             color: 'text.secondary',
                         }}
                     >
-                        Выберите шаблон для вашей организаций, это поможет быстрее начать работать
+                        Выберите шаблон для вашей организаций, это поможет быстрее начать учёбу
                     </Typography>
                 </Stack>
             </Stack>
@@ -317,12 +319,13 @@ const CommunityType = inject(
     })
 );
 
-const CommunityFunctions = inject(
+
+const CommunityName = inject(
     "rootStore",
     "knowledgeStore",
     "uiStore",
 )(
-    observer(({ rootStore, knowledgeStore, }) => {
+    observer(({ rootStore, knowledgeStore, uiStore }) => {
 
         return (
             <Stack
@@ -332,11 +335,12 @@ const CommunityFunctions = inject(
                 spacing={2}
             >
                 <Typography
+                    textAlign={'center'}
                     sx={{
                         ml: 4
                     }}
                 >
-                    Выберите функции, которые нужны вам
+                    Сообщество - место, где вы можете безопасно учить и учиться, используя цифровые технологии в процессе образования
                 </Typography>
                 
                 <Stack
@@ -355,67 +359,9 @@ const CommunityFunctions = inject(
                             color: 'text.secondary',
                         }}
                     >
-                        В дальнейшем этот набор функций можно будет изменить и подробнее настроить
+                        Выберите шаблон для вашей организаций, это поможет быстрее начать учёбу
                     </Typography>
                 </Stack>
-            </Stack>
-        );
-    })
-);
-
-const CommunityName = inject(
-    "rootStore",
-    "knowledgeStore",
-    "uiStore",
-)(
-    observer(({ rootStore, knowledgeStore, uiStore }) => {
-
-        return (
-            <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="flex-start"
-                spacing={2}
-            >
-                <Typography>
-                    Здесь вы можете рассказать о технической ошибке.
-                </Typography>
-                <Input
-                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                    type='text'
-                    value={uiStore.reportData.errorDescription ?? ''}
-                    onChange={(e) => uiStore.setReportData("errorDescription", e.target.value)}
-                    multiline
-                    maxRows={5}
-                    placeholder="Опишите ошибку"
-                />
-                <Input
-                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                    type='text'
-                    value={uiStore.reportData.sitePart ?? ''}
-                    onChange={(e) => uiStore.setReportData("sitePart", e.target.value)}
-                    multiline
-                    maxRows={5}
-                    placeholder="Укажите, в какой части сайта она произошла. Можно, скопировать url-адрес в это поле"
-                />
-                <Input
-                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                    type='text'
-                    value={uiStore.reportData.errorRepeat ?? ''}
-                    onChange={(e) => uiStore.setReportData("errorRepeat", e.target.value)}
-                    multiline
-                    maxRows={5}
-                    placeholder="Расскажите о том, как появилась ошибка - что вы делали перед тем, как появилась ошибка или как её воспроизвести"
-                />
-                <Input
-                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                    type='text'
-                    value={uiStore.reportData.deviceInfo ?? ''}
-                    onChange={(e) => uiStore.setReportData("deviceInfo", e.target.value)}
-                    multiline
-                    maxRows={5}
-                    placeholder="С какого устройства вы пользуетесь порталом? Также укажите браузер"
-                />
             </Stack>
         );
     })
@@ -460,6 +406,9 @@ const DialogCreateCommunity = inject(
                 aria-describedby="alert-dialog-description"
                 fullWidth
                 maxWidth="md"
+                sx={{
+                    // height: '100%'
+                }}
             >
                 <Stack
                     direction="row"
@@ -475,13 +424,60 @@ const DialogCreateCommunity = inject(
                     <Typography sx={{ mt: 2, ml: 2, mr: 'auto' }} variant="h5">
                         Создание сообщества
                     </Typography>
-                    <IconButton sx={{ color: 'text.secondary', ml: 'auto', mt: 2, mr: 1 }} onClick={() => setOpenDialogCC(false)}>
-                        <CloseIcon />
-                    </IconButton>
+                    <Tooltip title="Назад">
+                        <span>
+                            <IconButton disabled={activeStep === 0} onClick={handleBack} sx={{ color: 'text.secondary', ml: 'auto', mt: 2, mr: 1 }}>
+                                <UndoIcon />
+                            </IconButton>
+                        </span>
+                    </Tooltip>
+                    <Tooltip title="Закрыть">
+                        <IconButton sx={{ color: 'text.secondary', ml: 1, mt: 2, mr: 1 }} onClick={() => setOpenDialogCC(false)}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Tooltip>
                 </Stack>
                 <DialogContent>
-                    {activeStep === 0 && <CommunityType handleNext={handleNext} />}
-                    {activeStep === 1 && <CommunityFunctions handleNext={handleNext} />}
+                    <Box
+                        sx={{
+                            height: 570,
+                            width: '100%',
+                        }}
+                    >
+                        <AnimatePresence initial={false} exitBeforeEnter>
+                            {activeStep === 0 && <Box
+                                key='filter'
+                                component={motion.div}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 20 }}
+                                transition={{ duration: 0.6, delay: 0, }}
+                                sx={{
+                                    width: '100%',
+                                    height: '100%',
+                                    // position: 'absolute',
+                                }}
+                            >
+                                <CommunityType handleNext={handleNext} />
+                            </Box>}
+                            {activeStep === 1 && <Box
+                                key='day'
+                                component={motion.div}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 20 }}
+                                transition={{ duration: 0.6, delay: 0, }}
+                                sx={{
+                                    width: '100%',
+                                    height: '100%',
+                                    // position: 'absolute',
+                                }}
+                            >
+                                <CommunityName handleNext={handleNext} />
+                            </Box>}
+                        </AnimatePresence>
+                    </Box>
+
                 </DialogContent>
             </Dialog >
         );

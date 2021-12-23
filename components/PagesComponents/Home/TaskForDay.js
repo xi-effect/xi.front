@@ -168,7 +168,7 @@ const Filters = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) 
                 spacing={2}
                 sx={{
                     position: 'relative',
-                    maxWidth: 'calc(100% - 128px)',
+                    maxWidth: 'calc(100% - 100px)',
                     touchAction: 'pan-y',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
@@ -229,7 +229,7 @@ const Days = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) => 
                 spacing={2}
                 sx={{
                     position: 'relative',
-                    maxWidth: 'calc(100% - 128px)',
+                    maxWidth: 'calc(100% - 100px)',
                     touchAction: 'pan-y',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
