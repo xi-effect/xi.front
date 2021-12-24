@@ -18,7 +18,7 @@ const content = [
     [
         {
             title: 'Современность',
-            label: 'Платформа вам точно понравится! Красивый дизайн, удобный интерфейс, множество крутых функций, кастомизация и возможность использовать с любых устройств',
+            label: 'Платформа вам точно понравится! Красивый дизайн, удобный интерфейс, множество крутых функций, кастомизация и возможность использовая с любых устройств',
         },
         {
             title: 'Практичность',
@@ -32,29 +32,29 @@ const content = [
     [
         {
             title: 'Простота',
-            label: '',
+            label: 'Разобраться в платформе не сложно, у нас всё максимально просто, интуитивно и логично. А после этого платформой будет легко пользоваться',
         },
         {
             title: 'Функциональность',
-            label: '',
+            label: 'Мы собрали все привычные вам сервисы, с которыми вы работали в процессе образования в одном месте, улучшили их и создали новые',
         },
         {
-            title: 'Для учителей',
-            label: '',
+            title: 'Забота',
+            label: 'Платформа заботится о соблюдении баланса между работой и отдыхом. Вы можете настроить ваши рабочие часы и получать уведомления только в это время',
         },
     ],
     [
         {
             title: 'Открытость',
-            label: '',
+            label: 'Вы сможете свободно наблюдать за процессом образования вашего ребёнка, не мешая этому процессу, при необоходимости общаясь с учителями',
         },
         {
             title: 'Аналитика',
-            label: '',
+            label: 'Благодаря цифровым технологиям вы сможете лучше понимать вашего ребёнка, его навыки, умения, стремления, а также сможете вовремя узнавать о проблемах в обучении',
         },
         {
             title: 'Комфорт',
-            label: '',
+            label: 'Вы можете переложить часть своих обязанностей на платформу. Мы будем следить за успеваемостью вашего ребёнка, предоставлять вам удобные отчёты о его достижениях и при небоходимости подключать вас в процесс образования, если у ребёнка возникнут трудности',
         },
     ],
     [
@@ -82,7 +82,7 @@ const content = [
         },
         {
             title: 'Безопасность',
-            label: 'Платформа сам по себе является закрытой, просто так войти не получится. Образовательные сообщества внтури платформы отделены друг от друга, а умная система приглашений не позволит посторонним вмешиваться в работу платформы',
+            label: 'Платформа закрытого типа - просто так войти не получится, нужно приглашение. Образовательные сообщества внутри платформы отделены друг от друга, а умная система приглашений не позволит посторонним вмешиваться в работу платформы',
         },
     ]
 ]
@@ -291,9 +291,9 @@ const EffectFor = () => {
                     {tab === 0 && <Grid
                         key="firtstCard"
                         component={motion.div}
-                        initial={{ opacity: 0, x: 100 }}
+                        initial={{ opacity: 0, x: mobile ? 10 : 100 }}
                         animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -100 }}
+                        exit={{ opacity: 0, x: mobile ? -10 : -100 }}
                         transition={{ duration: 0.5, }}
                         container
                         direction="row"
@@ -332,8 +332,6 @@ const EffectFor = () => {
                                     direction="column"
                                     justifyContent="center"
                                     alignItems="flex-start"
-                                    sx={{
-                                    }}
                                 >
                                     <Grid item>
                                         <Typography
@@ -341,9 +339,9 @@ const EffectFor = () => {
                                             variant='IBMPlexSans700WhyLabel'
                                             sx={{
                                                 // color: '#272731',
-                                                pt: '40px',
-                                                pl: '32px',
-                                                pr: '32px',
+                                                pt: mobile ? '20px' : '40px',
+                                                pl: mobile ? '16px' : '32px',
+                                                pr: mobile ? '16px' : '32px',
                                                 textAlign: 'center',
                                                 fontSize: {
                                                     xs: '28px',
@@ -362,14 +360,14 @@ const EffectFor = () => {
                                             variant='OpenSans400WhyLabel'
                                             sx={{
                                                 color: 'text.secondary',
-                                                pt: '20px',
-                                                pl: '32px',
-                                                pr: '32px',
+                                                pt: mobile ? '10px' : '20px',
+                                                pl: mobile ? '16px' : '32px',
+                                                pr: mobile ? '16px' : '32px',
                                                 fontSize: {
-                                                    xs: '18px',
-                                                    sm: '18px',
-                                                    md: '18px',
-                                                    lg: '18px',
+                                                    xs: '16px',
+                                                    sm: '16px',
+                                                    md: '22px',
+                                                    lg: '22px',
                                                 },
                                             }}
                                         >
@@ -383,9 +381,9 @@ const EffectFor = () => {
                     {tab === 1 && <Grid
                         key="secondCard"
                         component={motion.div}
-                        initial={{ opacity: 0, x: 100 }}
+                        initial={{ opacity: 0, x: mobile ? 10 : 100 }}
                         animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -100 }}
+                        exit={{ opacity: 0, x: mobile ? -10 : -100 }}
                         transition={{ duration: 0.5, }}
                         container
                         direction="row"
@@ -429,9 +427,9 @@ const EffectFor = () => {
                                             variant='IBMPlexSans700WhyLabel'
                                             sx={{
                                                 // color: '#272731',
-                                                pt: '40px',
-                                                pl: '32px',
-                                                pr: '32px',
+                                                pt: mobile ? '20px' : '40px',
+                                                pl: mobile ? '16px' : '32px',
+                                                pr: mobile ? '16px' : '32px',
                                                 textAlign: 'center',
                                                 fontSize: {
                                                     xs: '28px',
@@ -450,14 +448,14 @@ const EffectFor = () => {
                                             variant='OpenSans400WhyLabel'
                                             sx={{
                                                 color: 'text.secondary',
-                                                pt: '20px',
-                                                pl: '32px',
-                                                pr: '32px',
+                                                pt: mobile ? '10px' : '20px',
+                                                pl: mobile ? '16px' : '32px',
+                                                pr: mobile ? '16px' : '32px',
                                                 fontSize: {
-                                                    xs: '18px',
-                                                    sm: '18px',
-                                                    md: '18px',
-                                                    lg: '18px',
+                                                    xs: '16px',
+                                                    sm: '16px',
+                                                    md: '22px',
+                                                    lg: '22px',
                                                 },
                                             }}
                                         >
@@ -471,9 +469,9 @@ const EffectFor = () => {
                     {tab === 2 && <Grid
                         key="thirdCard"
                         component={motion.div}
-                        initial={{ opacity: 0, x: 100 }}
+                        initial={{ opacity: 0, x: mobile ? 10 : 100 }}
                         animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -100 }}
+                        exit={{ opacity: 0, x: mobile ? -10 : -100 }}
                         transition={{ duration: 0.5, }}
                         container
                         direction="row"
@@ -517,9 +515,9 @@ const EffectFor = () => {
                                             variant='IBMPlexSans700WhyLabel'
                                             sx={{
                                                 // color: '#272731',
-                                                pt: '40px',
-                                                pl: '32px',
-                                                pr: '32px',
+                                                pt: mobile ? '20px' : '40px',
+                                                pl: mobile ? '16px' : '32px',
+                                                pr: mobile ? '16px' : '32px',
                                                 textAlign: 'center',
                                                 fontSize: {
                                                     xs: '28px',
@@ -538,14 +536,14 @@ const EffectFor = () => {
                                             variant='OpenSans400WhyLabel'
                                             sx={{
                                                 color: 'text.secondary',
-                                                pt: '20px',
-                                                pl: '32px',
-                                                pr: '32px',
+                                                pt: mobile ? '10px' : '20px',
+                                                pl: mobile ? '16px' : '32px',
+                                                pr: mobile ? '16px' : '32px',
                                                 fontSize: {
-                                                    xs: '18px',
-                                                    sm: '18px',
-                                                    md: '18px',
-                                                    lg: '18px',
+                                                    xs: '16px',
+                                                    sm: '16px',
+                                                    md: '22px',
+                                                    lg: '22px',
                                                 },
                                             }}
                                         >
@@ -559,9 +557,9 @@ const EffectFor = () => {
                     {tab === 3 && <Grid
                         key="fourthCard"
                         component={motion.div}
-                        initial={{ opacity: 0, x: 100 }}
+                        initial={{ opacity: 0, x: mobile ? 10 : 100 }}
                         animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -100 }}
+                        exit={{ opacity: 0, x: mobile ? -10 : -100 }}
                         transition={{ duration: 0.5, }}
                         container
                         direction="row"
@@ -605,9 +603,9 @@ const EffectFor = () => {
                                             variant='IBMPlexSans700WhyLabel'
                                             sx={{
                                                 // color: '#272731',
-                                                pt: '40px',
-                                                pl: '32px',
-                                                pr: '32px',
+                                                pt: mobile ? '20px' : '40px',
+                                                pl: mobile ? '16px' : '32px',
+                                                pr: mobile ? '16px' : '32px',
                                                 textAlign: 'center',
                                                 fontSize: {
                                                     xs: '28px',
@@ -626,14 +624,14 @@ const EffectFor = () => {
                                             variant='OpenSans400WhyLabel'
                                             sx={{
                                                 color: 'text.secondary',
-                                                pt: '20px',
-                                                pl: '32px',
-                                                pr: '32px',
+                                                pt: mobile ? '10px' : '20px',
+                                                pl: mobile ? '16px' : '32px',
+                                                pr: mobile ? '16px' : '32px',
                                                 fontSize: {
-                                                    xs: '18px',
-                                                    sm: '18px',
-                                                    md: '18px',
-                                                    lg: '18px',
+                                                    xs: '16px',
+                                                    sm: '16px',
+                                                    md: '22px',
+                                                    lg: '22px',
                                                 },
                                             }}
                                         >
@@ -647,9 +645,9 @@ const EffectFor = () => {
                     {tab === 4 && <Grid
                         key="fifthCard"
                         component={motion.div}
-                        initial={{ opacity: 0, x: 100 }}
+                        initial={{ opacity: 0, x: mobile ? 10 : 100 }}
                         animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -100 }}
+                        exit={{ opacity: 0, x: mobile ? -10 : -100 }}
                         transition={{ duration: 0.5, }}
                         container
                         direction="row"
@@ -693,9 +691,9 @@ const EffectFor = () => {
                                             variant='IBMPlexSans700WhyLabel'
                                             sx={{
                                                 // color: '#272731',
-                                                pt: '40px',
-                                                pl: '32px',
-                                                pr: '32px',
+                                                pt: mobile ? '20px' : '40px',
+                                                pl: mobile ? '16px' : '32px',
+                                                pr: mobile ? '16px' : '32px',
                                                 textAlign: 'center',
                                                 fontSize: {
                                                     xs: '28px',
@@ -714,14 +712,14 @@ const EffectFor = () => {
                                             variant='OpenSans400WhyLabel'
                                             sx={{
                                                 color: 'text.secondary',
-                                                pt: '20px',
-                                                pl: '32px',
-                                                pr: '32px',
+                                                pt: mobile ? '10px' : '20px',
+                                                pl: mobile ? '16px' : '32px',
+                                                pr: mobile ? '16px' : '32px',
                                                 fontSize: {
-                                                    xs: '18px',
-                                                    sm: '18px',
-                                                    md: '18px',
-                                                    lg: '18px',
+                                                    xs: '16px',
+                                                    sm: '16px',
+                                                    md: '22px',
+                                                    lg: '22px',
                                                 },
                                             }}
                                         >
