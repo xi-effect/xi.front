@@ -11,6 +11,7 @@ import {
   useTheme,
   Tooltip,
   IconButton,
+  Box,
 } from "@mui/material";
 import { useSnackbar } from 'notistack';
 
@@ -68,13 +69,21 @@ const Sidebar = inject(
           label: "Создать сообщество",
           href: "createcommunity",
         },
-        {
-          id: 4,
-          icon: <SettingsIcon sx={{ fontSize: 28 }} />,
-          label: "Настройки",
-          href: "/settings",
-        },
+        // {
+        //   id: 4,
+        //   icon: <SettingsIcon sx={{ fontSize: 28 }} />,
+        //   label: "Настройки",
+        //   href: "/settings",
+        // },
 
+      ];
+
+      const communityList = [
+        {
+          id: 0,
+          label: "Тестовое сообщество",
+          cId: 1,
+        },
       ];
 
       return (
@@ -87,7 +96,7 @@ const Sidebar = inject(
             position: "absolute",
             pt: 2,
             width: 80,
-            height: "100%",
+            height: "100vh",
             // bgcolor: 'grey.800',
           }}
         >
@@ -121,7 +130,59 @@ const Sidebar = inject(
               </IconButton>
             </Tooltip>
           ))}
-          <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC}/>
+          {communityList.map((item, index) => (
+            <Tooltip key={index.toString()} placement="right" title={item.label}>
+              <IconButton
+                component={motion.li}
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => {
+                  router.push(`/community/${item.cId}`);
+                }}
+                sx={{
+                  bgcolor: router.pathname.includes(`/community/${item.cId}`) ? "primary.main" : "primary.dark",
+                  borderRadius: router.pathname.includes(`/community/${item.cId}`) ? '8px' : '21px',
+                  height: '42px',
+                  width: '42px',
+                  "&:hover": {
+                    bgcolor: router.pathname.includes(`/community/${item.cId}`) ? "primary.main" : "primary.dark",
+                  },
+                }}
+              >
+                {item.label[0].toUpperCase()}
+              </IconButton>
+            </Tooltip>
+          ))}
+          <Box sx={{
+            height: '100%',
+          }}>
+
+          </Box>
+          <Tooltip placement="right" title={'Настройки'}>
+            <IconButton
+              component={motion.li}
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => {
+                router.push('/settings');
+              }}
+              sx={{
+                bgcolor: router.pathname.includes('/settings') ? "primary.main" : "",
+                borderRadius: 2,
+                "&:hover": {
+                  bgcolor: router.pathname.includes('/settings') ? "primary.main" : "",
+                },
+              }}
+            >
+              <SettingsIcon sx={{ fontSize: 28 }} />
+            </IconButton>
+          </Tooltip>
+          <Box sx={{
+            height: '4px',
+          }}>
+
+          </Box>
+          <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC} />
         </Stack >
       );
     }

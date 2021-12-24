@@ -6,10 +6,11 @@ import { inject, observer } from 'mobx-react'
 import { Grid, Stack, Paper, Box, Divider, Typography, IconButton, Tooltip } from '@mui/material';
 
 import { motion } from "framer-motion";
-
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
 import { useSnackbar } from 'notistack';
 import MenuHomeComp from "./SidebarSecond/MenuHomeComp";
+import MenuCommunity from "./SidebarSecond/MenuCommunity";
 import MenuKnowledgeComp from "./SidebarSecond/MenuKnowledgeComp";
 import MenuSettingsComp from "./SidebarSecond/MenuSettingsComp.js";
 
@@ -49,6 +50,48 @@ const HeaderHome = inject('rootStore', 'uiStore', 'messageStore')(observer(({ ro
                     })}
                 >
                     <PlusOneIcon />
+                </IconButton>
+            </Tooltip>
+        </Stack>
+    )
+}));
+
+const HeaderCommunity = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    return (
+        <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+        >
+            <Typography
+                variant="Roboto500XiLabel"
+                sx={{
+                    fontSize: 18,
+                    // p: 1
+                }}
+            >
+                Тестовое сообщество
+            </Typography>
+            <Tooltip arrow title="Меню сообщества">
+                <IconButton
+                    // disableRipple
+                    sx={{
+                        height: 36,
+                        width: 36,
+                        // borderRadius: '8px',
+                        // bgcolor: 'secondary.dark',
+                        // '&:hover': {
+                        //     bgcolor: 'secondary.dark',
+                        // },
+                        // boxShadow: 6,
+                    }}
+                    onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
+                        variant: 'info',
+                    })}
+                >
+                    <KeyboardArrowDownIcon />
                 </IconButton>
             </Tooltip>
         </Stack>
@@ -184,11 +227,13 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                 >
 
                     {router.pathname.includes('/home') && <HeaderHome />}
+                    {router.pathname.includes('/community') && <HeaderCommunity />}
                     {router.pathname.includes('/knowledge') && <HeaderKnowledge />}
                     {router.pathname.includes('/messages') && <HeaderMessages />}
                     {router.pathname.includes('/settings') && <HeaderSettings />}
                 </Box>
                 {router.pathname.includes('/home') && <MenuHomeComp />}
+                {router.pathname.includes('/community') && <MenuCommunity />}
                 {router.pathname.includes('/knowledge') && <MenuKnowledgeComp />}
                 {router.pathname.includes('/messages') && messageStore.menu.chats.map((item, index) => (
                     <Grid
