@@ -146,7 +146,7 @@ const HeaderCommunity = inject('rootStore', 'uiStore', 'messageStore')(observer(
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.3}}
+                            transition={{ duration: 0.3 }}
                         >
                             <KeyboardArrowDownIcon />
                         </Stack>}
@@ -156,7 +156,7 @@ const HeaderCommunity = inject('rootStore', 'uiStore', 'messageStore')(observer(
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.3}}
+                            transition={{ duration: 0.3 }}
                         >
                             <CloseIcon />
                         </Stack>}
@@ -179,72 +179,94 @@ const HeaderCommunity = inject('rootStore', 'uiStore', 'messageStore')(observer(
                                 placement === 'bottom-start' ? 'left top' : 'left bottom',
                         }}
                     >
-                        <Paper sx={{ position: 'absolute', left: -244, width: 248 }}>
+                        <Paper sx={{ position: 'absolute', left: -244, width: 248, }}>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList
                                     autoFocusItem={open}
                                     id="composition-menu"
                                     aria-labelledby="composition-button"
                                     onKeyDown={handleListKeyDown}
+                                    sx={{ width: '100%' }}
                                 >
                                     <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
-                                        <ListItemText sx={{ ml: 0, mr: 'auto', }}>
+                                        <Stack
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                            sx={{ width: '100%' }}
+                                        >
                                             Пригласить людей
-                                        </ListItemText>
-                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, }}>
                                             <PersonAddAlt1Icon fontSize="small" />
-                                        </ListItemIcon>
+                                        </Stack>
                                     </MenuItem>
                                     <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
-                                        <ListItemText sx={{ ml: 0, mr: 'auto', }}>
+                                        <Stack
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                            sx={{ width: '100%' }}
+                                        >
                                             Настройки сообщества
-                                        </ListItemText>
-                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, }}>
                                             <SettingsIcon fontSize="small" />
-                                        </ListItemIcon>
+                                        </Stack>
                                     </MenuItem>
                                     <Divider flexItem />
                                     <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
-                                        <ListItemText sx={{ ml: 0, mr: 'auto', }}>
+                                        <Stack
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                            sx={{ width: '100%' }}
+                                        >
                                             Создать канал
-                                        </ListItemText>
-                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, }}>
                                             <AddCircleIcon fontSize="small" />
-                                        </ListItemIcon>
+                                        </Stack>
                                     </MenuItem>
                                     <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
-                                        <ListItemText sx={{ ml: 0, mr: 'auto', }}>
+                                        <Stack
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                            sx={{ width: '100%' }}
+                                        >
                                             Создать категорию
-                                        </ListItemText>
-                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, }}>
                                             <CreateNewFolderIcon fontSize="small" />
-                                        </ListItemIcon>
+                                        </Stack>
                                     </MenuItem>
                                     <Divider flexItem />
-                                    <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
-                                        <ListItemText sx={{ ml: 0, mr: 'auto', }}>
+                                    <MenuItem onClick={handleClose}>
+                                        <Stack
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                            sx={{ width: '100%' }}
+                                        >
                                             Уведомления
-                                        </ListItemText>
-                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, }}>
                                             <NotificationsIcon fontSize="small" />
-                                        </ListItemIcon>
+                                        </Stack>
                                     </MenuItem>
-                                    <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
-                                        <ListItemText sx={{ ml: 0, mr: 'auto', }}>
+                                    <MenuItem onClick={handleClose}>
+                                        <Stack
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                            sx={{ width: '100%' }}
+                                        >
                                             Конфиденсальность
-                                        </ListItemText>
-                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, }}>
                                             <LocalPoliceIcon fontSize="small" />
-                                        </ListItemIcon>
+                                        </Stack>
                                     </MenuItem>
                                     <Divider flexItem />
                                     <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
-                                        <ListItemText sx={{ ml: 0, mr: 'auto', color: 'error.main' }}>
+                                        <Stack
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                            sx={{ width: '100%', color: 'error.main' }}
+                                        >
                                             Покинуть сообщество
-                                        </ListItemText>
-                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, color: 'error.main' }}>
-                                            <LogoutIcon fontSize="small" />
-                                        </ListItemIcon>
+                                            <LogoutIcon sx={{ color: 'error.main' }} fontSize="small" />
+                                        </Stack>
                                     </MenuItem>
                                 </MenuList>
                             </ClickAwayListener>
