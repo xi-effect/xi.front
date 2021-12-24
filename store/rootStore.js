@@ -14,6 +14,8 @@ import ContentStore from "./content/contentStore";
 import AuthorizationStore from "./authorization/authorizationStore";
 import MessageStore from "./message/messageStore";
 import ProfileStore from "./profile/profileStore";
+import CommunityStore from "./community/CommunityStore";
+
 
 enableStaticRendering(typeof window === 'undefined')
 
@@ -31,6 +33,7 @@ class RootStore {
     this.authorizationStore = new AuthorizationStore(this)
     this.messageStore = new MessageStore(this)
     this.profileStore = new ProfileStore(this)
+    this.communityStore = new CommunityStore(this)
     makeObservable(this)
   }
 

@@ -8,6 +8,11 @@ import Image from "next/image";
 
 import { motion } from "framer-motion";
 
+const categories = [
+    {},
+    {},
+]
+
 const MenuCommunity = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
     const router = useRouter()
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
