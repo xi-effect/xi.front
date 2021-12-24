@@ -77,6 +77,7 @@ const MainLabel = () => {
                         variant="OpenSans700MainLabel"
                         sx={{
                             '&.MuiTypography-root': {
+                                cursor: 'default',
                                 color: '#272731',
                                 textAlign: 'center',
                                 p: 2,
@@ -103,6 +104,7 @@ const MainLabel = () => {
                         // component={"h2"}
                         variant="OpenSans500MainLabel"
                         sx={{
+                            cursor: 'default',
                             color: '#555569',
                             textAlign: 'center',
                             p: 2,

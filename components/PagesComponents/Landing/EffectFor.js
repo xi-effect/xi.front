@@ -22,7 +22,7 @@ const content = [
         },
         {
             title: 'Практичность',
-            label: 'Платформа станет для вас не просто местом для образования. У вас есть возможность использовать её в повседновной жизни, например, для общения с друзьями или планирования задач',
+            label: 'Платформа станет для вас не просто местом для образования. У вас есть возможность использовать её в повседневной жизни, например, для общения с друзьями или планирования задач',
         },
         {
             title: 'Безопасность',
@@ -119,6 +119,7 @@ const EffectFor = () => {
                     component={"h3"}
                     variant="IBMPlexSans700WhyLabel"
                     sx={{
+                        cursor: 'default',
                         textAlign: 'center',
                         maxWidth: '912px',
                         fontSize: {
@@ -307,12 +308,13 @@ const EffectFor = () => {
                     >
                         {content[0].map((item, index) => (
                             <Paper
-                                // component={motion.div}
+                                component={motion.div}
                                 // animate={{ opacity: 1, x: 0 }}
                                 // initial={{ opacity: 0, x: 100 }}
                                 // exit={{ opacity: 0, x: -100 }}
                                 key={index.toString()}
                                 elevation={6}
+                                whileHover={{ y: -20 }}
                                 sx={{
                                     zIndex: 10,
                                     ml: 2,
@@ -338,6 +340,7 @@ const EffectFor = () => {
                                             component={"h4"}
                                             variant='IBMPlexSans700WhyLabel'
                                             sx={{
+                                                cursor: 'default',
                                                 // color: '#272731',
                                                 pt: mobile ? '20px' : '40px',
                                                 pl: mobile ? '16px' : '32px',
@@ -359,6 +362,7 @@ const EffectFor = () => {
                                             component={"p"}
                                             variant='OpenSans400WhyLabel'
                                             sx={{
+                                                cursor: 'default',
                                                 color: 'text.secondary',
                                                 pt: mobile ? '10px' : '20px',
                                                 pl: mobile ? '16px' : '32px',
@@ -397,8 +401,10 @@ const EffectFor = () => {
                     >
                         {content[1].map((item, index) => (
                             <Paper
+                                component={motion.div}
                                 key={index.toString()}
                                 elevation={6}
+                                whileHover={{ y: -20 }}
                                 sx={{
                                     zIndex: 10,
                                     ml: 2,
@@ -426,6 +432,7 @@ const EffectFor = () => {
                                             component={"h4"}
                                             variant='IBMPlexSans700WhyLabel'
                                             sx={{
+                                                cursor: 'default',
                                                 // color: '#272731',
                                                 pt: mobile ? '20px' : '40px',
                                                 pl: mobile ? '16px' : '32px',
@@ -447,6 +454,7 @@ const EffectFor = () => {
                                             component={"p"}
                                             variant='OpenSans400WhyLabel'
                                             sx={{
+                                                cursor: 'default',
                                                 color: 'text.secondary',
                                                 pt: mobile ? '10px' : '20px',
                                                 pl: mobile ? '16px' : '32px',
@@ -485,8 +493,10 @@ const EffectFor = () => {
                     >
                         {content[2].map((item, index) => (
                             <Paper
+                                component={motion.div}
                                 key={index.toString()}
                                 elevation={6}
+                                whileHover={{ y: -20 }}
                                 sx={{
                                     zIndex: 10,
                                     ml: 2,
@@ -514,6 +524,7 @@ const EffectFor = () => {
                                             component={"h4"}
                                             variant='IBMPlexSans700WhyLabel'
                                             sx={{
+                                                cursor: 'default',
                                                 // color: '#272731',
                                                 pt: mobile ? '20px' : '40px',
                                                 pl: mobile ? '16px' : '32px',
@@ -535,6 +546,7 @@ const EffectFor = () => {
                                             component={"p"}
                                             variant='OpenSans400WhyLabel'
                                             sx={{
+                                                cursor: 'default',
                                                 color: 'text.secondary',
                                                 pt: mobile ? '10px' : '20px',
                                                 pl: mobile ? '16px' : '32px',
@@ -573,8 +585,10 @@ const EffectFor = () => {
                     >
                         {content[3].map((item, index) => (
                             <Paper
+                                component={motion.div}
                                 key={index.toString()}
                                 elevation={6}
+                                whileHover={{ y: -20 }}
                                 sx={{
                                     zIndex: 10,
                                     ml: 2,
@@ -602,6 +616,7 @@ const EffectFor = () => {
                                             component={"h4"}
                                             variant='IBMPlexSans700WhyLabel'
                                             sx={{
+                                                cursor: 'default',
                                                 // color: '#272731',
                                                 pt: mobile ? '20px' : '40px',
                                                 pl: mobile ? '16px' : '32px',
@@ -623,6 +638,7 @@ const EffectFor = () => {
                                             component={"p"}
                                             variant='OpenSans400WhyLabel'
                                             sx={{
+                                                cursor: 'default',
                                                 color: 'text.secondary',
                                                 pt: mobile ? '10px' : '20px',
                                                 pl: mobile ? '16px' : '32px',
@@ -661,8 +677,10 @@ const EffectFor = () => {
                     >
                         {content[4].map((item, index) => (
                             <Paper
+                                component={motion.div}
                                 key={index.toString()}
                                 elevation={6}
+                                whileHover={{ y: -20 }}
                                 sx={{
                                     zIndex: 10,
                                     ml: 2,
@@ -690,6 +708,7 @@ const EffectFor = () => {
                                             component={"h4"}
                                             variant='IBMPlexSans700WhyLabel'
                                             sx={{
+                                                cursor: 'default',
                                                 // color: '#272731',
                                                 pt: mobile ? '20px' : '40px',
                                                 pl: mobile ? '16px' : '32px',
@@ -711,6 +730,7 @@ const EffectFor = () => {
                                             component={"p"}
                                             variant='OpenSans400WhyLabel'
                                             sx={{
+                                                cursor: 'default',
                                                 color: 'text.secondary',
                                                 pt: mobile ? '10px' : '20px',
                                                 pl: mobile ? '16px' : '32px',

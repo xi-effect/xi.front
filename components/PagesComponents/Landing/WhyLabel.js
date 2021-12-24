@@ -50,6 +50,7 @@ const WhyLabel = () => {
                 textAlign="center"
                 variant="IBMPlexSans700WhyLabel"
                 sx={{
+                    cursor: 'default',
                     fontSize: {
                         xs: '28px',
                         sm: '30px',
@@ -104,6 +105,7 @@ const WhyLabel = () => {
                                     component={"h4"}
                                     variant='OpenSans600WhyLabel'
                                     sx={{
+                                        cursor: 'default',
                                         color: '#272731',
                                         pt: '40px',
                                         pl: '32px',
@@ -125,6 +127,7 @@ const WhyLabel = () => {
                                     component={"p"}
                                     variant='OpenSans400WhyLabel'
                                     sx={{
+                                        cursor: 'default',
                                         color: '#555569',
                                         pt: '20px',
                                         pl: '32px',
