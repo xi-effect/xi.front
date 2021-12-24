@@ -14,7 +14,7 @@ import ContentStore from "./content/contentStore";
 import AuthorizationStore from "./authorization/authorizationStore";
 import MessageStore from "./message/messageStore";
 import ProfileStore from "./profile/profileStore";
-import CommunityStore from "./community/CommunityStore";
+import CommunityStore from "./community/communityStore";
 
 
 enableStaticRendering(typeof window === 'undefined')
