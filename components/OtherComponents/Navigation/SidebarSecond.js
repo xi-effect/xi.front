@@ -3,11 +3,20 @@ import React from 'react';
 import { useRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
 
-import { Grid, Stack, Paper, Box, Divider, Typography, IconButton, Tooltip } from '@mui/material';
+import { Grid, Stack, Paper, Box, Popper, Grow, Divider, ClickAwayListener, ListItemText, ListItemIcon, MenuItem, MenuList, Typography, IconButton, Tooltip } from '@mui/material';
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import CloseIcon from '@mui/icons-material/Close';
+
 import { useSnackbar } from 'notistack';
 import MenuHomeComp from "./SidebarSecond/MenuHomeComp";
 import MenuCommunity from "./SidebarSecond/MenuCommunity";
@@ -58,12 +67,46 @@ const HeaderHome = inject('rootStore', 'uiStore', 'messageStore')(observer(({ ro
 
 const HeaderCommunity = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+    const [open, setOpen] = React.useState(false);
+    const anchorRef = React.useRef(null);
+
+    const handleToggle = () => {
+        setOpen((prevOpen) => !prevOpen);
+    };
+
+    const handleClose = (event) => {
+        if (anchorRef.current && anchorRef.current.contains(event.target)) {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    function handleListKeyDown(event) {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            setOpen(false);
+        } else if (event.key === 'Escape') {
+            setOpen(false);
+        }
+    }
+
+    // return focus to the button when we transitioned from !open -> open
+    const prevOpen = React.useRef(open);
+    React.useEffect(() => {
+        if (prevOpen.current === true && open === false) {
+            anchorRef.current.focus();
+        }
+
+        prevOpen.current = open;
+    }, [open]);
+
     return (
         <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            spacing={2}
         >
             <Typography
                 variant="Roboto500XiLabel"
@@ -76,7 +119,12 @@ const HeaderCommunity = inject('rootStore', 'uiStore', 'messageStore')(observer(
             </Typography>
             <Tooltip arrow title="Меню сообщества">
                 <IconButton
-                    // disableRipple
+                    ref={anchorRef}
+                    id="composition-button"
+                    aria-controls={open ? 'composition-menu' : undefined}
+                    aria-expanded={open ? 'true' : undefined}
+                    aria-haspopup="true"
+                    onClick={handleToggle}
                     sx={{
                         height: 36,
                         width: 36,
@@ -87,13 +135,123 @@ const HeaderCommunity = inject('rootStore', 'uiStore', 'messageStore')(observer(
                         // },
                         // boxShadow: 6,
                     }}
-                    onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
-                        variant: 'info',
-                    })}
+                // onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
+                //     variant: 'info',
+                // })}
                 >
-                    <KeyboardArrowDownIcon />
+                    <AnimatePresence initial={false} exitBeforeEnter>
+                        {!open && <Stack
+                            key='arrow'
+                            component={motion.div}
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.3}}
+                        >
+                            <KeyboardArrowDownIcon />
+                        </Stack>}
+                        {open && <Stack
+                            key='close'
+                            component={motion.div}
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.3}}
+                        >
+                            <CloseIcon />
+                        </Stack>}
+                    </AnimatePresence>
                 </IconButton>
             </Tooltip>
+            <Popper
+                open={open}
+                anchorEl={anchorRef.current}
+                role={undefined}
+                placement='bottom-end'
+                transition
+                disablePortal
+            >
+                {({ TransitionProps, placement }) => (
+                    <Grow
+                        {...TransitionProps}
+                        style={{
+                            transformOrigin:
+                                placement === 'bottom-start' ? 'left top' : 'left bottom',
+                        }}
+                    >
+                        <Paper sx={{ position: 'absolute', left: -244, width: 248 }}>
+                            <ClickAwayListener onClickAway={handleClose}>
+                                <MenuList
+                                    autoFocusItem={open}
+                                    id="composition-menu"
+                                    aria-labelledby="composition-button"
+                                    onKeyDown={handleListKeyDown}
+                                >
+                                    <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
+                                        <ListItemText sx={{ ml: 0, mr: 'auto', }}>
+                                            Пригласить людей
+                                        </ListItemText>
+                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, }}>
+                                            <PersonAddAlt1Icon fontSize="small" />
+                                        </ListItemIcon>
+                                    </MenuItem>
+                                    <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
+                                        <ListItemText sx={{ ml: 0, mr: 'auto', }}>
+                                            Настройки сообщества
+                                        </ListItemText>
+                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, }}>
+                                            <SettingsIcon fontSize="small" />
+                                        </ListItemIcon>
+                                    </MenuItem>
+                                    <Divider flexItem />
+                                    <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
+                                        <ListItemText sx={{ ml: 0, mr: 'auto', }}>
+                                            Создать канал
+                                        </ListItemText>
+                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, }}>
+                                            <AddCircleIcon fontSize="small" />
+                                        </ListItemIcon>
+                                    </MenuItem>
+                                    <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
+                                        <ListItemText sx={{ ml: 0, mr: 'auto', }}>
+                                            Создать категорию
+                                        </ListItemText>
+                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, }}>
+                                            <CreateNewFolderIcon fontSize="small" />
+                                        </ListItemIcon>
+                                    </MenuItem>
+                                    <Divider flexItem />
+                                    <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
+                                        <ListItemText sx={{ ml: 0, mr: 'auto', }}>
+                                            Уведомления
+                                        </ListItemText>
+                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, }}>
+                                            <NotificationsIcon fontSize="small" />
+                                        </ListItemIcon>
+                                    </MenuItem>
+                                    <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
+                                        <ListItemText sx={{ ml: 0, mr: 'auto', }}>
+                                            Конфиденсальность
+                                        </ListItemText>
+                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, }}>
+                                            <LocalPoliceIcon fontSize="small" />
+                                        </ListItemIcon>
+                                    </MenuItem>
+                                    <Divider flexItem />
+                                    <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
+                                        <ListItemText sx={{ ml: 0, mr: 'auto', color: 'error.main' }}>
+                                            Покинуть сообщество
+                                        </ListItemText>
+                                        <ListItemIcon sx={{ ml: 'auto', mr: 0, minWidth: 0, color: 'error.main' }}>
+                                            <LogoutIcon fontSize="small" />
+                                        </ListItemIcon>
+                                    </MenuItem>
+                                </MenuList>
+                            </ClickAwayListener>
+                        </Paper>
+                    </Grow>
+                )}
+            </Popper>
         </Stack>
     )
 }));
@@ -127,7 +285,7 @@ const HeaderMessages = inject('rootStore', 'uiStore', 'messageStore')(observer((
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            // spacing={2}
+        // spacing={2}
         >
             <Typography
                 variant="Roboto500XiLabel"
