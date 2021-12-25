@@ -72,6 +72,7 @@ const MyApp = (observer((props) => {
       </Head>
       {/* <Context.Provider value={{ files, selectFiles }}> */}
       <Provider
+        store={rootStore}
         rootStore={rootStore}
         uiStore={rootStore.uiStore}
         homeStore={rootStore.homeStore}
