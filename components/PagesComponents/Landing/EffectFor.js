@@ -6,6 +6,8 @@ import Image from "next/image";
 import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, IconButton } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useSwipeable } from 'react-swipeable';
+
 const menu = [
     'Ученикам',
     'Учителям',
@@ -88,8 +90,23 @@ const content = [
 ]
 
 const EffectFor = () => {
+
     const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+
     const [tab, setTab] = React.useState(0)
+
+    const handlers = useSwipeable({
+        onSwipedLeft: () => {
+            setTab(prev => {
+                return prev === content.length - 1 ? prev = 0 : prev + 1
+            })
+        },
+        onSwipedRight: () => {
+            setTab(prev => {
+                return prev === 0 ? prev = content.length - 1 : prev - 1
+            })
+        },
+    });
 
     const getCards = () => {
         if (tab === 0) return cardsStudents
@@ -245,6 +262,7 @@ const EffectFor = () => {
                 </Grid>
             </Grid>}
             <Paper
+                {...handlers}
                 elevation={24}
                 sx={{
                     zIndex: 10,
