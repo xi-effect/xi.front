@@ -166,7 +166,7 @@ const HeaderCommunity = inject('rootStore', 'uiStore', 'messageStore')(observer(
             <Popper
                 open={open}
                 anchorEl={anchorRef.current}
-                role={undefined}
+                // role={undefined}
                 placement='bottom-end'
                 transition
                 disablePortal
@@ -399,6 +399,7 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                         height: "48px",
                         // mt: '16px',
                         fontSize: 32,
+                        zIndex: 100,
                         p: 1
                     }}
                 >
