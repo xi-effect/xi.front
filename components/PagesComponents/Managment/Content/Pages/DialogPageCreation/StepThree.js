@@ -89,7 +89,16 @@ const StepThree = inject('managmentStore')(observer(({ managmentStore }) => {
             justifyContent="flex-start"
             alignItems="flex-start"
         >
-            <Typography className={classes.stepLabel}> Шаг 3. Публикация</Typography>
+            <Typography
+                variant='Roboto500XiLabel'
+                sx={{
+                    marginLeft: 2,
+                    fontSize: 24,
+                    cursor: 'default',
+                }}
+            >
+                Шаг 3. Публикация
+            </Typography>
             <Typography className={classes.stepSecondLabel}> Теперь осталось только опубликовать вашу страницу, для этого необходимо заполнить информацию:</Typography>
             <FormControl className={classes.FormControl} fullWidth>
                 <FormControlLabel
@@ -119,7 +128,7 @@ const StepThree = inject('managmentStore')(observer(({ managmentStore }) => {
             </FormControl>
 
             <Button onClick={() => managmentStore.savePage(true)} variant="contained" color="primary" className={classes.Button}>
-                Завершить работу над страницей
+                Опубликовать
             </Button>
         </StyledGrid>
     );

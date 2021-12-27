@@ -86,7 +86,7 @@ const Settings = inject(
 
     React.useEffect(() => {
       console.log("query", router.query)
-      if (router.query.option) setExpanded(router.query.option)
+      if (router.query.option && (router.query.option === 'secure' || router.query.option === 'useravatar' || router.query.option === 'customize' || router.query.option === 'invite')) setExpanded(router.query.option)
     }, [router.query])
 
     return (

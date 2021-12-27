@@ -243,7 +243,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                             >
                                 {authorizationStore.signup.error === "emailAlreadyUsed" && (
                                     <Typography
-                                        varinat="subtitle1"
+                                        variant="subtitle1"
                                         sx={{ mt: 1, ml: 1 }}
                                         color="error"
                                     >
@@ -296,7 +296,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                             >
                                 {authorizationStore.signup.error === "serverError" && (
                                     <Typography
-                                        varinat="subtitle1"
+                                        variant="subtitle1"
                                         sx={{ mt: 1, ml: 1 }}
                                         color="error"
                                     >

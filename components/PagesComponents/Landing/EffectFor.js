@@ -6,6 +6,8 @@ import Image from "next/image";
 import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, IconButton } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useSwipeable } from 'react-swipeable';
+
 const menu = [
     'Ученикам',
     'Учителям',
@@ -17,79 +19,102 @@ const menu = [
 const content = [
     [
         {
-            title: 'Для учеников',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
+            title: 'Современность',
+            label: 'Платформа вам точно понравится! Красивый дизайн, удобный интерфейс, множество крутых функций, кастомизация и возможность использовая с любых устройств',
         },
         {
-            title: 'Для учеников',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
+            title: 'Практичность',
+            label: 'Платформа станет для вас не просто местом для образования. У вас есть возможность использовать её в повседневной жизни, например, для общения с друзьями или планирования задач',
         },
         {
-            title: 'Для учеников',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
-        },
-    ],
-    [
-        {
-            title: 'Для учителей',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
-        },
-        {
-            title: 'Для учителей',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
-        },
-        {
-            title: 'Для учителей',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
+            title: 'Безопасность',
+            label: 'Первостепенной задачей для команды платформы является безопасность всех её пользователей и их анонимность. На платформе используется система никнеймов, а ваше настоящее имя знают только те, с кем вы знакомы в жизне лично',
         },
     ],
     [
         {
-            title: 'Для родителей',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
+            title: 'Простота',
+            label: 'Разобраться в платформе не сложно, у нас всё максимально просто, интуитивно и логично. А после этого платформой будет легко пользоваться',
         },
         {
-            title: 'Для родителей',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
+            title: 'Функциональность',
+            label: 'Мы собрали все привычные вам сервисы, с которыми вы работали в процессе образования в одном месте, улучшили их и создали новые',
         },
         {
-            title: 'Для родителей',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
-        },
-    ],
-    [
-        {
-            title: 'Для авторов',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
-        },
-        {
-            title: 'Для авторов',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
-        },
-        {
-            title: 'Для авторов',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
+            title: 'Забота',
+            label: 'Платформа заботится о соблюдении баланса между работой и отдыхом. Вы можете настроить ваши рабочие часы и получать уведомления только в это время',
         },
     ],
     [
         {
-            title: 'Для организаций',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
+            title: 'Открытость',
+            label: 'Вы сможете свободно наблюдать за процессом образования вашего ребёнка, не мешая этому процессу, при необоходимости общаясь с учителями',
         },
         {
-            title: 'Для организаций',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
+            title: 'Аналитика',
+            label: 'Благодаря цифровым технологиям вы сможете лучше понимать вашего ребёнка, его навыки, умения, стремления, а также сможете вовремя узнавать о проблемах в обучении',
         },
         {
-            title: 'Для организаций',
-            label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
+            title: 'Комфорт',
+            label: 'Вы можете переложить часть своих обязанностей на платформу. Мы будем следить за успеваемостью вашего ребёнка, предоставлять вам удобные отчёты о его достижениях и при небоходимости подключать вас в процесс образования, если у ребёнка возникнут трудности',
+        },
+    ],
+    [
+        {
+            title: 'Редактор',
+            label: '',
+        },
+        {
+            title: 'Настройки',
+            label: '',
+        },
+        {
+            title: 'Публичность',
+            label: '',
+        },
+    ],
+    [
+        {
+            title: 'Оболочка',
+            label: 'Платформа не вмешивается в само обучение в вашей организации. Не навязвает вам программу обучения. Мы лишь даём вам набор цифровых инструментов, которые сделают ваш рабочий процесс лучше',
+        },
+        {
+            title: 'Автоматизация',
+            label: 'Множество сервисов на платформе направлены на автоматизацию рутины в образовательном процессе.',
+        },
+        {
+            title: 'Безопасность',
+            label: 'Платформа закрытого типа - просто так войти не получится, нужно приглашение. Образовательные сообщества внутри платформы отделены друг от друга, а умная система приглашений не позволит посторонним вмешиваться в работу платформы',
         },
     ]
 ]
 
+const cardsList = [
+    "firstCard",
+    "secondCard",
+    "thirdCard",
+    "fourthCard",
+    "fifthCard",
+]
+
 const EffectFor = () => {
+
     const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+
     const [tab, setTab] = React.useState(0)
+
+    const handlers = useSwipeable({
+        onSwipedLeft: () => {
+            setTab(prev => {
+                return prev === content.length - 1 ? prev = 0 : prev + 1
+            })
+        },
+        onSwipedRight: () => {
+            setTab(prev => {
+                return prev === 0 ? prev = content.length - 1 : prev - 1
+            })
+        },
+    });
 
     const getCards = () => {
         if (tab === 0) return cardsStudents
@@ -98,6 +123,7 @@ const EffectFor = () => {
         if (tab === 3) return cardsAuthors
         if (tab === 4) return cardsOrg
     }
+
 
     return (
         <Stack
@@ -119,6 +145,7 @@ const EffectFor = () => {
                     component={"h3"}
                     variant="IBMPlexSans700WhyLabel"
                     sx={{
+                        cursor: 'default',
                         textAlign: 'center',
                         maxWidth: '912px',
                         fontSize: {
@@ -207,7 +234,6 @@ const EffectFor = () => {
                     direction="row"
                     justifyContent="center"
                     alignItems="center"
-                    onClick={() => setTab(index)}
                     sx={{
                         color: '#FFFFFF',
                         bgcolor: 'primary.main',
@@ -244,6 +270,7 @@ const EffectFor = () => {
                 </Grid>
             </Grid>}
             <Paper
+                {...handlers}
                 elevation={24}
                 sx={{
                     zIndex: 10,
@@ -288,452 +315,99 @@ const EffectFor = () => {
                     />
                 </Box>}
                 <AnimatePresence initial={false} exitBeforeEnter>
-                    {tab === 0 && <Grid
-                        key="firtstCard"
-                        component={motion.div}
-                        initial={{ opacity: 0, x: 200 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -200 }}
-                        transition={{ duration: 0.5, }}
-                        container
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="flex-start"
-                        sx={{
-                            // mt: mobile ? '30px' : '80px',
-                            width: '100%',
-                            zIndex: 10,
-                        }}
-                    >
-                        {content[0].map((item, index) => (
-                            <Paper
-                                // component={motion.div}
-                                // animate={{ opacity: 1, x: 0 }}
-                                // initial={{ opacity: 0, x: 100 }}
-                                // exit={{ opacity: 0, x: -100 }}
-                                key={index.toString()}
-                                elevation={6}
-                                sx={{
-                                    zIndex: 10,
-                                    ml: 2,
-                                    mr: 2,
-                                    mt: 2,
-                                    mb: 2,
-                                    width: '100%',
-                                    maxWidth: '680px',
-                                    height: '340px',
-                                    bgcolor: "primary.main",
-                                    borderRadius: "20px",
-                                }}
-                            >
-                                <Grid
-                                    item
-                                    container
-                                    direction="column"
-                                    justifyContent="center"
-                                    alignItems="flex-start"
+                    {cardsList.map((card, index) => 
+                        tab === index && <Grid
+                            key={card}
+                            component={motion.div}
+                            initial={{ opacity: 0, x: mobile ? 10 : 100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: mobile ? -10 : -100 }}
+                            transition={{ duration: 0.5, }}
+                            container
+                            direction="row"
+                            justifyContent="center"
+                            alignItems="flex-start"
+                            sx={{
+                                // mt: mobile ? '30px' : '80px',
+                                width: '100%',
+                                zIndex: 10,
+                            }}
+                        >
+                            {content[index].map((itemCard, indexCard) => (
+                                <Paper
+                                    key={indexCard.toString()}
+                                    elevation={6}
                                     sx={{
+                                        zIndex: 10,
+                                        ml: 2,
+                                        mr: 2,
+                                        mt: 2,
+                                        mb: 2,
+                                        width: '100%',
+                                        maxWidth: '680px',
+                                        height: '340px',
+                                        bgcolor: "primary.main",
+                                        borderRadius: "20px",
                                     }}
                                 >
-                                    <Grid item>
-                                        <Typography
-                                            component={"h4"}
-                                            variant='IBMPlexSans700WhyLabel'
-                                            sx={{
-                                                // color: '#272731',
-                                                pt: '40px',
-                                                pl: '32px',
-                                                pr: '32px',
-                                                textAlign: 'center',
-                                                fontSize: {
-                                                    xs: '28px',
-                                                    sm: '30px',
-                                                    md: '36px',
-                                                    lg: '40px',
-                                                },
-                                            }}
-                                        >
-                                            {item.title}
-                                        </Typography>
+                                    <Grid
+                                        item
+                                        container
+                                        direction="column"
+                                        justifyContent="center"
+                                        alignItems="flex-start"
+                                    >
+                                        <Grid item>
+                                            <Typography
+                                                component={"h4"}
+                                                variant='IBMPlexSans700WhyLabel'
+                                                sx={{
+                                                    cursor: 'default',
+                                                    // color: '#272731',
+                                                    pt: mobile ? '20px' : '40px',
+                                                    pl: mobile ? '16px' : '32px',
+                                                    pr: mobile ? '16px' : '32px',
+                                                    textAlign: 'center',
+                                                    fontSize: {
+                                                        xs: '28px',
+                                                        sm: '30px',
+                                                        md: '36px',
+                                                        lg: '40px',
+                                                    },
+                                                }}
+                                            >
+                                                {itemCard.title}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography
+                                                component={"p"}
+                                                variant='OpenSans400WhyLabel'
+                                                sx={{
+                                                    cursor: 'default',
+                                                    color: 'text.secondary',
+                                                    pt: mobile ? '10px' : '20px',
+                                                    pl: mobile ? '16px' : '32px',
+                                                    pr: mobile ? '16px' : '32px',
+                                                    fontSize: {
+                                                        xs: '16px',
+                                                        sm: '16px',
+                                                        md: '22px',
+                                                        lg: '22px',
+                                                    },
+                                                }}
+                                            >
+                                                {itemCard.label}
+                                            </Typography>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item>
-                                        <Typography
-                                            component={"p"}
-                                            variant='OpenSans400WhyLabel'
-                                            sx={{
-                                                color: 'text.secondary',
-                                                pt: '20px',
-                                                pl: '32px',
-                                                pr: '32px',
-                                                fontSize: {
-                                                    xs: '18px',
-                                                    sm: '18px',
-                                                    md: '18px',
-                                                    lg: '18px',
-                                                },
-                                            }}
-                                        >
-                                            {item.label}
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                        ))}
-                    </Grid >}
-                    {tab === 1 && <Grid
-                        key="secondCard"
-                        component={motion.div}
-                        initial={{ opacity: 0, x: 200 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -200 }}
-                        transition={{ duration: 0.5, }}
-                        container
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="flex-start"
-                        sx={{
-                            // mt: mobile ? '30px' : '80px',
-                            width: '100%',
-                            zIndex: 10,
-                        }}
-                    >
-                        {content[1].map((item, index) => (
-                            <Paper
-                                key={index.toString()}
-                                elevation={6}
-                                sx={{
-                                    zIndex: 10,
-                                    ml: 2,
-                                    mr: 2,
-                                    mt: 2,
-                                    mb: 2,
-                                    width: '100%',
-                                    maxWidth: '680px',
-                                    height: '340px',
-                                    bgcolor: "primary.main",
-                                    borderRadius: "20px",
-                                }}
-                            >
-                                <Grid
-                                    item
-                                    container
-                                    direction="column"
-                                    justifyContent="center"
-                                    alignItems="flex-start"
-                                    sx={{
-                                    }}
-                                >
-                                    <Grid item>
-                                        <Typography
-                                            component={"h4"}
-                                            variant='IBMPlexSans700WhyLabel'
-                                            sx={{
-                                                // color: '#272731',
-                                                pt: '40px',
-                                                pl: '32px',
-                                                pr: '32px',
-                                                textAlign: 'center',
-                                                fontSize: {
-                                                    xs: '28px',
-                                                    sm: '30px',
-                                                    md: '36px',
-                                                    lg: '40px',
-                                                },
-                                            }}
-                                        >
-                                            {item.title}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography
-                                            component={"p"}
-                                            variant='OpenSans400WhyLabel'
-                                            sx={{
-                                                color: 'text.secondary',
-                                                pt: '20px',
-                                                pl: '32px',
-                                                pr: '32px',
-                                                fontSize: {
-                                                    xs: '18px',
-                                                    sm: '18px',
-                                                    md: '18px',
-                                                    lg: '18px',
-                                                },
-                                            }}
-                                        >
-                                            {item.label}
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                        ))}
-                    </Grid >}
-                    {tab === 2 && <Grid
-                        key="thirdCard"
-                        component={motion.div}
-                        initial={{ opacity: 0, x: 200 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -200 }}
-                        transition={{ duration: 0.5, }}
-                        container
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="flex-start"
-                        sx={{
-                            // mt: mobile ? '30px' : '80px',
-                            width: '100%',
-                            zIndex: 10,
-                        }}
-                    >
-                        {content[2].map((item, index) => (
-                            <Paper
-                                key={index.toString()}
-                                elevation={6}
-                                sx={{
-                                    zIndex: 10,
-                                    ml: 2,
-                                    mr: 2,
-                                    mt: 2,
-                                    mb: 2,
-                                    width: '100%',
-                                    maxWidth: '680px',
-                                    height: '340px',
-                                    bgcolor: "primary.main",
-                                    borderRadius: "20px",
-                                }}
-                            >
-                                <Grid
-                                    item
-                                    container
-                                    direction="column"
-                                    justifyContent="center"
-                                    alignItems="flex-start"
-                                    sx={{
-                                    }}
-                                >
-                                    <Grid item>
-                                        <Typography
-                                            component={"h4"}
-                                            variant='IBMPlexSans700WhyLabel'
-                                            sx={{
-                                                // color: '#272731',
-                                                pt: '40px',
-                                                pl: '32px',
-                                                pr: '32px',
-                                                textAlign: 'center',
-                                                fontSize: {
-                                                    xs: '28px',
-                                                    sm: '30px',
-                                                    md: '36px',
-                                                    lg: '40px',
-                                                },
-                                            }}
-                                        >
-                                            {item.title}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography
-                                            component={"p"}
-                                            variant='OpenSans400WhyLabel'
-                                            sx={{
-                                                color: 'text.secondary',
-                                                pt: '20px',
-                                                pl: '32px',
-                                                pr: '32px',
-                                                fontSize: {
-                                                    xs: '18px',
-                                                    sm: '18px',
-                                                    md: '18px',
-                                                    lg: '18px',
-                                                },
-                                            }}
-                                        >
-                                            {item.label}
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                        ))}
-                    </Grid >}
-                    {tab === 3 && <Grid
-                        key="fourthCard"
-                        component={motion.div}
-                        initial={{ opacity: 0, x: 200 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -200 }}
-                        transition={{ duration: 0.5, }}
-                        container
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="flex-start"
-                        sx={{
-                            // mt: mobile ? '30px' : '80px',
-                            width: '100%',
-                            zIndex: 10,
-                        }}
-                    >
-                        {content[3].map((item, index) => (
-                            <Paper
-                                key={index.toString()}
-                                elevation={6}
-                                sx={{
-                                    zIndex: 10,
-                                    ml: 2,
-                                    mr: 2,
-                                    mt: 2,
-                                    mb: 2,
-                                    width: '100%',
-                                    maxWidth: '680px',
-                                    height: '340px',
-                                    bgcolor: "primary.main",
-                                    borderRadius: "20px",
-                                }}
-                            >
-                                <Grid
-                                    item
-                                    container
-                                    direction="column"
-                                    justifyContent="center"
-                                    alignItems="flex-start"
-                                    sx={{
-                                    }}
-                                >
-                                    <Grid item>
-                                        <Typography
-                                            component={"h4"}
-                                            variant='IBMPlexSans700WhyLabel'
-                                            sx={{
-                                                // color: '#272731',
-                                                pt: '40px',
-                                                pl: '32px',
-                                                pr: '32px',
-                                                textAlign: 'center',
-                                                fontSize: {
-                                                    xs: '28px',
-                                                    sm: '30px',
-                                                    md: '36px',
-                                                    lg: '40px',
-                                                },
-                                            }}
-                                        >
-                                            {item.title}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography
-                                            component={"p"}
-                                            variant='OpenSans400WhyLabel'
-                                            sx={{
-                                                color: 'text.secondary',
-                                                pt: '20px',
-                                                pl: '32px',
-                                                pr: '32px',
-                                                fontSize: {
-                                                    xs: '18px',
-                                                    sm: '18px',
-                                                    md: '18px',
-                                                    lg: '18px',
-                                                },
-                                            }}
-                                        >
-                                            {item.label}
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                        ))}
-                    </Grid >}
-                    {tab === 4 && <Grid
-                        key="fifthCard"
-                        component={motion.div}
-                        initial={{ opacity: 0, x: 200 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -200 }}
-                        transition={{ duration: 0.5, }}
-                        container
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="flex-start"
-                        sx={{
-                            // mt: mobile ? '30px' : '80px',
-                            width: '100%',
-                            zIndex: 10,
-                        }}
-                    >
-                        {content[4].map((item, index) => (
-                            <Paper
-                                key={index.toString()}
-                                elevation={6}
-                                sx={{
-                                    zIndex: 10,
-                                    ml: 2,
-                                    mr: 2,
-                                    mt: 2,
-                                    mb: 2,
-                                    width: '100%',
-                                    maxWidth: '680px',
-                                    height: '340px',
-                                    bgcolor: "primary.main",
-                                    borderRadius: "20px",
-                                }}
-                            >
-                                <Grid
-                                    item
-                                    container
-                                    direction="column"
-                                    justifyContent="center"
-                                    alignItems="flex-start"
-                                    sx={{
-                                    }}
-                                >
-                                    <Grid item>
-                                        <Typography
-                                            component={"h4"}
-                                            variant='IBMPlexSans700WhyLabel'
-                                            sx={{
-                                                // color: '#272731',
-                                                pt: '40px',
-                                                pl: '32px',
-                                                pr: '32px',
-                                                textAlign: 'center',
-                                                fontSize: {
-                                                    xs: '28px',
-                                                    sm: '30px',
-                                                    md: '36px',
-                                                    lg: '40px',
-                                                },
-                                            }}
-                                        >
-                                            {item.title}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography
-                                            component={"p"}
-                                            variant='OpenSans400WhyLabel'
-                                            sx={{
-                                                color: 'text.secondary',
-                                                pt: '20px',
-                                                pl: '32px',
-                                                pr: '32px',
-                                                fontSize: {
-                                                    xs: '18px',
-                                                    sm: '18px',
-                                                    md: '18px',
-                                                    lg: '18px',
-                                                },
-                                            }}
-                                        >
-                                            {item.label}
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                        ))}
-                    </Grid >}
-                </AnimatePresence>
+                                </Paper>
+                            ))}
+                        </Grid >
+                    )}
 
+
+                </AnimatePresence>
             </Paper>
         </Stack >
     );

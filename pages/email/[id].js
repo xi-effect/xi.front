@@ -1,27 +1,21 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Image from 'next/image';
 
-import { CircularProgress, useTheme, Divider, Stack, Paper, Grid, AppBar, Toolbar, Typography, CssBaseline, useScrollTrigger, Box, Container, Fab, Zoom, Button } from '@mui/material';
-
-
-
+import { Stack, Paper, Grid, Typography, Box, Button, useMediaQuery } from '@mui/material';
 import { inject, observer } from 'mobx-react'
-import BackgroundImg from '../../components/OtherComponents/Background/BackgroundImg'
-import Loading from './../../components/OtherComponents/Loading/Loading';
+
 
 const Email = inject('rootStore')(observer(({ rootStore }) => {
-    const theme = useTheme();
-
     const router = useRouter()
     const { id } = router.query
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
     const [ok, setOk] = React.useState(false)
 
     const acceptButtonClicked = () => {
-        rootStore.fetchData(`${rootStore.url}/email-confirm/`, "POST", { "code": id },)
+        rootStore.fetchData(`${rootStore.url}/email-confirm/`, "POST", { "code": id })
             .then((data) => {
                 if (data.a) { //"Success"
                     setOk(true)
@@ -32,7 +26,7 @@ const Email = inject('rootStore')(observer(({ rootStore }) => {
     return (
         <>
             <Head>
-                <title>Ξ Регистрация</title>
+                <title>Ξ Подтверждение почты</title>
             </Head>
             <Stack
                 direction="column"
@@ -41,26 +35,81 @@ const Email = inject('rootStore')(observer(({ rootStore }) => {
                 sx={{
                     width: "100vw",
                     height: "100vh",
-                    backgroundColor: 'background.1',
+                    backgroundColor: 'background.main', //Цвета есть в файле theme.js и в дефолтной теме в MUI
                 }}
             >
                 <Stack
                     direction="row"
-                    justifyContent="flex-start"
+                    justifyContent="space-between"
                     alignItems="center"
-                    spacing={0}
-                    sx={{ width: "100%" }}
+                    sx={{ height: mobile ? '100px' : "140px", p: mobile ? '20px' : '40px', width: '100%', }}
                 >
-                    <Typography
-
-                        onClick={() => router.push('/')}
-                        variant="h3"
-                        sx={{ color: 'text.main', m: 2, cursor: "pointer", }}
+                    <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="baseline"
+                        spacing={0}
+                        sx={{ width: "100%" }}
                     >
-                        Ξffect
-                    </Typography>
+                        <Typography
+                            component={"h1"}
+                            onClick={() => {
+                                router.push({
+                                    pathname: '/',
+                                })
+                            }}
+
+                            variant="Roboto500XiLabel"
+                            sx={{
+                                mt: '1px',
+                                cursor: 'pointer',
+                                color: 'secondary.main',
+                                fontSize: {
+                                    sm: '28px',
+                                    md: '34px',
+                                    lg: '40px',
+                                },
+                            }}
+                        >
+                            Ξ
+                        </Typography>
+                        <Typography
+                            component={"h1"}
+                            onClick={() => {
+                                router.push({
+                                    pathname: '/',
+                                })
+                            }}
+
+                            variant="IBMPlexMono500XiLabelEnd"
+                            sx={{
+                                '&.MuiTypography-root': {
+                                    cursor: 'pointer',
+                                    color: 'secondary.main',
+                                },
+                                fontSize: {
+                                    sm: '28px',
+                                    md: '34px',
+                                    lg: '40px',
+                                },
+                            }}
+                        >
+                            ffect
+                        </Typography>
+                    </Stack>
                 </Stack>
-                <Box sx={{ width: "100%", }} >
+                <Paper
+                    elevation={24}
+                    sx={{
+                        zIndex: 10,
+                        width: 'calc(100% - 32px)',
+                        maxWidth: 512,
+                        // mt: mobile ? "2px" : -32,
+                        mt: 0,
+                        bgcolor: "grey.800",
+                        borderRadius: "20px",
+                    }}
+                >
                     <Stack
                         direction="column"
                         justifyContent="center"
@@ -68,23 +117,50 @@ const Email = inject('rootStore')(observer(({ rootStore }) => {
                         spacing={3}
                         sx={{ width: "100%", p: 2, }}
                     >
-                        <Grid container direction="column" justifyContent="flex-start" alignItems="center">
-                            <Grid container direction="row" justifyContent="center" alignItems="center" >
-                                <Typography variant="h4"> Подтверждение почты </Typography>
-                            </Grid>
-                            {!ok && <Button variant="outlined" sx={{ color: 'text.main', m: 2, border: `2px solid ${theme.palette.text.dark}`, '&:hover': {border: `2px solid ${theme.palette.text.dark}`}}} onClick={acceptButtonClicked} >
-                                Подтвердить
-                            </Button>}
-                            {ok && <Grid container direction="row" justifyContent="center" alignItems="center" >
-                                <Typography > Ваша почта успешно подтверждена. С этой страницы можно уходить.</Typography>
-                            </Grid>}
-                        </Grid>
+                        <Image
+                            alt="alt"
+                            src={"/app/ConfirmedEmail.svg"}
+                            quality={100}
+                            width={456}
+                            height={456}
+                        />
+                        <Typography variant="h4" sx={{ fontWeight: "normal" }}>
+                            Подтверждение почты
+                        </Typography>
+                        {!ok && <Button
+                            onClick={acceptButtonClicked}
+                            variant="outlined"
+                            size="large"
+                            type="submit"
+                            sx={{
+                                '&.MuiButton-root': {
+                                    fontFamily: 'Open Sans, sans-serif',
+                                    fontStyle: 'normal',
+                                    fontWeight: 600,
+                                    fontSize: '16px',
+                                    lineHeight: '25px',
+                                    width: '160px',
+                                    height: '50px',
+                                    color: 'text.primary',
+                                    bgcolor: 'secondary.main',
+                                    borderRadius: '88px',
+                                    '&:hover': {
+                                        bgcolor: 'secondary.main',
+                                    },
+                                    mt: 2,
+                                    boxShadow: 12,
+                                }
+                            }}
+                        >
+                            Подтвердить
+                        </Button>}
+                        {ok && <Typography sx={{ textAlign: "center", fontSize: "20px", mt: 2 }} >
+                            Ваша почта успешно подтверждена. <br /> С этой страницы можно уходить.
+                        </Typography>}
                     </Stack>
-                </Box>
+                </Paper>
                 <div>
-
                 </div>
-
             </Stack>
         </>
     );

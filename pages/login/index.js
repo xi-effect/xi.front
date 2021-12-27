@@ -237,7 +237,7 @@ const Login = inject(
                 >
                   {authorizationStore.login.error === "User doesn't exist" && (
                     <Typography
-                      varinat="subtitle1"
+                      variant="subtitle1"
                       sx={{ mt: 1, ml: 1 }}
                       color="error"
                     >
@@ -303,7 +303,7 @@ const Login = inject(
                 >
                   {authorizationStore.login.error === "Wrong password" && (
                     <Typography
-                      varinat="subtitle1"
+                      variant="subtitle1"
                       sx={{ mt: 1, ml: 1 }}
                       color="error"
                     >
@@ -312,7 +312,7 @@ const Login = inject(
                   )}
                   {authorizationStore.login.error === "Server error" && (
                     <Typography
-                      varinat="subtitle1"
+                      variant="subtitle1"
                       sx={{ mt: 1, ml: 1 }}
                       color="error"
                     >

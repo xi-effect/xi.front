@@ -160,8 +160,8 @@ const NavigationAll = inject(
             >
               <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
               {!(router.pathname.includes('/message')) && <Scrollbars
-                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8 }} />}
-                renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8 }} />}
+                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
+                renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
                 universal={true}
                 style={{ width: "100%", height: "100%", }}
                 autoHide
@@ -311,8 +311,8 @@ const NavigationAll = inject(
             >
               <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
               {!(router.pathname.includes('/message')) && <Scrollbars
-                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8  }} />}
-                renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8  }} />}
+                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
+                renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
                 universal={true}
                 style={{ width: "100vw", height: "100%", overflowY: 'hidden !important', }}
                 autoHide

@@ -26,7 +26,7 @@ const KnowledgeСreatePage = inject(
                         width: 142,
                         alignItems: 'space-between',
                     }}
-                    onClick={null} size="large"
+                    onClick={() => managmentStore.savePage()} size="large"
                 >
                     Сохранить <SaveAltIcon sx={{ ml: 'auto', mr: 0 }} />
                 </Button>

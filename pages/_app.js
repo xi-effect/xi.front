@@ -83,6 +83,7 @@ const MyApp = (observer((props) => {
         authorizationStore={rootStore.authorizationStore}
         profileStore={rootStore.profileStore}
         messageStore={rootStore.messageStore}
+        communityStore={rootStore.communityStore}
       >
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>

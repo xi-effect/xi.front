@@ -1,33 +1,20 @@
 import React, { useState } from "react";
 
 import {
-  FormControl,
-  Stack,
   Grid,
   useTheme,
   TextField,
   Tooltip,
-  tooltipClasses,
-  Divider,
-  InputLabel,
-  OutlinedInput,
-  FormControlLabel,
-  Switch,
-  AppBar,
-  Tabs,
-  Tab,
-  Typography,
-  Box,
   Button,
+  Box,
   IconButton,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 import { inject, observer } from "mobx-react";
-
 import { useCopyToClipboard } from "react-use";
+import QRCode from "react-qr-code";
 
 const Invite = inject(
   "rootStore",
@@ -37,15 +24,15 @@ const Invite = inject(
     const theme = useTheme();
 
     //Используется тестовый код, нужно заменить значение из API
-    const [inviteCode, setInviteCode] = useState("M36P07lB2FTP");
     const [statusCopy, setStatusCopy] = useState(false);
+    const [openQR, setOpenQR] = React.useState(false)
 
     const [state, copyToClipboard] = useCopyToClipboard();
 
     return (
       <Grid
         container
-        direction="row"
+        direction="column"
         justifyContent="flex-start"
         alignItems="flex-start"
         sx={{
@@ -63,6 +50,7 @@ const Invite = inject(
             id="invite-code"
             label="Код-приглашение"
             defaultValue={settingsStore.settings.invite}
+            // value={settingsStore.settings.invite}
             onClick={() => {
               copyToClipboard("https://xieffect.netlify.app/registration?invite=" + settingsStore.settings.invite)
               setStatusCopy(true)
@@ -81,9 +69,21 @@ const Invite = inject(
                 width: "100%",
               },
             }}
-          // onClick={copyInviteCode}
           />
         </Tooltip>
+        <Button sx={{ m: 1 }} onClick={() => setOpenQR(true)} variant="contained">
+          Сгенерировать QR-код для ссылки-приглашения
+        </Button>
+        {openQR &&
+          <Box
+            sx={{
+              m: 2,
+              width: 256,
+              height: 256,
+            }}
+          >
+            <QRCode value={"https://xieffect.netlify.app/registration?invite=" + settingsStore.settings.invite} />
+          </Box>}
       </Grid >
     );
   })
