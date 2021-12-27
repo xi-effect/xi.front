@@ -166,7 +166,7 @@ const HeaderCommunity = inject('rootStore', 'uiStore', 'messageStore')(observer(
             <Popper
                 open={open}
                 anchorEl={anchorRef.current}
-                role={undefined}
+                // role={undefined}
                 placement='bottom-end'
                 transition
                 disablePortal
@@ -179,7 +179,7 @@ const HeaderCommunity = inject('rootStore', 'uiStore', 'messageStore')(observer(
                                 placement === 'bottom-start' ? 'left top' : 'left bottom',
                         }}
                     >
-                        <Paper sx={{ position: 'absolute', left: -244, width: 248, }}>
+                        <Paper sx={{ position: 'absolute', left: -244, width: 248 }}>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList
                                     autoFocusItem={open}
@@ -392,9 +392,6 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                 justifyContent="flex-start"
                 alignItems="flex-start"
                 spacing={1}
-                sx={{
-
-                }}
             >
                 <Box
                     sx={{
@@ -402,6 +399,7 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                         height: "48px",
                         // mt: '16px',
                         fontSize: 32,
+                        zIndex: 100,
                         p: 1
                     }}
                 >

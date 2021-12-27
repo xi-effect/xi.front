@@ -116,6 +116,7 @@ const EffectFor = () => {
         if (tab === 4) return cardsOrg
     }
 
+
     return (
         <Stack
             component={motion.div}
@@ -406,7 +407,6 @@ const EffectFor = () => {
                         })}
                     </Grid >
                 </AnimatePresence>
-
             </Paper>
         </Stack >
     );

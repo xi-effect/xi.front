@@ -10,7 +10,68 @@ class CommunityStore {
         this.rootStore = rootStore;
         makeObservable(this)
     }
-    @observable categories = []
+    @observable categories = [
+        {
+            name: 'Категория 1',
+            open: true,
+            channels: [
+                {
+                    name: 'Канал 1',
+                    type: '',
+                },
+                {
+                    name: 'Канал 2',
+                    type: '',
+                },
+                {
+                    name: 'Канал 3',
+                    type: '',
+                },
+            ]
+        },
+        {
+            name: 'Категория 2',
+            open: true,
+            channels: [
+                {
+                    name: 'Канал 1',
+                    type: '',
+                },
+                {
+                    name: 'Канал 2',
+                    type: '',
+                },
+                {
+                    name: 'Канал 3',
+                    type: '',
+                },
+            ]
+        },
+        {
+            name: 'Категория 3',
+            open: true,
+            channels: [
+                {
+                    name: 'Канал 1',
+                    type: '',
+                },
+                {
+                    name: 'Канал 2',
+                    type: '',
+                },
+                {
+                    name: 'Канал 3',
+                    type: '',
+                },
+            ]
+        }
+    ]
+
+    @action setCategories = (index, name, value) => {
+        this.categories[index][name] = value
+    }
+
+    
 }
 
 export default CommunityStore;
