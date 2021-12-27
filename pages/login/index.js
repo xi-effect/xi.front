@@ -48,11 +48,10 @@ const schema = yup
 
 
 const Login = inject(
-  "rootStore",
   "uiStore",
   "authorizationStore"
 )(
-  observer(({ rootStore, authorizationStore, uiStore }) => {
+  observer(({authorizationStore, uiStore }) => {
     const theme = useTheme();
     const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 

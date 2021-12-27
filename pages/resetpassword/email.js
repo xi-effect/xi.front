@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import clsx from "clsx";
 import {
   Stack,
   Input,
@@ -18,12 +17,8 @@ import {
   Button,
   Paper,
 } from "@mui/material";
-import { Link as LinkUI } from "@mui/material";
 import React from "react";
-import BackgroundImg from "../../components/OtherComponents/Background/BackgroundImg";
 import { inject, observer } from "mobx-react";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import EmailIcon from "@mui/icons-material/Email";
 
 import { useForm, Controller } from "react-hook-form";
@@ -39,11 +34,9 @@ const schema = yup
   .required();
 
 const PassResetEmail = inject(
-  "rootStore",
-  "uiStore",
   "authorizationStore"
 )(
-  observer(({ rootStore, uiStore, authorizationStore }) => {
+  observer(({ authorizationStore }) => {
     const theme = useTheme();
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -54,7 +47,7 @@ const PassResetEmail = inject(
     } = useForm({
       resolver: yupResolver(schema),
     });
-    console.log("errors", errors);
+
     const onSubmit = (data) => {
       authorizationStore.clickPasswordResetButton(data);
     };
@@ -154,14 +147,14 @@ const PassResetEmail = inject(
           >
             <Box
               component="form"
-              sx={{
-                zIndex: 2,
-                p: 1,
-                borderRadius: 16,
-                width: "100%",
-                mt: -20,
-                maxWidth: 512,
-              }}
+              // sx={{
+              //   zIndex: 2,
+              //   p: 1,
+              //   borderRadius: 16,
+              //   width: "100%",
+              //   mt: -20,
+              //   maxWidth: 512,
+              // }}
               onSubmit={handleSubmit(onSubmit)}
             >
               <Stack
@@ -173,11 +166,11 @@ const PassResetEmail = inject(
                 justifyContent="center"
                 alignItems="center"
                 spacing={0}
-                sx={{ width: "100%", p: 2 }}
+                sx={{ width: "100%", pl: 2, pr: 2, pb: 2, mt: 0, }}
               >
                 <Image
                   alt="alt"
-                  src={"/Mail.svg"}
+                  src={"/auth/ResetPassword.svg"}
                   quality={100}
                   width={456}
                   height={256}
@@ -218,26 +211,26 @@ const PassResetEmail = inject(
                       />
                       {errors?.email?.message ===
                         "email is a required field" && (
-                        <Typography
-                          varinat="subtitle1"
-                          sx={{ mt: 1, ml: 1 }}
-                          color="error"
-                        >
-                          {" "}
-                          Обязательное поле{" "}
-                        </Typography>
-                      )}
+                          <Typography
+                            varinat="subtitle1"
+                            sx={{ mt: 1, ml: 1 }}
+                            color="error"
+                          >
+                            {" "}
+                            Обязательное поле{" "}
+                          </Typography>
+                        )}
                       {errors?.email?.message ===
                         "email must be a valid email" && (
-                        <Typography
-                          varinat="subtitle1"
-                          sx={{ mt: 1, ml: 1 }}
-                          color="error"
-                        >
-                          {" "}
-                          Ошибка валидации{" "}
-                        </Typography>
-                      )}
+                          <Typography
+                            varinat="subtitle1"
+                            sx={{ mt: 1, ml: 1 }}
+                            color="error"
+                          >
+                            {" "}
+                            Ошибка валидации{" "}
+                          </Typography>
+                        )}
                       <Link
                         sx={{
                           color: "text.secondary",
@@ -298,6 +291,7 @@ const PassResetEmail = inject(
               </Stack>
             </Box>
           </Paper>
+          <div></div>
         </Stack>
       </>
     );
