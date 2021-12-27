@@ -89,6 +89,14 @@ const content = [
     ]
 ]
 
+const cardsList = [
+    "firstCard",
+    "secondCard",
+    "thirdCard",
+    "fourthCard",
+    "fifthCard",
+]
+
 const EffectFor = () => {
 
     const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
@@ -307,105 +315,98 @@ const EffectFor = () => {
                     />
                 </Box>}
                 <AnimatePresence initial={false} exitBeforeEnter>
-                    <Grid
-                        key="firtstCard"
-                        component={motion.div}
-                        initial={{ opacity: 0, x: mobile ? 10 : 100 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: mobile ? -10 : -100 }}
-                        transition={{ duration: 0.5, }}
-                        container
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="flex-start"
-                        sx={{
-                            // mt: mobile ? '30px' : '80px',
-                            width: '100%',
-                            zIndex: 10,
-                        }}
-                    >
-                        {content.map((item, index) => {
-                            return item.map(obj => (
-                                index === tab &&
-                                <>
-                                    <Paper
-                                        component={motion.div}
-                                        initial={{ opacity: 0, x: mobile ? 10 : 100 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: mobile ? -10 : -100 }}
-                                        transition={{ duration: 0.5, }}
-                                        key={index.toString()}
-                                        elevation={6}
-                                        whileHover={{ y: -20 }}
-                                        sx={{
-                                            zIndex: 10,
-                                            ml: 2,
-                                            mr: 2,
-                                            mt: 2,
-                                            mb: 2,
-                                            width: '100%',
-                                            maxWidth: '680px',
-                                            height: '340px',
-                                            bgcolor: "primary.main",
-                                            borderRadius: "20px",
-                                        }}
+                    {cardsList.map((card, index) => 
+                        tab === index && <Grid
+                            key={card}
+                            component={motion.div}
+                            initial={{ opacity: 0, x: mobile ? 10 : 100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: mobile ? -10 : -100 }}
+                            transition={{ duration: 0.5, }}
+                            container
+                            direction="row"
+                            justifyContent="center"
+                            alignItems="flex-start"
+                            sx={{
+                                // mt: mobile ? '30px' : '80px',
+                                width: '100%',
+                                zIndex: 10,
+                            }}
+                        >
+                            {content[index].map((itemCard, indexCard) => (
+                                <Paper
+                                    key={indexCard.toString()}
+                                    elevation={6}
+                                    sx={{
+                                        zIndex: 10,
+                                        ml: 2,
+                                        mr: 2,
+                                        mt: 2,
+                                        mb: 2,
+                                        width: '100%',
+                                        maxWidth: '680px',
+                                        height: '340px',
+                                        bgcolor: "primary.main",
+                                        borderRadius: "20px",
+                                    }}
+                                >
+                                    <Grid
+                                        item
+                                        container
+                                        direction="column"
+                                        justifyContent="center"
+                                        alignItems="flex-start"
                                     >
-                                        <Grid
-                                            item
-                                            container
-                                            direction="column"
-                                            justifyContent="center"
-                                            alignItems="flex-start"
-                                        >
-                                            <Grid item>
-                                                <Typography
-                                                    component={"h4"}
-                                                    variant='IBMPlexSans700WhyLabel'
-                                                    sx={{
-                                                        cursor: 'default',
-                                                        // color: '#272731',
-                                                        pt: mobile ? '20px' : '40px',
-                                                        pl: mobile ? '16px' : '32px',
-                                                        pr: mobile ? '16px' : '32px',
-                                                        textAlign: 'center',
-                                                        fontSize: {
-                                                            xs: '28px',
-                                                            sm: '30px',
-                                                            md: '36px',
-                                                            lg: '40px',
-                                                        },
-                                                    }}
-                                                >
-                                                    {obj.title}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item>
-                                                <Typography
-                                                    component={"p"}
-                                                    variant='OpenSans400WhyLabel'
-                                                    sx={{
-                                                        cursor: 'default',
-                                                        color: 'text.secondary',
-                                                        pt: mobile ? '10px' : '20px',
-                                                        pl: mobile ? '16px' : '32px',
-                                                        pr: mobile ? '16px' : '32px',
-                                                        fontSize: {
-                                                            xs: '16px',
-                                                            sm: '16px',
-                                                            md: '22px',
-                                                            lg: '22px',
-                                                        },
-                                                    }}
-                                                >
-                                                    {obj.label}
-                                                </Typography>
-                                            </Grid>
+                                        <Grid item>
+                                            <Typography
+                                                component={"h4"}
+                                                variant='IBMPlexSans700WhyLabel'
+                                                sx={{
+                                                    cursor: 'default',
+                                                    // color: '#272731',
+                                                    pt: mobile ? '20px' : '40px',
+                                                    pl: mobile ? '16px' : '32px',
+                                                    pr: mobile ? '16px' : '32px',
+                                                    textAlign: 'center',
+                                                    fontSize: {
+                                                        xs: '28px',
+                                                        sm: '30px',
+                                                        md: '36px',
+                                                        lg: '40px',
+                                                    },
+                                                }}
+                                            >
+                                                {itemCard.title}
+                                            </Typography>
                                         </Grid>
-                                    </Paper>
-                                </>
-                            ))
-                        })}
-                    </Grid >
+                                        <Grid item>
+                                            <Typography
+                                                component={"p"}
+                                                variant='OpenSans400WhyLabel'
+                                                sx={{
+                                                    cursor: 'default',
+                                                    color: 'text.secondary',
+                                                    pt: mobile ? '10px' : '20px',
+                                                    pl: mobile ? '16px' : '32px',
+                                                    pr: mobile ? '16px' : '32px',
+                                                    fontSize: {
+                                                        xs: '16px',
+                                                        sm: '16px',
+                                                        md: '22px',
+                                                        lg: '22px',
+                                                    },
+                                                }}
+                                            >
+                                                {itemCard.label}
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                </Paper>
+                            ))}
+                        </Grid >
+                    )}
+
+
                 </AnimatePresence>
             </Paper>
         </Stack >
