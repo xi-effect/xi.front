@@ -26,6 +26,8 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import BookIcon from '@mui/icons-material/Book';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import QuizIcon from '@mui/icons-material/Quiz';
 
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -138,13 +140,13 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
 
                     }}
                     key={index.toString()}
-                    expanded={managmentStore.moduleCreation.points[index].openAccordion} >
+                    expanded={point.openAccordion} >
                     <AccordionSummary
                         expandIcon={<IconButton
                             onClick={() => managmentStore.setModuleCreationPoints(index, "openAccordion", !managmentStore.moduleCreation.points[index].openAccordion)}
                             size="large"><ExpandMoreIcon /></IconButton>}
                     >
-                        <Grid sx={{ width: "calc(100% - 58px)", }}>
+                        <Grid sx={{ width: "calc(100% - 88px)", }}>
                             <Input
                                 sx={{
                                     width: "100%",
@@ -154,7 +156,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                 disableUnderline
                                 multiline
                                 fullWidth
-                                value={managmentStore.moduleCreation.points[index].label}
+                                value={point.label}
                                 onChange={(event) => managmentStore.setModuleCreationPoints(index, "label", event.target.value)}
                             />
                         </Grid>
@@ -163,11 +165,12 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                             sx={{
                                 height: 36,
                                 width: 36,
+                                mt: 0.5,
                             }}
                             icon={<TuneIcon />}
                             onClose={() => managmentStore.setModuleCreationPoints(index, "openSpeedDial", false)}
                             onOpen={() => managmentStore.setModuleCreationPoints(index, "openSpeedDial", true)}
-                            open={managmentStore.moduleCreation.points[index].openSpeedDial}
+                            open={point.openSpeedDial}
                             direction="left"
                         >
                             <SpeedDialAction
@@ -190,6 +193,20 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                             />
 
                         </SpeedDial>
+                        <Tooltip title={point.type === "theory" ? "Теоритическая точка" : "Практическая точка"}>
+                            <IconButton onClick={() => {
+
+                                if (point.type === "theory") {
+                                    return managmentStore.setModuleCreationPoints(index, "type", "practice")
+                                }
+                                if (point.type === "practice") {
+                                   return managmentStore.setModuleCreationPoints(index, "type", "theory")
+                                }
+                            }} sx={{ ml: 3 }}>
+                                {point.type === "theory" && <LibraryBooksIcon />}
+                                {point.type === "practice" && <QuizIcon />}
+                            </IconButton>
+                        </Tooltip>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Droppable droppableId={`list-${index}`}>

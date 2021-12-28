@@ -3,24 +3,25 @@ import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 import { motion, AnimatePresence } from "framer-motion"
-import { Box, Button, Dialog, Step, Checkbox, Stepper, Radio, StepLabel, StepContent, FormControl, InputLabel, Input, InputBase, MenuItem, Select, DialogTitle, DialogContent, DialogActions, Link, useTheme, IconButton, Tooltip, Drawer, Stack, Typography, Container } from "@mui/material";
+import { Box, Button, Dialog, Step, Checkbox, Stepper, useMediaQuery, StepLabel, StepContent, FormControl, InputLabel, Input, InputBase, MenuItem, Select, DialogTitle, DialogContent, DialogActions, Link, useTheme, IconButton, Tooltip, Drawer, Stack, Typography, Container } from "@mui/material";
 import Image from "next/image";
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import UndoIcon from '@mui/icons-material/Undo';
+import QrReader from 'react-qr-scanner'
 
 const CommunityType = inject(
     "rootStore",
     "knowledgeStore",
     "uiStore",
 )(
-    observer(({ rootStore, knowledgeStore, uiStore, handleNext }) => {
+    observer(({ rootStore, knowledgeStore, uiStore, setActiveStep, handleNext }) => {
 
         return (
             <Stack
                 direction="column"
                 justifyContent="flex-start"
-                alignItems="flex-start"
+                alignItems="center"
                 spacing={2}
             >
                 <Typography
@@ -36,11 +37,11 @@ const CommunityType = inject(
                     sx={{
                         width: '100%',
                         height: 96,
-                        bgcolor: 'primary.main',
+                        bgcolor: 'primary.dark',
                         '&:hover': {
                             bgcolor: 'primary.main',
                         },
-                        borderRadius: 8,
+                        borderRadius: 4,
                     }}
                 >
                     <Stack
@@ -102,11 +103,11 @@ const CommunityType = inject(
                     sx={{
                         width: '100%',
                         height: 96,
-                        bgcolor: 'primary.main',
+                        bgcolor: 'primary.dark',
                         '&:hover': {
                             bgcolor: 'primary.main',
                         },
-                        borderRadius: 8,
+                        borderRadius: 4,
                     }}
                 >
                     <Stack
@@ -168,11 +169,11 @@ const CommunityType = inject(
                     sx={{
                         width: '100%',
                         height: 96,
-                        bgcolor: 'primary.main',
+                        bgcolor: 'primary.dark',
                         '&:hover': {
                             bgcolor: 'primary.main',
                         },
-                        borderRadius: 8,
+                        borderRadius: 4,
                     }}
                 >
                     <Stack
@@ -234,11 +235,11 @@ const CommunityType = inject(
                     sx={{
                         width: '100%',
                         height: 96,
-                        bgcolor: 'primary.main',
+                        bgcolor: 'primary.dark',
                         '&:hover': {
                             bgcolor: 'primary.main',
                         },
-                        borderRadius: 8,
+                        borderRadius: 4,
                     }}
                 >
                     <Stack
@@ -314,6 +315,31 @@ const CommunityType = inject(
                         Выберите шаблон для вашей организаций, это поможет быстрее начать учёбу
                     </Typography>
                 </Stack>
+                <Button
+                    onClick={() => setActiveStep(2)}
+                    sx={{
+                        '&.MuiButton-root': {
+                            fontFamily: 'Open Sans, sans-serif',
+                            fontStyle: 'normal',
+                            fontWeight: 600,
+                            fontSize: '18px',
+                            lineHeight: '25px',
+                            boxShadow: 6,
+                            width: '340px',
+                            height: '48px',
+                            color: 'text.primary',
+                            bgcolor: 'secondary.main',
+                            borderRadius: '88px',
+                            '&:hover': {
+                                bgcolor: 'secondary.main',
+                            },
+                            mt: 4,
+                            mb: 2,
+                        },
+                    }}
+                >
+                    Присоедениться к сообществу
+                </Button>
             </Stack>
         );
     })
@@ -331,37 +357,103 @@ const CommunityName = inject(
             <Stack
                 direction="column"
                 justifyContent="flex-start"
-                alignItems="flex-start"
+                alignItems="center"
                 spacing={2}
             >
+                <Box
+                    sx={{
+                        width: 420,
+                        height: 420,
+                        ml: 1,
+                        mr: 1,
+                    }}
+                >
+                    <Image
+                        alt="alt"
+                        src={"/app/RemoteMeeting.svg"}
+                        quality={100}
+                        width={420}
+                        height={420}
+                    />
+                </Box>
                 <Typography
+                    variant="h6"
                     textAlign={'center'}
                     sx={{
                         ml: 4
                     }}
                 >
-                    Сообщество - место, где вы можете безопасно учить и учиться, используя цифровые технологии в процессе образования
+                    Теперь нужно придумать название для вашего сообщества
                 </Typography>
-                
-                <Stack
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
+                <Typography
+                    variant="suntitle1"
+                    textAlign={'center'}
                     sx={{
-                        width: '100%',
-                        pt: 2,
+                        ml: 4,
+                        color: 'text.secondary',
                     }}
                 >
-                    <Typography
-                        textAlign={'center'}
-                        sx={{
-                            width: 400,
-                            color: 'text.secondary',
-                        }}
-                    >
-                        Выберите шаблон для вашей организаций, это поможет быстрее начать учёбу
-                    </Typography>
-                </Stack>
+                    Например, это может быть название школы, группы, класса
+                </Typography>
+                <FormControl
+                    fullWidth
+                    sx={{
+                        mt: -2,
+                        pl: 1,
+                        pr: 1,
+                    }}
+                >
+                    <InputLabel htmlFor="outlined-adornment-password">
+                        <Typography sx={{ color: "text.primary" }}>
+                            Название сообщества
+                        </Typography>
+                    </InputLabel>
+                    <Input
+                        sx={{ width: "100%", }}
+                        label="Название сообщества"
+                        type={"text"}
+                    // endAdornment={
+                    //     <InputAdornment sx={{ mr: 2 }} position="end">
+                    //         <IconButton
+                    //             aria-label="toggle password visibility"
+                    //             onClick={() => setShowPassword(!showPassword)}
+                    //             // onMouseDown={handleMouseDownPassword}
+                    //             edge="end"
+                    //             size="large"
+                    //         >
+                    //             {showPassword ? (
+                    //                 <Visibility sx={{ color: "text.secondary" }} />
+                    //             ) : (
+                    //                 <VisibilityOff sx={{ color: "text.secondary" }} />
+                    //             )}
+                    //         </IconButton>
+                    //     </InputAdornment>
+                    // }
+                    />
+                </FormControl>
+                <Button
+                    sx={{
+                        '&.MuiButton-root': {
+                            fontFamily: 'Open Sans, sans-serif',
+                            fontStyle: 'normal',
+                            fontWeight: 600,
+                            fontSize: '18px',
+                            lineHeight: '25px',
+                            boxShadow: 6,
+                            width: '280px',
+                            height: '48px',
+                            color: 'text.primary',
+                            bgcolor: 'secondary.main',
+                            borderRadius: '88px',
+                            '&:hover': {
+                                bgcolor: 'secondary.main',
+                            },
+                            mt: 4,
+                        },
+                    }}
+                >
+                    Создать сообщество
+                </Button>
             </Stack>
         );
     })
@@ -379,6 +471,65 @@ const steps = [
     },
 ];
 
+const CommunityEnter = inject(
+    "rootStore",
+    "knowledgeStore",
+    "uiStore",
+)(
+    observer(({ rootStore, knowledgeStore, uiStore }) => {
+        const [result, setResult] = React.useState("Код пока не найден")
+
+        const handleScan = (data) => {
+            console.log(data)
+            setResult(data)
+        }
+        const handleError = (err) => {
+            console.error(err)
+        }
+
+        return (
+            <Stack
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="center"
+                sx={{
+                    height: '100%'
+                }}
+            // spacing={2}
+            >
+                <Typography
+                    variant="h6"
+                    textAlign={'center'}
+                    sx={{
+                    }}
+                >
+                    Считайте QR-код, который вам дал администратор сообщества
+                </Typography>
+                <QrReader
+                    delay={1000}
+                    facingMode="rear"
+                    legacyMode
+                    style={{
+                        height: '100%',
+                        width: '100%',
+                    }}
+                    onError={handleError}
+                    onScan={handleScan}
+                />
+                <Typography
+                    variant="subtitle1"
+                    textAlign={'center'}
+                    sx={{
+                        color: 'text.secondary'
+                    }}
+                >
+                    {result}
+                </Typography>
+            </Stack>
+        );
+    })
+);
+
 const DialogCreateCommunity = inject(
     "rootStore",
     "knowledgeStore",
@@ -386,6 +537,7 @@ const DialogCreateCommunity = inject(
 )(
     observer(({ rootStore, knowledgeStore, uiStore, openDialogCC, setOpenDialogCC }) => {
         const router = useRouter();
+        const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
         const [activeStep, setActiveStep] = React.useState(0);
 
@@ -405,6 +557,7 @@ const DialogCreateCommunity = inject(
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 fullWidth
+                fullScreen={mobile ? true : false}
                 maxWidth="md"
                 sx={{
                     // height: '100%'
@@ -440,7 +593,7 @@ const DialogCreateCommunity = inject(
                 <DialogContent>
                     <Box
                         sx={{
-                            height: 570,
+                            height: 660,
                             width: '100%',
                         }}
                     >
@@ -458,7 +611,7 @@ const DialogCreateCommunity = inject(
                                     // position: 'absolute',
                                 }}
                             >
-                                <CommunityType handleNext={handleNext} />
+                                <CommunityType setActiveStep={setActiveStep} handleNext={handleNext} />
                             </Box>}
                             {activeStep === 1 && <Box
                                 key='day'
@@ -474,6 +627,21 @@ const DialogCreateCommunity = inject(
                                 }}
                             >
                                 <CommunityName handleNext={handleNext} />
+                            </Box>}
+                            {activeStep === 2 && <Box
+                                key='day'
+                                component={motion.div}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 20 }}
+                                transition={{ duration: 0.6, delay: 0, }}
+                                sx={{
+                                    width: '100%',
+                                    height: '100%',
+                                    // position: 'absolute',
+                                }}
+                            >
+                                <CommunityEnter handleNext={handleNext} />
                             </Box>}
                         </AnimatePresence>
                     </Box>
