@@ -16,6 +16,7 @@ const CommunityType = inject(
     "uiStore",
 )(
     observer(({ rootStore, knowledgeStore, uiStore, setActiveStep, handleNext }) => {
+        const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
         return (
             <Stack
@@ -27,7 +28,6 @@ const CommunityType = inject(
                 <Typography
                     textAlign={'center'}
                     sx={{
-                        ml: 4
                     }}
                 >
                     Сообщество - место, где вы можете безопасно учить и учиться, используя цифровые технологии в процессе образования
@@ -36,7 +36,7 @@ const CommunityType = inject(
                     onClick={() => handleNext(1)}
                     sx={{
                         width: '100%',
-                        height: 96,
+                        height: mobile ? 64 : 96,
                         bgcolor: 'primary.dark',
                         '&:hover': {
                             bgcolor: 'primary.main',
@@ -54,8 +54,8 @@ const CommunityType = inject(
                     >
                         <Box
                             sx={{
-                                width: 100,
-                                height: 100,
+                                width: mobile ? 68 : 100,
+                                height: mobile ? 68 : 100,
                                 ml: 1,
                                 mr: 1,
                             }}
@@ -64,8 +64,8 @@ const CommunityType = inject(
                                 alt="alt"
                                 src={"/app/AdvancedCustomization.svg"}
                                 quality={100}
-                                width={100}
-                                height={100}
+                                width={mobile ? 68 : 100}
+                                height={mobile ? 68 : 100}
                             />
                         </Box>
                         <Stack
@@ -77,15 +77,16 @@ const CommunityType = inject(
                             }}
                         >
                             <Typography
-                                variant="Roboto500XiLabel"
+                                textAlign={'left'}
+                                variant="h6"
                                 sx={{
                                     color: 'text.primary',
-                                    fontSize: 24
+                                    fontSize: mobile ? 16 : 24
                                 }}
                             >
                                 Пустой шаблон
                             </Typography>
-                            <Typography
+                            {!mobile && <Typography
                                 textAlign={'left'}
                                 sx={{
                                     color: 'text.secondary'
@@ -93,7 +94,7 @@ const CommunityType = inject(
                                 variant="subtitle1"
                             >
                                 Здесь нет каких-либо базовых настроек, иногда, это полезно
-                            </Typography>
+                            </Typography>}
                         </Stack>
                         <ArrowForwardIcon sx={{ color: 'text.primary', ml: 'auto', mr: 1 }} fontSize="large" />
                     </Stack>
@@ -102,7 +103,7 @@ const CommunityType = inject(
                     onClick={() => handleNext(1)}
                     sx={{
                         width: '100%',
-                        height: 96,
+                        height: mobile ? 64 : 96,
                         bgcolor: 'primary.dark',
                         '&:hover': {
                             bgcolor: 'primary.main',
@@ -120,8 +121,8 @@ const CommunityType = inject(
                     >
                         <Box
                             sx={{
-                                width: 100,
-                                height: 100,
+                                width: mobile ? 68 : 100,
+                                height: mobile ? 68 : 100,
                                 ml: 1,
                                 mr: 1,
                             }}
@@ -130,8 +131,8 @@ const CommunityType = inject(
                                 alt="alt"
                                 src={"/app/Professor.svg"}
                                 quality={100}
-                                width={100}
-                                height={100}
+                                width={mobile ? 68 : 100}
+                                height={mobile ? 68 : 100}
                             />
                         </Box>
                         <Stack
@@ -143,15 +144,16 @@ const CommunityType = inject(
                             }}
                         >
                             <Typography
-                                variant="Roboto500XiLabel"
+                                textAlign={'left'}
+                                variant="h6"
                                 sx={{
                                     color: 'text.primary',
-                                    fontSize: 24
+                                    fontSize: mobile ? 16 : 24
                                 }}
                             >
-                                Для Репетиторов
+                                Репетиторам
                             </Typography>
-                            <Typography
+                            {!mobile && <Typography
                                 textAlign={'left'}
                                 sx={{
                                     color: 'text.secondary'
@@ -159,7 +161,7 @@ const CommunityType = inject(
                                 variant="subtitle1"
                             >
                                 Идеальное место для взаимодействия с вашими учениками
-                            </Typography>
+                            </Typography>}
                         </Stack>
                         <ArrowForwardIcon sx={{ color: 'text.primary', ml: 'auto', mr: 1 }} fontSize="large" />
                     </Stack>
@@ -168,7 +170,7 @@ const CommunityType = inject(
                     onClick={() => handleNext(1)}
                     sx={{
                         width: '100%',
-                        height: 96,
+                        height: mobile ? 64 : 96,
                         bgcolor: 'primary.dark',
                         '&:hover': {
                             bgcolor: 'primary.main',
@@ -186,8 +188,8 @@ const CommunityType = inject(
                     >
                         <Box
                             sx={{
-                                width: 100,
-                                height: 100,
+                                width: mobile ? 68 : 100,
+                                height: mobile ? 68 : 100,
                                 ml: 1,
                                 mr: 1,
                             }}
@@ -196,8 +198,8 @@ const CommunityType = inject(
                                 alt="alt"
                                 src={"/app/Connecting.svg"}
                                 quality={100}
-                                width={100}
-                                height={100}
+                                width={mobile ? 68 : 100}
+                                height={mobile ? 68 : 100}
                             />
                         </Box>
                         <Stack
@@ -209,15 +211,16 @@ const CommunityType = inject(
                             }}
                         >
                             <Typography
-                                variant="Roboto500XiLabel"
+                                textAlign={'left'}
+                                variant="h6"
                                 sx={{
                                     color: 'text.primary',
-                                    fontSize: 24
+                                    fontSize: mobile ? 16 : 24
                                 }}
                             >
-                                Для Учебных групп
+                                Учебным группам
                             </Typography>
-                            <Typography
+                            {!mobile && <Typography
                                 textAlign={'left'}
                                 sx={{
                                     color: 'text.secondary'
@@ -225,7 +228,7 @@ const CommunityType = inject(
                                 variant="subtitle1"
                             >
                                 Учиться вместе гораздо интереснее! Не так ли?)
-                            </Typography>
+                            </Typography>}
                         </Stack>
                         <ArrowForwardIcon sx={{ color: 'text.primary', ml: 'auto', mr: 1 }} fontSize="large" />
                     </Stack>
@@ -234,7 +237,7 @@ const CommunityType = inject(
                     onClick={() => handleNext(1)}
                     sx={{
                         width: '100%',
-                        height: 96,
+                        height: mobile ? 64 : 96,
                         bgcolor: 'primary.dark',
                         '&:hover': {
                             bgcolor: 'primary.main',
@@ -252,8 +255,8 @@ const CommunityType = inject(
                     >
                         <Box
                             sx={{
-                                width: 100,
-                                height: 100,
+                                width: mobile ? 68 : 100,
+                                height: mobile ? 68 : 100,
                                 ml: 1,
                                 mr: 1,
                             }}
@@ -262,8 +265,8 @@ const CommunityType = inject(
                                 alt="alt"
                                 src={"/app/Classroom.svg"}
                                 quality={100}
-                                width={100}
-                                height={100}
+                                width={mobile ? 68 : 100}
+                                height={mobile ? 68 : 100}
                             />
                         </Box>
                         <Stack
@@ -275,15 +278,16 @@ const CommunityType = inject(
                             }}
                         >
                             <Typography
-                                variant="Roboto500XiLabel"
+                                textAlign={'left'}
+                                variant="h6"
                                 sx={{
                                     color: 'text.primary',
-                                    fontSize: 24
+                                    fontSize: mobile ? 16 : 24
                                 }}
                             >
-                                Для образовательных организаций
+                                Образовательным организациям
                             </Typography>
-                            <Typography
+                            {!mobile && <Typography
                                 textAlign={'left'}
                                 sx={{
                                     color: 'text.secondary'
@@ -291,7 +295,7 @@ const CommunityType = inject(
                                 variant="subtitle1"
                             >
                                 Технологии в сфере образования делают мир лучше
-                            </Typography>
+                            </Typography>}
                         </Stack>
                         <ArrowForwardIcon sx={{ color: 'text.primary', ml: 'auto', mr: 1 }} fontSize="large" />
                     </Stack>
@@ -352,6 +356,7 @@ const CommunityName = inject(
     "uiStore",
 )(
     observer(({ rootStore, knowledgeStore, uiStore }) => {
+        const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
         return (
             <Stack
@@ -362,8 +367,8 @@ const CommunityName = inject(
             >
                 <Box
                     sx={{
-                        width: 420,
-                        height: 420,
+                        width: mobile ? 256 : 420,
+                        height: mobile ? 256 : 420,
                         ml: 1,
                         mr: 1,
                     }}
@@ -372,8 +377,8 @@ const CommunityName = inject(
                         alt="alt"
                         src={"/app/RemoteMeeting.svg"}
                         quality={100}
-                        width={420}
-                        height={420}
+                        width={mobile ? 256 : 420}
+                        height={mobile ? 256 : 420}
                     />
                 </Box>
                 <Typography
@@ -493,7 +498,7 @@ const CommunityEnter = inject(
                 justifyContent="flex-start"
                 alignItems="center"
                 sx={{
-                    height: '100%'
+                    // height: '100%'
                 }}
             // spacing={2}
             >
@@ -506,13 +511,13 @@ const CommunityEnter = inject(
                     Считайте QR-код, который вам дал администратор сообщества
                 </Typography>
                 <QrReader
-                    delay={1000}
-                    facingMode="rear"
-                    legacyMode
+                    // delay={10000}
                     style={{
-                        height: '100%',
+                        height: 400,
                         width: '100%',
                     }}
+                    facingMode="front"
+                    legacyMode
                     onError={handleError}
                     onScan={handleScan}
                 />
@@ -593,7 +598,7 @@ const DialogCreateCommunity = inject(
                 <DialogContent>
                     <Box
                         sx={{
-                            height: 660,
+                            height: mobile ? 500 : 660,
                             width: '100%',
                         }}
                     >
