@@ -342,7 +342,7 @@ const CommunityType = inject(
                         },
                     }}
                 >
-                    Присоедениться к сообществу
+                    Присоединиться к сообществу
                 </Button>
             </Stack>
         );
@@ -483,6 +483,7 @@ const CommunityEnter = inject(
 )(
     observer(({ rootStore, knowledgeStore, uiStore }) => {
         const [result, setResult] = React.useState("Код пока не найден")
+        const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
         const handleScan = (data) => {
             console.log(data)
@@ -500,7 +501,7 @@ const CommunityEnter = inject(
                 sx={{
                     // height: '100%'
                 }}
-            // spacing={2}
+                spacing={1}
             >
                 <Typography
                     variant="h6"
@@ -513,10 +514,18 @@ const CommunityEnter = inject(
                 <QrReader
                     // delay={10000}
                     style={{
-                        height: 400,
+                        height: '100%',
                         width: '100%',
                     }}
-                    facingMode="front"
+                    constraints={
+                        mobile
+                            ? undefined
+                            : {
+                                video: {
+                                    facingMode: { exact: `environment` }
+                                }
+                            }
+                    }
                     legacyMode
                     onError={handleError}
                     onScan={handleScan}
