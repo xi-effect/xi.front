@@ -22,7 +22,13 @@ import MessageIcon from "@mui/icons-material/Message";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
 import { motion } from "framer-motion";
-import DialogCreateCommunity from "./DialogCreateCommunity";
+import dynamic from 'next/dynamic'
+const DialogCreateCommunity = dynamic(
+  () => import("./DialogCreateCommunity"),
+  { ssr: false }
+)
+
+
 
 const Sidebar = inject(
   "rootStore",

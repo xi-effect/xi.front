@@ -8,7 +8,7 @@ import Image from "next/image";
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import UndoIcon from '@mui/icons-material/Undo';
-import QrReader from 'react-qr-scanner'
+import QrReader from 'react-qr-reader'
 
 const CommunityType = inject(
     "rootStore",
@@ -485,13 +485,15 @@ const CommunityEnter = inject(
         const [result, setResult] = React.useState("Код пока не найден")
         const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
-        const handleScan = (data) => {
-            console.log(data)
-            setResult(data)
+        const handleScan = data => {
+            if (data) {
+                setResult(data)
+            }
         }
-        const handleError = (err) => {
+        const handleError = err => {
             console.error(err)
         }
+
 
         return (
             <Stack
@@ -511,25 +513,23 @@ const CommunityEnter = inject(
                 >
                     Считайте QR-код, который вам дал администратор сообщества
                 </Typography>
-                <QrReader
-                    // delay={10000}
-                    style={{
-                        height: '100%',
-                        width: '100%',
+                <Box
+                    sx={{
+                        height: 500,
+                        width: 500,
                     }}
-                    constraints={
-                        mobile
-                            ? undefined
-                            : {
-                                video: {
-                                    facingMode: { exact: `environment` }
-                                }
-                            }
-                    }
-                    legacyMode
-                    onError={handleError}
-                    onScan={handleScan}
-                />
+                >
+                    <QrReader
+                        delay={300}
+                        onError={handleError}
+                        onScan={handleScan}
+                        style={{
+                            height: 500,
+                            width: 500,
+                        }}
+                    />
+                </Box>
+
                 <Typography
                     variant="subtitle1"
                     textAlign={'center'}
