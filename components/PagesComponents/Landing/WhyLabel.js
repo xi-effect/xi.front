@@ -5,23 +5,7 @@ import { motion } from "framer-motion"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
 
-const cards = [
-    {
-        title: 'Бесплатно и без рекламы',
-        label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
-        image: '/landing/WorkingFromAnywhere.svg',
-    },
-    {
-        title: 'Все образовательные сервисы в одном месте',
-        label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
-        image: '/landing/Spreadsheets.svg',
-    },
-    {
-        title: 'Гибкая система настроек процесса обучения',
-        label: 'Описание преимущества в несколько строк для примера, думаю подумаем над этим после',
-        image: '/landing/Preferences.svg',
-    },
-]
+import { whys } from '../../../texts/landing/WhyLabel';
 
 const WhyLabel = () => {
     const theme = useTheme();
@@ -59,7 +43,7 @@ const WhyLabel = () => {
                     },
                 }}
             >
-                Почему выбирают нас?
+                {whys.main}
             </Typography>
             <Grid
                 container
@@ -72,7 +56,7 @@ const WhyLabel = () => {
                     zIndex: 10,
                 }}
             >
-                {cards.map((item, index) => (
+                {whys.cards.map((item, index) => (
                     <Paper
                         key={index.toString()}
                         component={motion.div}
