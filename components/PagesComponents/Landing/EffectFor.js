@@ -34,12 +34,12 @@ const EffectFor = () => {
     const handlers = useSwipeable({
         onSwipedLeft: () => {
             setTab(prev => {
-                return prev === content.length - 1 ? prev = 0 : prev + 1
+                return prev === features.content.length - 1 ? prev = 0 : prev + 1
             })
         },
         onSwipedRight: () => {
             setTab(prev => {
-                return prev === 0 ? prev = content.length - 1 : prev - 1
+                return prev === 0 ? prev = features.content.length - 1 : prev - 1
             })
         },
     });
