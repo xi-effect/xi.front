@@ -178,11 +178,11 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
             key={module.id.toString()}
           >
             <Paper
-              elevation={12}
+              elevation={24}
               sx={{
                 width: "100%",
                 height: "100%",
-                bgcolor: 'primary.main',
+                // bgcolor: 'primary.main',
                 borderRadius: 2,
                 position: 'relative',
               }}

@@ -48,6 +48,7 @@
     "react-hook-form": "^7.17.4",
     "react-infinite-scroll-component": "^6.1.0",
     "react-markdown": "^7.1.0",
+    "react-moment": "^1.1.1",
     "react-peeps": "^0.1.10",
     "react-qr-code": "^2.0.3",
     "react-qr-reader": "github:JodusNodus/react-qr-reader#pull/192/head",

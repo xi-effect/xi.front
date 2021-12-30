@@ -44,15 +44,6 @@ const EffectFor = () => {
         },
     });
 
-    const getCards = () => {
-        if (tab === 0) return cardsStudents
-        if (tab === 1) return cardsTeachers
-        if (tab === 2) return cardsParents
-        if (tab === 3) return cardsAuthors
-        if (tab === 4) return cardsOrg
-    }
-
-
     return (
         <Stack
             component={motion.div}

@@ -5,7 +5,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import React from 'react';
 import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
-import Chipper from '../../components/PagesComponents/Knowledge/Pages/Chipper';
 import PagesList from '../../components/PagesComponents/Knowledge/Pages/PagesList';
 import PagesListLoading from '../../components/PagesComponents/Knowledge/Pages/PagesListLoading';
 
@@ -64,7 +63,6 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                         zIndex: 1,
                     }}
                 >
-                    {/* <Chipper /> */}
                     {knowledgeStore.pageList.loadingInd && <PagesListLoading />}
                     {!knowledgeStore.pageList.loadingNothing && <>
                         <PagesList />
