@@ -66,7 +66,7 @@ const MainLabel = () => {
                                 md: '71px',
                                 lg: '71px',
                             },
-                            mt: mobile ? "20px" : "5px",
+                            mt: "20px",
                         }}
                     >
                         {labels.title}

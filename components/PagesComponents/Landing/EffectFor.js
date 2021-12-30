@@ -27,7 +27,7 @@ const cardsList = [
 
 const EffectFor = () => {
 
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('gx'));
 
     const [tab, setTab] = React.useState(0)
 
