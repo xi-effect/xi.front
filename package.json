@@ -11,6 +11,7 @@
     "postbuild": "next-sitemap",
     "start443": "next start -p 443",
     "start80": "next start -p 80",
+    "start": "NODE_ENV=production node server.js",
     "lint": "next lint"
   },
   "dependencies": {
