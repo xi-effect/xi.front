@@ -20,9 +20,10 @@ import CommunityStore from "./community/communityStore";
 enableStaticRendering(typeof window === 'undefined')
 
 let store
+// console.log(process.env)
 
 class RootStore {
-  url = 'https://xieffect.pythonanywhere.com'
+  url = process.env.NEXT_PUBLIC_URL
   constructor() {
     this.uiStore = new UIStore(this)
     this.homeStore = new HomeStore(this)
