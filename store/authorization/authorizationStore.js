@@ -89,12 +89,12 @@ class AuthorizationStore {
                     this.setSignup("error", "serverError")
                 }
             });
-        this.rootStore.fetchData(`https://xieffect-socketio.herokuapp.com/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
-            .then((data) => {
-                // socket = io("https://xieffect-socketio.herokuapp.com/", {
-                //     withCredentials: true,
-                // });
-            })
+        // this.rootStore.fetchData(`https://xieffect-socketio.herokuapp.com/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
+        //     .then((data) => {
+        //         socket = io("https://xieffect-socketio.herokuapp.com/", {
+        //             withCredentials: true,
+        //         });
+        //     })
     }
 
     @observable login = {
@@ -141,10 +141,10 @@ class AuthorizationStore {
 
                 }
             })
-        this.rootStore.fetchData(`https://xieffect-socketio.herokuapp.com/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
-            .then((data) => {
+        // this.rootStore.fetchData(`https://xieffect-socketio.herokuapp.com/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
+        //     .then((data) => {
 
-            })
+        //     })
     }
 }
 

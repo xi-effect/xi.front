@@ -34,9 +34,9 @@ const NavigationAll = inject(
     React.useEffect(() => {
       if (uiStore.load.app) uiStore.setLoading("loading", true)
       // Главное подключение к сокету
-      socket = io("https://xieffect-socketio.herokuapp.com/", {
-        withCredentials: true,
-      });
+      // socket = io("https://xieffect-socketio.herokuapp.com/", {
+      //   withCredentials: true,
+      // });
       // Каждый раз запрашиваются настройки, чтобы понимать,
       // актуален ли токен авторизации
       rootStore
@@ -73,17 +73,17 @@ const NavigationAll = inject(
     }, []);
 
     // Сокеты пролсушки для изменения информации в меню для чатов
-    if (socket != null) {
-      socket.on("add-chat", (arg) => {
-        console.log(arg);
-      });
-      socket.on("edit-chat", (arg) => {
-        console.log(arg);
-      });
-      socket.on("delete-chat", (arg) => {
-        console.log(arg);
-      });
-    }
+    // if (socket != null) {
+    //   socket.on("add-chat", (arg) => {
+    //     console.log(arg);
+    //   });
+    //   socket.on("edit-chat", (arg) => {
+    //     console.log(arg);
+    //   });
+    //   socket.on("delete-chat", (arg) => {
+    //     console.log(arg);
+    //   });
+    // }
 
     const [hoverLeftName, setHoverLeftName] = React.useState('')
 

@@ -314,7 +314,7 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
         if (Math.floor(h / 10) == 1) return "ов"
         else if (h % 10 == 1) return ""
         else if (h % 10 > 1 && h % 10 < 5) return "а"
-        else return "ов"
+        else return "ов"    
     }
 
     const getTaskColor = (t) => {

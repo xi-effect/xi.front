@@ -12,6 +12,7 @@ import {
 
 import { inject, observer } from "mobx-react";
 import Timeline from "./Schedule/Timeline";
+import LessonsList from "./Schedule/LessonsList";
 
 
 
@@ -23,13 +24,14 @@ const Schedule = inject("knowledgeStore")(
             <Stack
                 direction="row"
                 justifyContent="flex-start"
-                alignItems="center"
+                alignItems="flex-start"
                 sx={{
                     width: '100%',
                     height: '100%',
                 }}
             >
                 <Timeline />
+                <LessonsList />
             </Stack>
         );
     })

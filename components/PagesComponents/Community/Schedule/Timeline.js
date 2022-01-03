@@ -33,7 +33,7 @@ const Timeline = inject("knowledgeStore")(
                     bgcolor: 'grey.800',
                     borderTopLeftRadius: 16,
                     borderBottomLeftRadius: 16,
-                    width: 100,
+                    width: 82,
                     ml: 2,
                     height: 'calc(100vh - 128px)',
                 }}
@@ -70,7 +70,7 @@ const Timeline = inject("knowledgeStore")(
                             alignItems="center"
                             key={index.toString()}
                             sx={{
-                                minHeight: '64px',
+                                minHeight: '90px',
                                 width: '100%',
                             }}
                         >
