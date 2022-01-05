@@ -10,68 +10,101 @@ class CommunityStore {
         this.rootStore = rootStore;
         makeObservable(this)
     }
-    @observable categories = [
+    @observable channels = [
         {
+            isCategory: false,
+            name: 'Расписание 1',
+            type: 'schedule',
+        },
+        {
+            isCategory: false,
+            name: 'Канал 2',
+            type: 'chat',
+        },
+        {
+            isCategory: true,
             name: 'Категория 1',
             open: true,
-            channels: [
+            underchannels: [
                 {
-                    name: 'Канал 1',
-                    type: '',
+                    name: 'Комната',
+                    type: 'voiceroom',
                 },
                 {
-                    name: 'Канал 2',
-                    type: '',
+                    name: 'Комната',
+                    type: 'voiceroom',
                 },
                 {
-                    name: 'Канал 3',
-                    type: '',
+                    name: 'Чат',
+                    type: 'chat',
                 },
             ]
         },
         {
+            isCategory: true,
             name: 'Категория 2',
             open: true,
-            channels: [
+            underchannels: [
                 {
-                    name: 'Канал 1',
-                    type: '',
+                    name: 'Чат',
+                    type: 'chat',
                 },
                 {
-                    name: 'Канал 2',
-                    type: '',
+                    name: 'Чат',
+                    type: 'chat',
                 },
                 {
-                    name: 'Канал 3',
-                    type: '',
+                    name: 'Чат',
+                    type: 'chat',
                 },
             ]
         },
         {
+            isCategory: false,
+            name: 'Комната',
+            type: 'voiceroom',
+        },
+        {
+            isCategory: false,
+            name: 'Чат',
+            type: 'chat',
+        },
+        {
+            isCategory: true,
             name: 'Категория 3',
             open: true,
-            channels: [
+            underchannels: [
                 {
-                    name: 'Канал 1',
-                    type: '',
+                    name: 'Расписание 2',
+                    type: 'schedule',
                 },
                 {
-                    name: 'Канал 2',
-                    type: '',
+                    name: 'Чат',
+                    type: 'chat',
                 },
                 {
-                    name: 'Канал 3',
-                    type: '',
+                    name: 'Чат',
+                    type: 'chat',
                 },
             ]
-        }
+        },
+        {
+            isCategory: false,
+            name: 'Расписание 5',
+            type: 'schedule',
+        },
+        {
+            isCategory: false,
+            name: 'Расписание 6',
+            type: 'schedule',
+        },
     ]
 
-    @action setCategories = (index, name, value) => {
-        this.categories[index][name] = value
+    @action setChannel = (index, name, value) => {
+        this.channels[index][name] = value
     }
 
-    
+
 }
 
 export default CommunityStore;
