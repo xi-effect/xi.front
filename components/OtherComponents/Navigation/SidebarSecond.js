@@ -391,7 +391,10 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-                spacing={1}
+                sx={{
+                    maxHeight: 'calc(100vh - 2px)',
+                    height: '100%',
+                }}
             >
                 <Box
                     sx={{
@@ -452,7 +455,6 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                 ))
                 }
                 {router.pathname.includes('/settings') && <MenuSettingsComp />}
-
             </Stack >
         </Paper >
 

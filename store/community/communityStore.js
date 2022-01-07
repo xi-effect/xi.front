@@ -12,91 +12,162 @@ class CommunityStore {
     }
     @observable channels = [
         {
-            isCategory: false,
-            name: 'Расписание 1',
-            type: 'schedule',
-        },
-        {
-            isCategory: false,
-            name: 'Канал 2',
+            id: 0,
             type: 'chat',
+            name: 'Канал 2',
+            unread: 0, //Для чатов
         },
         {
-            isCategory: true,
+            id: 1,
+            type: 'category',
             name: 'Категория 1',
             open: true,
-            underchannels: [
+            children: [
                 {
+                    id: 2,
+                    type: 'room',
                     name: 'Комната',
-                    type: 'voiceroom',
                 },
                 {
-                    name: 'Комната',
-                    type: 'voiceroom',
+                    id: 3,
+                    type: 'schedule',
+                    name: 'Расписание 1',
                 },
                 {
-                    name: 'Чат',
+                    id: 4,
                     type: 'chat',
+                    name: 'Чат',
                 },
             ]
         },
         {
-            isCategory: true,
+            id: 2,
+            type: 'chat',
+            name: 'Чат',
+        },
+        {
+            id: 3,
+            type: 'schedule',
+            name: 'Расписание 2',
+        },
+        {
+            id: 4,
+            type: 'room',
+            name: 'Комната',
+        },
+        {
+            id: 1,
+            type: 'category',
             name: 'Категория 2',
             open: true,
-            underchannels: [
+            children: [
                 {
-                    name: 'Чат',
-                    type: 'chat',
+                    id: 2,
+                    type: 'room',
+                    name: 'Комната',
                 },
                 {
-                    name: 'Чат',
-                    type: 'chat',
-                },
-                {
-                    name: 'Чат',
-                    type: 'chat',
-                },
-            ]
-        },
-        {
-            isCategory: false,
-            name: 'Комната',
-            type: 'voiceroom',
-        },
-        {
-            isCategory: false,
-            name: 'Чат',
-            type: 'chat',
-        },
-        {
-            isCategory: true,
-            name: 'Категория 3',
-            open: true,
-            underchannels: [
-                {
-                    name: 'Расписание 2',
+                    id: 3,
                     type: 'schedule',
+                    name: 'Расписание 1',
                 },
                 {
-                    name: 'Чат',
+                    id: 4,
                     type: 'chat',
-                },
-                {
                     name: 'Чат',
-                    type: 'chat',
                 },
             ]
         },
         {
-            isCategory: false,
-            name: 'Расписание 5',
-            type: 'schedule',
+            id: 5,
+            type: 'room',
+            name: 'Комната',
         },
         {
-            isCategory: false,
-            name: 'Расписание 6',
+            id: 2,
+            type: 'chat',
+            name: 'Чат',
+        },
+        {
+            id: 3,
             type: 'schedule',
+            name: 'Расписание 2',
+        },
+        {
+            id: 4,
+            type: 'room',
+            name: 'Комната',
+        },
+        {
+            id: 1,
+            type: 'category',
+            name: 'Категория 2',
+            open: true,
+            children: [
+                {
+                    id: 2,
+                    type: 'room',
+                    name: 'Комната',
+                },
+                {
+                    id: 3,
+                    type: 'schedule',
+                    name: 'Расписание 1',
+                },
+                {
+                    id: 4,
+                    type: 'chat',
+                    name: 'Чат',
+                },
+            ]
+        },
+        {
+            id: 5,
+            type: 'room',
+            name: 'Комната',
+        },
+        {
+            id: 2,
+            type: 'chat',
+            name: 'Чат',
+        },
+        {
+            id: 3,
+            type: 'schedule',
+            name: 'Расписание 2',
+        },
+        {
+            id: 4,
+            type: 'room',
+            name: 'Комната',
+        },
+        {
+            id: 1,
+            type: 'category',
+            name: 'Категория 2',
+            open: true,
+            children: [
+                {
+                    id: 2,
+                    type: 'room',
+                    name: 'Комната',
+                },
+                {
+                    id: 3,
+                    type: 'schedule',
+                    name: 'Расписание 1',
+                },
+                {
+                    id: 4,
+                    type: 'chat',
+                    name: 'Чат',
+                },
+            ]
+        },
+        {
+            id: 5,
+            type: 'room',
+            name: 'Комната',
         },
     ]
 

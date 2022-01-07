@@ -11,6 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import ForumIcon from '@mui/icons-material/Forum';
 import TodayIcon from '@mui/icons-material/Today';
+import { Scrollbars } from 'react-custom-scrollbars-2';
 
 import { motion } from "framer-motion";
 
@@ -26,14 +27,19 @@ const arrowVariants = {
 const Channel = inject('rootStore', 'uiStore', 'messageStore', 'communityStore')(observer(({ rootStore, uiStore, messageStore, communityStore, index }) => {
     const channel = communityStore.channels[index]
     const [hoverCategory, setHoverCategory] = React.useState(null)
+    const router = useRouter();
+    const splitPathname = router.pathname.split('/')
+    const lastType = splitPathname[splitPathname.length - 2]
+    const typeId = router.query.typeId ?? null
+    console.log("splitPathname", splitPathname, lastType, typeId, router.query)
 
     const iconSelect = (type) => {
         if (type === "schedule") return <TodayIcon fontSize="small" />
         if (type === "chat") return <ForumIcon fontSize="small" />
-        if (type === "voiceroom") return <RecordVoiceOverIcon fontSize="small" />
+        if (type === "room") return <RecordVoiceOverIcon fontSize="small" />
     }
 
-    if (channel.isCategory) {
+    if (channel.type === 'category') {
         return (
             <Stack
                 key={index.toString()}
@@ -43,6 +49,8 @@ const Channel = inject('rootStore', 'uiStore', 'messageStore', 'communityStore')
                 sx={{
                     mt: "2px",
                     mb: "2px",
+                    pl: 1,
+                    pr: 1,
                     width: '100%'
                 }}
             >
@@ -83,46 +91,63 @@ const Channel = inject('rootStore', 'uiStore', 'messageStore', 'communityStore')
                     </Typography>
                     {hoverCategory === index && <AddIcon sx={{ ml: 'auto', mr: 0, fontSize: 20 }} />}
                 </Stack>
-                {
-                    channel.open && <MenuList
-                        sx={{ width: '100%', pl: 2, pr: 1, zIndex: 1 }}
-                    >
-                        {channel.underchannels.map((underchannel, indexCh) => (
-                            <MenuItem key={indexCh.toString()} sx={{ width: '100%', borderRadius: 1, height: 36, }}>
-                                <ListItemIcon
-                                    sx={{
-                                        "&.MuiListItemIcon-root": {
-                                            minWidth: 16,
-                                            fontSize: 26,
+                {channel.open && <MenuList
+                    sx={{ width: '100%', pl: 2, pr: 1, zIndex: 1 }}
+                >
+                    {channel.children.map((child, indexCh) => (
+                        <MenuItem
+                            onClick={() => router.push(`/community/${router.query.id}/${child.type}/${child.id}`)}
+                            key={indexCh.toString()}
+                            sx={{
+                                width: '100%',
+                                borderRadius: 1,
+                                height: 36,
+                                bgcolor: (lastType == child.type && typeId == child.id) ? 'action.hover' : null,
+                            }}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    "&.MuiListItemIcon-root": {
+                                        minWidth: 2,
+                                        fontSize: 26,
 
-                                        }
-                                    }}
-                                >
-                                    {iconSelect(underchannel.type)}
-                                </ListItemIcon>
-                                <ListItemText
-                                    sx={{
-                                        pl: 1
-                                    }}
-                                >
-                                    {underchannel.name}
-                                </ListItemText>
-                            </MenuItem>
-                        ))}
-                    </MenuList>
+                                    }
+                                }}
+                            >
+                                {iconSelect(child.type)}
+                            </ListItemIcon>
+                            <ListItemText
+                                sx={{
+                                    pl: 1
+                                }}
+                            >
+                                {child.name}
+                            </ListItemText>
+                        </MenuItem>
+                    ))}
+                </MenuList>
                 }
             </Stack>
         )
     }
-    if (!channel.isCategory) {
+    if (channel.type !== 'category') {
         return (
-            <MenuItem sx={{ width: '100%', borderRadius: 1, height: 36, }}>
+            <MenuItem
+                onClick={() => router.push(`/community/${router.query.id}/${channel.type}/${channel.id}`)}
+                sx={{
+                    width: 'calc(100% - 16px)',
+                    borderRadius: 1,
+                    height: 36,
+                    ml: 1,
+                    mr: 1,
+                    bgcolor: (lastType == channel.type && typeId == channel.id) ? 'action.hover' : null,
+                }}
+            >
                 <ListItemIcon
                     sx={{
                         "&.MuiListItemIcon-root": {
-                            minWidth: 16,
+                            minWidth: 2,
                             fontSize: 26,
-
                         }
                     }}
                 >
@@ -145,11 +170,28 @@ const MenuCommunity = inject('rootStore', 'uiStore', 'messageStore', 'communityS
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
     return (
         <MenuList
-            sx={{ width: '100%', pl: 1, pr: 1, zIndex: 1 }}
+            sx={{
+                width: '100%',
+                pl: 0,
+                pr: 0,
+                zIndex: 1,
+                height: "100vh",
+                overflow: 'hidden',
+            }}
         >
-            {communityStore.channels.map((channel, index) => (
-                <Channel index={index} key={index.toString()} />
-            ))}
+            <Scrollbars
+                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
+                renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
+                universal={true}
+                style={{ height: "100%", overflowY: 'hidden !important', }}
+                autoHide
+                autoHideTimeout={1000}
+                autoHideDuration={200}
+            >
+                {communityStore.channels.map((channel, index) => (
+                    <Channel index={index} key={index.toString()} />
+                ))}
+            </Scrollbars>
         </MenuList>
     )
 }));

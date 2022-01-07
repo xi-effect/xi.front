@@ -13,7 +13,7 @@ import Toolbar from '../../../../components/PagesComponents/Community/Schedule/T
 import Schedule from '../../../../components/PagesComponents/Community/Schedule';
 
 
-const SchedulePage = inject('rootStore', 'settingsStore', 'profileStore')(observer(({ rootStore, settingsStore, profileStore }) => {
+const RoomPage = inject('rootStore', 'settingsStore', 'profileStore')(observer(({ rootStore, settingsStore, profileStore }) => {
     // console.log("router.query", router.query.id);
 
     const router = useRouter()
@@ -23,7 +23,7 @@ const SchedulePage = inject('rootStore', 'settingsStore', 'profileStore')(observ
             //do smth 
         }
     }, [router.query.id]);
-    console.log("router.query", router.query)
+    // console.log("router.query", router.query)
 
     return (
         <>
@@ -50,4 +50,4 @@ const SchedulePage = inject('rootStore', 'settingsStore', 'profileStore')(observ
     );
 }))
 
-export default SchedulePage
+export default RoomPage

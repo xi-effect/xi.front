@@ -159,7 +159,7 @@ const NavigationAll = inject(
               }}
             >
               <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
-              {!(router.pathname.includes('/message')) && <Scrollbars
+              {!(router.pathname.includes('/message') && !(router.pathname.includes('chat'))) && <Scrollbars
                 renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
                 renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
                 universal={true}
@@ -170,7 +170,7 @@ const NavigationAll = inject(
               >
                 {children}
               </Scrollbars>}
-              {router.pathname.includes('/message') && children}
+              {router.pathname.includes('message') || router.pathname.includes('chat') && children}
               {/* <ChatDialog /> */}
             </Box>
           </Box>
