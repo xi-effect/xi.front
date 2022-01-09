@@ -7,7 +7,7 @@ import {
   useTheme,
   Stack,
 } from "@mui/material";
-
+import FAQ from "../../components/PagesComponents/Support/FAQ";
 import { inject, observer } from "mobx-react";
 import { motion } from "framer-motion"
 
@@ -41,7 +41,7 @@ const Support = inject(
             // position: 'relative',
           }}
         >
-          
+        <FAQ/>            
         </Stack>
       </>
     );
