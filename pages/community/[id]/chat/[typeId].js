@@ -66,8 +66,8 @@ const ChatPage = inject(
         React.useEffect(() => {
             const id = window.location.href.split("/").pop();
             // socket.emit("open", { "chat-id": id });
-            console.log("open socket");
-            console.log("id", id);
+            // console.log("open socket");
+            // console.log("id", id);
             messageStore.loadMetaForChat(id);
             messageStore.loadUsersForChat(id);
             messageStore.uploadFirstMessages(id);

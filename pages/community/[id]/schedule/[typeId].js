@@ -10,7 +10,9 @@ import { useRouter } from 'next/router'
 
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
 import Toolbar from '../../../../components/PagesComponents/Community/Schedule/Toolbar';
-import Schedule from '../../../../components/PagesComponents/Community/Schedule';
+import DateLine from '../../../../components/PagesComponents/Community/Schedule/DateLine';
+import LessonsList from '../../../../components/PagesComponents/Community/Schedule/LessonsList';
+
 
 
 const SchedulePage = inject('rootStore', 'settingsStore', 'profileStore')(observer(({ rootStore, settingsStore, profileStore }) => {
@@ -39,11 +41,38 @@ const SchedulePage = inject('rootStore', 'settingsStore', 'profileStore')(observ
                     alignItems="center"
                     // spacing={2}
                     sx={{
-                        width: '100%'
+                        width: '100%',
+                        // maxHeight: 'calc(100vh - 120px)',
+                        // height: '100%',
                     }}
                 >
-                    <Toolbar />
-                    <Schedule />
+                    <Box
+                        sx={{
+                            position: "fixed",
+                            left: '336px',
+                            right: '256px',
+                            bgcolor: 'background.main',
+                            zIndex: 100,
+                            top: 48,
+                        }}
+                    >
+                        <Toolbar />
+                        <DateLine />
+                    </Box>
+                    <Stack
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        // spacing={2}
+                        sx={{
+                            mt: 12,
+                            width: '100%',
+                            maxHeight: 'calc(100vh - 120px)',
+                            height: '100%',
+                        }}
+                    >
+                        <LessonsList />
+                    </Stack>
                 </Stack>
             </NavigationAll>
         </>

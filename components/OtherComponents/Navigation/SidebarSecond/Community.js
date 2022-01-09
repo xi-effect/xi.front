@@ -31,7 +31,7 @@ const Channel = inject('rootStore', 'uiStore', 'messageStore', 'communityStore')
     const splitPathname = router.pathname.split('/')
     const lastType = splitPathname[splitPathname.length - 2]
     const typeId = router.query.typeId ?? null
-    console.log("splitPathname", splitPathname, lastType, typeId, router.query)
+    // console.log("splitPathname", splitPathname, lastType, typeId, router.query)
 
     const iconSelect = (type) => {
         if (type === "schedule") return <TodayIcon fontSize="small" />
@@ -108,7 +108,7 @@ const Channel = inject('rootStore', 'uiStore', 'messageStore', 'communityStore')
                             <ListItemIcon
                                 sx={{
                                     "&.MuiListItemIcon-root": {
-                                        minWidth: 2,
+                                        minWidth: "2px !important",
                                         fontSize: 26,
 
                                     }
@@ -146,7 +146,7 @@ const Channel = inject('rootStore', 'uiStore', 'messageStore', 'communityStore')
                 <ListItemIcon
                     sx={{
                         "&.MuiListItemIcon-root": {
-                            minWidth: 2,
+                            minWidth: "2px !important",
                             fontSize: 26,
                         }
                     }}
