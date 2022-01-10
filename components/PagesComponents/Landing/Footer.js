@@ -5,11 +5,6 @@ import { motion } from "framer-motion"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, Container, IconButton } from '@mui/material';
 import TermsOfUse from "./TermsOfUse";
-import License from "./License";
-
-
-
-
 
 const Footer = () => {
     const theme = useTheme();
@@ -17,28 +12,8 @@ const Footer = () => {
     const router = useRouter()
     const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
-
     const [open, setOpen] = React.useState(false);
-    const [openLic,setOpenLic] = React.useState(false);
-
-    const handleClickOpen = () => () => {
-        setOpen(true);
-    };
-
-    const handleClickOpenLic = (License) => () => {
-        setOpenLic(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleCloseLic = () => {
-        setOpenLic(false);
-    };
-
-
-
+    const [type, setType] = React.useState(0);
 
     return (
         <Box
@@ -112,11 +87,26 @@ const Footer = () => {
                             }}
                         >
                             <Typography> © 2022 xieffect.netlify.app  </Typography>
-                            <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }} onClick={handleClickOpen('paper')}> Пользовательское соглашение </Link>
-                            <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }} onClick={handleClickOpenLic('paper')}> Лицензионное соглашение </Link>
+                            <Link
+                                sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}
+                                onClick={() => {
+                                    setType(0)
+                                    setOpen(true)
+                                }}>
+                                Пользовательское соглашение
+                            </Link>
+                            <Link
+                                sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}
+                                onClick={() => {
+                                    setType(1)
+                                    setOpen(true)
+                                }}>
+                                Лицензионное соглашение
+                            </Link>
+
                         </Grid>
-                        <TermsOfUse handleClose={handleClose} open={open}/>
-                        <License  handleClose={handleClose} LicOnClose={handleClose}/>
+                        <TermsOfUse open={open} setOpen={setOpen} type={type}/>
+
                         <Grid item
                             sx={{
                                 ml: 'auto', mr: 1
@@ -160,7 +150,7 @@ const Footer = () => {
                         />
                     </IconButton>
                     <Link sx={{ color: 'text.primary', mt: 2, cursor: 'pointer' }}>  Пользовательское соглашение </Link>
-                    <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Лицензионное соглашение </Link>
+                    <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Лицензионное соглашение</Link>
                     <Typography sx={{ mt: 3 }}> © 2022 xieffect.netlify.app  </Typography>
                 </Grid>}
             </Container>
