@@ -5,7 +5,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { Box, Paper, Grid } from "@mui/material";
+import { Box, Paper, Grid, Stack } from "@mui/material";
 import { questions } from "/texts/support/FAQ";
 
 function FAQ() {
@@ -43,60 +43,90 @@ function FAQ() {
         >
           {"Список часто задаваемых вопросов"}
         </Typography>
-        <Box>
-          {questions.map((question, index) => (
-            <Paper
-              key={index.toString()}
-              elevation={24}
-              sx={{
-                textAlign: "center",
-                zIndex: 10,
-                ml: 2,
-                mr: 2,
-                mt: 2,
-                mb: 2,
-                p: 2,
-                minwidth: "300px",
-                bgcolor: "grey.400",
-                borderRadius: "20px",
-              }}
-            >
-              <Grid
-                item
-                container
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="center"
+
+        <Paper
+          elevation={24}
+          sx={{
+            textAlign: "center",
+            zIndex: 10,
+            ml: 2,
+            mr: 2,
+            mt: 2,
+            mb: 2,
+            p: 2,
+            minwidth: "300px",
+            bgcolor: "grey.400",
+            borderRadius: "20px",
+            pt: "10px",
+            pb: "10px",
+          }}
+        >
+          <Stack direction="column" spacing={2}>
+            {questions.map((question, index) => (
+              <Accordion
+                id={`accordion ${index}`}
+                sx={{
+                  width: "100%",
+                  bgcolor: "primary.main",
+                  borderRadius: "20px",
+                }}
               >
-                <Accordion
-                  sx={{
-                    width: "100%",
-                    bgcolor: "primary.main",
-                    borderRadius: "20px",
-                  }}
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  id={`panela-header ${index}`}
                 >
-                 <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    id={`panela-header ${index}`}
-                  >
+                  <Box sx={{ width: "100%" }}>
                     <Typography
-                      component={"p"}
-                      variant="IBMPlexSans700WhyLabel"
+                      component={"div"}
                       sx={{
                         cursor: "default",
-                        textAlign: "center",
                         fontSize: {
-                          xs: "28px",
-                          sm: "30px",
-                          md: "36px",
-                          lg: "40px",
+                          xs: "15px",
+                          sm: "18px",
+                          md: "20px",
+                          lg: "25px",
                         },
+                        textAlign: "left",
+                      }}
+                    >
+                      Вопрос:
+                    </Typography>
+                    <Typography
+                      component={"div"}
+                      sx={{
+                        cursor: "default",
+                        fontSize: {
+                          xs: "15px",
+                          sm: "18px",
+                          md: "20px",
+                          lg: "25px",
+                        },
+                        textAlign: "left",
                       }}
                     >
                       {question.question}
                     </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
+                  </Box>
+                </AccordionSummary>
+
+                <AccordionDetails>
+                  <Box sx={{ width: "100%" }}>
+                    <Typography
+                      component={"div"}
+                      variant="IBMPlexSans700WhyLabel"
+                      sx={{
+                        cursor: "default",
+                        fontSize: {
+                          xs: "15px",
+                          sm: "18px",
+                          md: "20px",
+                          lg: "25px",
+                        },
+                        textAlign: "left",
+                      }}
+                    >
+                      Ответ:
+                    </Typography>
                     <Typography
                       component={"p"}
                       variant="OpenSans400WhyLabel"
@@ -109,24 +139,24 @@ function FAQ() {
                           md: "22px",
                           lg: "22px",
                         },
+                        textAlign: "left",
                       }}
                     >
                       {question.answer}
                     </Typography>
-                  </AccordionDetails>
-                </Accordion>
-              </Grid>
-            </Paper>
-          ))}
-        </Box>
+                  </Box>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </Stack>
+        </Paper>
       </Grid>
     );
-  } else {
-    return (
-      <Box>
-        <Typography>Нет часто задаваемых вопросов...</Typography>
-      </Box>
-    );
   }
+  return (
+    <Box>
+      <Typography>Нет часто задаваемых вопросов...</Typography>
+    </Box>
+  );
 }
 export default FAQ;
