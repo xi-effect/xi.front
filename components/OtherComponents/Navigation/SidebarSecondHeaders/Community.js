@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
 
-import { Typography, MenuItem, useTheme, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container } from '@mui/material';
+import { Typography, MenuItem, useTheme, Radio, Switch, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container, DialogActions } from '@mui/material';
 import Image from "next/image";
 
 import { AnimatePresence, motion } from "framer-motion";
@@ -283,10 +283,192 @@ const DialogInvite = inject('rootStore')(observer(({ rootStore, openDialogInvite
     )
 }));
 
+const DialogChannelCreation = inject('rootStore')(observer(({ rootStore, openDialogChannelCreation, setOpenDialogChannelCreation }) => {
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme => theme.breakpoints.down('md'));
+
+    const [channelSelect, setChannelSelect] = React.useState(null)
+
+    return (
+        <Dialog
+            fullScreen={fullScreen}
+            open={openDialogChannelCreation ?? false}
+            onClose={() => setOpenDialogChannelCreation(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            fullWidth
+            maxWidth="md"
+            sx={{
+                // height: '100%'
+            }}
+        >
+            <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                // spacing={2}
+                sx={{
+                    height: 64,
+                    width: '100%',
+                    p: 1,
+                }}
+            >
+                <Typography sx={{ mt: 2, ml: 2, mr: 'auto' }} variant="h5">
+                    Создание канала
+                </Typography>
+            </Stack>
+            <DialogContent>
+                <Stack
+                    direction="column"
+                    justifyContent="flex-start"
+                    alignItems="flex-start"
+                    // spacing={2}
+                    sx={{
+                        height: 360,
+                        width: '100%',
+                    }}
+                >
+                    {["Чат", "Расписание", "Комната", "Доска", "Задание",].map((item, index) => (
+                        <Paper
+                            key={index.toString()}
+                            elevation={6}
+                            onClick={() => {
+                                if (channelSelect === index) return setChannelSelect(null)
+                                setChannelSelect(index)
+                            }}
+                            sx={{
+                                mb: 2,
+                                height: 36,
+                                width: '100%',
+                                bgcolor: 'grey.900'
+                            }}
+                        >
+                            <Stack
+                                direction="row"
+                                justifyContent="flex-start"
+                                alignItems="center"
+                                sx={{
+                                    height: 36,
+                                    width: '100%',
+                                }}
+                            >
+                                <Radio
+                                    checked={channelSelect === index}
+                                />
+                                <Typography>
+                                    {item}
+                                </Typography>
+                            </Stack>
+                        </Paper>
+
+                    ))}
+                    <FormControl
+                        fullWidth
+                        sx={{
+                            mt: 2,
+                            pl: 1,
+                            pr: 1,
+                        }}
+                    >
+                        <InputLabel htmlFor="outlined-adornment-password">
+                            <Typography sx={{ color: "text.primary" }}>
+                                Название нового канала
+                            </Typography>
+                        </InputLabel>
+                        <Input
+                            sx={{ width: "100%", }}
+                            label="Лимит использования приглашения"
+                            type={"text"}
+                        />
+                    </FormControl>
+                </Stack>
+            </DialogContent>
+            <DialogActions>
+                <Button
+                    onClick={() => setOpenDialogChannelCreation(false)}
+                    variant="contained"
+                >
+                    Готово
+                </Button>
+            </DialogActions>
+        </Dialog >
+    )
+}));
+
+const DialogPrivacy = inject('rootStore')(observer(({ rootStore, openDialogPrivacy, setOpenDialogPrivacy }) => {
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme => theme.breakpoints.down('md'));
+
+    return (
+        <Dialog
+            fullScreen={fullScreen}
+            open={openDialogPrivacy ?? false}
+            onClose={() => setOpenDialogPrivacy(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            fullWidth
+            maxWidth="md"
+            sx={{
+                // height: '100%'
+            }}
+        >
+            <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                // spacing={2}
+                sx={{
+                    height: 64,
+                    width: '100%',
+                    p: 1,
+                }}
+            >
+                <Typography sx={{ mt: 2, ml: 2, mr: 'auto' }} variant="h5">
+                    Настройки конфиденциальности
+                </Typography>
+            </Stack>
+            <DialogContent>
+                <Stack
+                    direction="column"
+                    justifyContent="flex-start"
+                    alignItems="flex-start"
+                    sx={{
+                        height: 160,
+                        width: '100%',
+                    }}
+                >
+                    <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        spacing={1}
+                    >
+                        <Switch />
+                        <Typography>
+                            Разрешить участникам сообщества писать вам личные сообщения
+                        </Typography>
+                    </Stack>
+                </Stack>
+            </DialogContent>
+            <DialogActions>
+                <Button
+                    onClick={() => setOpenDialogPrivacy(false)}
+                    variant="contained"
+                >
+                    Готово
+                </Button>
+            </DialogActions>
+        </Dialog >
+    )
+}));
+
 const Community = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const [openDialogInvite, setOpenDialogInvite] = React.useState(false);
+    const [openDialogChannelCreation, setOpenDialogChannelCreation] = React.useState(false);
+    const [openDialogPrivacy, setOpenDialogPrivacy] = React.useState(false);
+
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
 
@@ -374,6 +556,9 @@ const Community = inject('rootStore', 'uiStore', 'messageStore')(observer(({ roo
                 </IconButton>
             </Tooltip>
             <DialogInvite openDialogInvite={openDialogInvite} setOpenDialogInvite={setOpenDialogInvite} />
+            <DialogPrivacy openDialogPrivacy={openDialogPrivacy} setOpenDialogPrivacy={setOpenDialogPrivacy} />
+            <DialogChannelCreation openDialogChannelCreation={openDialogChannelCreation} setOpenDialogChannelCreation={setOpenDialogChannelCreation} />
+
             <Popper
                 open={open}
                 anchorEl={anchorRef.current}
@@ -425,7 +610,10 @@ const Community = inject('rootStore', 'uiStore', 'messageStore')(observer(({ roo
                                         </Stack>
                                     </MenuItem>
                                     <Divider flexItem />
-                                    <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
+                                    <MenuItem sx={{ width: '100%' }} onClick={() => {
+                                        setOpenDialogChannelCreation(true)
+                                        setOpen(false)
+                                    }}>
                                         <Stack
                                             direction="row"
                                             justifyContent="space-between"
@@ -459,7 +647,10 @@ const Community = inject('rootStore', 'uiStore', 'messageStore')(observer(({ roo
                                             <NotificationsIcon fontSize="small" />
                                         </Stack>
                                     </MenuItem>
-                                    <MenuItem onClick={handleClose}>
+                                    <MenuItem sx={{ width: '100%' }} onClick={() => {
+                                        setOpenDialogPrivacy(true)
+                                        setOpen(false)
+                                    }}>
                                         <Stack
                                             direction="row"
                                             justifyContent="space-between"
