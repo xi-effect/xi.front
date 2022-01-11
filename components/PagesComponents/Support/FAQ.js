@@ -61,7 +61,7 @@ function FAQ() {
             pb: "10px",
           }}
         >
-          <Stack direction="column" spacing={2}>
+          <Stack direction="column" sx={{borderRadiusBottom:"20px"}}>
             {questions.map((question, index) => (
               <Accordion
                 id={`accordion ${index}`}
@@ -89,21 +89,6 @@ function FAQ() {
                         textAlign: "left",
                       }}
                     >
-                      Вопрос:
-                    </Typography>
-                    <Typography
-                      component={"div"}
-                      sx={{
-                        cursor: "default",
-                        fontSize: {
-                          xs: "15px",
-                          sm: "18px",
-                          md: "20px",
-                          lg: "25px",
-                        },
-                        textAlign: "left",
-                      }}
-                    >
                       {question.question}
                     </Typography>
                   </Box>
@@ -111,22 +96,6 @@ function FAQ() {
 
                 <AccordionDetails>
                   <Box sx={{ width: "100%" }}>
-                    <Typography
-                      component={"div"}
-                      variant="IBMPlexSans700WhyLabel"
-                      sx={{
-                        cursor: "default",
-                        fontSize: {
-                          xs: "15px",
-                          sm: "18px",
-                          md: "20px",
-                          lg: "25px",
-                        },
-                        textAlign: "left",
-                      }}
-                    >
-                      Ответ:
-                    </Typography>
                     <Typography
                       component={"p"}
                       variant="OpenSans400WhyLabel"
