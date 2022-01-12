@@ -97,7 +97,7 @@ const MyApp = (observer((props) => {
             {/* <MenuLayout> */}
             <CssBaseline />
             <Loading />
-            <PlausibleProvider domain={"xieffect.netlify.app"}>
+            <PlausibleProvider domain={"xieffect.ru"}>
               <SnackbarProvider
                 anchorOrigin={{
                   vertical: 'bottom',
