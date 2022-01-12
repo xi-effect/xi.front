@@ -1,16 +1,12 @@
 import Head from 'next/head'
-import { styled } from '@mui/material/styles';
+
 import { useRouter } from 'next/router'
-import clsx from 'clsx';
-import { Grid, Stack, Input, useMediaQuery, TextField, useTheme, InputLabel, InputAdornment, Tooltip, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
-import { Link as LinkUI } from '@mui/material';
+import { Stack, useMediaQuery, useTheme, InputLabel, InputAdornment, IconButton, FormControl, OutlinedInput, Typography, Box, Button, Input } from '@mui/material';
 import React from 'react'
-import BackgroundImg from '../../components/OtherComponents/Background/BackgroundImg'
 import { inject, observer } from 'mobx-react'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import EmailIcon from '@mui/icons-material/Email';
-
+import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -24,7 +20,10 @@ const schema = yup.object({
 const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ rootStore, authorizationStore, uiStore }) => {
     const theme = useTheme();
 
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+
     const router = useRouter()
+
     const { id } = router.query
 
     const handleMouseDownPassword = (event) => {
@@ -39,7 +38,6 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
         authorizationStore.saveNewPassword(id, data)
     }
 
-
     return (
         <>
             <Head>
@@ -53,25 +51,74 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                 sx={{
                     width: "100vw",
                     height: "100vh",
-                    backgroundColor: 'background.1',
+                    backgroundColor: 'background.main',
                 }}
             >
+
                 <Stack
                     direction="row"
-                    justifyContent="flex-start"
+                    justifyContent="space-between"
                     alignItems="center"
-                    spacing={0}
-                    sx={{ width: "100%" }}
+                    sx={{ height: mobile ? '100px' : "140px", p: mobile ? '20px' : '40px', width: '100%', }}
                 >
-                    <Typography
-                        onClick={() => router.push('/')}
-                        variant="h3"
-                        sx={{ color: 'text.main', m: 2, cursor: "pointer", }}
+
+                    <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="baseline"
+                        spacing={0}
+                        sx={{ width: "100%" }}
                     >
-                        Ξffect
-                    </Typography>
+
+                        <Typography
+                            component={"h1"}
+                            onClick={() => {
+                                router.push({
+                                    pathname: '/',
+                                })
+                            }}
+
+                            variant="Roboto500XiLabel"
+                            sx={{
+                                mt: '1px',
+                                cursor: 'pointer',
+                                color: 'secondary.main',
+                                fontSize: {
+                                    sm: '28px',
+                                    md: '34px',
+                                    lg: '40px',
+                                },
+                            }}
+                        >
+                            Ξ
+                        </Typography>
+                        <Typography
+                            component={"h1"}
+                            onClick={() => {
+                                router.push({
+                                    pathname: '/',
+                                })
+                            }}
+
+                            variant="IBMPlexMono500XiLabelEnd"
+                            sx={{
+                                '&.MuiTypography-root': {
+                                    cursor: 'pointer',
+                                    color: 'secondary.main',
+                                },
+                                fontSize: {
+                                    sm: '28px',
+                                    md: '34px',
+                                    lg: '40px',
+                                },
+                            }}
+                        >
+                            ffect
+                        </Typography>
+                    </Stack>
                 </Stack>
                 <Box component="form" sx={{ width: "100%", }} onSubmit={handleSubmit(onSubmit)}>
+
                     <Stack
                         direction="column"
                         justifyContent="center"
@@ -79,13 +126,20 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                         spacing={3}
                         sx={{ width: "100%", p: 2, }}
                     >
+                        <Image
+                            alt="alt"
+                            src={"/auth/ResetPassword.svg"}
+                            quality={100}
+                            width={400}
+                            height={400}
+                        />
                         <Controller
                             name="password"
                             control={control}
                             defaultValue=""
-                            render={({ field }) => <FormControl error={errors?.password?.type === "required"} fullWidth sx={{ maxWidth: 512, }} variant="outlined">
+                            render={({ field }) => <FormControl error={errors?.password?.type === "required"} fullWidth sx={{ maxWidth: 512, }} >
                                 <InputLabel htmlFor="outlined-adornment-password"> <Typography sx={{ color: 'text.main' }}>Пароль</Typography> </InputLabel>
-                                <OutlinedInput
+                                <Input
                                     sx={{ backgroundColor: 'background.2', width: "100%", }}
                                     label="Адрес почты"
                                     type={showPassword ? 'text' : 'password'}
@@ -110,7 +164,31 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                                 {errors?.password?.message === "password is a required field" && <Typography variant="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Обязательное поле </Typography>}
                             </FormControl>}
                         />
-                        {!authorizationStore.passwordReset.emailResetOk && <Button variant="outlined" size="large" type="submit" sx={{ color: 'text.main', border: `2px solid ${theme.palette.text.dark}`, '&:hover': { border: `2px solid ${theme.palette.text.dark}` } }}>
+                        {!authorizationStore.passwordReset.emailResetOk && <Button
+                            variant="outlined"
+                            size="large"
+                            type="submit"
+                            sx={{
+                                '&.MuiButton-root': {
+                                    fontFamily: 'Open Sans, sans-serif',
+                                    fontStyle: 'normal',
+                                    fontWeight: 600,
+                                    fontSize: '16px',
+                                    lineHeight: '25px',
+                                    width: mobile ? '140px' : '280px',
+                                    height: mobile ? '40px' : '50px',
+                                    color: 'text.primary',
+                                    bgcolor: 'secondary.main',
+                                    borderRadius: mobile ? '62px' : '88px',
+                                    '&:hover': {
+                                        bgcolor: 'secondary.main',
+                                    },
+                                    mt: 2,
+                                    boxShadow: 12,
+                                    marginTop: "2%"
+                                }
+                            }}
+                        >
                             Сохранить новый пароль
                         </Button>}
                         {authorizationStore.passwordReset.emailResetOk && <Typography variant="subtitle1"> Пароль успешно сохранён. С этой страницы можно безопасно уходить  </Typography>}
