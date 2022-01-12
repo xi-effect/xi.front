@@ -99,7 +99,7 @@ const MyApp = (observer((props) => {
             <Loading />
             <PlausibleProvider
               domain={"xieffect.ru"}
-              selfHosted
+              // selfHosted
             >
               <SnackbarProvider
                 anchorOrigin={{
