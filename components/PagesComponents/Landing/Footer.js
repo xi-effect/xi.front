@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useRouter } from 'next/router'
 import Image from "next/image";
 import { motion } from "framer-motion"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, Container, IconButton } from '@mui/material';
-
+import TermsOfUse from "./TermsOfUse";
 
 const Footer = () => {
     const theme = useTheme();
@@ -12,6 +12,8 @@ const Footer = () => {
     const router = useRouter()
     const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
+    const [open, setOpen] = React.useState(false);
+    const [type, setType] = React.useState(0);
 
     return (
         <Box
@@ -85,9 +87,26 @@ const Footer = () => {
                             }}
                         >
                             <Typography> © 2022 xieffect.netlify.app  </Typography>
-                            <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}> Пользовательское соглашение </Link>
-                            <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}> Лицензионное соглашение </Link>
+                            <Link
+                                sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}
+                                onClick={() => {
+                                    setType(0)
+                                    setOpen(true)
+                                }}>
+                                Пользовательское соглашение
+                            </Link>
+                            <Link
+                                sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}
+                                onClick={() => {
+                                    setType(1)
+                                    setOpen(true)
+                                }}>
+                                Лицензионное соглашение
+                            </Link>
+
                         </Grid>
+                        <TermsOfUse open={open} setOpen={setOpen} type={type}/>
+
                         <Grid item
                             sx={{
                                 ml: 'auto', mr: 1
@@ -130,13 +149,15 @@ const Footer = () => {
                             height={32}
                         />
                     </IconButton>
-                    <Link sx={{ color: 'text.primary', mt: 2, cursor: 'pointer' }}> Пользовательское соглашение </Link>
-                    <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Лицензионное соглашение </Link>
+                    <Link sx={{ color: 'text.primary', mt: 2, cursor: 'pointer' }}>  Пользовательское соглашение </Link>
+                    <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Лицензионное соглашение</Link>
                     <Typography sx={{ mt: 3 }}> © 2022 xieffect.netlify.app  </Typography>
                 </Grid>}
             </Container>
         </Box>
+
     );
+
 }
 
 export default Footer;
