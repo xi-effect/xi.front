@@ -1,5 +1,26 @@
-
 export const getDesignTokens = (mode) => ({
+    breakpoints: {
+        key: {
+            0: "ax",
+            1: "xs",
+            2: "sm",
+            3: "md",
+            4: "dl",
+            5: "lg",
+            6: "gx",
+            7: "xl",
+        },
+        values: {
+            ax: 0,
+            xs: 240,
+            sm: 480,
+            md: 720,
+            dl: 980,
+            lg: 1200,
+            gx: 1536,
+            xl: 1980,
+        },
+    },
     typography: {
         // Tell MUI what's the font-size on the html element is.
         htmlFontSize: 10,

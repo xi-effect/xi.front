@@ -25,7 +25,8 @@ import {
   Typography,
   useTheme,
   Tooltip,
-  Grow,
+  Switch,
+  Container,
 } from "@mui/material";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -36,7 +37,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { inject, observer } from "mobx-react";
 
 import SVGbackground from "../../../OtherComponents/SVGbackground/SVGbackground";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 
 const moduleThemeList = {
   "math": "Математика",
@@ -81,15 +82,56 @@ const modulesImgList = {
   "Физика: термодинамика": "/knowledge/phi.jpeg",
 }
 
+const variantsIcon = {
+  open: {
+    rotate: 180,
+  },
+  close: {
+    rotate: 0,
+  }
+}
+
+const Views = React.memo(({ views }) => {
+  const theme = useTheme();
+
+  if (views < 1000) {
+    return (
+      <>
+        <VisibilityIcon sx={{ ml: 1 }} />
+        <Typography sx={{ ml: 1, color: "white" }}> {`${views}`} </Typography>
+      </>
+    );
+  }
+  if (views >= 1000 && views < 1000000) {
+    return (
+      <>
+        <VisibilityIcon sx={{ ml: 1 }} />
+        <Typography sx={{ ml: 1, color: "white" }}>
+          {" "}
+          {`${Math.round(views / 1000)}к`}{" "}
+        </Typography>
+      </>
+    );
+  }
+  if (views > 1000000) {
+    return (
+      <>
+        <VisibilityIcon sx={{ ml: 1 }} />
+        <Typography sx={{ ml: 1, color: "white" }}>
+          {" "}
+          {`${Math.round(views / 1000000)} млн`}{" "}
+        </Typography>
+      </>
+    );
+  }
+});
+
 const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
   const theme = useTheme();
   const router = useRouter()
 
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleChange = (e, i) => {
-    setExpanded(e === i ? false : i);
-  };
+  const [open, setOpen] = React.useState(false)
+  const [hover, setHover] = React.useState(false)
 
   const kindSelect = (value) => {
     if (value === "standard") return "Стандартный";
@@ -111,13 +153,15 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
       }}
     >
       {knowledgeStore.moduleList.modules.map((module, index) => {
-        const [hover, setHover] = React.useState(false)
         return (
           <Grid
+            ax={12}
             xs={12}
             sm={12}
             md={6}
-            lg={4}
+            dl={12}
+            lg={6}
+            gx={4}
             xl={3}
             item
             sx={{
@@ -134,86 +178,203 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
             key={module.id.toString()}
           >
             <Paper
-              elevation={12}
+              elevation={24}
               sx={{
                 width: "100%",
                 height: "100%",
-                bgcolor: 'primary.main',
+                // bgcolor: 'primary.main',
                 borderRadius: 2,
                 position: 'relative',
               }}
             >
-              <IconButton
-                sx={{
-                  position: 'absolute',
-                  top: 4,
-                  right: 4,
-                }}
-              >
-                <ExpandMoreIcon />
-              </IconButton>
               <Stack
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-                spacing={2}
+                // spacing={2}
                 sx={{
-                  // width: '100%',
+                  width: '100%',
                   // height: '100%',
                   p: 1.5,
                 }}
               >
-                <Tooltip title={module.name}>
-                  <Typography
-                    variant="OpenSans700MainLabel"
-                    noWrap
-                    sx={{
-                      width: 'calc(100% - 32px)',
-                      lineHeight: "26px",
-                      cursor: 'default',
-                      fontSize: 20,
-                    }}
-                  >
-                    {module.name}
-                  </Typography>
-                </Tooltip>
-                {module.description && <Box
-                  component={"p"}
-                  sx={{
-                    maxHeight: 290,
-                    minWidth: 220,
-                    width: '100%',
-                    lineHeight: "26px",
-                    cursor: 'default',
-                    fontSize: 16,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-
-                >
-                  {module.description}
-                </Box>}
-                {!module.description && <Stack
-                  direction="column"
-                  justifyContent="center"
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
                   alignItems="center"
                   sx={{
                     width: '100%',
-                    maxHeight: 290,
+                    maxWidth: '100%',
                   }}
-
                 >
-                  <Image
-                    alt="alt"
-                    src={"/app/NoData.svg"}
-                    quality={100}
-                    width={290}
-                    height={290}
-                  />
-                  <Typography sx={{ mt: -6, }}>
-                    Автор не оставил описания
-                  </Typography>
-                </Stack>}
+                  <Tooltip title={module.name}>
+                    <Typography
+                      variant="OpenSans700MainLabel"
+                      noWrap
+                      sx={{
+                        width: 'calc(100% - 32px)',
+                        lineHeight: "26px",
+                        cursor: 'default',
+                        fontSize: 20,
+                      }}
+                    >
+                      {module.name}
+                    </Typography>
+                  </Tooltip>
+                  <IconButton
+                    component={motion.button}
+                    variants={variantsIcon}
+                    animate={open === index ? "open" : "close"}
+                    transition={{ duration: 0.4 }}
+                    sx={{
+                      width: 36,
+                      height: 36,
+                    }}
+                    onClick={() => {
+                      if (open === index) return setOpen(null)
+                      if (!(open === index)) return setOpen(index)
+                    }}
+                  >
+                    <ExpandMoreIcon />
+                  </IconButton>
+                </Stack>
+                <AnimatePresence initial={false} exitBeforeEnter>
+                  {open === index && <Stack
+                    key="menu"
+                    component={motion.div}
+                    initial={{ y: -50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -50, opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                    }}
+                  >
+                    <MenuList
+                      sx={{
+                        width: '100%',
+                      }}
+                    >
+                      <MenuItem>
+                        <Stack
+                          direction="row"
+                          justifyContent="flex-start"
+                          alignItems="center"
+                          spacing={2}
+                          sx={{
+                            ml: 1,
+                          }}
+                        >
+                          <Avatar sx={{ borderRadius: 2, bgcolor: 'grey.400' }}>
+                            {module["author-name"][0].toUpperCase()}
+                          </Avatar>
+                          <Stack
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="flex-start"
+                          // spacing={1}
+                          >
+                            <Typography
+                              variant="subtitle1"
+                              sx={{
+                                // fontSize: 8,
+                                // textTransform: 'uppercase',
+                                // letterSpacing: 1,
+                                color: 'text.secondary',
+                              }}>
+                              Создатель
+                            </Typography>
+                            <Typography
+                              variant="subtitle2"
+                            >
+                              {module["author-name"]}
+                            </Typography>
+                          </Stack>
+                        </Stack>
+                      </MenuItem>
+                      <Tooltip title={"Просмотры"}>
+                        <MenuItem>
+                          <Views views={module.views} />
+                        </MenuItem>
+                      </Tooltip>
+                      <MenuItem>
+                        <Switch
+                          onClick={() => knowledgeStore.setPreferenceInModules(index, "starred", module.id, module.starred ? "unstar" : "star", !module.starred)}
+                          checked={module.starred}
+                          color="default"
+                        />
+                        Избранное
+                      </MenuItem>
+                      <MenuItem>
+                        <Switch
+                          onClick={() => knowledgeStore.setPreferenceInModules(index, "pinned", module.id, module.pinned ? "unpin" : "pin", !module.pinned)}
+                          checked={module.pinned}
+                          color="default"
+                        />
+                        Смотреть позже
+                      </MenuItem>
+                    </MenuList>
+                  </Stack>}
+                  {!(open === index) && <Stack
+                    key="desc"
+                    component={motion.div}
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 50, opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      pl: 1,
+                      pr: 1,
+                    }}
+                  >
+                    {module.description && <Box
+                      component={motion.p}
+                      sx={{
+                        maxHeight: 290,
+                        minWidth: 220,
+                        width: '100%',
+                        lineHeight: "26px",
+                        cursor: 'default',
+                        fontSize: 16,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+
+                    >
+                      {module.description}
+                    </Box>}
+                    {!module.description && <Stack
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="center"
+                      sx={{
+                        width: '100%',
+                        maxHeight: 290,
+                      }}
+
+                    >
+                      <Image
+                        alt="alt"
+                        src={"/app/NoData.svg"}
+                        quality={100}
+                        width={290}
+                        height={290}
+                      />
+                      <Typography sx={{ mt: -6, }}>
+                        Автор не оставил описания
+                      </Typography>
+                    </Stack>}
+                  </Stack>}
+                </AnimatePresence>
               </Stack>
               <Tooltip title={`${kindSelect(module.type)} / ${moduleThemeList[module.theme]}`}>
                 <Typography
@@ -236,16 +397,16 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
               </Tooltip>
               <Button
                 component={motion.button}
-                animate={{ width: hover ? 232 : 36 }}
+                animate={{ width: hover === index ? 232 : 48 }}
                 transition={{ delay: 0.4, duration: 0.4, }}
-                onMouseEnter={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}
+                onMouseEnter={() => setHover(index)}
+                onMouseLeave={() => setHover(null)}
                 onClick={() => router.push(`/knowledge/module/${module.id}/start`)}
                 sx={{
                   '&.MuiButtonBase-root': {
-                    height: 36,
-                    width: 36,
-                    minWidth: 36,
+                    height: 48,
+                    width: 48,
+                    minWidth: 48,
                   },
                   position: 'absolute',
                   color: 'text.primary',
@@ -260,7 +421,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                 }}
               >
                 <AnimatePresence initial={false} exitBeforeEnter>
-                  {hover &&
+                  {hover === index &&
                     <Stack
                       direction="row"
                       justifyContent="center"
@@ -287,10 +448,10 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                       >
                         Перейти к модулю
                       </Typography>
-                      <ArrowForwardIcon />
+                      <ArrowForwardIcon fontSize="large"/>
                     </Stack>
                   }
-                  {!hover &&
+                  {!(hover === index) &&
                     <Stack
                       direction="row"
                       key="textButton2"
@@ -300,16 +461,16 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.6, }}
                     >
-                      <ArrowForwardIcon />
+                      <ArrowForwardIcon fontSize="large"/>
                     </Stack>}
                 </AnimatePresence>
               </Button>
             </Paper>
-          </Grid>
+          </Grid >
         )
       })
       }
-    </Grid>
+    </Grid >
   );
 }));
 

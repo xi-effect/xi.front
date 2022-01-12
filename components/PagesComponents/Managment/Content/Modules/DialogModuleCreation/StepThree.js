@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
 import Link from "next/link";
-import cx from 'clsx';
-import { Slider, Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
+import { Slider, Input, AppBar, Stack, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
 
 
 import { inject, observer } from 'mobx-react'
@@ -15,69 +13,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AvatarEditor from 'react-avatar-editor'
 
-const PREFIX = 'StepThree';
-
-const classes = {
-    stepLabel: `${PREFIX}-stepLabel`,
-    stepSecondLabel: `${PREFIX}-stepSecondLabel`,
-    slider: `${PREFIX}-slider`,
-    gridDialogAv: `${PREFIX}-gridDialogAv`,
-    uploadButton: `${PREFIX}-uploadButton`,
-    wrapperGrid: `${PREFIX}-wrapperGrid`,
-    changeLabel: `${PREFIX}-changeLabel`,
-    stepWrapper: `${PREFIX}-stepWrapper`
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.stepLabel}`]: {
-        marginLeft: 16,
-        fontSize: 24,
-        cursor: 'default',
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.stepSecondLabel}`]: {
-        marginLeft: 16,
-        fontSize: 20,
-        cursor: 'default',
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.slider}`]: {
-        width: "250px",
-        padding: 16,
-    },
-
-    [`& .${classes.gridDialogAv}`]: {
-        height: '100%',
-        padding: 16,
-        //width: "550px",
-    },
-
-    [`& .${classes.uploadButton}`]: {
-        marginTop: 8,
-    },
-
-    [`& .${classes.wrapperGrid}`]: {
-        margin: 0,
-    },
-
-    [`& .${classes.changeLabel}`]: {
-        marginTop: 16,
-        color: theme => theme.palette.primary.contrastText,
-    },
-
-    [`& .${classes.stepWrapper}`]: {
-        padding: 16,
-        //width: "calc(100% - 64px)",
-        //backgroundColor: "blue",
-    }
-}));
 
 const StepThree = inject('rootStore', 'managmentStore', 'contentStore')(observer(({ rootStore, managmentStore, contentStore }) => {
     const theme = useTheme();
@@ -91,12 +26,6 @@ const StepThree = inject('rootStore', 'managmentStore', 'contentStore')(observer
             contentStore.setTemporaryImages("moduleCreation", contentStore.images[`${authorId}-${imageId}`])
         }
     }, [])
-
-    // const handleChangeValue = (event, newValue) => {
-    //     setValue(newValue);
-    // };
-
-    const [selectedImage, setSelectedImage] = useState(null);
 
     const setEditorRef = React.useRef(null);
 
@@ -117,152 +46,81 @@ const StepThree = inject('rootStore', 'managmentStore', 'contentStore')(observer
                     console.log("success")
                 })
         }
-        //contentStore.setTemporaryImages("moduleCreation", img)
     }
 
 
     return (
-        (<Root>
-            <Grid
-                className={classes.stepWrapper}
-                xs={12} sm={12} md={6} lg={6} xl={6}
-                item
-                container
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="flex-start"
+        <Stack
+            spacing={2}
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            sx={{
+                width: '100%',
+                p: 4,
+                maxWidth: 800,
+            }}
+        >
+            <Typography variant="Roboto500XiLabel" sx={{ cursor: 'default', fontSize: 20 }}> Шаг 3. </Typography>
+            <Typography> Добавьте изображение для вашего модуля </Typography>
+
+            <AvatarEditor
+                //onMouseUp={saveNewAvatar}
+                ref={setEditorRef}
+                image={contentStore.temporaryImages.moduleCreation == null ? "/illustrations/defaultModuleImg.png" : contentStore.temporaryImages.moduleCreation}
+                width={320}
+                height={180}
+                border={25}
+                borderRadius={0}
+                color={[114, 137, 218, 0.6]} // RGBA
+                scale={value / 10}
+                rotate={0}
+            />
+
+            <label htmlFor="upload-photo">
+                <input
+                    style={{ display: "none" }}
+                    id="upload-photo"
+                    name="upload-photo"
+                    type="file"
+                    onChange={(event) => {
+                        console.log(event.target.files[0]);
+                        contentStore.setTemporaryImages("moduleCreation", event.target.files[0]);
+                    }}
+                />
+                <Button color="primary" variant="contained" component="span">
+                    Загрузить изображение
+                </Button>
+            </label>
+
+            <Typography> Изменить масштаб изображения </Typography>
+            <Slider
+                value={value}
+                min={10}
+                max={30}
+                onChange={(event) => setValue(event.target.value)}
+                //onChangeCommitted={saveNewAvatar}
+                aria-labelledby="continuous-slider"
+            />
+
+            <Button
+                onClick={saveNewAvatar}
+                variant="contained"
+                color="primary"
             >
-                <Typography className={classes.stepLabel}> Шаг 3. </Typography>
-                <Typography className={classes.stepSecondLabel}> Добавьте изображение для вашего модуля </Typography>
-                <Grid
-                    className={classes.wrapperGrid}
-                    container
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="flex-start"
-                >
-                    <Grid
-                        container
-                        direction="column"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                        className={classes.gridDialogAv}
-                    >
-
-                        <Grid
-                            container
-                            direction="row"
-                            justifyContent="center"
-                            alignItems="center"
-                        >
-                            <AvatarEditor
-                                //onMouseUp={saveNewAvatar}
-                                ref={setEditorRef}
-                                image={contentStore.temporaryImages.moduleCreation == null ? "/illustrations/defaultModuleImg.png" : contentStore.temporaryImages.moduleCreation}
-                                width={320}
-                                height={180}
-                                border={25}
-                                borderRadius={0}
-                                color={[114, 137, 218, 0.6]} // RGBA
-                                scale={value / 10}
-                                rotate={0}
-                            />
-                        </Grid>
-                        <Grid
-                            container
-                            direction="row"
-                            justifyContent="center"
-                            alignItems="center"
-                        >
-                            <label htmlFor="upload-photo">
-                                <input
-                                    style={{ display: "none" }}
-                                    id="upload-photo"
-                                    name="upload-photo"
-                                    type="file"
-                                    onChange={(event) => {
-                                        console.log(event.target.files[0]);
-                                        contentStore.setTemporaryImages("moduleCreation", event.target.files[0]);
-                                    }}
-                                />
-                                <Button className={classes.uploadButton} color="primary" variant="contained" component="span">
-                                    Загрузить изображение
-                                </Button>
-                            </label>
-                        </Grid>
-                        <Grid
-                            container
-                            direction="row"
-                            justifyContent="center"
-                            alignItems="center"
-                        >
-                            <Typography className={classes.changeLabel}> Изменить масштаб изображения </Typography>
-                        </Grid>
-                        <Grid
-                            container
-                            direction="row"
-                            justifyContent="center"
-                            alignItems="center"
-                        >
-                            <Slider
-                                className={classes.slider}
-                                value={value}
-                                min={10}
-                                max={30}
-                                onChange={(event) => setValue(event.target.value)}
-                                //onChangeCommitted={saveNewAvatar}
-                                aria-labelledby="continuous-slider"
-                            />
-                        </Grid>
-                        <Grid
-                            container
-                            direction="row"
-                            justifyContent="center"
-                            alignItems="center"
-                        >
-                            <Button
-                                onClick={saveNewAvatar}
-                                className={classes.uploadButton}
-                                variant="contained"
-                                color="primary"
-                            >
-                                Сохранить изображение
-                            </Button>
-                        </Grid>
-                    </Grid>
-
-                </Grid>
-
-            </Grid >
-            <Grid
-                className={classes.stepWrapper}
-                xs={12} sm={12} md={6} lg={6} xl={6}
-                item
-                container
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="flex-start"
+                Сохранить изображение
+            </Button>
+            <Typography variant="Roboto500XiLabel" sx={{ cursor: 'default', fontSize: 20, pt: 8 }}> Шаг 4. </Typography>
+            <Typography> Теперь осталось только опубликовать модуль.  Прежде чем модуль станет доступен, он пройдёт модерацию. Это займёт некоторое время </Typography>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={null}
             >
-                <Typography className={classes.stepLabel}> Шаг 4. </Typography>
-                <Typography className={classes.stepSecondLabel}> Теперь осталось только опубликовать модуль.  Прежде чем модуль станет доступен, он пройдёт модерацию. Это займёт некоторое время </Typography>
-                <Grid
-                    className={classes.wrapperGrid}
-                    container
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <Button
-                        className={classes.uploadButton}
-                        variant="contained"
-                        color="primary"
-                        onClick={null}
-                    >
-                        Опубликовать модуль
-                    </Button>
-                </Grid>
-            </Grid >
-        </Root>)
+                Опубликовать модуль
+            </Button>
+        </Stack>
+
     );
 }))
 

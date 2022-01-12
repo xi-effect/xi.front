@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import clsx from "clsx";
@@ -12,15 +11,24 @@ import {
   useTheme,
   Tooltip,
   IconButton,
+  Box,
 } from "@mui/material";
+import { useSnackbar } from 'notistack';
 
 import HomeIcon from "@mui/icons-material/Home";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MessageIcon from "@mui/icons-material/Message";
-
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 import { motion } from "framer-motion";
+import dynamic from 'next/dynamic'
+const DialogCreateCommunity = dynamic(
+  () => import("./DialogCreateCommunity"),
+  { ssr: false }
+)
+
+
 
 const Sidebar = inject(
   "rootStore",
@@ -37,6 +45,8 @@ const Sidebar = inject(
       hoverLeftName,
       setHoverLeftName,
     }) => {
+      const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+      const [openDialogCC, setOpenDialogCC] = React.useState(false)
       const theme = useTheme();
       const router = useRouter();
       // console.log("rerenderSidebar")
@@ -53,17 +63,32 @@ const Sidebar = inject(
           label: "Знания",
           href: "/knowledge",
         },
-        {
-          id: 2,
-          icon: <MessageIcon sx={{ fontSize: 28 }} />,
-          label: "Общение",
-          href: "/messages",
-        },
+        // {
+        //   id: 2,
+        //   icon: <MessageIcon sx={{ fontSize: 28 }} />,
+        //   label: "Общение",
+        //   href: "/messages",
+        // },
         {
           id: 3,
-          icon: <SettingsIcon sx={{ fontSize: 28 }} />,
-          label: "Настройки",
-          href: "/settings",
+          icon: <AddBoxIcon sx={{ fontSize: 28 }} />,
+          label: "Создать сообщество",
+          href: "createcommunity",
+        },
+        // {
+        //   id: 4,
+        //   icon: <SettingsIcon sx={{ fontSize: 28 }} />,
+        //   label: "Настройки",
+        //   href: "/settings",
+        // },
+
+      ];
+
+      const communityList = [
+        {
+          id: 0,
+          label: "Тестовое сообщество",
+          cId: 1,
         },
       ];
 
@@ -77,7 +102,7 @@ const Sidebar = inject(
             position: "absolute",
             pt: 2,
             width: 80,
-            height: "100%",
+            height: "100vh",
             // bgcolor: 'grey.800',
           }}
         >
@@ -86,9 +111,17 @@ const Sidebar = inject(
               <IconButton
                 component={motion.li}
                 whileHover={{ scale: 1.15 }}
-                whileTap={{ scale: 0.9 }} 
+                whileTap={{ scale: 0.9 }}
                 onClick={() => {
-                  if (item.href === "/knowledge") router.push(`${item.href}/pages`);
+                  if (item.href === "/knowledge") {
+                    router.push(`${item.href}/pages`);
+                  }
+                  else if (item.href === "createcommunity") {
+                    setOpenDialogCC(true)
+                    enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
+                      variant: 'info',
+                    })
+                  }
                   else router.push(item.href);
                 }}
                 sx={{
@@ -103,6 +136,59 @@ const Sidebar = inject(
               </IconButton>
             </Tooltip>
           ))}
+          {communityList.map((item, index) => (
+            <Tooltip key={index.toString()} placement="right" title={item.label}>
+              <IconButton
+                component={motion.li}
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => {
+                  router.push(`/community/${item.cId}`);
+                }}
+                sx={{
+                  bgcolor: router.pathname.includes(`/community/${item.cId}`) ? "primary.main" : "primary.dark",
+                  borderRadius: router.pathname.includes(`/community/${item.cId}`) ? '8px' : '21px',
+                  height: '42px',
+                  width: '42px',
+                  "&:hover": {
+                    bgcolor: router.pathname.includes(`/community/${item.cId}`) ? "primary.main" : "primary.dark",
+                  },
+                }}
+              >
+                {item.label[0].toUpperCase()}
+              </IconButton>
+            </Tooltip>
+          ))}
+          <Box sx={{
+            height: '100%',
+          }}>
+
+          </Box>
+          <Tooltip placement="right" title={'Настройки'}>
+            <IconButton
+              component={motion.li}
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => {
+                router.push('/settings');
+              }}
+              sx={{
+                bgcolor: router.pathname.includes('/settings') ? "primary.main" : "",
+                borderRadius: 2,
+                "&:hover": {
+                  bgcolor: router.pathname.includes('/settings') ? "primary.main" : "",
+                },
+              }}
+            >
+              <SettingsIcon sx={{ fontSize: 28 }} />
+            </IconButton>
+          </Tooltip>
+          <Box sx={{
+            height: '4px',
+          }}>
+
+          </Box>
+          <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC} />
         </Stack >
       );
     }

@@ -10,65 +10,24 @@ import ReportIcon from '@mui/icons-material/Report';
 import CustomAvatar from '../Avatar/CustomAvatar'
 
 import KnowledgeСreatePage from "./RightMenu/KnowledgeСreatePage";
+import KnowledgeСreateModule from "./RightMenu/KnowledgeСreateModule";
+import KnowledgeСreatePageMap from "./RightMenu/KnowledgeСreatePageMap";
+import KnowledgeСreateModuleMap from "./RightMenu/KnowledgeСreateModuleMap";
 import KnowledgeModuleTools from "./RightMenu/KnowledgeModuleTools";
 import KnowledgePageTools from "./RightMenu/KnowledgePageTools";
 import KnowledgePagesTools from "./RightMenu/KnowledgePagesTools";
 import KnowledgeModulesTools from "./RightMenu/KnowledgeModulesTools";
 import KnowledgeModuleMap from "./RightMenu/KnowledgeModuleMap";
+import KnowledgeModulesFilters from "./RightMenu/KnowledgeModulesFilters";
+import HomeNotifications from "./RightMenu/HomeNotifications";
+
 
 
 
 import { motion, AnimatePresence } from "framer-motion"
 import ReportDialog from "./RightMenu/ReportDialog";
+import InfoDialog from "./RightMenu/InfoDialog";
 
-const sidebar = {
-  open: {
-    height: '200px',
-    transition: {
-      type: "tween",
-      stiffness: 20,
-      restDelta: 2
-    }
-  },
-  closed: {
-    height: '72px',
-    transition: {
-      delay: 0.5,
-      type: "tween",
-      stiffness: 400,
-      damping: 40
-    }
-  }
-};
-
-const variantsCont = {
-  open: {
-    transition: {
-      staggerChildren: 0.07, delayChildren: 0.2
-    }
-  },
-  closed: {
-    transition: { staggerChildren: 0.05, staggerDirection: -1 }
-  }
-};
-
-const variantsChild = {
-  open: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      y: { stiffness: 1000, velocity: -100 }
-    }
-  },
-  closed: {
-    y: -10,
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      y: { stiffness: 1000 }
-    }
-  }
-};
 
 
 const RightMenu = inject(
@@ -78,7 +37,56 @@ const RightMenu = inject(
 )(
   observer(({ rootStore, knowledgeStore, settingsStore }) => {
     const router = useRouter();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"))
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
+
+    const sidebar = {
+      open: {
+        height: mobile ? '300px' : '200px',
+        transition: {
+          type: "tween",
+          stiffness: 20,
+          restDelta: 2
+        }
+      },
+      closed: {
+        height: '72px',
+        transition: {
+          delay: 0.5,
+          type: "tween",
+          stiffness: 400,
+          damping: 40
+        }
+      }
+    };
+
+    const variantsCont = {
+      open: {
+        transition: {
+          staggerChildren: 0.07, delayChildren: 0.2
+        }
+      },
+      closed: {
+        transition: { staggerChildren: 0.05, staggerDirection: -1 }
+      }
+    };
+
+    const variantsChild = {
+      open: {
+        y: 0,
+        opacity: 1,
+        transition: {
+
+        }
+      },
+      closed: {
+        y: -10,
+        opacity: 0,
+        transition: {
+          duration: 0.2,
+          y: { stiffness: 1000 }
+        }
+      }
+    };
 
     const goNext = () => {
       if (!router.pathname.includes('/knowledge/module/results')) {
@@ -102,6 +110,7 @@ const RightMenu = inject(
 
     const [open, setOpen] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
+    const [openDialogInfo, setOpenDialogInfo] = React.useState(false);
 
 
     return (
@@ -159,7 +168,7 @@ const RightMenu = inject(
                 }}
               >
                 <Box
-                  sx={{ height: 64, width: 64, m: 1, mt: "-2px", mr: 1, cursor: 'pointer' }}
+                  sx={{ height: 64, width: 64, m: 1, mt: "-2px", mr: 0, cursor: 'pointer' }}
                 >
                   <CustomAvatar avatar={{ ...settingsStore.settings.avatar, bgcolor: 'rgba(0,0,0,0)' }} viewBox={{ x: '50', y: '-110', width: '690', height: '790' }} reverse={true} />
                 </Box>
@@ -167,16 +176,17 @@ const RightMenu = inject(
                   direction="column"
                   justifyContent="center"
                   alignItems="flex-start"
-                  spacing={0}
                   sx={{
-                    pt: 1
+                    pt: 1,
+                    width: 'calc(100% - 80px)'
                   }}
                 >
-                  <Typography variant="h6" sx={{ mt: 0, ml: 0, mr: 0 }}>
+                  <Typography variant="h6" sx={{ mt: 0, ml: 0, mr: 0, width: 'calc(100% - 0px)' }} noWrap>
                     {settingsStore.settings.username}
+                    {/* asfbdvasbfdafbdafbdab */}
                   </Typography>
-                  <Typography variant="subtitle1" sx={{ mt: 0, ml: 0, mr: 0 }}>
-                    {'Иванов Иван'}
+                  <Typography variant="subtitle1" sx={{ mt: 0, ml: 0, mr: 0, width: 'calc(100% - 0px)' }}>
+                    {`${settingsStore.settings.username} ${settingsStore.settings.username}`}
                   </Typography>
                 </Stack>
               </Stack>
@@ -240,10 +250,14 @@ const RightMenu = inject(
             direction="column"
             justifyContent="space-between"
             alignItems="center"
-            spacing={2}
-            sx={{ height: '100%', }}
+            // spacing={12}
+            sx={{ height: '100%', width: '100%', zIndex: 100, }}
           >
-            <Stack sx={{ height: '100%', mt: 1, mb: 'auto' }}>
+            <Stack sx={{ height: '100%', width: '100%', mt: 1, mb: 'auto' }}>
+              {router.pathname.includes('/home') && <HomeNotifications />}
+              {router.pathname.includes('/knowledge/createpage') && <KnowledgeСreatePageMap />}
+              {router.pathname.includes('/knowledge/createmodule') && <KnowledgeСreateModuleMap />}
+              {router.pathname.includes('/knowledge/modules') && <KnowledgeModulesFilters />}
               {!knowledgeStore.moduleCompleted.isFinished && knowledgeStore.module["map"] != undefined && knowledgeStore.module["map"].length != 0 && router.pathname.includes('/knowledge/module/') && <KnowledgeModuleMap goNext={goNext} />}
             </Stack>
             <Stack
@@ -253,17 +267,20 @@ const RightMenu = inject(
               spacing={1}
               sx={{ mt: 'auto', pb: 2 }}
             >
-              {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools goNext={goNext} />}
-              {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools />}
+              {router.pathname.includes('/knowledge/module/') && <KnowledgeModuleTools goNext={goNext} setOpenDialog={setOpenDialogInfo} />}
+              {router.pathname.includes('/knowledge/page/') && <KnowledgePageTools setOpenDialog={setOpenDialogInfo} />}
               {router.pathname === '/knowledge/pages' && <KnowledgePagesTools />}
               {router.pathname === '/knowledge/modules' && <KnowledgeModulesTools />}
               {router.pathname.includes('/knowledge/createpage') && <KnowledgeСreatePage />}
+              {router.pathname.includes('/knowledge/createmodule') && <KnowledgeСreateModule />}
 
             </Stack>
           </Stack>
           {/* {router.pathname.includes('/knowledge/createmodule') && <KnowledgeСreateModule />} */}
 
           <ReportDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
+          <InfoDialog openDialog={openDialogInfo} setOpenDialog={setOpenDialogInfo} />
+
         </Stack >
       </Paper >
     );

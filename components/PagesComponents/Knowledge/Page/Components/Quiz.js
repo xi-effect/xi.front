@@ -12,7 +12,7 @@ const Quiz = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
 
     console.log("props", props)
     const theme = useTheme();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     const getIconColor = (show, userA, rightA) => {
         if (!show) return 'text.main'

@@ -3,7 +3,7 @@ import { Input, Grid, useMediaQuery } from '@mui/material';
 import { inject, observer } from 'mobx-react'
 
 const Text = inject('rootStore')(observer(({ rootStore, value }) => {
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
         <Grid sx={{ width: "100%", }}>

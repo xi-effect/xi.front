@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from "next/link";
 import cx from 'clsx';
-import { Input, InputLabel, NativeSelect, FormControl, Grid, FormControlLabel, Switch, Typography, useTheme, Tooltip } from '@mui/material';
+import { Input, InputLabel, NativeSelect, FormControl, Grid, FormControlLabel, Switch, Typography, useTheme, Tooltip, Stack } from '@mui/material';
 
 
 import { inject, observer } from 'mobx-react'
@@ -10,23 +10,20 @@ import { inject, observer } from 'mobx-react'
 const StepOne = inject('managmentStore')(observer(({ managmentStore }) => {
     const theme = useTheme();
 
-
-
     return (
-        <Grid
-            sx={{
-                margin: 2,
-                width: "calc(100% - 32px)",
-            }}
-            xs={12} sm={12} md={6} lg={6} xl={6}
-            container
-            item
+        <Stack
+            spacing={2}
             direction="column"
             justifyContent="flex-start"
             alignItems="flex-start"
+            sx={{
+                width: '100%',
+                p: 4,
+                maxWidth: 800,
+            }}
         >
-            <Typography varinat="h5" sx={{ cursor: 'default' }}> Шаг 1. Основная информация</Typography>
-            <Typography varinat="h6" sx={{ cursor: 'default' }}> Заполните основную информацию о вашем новом модуле</Typography>
+            <Typography variant="Roboto500XiLabel" sx={{ cursor: 'default', fontSize: 20 }}> Шаг 1. Основная информация</Typography>
+            <Typography variant="h6" sx={{ cursor: 'default' }}> Заполните основную информацию о вашем новом модуле</Typography>
             <FormControl sx={{
                 width: "calc(100% - 64px)",
                 color: 'text.main',
@@ -204,7 +201,7 @@ const StepOne = inject('managmentStore')(observer(({ managmentStore }) => {
                 // fullWidth={true}
                 />
             </FormControl>
-        </Grid>
+        </Stack>
     );
 }))
 

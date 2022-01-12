@@ -29,14 +29,14 @@ const NavigationAll = inject(
     const theme = useTheme();
     const router = useRouter();
 
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     React.useEffect(() => {
       if (uiStore.load.app) uiStore.setLoading("loading", true)
       // Главное подключение к сокету
-      socket = io("https://xieffect-socketio.herokuapp.com/", {
-        withCredentials: true,
-      });
+      // socket = io("https://xieffect-socketio.herokuapp.com/", {
+      //   withCredentials: true,
+      // });
       // Каждый раз запрашиваются настройки, чтобы понимать,
       // актуален ли токен авторизации
       rootStore
@@ -73,21 +73,21 @@ const NavigationAll = inject(
     }, []);
 
     // Сокеты пролсушки для изменения информации в меню для чатов
-    if (socket != null) {
-      socket.on("add-chat", (arg) => {
-        console.log(arg);
-      });
-      socket.on("edit-chat", (arg) => {
-        console.log(arg);
-      });
-      socket.on("delete-chat", (arg) => {
-        console.log(arg);
-      });
-    }
+    // if (socket != null) {
+    //   socket.on("add-chat", (arg) => {
+    //     console.log(arg);
+    //   });
+    //   socket.on("edit-chat", (arg) => {
+    //     console.log(arg);
+    //   });
+    //   socket.on("delete-chat", (arg) => {
+    //     console.log(arg);
+    //   });
+    // }
 
     const [hoverLeftName, setHoverLeftName] = React.useState('')
 
-    
+
 
     React.useEffect(() => {
       if (router.pathname.includes('/home')) setHoverLeftName('/home')
@@ -120,7 +120,7 @@ const NavigationAll = inject(
     const handlers = useSwipeable({
       onSwiped: (eventData) => console.log("User Swiped!", eventData),
       onSwipedLeft: () => {
-        if (uiStore.navigation.swipe === 'center' && (haveRightMenu || haveRightToolbar)) uiStore.setNavigation('swipe', 'left')
+        if (uiStore.navigation.swipe === 'center') uiStore.setNavigation('swipe', 'left')
         if (uiStore.navigation.swipe === 'right') uiStore.setNavigation('swipe', 'center')
       },
       onSwipedRight: () => {
@@ -159,16 +159,18 @@ const NavigationAll = inject(
               }}
             >
               <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
-              {!(router.pathname.includes('/message')) && <Scrollbars
+              {!(router.pathname.includes('/message') && !(router.pathname.includes('chat'))) && <Scrollbars
+                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
+                renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
                 universal={true}
-                style={{ width: "100%", height: "100%" }}
+                style={{ width: "100%", height: "100%", }}
                 autoHide
                 autoHideTimeout={1000}
                 autoHideDuration={200}
               >
                 {children}
               </Scrollbars>}
-              {router.pathname.includes('/message') && children}
+              {router.pathname.includes('message') || router.pathname.includes('chat') && children}
               {/* <ChatDialog /> */}
             </Box>
           </Box>
@@ -176,16 +178,9 @@ const NavigationAll = inject(
       );
     }
 
-    const getLeftDV = () => {
-      // if (router.pathname === '/home' || router.pathname === '/settings') return 64
-      if (haveRightToolbar) return -64
-      if (haveRightMenu) return -156
-      return 0
-    }
-
     const dragVariants = {
       left: {
-        x: getLeftDV(),
+        x: -256,
         y: 0,
       },
       center: {
@@ -193,7 +188,7 @@ const NavigationAll = inject(
         y: 0,
       },
       right: {
-        x: 256,
+        x: 336,
         y: 0,
       },
       bottom: {
@@ -227,7 +222,7 @@ const NavigationAll = inject(
             sx={{
               zIndex: 0,
               // display: "flex",
-              backgroundColor: "primary.main",
+              backgroundColor: "background.main",
               minHeight: "100vh",
               overflow: 'hidden',
               // width: "100%",
@@ -247,12 +242,22 @@ const NavigationAll = inject(
                 exit={{ x: -200, opacity: 0 }}
                 sx={{ zIndex: 100 }}
               >
-                <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
-                <SidebarSecond hoverLeftName={hoverLeftName} />
+                <Box
+                  component={motion.div}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{
+                    delay: 0,
+                    duration: 0.5,
+                  }}
+                >
+                  <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+                  <SidebarSecond hoverLeftName={hoverLeftName} />
+                </Box>
               </Box>}
             </AnimatePresence>
             <AnimatePresence initial={false}>
-              {uiStore.navigation.swipe === 'left' && haveRightToolbar && <Box
+              {uiStore.navigation.swipe === 'left' && <Box
                 component={motion.div}
                 variants={SidebarVariantsLeft}
                 // initial={{ x: 200 }}
@@ -264,33 +269,30 @@ const NavigationAll = inject(
                 exit={{ x: 200, opacity: 0 }}
                 sx={{ zIndex: 100 }}
               >
-                <RightToolbar />
-              </Box>}
-            </AnimatePresence>
-            <AnimatePresence initial={false}>
-              {uiStore.navigation.swipe === 'left' && haveRightMenu && <Box
-                component={motion.div}
-                variants={SidebarVariantsLeft}
-                // initial={{ x: 200 }}
-                animate="visible"
-                transition={{
-                  delay: 0,
-                  duration: 0.5,
-                }}
-                exit={{ x: 200, opacity: 0 }}
-                sx={{ zIndex: 100 }}
-              >
-                <RightMenu />
+                <Box
+                  component={motion.div}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{
+                    delay: 0,
+                    duration: 0.5,
+                  }}
+                >
+                  <RightMenu />
+                </Box>
               </Box>}
             </AnimatePresence>
             <Box
               sx={{
                 zIndex: 0,
                 // display: "flex",
-                backgroundColor: "primary.main",
-                minHeight: "100vh",
+                backgroundColor: "background.main",
+                filter: uiStore.navigation.swipe === 'right' || uiStore.navigation.swipe === 'left' ? 'brightness(40%)' : 'none',
+                height: "100vh",
                 overflow: 'hidden',
-                width: "100%",
+                width: `100vw`,
+                ml: 0,
+                mr: 0,
               }}
               component={motion.div}
               variants={dragVariants}
@@ -307,37 +309,19 @@ const NavigationAll = inject(
                 duration: 0.5,
               }}
             >
-              <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} />
-              <Paper
-                onMouseEnter={() => setHoverLeftName(null)}
-                elevation={2}
-                sx={{
-                  transition: '0.8s',
-                  zIndex: 1,
-                  margin: 0,
-                  overflow: 'auto',
-                  width: `calc(100% - ${getWidthMobile()}px)`,
-                  // width: `100%`,
-                  height: "calc(100vh - 48px)",
-                  // marginLeft: getMarginLeftMobile(),
-                  ml: 2,
-                  // mr: 1,
-                  borderTopLeftRadius: 24,
-                  borderTopRightRadius: 24,
-                  backgroundColor: "background.main",
-                }}
+              <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
+              {!(router.pathname.includes('/message')) && <Scrollbars
+                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
+                renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
+                universal={true}
+                style={{ width: "100vw", height: "100%", overflowY: 'hidden !important', }}
+                autoHide
+                autoHideTimeout={1000}
+                autoHideDuration={200}
               >
-                {!(router.pathname.includes('/message')) && <Scrollbars
-                  universal={true}
-                  style={{ width: "100%", height: "100%" }}
-                  autoHide
-                  autoHideTimeout={1000}
-                  autoHideDuration={200}
-                >
-                  {children}
-                </Scrollbars>}
-                {router.pathname.includes('/message') && children}
-              </Paper>
+                {children}
+              </Scrollbars>}
+              {router.pathname.includes('/message') && children}
               {/* <ChatDialog /> */}
             </Box>
           </Box>

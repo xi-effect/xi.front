@@ -48,11 +48,11 @@ const Story = inject('rootStore', 'managmentStore')(observer(({ rootStore, manag
 
     return (
         <Paper
-            elevation={12}
+            elevation={24}
             sx={{
                 height: 300,
                 minWidth: 300,
-                bgcolor: 'primary.light',
+                // bgcolor: 'primary.main',
                 borderRadius: 2,
             }}
         >
@@ -119,25 +119,30 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
             <Stack
                 direction="row"
                 justifyContent="space-between"
-                alignItems="flex-start"
+                alignItems="center"
                 spacing={2}
                 sx={{
                     width: '100%',
+                    p: 1,
                 }}
             >
                 <Typography
                     variant='OpenSans600WhyLabel'
                     sx={{
                         fontSize: 22,
+                        ml: 2,
                     }}
                 >
-                    Истории:
+                    Гид по платформе:
                 </Typography>
                 <Stack
                     direction="row"
                     justifyContent="center"
                     alignItems="center"
-                    spacing={2}
+                    spacing={1}
+                    sx={{
+                        pr: 2
+                    }}
                 >
                     <Button
                         variant="contained"
@@ -146,6 +151,7 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                                 height: 36,
                                 width: 36,
                                 minWidth: 36,
+                                bgcolor: 'secondary.dark',
                             }
                         }}
                         disabled={cardIndex === 0}
@@ -160,6 +166,7 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                                 height: 36,
                                 width: 36,
                                 minWidth: 36,
+                                bgcolor: 'secondary.dark',
                             }
                         }}
                         disabled={cardIndex === stories.length - 1}
@@ -181,9 +188,9 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                 transition={{ duration: 0.6 }}
                 sx={{
                     width: '100%',
-                    mt: 7,
-                    ml: 4,
-                    position: 'absolute',
+                    mt: 1,
+                    ml: 3,
+                    position: 'relative',
                 }}
             >
                 {stories.map((item, index) => (

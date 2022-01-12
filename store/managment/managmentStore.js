@@ -157,6 +157,7 @@ class ManagmentStore {
             if (id == index) return false
             return true
         })
+        console.log("deleteComponent", this.pageCreation.components)
     }
 
     @action deleteComponentContent = (index, indexContent) => {
@@ -203,7 +204,6 @@ class ManagmentStore {
                 })
         }
         if (close) {
-            this.setPageCreationList("dialogOpen", false)
             this.setPagecreationDefault()
             this.setPageCreationList("counter", 0)
             this.LoadPageList()
@@ -223,6 +223,7 @@ class ManagmentStore {
     }
 
     @action LoadPageList = () => {
+        console.log('LoadPageList')
         this.rootStore.fetchDataScr(`${this.rootStore.url}/wip/pages/index/`, "POST", { "counter": this.pageCreationList.counter }).then(
             (data) => {
                 console.log("log", data.results)
@@ -382,7 +383,6 @@ class ManagmentStore {
                 })
         }
         if (close) {
-            this.setModuleCreationList("dialogOpen", false)
             this.setModulecreationDefault()
             this.setModuleCreationList("counter", 0)
             this.LoadModuleList()

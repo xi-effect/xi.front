@@ -186,6 +186,7 @@ class KnowledgeStore {
       .fetchDataScr(`${this.rootStore.url}/pages/${id}/`, "GET")
       .then((data) => {
         console.log("meta", data);
+        if (data.a === 'Page not found') return this.setPageData("loading", true)
         this.setPage(data);
         this.setPageData("authorId", data["author-id"]);
         this.setPageData("authorName", data["author-name"]);
@@ -200,10 +201,10 @@ class KnowledgeStore {
     counter: 0,
     search: "",
     filters: {
-      global: null,
-      category: null,
-      theme: null,
-      difficulty: null,
+      global: "default",
+      category: "default",
+      theme: "default",
+      difficulty: "default",
     },
     sort: "popularity",
     loadingInd: true,
@@ -270,19 +271,19 @@ class KnowledgeStore {
 
   @action loadModuleList = (isSearch = false) => {
     let filters = {};
-    if (this.moduleList.filters.global != null)
+    if (this.moduleList.filters.global != "default")
       filters.global = this.moduleList.filters.global;
-    if (this.moduleList.filters.category != null)
+    if (this.moduleList.filters.category != "default")
       filters.category = this.moduleList.filters.category;
-    if (this.moduleList.filters.theme != null)
+    if (this.moduleList.filters.theme != "default")
       filters.theme = this.moduleList.filters.theme;
-    if (this.moduleList.filters.difficulty != null)
+    if (this.moduleList.filters.difficulty != "default")
       filters.difficulty = this.moduleList.filters.difficulty;
     if (
-      this.moduleList.filters.global === null &&
-      this.moduleList.filters.category === null &&
-      this.moduleList.filters.theme === null &&
-      this.moduleList.filters.difficulty === null
+      this.moduleList.filters.global === "default" &&
+      this.moduleList.filters.category === "default" &&
+      this.moduleList.filters.theme === "default" &&
+      this.moduleList.filters.difficulty === "default"
     )
       filters = null;
     this.setModuleListData("loadingInd", true);

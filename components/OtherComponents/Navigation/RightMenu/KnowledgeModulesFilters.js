@@ -1,0 +1,203 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React from "react";
+import { useRouter } from "next/router";
+import { inject, observer } from "mobx-react";
+
+import { Button, Box, useMediaQuery, InputLabel, Radio, FormControl, Select, ClickAwayListener, Divider, MenuList, Grid, MenuItem, ListItemText, ListItemIcon, Tooltip, Popper, IconButton, Link, Paper, useTheme, Stack, Typography, Grow } from "@mui/material";
+import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
+import InfoIcon from '@mui/icons-material/Info';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import CodeIcon from '@mui/icons-material/Code';
+
+import { motion, AnimatePresence } from "framer-motion"
+
+const categoryList = [
+    { key: 9, title: "Все категории", name: "default" },
+    { key: 0, title: "Средняя школа", name: "middle-school" },
+    { key: 1, title: "Основная школа", name: "main-school" },
+    { key: 2, title: "Высшая школа", name: "high-school" },
+    { key: 3, title: "Высшее образование", name: "university" },
+    { key: 4, title: "Кружки", name: "clubs" },
+    { key: 5, title: "Хобби", name: "hobby" },
+    { key: 6, title: "ОГЭ", name: "bne" },
+    { key: 7, title: "ЕГЭ", name: "une" },
+    { key: 8, title: "Профессиональные навыки", name: "prof-skills" },
+]
+
+const themeList = [
+    { key: 14, title: "Все темы", name: "default" },
+    { key: 0, title: "Математика", name: "math" },
+    { key: 1, title: "Алгебра", name: "algebra" },
+    { key: 2, title: "Геометрия", name: "geometry" },
+    { key: 3, title: "Языки", name: "languages" },
+    { key: 4, title: "Физика", name: "physics" },
+    { key: 5, title: "Химия", name: "chemistry" },
+    { key: 6, title: "Биология", name: "biology" },
+    { key: 7, title: "География", name: "geography" },
+    { key: 8, title: "История", name: "history" },
+    { key: 9, title: "Обществознание", name: "social-science" },
+    { key: 10, title: "Искусства", name: "arts" },
+    { key: 11, title: "Информатика", name: "informatics" },
+    { key: 12, title: "Литература", name: "literature" },
+    { key: 13, title: "Философия", name: "philosophy" },
+]
+
+const difficultyList = [
+    { key: 9, title: "Все уровни", name: "default" },
+    { key: 0, title: "Обзорный", name: "review" },
+    { key: 1, title: "Новичок", name: "newbie" },
+    { key: 2, title: "Любитель", name: "amateur" },
+    { key: 3, title: "Энтузиаст", name: "enthusiast" },
+    { key: 4, title: "Профи", name: "professional" },
+    { key: 5, title: "Эксперт", name: "expert" },
+]
+
+
+const KnowledgeModulesFilters = inject(
+    "knowledgeStore",
+    "managmentStore",
+    "uiStore",
+)(
+    observer(({ knowledgeStore, uiStore, managmentStore }) => {
+        const theme = useTheme();
+        const router = useRouter()
+
+        return (
+            <>
+                <MenuList
+                    // spacing={2}
+                    sx={{
+                        // p: 0.5,
+                    }}
+                >
+                    <MenuItem
+                        sx={{
+                            p: 0,
+                            pl: 0.5,
+                        }}
+                        onClick={() => {
+                            knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                        }}
+                    >
+                        <ListItemIcon>
+                            <Radio
+                                checked={knowledgeStore.moduleList.filters.global === "default"}
+                                color="default"
+                            />
+                        </ListItemIcon>
+                        <ListItemText>Все модули</ListItemText>
+                    </MenuItem>
+                    <MenuItem
+                        sx={{
+                            p: 0,
+                            pl: 0.5,
+                        }}
+                        onClick={() => {
+                            if (knowledgeStore.moduleList.filters.global == "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                            if (knowledgeStore.moduleList.filters.global != "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "starred")
+                        }}
+                    >
+                        <ListItemIcon>
+                            <Radio
+                                checked={knowledgeStore.moduleList.filters.global === "starred"}
+                                color="default"
+                            />
+                        </ListItemIcon>
+                        <ListItemText>Избранные модули</ListItemText>
+                    </MenuItem>
+                    <MenuItem
+                        sx={{
+                            p: 0,
+                            pl: 0.5,
+                        }}
+                        onClick={() => {
+                            if (knowledgeStore.moduleList.filters.global != "started") return knowledgeStore.setModuleListDataSecondary("filters", "global", "started")
+                            if (knowledgeStore.moduleList.filters.global === "started") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                        }}
+                    >
+                        <ListItemIcon>
+                            <Radio
+                                checked={knowledgeStore.moduleList.filters.global === "started"}
+                                color="default"
+                            />
+                        </ListItemIcon>
+                        <ListItemText>Начатые модули</ListItemText>
+                    </MenuItem>
+                    <MenuItem
+                        sx={{
+                            p: 0,
+                            pl: 0.5,
+                        }}
+                        onClick={() => {
+                            if (knowledgeStore.moduleList.filters.global != "pinned") return knowledgeStore.setModuleListDataSecondary("filters", "global", "pinned")
+                            if (knowledgeStore.moduleList.filters.global === "pinned") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                        }}
+                    >
+                        <ListItemIcon>
+                            <Radio
+                                checked={knowledgeStore.moduleList.filters.global === "pinned"}
+                                color="default"
+                            />
+                        </ListItemIcon>
+                        <ListItemText>Смотреть позже</ListItemText>
+                    </MenuItem>
+                    <FormControl fullWidth variant="standard" sx={{ mt: 2, ml: 2, mr: 2, width: 'calc(100% - 32px)' }}>
+                        <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                            Тема
+                        </InputLabel>
+                        <Select
+                            sx={{
+                                color: 'text.main',
+                            }}
+                            value={knowledgeStore.moduleList.filters.theme ?? null}
+                            onChange={(event) => knowledgeStore.setModuleListDataSecondary("filters", "theme", event.target.value)}
+                        >
+                            {themeList.map((item, index) => (
+                                <MenuItem key={index.toString()} sx={{ color: 'text.main' }} value={item.name}> {item.title} </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <FormControl fullWidth variant="standard" sx={{ mt: 2, ml: 2, mr: 2, width: 'calc(100% - 32px)' }}>
+                        <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                            Категория
+                        </InputLabel>
+                        <Select
+                            sx={{
+                                color: 'text.main',
+                            }}
+                            value={knowledgeStore.moduleList.filters.category ?? null}
+                            onChange={(event) => knowledgeStore.setModuleListDataSecondary("filters", "category", event.target.value)}
+                        >
+                            {categoryList.map((item, index) => (
+                                <MenuItem key={index.toString()} sx={{ color: 'text.main' }} value={item.name}> {item.title} </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <FormControl fullWidth variant="standard" sx={{ mt: 2, ml: 2, mr: 2, width: 'calc(100% - 32px)' }}>
+                        <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                            Сложность
+                        </InputLabel>
+                        <Select
+                            sx={{
+                                color: 'text.main',
+                            }}
+                            value={knowledgeStore.moduleList.filters.difficulty ?? null}
+                            onChange={(event) => knowledgeStore.setModuleListDataSecondary("filters", "difficulty", event.target.value)}
+                        >
+                            {difficultyList.map((item, index) => (
+                                <MenuItem key={index.toString()} sx={{ color: 'text.main' }} value={item.name}> {item.title} </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <Button onClick={() => knowledgeStore.loadModuleList()} variant="contained" sx={{ color: 'text.primary', ml: 8, mt: 2, }}>
+                        Применить
+                    </Button>
+                </MenuList>
+            </>
+        );
+    })
+);
+
+export default KnowledgeModulesFilters;

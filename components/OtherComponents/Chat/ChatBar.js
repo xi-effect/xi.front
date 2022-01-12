@@ -33,71 +33,6 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 
 import socket from '../../../utils/socket';
 
-const Accordion = styled((props) => (
-    <MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
-    // border: `1px solid ${theme.palette.divider}`,
-    '&:not(:last-child)': {
-        borderBottom: 0,
-    },
-    '&:before': {
-        display: 'none',
-    },
-}));
-
-const AccordionSummary = styled((props) => (
-    <MuiAccordionSummary
-        expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
-        {...props}
-    />
-))(({ theme }) => ({
-    backgroundColor:
-        theme.palette.mode === 'dark'
-            ? "#455a64"
-            : "#90a4ae",
-    // flexDirection: 'row-reverse',
-    '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
-        transform: 'rotate(90deg)',
-    },
-    '& .MuiAccordionSummary-content': {
-        // marginLeft: theme.spacing(1),
-        // marginBottom: 1,
-        // padding: 0,
-    },
-}));
-
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-    padding: theme.spacing(1),
-    borderTop: '1px solid rgba(0, 0, 0, .125)',
-}));
-
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    {children}
-                </Box>
-            )}
-        </div>
-    );
-}
-
-function a11yProps(index) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
-
 const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down('xl'));
     const theme = useTheme();
@@ -129,57 +64,71 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
     }
 
     return (
-        <Box sx={{
-            position: 'fixed',
-            top: 'auto',
-            bottom: 0,
-            left: 0,
-            right: 0,
-        }}>
+        <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={1}
+            sx={{
+                minHeight: 72,
+                // width: '100%',
+                // m: 0,
+                pb: 1,
+                position: "fixed",
+                left: '336px',
+                right: '256px',
+                bottom: 0,
+                bgcolor: 'background.main'
+            }}
+        >
             <Stack
                 direction="row"
-                justifyContent="center"
+                justifyContent="flex-start"
                 alignItems="center"
-                spacing={2}
+                sx={{
+                    minHeight: 48,
+                    width: 'calc(100% - 72px)',
+                    p: 1,
+                    ml: 2,
+                    bgcolor: 'grey.800',
+                    borderRadius: 2,
+                }}
             >
-                <Stack
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
+                <Input
                     sx={{
-                        // marginLeft: 'calc(50% - 400px)',
-                        ml: 37,
-                        maxWidth: 1200,
-                        minHeight: 64,
                         width: '100%',
-                        borderTopLeftRadius: 16,
-                        borderTopRightRadius: 16,
-                        backgroundColor: 'background.2',
-                        zIndex: 1200,
-                        // top: 'auto',
-                        // bottom: 0,
+                    }}
+                    type='text'
+                    value={messageStore.chat.newMessage}
+                    onChange={(e) => messageStore.setChat("newMessage", e.target.value)}
+                    multiline
+                    maxRows={5}
+                    placeholder="Написать в чат"
+                    disableUnderline
+                    fullWidth
+                />
+            </Stack>
+            <Tooltip title="Отправить">
+                <IconButton
+                    color="inherit"
+                    sx={{
+                        bgcolor: 'primary.main',
+                        boxShadow: 6,
+                        '&:hover': {
+                            bgcolor: 'primary.main',
+                        }
                     }}
                 >
-                    {messageStore.chat.role !== 'muted' && <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        sx={{
-                            width: '100%',
-                            pt: 2, pl: 2, pr: 2, pb: 0,
-                        }}
-                    >
-                        <Input
-                            sx={{ backgroundColor: 'background.2', width: "100%", }}
-                            type='text'
-                            value={messageStore.chat.newMessage}
-                            onChange={(e) => messageStore.setChat("newMessage", e.target.value)}
-                            multiline
-                            maxRows={5}
-                            placeholder="Отправить сообщение"
-                        />
-                    </Stack>}
-                    <Accordion sx={{ width: '100%', mt: 1, mb: 1, }} expanded={expanded}>
+                    <SendIcon />
+                </IconButton>
+            </Tooltip>
+        </Stack>
+    );
+}))
+
+export default ChatBar
+
+{/* <Accordion sx={{ width: '100%', mt: 1, mb: 1, }} expanded={expanded}>
                         <AccordionSummary expandIcon={null} sx={{ cursor: 'default !important' }} aria-controls="panel1d-content" id="panel1d-header">
                             <IconButton onClick={() => setExpanded(!expanded)} size="large">
                                 <ExpandMoreIcon
@@ -350,27 +299,20 @@ const ChatBar = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootS
                                                         <MenuItem value={'moder'}> Модератор </MenuItem>
                                                         <MenuItem value={'admin'}> Администратор </MenuItem>
                                                         {/* <MenuItem value={'owner'}> Владелец </MenuItem> */}
-                                                    </Select>
-                                                </FormControl>
-                                            }
+//                                                     </Select >
+//                                                 </FormControl >
+//                                             }
 
-                                            {(messageStore.chat.role === 'basic' || messageStore.chat.role === 'muted' || (messageStore.chat.role === 'moder' && (item.role === 'owner' || item.role === 'admin' || item.role === 'moder')) || (messageStore.chat.role === 'admin' && (item.role === 'owner' || item.role === 'admin'))) && <Typography sx={{ ml: 1, mr: 1, width: 150, cursor: 'default' }}> {getUserRoleLabel(item.role)} </Typography>}
-                                        </Stack>
-                                    ))}
-                                </Stack>
-                            </TabPanel>
-                            <TabPanel value={value} index={1}>
-                                2
-                            </TabPanel>
-                            <TabPanel value={value} index={2}>
-                                3
-                            </TabPanel>
-                        </AccordionDetails>
-                    </Accordion>
-                </Stack>
-            </Stack>
-        </Box>
-    );
-}))
-
-export default ChatBar
+// { (messageStore.chat.role === 'basic' || messageStore.chat.role === 'muted' || (messageStore.chat.role === 'moder' && (item.role === 'owner' || item.role === 'admin' || item.role === 'moder')) || (messageStore.chat.role === 'admin' && (item.role === 'owner' || item.role === 'admin'))) && <Typography sx={{ ml: 1, mr: 1, width: 150, cursor: 'default' }}> {getUserRoleLabel(item.role)} </Typography> }
+//                                         </Stack >
+//                                     ))}
+//                                 </Stack >
+//                             </TabPanel >
+//                             <TabPanel value={value} index={1}>
+//                                 2
+//                             </TabPanel>
+//                             <TabPanel value={value} index={2}>
+//                                 3
+//                             </TabPanel>
+//                         </AccordionDetails >
+//                     </Accordion > * /

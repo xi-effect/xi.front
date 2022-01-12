@@ -1,0 +1,44 @@
+import React from "react";
+import Head from "next/head";
+import Image from "next/image";
+import { Box, useMediaQuery, useTheme, Stack } from "@mui/material";
+import FAQ from "../../components/PagesComponents/Support/FAQ";
+import { inject, observer } from "mobx-react";
+import { motion } from "framer-motion";
+import Header from "../../components/PagesComponents/Landing/Header";
+import Footer from "../../components/PagesComponents/Landing/Footer";
+
+const Support = inject("rootStore")(
+  observer(({ rootStore }) => {
+    const theme = useTheme();
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
+
+    return (
+      <>
+        <Stack
+          component={motion.div}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 2 }}
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="center"
+          sx={{
+            zIndex: 1,
+            margin: 0,
+            overflow: "auto",
+            height: "100vh",
+            bgcolor: "background.main",
+            // position: 'relative',
+          }}
+        >
+          <Header />
+          <FAQ />
+          <Footer />
+        </Stack>
+      </>
+    );
+  })
+);
+
+export default Support;

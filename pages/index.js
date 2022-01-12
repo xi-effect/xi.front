@@ -23,7 +23,7 @@ const Main = inject(
 )(
   observer(({ rootStore, uiStore }) => {
     const theme = useTheme();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     // React.useEffect(() => {
     //   if (uiStore.load.landing) uiStore.setLoading("loading", true)
@@ -60,36 +60,45 @@ const Main = inject(
         >
           {!mobile && <>
             <Box
+              component={motion.div}
+              whileTap={{ scale: 0.7, rotate: 360 }}
+              transition={{ duration: 1 }}
               sx={{
                 position: 'absolute',
                 top: 700,
-                right: 10,
+                right: 100,
               }}
             >
               <Image
                 alt="alt"
                 src={"/landing/blob1.svg"}
                 quality={100}
-                width={512}
-                height={512}
+                width={256}
+                height={256}
               />
             </Box>
             <Box
+              component={motion.div}
+              whileTap={{ scale: 0.5 }}
+              transition={{ duration: 1 }}
               sx={{
                 position: 'absolute',
                 top: 500,
-                left: 10,
+                left: 200,
               }}
             >
               <Image
                 alt="alt"
                 src={"/landing/blob2.svg"}
                 quality={100}
-                width={512}
-                height={512}
+                width={256}
+                height={256}
               />
             </Box>
             <Box
+              component={motion.div}
+              whileTap={{ scale: 0.5 }}
+              transition={{ duration: 1 }}
               sx={{
                 position: 'absolute',
                 top: 1800,
@@ -100,23 +109,26 @@ const Main = inject(
                 alt="alt"
                 src={"/landing/blob4.svg"}
                 quality={100}
-                width={512}
-                height={512}
+                width={256}
+                height={256}
               />
             </Box>
             <Box
+              component={motion.div}
+              whileTap={{ scale: 0.5 }}
+              transition={{ duration: 1 }}
               sx={{
                 position: 'absolute',
                 top: 2500,
-                left: 20,
+                left: 120,
               }}
             >
               <Image
                 alt="alt"
                 src={"/landing/blob3.svg"}
                 quality={100}
-                width={512}
-                height={512}
+                width={256}
+                height={256}
               />
             </Box>
           </>}

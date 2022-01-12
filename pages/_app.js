@@ -53,8 +53,8 @@ const MyApp = (observer((props) => {
           Ξ Effect
         </title> */}
         <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
-        <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=5" />
-        <meta name="yandex-verification" content="42187efe6d19061b" />
+        <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+        <meta name="yandex-verification" content="879d56b8525183be" />
         <meta name="google-site-verification" content="Z9F9qlZZKDIV30WIUVOkQOJa89Nbg9bOiqUaZz-XJiY" />
         <meta
           name="description"
@@ -83,6 +83,7 @@ const MyApp = (observer((props) => {
         authorizationStore={rootStore.authorizationStore}
         profileStore={rootStore.profileStore}
         messageStore={rootStore.messageStore}
+        communityStore={rootStore.communityStore}
       >
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
@@ -96,7 +97,10 @@ const MyApp = (observer((props) => {
             {/* <MenuLayout> */}
             <CssBaseline />
             <Loading />
-            <PlausibleProvider domain={"xieffect.netlify.app"}>
+            {/* <PlausibleProvider
+              domain={"xieffect.ru"}
+              // selfHosted
+            > */}
               <SnackbarProvider
                 anchorOrigin={{
                   vertical: 'bottom',
@@ -108,7 +112,7 @@ const MyApp = (observer((props) => {
               >
                 <Component {...pageProps} />
               </SnackbarProvider>
-            </PlausibleProvider>
+            {/* </PlausibleProvider> */}
             {/* </MenuLayout> */}
             {/* </SnackbarProvider> */}
           </ThemeProvider>

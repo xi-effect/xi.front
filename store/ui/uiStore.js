@@ -34,6 +34,7 @@ class UIStore {
 
     @observable knowledge = {
         activeStep: 0,
+        activeStepModuleCreate: 0,
     }
 
     @action setKnowledge = (name, value) => {
