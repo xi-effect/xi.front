@@ -97,10 +97,10 @@ const MyApp = (observer((props) => {
             {/* <MenuLayout> */}
             <CssBaseline />
             <Loading />
-            <PlausibleProvider
+            {/* <PlausibleProvider
               domain={"xieffect.ru"}
               // selfHosted
-            >
+            > */}
               <SnackbarProvider
                 anchorOrigin={{
                   vertical: 'bottom',
@@ -112,7 +112,7 @@ const MyApp = (observer((props) => {
               >
                 <Component {...pageProps} />
               </SnackbarProvider>
-            </PlausibleProvider>
+            {/* </PlausibleProvider> */}
             {/* </MenuLayout> */}
             {/* </SnackbarProvider> */}
           </ThemeProvider>

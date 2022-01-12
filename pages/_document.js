@@ -38,7 +38,7 @@ export default class MyDocument extends Document {
           <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&display=swap" rel="stylesheet" />
           <meta name="msapplication-TileColor" content="#603cba" />
           <meta name="theme-color" content="#ffffff" />
-
+          <script defer data-domain="xieffect.ru" src="http://xieffect.ru/js/plausible.js"></script>
         </Head>
         <body>
           <Main />
