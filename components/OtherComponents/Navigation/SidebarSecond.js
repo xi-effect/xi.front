@@ -3,122 +3,21 @@ import React from 'react';
 import { useRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
 
-import { Grid, Stack, Paper, Box, Divider, Typography, IconButton, Tooltip } from '@mui/material';
+import { Grid, Stack, Paper, Box, Popper, Grow, Divider, ClickAwayListener, ListItemText, ListItemIcon, MenuItem, MenuList, Typography, IconButton, Tooltip } from '@mui/material';
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
-import PlusOneIcon from '@mui/icons-material/PlusOne';
+
 import { useSnackbar } from 'notistack';
-import MenuHomeComp from "./SidebarSecond/MenuHomeComp";
-import MenuKnowledgeComp from "./SidebarSecond/MenuKnowledgeComp";
-import MenuSettingsComp from "./SidebarSecond/MenuSettingsComp.js";
+import MenuHomeComp from "./SidebarSecond/Home";
+import MenuCommunity from "./SidebarSecond/Community";
+import MenuKnowledgeComp from "./SidebarSecond/KnowledgeComp";
+import MenuSettingsComp from "./SidebarSecond/SettingsComp.js";
 
-const HeaderHome = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    return (
-        <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={2}
-        >
-            <Typography
-                variant="Roboto500XiLabel"
-                sx={{
-                    fontSize: 18,
-                    // p: 1
-                }}
-            >
-                Главная
-            </Typography>
-            <Tooltip arrow title="Создать профиль">
-                <IconButton
-                    // disableRipple
-                    sx={{
-                        height: 36,
-                        width: 36,
-                        // borderRadius: '8px',
-                        // bgcolor: 'secondary.dark',
-                        // '&:hover': {
-                        //     bgcolor: 'secondary.dark',
-                        // },
-                        // boxShadow: 6,
-                    }}
-                    onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
-                        variant: 'info',
-                    })}
-                >
-                    <PlusOneIcon />
-                </IconButton>
-            </Tooltip>
-        </Stack>
-    )
-}));
-
-const HeaderKnowledge = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
-
-    return (
-        <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={2}
-        >
-            <Typography
-                variant="Roboto500XiLabel"
-                sx={{
-                    fontSize: 18,
-                    // p: 1
-                }}
-            >
-                Знания
-            </Typography>
-        </Stack>
-    )
-}));
-
-const HeaderMessages = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    return (
-        <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            // spacing={2}
-        >
-            <Typography
-                variant="Roboto500XiLabel"
-                sx={{
-                    fontSize: 18,
-                    // p: 1
-                }}
-            >
-                Общение
-            </Typography>
-            <Tooltip arrow title="Начать диалог">
-                <IconButton
-                    // disableRipple
-                    sx={{
-                        height: 36,
-                        width: 36,
-                        // borderRadius: '8px',
-                        // bgcolor: 'secondary.dark',
-                        // '&:hover': {
-                        //     bgcolor: 'secondary.dark',
-                        // },
-                        // boxShadow: 6,
-                        mt: 0,
-                    }}
-                    onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
-                        variant: 'info',
-                    })}
-                >
-                    <PlusOneIcon />
-                </IconButton>
-            </Tooltip>
-        </Stack>
-    )
-}));
+import Home from "./SidebarSecondHeaders/Home";
+import Community from "./SidebarSecondHeaders/Community";
+import Knowledge from "./SidebarSecondHeaders/Knowledge";
+import Settings from "./SidebarSecondHeaders/Settings";
 
 const HeaderSettings = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
 
@@ -160,7 +59,7 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                 m: 0,
                 p: 0,
                 width: 256,
-                height: '100%',
+                height: '100vh',
                 bgcolor: 'primary.dark'
             }}
         >
@@ -168,9 +67,9 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-                spacing={1}
                 sx={{
-
+                    maxHeight: 'calc(100vh - 2px)',
+                    height: '100%',
                 }}
             >
                 <Box
@@ -179,57 +78,20 @@ const SidebarSecond = inject('rootStore', 'uiStore', 'messageStore')(observer(({
                         height: "48px",
                         // mt: '16px',
                         fontSize: 32,
+                        zIndex: 100,
                         p: 1
                     }}
                 >
 
-                    {router.pathname.includes('/home') && <HeaderHome />}
-                    {router.pathname.includes('/knowledge') && <HeaderKnowledge />}
-                    {router.pathname.includes('/messages') && <HeaderMessages />}
-                    {router.pathname.includes('/settings') && <HeaderSettings />}
+                    {router.pathname.includes('/home') && <Home />}
+                    {router.pathname.includes('/community') && <Community />}
+                    {router.pathname.includes('/knowledge') && <Knowledge />}
+                    {router.pathname.includes('/settings') && <Settings />}
                 </Box>
                 {router.pathname.includes('/home') && <MenuHomeComp />}
+                {router.pathname.includes('/community') && <MenuCommunity />}
                 {router.pathname.includes('/knowledge') && <MenuKnowledgeComp />}
-                {router.pathname.includes('/messages') && messageStore.menu.chats.map((item, index) => (
-                    <Grid
-                        container
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        component={motion.div}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => router.push(`/messages/${item.id}/`)}
-                        key={index.toString()}
-                        sx={{
-                            "&:hover": {
-                                bgcolor: '',
-                            },
-                            pl: 0.3,
-                            pr: 0.3,
-                            pt: 0.2,
-                            pb: 0.2,
-                            width: '100%',
-                            borderRadius: 1,
-                            bgcolor: router.pathname.includes(item.href) ? '' : '',
-                            cursor: 'pointer',
-                        }}
-                    >
-                        <Grid sx={{ width: 'calc(100% - 0px)' }} container wrap="nowrap" spacing={2}>
-                            <Grid item xs zeroMinWidth>
-                                <Typography sx={{ cursor: 'pointer', }} noWrap>
-                                    {item.name.toLowerCase()}
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                        <Typography variant="subtitle1">
-                            {getUnreadCount(item.unread)}
-                        </Typography>
-                    </Grid>
-                ))
-                }
                 {router.pathname.includes('/settings') && <MenuSettingsComp />}
-
             </Stack >
         </Paper >
 

@@ -48,11 +48,11 @@ const Story = inject('rootStore', 'managmentStore')(observer(({ rootStore, manag
 
     return (
         <Paper
-            elevation={12}
+            elevation={24}
             sx={{
                 height: 300,
                 minWidth: 300,
-                bgcolor: 'primary.main',
+                // bgcolor: 'primary.main',
                 borderRadius: 2,
             }}
         >
@@ -151,6 +151,7 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                                 height: 36,
                                 width: 36,
                                 minWidth: 36,
+                                bgcolor: 'secondary.dark',
                             }
                         }}
                         disabled={cardIndex === 0}
@@ -165,6 +166,7 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                                 height: 36,
                                 width: 36,
                                 minWidth: 36,
+                                bgcolor: 'secondary.dark',
                             }
                         }}
                         disabled={cardIndex === stories.length - 1}

@@ -168,7 +168,7 @@ const Filters = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) 
                 spacing={2}
                 sx={{
                     position: 'relative',
-                    maxWidth: 'calc(100% - 128px)',
+                    maxWidth: 'calc(100% - 100px)',
                     touchAction: 'pan-y',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
@@ -229,7 +229,7 @@ const Days = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) => 
                 spacing={2}
                 sx={{
                     position: 'relative',
-                    maxWidth: 'calc(100% - 128px)',
+                    maxWidth: 'calc(100% - 100px)',
                     touchAction: 'pan-y',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
@@ -314,7 +314,7 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
         if (Math.floor(h / 10) == 1) return "ов"
         else if (h % 10 == 1) return ""
         else if (h % 10 > 1 && h % 10 < 5) return "а"
-        else return "ов"
+        else return "ов"    
     }
 
     const getTaskColor = (t) => {

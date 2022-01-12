@@ -10,8 +10,6 @@ import { inject, observer } from 'mobx-react'
 import Image from 'next/image'
 import Toolbar from './Modules/Toolbar';
 import DataList from './Modules/DataList';
-// import Chipper from './Modules/Chipper';
-// import ModulesList from './Modules/ModulesList';
 import DialogModuleCreation from './Modules/DialogModuleCreation';
 
 const Modules = inject('store')(observer(({ store }) => {

@@ -6,7 +6,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import React from 'react';
 import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
-import Chipper from '../../components/PagesComponents/Knowledge/Modules/Chipper';
 import ModulesList from '../../components/PagesComponents/Knowledge/Modules/ModulesList';
 import ModulesListLoading from '../../components/PagesComponents/Knowledge/Modules/ModulesListLoading';
 

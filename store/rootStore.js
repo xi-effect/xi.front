@@ -14,13 +14,16 @@ import ContentStore from "./content/contentStore";
 import AuthorizationStore from "./authorization/authorizationStore";
 import MessageStore from "./message/messageStore";
 import ProfileStore from "./profile/profileStore";
+import CommunityStore from "./community/communityStore";
+
 
 enableStaticRendering(typeof window === 'undefined')
 
 let store
+// console.log(process.env)
 
 class RootStore {
-  url = 'https://xieffect.pythonanywhere.com'
+  url = process.env.NEXT_PUBLIC_URL
   constructor() {
     this.uiStore = new UIStore(this)
     this.homeStore = new HomeStore(this)
@@ -31,6 +34,7 @@ class RootStore {
     this.authorizationStore = new AuthorizationStore(this)
     this.messageStore = new MessageStore(this)
     this.profileStore = new ProfileStore(this)
+    this.communityStore = new CommunityStore(this)
     makeObservable(this)
   }
 

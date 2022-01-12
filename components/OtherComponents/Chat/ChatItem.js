@@ -19,7 +19,7 @@ import moment from 'moment';
 import ReplyIcon from '@mui/icons-material/Reply';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import CustomAvatar from '../../OtherComponents/Avatar/CustomAvatar';
+import CustomAvatar from '../Avatar/CustomAvatar';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
@@ -75,18 +75,28 @@ const ChatItem = inject('rootStore', 'uiStore', 'messageStore', 'settingsStore')
                 alignItems="flex-start"
                 sx={{
                     position: 'relative',
-                    ml: mobile ? 0 : 2,
-                    pt: nextItem["sender-name"] === item["sender-name"] ? 0 : 1,
-                    pr: 2,
-                    mt: nextItem["sender-name"] === item["sender-name"] ? 0 : 2,
+                    // pl: mobile ? 0 : 2,
+                    // pt: nextItem["sender-name"] === item["sender-name"] ? 0 : 1,
+                    // pr: 2,
+                    mt: nextItem["sender-name"] === item["sender-name"] ? 0 : 3,
                     borderRadius: 1,
-                    maxWidth: 1200,
-                    width: "calc(100% - 16px)",
+                    width: "100%",
+                    '&:hover': {
+                        bgcolor: 'action.hover',
+                    },
                 }}
             >
-                {nextItem["sender-name"] !== item["sender-name"] && <Box sx={{ position: 'absolute', top: "12px", left: "2px", height: 64, width: 64, }}>
-                    <CustomAvatar avatar={item["sender-avatar"]} viewBox={{ x: '50', y: '-100', width: '732', height: '732' }} />
-                </Box>}
+                {nextItem["sender-name"] !== item["sender-name"] &&
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            top: "2px",
+                            left: "8px",
+                            height: 52,
+                            width: 52,
+                        }}>
+                        <CustomAvatar avatar={item["sender-avatar"]} viewBox={{ x: '50', y: '-100', width: '732', height: '732' }} />
+                    </Box>}
                 <Stack
                     onContextMenu={handleContextMenu}
                     direction="column"
@@ -96,7 +106,8 @@ const ChatItem = inject('rootStore', 'uiStore', 'messageStore', 'settingsStore')
                         position: 'relative',
                         pl: 1,
                         pr: 6,
-                        ml: mobile ? 8 : 9,
+                        // ml: mobile ? 8 : 9,
+                        ml: 8,
                         width: "calc(100% - 56px)",
                         '&:hover': {
                             bgcolor: 'background.1',
@@ -113,13 +124,13 @@ const ChatItem = inject('rootStore', 'uiStore', 'messageStore', 'settingsStore')
                             sx={{
                                 fontSize: 22,
                                 cursor: "pointer",
-                                color: 'text.main',
+                                color: 'text.primary',
                             }}
                             underline="hover"
                         >
                             {item["sender-name"]}
                         </Link>
-                        <Typography sx={{ color: 'text.dark' }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
+                        <Typography sx={{ color: 'text.secondary', pt: '8px' }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
                     </Stack>}
                     <Grid container wrap="nowrap">
                         <Grid item xs>
@@ -154,15 +165,25 @@ const ChatItem = inject('rootStore', 'uiStore', 'messageStore', 'settingsStore')
                 alignItems="flex-start"
                 sx={{
                     position: 'relative',
-                    pt: 1,
-                    pr: 2,
+                    // pl: mobile ? 0 : 2,
+                    // pt: 1,
+                    // pr: 2,
                     mt: 2,
                     borderRadius: 1,
-                    maxWidth: 1200,
                     width: "100%",
+                    '&:hover': {
+                        bgcolor: 'action.hover',
+                    },
                 }}
             >
-                <Box sx={{ position: 'absolute', top: "12px", left: "2px", height: 64, width: 64, }}>
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: "2px",
+                        left: "8px",
+                        height: 52,
+                        width: 52,
+                    }}>
                     <CustomAvatar avatar={item["sender-avatar"]} viewBox={{ x: '50', y: '-100', width: '732', height: '732' }} />
                 </Box>
                 <Stack
@@ -191,13 +212,13 @@ const ChatItem = inject('rootStore', 'uiStore', 'messageStore', 'settingsStore')
                             sx={{
                                 fontSize: 22,
                                 cursor: "pointer",
-                                color: 'text.main',
+                                color: 'text.primary',
                             }}
                             underline="hover"
                         >
                             {item["sender-name"]}
                         </Link>
-                        <Typography sx={{ color: 'text.dark' }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
+                        <Typography sx={{ color: 'text.secondary', pt: '8px' }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
                     </Stack>
                     <Grid container wrap="nowrap">
                         <Grid item xs>

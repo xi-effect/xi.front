@@ -8,8 +8,6 @@ import { inject, observer } from 'mobx-react'
 import { DataGrid, useGridSlotComponentProps } from '@material-ui/data-grid';
 import { createTheme } from '@mui/material/styles';
 import Image from 'next/image'
-// import Chipper from './Modules/Chipper';
-// import ModulesList from './Modules/ModulesList';
 
 function customCheckbox(theme) {
     return {

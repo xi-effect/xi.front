@@ -63,7 +63,7 @@ const Footer = () => {
                                 ml: 'auto', mr: 1
                             }}
                         >
-                            <Typography> Социальные сети  </Typography>
+                            <Typography sx={{ cursor: 'default', }}> Социальные сети  </Typography>
                         </Grid>
                     </Grid>
                     <Grid
@@ -120,7 +120,7 @@ const Footer = () => {
                     <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Справочник </Link>
                     <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Поддержка </Link>
                     <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Приложение </Link>
-                    <Typography sx={{ mt: 2 }}> Социальные сети  </Typography>
+                    <Typography sx={{ mt: 2, cursor: 'default', }}> Социальные сети  </Typography>
                     <IconButton sx={{ mt: 1 }} onClick={() => window.open('https://discord.gg/aNQfXXb')}>
                         <Image
                             alt="alt"
