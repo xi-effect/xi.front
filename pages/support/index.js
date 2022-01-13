@@ -15,6 +15,9 @@ const Support = inject("rootStore")(
 
     return (
       <>
+        <Head>
+          <title>Ξffect | Поддержка</title>
+        </Head>
         <Stack
           component={motion.div}
           initial={{ opacity: 0 }}
@@ -32,9 +35,20 @@ const Support = inject("rootStore")(
             // position: 'relative',
           }}
         >
-          <Header />
-          <FAQ />
-          <Footer />
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            sx={{
+              maxWidth: 1920,
+              height: "100%",
+
+            }}
+          >
+            <Header />
+            <FAQ />
+            <Footer />
+          </Stack>
         </Stack>
       </>
     );

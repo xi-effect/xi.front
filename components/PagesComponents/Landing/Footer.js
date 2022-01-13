@@ -57,7 +57,7 @@ const Footer = () => {
                         <Grid item>
                             <Link sx={{ color: 'text.primary', cursor: 'pointer' }}> Наш блог </Link>
                             <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}> Справочник </Link>
-                            <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}> Поддержка </Link>
+                            <Link onClick={() => router.push(`/support`)} sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}> Поддержка </Link>
                             <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}> Приложение </Link>
                         </Grid>
                         <Grid item

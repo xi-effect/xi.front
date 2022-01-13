@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 import { useRouter } from 'next/router'
-import { Stack, useMediaQuery, useTheme, InputLabel, InputAdornment, IconButton, FormControl, OutlinedInput, Typography, Box, Button, Input } from '@mui/material';
+import { Stack, useMediaQuery, Paper, useTheme, InputLabel, InputAdornment, IconButton, FormControl, OutlinedInput, Typography, Box, Button, Input } from '@mui/material';
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import Visibility from '@mui/icons-material/Visibility';
@@ -117,87 +117,148 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                         </Typography>
                     </Stack>
                 </Stack>
-                <Box component="form" sx={{ width: "100%", }} onSubmit={handleSubmit(onSubmit)}>
-
-                    <Stack
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={3}
-                        sx={{ width: "100%", p: 2, }}
+                <Box
+                    sx={{
+                        position: 'relative',
+                        width: 'calc(100% - 32px)',
+                        maxWidth: 512,
+                        zIndex: 0,
+                        // mt: mobile ? "2px" : -32,
+                        // mt: 10,
+                        // ml: mobile ? "16px" : "100px",
+                        // mr: mobile ? "16px" : "100px",
+                        bgcolor: "grey.800",
+                        borderRadius: "20px",
+                    }}
+                >
+                    {!mobile && <Box
+                        sx={{
+                            position: 'absolute',
+                            top: '0px',
+                            right: '-156px',
+                            zIndex: -1,
+                        }}
                     >
                         <Image
                             alt="alt"
-                            src={"/auth/ResetPassword.svg"}
+                            src={"/landing/blob3.svg"}
                             quality={100}
-                            width={400}
-                            height={400}
+                            width={256}
+                            height={256}
                         />
-                        <Controller
-                            name="password"
-                            control={control}
-                            defaultValue=""
-                            render={({ field }) => <FormControl error={errors?.password?.type === "required"} fullWidth sx={{ maxWidth: 512, }} >
-                                <InputLabel htmlFor="outlined-adornment-password"> <Typography sx={{ color: 'text.main' }}>Пароль</Typography> </InputLabel>
-                                <Input
-                                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                                    label="Адрес почты"
-                                    type={showPassword ? 'text' : 'password'}
-
-                                    // value={emailReset}
-                                    // onChange={null}
-                                    {...field}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={() => setShowPassword(!showPassword)}
-                                                onMouseDown={handleMouseDownPassword}
-                                                edge="end"
-                                                size="large">
-                                                {showPassword ? <Visibility sx={{ color: 'text.main' }} /> : <VisibilityOff sx={{ color: 'text.main' }} />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                />
-                                {errors?.password?.message === "password must be at least 6 characters" && <Typography variant="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Минимальная длинна пароля - 6 символов </Typography>}
-                                {errors?.password?.message === "password is a required field" && <Typography variant="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Обязательное поле </Typography>}
-                            </FormControl>}
+                    </Box>}
+                    {!mobile && <Box
+                        sx={{
+                            position: 'absolute',
+                            bottom: '0px',
+                            left: '-156px',
+                            zIndex: -1,
+                        }}
+                    >
+                        <Image
+                            alt="alt"
+                            src={"/landing/blob2.svg"}
+                            quality={100}
+                            width={256}
+                            height={256}
                         />
-                        {!authorizationStore.passwordReset.emailResetOk && <Button
-                            variant="outlined"
-                            size="large"
-                            type="submit"
-                            sx={{
-                                '&.MuiButton-root': {
-                                    fontFamily: 'Open Sans, sans-serif',
-                                    fontStyle: 'normal',
-                                    fontWeight: 600,
-                                    fontSize: '16px',
-                                    lineHeight: '25px',
-                                    width: mobile ? '140px' : '280px',
-                                    height: mobile ? '40px' : '50px',
-                                    color: 'text.primary',
-                                    bgcolor: 'secondary.main',
-                                    borderRadius: mobile ? '62px' : '88px',
-                                    '&:hover': {
-                                        bgcolor: 'secondary.main',
-                                    },
-                                    mt: 2,
-                                    boxShadow: 12,
-                                    marginTop: "2%"
-                                }
-                            }}
+                    </Box>}
+                    <Paper
+                        elevation={24}
+                        sx={{
+                            zIndex: 500,
+                            // mt: mobile ? "2px" : -32,
+                            // mt: 10,
+                            // ml: mobile ? "16px" : "100px",
+                            // mr: mobile ? "16px" : "100px",
+                            bgcolor: "grey.800",
+                            borderRadius: "20px",
+                        }}
+                    >
+                        <Box
+                            component="form"
+                            onSubmit={handleSubmit(onSubmit)}
                         >
-                            Сохранить новый пароль
-                        </Button>}
-                        {authorizationStore.passwordReset.emailResetOk && <Typography variant="subtitle1"> Пароль успешно сохранён. С этой страницы можно безопасно уходить  </Typography>}
-                    </Stack>
+                            <Stack
+                                direction="column"
+                                justifyContent="center"
+                                alignItems="center"
+                                spacing={3}
+                                sx={{ width: "100%", p: 2, }}
+                            >
+                                <Image
+                                    alt="alt"
+                                    src={"/auth/ResetPassword.svg"}
+                                    quality={100}
+                                    width={400}
+                                    height={400}
+                                />
+                                <Controller
+                                    name="password"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field }) => <FormControl error={errors?.password?.type === "required"} fullWidth sx={{ maxWidth: 512, }} >
+                                        <InputLabel htmlFor="outlined-adornment-password"> <Typography sx={{ color: 'text.main' }}>Пароль</Typography> </InputLabel>
+                                        <Input
+                                            sx={{ backgroundColor: 'background.2', width: "100%", }}
+                                            label="Адрес почты"
+                                            type={showPassword ? 'text' : 'password'}
+
+                                            // value={emailReset}
+                                            // onChange={null}
+                                            {...field}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={() => setShowPassword(!showPassword)}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end"
+                                                        size="large">
+                                                        {showPassword ? <Visibility sx={{ color: 'text.main' }} /> : <VisibilityOff sx={{ color: 'text.main' }} />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
+                                        />
+                                        {errors?.password?.message === "password must be at least 6 characters" && <Typography variant="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Минимальная длинна пароля - 6 символов </Typography>}
+                                        {errors?.password?.message === "password is a required field" && <Typography variant="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Обязательное поле </Typography>}
+                                    </FormControl>}
+                                />
+                                {!authorizationStore.passwordReset.emailResetOk && <Button
+                                    variant="outlined"
+                                    size="large"
+                                    type="submit"
+                                    sx={{
+                                        '&.MuiButton-root': {
+                                            fontFamily: 'Open Sans, sans-serif',
+                                            fontStyle: 'normal',
+                                            fontWeight: 600,
+                                            fontSize: '16px',
+                                            lineHeight: '25px',
+                                            width: mobile ? '140px' : '280px',
+                                            height: mobile ? '40px' : '50px',
+                                            color: 'text.primary',
+                                            bgcolor: 'secondary.main',
+                                            borderRadius: mobile ? '62px' : '88px',
+                                            '&:hover': {
+                                                bgcolor: 'secondary.main',
+                                            },
+                                            mt: 2,
+                                            boxShadow: 12,
+                                            marginTop: "2%"
+                                        }
+                                    }}
+                                >
+                                    Сохранить новый пароль
+                                </Button>}
+                                {authorizationStore.passwordReset.emailResetOk && <Typography variant="subtitle1"> Пароль успешно сохранён. С этой страницы можно безопасно уходить  </Typography>}
+                            </Stack>
+                        </Box>
+                    </Paper>
                 </Box>
                 <div>
 
                 </div>
-
             </Stack>
         </>
     );
