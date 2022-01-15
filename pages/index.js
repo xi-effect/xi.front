@@ -37,6 +37,7 @@ const Main = inject(
       <>
         <Head>
           <title>Ξffect</title>
+          <meta name="description" content="Всё, что нужно для вашего образования"/>
         </Head>
         {/* <Background /> */}
         <Stack
