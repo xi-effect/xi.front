@@ -61,7 +61,7 @@ function FAQ() {
             pb: "10px",
           }}
         >
-          <Stack direction="column" >
+          <Stack direction="column">
             {questions.map((question, index) => (
               <Accordion
                 key={index.toString()}
@@ -69,7 +69,6 @@ function FAQ() {
                 sx={{
                   width: "100%",
                   bgcolor: "primary.main",
-                  
                 }}
               >
                 <AccordionSummary
