@@ -102,6 +102,7 @@ const Createpage = inject('knowledgeStore', 'managmentStore', 'uiStore')(observe
                 <title>
                     Ξffect
                 </title>
+                <meta name="robots" content="noindex" />
             </Head>
             <DragDropContext
                 // onBeforeCapture={onBeforeCapture}

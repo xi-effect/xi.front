@@ -49,6 +49,7 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                 <title>
                     Ξffect
                 </title>
+                <meta name="robots" content="noindex" />
             </Head>
             {/* <Background/> */}
             <NavigationAll>

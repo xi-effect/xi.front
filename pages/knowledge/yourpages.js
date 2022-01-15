@@ -22,6 +22,7 @@ const Yourpages = inject('knowledgeStore', 'uiStore', 'managmentStore')(observer
                 <title>
                     Ξffect
                 </title>
+                <meta name="robots" content="noindex" />
             </Head>
             <NavigationAll haveRightToolbar>
                 <Grid

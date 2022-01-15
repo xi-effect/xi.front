@@ -48,6 +48,7 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                 <title>
                     Ξffect
                 </title>
+                <meta name="robots" content="noindex" />
             </Head>
             {/* <Background/> */}
             <NavigationAll haveRightToolbar>

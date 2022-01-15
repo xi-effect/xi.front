@@ -18,6 +18,7 @@ const Yourmodules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                 <title>
                     Ξffect
                 </title>
+                <meta name="robots" content="noindex" />
             </Head>
             <NavigationAll haveRightToolbar>
                 <Grid

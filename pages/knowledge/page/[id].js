@@ -30,6 +30,7 @@ const Page = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowle
                 <title>
                     Ξffect
                 </title>
+                <meta name="robots" content="noindex" />
             </Head>
             <NavigationAll>
                 <Grid

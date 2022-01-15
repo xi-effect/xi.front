@@ -24,11 +24,10 @@ import {
 
 import { inject, observer } from "mobx-react";
 
-import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
-import Discussion from "../../../../components/PagesComponents/Community/Discussion";
+import NavigationAll from "../../../OtherComponents/Navigation/NavigationAll";
 
 
-const DiscussionPage = inject(
+const NewCommentCreation = inject(
     "rootStore",
 )(
     observer(({ rootStore, messageStore }) => {
@@ -39,18 +38,15 @@ const DiscussionPage = inject(
 
 
         return (
-            <>
-                <Head>
-                    <title>Ξffect</title>
-                    <meta name="robots" content="noindex" />
-                </Head>
-                <NavigationAll>
-                    <Discussion/>
-                </NavigationAll>
-            </>
+            <Stack
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="center"
+            >
+
+            </Stack>
         );
     })
 );
 
-export default DiscussionPage;
-
+export default NewCommentCreation;
