@@ -456,7 +456,7 @@ const DialogChannelCreation = inject('rootStore')(observer(({ rootStore, openDia
                         </InputLabel>
                         <Input
                             sx={{ width: "100%", }}
-                            label="Лимит использования приглашения"
+                            label="Название нового канала"
                             type={"text"}
                         />
                     </FormControl>
