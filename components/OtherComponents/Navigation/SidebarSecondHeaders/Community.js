@@ -338,12 +338,12 @@ const DialogCategoryCreation = inject('rootStore')(observer(({ rootStore, openDi
                     >
                         <InputLabel htmlFor="outlined-adornment-password">
                             <Typography sx={{ color: "text.primary" }}>
-                                Название новой категоии
+                                Название новой категории
                             </Typography>
                         </InputLabel>
                         <Input
                             sx={{ width: "100%", }}
-                            label="Лимит использования приглашения"
+                            label="Название новой категории"
                             type={"text"}
                         />
                     </FormControl>
