@@ -46,7 +46,7 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
         <>
             <Head>
                 <title>
-                    Ξffect
+                    Ξffect | Страницы
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>

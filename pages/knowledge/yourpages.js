@@ -20,7 +20,7 @@ const Yourpages = inject('knowledgeStore', 'uiStore', 'managmentStore')(observer
         <>
             <Head>
                 <title>
-                    Ξffect
+                    Ξffect | Ваши страницы
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>

@@ -47,7 +47,7 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
         <>
             <Head>
                 <title>
-                    Ξffect
+                    Ξffect | Модули
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>

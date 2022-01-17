@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
 
-import { Typography, MenuItem, Stack, Box, MenuList, ListItemIcon, ListItemText, useMediaQuery } from '@mui/material';
+import { Typography, MenuItem, Stack, Box, Divider, MenuList, ListItemIcon, ListItemText, useMediaQuery } from '@mui/material';
 import Image from "next/image";
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -11,6 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import ForumIcon from '@mui/icons-material/Forum';
 import TodayIcon from '@mui/icons-material/Today';
+import AssignmentTurnedInRoundedIcon from '@mui/icons-material/AssignmentTurnedInRounded';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 
 import { motion } from "framer-motion";
@@ -168,6 +169,13 @@ const Channel = inject('rootStore', 'uiStore', 'messageStore', 'communityStore')
 const MenuCommunity = inject('rootStore', 'uiStore', 'messageStore', 'communityStore')(observer(({ rootStore, uiStore, messageStore, communityStore }) => {
     const router = useRouter()
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
+
+    const iconSelect = (type) => {
+        if (type === "schedule") return <TodayIcon fontSize="small" />
+        if (type === "chat") return <ForumIcon fontSize="small" />
+        if (type === "room") return <RecordVoiceOverIcon fontSize="small" />
+    }
+
     return (
         <MenuList
             sx={{
@@ -179,6 +187,172 @@ const MenuCommunity = inject('rootStore', 'uiStore', 'messageStore', 'communityS
                 overflow: 'hidden',
             }}
         >
+            <MenuItem
+                // onClick={() => router.push(`/community/${router.query.id}/${channel.type}/${channel.id}`)}
+                sx={{
+                    width: 'calc(100% - 16px)',
+                    borderRadius: 1,
+                    height: 36,
+                    ml: 1,
+                    mr: 1,
+                    // bgcolor: (lastType == channel.type && typeId == channel.id) ? 'action.hover' : null,
+                }}
+            >
+                <ListItemIcon
+                    sx={{
+                        "&.MuiListItemIcon-root": {
+                            minWidth: "2px !important",
+                            fontSize: 26,
+                        }
+                    }}
+                >
+                    {iconSelect('schedule')}
+                </ListItemIcon>
+                <ListItemText
+                    sx={{
+                        pl: 1
+                    }}
+                >
+                    Расписание
+                </ListItemText>
+            </MenuItem>
+            <MenuItem
+                // onClick={() => router.push(`/community/${router.query.id}/${channel.type}/${channel.id}`)}
+                sx={{
+                    width: 'calc(100% - 16px)',
+                    borderRadius: 1,
+                    height: 36,
+                    ml: 1,
+                    mr: 1,
+                    // bgcolor: (lastType == channel.type && typeId == channel.id) ? 'action.hover' : null,
+                }}
+            >
+                <ListItemIcon
+                    sx={{
+                        "&.MuiListItemIcon-root": {
+                            minWidth: "2px !important",
+                            fontSize: 26,
+                        }
+                    }}
+                >
+                    <AssignmentTurnedInRoundedIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText
+                    sx={{
+                        pl: 1
+                    }}
+                >
+                    Задания
+                </ListItemText>
+            </MenuItem>
+            <Stack
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                sx={{
+                    mt: "2px",
+                    mb: "2px",
+                    pl: 1,
+                    pr: 1,
+                    width: '100%'
+                }}
+            >
+                <Stack
+                    // onClick={() => communityStore.setChannel(index, 'open', !channel.open)}
+                    // onMouseEnter={() => setHoverCategory(index)}
+                    // onMouseLeave={() => setHoverCategory(null)}
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    sx={{
+                        width: '100%',
+                        pl: 0,
+                        pr: 1,
+                        cursor: 'pointer',
+                        color: 'text.secondary',
+                        '&:hover': {
+                            color: 'text.primary',
+                        },
+                        zIndex: 1
+                    }}
+                >
+                    <ArrowForwardIosIcon
+                        component={motion.svg}
+                        variants={arrowVariants}
+                        // animate={channel.open ? "open" : "closed"}
+                        animate={"closed"}
+                        transition={{ type: "ease", duration: 0.2 }}
+                        sx={{ fontSize: 8 }}
+                    />
+                    <Typography
+                        variant='subtitle2'
+                        sx={{
+                            ml: 1,
+                            fontSize: 14,
+                        }}
+                    >
+                        {'ближайшие занятия'}
+                    </Typography>
+                </Stack>
+            </Stack>
+            <Stack
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                sx={{
+                    mt: "2px",
+                    mb: "2px",
+                    pl: 1,
+                    pr: 1,
+                    width: '100%'
+                }}
+            >
+                <Stack
+                    // onClick={() => communityStore.setChannel(index, 'open', !channel.open)}
+                    // onMouseEnter={() => setHoverCategory(index)}
+                    // onMouseLeave={() => setHoverCategory(null)}
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    sx={{
+                        width: '100%',
+                        pl: 0,
+                        pr: 1,
+                        cursor: 'pointer',
+                        color: 'text.secondary',
+                        '&:hover': {
+                            color: 'text.primary',
+                        },
+                        zIndex: 1
+                    }}
+                >
+                    <ArrowForwardIosIcon
+                        component={motion.svg}
+                        variants={arrowVariants}
+                        // animate={channel.open ? "open" : "closed"}
+                        animate={"closed"}
+                        transition={{ type: "ease", duration: 0.2 }}
+                        sx={{ fontSize: 8 }}
+                    />
+                    <Typography
+                        variant='subtitle2'
+                        sx={{
+                            ml: 1,
+                            fontSize: 14,
+                        }}
+                    >
+                        {'ближайшие задания'}
+                    </Typography>
+                </Stack>
+            </Stack>
+            <Divider flexItem
+                sx={{
+                    mt: 1,
+                    mb: 1,
+                    bgcolor: 'text.primary',
+                    boxShadow: 24,
+                }}
+            />
             <Scrollbars
                 renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
                 renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
