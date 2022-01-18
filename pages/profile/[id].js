@@ -69,8 +69,9 @@ const Profile = inject('rootStore', 'settingsStore', 'profileStore')(observer(({
         <>
             <Head>
                 <title>
-                    Ξffect
+                    Ξffect | Профиль
                 </title>
+                <meta name="robots" content="noindex" />
             </Head>
             <NavigationAll>
                 <Stack

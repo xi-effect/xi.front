@@ -92,7 +92,8 @@ const Settings = inject(
     return (
       <>
         <Head>
-          <title>Ξffect</title>
+          <title>Ξffect | Настройки</title>
+          <meta name="robots" content="noindex"/>
         </Head>
         <NavigationAll>
           <Box sx={{ width: "100%" }}>

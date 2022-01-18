@@ -25,6 +25,7 @@ const ResultId = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kn
                 <title>
                     Ξffect
                 </title>
+                <meta name="robots" content="noindex" />
             </Head>
             {/* <Background/> */}
             <NavigationAll haveRightMenu>

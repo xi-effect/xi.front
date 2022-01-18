@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
 
 
-const RoomPage = inject('rootStore', 'settingsStore', 'profileStore')(observer(({ rootStore, settingsStore, profileStore }) => {
+const LessonPage = inject('rootStore', 'settingsStore', 'profileStore')(observer(({ rootStore, settingsStore, profileStore }) => {
     // console.log("router.query", router.query.id);
 
     const router = useRouter()
@@ -38,4 +38,4 @@ const RoomPage = inject('rootStore', 'settingsStore', 'profileStore')(observer((
     );
 }))
 
-export default RoomPage
+export default LessonPage

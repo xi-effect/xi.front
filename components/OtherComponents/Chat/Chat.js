@@ -166,7 +166,6 @@ const Chat = inject(
         // }, [router.query.typeId]);
 
         return (
-
             <div
                 id="scrollableDiv"
                 style={{

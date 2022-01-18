@@ -17,7 +17,7 @@ export default class MyDocument extends Document {
           />
           <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
           <meta name="yandex-verification" content="42187efe6d19061b" />
-          <meta name="google-site-verification" content="Z9F9qlZZKDIV30WIUVOkQOJa89Nbg9bOiqUaZz-XJiY" />
+          <meta name="google-site-verification" content="VAN7yVAfRqd5NWFpUJlz0MVL1wcv0mdhDY-16-d48-U" />
           <meta
             name="description"
             content="Всё, что нужно для вашего Образования."
@@ -27,7 +27,7 @@ export default class MyDocument extends Document {
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
           <link rel="manifest" href="/site.webmanifest" />
-          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff7d6c" />
           <link
             href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap"
             rel="stylesheet"
@@ -36,7 +36,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&display=swap" rel="stylesheet" />
-          <meta name="msapplication-TileColor" content="#603cba" />
+          <meta name="msapplication-TileColor" content="#ff7d6c" />
           <meta name="theme-color" content="#ffffff" />
           {/* <script defer data-domain="xieffect.ru" src="https://xieffect.ru:5000/static/plausible.js"></script> */}
         </Head>

@@ -100,8 +100,9 @@ const Createpage = inject('knowledgeStore', 'managmentStore', 'uiStore')(observe
         <>
             <Head>
                 <title>
-                    Ξffect
+                    Ξffect | Создание страницы
                 </title>
+                <meta name="robots" content="noindex" />
             </Head>
             <DragDropContext
                 // onBeforeCapture={onBeforeCapture}

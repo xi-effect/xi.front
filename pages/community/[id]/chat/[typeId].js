@@ -82,9 +82,10 @@ const ChatPage = inject(
             <>
                 <Head>
                     <title>Ξffect</title>
+                    <meta name="robots" content="noindex" />
                 </Head>
                 <NavigationAll>
-                    <Chat/>
+                    <Chat />
                 </NavigationAll>
             </>
         );

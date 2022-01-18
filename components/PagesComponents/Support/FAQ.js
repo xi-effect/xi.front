@@ -11,26 +11,22 @@ import { questions } from "/texts/support/FAQ";
 function FAQ() {
   if (questions && questions.length) {
     return (
-      <Grid
-        container
+      <Stack
         direction="column"
         justifyContent="flex-start"
-        alignItems="stretch"
-        xs={12}
-        sm={12}
-        md={12}
-        dl={12}
-        lg={12}
-        gx={6}
-        xl={4}
+        alignItems="center"
+        sx={{
+          maxWidth: 1520,
+          height: "100%",
+        }}
       >
         <Typography
           component={"p"}
           variant="IBMPlexSans700WhyLabel"
           sx={{
             cursor: "default",
-            textAlign: "center",
-            maxWidth: "912px",
+            // textAlign: "center",
+            // maxWidth: "912px",
             fontSize: {
               xs: "28px",
               sm: "30px",
@@ -119,7 +115,7 @@ function FAQ() {
             ))}
           </Stack>
         </Paper>
-      </Grid>
+      </Stack>
     );
   }
   return (

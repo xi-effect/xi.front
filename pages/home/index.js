@@ -24,8 +24,9 @@ const Home = inject('rootStore')(observer(({ rootStore }) => {
       <>
         <Head>
           <title>
-            Ξffect
+            Ξffect | Главная
           </title>
+          <meta name="robots" content="noindex" />
         </Head>
         {/* <Background /> */}
         <NavigationAll>

@@ -78,7 +78,7 @@ const Login = inject(
     return (
       <>
         <Head>
-          <title>Ξ Вход</title>
+          <title>Ξffect | Вход</title>
         </Head>
         <Stack
           direction="column"
