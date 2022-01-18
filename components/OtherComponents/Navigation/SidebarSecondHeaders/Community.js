@@ -283,6 +283,85 @@ const DialogInvite = inject('rootStore')(observer(({ rootStore, openDialogInvite
     )
 }));
 
+
+const DialogCategoryCreation = inject('rootStore')(observer(({ rootStore, openDialogCategoryCreation, setOpenDialogCategoryCreation }) => {
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme => theme.breakpoints.down('md'));
+
+
+    return (
+        <Dialog
+            fullScreen={fullScreen}
+            open={openDialogCategoryCreation ?? false}
+            onClose={() => setOpenDialogCategoryCreation(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            fullWidth
+            maxWidth="md"
+            sx={{
+                // height: '100%'
+            }}
+        >
+            <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                // spacing={2}
+                sx={{
+                    height: 64,
+                    width: '100%',
+                    p: 1,
+                }}
+            >
+                <Typography sx={{ mt: 2, ml: 2, mr: 'auto' }} variant="h5">
+                    Создание категории сообщества
+                </Typography>
+            </Stack>
+            <DialogContent>
+                <Stack
+                    direction="column"
+                    justifyContent="flex-start"
+                    alignItems="flex-start"
+                    // spacing={2}
+                    sx={{
+                        height: 100,
+                        width: '100%',
+                    }}
+                >
+                  <FormControl
+                        fullWidth
+                        sx={{
+                            mt: 2,
+                            pl: 1,
+                            pr: 1,
+                        }}
+                    >
+                        <InputLabel htmlFor="outlined-adornment-password">
+                            <Typography sx={{ color: "text.primary" }}>
+                                Название новой категории
+                            </Typography>
+                        </InputLabel>
+                        <Input
+                            sx={{ width: "100%", }}
+                            label="Название новой категории"
+                            type={"text"}
+                        />
+                    </FormControl>
+                </Stack>
+            </DialogContent>
+            <DialogActions>
+                <Button
+                    onClick={() => setOpenDialogCategoryCreation(false)}
+                    variant="contained"
+                >
+                    Готово
+                </Button>
+            </DialogActions>
+        </Dialog >
+    )
+}));
+
+
 const DialogChannelCreation = inject('rootStore')(observer(({ rootStore, openDialogChannelCreation, setOpenDialogChannelCreation }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme => theme.breakpoints.down('md'));
@@ -377,7 +456,7 @@ const DialogChannelCreation = inject('rootStore')(observer(({ rootStore, openDia
                         </InputLabel>
                         <Input
                             sx={{ width: "100%", }}
-                            label="Лимит использования приглашения"
+                            label="Название нового канала"
                             type={"text"}
                         />
                     </FormControl>
@@ -467,6 +546,7 @@ const Community = inject('rootStore', 'uiStore', 'messageStore')(observer(({ roo
 
     const [openDialogInvite, setOpenDialogInvite] = React.useState(false);
     const [openDialogChannelCreation, setOpenDialogChannelCreation] = React.useState(false);
+    const [openDialogCategoryCreation, setOpenDialogCategoryCreation] = React.useState(false);
     const [openDialogPrivacy, setOpenDialogPrivacy] = React.useState(false);
 
     const [open, setOpen] = React.useState(false);
@@ -558,7 +638,7 @@ const Community = inject('rootStore', 'uiStore', 'messageStore')(observer(({ roo
             <DialogInvite openDialogInvite={openDialogInvite} setOpenDialogInvite={setOpenDialogInvite} />
             <DialogPrivacy openDialogPrivacy={openDialogPrivacy} setOpenDialogPrivacy={setOpenDialogPrivacy} />
             <DialogChannelCreation openDialogChannelCreation={openDialogChannelCreation} setOpenDialogChannelCreation={setOpenDialogChannelCreation} />
-
+            <DialogCategoryCreation openDialogCategoryCreation={openDialogCategoryCreation} setOpenDialogCategoryCreation={setOpenDialogCategoryCreation} />
             <Popper
                 open={open}
                 anchorEl={anchorRef.current}
@@ -624,7 +704,10 @@ const Community = inject('rootStore', 'uiStore', 'messageStore')(observer(({ roo
                                             <AddCircleIcon fontSize="small" />
                                         </Stack>
                                     </MenuItem>
-                                    <MenuItem sx={{ width: '100%' }} onClick={handleClose}>
+                                    <MenuItem sx={{ width: '100%' }} onClick={()=>{
+                                        setOpenDialogCategoryCreation(true)
+                                        setOpen(false)
+                                    }}>
                                         <Stack
                                             direction="row"
                                             justifyContent="space-between"

@@ -66,7 +66,7 @@ const EffectFor = () => {
                     sx={{
                         cursor: 'default',
                         textAlign: 'center',
-                        maxWidth: '912px',
+                        maxWidth: '1250px',
                         fontSize: {
                             xs: '28px',
                             sm: '30px',
