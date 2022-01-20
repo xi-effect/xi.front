@@ -6,6 +6,7 @@ import { inject, observer } from 'mobx-react'
 import { Typography, MenuItem, useTheme, Tab, Tabs, Radio, Switch, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container, DialogActions } from '@mui/material';
 import Image from "next/image";
 import PropTypes from 'prop-types';
+import CloseIcon from '@mui/icons-material/Close';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -69,61 +70,84 @@ const DialogSettings = inject('rootStore')(observer(({ rootStore, openDialogSett
             onClose={() => setOpenDialogSettings(false)}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
-            fullWidth
-            maxWidth="md"
             sx={{
                 // height: '100%'
             }}
         >
             <DialogContent>
                 <Stack
-                    direction="row"
+                    direction="column"
                     justifyContent="center"
-                    alignItems="flex-start"
+                    alignItems="center"
                     sx={{
                         height: 'calc(100vh - 64px)',
                         width: '100%',
-                        maxWidth: 1200,
                     }}
                 >
-                    <Tabs
-                        orientation="vertical"
-                        variant="scrollable"
-                        value={value}
-                        onChange={handleChange}
-                        aria-label="Vertical tabs example"
-                        textColor="inherit"
-                        sx={{ borderRight: 2, height: '100%', borderColor: 'divider' }}
+                    <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        sx={{
+                            width: '100%',
+                            maxWidth: 1200,
+                            pl: 24,
+                        }}
                     >
-                        <Tab label="Основные" {...a11yProps(0)} />
-                        <Tab label="Роли" {...a11yProps(1)} />
-                        <Tab label="Участники" {...a11yProps(2)} />
-                        <Tab label="Приглашения" {...a11yProps(3)} />
-                        <Tab label="Item Five" {...a11yProps(4)} />
-                        <Tab label="Item Six" {...a11yProps(5)} />
-                        <Tab label="Item Seven" {...a11yProps(6)} />
-                    </Tabs>
-                    <TabPanel value={value} index={0}>
-                        Item One
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                        Item Two
-                    </TabPanel>
-                    <TabPanel value={value} index={2}>
-                        Item Three
-                    </TabPanel>
-                    <TabPanel value={value} index={3}>
-                        Item Four
-                    </TabPanel>
-                    <TabPanel value={value} index={4}>
-                        Item Five
-                    </TabPanel>
-                    <TabPanel value={value} index={5}>
-                        Item Six
-                    </TabPanel>
-                    <TabPanel value={value} index={6}>
-                        Item Seven
-                    </TabPanel>
+                        <Typography variant="h6">
+                            Настройки сообщества
+                        </Typography>
+                        <IconButton
+                            aria-label='закрыть'
+                            sx={{
+                                ml: 'auto'
+                            }}
+                            onClick={() => setOpenDialogSettings(false)}
+                        >
+                            <CloseIcon fontSize="large" />
+                        </IconButton>
+                    </Stack>
+                    <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        sx={{
+                            height: '100%',
+                            width: '100%',
+                            maxWidth: 1200,
+                        }}
+                    >
+                        <Tabs
+                            orientation="vertical"
+                            variant="scrollable"
+                            value={value}
+                            onChange={handleChange}
+                            aria-label="Vertical tabs example"
+                            textColor="inherit"
+                            sx={{ borderRight: 2, height: '100%', borderColor: 'divider' }}
+                        >
+                            <Tab label="Основные" {...a11yProps(0)} />
+                            <Tab label="Приглашения" {...a11yProps(1)} />
+                            <Tab label="Участники" {...a11yProps(2)} />
+                            <Tab label="Роли" {...a11yProps(3)} />
+                            <Tab label="Дополнительные" {...a11yProps(4)} />
+                        </Tabs>
+                        <TabPanel value={value} index={0}>
+                            Основные
+                        </TabPanel>
+                        <TabPanel value={value} index={1}>
+                            Приглашения
+                        </TabPanel>
+                        <TabPanel value={value} index={2}>
+                            Участники
+                        </TabPanel>
+                        <TabPanel value={value} index={3}>
+                            Роли
+                        </TabPanel>
+                        <TabPanel value={value} index={4}>
+                            Дополнительные
+                        </TabPanel>
+                    </Stack>
                 </Stack>
             </DialogContent>
         </Dialog >

@@ -48,7 +48,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
     return (
         <>
             <Head>
-                <title>Ξ Регистрация</title>
+                <title>Ξffect | Регистрация</title>
             </Head>
             <Stack
                 direction="column"

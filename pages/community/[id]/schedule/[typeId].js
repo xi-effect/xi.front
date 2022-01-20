@@ -31,7 +31,7 @@ const SchedulePage = inject('rootStore', 'settingsStore', 'profileStore')(observ
         <>
             <Head>
                 <title>
-                    Ξffect
+                    Ξffect | Расписание
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>

@@ -188,14 +188,14 @@ const MenuCommunity = inject('rootStore', 'uiStore', 'messageStore', 'communityS
             }}
         >
             <MenuItem
-                // onClick={() => router.push(`/community/${router.query.id}/${channel.type}/${channel.id}`)}
+                onClick={() => router.push(`/community/${router.query.id}/schedule/${router.query.id}`)}
                 sx={{
                     width: 'calc(100% - 16px)',
                     borderRadius: 1,
                     height: 36,
                     ml: 1,
                     mr: 1,
-                    // bgcolor: (lastType == channel.type && typeId == channel.id) ? 'action.hover' : null,
+                    bgcolor: (router.pathname.includes('schedule')) ? 'action.hover' : null,
                 }}
             >
                 <ListItemIcon
@@ -206,7 +206,7 @@ const MenuCommunity = inject('rootStore', 'uiStore', 'messageStore', 'communityS
                         }
                     }}
                 >
-                    {iconSelect('schedule')}
+                    <TodayIcon fontSize="small" />
                 </ListItemIcon>
                 <ListItemText
                     sx={{
@@ -217,14 +217,14 @@ const MenuCommunity = inject('rootStore', 'uiStore', 'messageStore', 'communityS
                 </ListItemText>
             </MenuItem>
             <MenuItem
-                // onClick={() => router.push(`/community/${router.query.id}/${channel.type}/${channel.id}`)}
+                onClick={() => router.push(`/community/${router.query.id}/tasks/${router.query.id}`)}
                 sx={{
                     width: 'calc(100% - 16px)',
                     borderRadius: 1,
                     height: 36,
                     ml: 1,
                     mr: 1,
-                    // bgcolor: (lastType == channel.type && typeId == channel.id) ? 'action.hover' : null,
+                    bgcolor: (router.pathname.includes('tasks')) ? 'action.hover' : null,
                 }}
             >
                 <ListItemIcon
