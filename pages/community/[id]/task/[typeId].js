@@ -9,6 +9,7 @@ import React from 'react';
 import { useRouter } from 'next/router'
 
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
+import Task from '../../../../components/PagesComponents/Community/Task';
 
 
 const TaskPage = inject('rootStore', 'settingsStore', 'profileStore')(observer(({ rootStore, settingsStore, profileStore }) => {
@@ -32,7 +33,7 @@ const TaskPage = inject('rootStore', 'settingsStore', 'profileStore')(observer((
                 <meta name="robots" content="noindex" />
             </Head>
             <NavigationAll>
-
+                <Task />
             </NavigationAll>
         </>
     );
