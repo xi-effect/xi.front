@@ -2,8 +2,8 @@
 import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import {
     Stack,
     useTheme,

@@ -22,11 +22,11 @@ class MessageStore {
     }
 
     @action loadChatsInMenu = () => {
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/index/`, "POST", { "counter": 0 }).then(
-            (data) => {
-                console.log("chats", data.results)
-                this.setMenu("chats", data.results)
-            })
+        // this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/index/`, "POST", { "counter": 0 }).then(
+        //     (data) => {
+        //         console.log("chats", data.results)
+        //         this.setMenu("chats", data.results)
+        //     })
     }
 
     // Диалог создания чата
