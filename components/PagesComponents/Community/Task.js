@@ -26,6 +26,9 @@ import { inject, observer } from "mobx-react";
 
 import Description from "./Task/Description";
 import SubPaper from "./Task/SubPaper";
+import Target from "./Task/Target";
+import Materials from "./Task/Materials";
+import Result from "./Task/Result";
 
 
 const Task = inject(
@@ -49,9 +52,9 @@ const Task = inject(
                 }}
             >
                 <Stack
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
+                    direction="column"
+                    justifyContent="flex-start"
+                    alignItems="flex-start"
                     spacing={2}
                     sx={{
                         width: '100%',
@@ -61,7 +64,9 @@ const Task = inject(
                     }}
                 >
                     <Description />
-                    <SubPaper />
+                    <Target />
+                    <Materials />
+                    <Result />
                 </Stack>
             </Stack>
         );

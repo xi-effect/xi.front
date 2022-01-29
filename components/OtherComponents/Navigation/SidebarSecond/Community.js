@@ -25,6 +25,7 @@ const arrowVariants = {
         rotate: 0,
     }
 }
+
 const Channel = inject('rootStore', 'uiStore', 'messageStore', 'communityStore')(observer(({ rootStore, uiStore, messageStore, communityStore, index }) => {
     const channel = communityStore.channels[index]
     const [hoverCategory, setHoverCategory] = React.useState(null)

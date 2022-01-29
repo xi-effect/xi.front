@@ -38,21 +38,18 @@ const arrowVariants = {
     }
 }
 
-const Description = inject(
+const Target = inject(
     "rootStore",
 )(
     observer(({ rootStore, messageStore }) => {
         const theme = useTheme();
         const router = useRouter();
-        const [description, setDescription] = React.useState(false)
+        const [target, setTarget] = React.useState(false)
 
         return (
             <>
-                <Typography variant="h5">
-                    Название задания
-                </Typography>
                 <Stack
-                    onClick={() => setDescription(!description)}
+                    onClick={() => setTarget(!target)}
                     // onMouseEnter={() => setHoverCategory(index)}
                     // onMouseLeave={() => setHoverCategory(null)}
                     direction="row"
@@ -73,7 +70,7 @@ const Description = inject(
                     <ArrowForwardIosIcon
                         component={motion.svg}
                         variants={arrowVariants}
-                        animate={description ? "open" : "closed"}
+                        animate={target ? "open" : "closed"}
                         // animate={"closed"}
                         transition={{ type: "ease", duration: 0.2 }}
                         sx={{ fontSize: 8 }}
@@ -85,10 +82,10 @@ const Description = inject(
                             fontSize: 14,
                         }}
                     >
-                        {'описание'}
+                        {'цель'}
                     </Typography>
                 </Stack>
-                {description && <Typography variant="subtitle1">
+                {target && <Typography variant="subtitle1">
                     Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
                 </Typography>}
             </>
@@ -96,4 +93,4 @@ const Description = inject(
     })
 );
 
-export default Description;
+export default Target;

@@ -27,6 +27,7 @@ import { inject, observer } from "mobx-react";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import { motion } from "framer-motion";
+import MarkdownEditor from "../../../OtherComponents/MarkdownEditor/MarkdownEditor";
 
 const arrowVariants = {
     open: {
@@ -38,21 +39,32 @@ const arrowVariants = {
     }
 }
 
-const Description = inject(
+const markdown = `A paragraph with *emphasis* and **strong importance**.
+
+> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
+
+* Lists
+* [ ] todo
+* [x] done
+
+A table:
+
+| a | b |
+| - | - |
+`
+
+const Result = inject(
     "rootStore",
 )(
     observer(({ rootStore, messageStore }) => {
         const theme = useTheme();
         const router = useRouter();
-        const [description, setDescription] = React.useState(false)
-
+        const [result, setResult] = React.useState(false)
+        const [test, setTest] = React.useState(markdown)
         return (
             <>
-                <Typography variant="h5">
-                    Название задания
-                </Typography>
                 <Stack
-                    onClick={() => setDescription(!description)}
+                    onClick={() => setResult(!result)}
                     // onMouseEnter={() => setHoverCategory(index)}
                     // onMouseLeave={() => setHoverCategory(null)}
                     direction="row"
@@ -73,7 +85,7 @@ const Description = inject(
                     <ArrowForwardIosIcon
                         component={motion.svg}
                         variants={arrowVariants}
-                        animate={description ? "open" : "closed"}
+                        animate={result ? "open" : "closed"}
                         // animate={"closed"}
                         transition={{ type: "ease", duration: 0.2 }}
                         sx={{ fontSize: 8 }}
@@ -85,15 +97,26 @@ const Description = inject(
                             fontSize: 14,
                         }}
                     >
-                        {'описание'}
+                        {'результат'}
                     </Typography>
                 </Stack>
-                {description && <Typography variant="subtitle1">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-                </Typography>}
+                {result && <Stack
+                    direction="column"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    sx={{
+                        width: '100%'
+                    }}
+                >
+                    <MarkdownEditor
+                        readOnly={false}
+                        content={test}
+                        setContent={setTest}
+                    />
+                </Stack>}
             </>
         );
     })
 );
 
-export default Description;
+export default Result;
