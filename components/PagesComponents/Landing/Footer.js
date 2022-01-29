@@ -86,7 +86,7 @@ const Footer = () => {
                                 maxWidth: 700,
                             }}
                         >
-                            <Typography> © 2022 xieffect.netlify.app  </Typography>
+                            <Typography> © 2022 xieffect.ru  </Typography>
                             <Link
                                 sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}
                                 onClick={() => {

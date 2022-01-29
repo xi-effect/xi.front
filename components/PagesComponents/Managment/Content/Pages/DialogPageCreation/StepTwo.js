@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from "next/link";
 import clsx from 'clsx';
-import { ToggleButton, ToggleButtonGroup, SpeedDial, SpeedDialIcon, SpeedDialAction, Tabs, Tab, ButtonGroup, Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
+import { ToggleButton, ToggleButtonGroup, useMediaQuery, SpeedDial, SpeedDialIcon, SpeedDialAction, Tabs, Tab, ButtonGroup, Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { inject, observer } from 'mobx-react'
@@ -17,6 +17,8 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
     React.useEffect(() => {
         console.log("StepTwouseEffect")
     }, [managmentStore.pageCreation.components])
+
+    // const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
         <Droppable droppableId="componentsList">
@@ -60,10 +62,10 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                         justifyContent="flex-start"
                         alignItems="center"
                         sx={{
-                            ml: 12,
+                            ml: 1,
                             mt: 2,
                             mb: 2,
-                            mr: 12,
+                            mr: 1,
                             //paddingLeft: 4,
                             padding: 0,
                             width: "100%",

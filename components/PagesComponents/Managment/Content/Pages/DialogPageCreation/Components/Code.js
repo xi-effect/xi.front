@@ -220,6 +220,7 @@ const Code = inject('managmentStore')(observer(({ managmentStore, index }) => {
 
     return (
         <Grid
+            onFocus={() => setHover(true)}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             container
@@ -277,7 +278,7 @@ const Code = inject('managmentStore')(observer(({ managmentStore, index }) => {
                             <PreviewIcon sx={{ color: 'text.main' }} />
                         </IconButton>
                     </Tooltip>}
-                    <FormControl sx={{ color: 'text.main' }} variant="standard" sx={{ ml: 1 }}>
+                    <FormControl sx={{ color: 'text.main' }} variant="standard">
                         <InputLabel variant="standard" htmlFor="uncontrolled-native">
                             Язык
                         </InputLabel>

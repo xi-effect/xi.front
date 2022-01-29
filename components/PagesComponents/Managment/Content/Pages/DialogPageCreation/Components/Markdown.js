@@ -26,6 +26,7 @@ const Markdown = inject('managmentStore')(observer(({ managmentStore, index }) =
 
     return (
         <Grid
+            onFocus={() => setHover(true)}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             container

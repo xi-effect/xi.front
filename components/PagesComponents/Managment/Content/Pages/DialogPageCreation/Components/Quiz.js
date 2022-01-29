@@ -331,6 +331,7 @@ const Quiz = inject("managmentStore")(
     return (
       <>
         <Grid
+          onFocus={() => setHover(true)}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           container

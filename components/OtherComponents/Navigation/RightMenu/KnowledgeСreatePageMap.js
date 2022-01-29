@@ -69,7 +69,7 @@ const KnowledgeСreatePageMap = inject(
                                         index={index}>
                                         {(provided, snapshot) => (
                                             <Stack
-                                                onDoubleClick={() => managmentStore.pushNewComponent(component.type)}
+                                                // onDoubleClick={() => managmentStore.pushNewComponent(component.type)}
                                                 key={index.toString()}
                                                 direction="row"
                                                 justifyContent="flex-start"
