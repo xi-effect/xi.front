@@ -95,11 +95,9 @@ const KnowledgeСreatePageMap = inject(
                                                 <Typography sx={{ maxWidth: 250, ml: 1 }} noWrap>
                                                     {component.name}
                                                 </Typography>
-                                                <Tooltip placement="left" title="добавить">
-                                                    <IconButton sx={{ ml: 'auto', mr: 1, cursor: 'pointer' }}>
-                                                        <DragIndicatorIcon />
-                                                    </IconButton>
-                                                </Tooltip>
+                                                <IconButton sx={{ ml: 'auto', mr: 1, cursor: 'pointer' }}>
+                                                    <DragIndicatorIcon />
+                                                </IconButton>
                                             </Stack>
                                         )}
                                     </Draggable>
