@@ -1,19 +1,18 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, CircularProgress, Grid, Dialog, Stack, DialogContent, DialogActions, Typography, useTheme } from "@mui/material";
+import { Grid } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import Head from "next/head";
-import Image from "next/image";
 import React from "react";
+import { DragDropContext } from "react-beautiful-dnd";
+import { useUnmount } from "react-use";
+import { useSnackbar } from "notistack";
 import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
-import { motion } from "framer-motion"
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import StepOne from "../../components/PagesComponents/Managment/Content/Pages/DialogPageCreation/StepOne";
 import StepTwo from "../../components/PagesComponents/Managment/Content/Pages/DialogPageCreation/StepTwo";
 import StepThree from "../../components/PagesComponents/Managment/Content/Pages/DialogPageCreation/StepThree";
-import { useUnmount } from "react-use";
-import { useSnackbar } from "notistack";
 
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -36,9 +35,8 @@ const components = [
     { type: "img", authorId: null, imageId: null, },
 ]
 
-const Createpage = inject("knowledgeStore", "managmentStore", "uiStore")(observer(({ knowledgeStore, managmentStore, uiStore }) => {
-    const theme = useTheme();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+const Createpage = inject("knowledgeStore", "managmentStore", "uiStore")(observer(({ managmentStore, uiStore }) => {
+    const { enqueueSnackbar } = useSnackbar();
     useUnmount(() => {
         if (managmentStore.pageCreation.id) {
             managmentStore.savePage(true)
@@ -57,7 +55,7 @@ const Createpage = inject("knowledgeStore", "managmentStore", "uiStore")(observe
 
         if (result.source.droppableId === "list-components" && result.destination.droppableId === "componentsList") {
             console.log("list-pages")
-            let newArray = [...managmentStore.pageCreation.components]
+            const newArray = [...managmentStore.pageCreation.components]
             console.log("newArray", newArray, components[result.source.index])
             newArray.splice(result.destination.index, 0, components[result.source.index])
             console.log("newArray", newArray)
@@ -66,7 +64,7 @@ const Createpage = inject("knowledgeStore", "managmentStore", "uiStore")(observe
 
         }
 
-        //Перетаскивание в рамках одной точки
+        // Перетаскивание в рамках одной точки
         if (result.destination.droppableId === result.source.droppableId) {
             const quotes = reorder(
                 managmentStore.pageCreation.components,
@@ -74,9 +72,7 @@ const Createpage = inject("knowledgeStore", "managmentStore", "uiStore")(observe
                 result.destination.index
             );
             managmentStore.setPageCreation("components", quotes)
-            //console.log("pointsnotgood", result)
-            return;
-
+            // console.log("pointsnotgood", result)
         }
 
         // //Перетаскивание между точками 
@@ -90,9 +86,9 @@ const Createpage = inject("knowledgeStore", "managmentStore", "uiStore")(observe
         // }
 
         // Перетаскивание не произошо, место объекто не изменено
-        if (result.destination.index === result.source.index) {
-            return;
-        }
+        // if (result.destination.index === result.source.index) {
+
+        // }
 
     }
 
@@ -123,9 +119,9 @@ const Createpage = inject("knowledgeStore", "managmentStore", "uiStore")(observe
                             zIndex: 1,
                         }}
                     >
-                        {uiStore.knowledge.activeStep == 0 && <StepOne />}
-                        {uiStore.knowledge.activeStep == 1 && <StepTwo />}
-                        {uiStore.knowledge.activeStep == 2 && <StepThree />}
+                        {uiStore.knowledge.activeStep === 0 && <StepOne />}
+                        {uiStore.knowledge.activeStep === 1 && <StepTwo />}
+                        {uiStore.knowledge.activeStep === 2 && <StepThree />}
                     </Grid>
                 </NavigationAll>
             </DragDropContext >

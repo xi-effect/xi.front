@@ -131,12 +131,12 @@ const Header = inject("managmentStore")(observer(({ managmentStore, index }) => 
     console.log("textAlign", values.textAlign)
 
     const handleFontSizeUp = (event, newFormats) => {
-        //console.log(index, "fontSize", newFormats)
+        // console.log(index, "fontSize", newFormats)
         if (values.fontSize != 64) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
     };
 
     const handleFontSizeDown = (event, newFormats) => {
-        //console.log(index, "fontSize", newFormats)
+        // console.log(index, "fontSize", newFormats)
         if (values.fontSize != 24) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
     };
 
@@ -250,17 +250,17 @@ const Header = inject("managmentStore")(observer(({ managmentStore, index }) => 
                             </Tooltip>
                         </IconButton>
                         <IconButton onClick={() => handleFontWeight()} sx={{ ml: 1, color: values.fontWeight === "bold" ? "text.main" : "text.dark", }} edge="end" size="large">
-                            <Tooltip title={`Полужирный`}>
+                            <Tooltip title="Полужирный">
                                 <FormatBoldIcon />
                             </Tooltip>
                         </IconButton>
                         <IconButton onClick={() => handleFontStyle()} sx={{ ml: 1, color: values.fontStyle === "italic" ? "text.main" : "text.dark", }} edge="end" size="large">
-                            <Tooltip title={`Курсив`}>
+                            <Tooltip title="Курсив">
                                 <FormatItalicIcon />
                             </Tooltip>
                         </IconButton>
                         <IconButton onClick={() => handleTextDecoration()} sx={{ ml: 1, color: values.textDecoration === "underline" ? "text.main" : "text.dark", }} edge="end" size="large">
-                            <Tooltip title={`Подчёркнутый`}>
+                            <Tooltip title="Подчёркнутый">
                                 <FormatUnderlinedIcon />
                             </Tooltip>
                         </IconButton>

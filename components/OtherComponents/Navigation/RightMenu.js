@@ -3,10 +3,11 @@ import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Button, Box, useMediaQuery, ClickAwayListener, Divider, MenuList, MenuItem, ListItemText, ListItemIcon, Tooltip, Popper, IconButton, Link, Paper, useTheme, Stack, Typography, Grow } from "@mui/material";
+import { Box, useMediaQuery, Divider, MenuList, MenuItem, ListItemText, ListItemIcon, Paper, Stack, Typography } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ReportIcon from "@mui/icons-material/Report";
+import { motion } from "framer-motion"
 import CustomAvatar from "../Avatar/CustomAvatar"
 
 import KnowledgeСreatePage from "./RightMenu/KnowledgeСreatePage";
@@ -21,21 +22,14 @@ import KnowledgeModuleMap from "./RightMenu/KnowledgeModuleMap";
 import KnowledgeModulesFilters from "./RightMenu/KnowledgeModulesFilters";
 import HomeNotifications from "./RightMenu/HomeNotifications";
 
-
-
-
-import { motion, AnimatePresence } from "framer-motion"
 import ReportDialog from "./RightMenu/ReportDialog";
 import InfoDialog from "./RightMenu/InfoDialog";
 
-
-
 const RightMenu = inject(
-  "rootStore",
   "knowledgeStore",
   "settingsStore",
 )(
-  observer(({ rootStore, knowledgeStore, settingsStore }) => {
+  observer(({ knowledgeStore, settingsStore }) => {
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
 
@@ -96,15 +90,17 @@ const RightMenu = inject(
       }
       if (router.pathname.includes("/knowledge/module/results")) {
         console.log("r", knowledgeStore.moduleCompleted.results)
-        let indx = knowledgeStore.moduleCompleted.results.findIndex((item, index) => {
+        let indx = knowledgeStore.moduleCompleted.results.findIndex((item) => {
           console.log(item, knowledgeStore.page.id)
-          if (item["page-id"] == knowledgeStore.page.id) return true
+          if (item["page-id"] === knowledgeStore.page.id) return true
+          return null
         })
         console.log("indx", indx)
         if (indx + 1 === knowledgeStore.moduleCompleted.results.length) return knowledgeStore.uploadPageForResults(knowledgeStore.moduleCompleted.results[0]["page-id"], 0)
         indx += 1
         return knowledgeStore.uploadPageForResults(knowledgeStore.moduleCompleted.results[indx]["page-id"], indx)
       }
+      return null
     }
 
 
@@ -170,7 +166,7 @@ const RightMenu = inject(
                 <Box
                   sx={{ height: 64, width: 64, m: 1, mt: "-2px", mr: 0, cursor: "pointer" }}
                 >
-                  <CustomAvatar avatar={{ ...settingsStore.settings.avatar, bgcolor: "rgba(0,0,0,0)" }} viewBox={{ x: "50", y: "-110", width: "690", height: "790" }} reverse={true} />
+                  <CustomAvatar avatar={{ ...settingsStore.settings.avatar, bgcolor: "rgba(0,0,0,0)" }} viewBox={{ x: "50", y: "-110", width: "690", height: "790" }} reverse />
                 </Box>
                 <Stack
                   direction="column"
@@ -258,7 +254,7 @@ const RightMenu = inject(
               {router.pathname.includes("/knowledge/createpage") && <KnowledgeСreatePageMap />}
               {router.pathname.includes("/knowledge/createmodule") && <KnowledgeСreateModuleMap />}
               {router.pathname.includes("/knowledge/modules") && <KnowledgeModulesFilters />}
-              {!knowledgeStore.moduleCompleted.isFinished && knowledgeStore.module["map"] != undefined && knowledgeStore.module["map"].length != 0 && router.pathname.includes("/knowledge/module/") && <KnowledgeModuleMap goNext={goNext} />}
+              {!knowledgeStore.moduleCompleted.isFinished && knowledgeStore.module.map !== undefined && knowledgeStore.module.map.length !== 0 && router.pathname.includes("/knowledge/module/") && <KnowledgeModuleMap goNext={goNext} />}
             </Stack>
             <Stack
               direction="column"

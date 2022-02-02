@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Button, Box, useMediaQuery, ClickAwayListener, Divider, MenuList, MenuItem, ListItemText, ListItemIcon, Tooltip, Popper, IconButton, Link, Paper, useTheme, Stack, Typography, Grow } from "@mui/material";
+import { Button, Link, Stack, Typography } from "@mui/material";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import InfoIcon from "@mui/icons-material/Info";
 import TaskIcon from "@mui/icons-material/Task";
@@ -11,15 +12,12 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 import { Scrollbars } from "react-custom-scrollbars-2";
 
-
-import { motion, AnimatePresence } from "framer-motion"
-
 const KnowledgeModuleToolsWithMap = inject(
     "knowledgeStore",
 )(
     observer(({ knowledgeStore, goNext }) => {
-        const theme = useTheme()
         const router = useRouter()
+        
         return (
             <>
                 <Typography variant="subtitle1" sx={{ ml: 0.5 }}>Карта модуля:</Typography>
@@ -33,13 +31,13 @@ const KnowledgeModuleToolsWithMap = inject(
                     }}
                 >
                     <Scrollbars
-                        universal={true}
+                        universal
                         style={{ width: 156, height: "100%" }}
                         autoHide
                         autoHideTimeout={1000}
                         autoHideDuration={200}
                     >
-                        {knowledgeStore.module["map"].map((name, index) => (
+                        {knowledgeStore.module.map.map((name, index) => (
                             <Stack
                                 direction="row"
                                 justifyContent="flex-start"

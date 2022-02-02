@@ -34,13 +34,13 @@ const Root = styled("div")((
     [`& .${classes.rootPaper}`]: {
         // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
         border: 0,
-        //borderRadius: 3,
-        //boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-        //width: "calc(100% - 32px)",
+        // borderRadius: 3,
+        // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+        // width: "calc(100% - 32px)",
         marginTop: 8,
         // paddingTop: "800px",
-        //backgroundColor: theme => theme.palette.blueGrey["7"],
-        //position: "relative",
+        // backgroundColor: theme => theme.palette.blueGrey["7"],
+        // position: "relative",
     },
 
     [`& .${classes.rootGrid}`]: {
@@ -61,56 +61,36 @@ const Root = styled("div")((
     }
 }));
 
-const ModuleSelect = (component, index) => {
+function ModuleSelect(component, index) {
     if (component.type === "h") return (
-        <>
-            <Header index={index} />
-        </>
+        <Header index={index} />
     );
     if (component.type === "text") return (
-        <>
-            <Text index={index} />
-        </>
+        <Text index={index} />
     )
     if (component.type === "alert") return (
-        <>
-            <AlertComp index={index} />
-        </>
+        <AlertComp index={index} />
     )
     if (component.type === "divider") return (
-        <>
-            <DividerComp index={index} />
-        </>
+        <DividerComp index={index} />
     )
     if (component.type === "img") return (
-        <>
-            <ImageComp index={index} />
-        </>
+        <ImageComp index={index} />
     )
     if (component.type === "quiz") return (
-        <>
-            <Quiz index={index} />
-        </>
+        <Quiz index={index} />
     )
     if (component.type === "list") return (
-        <>
-            <List index={index} />
-        </>
+        <List index={index} />
     )
     if (component.type === "markdown") return (
-        <>
-            <Markdown index={index} />
-        </>
+        <Markdown index={index} />
     )
     if (component.type === "numanswer") return (
-        <>
-            <NumberAnswer index={index} />
-        </>
+        <NumberAnswer index={index} />
     )
     if (component.type === "code") return (
-        <>
-            <Code index={index} />
-        </>
+        <Code index={index} />
     )
 }
 
@@ -133,10 +113,8 @@ function Component({ component, index }) {
     );
 }
 
-const ComponentsList = inject("managmentStore")(observer(({ managmentStore }) => {
-    return managmentStore.pageCreation.components.map((component, index) => (
+const ComponentsList = inject("managmentStore")(observer(({ managmentStore }) => managmentStore.pageCreation.components.map((component, index) => (
         <Component component={component} index={index} key={index.toString()} />
-    ));
-}));
+    ))));
 
 export default ComponentsList

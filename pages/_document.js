@@ -1,5 +1,4 @@
 import * as React from "react";
-// eslint-disable-next-line @next/next/no-document-import-in-page
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 import createEmotionCache from "../store/createEmotionCache";
@@ -84,7 +83,9 @@ MyDocument.getInitialProps = async (ctx) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) => (props) => <App emotionCache={cache} {...props} />,
+      enhanceApp: (App) => function(props) {
+  return <App emotionCache={cache} {...props} />
+},
     });
 
   const initialProps = await Document.getInitialProps(ctx);

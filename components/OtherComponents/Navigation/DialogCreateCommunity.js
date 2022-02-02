@@ -1,21 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 import { motion, AnimatePresence } from "framer-motion"
-import { Box, Button, Dialog, Step, Checkbox, Stepper, useMediaQuery, StepLabel, StepContent, FormControl, InputLabel, Input, InputBase, MenuItem, Select, DialogTitle, DialogContent, DialogActions, Link, useTheme, IconButton, Tooltip, Drawer, Stack, Typography, Container } from "@mui/material";
+import { Box, Button, Dialog, useMediaQuery, FormControl, InputLabel, Input, DialogContent, IconButton, Tooltip, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import UndoIcon from "@mui/icons-material/Undo";
 import QrReader from "react-qr-reader"
 
-const CommunityType = inject(
-    "rootStore",
-    "knowledgeStore",
-    "uiStore",
-)(
-    observer(({ rootStore, knowledgeStore, uiStore, setActiveStep, handleNext }) => {
+const CommunityType = inject()(
+    observer(({ setActiveStep, handleNext }) => {
         const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
         return (
@@ -26,7 +21,7 @@ const CommunityType = inject(
                 spacing={2}
             >
                 <Typography
-                    textAlign={"center"}
+                    textAlign="center"
                     sx={{
                     }}
                 >
@@ -62,7 +57,7 @@ const CommunityType = inject(
                         >
                             <Image
                                 alt="alt"
-                                src={"/app/AdvancedCustomization.svg"}
+                                src="/app/AdvancedCustomization.svg"
                                 quality={100}
                                 width={mobile ? 68 : 100}
                                 height={mobile ? 68 : 100}
@@ -77,7 +72,7 @@ const CommunityType = inject(
                             }}
                         >
                             <Typography
-                                textAlign={"left"}
+                                textAlign="left"
                                 variant="h6"
                                 sx={{
                                     color: "text.primary",
@@ -87,7 +82,7 @@ const CommunityType = inject(
                                 Пустой шаблон
                             </Typography>
                             {!mobile && <Typography
-                                textAlign={"left"}
+                                textAlign="left"
                                 sx={{
                                     color: "text.secondary"
                                 }}
@@ -129,7 +124,7 @@ const CommunityType = inject(
                         >
                             <Image
                                 alt="alt"
-                                src={"/app/Professor.svg"}
+                                src="/app/Professor.svg"
                                 quality={100}
                                 width={mobile ? 68 : 100}
                                 height={mobile ? 68 : 100}
@@ -144,7 +139,7 @@ const CommunityType = inject(
                             }}
                         >
                             <Typography
-                                textAlign={"left"}
+                                textAlign="left"
                                 variant="h6"
                                 sx={{
                                     color: "text.primary",
@@ -154,7 +149,7 @@ const CommunityType = inject(
                                 Репетиторам
                             </Typography>
                             {!mobile && <Typography
-                                textAlign={"left"}
+                                textAlign="left"
                                 sx={{
                                     color: "text.secondary"
                                 }}
@@ -196,7 +191,7 @@ const CommunityType = inject(
                         >
                             <Image
                                 alt="alt"
-                                src={"/app/Connecting.svg"}
+                                src="/app/Connecting.svg"
                                 quality={100}
                                 width={mobile ? 68 : 100}
                                 height={mobile ? 68 : 100}
@@ -211,7 +206,7 @@ const CommunityType = inject(
                             }}
                         >
                             <Typography
-                                textAlign={"left"}
+                                textAlign="left"
                                 variant="h6"
                                 sx={{
                                     color: "text.primary",
@@ -221,7 +216,7 @@ const CommunityType = inject(
                                 Учебным группам
                             </Typography>
                             {!mobile && <Typography
-                                textAlign={"left"}
+                                textAlign="left"
                                 sx={{
                                     color: "text.secondary"
                                 }}
@@ -263,7 +258,7 @@ const CommunityType = inject(
                         >
                             <Image
                                 alt="alt"
-                                src={"/app/Classroom.svg"}
+                                src="/app/Classroom.svg"
                                 quality={100}
                                 width={mobile ? 68 : 100}
                                 height={mobile ? 68 : 100}
@@ -278,7 +273,7 @@ const CommunityType = inject(
                             }}
                         >
                             <Typography
-                                textAlign={"left"}
+                                textAlign="left"
                                 variant="h6"
                                 sx={{
                                     color: "text.primary",
@@ -288,7 +283,7 @@ const CommunityType = inject(
                                 Образовательным организациям
                             </Typography>
                             {!mobile && <Typography
-                                textAlign={"left"}
+                                textAlign="left"
                                 sx={{
                                     color: "text.secondary"
                                 }}
@@ -310,7 +305,7 @@ const CommunityType = inject(
                     }}
                 >
                     <Typography
-                        textAlign={"center"}
+                        textAlign="center"
                         sx={{
                             width: 400,
                             color: "text.secondary",
@@ -355,7 +350,7 @@ const CommunityName = inject(
     "knowledgeStore",
     "uiStore",
 )(
-    observer(({ rootStore, knowledgeStore, uiStore }) => {
+    observer(() => {
         const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
         return (
@@ -375,7 +370,7 @@ const CommunityName = inject(
                 >
                     <Image
                         alt="alt"
-                        src={"/app/RemoteMeeting.svg"}
+                        src="/app/RemoteMeeting.svg"
                         quality={100}
                         width={mobile ? 256 : 420}
                         height={mobile ? 256 : 420}
@@ -383,7 +378,7 @@ const CommunityName = inject(
                 </Box>
                 <Typography
                     variant="h6"
-                    textAlign={"center"}
+                    textAlign="center"
                     sx={{
                         ml: 4
                     }}
@@ -392,7 +387,7 @@ const CommunityName = inject(
                 </Typography>
                 <Typography
                     variant="suntitle1"
-                    textAlign={"center"}
+                    textAlign="center"
                     sx={{
                         ml: 4,
                         color: "text.secondary",
@@ -416,7 +411,7 @@ const CommunityName = inject(
                     <Input
                         sx={{ width: "100%", }}
                         label="Название сообщества"
-                        type={"text"}
+                        type="text"
                     // endAdornment={
                     //     <InputAdornment sx={{ mr: 2 }} position="end">
                     //         <IconButton
@@ -464,26 +459,9 @@ const CommunityName = inject(
     })
 );
 
-const steps = [
-    {
-        label: "Тип сообщества",
-    },
-    {
-        label: "Функционал",
-    },
-    {
-        label: "Название Сообщества",
-    },
-];
-
-const CommunityEnter = inject(
-    "rootStore",
-    "knowledgeStore",
-    "uiStore",
-)(
-    observer(({ rootStore, knowledgeStore, uiStore }) => {
+const CommunityEnter = inject()(
+    observer(() => {
         const [result, setResult] = React.useState("Код пока не найден")
-        const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
         const handleScan = data => {
             if (data) {
@@ -507,7 +485,7 @@ const CommunityEnter = inject(
             >
                 <Typography
                     variant="h6"
-                    textAlign={"center"}
+                    textAlign="center"
                     sx={{
                     }}
                 >
@@ -532,7 +510,7 @@ const CommunityEnter = inject(
 
                 <Typography
                     variant="subtitle1"
-                    textAlign={"center"}
+                    textAlign="center"
                     sx={{
                         color: "text.secondary"
                     }}
@@ -544,13 +522,8 @@ const CommunityEnter = inject(
     })
 );
 
-const DialogCreateCommunity = inject(
-    "rootStore",
-    "knowledgeStore",
-    "uiStore",
-)(
-    observer(({ rootStore, knowledgeStore, uiStore, openDialogCC, setOpenDialogCC }) => {
-        const router = useRouter();
+const DialogCreateCommunity = inject()(
+    observer(({ openDialogCC, setOpenDialogCC }) => {
         const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
         const [activeStep, setActiveStep] = React.useState(0);
@@ -571,7 +544,7 @@ const DialogCreateCommunity = inject(
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 fullWidth
-                fullScreen={mobile ? true : false}
+                fullScreen={!!mobile}
                 maxWidth="md"
                 sx={{
                     // height: "100%"

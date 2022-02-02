@@ -2,21 +2,13 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
-
-import { useTheme, useMediaQuery, IconButton, Button, Tooltip, Stack, Typography } from "@mui/material";
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
-import NavigateNextIcon from "@mui/icons-material/NavigateNext"
+import { Button } from "@mui/material";
 import UndoIcon from "@mui/icons-material/Undo";
 import InfoIcon from "@mui/icons-material/Info";
 
-
-
-
 const KnowledgePageTools = inject(
-    "knowledgeStore"
 )(
-    observer(({ knowledgeStore, setOpenDialog }) => {
-        const theme = useTheme();
+    observer(({ setOpenDialog }) => {
         const router = useRouter()
 
         return (

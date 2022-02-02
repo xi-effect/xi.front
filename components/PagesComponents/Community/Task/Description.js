@@ -1,24 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-
 import {
-    Divider,
-    Paper,
-    Skeleton,
-    Box,
-    useMediaQuery,
-    Grid,
     Stack,
-    FormControlLabel,
-    Button,
-    useTheme,
-    Menu,
-    Hidden,
-    IconButton,
-    InputBase,
-    Switch,
     Typography,
 } from "@mui/material";
 
@@ -41,9 +24,7 @@ const arrowVariants = {
 const Description = inject(
     "rootStore",
 )(
-    observer(({ rootStore, messageStore }) => {
-        const theme = useTheme();
-        const router = useRouter();
+    observer(() => {
         const [description, setDescription] = React.useState(false)
 
         return (
@@ -85,7 +66,7 @@ const Description = inject(
                             fontSize: 14,
                         }}
                     >
-                        {"описание"}
+                        описание
                     </Typography>
                 </Stack>
                 {description && <Typography variant="subtitle1">

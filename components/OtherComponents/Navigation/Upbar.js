@@ -2,17 +2,12 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
-
-import { Grid, Box, Popper, Skeleton, useTheme, Paper, ListItemIcon, ListItemText, ClickAwayListener, MenuList, Grow, MenuItem, useMediaQuery, InputBase, IconButton, Tooltip, Stack, Typography } from "@mui/material";
-import CustomAvatar from "../Avatar/CustomAvatar"
+import { Grid, Box, Skeleton, useMediaQuery, InputBase, IconButton, Tooltip, Stack, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
-import LogoutIcon from "@mui/icons-material/Logout";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ReportIcon from "@mui/icons-material/Report";
-import ReportDialog from "./RightMenu/ReportDialog";
 import MenuIcon from "@mui/icons-material/Menu";
 import InfoIcon from "@mui/icons-material/Info";
+import ReportDialog from "./RightMenu/ReportDialog";
 
 const KnowledgePagesTools = inject(
   "knowledgeStore"
@@ -66,8 +61,8 @@ const KnowledgeModulesTools = inject(
   "knowledgeStore"
 )(
   observer(({ knowledgeStore }) => {
-    const theme = useTheme();
     const mobile = useMediaQuery(theme => theme.breakpoints.down("xl"));
+
     return (
       <>
         {/* Поиск в десктоп */}
@@ -115,23 +110,18 @@ const KnowledgeModulesTools = inject(
 const KnowledgePageTools = inject(
   "knowledgeStore"
 )(
-  observer(({ knowledgeStore }) => {
-    return (
-      <>
-        <Grid item xs zeroMinWidth>
-          {knowledgeStore.page.loading ? <Skeleton animation="wave" sx={{ ml: 2, mr: 1, height: 42, borderRadius: 4, maxWidth: 500 }} variant="text" /> :
-            <Typography variant="h5" sx={{ fontWeight: "bolder", ml: 2, mr: 1, cursor: "default" }} noWrap>{knowledgeStore.page.name}</Typography>}
-        </Grid>
-      </>
-    );
-  })
+  observer(({ knowledgeStore }) => (
+    <Grid item xs zeroMinWidth>
+      {knowledgeStore.page.loading ? <Skeleton animation="wave" sx={{ ml: 2, mr: 1, height: 42, borderRadius: 4, maxWidth: 500 }} variant="text" /> :
+        <Typography variant="h5" sx={{ fontWeight: "bolder", ml: 2, mr: 1, cursor: "default" }} noWrap>{knowledgeStore.page.name}</Typography>}
+    </Grid>
+  ))
 );
 
 const KnowledgeModuleTools = inject(
   "knowledgeStore"
 )(
   observer(({ knowledgeStore }) => {
-    const theme = useTheme();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
@@ -141,9 +131,9 @@ const KnowledgeModuleTools = inject(
             {knowledgeStore.module.name}
           </Typography>
         )}
-        {!mobile && knowledgeStore.page.name != "" && (
+        {!mobile && knowledgeStore.page.name !== "" && (
           <Typography variant="h5" sx={{ ml: 1, cursor: "default" }}>
-            {"/"}
+            /
           </Typography>
         )}
         {!mobile && (
@@ -158,14 +148,8 @@ const KnowledgeModuleTools = inject(
 
 
 
-const Upbar = inject(
-  "rootStore",
-  "settingsStore",
-  "uiStore",
-  "messageStore"
-)(
-  observer(({ rootStore, settingsStore, uiStore, messageStore, children, swipe, setSwipe, haveRightMenu, haveRightToolbar, haveRightMenuMore }) => {
-    const theme = useTheme();
+const Upbar = inject()(
+  observer(({ swipe, setSwipe }) => {
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
@@ -211,7 +195,7 @@ const Upbar = inject(
             }}
           >
             <Typography
-              component={"h1"}
+              component="h1"
               onClick={() => {
                 router.push({
                   pathname: "/",
@@ -233,7 +217,7 @@ const Upbar = inject(
               Ξ
             </Typography>
             <Typography
-              component={"h1"}
+              component="h1"
               onClick={() => {
                 router.push({
                   pathname: "/",

@@ -1,24 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Button, Box, useMediaQuery, ClickAwayListener, Divider, MenuList, MenuItem, ListItemText, ListItemIcon, Tooltip, Popper, IconButton, Link, Paper, useTheme, Stack, Typography, Grow } from "@mui/material";
+import { Button, Tooltip, IconButton, Stack, Typography } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 
-import { motion, AnimatePresence } from "framer-motion"
 
 const KnowledgeСreatePage = inject(
     "knowledgeStore",
     "managmentStore",
     "uiStore",
 )(
-    observer(({ knowledgeStore, uiStore, managmentStore }) => {
-
-        return (
+    observer(({ uiStore, managmentStore }) => (
             <>
                 <Button
                     sx={{
@@ -77,8 +73,7 @@ const KnowledgeСreatePage = inject(
                     </Tooltip>
                 </Stack>
             </>
-        );
-    })
+        ))
 );
 
 export default KnowledgeСreatePage;

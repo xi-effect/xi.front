@@ -1,13 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router"
 import { inject, observer } from "mobx-react"
 
-import { Typography, MenuItem, useTheme, Tab, Tabs, Radio, Switch, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container, DialogActions } from "@mui/material";
-import Image from "next/image";
+import { Typography, Switch, Button, Dialog, DialogContent, Stack, useMediaQuery, DialogActions } from "@mui/material";
 
-const DialogPrivacy = inject("rootStore")(observer(({ rootStore, openDialogPrivacy, setOpenDialogPrivacy }) => {
-    const theme = useTheme();
+const DialogPrivacy = inject()(observer(({ openDialogPrivacy, setOpenDialogPrivacy }) => {
     const fullScreen = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     return (

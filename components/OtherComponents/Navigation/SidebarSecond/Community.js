@@ -3,9 +3,7 @@ import React from "react";
 import { useRouter } from "next/router"
 import { inject, observer } from "mobx-react"
 
-import { Typography, MenuItem, Stack, Box, Divider, MenuList, ListItemIcon, ListItemText, useMediaQuery } from "@mui/material";
-import Image from "next/image";
-
+import { Typography, MenuItem, Stack, Divider, MenuList, ListItemIcon, ListItemText } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AddIcon from "@mui/icons-material/Add";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
@@ -26,7 +24,7 @@ const arrowVariants = {
     }
 }
 
-const Channel = inject("rootStore", "uiStore", "messageStore", "communityStore")(observer(({ rootStore, uiStore, messageStore, communityStore, index }) => {
+const Channel = inject("communityStore")(observer(({ communityStore, index }) => {
     const channel = communityStore.channels[index]
     const [hoverCategory, setHoverCategory] = React.useState(null)
     const router = useRouter();
@@ -39,6 +37,7 @@ const Channel = inject("rootStore", "uiStore", "messageStore", "communityStore")
         if (type === "schedule") return <TodayIcon fontSize="small" />
         if (type === "chat") return <ForumIcon fontSize="small" />
         if (type === "room") return <RecordVoiceOverIcon fontSize="small" />
+        return null
     }
 
     if (channel.type === "category") {
@@ -104,7 +103,7 @@ const Channel = inject("rootStore", "uiStore", "messageStore", "communityStore")
                                 width: "100%",
                                 borderRadius: 1,
                                 height: 36,
-                                bgcolor: (lastType == child.type && typeId == child.id) ? "action.hover" : null,
+                                bgcolor: (lastType === child.type && typeId === child.id) ? "action.hover" : null,
                             }}
                         >
                             <ListItemIcon
@@ -142,7 +141,7 @@ const Channel = inject("rootStore", "uiStore", "messageStore", "communityStore")
                     height: 36,
                     ml: 1,
                     mr: 1,
-                    bgcolor: (lastType == channel.type && typeId == channel.id) ? "action.hover" : null,
+                    bgcolor: (lastType === channel.type && typeId === channel.id) ? "action.hover" : null,
                 }}
             >
                 <ListItemIcon
@@ -165,18 +164,11 @@ const Channel = inject("rootStore", "uiStore", "messageStore", "communityStore")
             </MenuItem>
         )
     }
+    return null
 }));
 
-const MenuCommunity = inject("rootStore", "uiStore", "messageStore", "communityStore")(observer(({ rootStore, uiStore, messageStore, communityStore }) => {
+const MenuCommunity = inject("rootStore", "uiStore", "messageStore", "communityStore")(observer(({ communityStore }) => {
     const router = useRouter()
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
-
-    const iconSelect = (type) => {
-        if (type === "schedule") return <TodayIcon fontSize="small" />
-        if (type === "chat") return <ForumIcon fontSize="small" />
-        if (type === "room") return <RecordVoiceOverIcon fontSize="small" />
-    }
-
     return (
         <MenuList
             sx={{
@@ -281,7 +273,7 @@ const MenuCommunity = inject("rootStore", "uiStore", "messageStore", "communityS
                         component={motion.svg}
                         variants={arrowVariants}
                         // animate={channel.open ? "open" : "closed"}
-                        animate={"closed"}
+                        animate="closed"
                         transition={{ type: "ease", duration: 0.2 }}
                         sx={{ fontSize: 8 }}
                     />
@@ -292,7 +284,7 @@ const MenuCommunity = inject("rootStore", "uiStore", "messageStore", "communityS
                             fontSize: 14,
                         }}
                     >
-                        {"ближайшие занятия"}
+                        ближайшие занятия
                     </Typography>
                 </Stack>
             </Stack>
@@ -331,7 +323,7 @@ const MenuCommunity = inject("rootStore", "uiStore", "messageStore", "communityS
                         component={motion.svg}
                         variants={arrowVariants}
                         // animate={channel.open ? "open" : "closed"}
-                        animate={"closed"}
+                        animate="closed"
                         transition={{ type: "ease", duration: 0.2 }}
                         sx={{ fontSize: 8 }}
                     />
@@ -342,7 +334,7 @@ const MenuCommunity = inject("rootStore", "uiStore", "messageStore", "communityS
                             fontSize: 14,
                         }}
                     >
-                        {"ближайшие задания"}
+                        ближайшие задания
                     </Typography>
                 </Stack>
             </Stack>
@@ -357,7 +349,7 @@ const MenuCommunity = inject("rootStore", "uiStore", "messageStore", "communityS
             <Scrollbars
                 renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
                 renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
-                universal={true}
+                universal
                 style={{ height: "100%", overflowY: "hidden !important", }}
                 autoHide
                 autoHideTimeout={1000}

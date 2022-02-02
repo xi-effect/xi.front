@@ -4,12 +4,8 @@ import { Stack, useMediaQuery, Paper, Typography, Button } from "@mui/material";
 import React from "react";
 import { inject, observer } from "mobx-react";
 
-const InviteCommunity = inject(
-  "rootStore",
-  "uiStore",
-  "authorizationStore"
-)(
-  observer(({ rootStore, authorizationStore, uiStore }) => {
+const InviteCommunity = inject()(
+  observer(() => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
     const router = useRouter();
@@ -49,7 +45,7 @@ const InviteCommunity = inject(
               sx={{ width: "100%" }}
             >
               <Typography
-                component={"h1"}
+                component="h1"
                 onClick={() => {
                   router.push({
                     pathname: "/",
@@ -70,7 +66,7 @@ const InviteCommunity = inject(
                 Ξ
               </Typography>
               <Typography
-                component={"h1"}
+                component="h1"
                 onClick={() => {
                   router.push({
                     pathname: "/",
@@ -115,7 +111,7 @@ const InviteCommunity = inject(
               sx={{ width: "100%", height: "100%", p: 2 }}
             >
               <Typography
-                component={"div"}
+                component="div"
                 variant="OpenSans500MainLabel"
                 sx={{
                   fontFamily: "Open Sans, sans-serif",
@@ -165,12 +161,12 @@ const InviteCommunity = inject(
                   });
                 }}
               >
-                <Typography component={"p"}>Вступить в сообщество</Typography>
+                <Typography component="p">Вступить в сообщество</Typography>
               </Button>
             </Stack>
           </Paper>
 
-          <div></div>
+          <div />
         </Stack>
       </>
     );

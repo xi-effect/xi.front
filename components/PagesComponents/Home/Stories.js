@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 
-import { Button, Paper, Stack, Box, Grid, Typography, useTheme, IconButton } from "@mui/material";
+import { Button, Paper, Stack, Box, Typography, IconButton } from "@mui/material";
 
 import { inject, observer } from "mobx-react"
 
@@ -42,76 +42,70 @@ const stories = [
     },
 ]
 
-const Story = inject("rootStore", "managmentStore")(observer(({ rootStore, managmentStore, item }) => {
-    const theme = useTheme();
-
-
-    return (
-        <Paper
-            elevation={24}
+const Story = inject()(observer(({ item }) => (
+    <Paper
+        elevation={24}
+        sx={{
+            height: 300,
+            minWidth: 300,
+            // bgcolor: "primary.main",
+            borderRadius: 2,
+        }}
+    >
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={0}
             sx={{
-                height: 300,
-                minWidth: 300,
-                // bgcolor: "primary.main",
-                borderRadius: 2,
+                mt: -2,
+                position: "relative",
+                width: "100%",
+                height: "100%",
             }}
         >
-            <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={0}
+            <Box
                 sx={{
-                    mt: -2,
-                    position: "relative",
-                    width: "100%",
-                    height: "100%",
+                    width: 216,
+                    height: 216,
                 }}
             >
-                <Box
-                    sx={{
-                        width: 216,
-                        height: 216,
-                    }}
-                >
-                    <Image
-                        alt="alt"
-                        src={item.image}
-                        quality={100}
-                        width={216}
-                        height={216}
-                    />
-                </Box>
-                <Typography
-                    sx={{
-                        pl: 1,
-                        pr: 1,
-                    }}
-                >
-                    {item.label}
-                </Typography>
-                <IconButton
-                    sx={{
-                        position: "absolute",
-                        bottom: -8,
-                        right: 8,
-                        boxShadow: 4,
+                <Image
+                    alt="alt"
+                    src={item.image}
+                    quality={100}
+                    width={216}
+                    height={216}
+                />
+            </Box>
+            <Typography
+                sx={{
+                    pl: 1,
+                    pr: 1,
+                }}
+            >
+                {item.label}
+            </Typography>
+            <IconButton
+                sx={{
+                    position: "absolute",
+                    bottom: -8,
+                    right: 8,
+                    boxShadow: 4,
+                    bgcolor: "secondary.main",
+                    "&:hover": {
                         bgcolor: "secondary.main",
-                        "&:hover": {
-                            bgcolor: "secondary.main",
-                        }
-                    }}
-                >
-                    <ArrowForwardIcon />
-                </IconButton>
-            </Stack>
-        </Paper>
-    )
-}));
+                    }
+                }}
+            >
+                <ArrowForwardIcon />
+            </IconButton>
+        </Stack>
+    </Paper>
+)));
 
 
-const Stories = inject("rootStore", "managmentStore")(observer(({ rootStore, managmentStore }) => {
-    const theme = useTheme();
+const Stories = inject()(observer(() => {
     const [cardIndex, setCardIndex] = React.useState(0)
 
     return (

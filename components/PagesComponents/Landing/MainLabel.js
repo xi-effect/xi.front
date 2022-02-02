@@ -1,15 +1,12 @@
 import React from "react";
 import { useRouter } from "next/router"
 import Image from "next/image";
-import { motion } from "framer-motion"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography } from "@mui/material";
+import { Stack, useMediaQuery, Button, Grid, Box, Paper, Typography } from "@mui/material";
 
 import { labels } from "../../../texts/landing/MainLabel";
 
-const MainLabel = () => {
-    const theme = useTheme();
-
+function MainLabel() {
     const router = useRouter()
     const mobile = useMediaQuery(theme => theme.breakpoints.down("dl"));
 
@@ -109,7 +106,7 @@ const MainLabel = () => {
                         >
                             <Image
                                 alt="alt"
-                                src={"/landing/Knowledge.svg"}
+                                src="/landing/Knowledge.svg"
                                 quality={100}
                                 width={256}
                                 height={256}
@@ -190,7 +187,7 @@ const MainLabel = () => {
                         >
                             <Image
                                 alt="alt"
-                                src={"/landing/OnlineLearning.svg"}
+                                src="/landing/OnlineLearning.svg"
                                 quality={100}
                                 width={256}
                                 height={256}

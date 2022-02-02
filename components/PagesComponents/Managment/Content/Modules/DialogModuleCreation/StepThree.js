@@ -65,7 +65,7 @@ const StepThree = inject("rootStore", "managmentStore", "contentStore")(observer
             <Typography> Добавьте изображение для вашего модуля </Typography>
 
             <AvatarEditor
-                //onMouseUp={saveNewAvatar}
+                // onMouseUp={saveNewAvatar}
                 ref={setEditorRef}
                 image={contentStore.temporaryImages.moduleCreation == null ? "/illustrations/defaultModuleImg.png" : contentStore.temporaryImages.moduleCreation}
                 width={320}
@@ -99,7 +99,7 @@ const StepThree = inject("rootStore", "managmentStore", "contentStore")(observer
                 min={10}
                 max={30}
                 onChange={(event) => setValue(event.target.value)}
-                //onChangeCommitted={saveNewAvatar}
+                // onChangeCommitted={saveNewAvatar}
                 aria-labelledby="continuous-slider"
             />
 

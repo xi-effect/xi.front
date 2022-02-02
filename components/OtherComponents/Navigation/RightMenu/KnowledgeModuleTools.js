@@ -3,18 +3,15 @@ import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Button, Box, useMediaQuery, ClickAwayListener, Divider, MenuList, MenuItem, ListItemText, ListItemIcon, Tooltip, Popper, IconButton, Link, Paper, useTheme, Stack, Typography, Grow } from "@mui/material";
+import { Button } from "@mui/material";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import InfoIcon from "@mui/icons-material/Info";
 import TaskIcon from "@mui/icons-material/Task";
-
-import { motion, AnimatePresence } from "framer-motion"
 
 const KnowledgeModuleTools = inject(
     "knowledgeStore",
 )(
     observer(({ knowledgeStore, goNext, setOpenDialog }) => {
-        const theme = useTheme();
         const router = useRouter()
 
         return (
@@ -72,7 +69,7 @@ const KnowledgeModuleTools = inject(
                         Вперёд <DoubleArrowIcon sx={{ ml: "auto", mr: 0 }} />
                     </Button>}
                 </>
-                {(knowledgeStore.moduleCompleted.isFinished || !(knowledgeStore.module["map"] != undefined) || knowledgeStore.module["map"].length === 0) && <>
+                {(knowledgeStore.moduleCompleted.isFinished || !(knowledgeStore.module.map !== undefined) || knowledgeStore.module.map.length === 0) && <>
 
                 </>}
             </>

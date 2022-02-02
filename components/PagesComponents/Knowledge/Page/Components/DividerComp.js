@@ -2,9 +2,7 @@ import React from "react";
 import { Grid, Divider } from "@mui/material";
 import { inject, observer } from "mobx-react"
 
-const DividerComp = inject("rootStore")(observer(({ rootStore, value }) => {
-
-    return (
+const DividerComp = inject()(observer(() => (
         <Grid sx={{ width: "100%", }}>
             <Divider flexItem sx={{
                 width: "100%",
@@ -15,7 +13,6 @@ const DividerComp = inject("rootStore")(observer(({ rootStore, value }) => {
                 cursor: "default",
             }} />
         </Grid>
-    );
-}));
+    )));
 
 export default DividerComp

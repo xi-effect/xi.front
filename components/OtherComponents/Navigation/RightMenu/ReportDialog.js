@@ -1,62 +1,50 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 import { motion, AnimatePresence } from "framer-motion"
-import { Box, Button, Dialog, FormControl, InputLabel, Input, InputBase, MenuItem, Select, DialogTitle, DialogContent, DialogActions, Link, useTheme, IconButton, Tooltip, Drawer, Stack, Typography } from "@mui/material";
-
+import { Box, Button, Dialog, FormControl, InputLabel, Input, MenuItem, Select, DialogContent, DialogActions, Stack, Typography } from "@mui/material";
 
 const ReportGeneral = inject(
     "rootStore",
     "knowledgeStore",
     "uiStore",
 )(
-    observer(({ rootStore, knowledgeStore, uiStore }) => {
-
-        return (
-            <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="flex-start"
-                spacing={2}
-            >
-                <Typography>
-                    Здесь вы можете написать разработчикам. Это свободная форма.
-                </Typography>
-                <Input
-                    sx={{ backgroundColor: "background.2", width: "100%", }}
-                    type="text"
-                    value={uiStore.reportData.reportText ?? ""}
-                    onChange={(e) => uiStore.setReportData("reportText", e.target.value)}
-                    multiline
-                    maxRows={5}
-                    placeholder="Текст отзыва"
-                />
-            </Stack>
-        );
-    })
+    observer(({ uiStore }) => (
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="flex-start"
+            spacing={2}
+        >
+            <Typography>
+                Здесь вы можете написать разработчикам. Это свободная форма.
+            </Typography>
+            <Input
+                sx={{ backgroundColor: "background.2", width: "100%", }}
+                type="text"
+                value={uiStore.reportData.reportText ?? ""}
+                onChange={(e) => uiStore.setReportData("reportText", e.target.value)}
+                multiline
+                maxRows={5}
+                placeholder="Текст отзыва"
+            />
+        </Stack>
+    ))
 );
 
-const ReportDetailed = inject(
-    "rootStore",
-    "knowledgeStore",
-    "uiStore",
-)(
-    observer(({ rootStore, knowledgeStore, }) => {
-
-        return (
-            <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="flex-start"
-                spacing={2}
-            >
-                <Typography>
-                    В данной форме мы хотели бы спросить вас о платформе.
-                </Typography>
-            </Stack>
-        );
-    })
+const ReportDetailed = inject()(
+    observer(() => (
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="flex-start"
+            spacing={2}
+        >
+            <Typography>
+                В данной форме мы хотели бы спросить вас о платформе.
+            </Typography>
+        </Stack>
+    ))
 );
 
 const ReportBug = inject(
@@ -64,98 +52,90 @@ const ReportBug = inject(
     "knowledgeStore",
     "uiStore",
 )(
-    observer(({ rootStore, knowledgeStore, uiStore }) => {
-
-        return (
-            <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="flex-start"
-                spacing={2}
-            >
-                <Typography>
-                    Здесь вы можете рассказать о технической ошибке.
-                </Typography>
-                <Input
-                    sx={{ backgroundColor: "background.2", width: "100%", }}
-                    type="text"
-                    value={uiStore.reportData.errorDescription ?? ""}
-                    onChange={(e) => uiStore.setReportData("errorDescription", e.target.value)}
-                    multiline
-                    maxRows={5}
-                    placeholder="Опишите ошибку"
-                />
-                <Input
-                    sx={{ backgroundColor: "background.2", width: "100%", }}
-                    type="text"
-                    value={uiStore.reportData.sitePart ?? ""}
-                    onChange={(e) => uiStore.setReportData("sitePart", e.target.value)}
-                    multiline
-                    maxRows={5}
-                    placeholder="Укажите, в какой части сайта она произошла. Можно, скопировать url-адрес в это поле"
-                />
-                <Input
-                    sx={{ backgroundColor: "background.2", width: "100%", }}
-                    type="text"
-                    value={uiStore.reportData.errorRepeat ?? ""}
-                    onChange={(e) => uiStore.setReportData("errorRepeat", e.target.value)}
-                    multiline
-                    maxRows={5}
-                    placeholder="Расскажите о том, как появилась ошибка - что вы делали перед тем, как появилась ошибка или как её воспроизвести"
-                />
-                <Input
-                    sx={{ backgroundColor: "background.2", width: "100%", }}
-                    type="text"
-                    value={uiStore.reportData.deviceInfo ?? ""}
-                    onChange={(e) => uiStore.setReportData("deviceInfo", e.target.value)}
-                    multiline
-                    maxRows={5}
-                    placeholder="С какого устройства вы пользуетесь порталом? Также укажите браузер"
-                />
-            </Stack>
-        );
-    })
+    observer(({ uiStore }) => (
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="flex-start"
+            spacing={2}
+        >
+            <Typography>
+                Здесь вы можете рассказать о технической ошибке.
+            </Typography>
+            <Input
+                sx={{ backgroundColor: "background.2", width: "100%", }}
+                type="text"
+                value={uiStore.reportData.errorDescription ?? ""}
+                onChange={(e) => uiStore.setReportData("errorDescription", e.target.value)}
+                multiline
+                maxRows={5}
+                placeholder="Опишите ошибку"
+            />
+            <Input
+                sx={{ backgroundColor: "background.2", width: "100%", }}
+                type="text"
+                value={uiStore.reportData.sitePart ?? ""}
+                onChange={(e) => uiStore.setReportData("sitePart", e.target.value)}
+                multiline
+                maxRows={5}
+                placeholder="Укажите, в какой части сайта она произошла. Можно, скопировать url-адрес в это поле"
+            />
+            <Input
+                sx={{ backgroundColor: "background.2", width: "100%", }}
+                type="text"
+                value={uiStore.reportData.errorRepeat ?? ""}
+                onChange={(e) => uiStore.setReportData("errorRepeat", e.target.value)}
+                multiline
+                maxRows={5}
+                placeholder="Расскажите о том, как появилась ошибка - что вы делали перед тем, как появилась ошибка или как её воспроизвести"
+            />
+            <Input
+                sx={{ backgroundColor: "background.2", width: "100%", }}
+                type="text"
+                value={uiStore.reportData.deviceInfo ?? ""}
+                onChange={(e) => uiStore.setReportData("deviceInfo", e.target.value)}
+                multiline
+                maxRows={5}
+                placeholder="С какого устройства вы пользуетесь порталом? Также укажите браузер"
+            />
+        </Stack>
+    ))
 );
 
 
 const ReportContent = inject(
-    "rootStore",
-    "knowledgeStore",
     "uiStore",
 )(
-    observer(({ rootStore, knowledgeStore, uiStore }) => {
-
-        return (
-            <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="flex-start"
-                spacing={2}
-            >
-                <Typography>
-                    Здесь вы можете отправить жалобу на контент. Укажите как можно больше информации о контенте и причине жалобы
-                </Typography>
-                <Input
-                    sx={{ backgroundColor: "background.2", width: "100%", }}
-                    type="text"
-                    value={uiStore.reportData.contentName ?? ""}
-                    onChange={(e) => uiStore.setReportData("contentName", e.target.value)}
-                    multiline
-                    maxRows={5}
-                    placeholder="Название контента (страницы, модуля)"
-                />
-                <Input
-                    sx={{ backgroundColor: "background.2", width: "100%", }}
-                    type="text"
-                    value={uiStore.reportData.errorDescription ?? ""}
-                    onChange={(e) => uiStore.setReportData("errorDescription", e.target.value)}
-                    multiline
-                    maxRows={5}
-                    placeholder="Опишите ошибку"
-                />
-            </Stack>
-        );
-    })
+    observer(({ uiStore }) => (
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="flex-start"
+            spacing={2}
+        >
+            <Typography>
+                Здесь вы можете отправить жалобу на контент. Укажите как можно больше информации о контенте и причине жалобы
+            </Typography>
+            <Input
+                sx={{ backgroundColor: "background.2", width: "100%", }}
+                type="text"
+                value={uiStore.reportData.contentName ?? ""}
+                onChange={(e) => uiStore.setReportData("contentName", e.target.value)}
+                multiline
+                maxRows={5}
+                placeholder="Название контента (страницы, модуля)"
+            />
+            <Input
+                sx={{ backgroundColor: "background.2", width: "100%", }}
+                type="text"
+                value={uiStore.reportData.errorDescription ?? ""}
+                onChange={(e) => uiStore.setReportData("errorDescription", e.target.value)}
+                multiline
+                maxRows={5}
+                placeholder="Опишите ошибку"
+            />
+        </Stack>
+    ))
 );
 
 
@@ -164,8 +144,7 @@ const ReportDialog = inject(
     "knowledgeStore",
     "uiStore",
 )(
-    observer(({ rootStore, knowledgeStore, uiStore, openDialog, setOpenDialog }) => {
-        const router = useRouter();
+    observer(({ rootStore, uiStore, openDialog, setOpenDialog }) => {
         const [type, setType] = React.useState("general");
 
         const handleChange = (event) => {
@@ -198,9 +177,8 @@ const ReportDialog = inject(
                     errorDescription: uiStore.reportData.errorDescription,
                 }
             }
-            rootStore.fetchDataScr(`${rootStore.url}/feedback/`, "POST", { type: type, data: dataReport }).then(
-                (data) => {
-                    console.log("log", data)
+            rootStore.fetchDataScr(`${rootStore.url}/feedback/`, "POST", { type, data: dataReport }).then(
+                () => {
                     uiStore.clearReportData()
                 })
         }
@@ -235,10 +213,10 @@ const ReportDialog = inject(
                             onChange={handleChange}
                             label="Тип отзыва"
                         >
-                            <MenuItem value={"general"}> Cтандартный </MenuItem>
-                            <MenuItem value={"detailed"}> Развёрнутый отзыв </MenuItem>
-                            <MenuItem value={"bug-report"}> Рассказать об программной ошибке (баге) </MenuItem>
-                            <MenuItem value={"content-report"}> Рассказать об ошибке в контенте </MenuItem>
+                            <MenuItem value="general"> Cтандартный </MenuItem>
+                            <MenuItem value="detailed"> Развёрнутый отзыв </MenuItem>
+                            <MenuItem value="bug-report"> Рассказать об программной ошибке (баге) </MenuItem>
+                            <MenuItem value="content-report"> Рассказать об ошибке в контенте </MenuItem>
                         </Select>
                     </FormControl>
                 </Stack>

@@ -1,30 +1,16 @@
-import { styled } from "@mui/material/styles";
-import Router from "next/router"
-import Image from "next/image"
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import clsx from "clsx"
-import { useRouter } from "next/router"
-import { Divider, AppBar, Popper, Toolbar, Input, MenuList, Menu, MenuItem, Grow, ClickAwayListener, Stack, Avatar, Tooltip, InputAdornment, FormControl, useMediaQuery, Link, Button, IconButton, Grid, Box, Paper, useTheme, Typography } from "@mui/material";
+
+import { Menu, MenuItem, Stack, Link, Grid, Box, Typography } from "@mui/material";
 
 import { inject, observer } from "mobx-react"
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import MuiAccordion from "@mui/material/Accordion";
-import MuiAccordionSummary from "@mui/material/AccordionSummary";
-import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import moment from "moment";
 
 import ReplyIcon from "@mui/icons-material/Reply";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CustomAvatar from "../Avatar/CustomAvatar";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
-import VolumeMuteIcon from "@mui/icons-material/VolumeMute";
 
-import socket from "../../../utils/socket";
 
 moment.locale("ru", {
     calendar: {
@@ -38,13 +24,7 @@ moment.locale("ru", {
 })
 
 
-const ChatItem = inject("rootStore", "uiStore", "messageStore", "settingsStore")(observer(({ rootStore, uiStore, messageStore, settingsStore, item, nextItem }) => {
-    const theme = useTheme();
-    // console.log("fI", messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"]))
-    // console.log("fU", messageStore.chat.usersInChat[messageStore.chat.usersInChat.findIndex(el => el.id === item["sender-id"])])
-    const mobile = useMediaQuery(theme => theme.breakpoints.down("xl"));
-    // const roleMessageOwner = 
-
+const ChatItem = inject("rootStore", "uiStore", "messageStore", "settingsStore")(observer(({messageStore, settingsStore, item, nextItem }) => {
     const [contextMenu, setContextMenu] = React.useState(null);
 
     const handleContextMenu = (event) => {
@@ -157,7 +137,7 @@ const ChatItem = inject("rootStore", "uiStore", "messageStore", "settingsStore")
             </Stack >
         );
     }
-    else {
+    
         return (
             <Stack
                 direction="column"
@@ -244,7 +224,7 @@ const ChatItem = inject("rootStore", "uiStore", "messageStore", "settingsStore")
                 </Stack >
             </Stack >
         )
-    }
+    
 }))
 
 export default ChatItem

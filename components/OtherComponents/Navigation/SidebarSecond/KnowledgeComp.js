@@ -3,15 +3,11 @@ import React from "react";
 import { useRouter } from "next/router"
 import { inject, observer } from "mobx-react"
 
-import { Grid, Stack, Paper, Box, useMediaQuery, Divider, Typography, MenuItem, MenuList, ListItemText } from "@mui/material";
+import { useMediaQuery, Divider, MenuItem, MenuList } from "@mui/material";
 
-import { motion } from "framer-motion";
-
-
-const MenuKnowledgeComp = inject("rootStore", "uiStore", "messageStore")(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+const MenuKnowledgeComp = inject()(observer(() => {
     const router = useRouter()
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
-
 
     return (
         <MenuList sx={{ width: "100%", }}>
@@ -36,7 +32,7 @@ const MenuKnowledgeComp = inject("rootStore", "uiStore", "messageStore")(observe
                     // bgcolor: router.pathname.includes("/knowledge/pages") ? "" : "",
                 }}
             >
-                {"cтраницы"}
+                cтраницы
             </MenuItem>
             <MenuItem
                 selected={router.pathname.includes("/knowledge/modules")}
@@ -59,7 +55,7 @@ const MenuKnowledgeComp = inject("rootStore", "uiStore", "messageStore")(observe
                     bgcolor: router.pathname.includes("/knowledge/modules") ? "" : "",
                 }}
             >
-                {"модули"}
+                модули
             </MenuItem>
             <Divider flexItem light />
             <MenuItem
@@ -82,7 +78,7 @@ const MenuKnowledgeComp = inject("rootStore", "uiStore", "messageStore")(observe
                     cursor: "pointer",
                 }}
             >
-                {"создание страницы"}
+                создание страницы
             </MenuItem>
             <MenuItem
                 selected={router.pathname.includes("/knowledge/createmodule")}
@@ -105,7 +101,7 @@ const MenuKnowledgeComp = inject("rootStore", "uiStore", "messageStore")(observe
                     bgcolor: router.pathname.includes("/knowledge/module") ? "" : "",
                 }}
             >
-                {"создание модуля"}
+                создание модуля
             </MenuItem>
             <Divider flexItem light />
             <MenuItem
@@ -129,7 +125,7 @@ const MenuKnowledgeComp = inject("rootStore", "uiStore", "messageStore")(observe
                     bgcolor: router.pathname.includes("/knowledge/page") ? "" : "",
                 }}
             >
-                {"ваши страницы"}
+                ваши страницы
             </MenuItem>
             <MenuItem
                 selected={router.pathname.includes("/knowledge/yourmodules")}
@@ -152,7 +148,7 @@ const MenuKnowledgeComp = inject("rootStore", "uiStore", "messageStore")(observe
                     bgcolor: router.pathname.includes("/knowledge/module") ? "" : "",
                 }}
             >
-                {"ваши модули"}
+                ваши модули
             </MenuItem>
         </MenuList>
     )

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Editor } from "draft-js";
-import { useEditorApi } from "./context";
 import cn from "classnames";
+import { useEditorApi } from "./context";
 // import "./TextEditor.scss";
 
 export type TextEditorProps = {

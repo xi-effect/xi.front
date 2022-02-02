@@ -8,7 +8,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { inject, observer } from "mobx-react"
 
 
-import DnDList from "./../../../../../OtherComponents/DnDList/DnDList";
+import DnDList from "../../../../../OtherComponents/DnDList/DnDList";
 import ComponentsList from "./Components/ComponentsList";
 
 
@@ -51,7 +51,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => {
                             quality={100}
                             alt="howtocreateamodule"
                             src="/app/Content.svg"
-                            //layout="fill"
+                            // layout="fill"
                             width={480}
                             height={480}
                         />
@@ -66,7 +66,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => {
                             mt: 2,
                             mb: 2,
                             mr: 1,
-                            //paddingLeft: 4,
+                            // paddingLeft: 4,
                             padding: 0,
                             width: "100%",
                             height: "100%",

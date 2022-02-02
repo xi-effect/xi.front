@@ -3,95 +3,89 @@ import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 import { motion, AnimatePresence } from "framer-motion"
-import { Box, Button, Dialog, FormControl, InputLabel, Input, InputBase, MenuItem, Select, DialogTitle, DialogContent, DialogActions, Link, useTheme, IconButton, Tooltip, Drawer, Stack, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogContent, DialogActions, Stack, Typography } from "@mui/material";
 
 const InfoPage = inject(
     "rootStore",
     "knowledgeStore",
     "uiStore",
 )(
-    observer(({ rootStore, knowledgeStore, uiStore, openDialog, setOpenDialog }) => {
-        const router = useRouter();
-        const [type, setType] = React.useState("general");
-
-
-        return (
-            <Stack
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-            // spacing={2}
+    observer(({ knowledgeStore }) => (
+        <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+        // spacing={2}
+        >
+            <Typography
+                variant="subtitle1"
+                sx={{
+                    color: "text.secondary"
+                }}
             >
-                <Typography
-                    variant="subtitle1"
-                    sx={{
-                        color: "text.secondary"
-                    }}
-                >
-                    Страница
-                </Typography>
-                <Typography
-                    variant="body1"
-                    sx={{
-                        color: "text.main"
-                    }}
-                >
-                    {knowledgeStore.page.name}
-                </Typography>
-                <Typography
-                    variant="subtitle1"
-                    sx={{
-                        mt: 1,
-                        color: "text.secondary"
-                    }}
-                >
-                    Описание
-                </Typography>
-                <Typography
-                    variant="body1"
-                    sx={{
-                        color: "text.main"
-                    }}
-                >
-                    {knowledgeStore.page.description}
-                </Typography>
-                <Typography
-                    variant="subtitle1"
-                    sx={{
-                        mt: 1,
-                        color: "text.secondary"
-                    }}
-                >
-                    Тема
-                </Typography>
-                <Typography
-                    variant="body1"
-                    sx={{
-                        color: "text.main"
-                    }}
-                >
-                    {knowledgeStore.page.theme}
-                </Typography>
-                <Typography
-                    variant="subtitle1"
-                    sx={{
-                        mt: 1,
-                        color: "text.secondary"
-                    }}
-                >
-                    Тип
-                </Typography>
-                <Typography
-                    variant="body1"
-                    sx={{
-                        color: "text.main"
-                    }}
-                >
-                    {knowledgeStore.page.kind}
-                </Typography>
-            </Stack>
-        );
-    })
+                Страница
+            </Typography>
+            <Typography
+                variant="body1"
+                sx={{
+                    color: "text.main"
+                }}
+            >
+                {knowledgeStore.page.name}
+            </Typography>
+            <Typography
+                variant="subtitle1"
+                sx={{
+                    mt: 1,
+                    color: "text.secondary"
+                }}
+            >
+                Описание
+            </Typography>
+            <Typography
+                variant="body1"
+                sx={{
+                    color: "text.main"
+                }}
+            >
+                {knowledgeStore.page.description}
+            </Typography>
+            <Typography
+                variant="subtitle1"
+                sx={{
+                    mt: 1,
+                    color: "text.secondary"
+                }}
+            >
+                Тема
+            </Typography>
+            <Typography
+                variant="body1"
+                sx={{
+                    color: "text.main"
+                }}
+            >
+                {knowledgeStore.page.theme}
+            </Typography>
+            <Typography
+                variant="subtitle1"
+                sx={{
+                    mt: 1,
+                    color: "text.secondary"
+                }}
+            >
+                Тип
+            </Typography>
+            <Typography
+                variant="body1"
+                sx={{
+                    color: "text.main"
+                }}
+            >
+                {knowledgeStore.page.kind}
+            </Typography>
+        </Stack>
+    ))
 );
 
 const InfoModule = inject(
@@ -99,12 +93,7 @@ const InfoModule = inject(
     "knowledgeStore",
     "uiStore",
 )(
-    observer(({ rootStore, knowledgeStore, uiStore, openDialog, setOpenDialog }) => {
-        const router = useRouter();
-        const [type, setType] = React.useState("general");
-
-
-        return (
+    observer(({ knowledgeStore }) => (
             <Stack
                 direction="column"
                 justifyContent="flex-start"
@@ -179,8 +168,7 @@ const InfoModule = inject(
                     {knowledgeStore.module.type}
                 </Typography>
             </Stack>
-        );
-    })
+        ))
 );
 
 
@@ -189,10 +177,8 @@ const InfoDialog = inject(
     "knowledgeStore",
     "uiStore",
 )(
-    observer(({ rootStore, knowledgeStore, uiStore, openDialog, setOpenDialog }) => {
+    observer(({ openDialog, setOpenDialog }) => {
         const router = useRouter();
-        const [type, setType] = React.useState("general");
-
 
         return (
             <Dialog

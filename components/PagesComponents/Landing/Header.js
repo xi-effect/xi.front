@@ -1,14 +1,9 @@
 import React from "react";
-import clsx from "clsx"
 import { useRouter } from "next/router"
-import { motion } from "framer-motion"
-
-import { Divider, Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, Container } from "@mui/material";
+import { Stack, useMediaQuery, Button, Typography } from "@mui/material";
 
 
-const Header = () => {
-    const theme = useTheme();
-
+function Header() {
     const router = useRouter()
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
@@ -30,7 +25,7 @@ const Header = () => {
                 alignItems="baseline"
             >
                 <Typography
-                    component={"h1"}
+                    component="h1"
                     onClick={() => {
                         router.push({
                             pathname: "/",
@@ -52,7 +47,7 @@ const Header = () => {
                     Ξ
                 </Typography>
                 <Typography
-                    component={"h1"}
+                    component="h1"
                     onClick={() => {
                         router.push({
                             pathname: "/",

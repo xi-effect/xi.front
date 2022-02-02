@@ -1,4 +1,4 @@
-import { Button, Grid, Tab, Tabs, Typography, Stack, Box, Divider, useTheme, Avatar } from "@mui/material";
+import { Tab, Tabs, Typography, Stack, Box } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
 import PropTypes from "prop-types";
@@ -25,17 +25,13 @@ function TabPanel(props) {
             }}
             {...other}
         >
-            {value === index && (
-                <>
-                    {children}
-                </>
-            )}
+            {value === index && children}
         </Box>
     );
 }
 
 TabPanel.propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
     index: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
 };
@@ -48,7 +44,7 @@ function a11yProps(index) {
 }
 
 
-const Profile = inject("rootStore", "settingsStore", "profileStore")(observer(({ rootStore, settingsStore, profileStore }) => {
+const Profile = inject("settingsStore", "profileStore")(observer(({ settingsStore, profileStore }) => {
     // console.log("router.query", router.query.id);
 
     const router = useRouter()
@@ -57,7 +53,7 @@ const Profile = inject("rootStore", "settingsStore", "profileStore")(observer(({
         if (router.query.id !== undefined) {
             profileStore.loadUserInfo(router.query.id)
         }
-    }, [router.query.id]);
+    }, [profileStore, router.query.id]);
 
     const [value, setValue] = React.useState(0);
 
@@ -140,7 +136,7 @@ const Profile = inject("rootStore", "settingsStore", "profileStore")(observer(({
                             >
                                 <Image
                                     alt="alt"
-                                    src={"/app/NoData.svg"}
+                                    src="/app/NoData.svg"
                                     quality={100}
                                     width={256}
                                     height={232}
@@ -160,7 +156,7 @@ const Profile = inject("rootStore", "settingsStore", "profileStore")(observer(({
                             >
                                 <Image
                                     alt="alt"
-                                    src={"/app/NoData.svg"}
+                                    src="/app/NoData.svg"
                                     quality={100}
                                     width={256}
                                     height={232}
@@ -180,7 +176,7 @@ const Profile = inject("rootStore", "settingsStore", "profileStore")(observer(({
                             >
                                 <Image
                                     alt="alt"
-                                    src={"/app/NoData.svg"}
+                                    src="/app/NoData.svg"
                                     quality={100}
                                     width={256}
                                     height={232}

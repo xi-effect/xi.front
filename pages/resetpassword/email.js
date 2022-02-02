@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -6,7 +7,6 @@ import {
   Input,
   Link,
   useMediaQuery,
-  useTheme,
   InputLabel,
   InputAdornment,
   Tooltip,
@@ -37,7 +37,6 @@ const PassResetEmail = inject(
   "authorizationStore"
 )(
   observer(({ authorizationStore }) => {
-    const theme = useTheme();
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
     const {
@@ -88,7 +87,7 @@ const PassResetEmail = inject(
               alignItems="baseline"
             >
               <Typography
-                component={"h1"}
+                component="h1"
                 onClick={() => {
                   router.push({
                     pathname: "/",
@@ -109,7 +108,7 @@ const PassResetEmail = inject(
                 Ξ
               </Typography>
               <Typography
-                component={"h1"}
+                component="h1"
                 onClick={() => {
                   router.push({
                     pathname: "/",
@@ -156,7 +155,7 @@ const PassResetEmail = inject(
             >
               <Image
                 alt="alt"
-                src={"/landing/blob3.svg"}
+                src="/landing/blob3.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -172,7 +171,7 @@ const PassResetEmail = inject(
             >
               <Image
                 alt="alt"
-                src={"/landing/blob2.svg"}
+                src="/landing/blob2.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -207,7 +206,7 @@ const PassResetEmail = inject(
                 >
                   <Image
                     alt="alt"
-                    src={"/auth/ResetPassword.svg"}
+                    src="/auth/ResetPassword.svg"
                     quality={100}
                     width={456}
                     height={256}
@@ -329,7 +328,7 @@ const PassResetEmail = inject(
               </Box>
             </Paper>
           </Box>
-          <div></div>
+          <div />
         </Stack>
       </>
     );

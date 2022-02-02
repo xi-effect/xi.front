@@ -1,17 +1,12 @@
-import React, { useState } from "react";
-import { styled } from "@mui/material/styles";
-import { useTheme, Button, Input, Grid, Radio, Checkbox, Typography, useMediaQuery } from "@mui/material";
+import React from "react";
+import { Button, Input, Grid, Radio, Checkbox, Typography, useMediaQuery } from "@mui/material";
 
 import { inject, observer } from "mobx-react"
 
 
-const Quiz = inject("rootStore", "knowledgeStore")(observer(({ rootStore, knowledgeStore, index }) => {
+const Quiz = inject("knowledgeStore")(observer(({ knowledgeStore, index }) => {
     const value = knowledgeStore.page.components[index]
     // Simulated props for the purpose of the example
-    const props = { fontSize: value.fontSize, textAlign: value.textAlign, fontStyle: value.fontStyle, fontWeight: value.fontWeight, textDecoration: value.textDecoration, backgroundColor: "black", color: "white" };
-
-    console.log("props", props)
-    const theme = useTheme();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     const getIconColor = (show, userA, rightA) => {
@@ -19,6 +14,7 @@ const Quiz = inject("rootStore", "knowledgeStore")(observer(({ rootStore, knowle
         if (show && userA && rightA) return "success.main"
         if (show && userA && !rightA) return "error.main"
         if (show && !userA && rightA) return "error.dark"
+        return null
     }
 
     return (
@@ -68,7 +64,7 @@ const Quiz = inject("rootStore", "knowledgeStore")(observer(({ rootStore, knowle
                                             color: getIconColor(knowledgeStore.module.showAnswers ?? false, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
                                         },
                                     }}
-                                    //color="primary"
+                                    // color="primary"
                                     checked={knowledgeStore.page.components[index].userAnswers.includes(indexA)}
                                 />}
                                 {value.quizType === "multiple" && <Checkbox
@@ -78,9 +74,9 @@ const Quiz = inject("rootStore", "knowledgeStore")(observer(({ rootStore, knowle
                                             color: getIconColor(knowledgeStore.module.showAnswers ?? false, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
                                         },
                                     }}
-                                    //color="primary"
+                                    // color="primary"
                                     checked={knowledgeStore.page.components[index].userAnswers.includes(indexA)}
-                                //onChange={handleChange}
+                                // onChange={handleChange}
                                 />}
 
                             </>
@@ -106,7 +102,7 @@ const Quiz = inject("rootStore", "knowledgeStore")(observer(({ rootStore, knowle
                     Проверить
                 </Button>
                 {value.successAnswer != null && <Typography
-                    //color="success"
+                    // color="success"
                     sx={{
                         ml: 2,
                         mt: 1,

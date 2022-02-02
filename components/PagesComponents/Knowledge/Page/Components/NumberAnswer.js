@@ -1,17 +1,11 @@
-import React, { useState } from "react";
-import { Fade, Input, Divider, IconButton, Grid, useTheme, Tooltip } from "@mui/material";
+import React from "react";
+import { Input, Grid, Typography, Button, } from "@mui/material";
 import { inject, observer } from "mobx-react"
 
-const NumberAnswer = inject("managmentStore")(observer(({ managmentStore, index }) => {
+const NumberAnswer = inject("managmentStore", "knowledgeStore")(observer(({ managmentStore, knowledgeStore, index }) => {
     // Simulated props for the purpose of the example
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
-    const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: "black", color: "white" };
-
-    // console.log("props", props)
-    const theme = useTheme();
-
-    console.log("textAlign", values.textAlign)
     return (
         <Grid
             container
@@ -56,7 +50,7 @@ const NumberAnswer = inject("managmentStore")(observer(({ managmentStore, index 
                     Проверить
                 </Button>
                 {values.successAnswer != null && <Typography
-                    //color="success"
+                    // color="success"
                     sx={{
                         ml: 2,
                         mt: 1,

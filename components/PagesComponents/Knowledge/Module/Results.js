@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Stack, Typography, Paper, Tooltip, IconButton, TableHead, Toolbar, TableRow, TableSortLabel, Table, TableBody, TableCell, TableContainer, } from "@mui/material";
+import { Box, Stack, Typography, Paper, Tooltip, IconButton, TableHead, Toolbar, TableRow, Table, TableBody, TableCell, TableContainer, } from "@mui/material";
 import { inject, observer } from "mobx-react"
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import Image from "next/image";
@@ -25,14 +25,12 @@ const headCells = [
     },
 ];
 
-function EnhancedTableHead(props) {
+function EnhancedTableHead() {
 
     return (
         <TableHead>
             <TableRow>
-                <TableCell padding="checkbox">
-
-                </TableCell>
+                <TableCell padding="checkbox" />
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
@@ -47,7 +45,7 @@ function EnhancedTableHead(props) {
     );
 }
 
-const EnhancedTableToolbar = (props) => {
+function EnhancedTableToolbar() {
 
     return (
         <Toolbar
@@ -67,9 +65,9 @@ const EnhancedTableToolbar = (props) => {
             </Typography>
         </Toolbar>
     );
-};
+}
 
-const Results = inject("rootStore", "knowledgeStore")(observer(({ rootStore, knowledgeStore }) => {
+const Results = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
 
 
     if (knowledgeStore.moduleCompleted.results.length === 0) {
@@ -87,7 +85,7 @@ const Results = inject("rootStore", "knowledgeStore")(observer(({ rootStore, kno
                 >
                     <Image
                         alt="alt"
-                        src={"/app/NoSata.svg"}
+                        src="/app/NoSata.svg"
                         quality={100}
                         width={256}
                         height={232}
@@ -108,7 +106,7 @@ const Results = inject("rootStore", "knowledgeStore")(observer(({ rootStore, kno
                     <Table
                         sx={{ minWidth: 750 }}
                         aria-labelledby="tableTitle"
-                        size={"medium"}
+                        size="medium"
                     >
                         <EnhancedTableHead />
                         <TableBody>
@@ -144,9 +142,9 @@ const Results = inject("rootStore", "knowledgeStore")(observer(({ rootStore, kno
                                             <TableCell align="left">{result["total-answers"] ?? 0}</TableCell>
                                         </TableRow>
                                     );
-                                } else {
-                                    return null
                                 }
+                                return null
+
 
                             })}
                             {/* {emptyRows > 0 && (

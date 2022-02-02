@@ -143,7 +143,7 @@ const AlertComp = inject("managmentStore")(observer(({ managmentStore, index }) 
     const theme = useTheme();
 
     const handleAlertType = (type) => {
-        //console.log(index, "fontSize", newFormats)
+        // console.log(index, "fontSize", newFormats)
         let newType = null
         if (type === "success") newType = "info"
         else if (type === "info") newType = "warning"
@@ -153,12 +153,12 @@ const AlertComp = inject("managmentStore")(observer(({ managmentStore, index }) 
     };
 
     const handleFontSizeUp = () => {
-        //console.log(index, "fontSize", newFormats)
+        // console.log(index, "fontSize", newFormats)
         if (values.fontSize != 48) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
     };
 
     const handleFontSizeDown = () => {
-        //console.log(index, "fontSize", newFormats)
+        // console.log(index, "fontSize", newFormats)
         if (values.fontSize != 12) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
     };
 
@@ -236,7 +236,7 @@ const AlertComp = inject("managmentStore")(observer(({ managmentStore, index }) 
                         classes={{
                             message: classes.AlertMessage
                         }}
-                        icon={<span></span>}
+                        icon={<span />}
                     >
                         <Input
                             sx={{
@@ -295,17 +295,17 @@ const AlertComp = inject("managmentStore")(observer(({ managmentStore, index }) 
                             </Tooltip>
                         </IconButton>
                         <IconButton onClick={() => handleFontWeight()} sx={{ ml: 1, color: values.fontWeight === "bold" ? "text.main" : "text.dark", }} edge="end" size="large">
-                            <Tooltip title={`Полужирный`}>
+                            <Tooltip title="Полужирный">
                                 <FormatBoldIcon />
                             </Tooltip>
                         </IconButton>
                         <IconButton onClick={() => handleFontStyle()} sx={{ ml: 1, color: values.fontStyle === "italic" ? "text.main" : "text.dark", }} edge="end" size="large">
-                            <Tooltip title={`Курсив`}>
+                            <Tooltip title="Курсив">
                                 <FormatItalicIcon />
                             </Tooltip>
                         </IconButton>
                         <IconButton onClick={() => handleTextDecoration()} sx={{ ml: 1, color: values.textDecoration === "underline" ? "text.main" : "text.dark", }} edge="end" size="large">
-                            <Tooltip title={`Подчёркнутый`}>
+                            <Tooltip title="Подчёркнутый">
                                 <FormatUnderlinedIcon />
                             </Tooltip>
                         </IconButton>

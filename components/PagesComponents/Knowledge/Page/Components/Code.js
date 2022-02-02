@@ -1,4 +1,4 @@
-import { Grid, useTheme, Tooltip } from "@mui/material";
+import { Grid } from "@mui/material";
 import { inject, observer } from "mobx-react"
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
@@ -196,9 +196,7 @@ const languages = [
     "zephir",
 ]
 
-const Code = inject("rootStore")(observer(({ rootStore, value }) => {
-
-    return (
+const Code = inject()(observer(({value }) => (
         <Grid
             sx={{ width: "100%", cursor: "default", }}
         >
@@ -206,8 +204,7 @@ const Code = inject("rootStore")(observer(({ rootStore, value }) => {
                 {value.label}
             </SyntaxHighlighter>
         </Grid>
-    );
-}));
+    )));
 
 export default Code
 

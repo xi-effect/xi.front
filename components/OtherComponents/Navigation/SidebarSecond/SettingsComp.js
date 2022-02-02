@@ -3,9 +3,7 @@ import React from "react";
 import { useRouter } from "next/router"
 import { inject, observer } from "mobx-react"
 
-import { Typography, MenuItem, useMediaQuery, MenuList, ListItemText } from "@mui/material";
-
-import { motion } from "framer-motion";
+import { MenuItem, useMediaQuery, MenuList } from "@mui/material";
 
 const menuSettings = [
     {
@@ -30,7 +28,7 @@ const menuSettings = [
     },
 ]
 
-const MenuSettingsComp = inject("rootStore", "uiStore", "messageStore")(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+const MenuSettingsComp = inject()(observer(() => {
     const router = useRouter()
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
 

@@ -1,7 +1,7 @@
 import Head from "next/head"
 
 import { useRouter } from "next/router"
-import { Stack, useMediaQuery, Paper, useTheme, InputLabel, InputAdornment, IconButton, FormControl, OutlinedInput, Typography, Box, Button, Input } from "@mui/material";
+import { Stack, useMediaQuery, Paper, InputLabel, InputAdornment, IconButton, FormControl, Typography, Box, Button, Input } from "@mui/material";
 import React from "react"
 import { inject, observer } from "mobx-react"
 import Visibility from "@mui/icons-material/Visibility";
@@ -17,9 +17,7 @@ const schema = yup.object({
 
 
 
-const PasswordReset = inject("rootStore", "uiStore", "authorizationStore")(observer(({ rootStore, authorizationStore, uiStore }) => {
-    const theme = useTheme();
-
+const PasswordReset = inject("authorizationStore")(observer(({ authorizationStore }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const router = useRouter()
@@ -71,7 +69,7 @@ const PasswordReset = inject("rootStore", "uiStore", "authorizationStore")(obser
                     >
 
                         <Typography
-                            component={"h1"}
+                            component="h1"
                             onClick={() => {
                                 router.push({
                                     pathname: "/",
@@ -93,7 +91,7 @@ const PasswordReset = inject("rootStore", "uiStore", "authorizationStore")(obser
                             Ξ
                         </Typography>
                         <Typography
-                            component={"h1"}
+                            component="h1"
                             onClick={() => {
                                 router.push({
                                     pathname: "/",
@@ -141,7 +139,7 @@ const PasswordReset = inject("rootStore", "uiStore", "authorizationStore")(obser
                     >
                         <Image
                             alt="alt"
-                            src={"/landing/blob3.svg"}
+                            src="/landing/blob3.svg"
                             quality={100}
                             width={256}
                             height={256}
@@ -157,7 +155,7 @@ const PasswordReset = inject("rootStore", "uiStore", "authorizationStore")(obser
                     >
                         <Image
                             alt="alt"
-                            src={"/landing/blob2.svg"}
+                            src="/landing/blob2.svg"
                             quality={100}
                             width={256}
                             height={256}
@@ -188,7 +186,7 @@ const PasswordReset = inject("rootStore", "uiStore", "authorizationStore")(obser
                             >
                                 <Image
                                     alt="alt"
-                                    src={"/auth/ResetPassword.svg"}
+                                    src="/auth/ResetPassword.svg"
                                     quality={100}
                                     width={400}
                                     height={400}
@@ -256,9 +254,7 @@ const PasswordReset = inject("rootStore", "uiStore", "authorizationStore")(obser
                         </Box>
                     </Paper>
                 </Box>
-                <div>
-
-                </div>
+                <div />
             </Stack>
         </>
     );

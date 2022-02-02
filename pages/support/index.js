@@ -1,19 +1,14 @@
 import React from "react";
 import Head from "next/head";
-import Image from "next/image";
-import { Box, useMediaQuery, useTheme, Stack } from "@mui/material";
-import FAQ from "../../components/PagesComponents/Support/FAQ";
+import { Stack } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import { motion } from "framer-motion";
+import FAQ from "../../components/PagesComponents/Support/FAQ";
 import Header from "../../components/PagesComponents/Landing/Header";
 import Footer from "../../components/PagesComponents/Landing/Footer";
 
-const Support = inject("rootStore")(
-  observer(({ rootStore }) => {
-    const theme = useTheme();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
-
-    return (
+const Support = inject()(
+  observer(() => (
       <>
         <Head>
           <title>Ξffect | Поддержка</title>
@@ -51,8 +46,7 @@ const Support = inject("rootStore")(
           </Stack>
         </Stack>
       </>
-    );
-  })
+    ))
 );
 
 export default Support;

@@ -1,24 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-
 import {
-    Divider,
-    Paper,
-    Skeleton,
-    Box,
-    useMediaQuery,
-    Grid,
     Stack,
-    FormControlLabel,
-    Button,
-    useTheme,
-    Menu,
-    Hidden,
-    IconButton,
-    InputBase,
-    Switch,
     Typography,
 } from "@mui/material";
 
@@ -27,7 +10,6 @@ import { inject, observer } from "mobx-react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import { motion } from "framer-motion";
-import MarkdownEditor from "../../../OtherComponents/MarkdownEditor/MarkdownEditor";
 
 const arrowVariants = {
     open: {
@@ -39,28 +21,10 @@ const arrowVariants = {
     }
 }
 
-const markdown = `A paragraph with *emphasis* and **strong importance**.
-
-> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
-
-* Lists
-* [ ] todo
-* [x] done
-
-A table:
-
-| a | b |
-| - | - |
-`
-
-const Result = inject(
-    "rootStore",
-)(
-    observer(({ rootStore, messageStore }) => {
-        const theme = useTheme();
-        const router = useRouter();
+const Result = inject()(
+    observer(() => {
         const [result, setResult] = React.useState(false)
-        const [test, setTest] = React.useState(markdown)
+
         return (
             <>
                 <Stack
@@ -97,7 +61,7 @@ const Result = inject(
                             fontSize: 14,
                         }}
                     >
-                        {"результат"}
+                        результат
                     </Typography>
                 </Stack>
                 {result && <Stack
@@ -108,11 +72,7 @@ const Result = inject(
                         width: "100%"
                     }}
                 >
-                    <MarkdownEditor
-                        readOnly={false}
-                        content={test}
-                        setContent={setTest}
-                    />
+                    результат
                 </Stack>}
             </>
         );

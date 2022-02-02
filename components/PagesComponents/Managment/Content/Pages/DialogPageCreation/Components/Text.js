@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { styled } from "@mui/material/styles";
-import { Fade, Input, Divider, IconButton, Grid, useTheme, Tooltip } from "@mui/material";
+import { Fade, Input, IconButton, Grid, Tooltip } from "@mui/material";
 
-
-import clsx from "clsx";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import QueueIcon from "@mui/icons-material/Queue";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import TuneIcon from "@mui/icons-material/Tune";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ZoomOutIcon from "@mui/icons-material/ZoomOut";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
@@ -39,9 +35,6 @@ const classes = {
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled("div")((
-    {
-        theme
-    }
 ) => ({
     [`& .${classes.gridButtons}`]: {
         marginLeft: "auto",
@@ -124,19 +117,17 @@ const Text = inject("managmentStore")(observer(({ managmentStore, index }) => {
     // Simulated props for the purpose of the example
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
-    const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: "black", color: "white" };
 
     // console.log("props", props)
-    const theme = useTheme();
 
-    const handleFontSizeUp = (event, newFormats) => {
-        //console.log(index, "fontSize", newFormats)
-        if (values.fontSize != 48) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
+    const handleFontSizeUp = () => {
+        // console.log(index, "fontSize", newFormats)
+        if (values.fontSize !== 48) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
     };
 
-    const handleFontSizeDown = (event, newFormats) => {
-        //console.log(index, "fontSize", newFormats)
-        if (values.fontSize != 12) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
+    const handleFontSizeDown = () => {
+        // console.log(index, "fontSize", newFormats)
+        if (values.fontSize !== 12) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
     };
 
     const handleTextAlign = (align) => {
@@ -168,6 +159,7 @@ const Text = inject("managmentStore")(observer(({ managmentStore, index }) => {
         if (align === "center") return <FormatAlignCenterIcon />
         if (align === "right") return <FormatAlignRightIcon />
         if (align === "justify") return <FormatAlignJustifyIcon />
+        return null
     }
 
     const textAlignLabelSelect = (align) => {
@@ -175,6 +167,7 @@ const Text = inject("managmentStore")(observer(({ managmentStore, index }) => {
         if (align === "center") return "по правому краю"
         if (align === "right") return "по центру"
         if (align === "justify") return "по ширине"
+        return null
     }
 
     const [hover, setHover] = React.useState(false)
@@ -240,17 +233,17 @@ const Text = inject("managmentStore")(observer(({ managmentStore, index }) => {
                             </Tooltip>
                         </IconButton>
                         <IconButton onClick={() => handleFontWeight()} sx={{ ml: 1, color: values.fontWeight === "bold" ? "text.main" : "text.dark", }} edge="end" size="large">
-                            <Tooltip title={`Полужирный`}>
+                            <Tooltip title="Полужирный">
                                 <FormatBoldIcon />
                             </Tooltip>
                         </IconButton>
                         <IconButton onClick={() => handleFontStyle()} sx={{ ml: 1, color: values.fontStyle === "italic" ? "text.main" : "text.dark", }} edge="end" size="large">
-                            <Tooltip title={`Курсив`}>
+                            <Tooltip title="Курсив">
                                 <FormatItalicIcon />
                             </Tooltip>
                         </IconButton>
                         <IconButton onClick={() => handleTextDecoration()} sx={{ ml: 1, color: values.textDecoration === "underline" ? "text.main" : "text.dark", }} edge="end" size="large">
-                            <Tooltip title={`Подчёркнутый`}>
+                            <Tooltip title="Подчёркнутый">
                                 <FormatUnderlinedIcon />
                             </Tooltip>
                         </IconButton>

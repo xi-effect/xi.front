@@ -72,7 +72,7 @@ const ItemList = inject("managmentStore")(observer(({ managmentStore, index }) =
                                 <Tooltip arrow title={`Название: ${page.name}`}>
                                     <Typography sx={{
                                         cursor: "default",
-                                        //marginTop: 16,
+                                        // marginTop: 16,
                                         marginLeft: 1,
                                         marginRight: "128px",
                                         fontSize: "20px",
@@ -176,19 +176,19 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => {
                             <SpeedDialAction
                                 tooltipPlacement="bottom"
                                 icon={<DeleteForeverIcon />}
-                                tooltipTitle={`Удалить точку`}
+                                tooltipTitle="Удалить точку"
                                 onClick={() => managmentStore.deletePoint(index)}
                             />
                             <SpeedDialAction
                                 tooltipPlacement="bottom"
                                 icon={<ArrowCircleDownIcon />}
-                                tooltipTitle={`Переместить точку ниже`}
+                                tooltipTitle="Переместить точку ниже"
                                 onClick={() => managmentStore.setPointDown(index)}
                             />
                             <SpeedDialAction
                                 tooltipPlacement="bottom"
                                 icon={<ArrowCircleUpIcon />}
-                                tooltipTitle={`Переместить точку выше`}
+                                tooltipTitle="Переместить точку выше"
                                 onClick={() => managmentStore.setPointUp(index)}
                             />
 
@@ -211,8 +211,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => {
                     <AccordionDetails>
                         <Droppable droppableId={`list-${index}`}>
                             {(provided, snapshot) => (
-                                <>
-                                    <Grid
+                                <Grid
                                         ref={provided.innerRef}
                                         container
                                         direction="column"
@@ -227,7 +226,6 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => {
                                         {provided.placeholder}
 
                                     </Grid>
-                                </>
                             )}
                         </Droppable>
                     </AccordionDetails>
@@ -243,7 +241,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => {
                 >
                     <Image
                         alt="alt"
-                        src={"/app/Teacher.svg"}
+                        src="/app/Teacher.svg"
                         quality={100}
                         width={256}
                         height={256}

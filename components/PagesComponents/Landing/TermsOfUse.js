@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -11,9 +13,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import { useCopyToClipboard } from "react-use";
 
 
-const TermsOfUse = ({ open, setOpen, type }) => {
-
-    const [textt, setText] = React.useState("");
+function TermsOfUse({ open, setOpen, type }) {
     const [state, copyToClipboard] = useCopyToClipboard();
 
 
@@ -44,7 +44,7 @@ const TermsOfUse = ({ open, setOpen, type }) => {
                     <DownloadIcon />
                 </IconButton>
             </DialogTitle>
-            <DialogContent dividers={"paper"}>
+            <DialogContent dividers="paper">
                 <DialogContentText
                     id="dialog-content"
                 >
@@ -52,7 +52,7 @@ const TermsOfUse = ({ open, setOpen, type }) => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button variant={"contained"} onClick={() => setOpen(false)}>Закрыть</Button>
+                <Button variant="contained" onClick={() => setOpen(false)}>Закрыть</Button>
             </DialogActions>
         </Dialog>
     );

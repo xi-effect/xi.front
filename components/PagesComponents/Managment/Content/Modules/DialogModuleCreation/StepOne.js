@@ -44,7 +44,7 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => {
                     value={managmentStore.moduleCreation.name}
                     onChange={(event) => managmentStore.setModuleCreation("name", event.target.value)}
                 // margin="dense"
-                //multiline={true}
+                // multiline={true}
                 // fullWidth={true}
                 />
             </FormControl>
@@ -68,10 +68,10 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => {
                     value={managmentStore.moduleCreation.type}
                     onChange={(event) => managmentStore.setModuleCreation("type", event.target.value)}
                 >
-                    <option value={"standard"}> Стандартный </option>
-                    <option value={"practice-block"}> Практика </option>
-                    <option value={"theory-block"}> Теория </option>
-                    <option value={"test"}> Проверочная </option>
+                    <option value="standard"> Стандартный </option>
+                    <option value="practice-block"> Практика </option>
+                    <option value="theory-block"> Теория </option>
+                    <option value="test"> Проверочная </option>
                 </NativeSelect>
             </FormControl>
             <FormControl sx={{
@@ -98,21 +98,21 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => {
                         id: "uncontrolled-native",
                     }}
                 >
-                    <option value={"not selected"}>Не выбрано</option>
-                    <option value={"math"}>Математика</option>
-                    <option value={"algebra"}>Алгебра</option>
-                    <option value={"geometry"}>Геометрия</option>
-                    <option value={"languages"}>Языки</option>
-                    <option value={"physics"}>Физика</option>
-                    <option value={"chemistry"}>Химия</option>
-                    <option value={"biology"}>Биология</option>
-                    <option value={"geography"}>География</option>
-                    <option value={"history"}>История</option>
-                    <option value={"social-science"}>Обществознание</option>
-                    <option value={"philosophy"}>Философия</option>
-                    <option value={"literature"}>Литература</option>
-                    <option value={"arts"}>Искусства</option>
-                    <option value={"informatics"}>Информатика</option>
+                    <option value="not selected">Не выбрано</option>
+                    <option value="math">Математика</option>
+                    <option value="algebra">Алгебра</option>
+                    <option value="geometry">Геометрия</option>
+                    <option value="languages">Языки</option>
+                    <option value="physics">Физика</option>
+                    <option value="chemistry">Химия</option>
+                    <option value="biology">Биология</option>
+                    <option value="geography">География</option>
+                    <option value="history">История</option>
+                    <option value="social-science">Обществознание</option>
+                    <option value="philosophy">Философия</option>
+                    <option value="literature">Литература</option>
+                    <option value="arts">Искусства</option>
+                    <option value="informatics">Информатика</option>
                 </NativeSelect>
             </FormControl>
             <FormControl sx={{
@@ -139,10 +139,10 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => {
                         id: "uncontrolled-native",
                     }}
                 >
-                    <option value={"not selected"}> Не выбрано </option>
-                    <option value={"theory"}> Теория </option>
-                    <option value={"practice"}> Практика </option>
-                    <option value={"task"}> Тестовое задание </option>
+                    <option value="not selected"> Не выбрано </option>
+                    <option value="theory"> Теория </option>
+                    <option value="practice"> Практика </option>
+                    <option value="task"> Тестовое задание </option>
                 </NativeSelect>
             </FormControl>
             <FormControl sx={{
@@ -169,13 +169,13 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => {
                         id: "uncontrolled-native",
                     }}
                 >
-                    <option value={"not selected"}>Не выбрано</option>
-                    <option value={"review"}> Обзорный</option>
-                    <option value={"newbie"}> Новичок</option>
-                    <option value={"amateur"}> Любитель</option>
-                    <option value={"enthusiast"}> Энтузиаст</option>
-                    <option value={"professional"}> Профи</option>
-                    <option value={"expert"}> Эксперт</option>
+                    <option value="not selected">Не выбрано</option>
+                    <option value="review"> Обзорный</option>
+                    <option value="newbie"> Новичок</option>
+                    <option value="amateur"> Любитель</option>
+                    <option value="enthusiast"> Энтузиаст</option>
+                    <option value="professional"> Профи</option>
+                    <option value="expert"> Эксперт</option>
                 </NativeSelect>
             </FormControl>
             <FormControl sx={{
@@ -197,7 +197,7 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => {
                     }}
                     value={managmentStore.moduleCreation.description}
                     onChange={(event) => managmentStore.setModuleCreation("description", event.target.value)}
-                    multiline={true}
+                    multiline
                 // fullWidth={true}
                 />
             </FormControl>

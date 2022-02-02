@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, CircularProgress, Grid, Typography, useTheme } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import Head from "next/head";
 import Image from "next/image";
@@ -8,29 +8,27 @@ import NavigationAll from "../../components/OtherComponents/Navigation/Navigatio
 import PagesList from "../../components/PagesComponents/Knowledge/Pages/PagesList";
 import PagesListLoading from "../../components/PagesComponents/Knowledge/Pages/PagesListLoading";
 
-const Toolbar = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
-    return (
-        <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            sx={{ height: 64 }}
-        >
-            <Button onClick={knowledgeStore.prevPageInPages} sx={{ mr: 2, ml: 2, color: "text.main" }} variant="contained" color="primary" disabled={knowledgeStore.pageList.counter === 0 ? true : false}>
-                Назад
-            </Button>
-            <Typography variant="subtitle1">
-                {`Страница ${knowledgeStore.pageList.counter + 1}`}
-            </Typography>
-            <Button onClick={knowledgeStore.nextPageInPages} sx={{ mr: 2, ml: 2, color: "text.main" }} variant="contained" color="primary" disabled={knowledgeStore.pageList.pages.length < 50 ? true : false}>
-                Вперёд
-            </Button>
-        </Grid>
-    );
-}));
+const Toolbar = inject("knowledgeStore")(observer(({ knowledgeStore }) => (
+    <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        sx={{ height: 64 }}
+    >
+        <Button onClick={knowledgeStore.prevPageInPages} sx={{ mr: 2, ml: 2, color: "text.main" }} variant="contained" color="primary" disabled={knowledgeStore.pageList.counter === 0}>
+            Назад
+        </Button>
+        <Typography variant="subtitle1">
+            {`Страница ${knowledgeStore.pageList.counter + 1}`}
+        </Typography>
+        <Button onClick={knowledgeStore.nextPageInPages} sx={{ mr: 2, ml: 2, color: "text.main" }} variant="contained" color="primary" disabled={knowledgeStore.pageList.pages.length < 50}>
+            Вперёд
+        </Button>
+    </Grid>
+)));
 
-const Pages = inject("knowledgeStore", "uiStore")(observer(({ knowledgeStore, uiStore }) => {
+const Pages = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
 
 
     // React.useEffect(() => {
@@ -101,11 +99,11 @@ const Pages = inject("knowledgeStore", "uiStore")(observer(({ knowledgeStore, ui
                                 <Image
                                     alt="img"
                                     src="/app/NoData.svg"
-                                    //layout="fill"
+                                    // layout="fill"
                                     width={256}
                                     height={236}
-                                //objectFit="cover"
-                                //quality={100}
+                                // objectFit="cover"
+                                // quality={100}
                                 />
                             </div>
                         </Grid>

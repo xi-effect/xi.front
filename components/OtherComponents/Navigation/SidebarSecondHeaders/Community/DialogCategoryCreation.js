@@ -1,13 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router"
 import { inject, observer } from "mobx-react"
 
-import { Typography, MenuItem, useTheme, Tab, Tabs, Radio, Switch, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container, DialogActions } from "@mui/material";
-import Image from "next/image";
+import { Typography, Button, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, useMediaQuery, DialogActions } from "@mui/material";
 
-const DialogCategoryCreation = inject("rootStore")(observer(({ rootStore, openDialogCategoryCreation, setOpenDialogCategoryCreation }) => {
-    const theme = useTheme();
+const DialogCategoryCreation = inject()(observer(({ openDialogCategoryCreation, setOpenDialogCategoryCreation }) => {
     const fullScreen = useMediaQuery(theme => theme.breakpoints.down("md"));
 
 
@@ -66,7 +63,7 @@ const DialogCategoryCreation = inject("rootStore")(observer(({ rootStore, openDi
                         <Input
                             sx={{ width: "100%", }}
                             label="Название новой категории"
-                            type={"text"}
+                            type="text"
                         />
                     </FormControl>
                 </Stack>

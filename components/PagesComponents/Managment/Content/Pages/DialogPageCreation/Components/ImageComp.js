@@ -54,7 +54,7 @@ const DialogImgSelect = inject("managmentStore")(observer(({ managmentStore, sav
 
             </Grid>
             {/* </DialogTitle> */}
-            <DialogContent dividers={true}>
+            <DialogContent dividers>
                 <Grid
                     container
                     direction="column"
@@ -133,9 +133,9 @@ const DialogImgSelect = inject("managmentStore")(observer(({ managmentStore, sav
 const ImageComp = inject("rootStore", "knowledgeStore", "contentStore", "managmentStore")(observer(({ rootStore, knowledgeStore, contentStore, managmentStore, index }) => {
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
-    //const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: "black", color: "white" };
+    // const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: "black", color: "white" };
 
-    //console.log("props", props)
+    // console.log("props", props)
 
     const onDrop = React.useCallback((acceptedFile) => {
         if (values.imageId === null) {

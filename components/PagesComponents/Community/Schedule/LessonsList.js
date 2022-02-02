@@ -1,25 +1,16 @@
+/* eslint-disable no-shadow */
 import React from "react";
 import {
-    CircularProgress,
-    Skeleton,
-    Grid,
     Typography,
-    useTheme,
     Box,
-    IconButton,
     Stack,
     Paper,
-    Tooltip,
-    Button,
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
 
-const LessonsList = inject("knowledgeStore")(
-    observer(({ knowledgeStore }) => {
-
-
-        return (
+const LessonsList = inject()(
+    observer(() => (
             <Stack
                 direction="row"
                 justifyContent="flex-start"
@@ -63,7 +54,6 @@ const LessonsList = inject("knowledgeStore")(
                                 key={index.toString()}
                                 sx={{
                                     minHeight: "90px",
-                                    width: "100%",
                                     width: "82px",
                                 }}
                             >
@@ -72,7 +62,7 @@ const LessonsList = inject("knowledgeStore")(
                         )}
                     </Stack>
                 </Stack>
-                {[...Array(10)].map((item, index) =>
+                {[...Array(10)].map((index) =>
                     <Stack
                         key={index.toString()}
                         direction="column"
@@ -83,7 +73,7 @@ const LessonsList = inject("knowledgeStore")(
                             pl: 1,
                         }}
                     >
-                        {[...Array(30)].map((item, index) =>
+                        {[...Array(30)].map((index) =>
                             <Box
                                 key={index.toString()}
                                 sx={{
@@ -140,7 +130,7 @@ const LessonsList = inject("knowledgeStore")(
                                                 }}
                                                 noWrap
                                             >
-                                                {"11:00"}
+                                                11:00
                                             </Typography>
                                         </Stack>
                                         <Typography
@@ -152,7 +142,7 @@ const LessonsList = inject("knowledgeStore")(
                                             }}
                                             noWrap
                                         >
-                                            {"Занятие"}
+                                            Занятие
                                         </Typography>
                                     </Stack>
                                 </Paper>
@@ -161,8 +151,7 @@ const LessonsList = inject("knowledgeStore")(
                     </Stack>
                 )}
             </Stack>
-        );
-    })
+        ))
 );
 
 export default LessonsList;

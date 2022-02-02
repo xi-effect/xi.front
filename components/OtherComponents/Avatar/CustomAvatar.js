@@ -178,8 +178,7 @@ const bgcolor = [
     "#ff9800",
 ]
 
-const CustomAvatar = inject("rootStore", "settingsStore")(observer(({ rootStore, settingsStore, avatar, viewBox, reverse = false }) => {
-    return (
+const CustomAvatar = inject()(observer(({ avatar, viewBox, reverse = false }) => (
         <Box sx={{
             height: "100%",
             width: "100%",
@@ -195,11 +194,10 @@ const CustomAvatar = inject("rootStore", "settingsStore")(observer(({ rootStore,
                 hair={hair[avatar?.hair ?? 0]}
                 facialHair={facialHair[avatar?.facialHair ?? 0]}
                 strokeColor="#000000"
-                backgroundColor={"rgba(255, 255, 255, 0.9)"}
+                backgroundColor="rgba(255, 255, 255, 0.9)"
                 viewBox={viewBox}
             />
         </Box>
-    );
-}))
+    )))
 
 export default CustomAvatar

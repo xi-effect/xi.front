@@ -1,13 +1,9 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { Grid, useTheme, Divider, useMediaQuery, Typography, Link } from "@mui/material"
-import clsx from "clsx"
-
+import { Grid, Divider, useMediaQuery, Typography, Link } from "@mui/material"
 import { useRouter } from "next/router"
 
 export default function ComponentDidCatch() {
-    const theme = useTheme();
-
-
     const mobile = useMediaQuery(theme => theme.breakpoints.down("lg"));
     const router = useRouter()
 
@@ -33,9 +29,7 @@ export default function ComponentDidCatch() {
                 backgroundColor: "#659DBD",
             }}
         >
-            <Grid sx={{ margin: 2, }}>
-
-            </Grid>
+            <Grid sx={{ margin: 2, }} />
             <Grid
                 item
                 container
@@ -75,9 +69,7 @@ export default function ComponentDidCatch() {
                     Вернуться в Ξffect
                 </Link>
             </Grid>
-            <Grid item>
-
-            </Grid>
+            <Grid item />
         </Grid>
     );
 }

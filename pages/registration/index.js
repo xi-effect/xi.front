@@ -1,12 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Head from "next/head"
-import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router"
-import clsx from "clsx";
 import Image from "next/image";
-import { Grid, Stack, Input, Link, useMediaQuery, TextField, useTheme, InputLabel, InputAdornment, Tooltip, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from "@mui/material";
-import { Link as LinkUI } from "@mui/material";
+import { Stack, Input, Link, useMediaQuery, InputLabel, InputAdornment, Tooltip, IconButton, FormControl, Typography, Box, Button, Paper } from "@mui/material";
+
 import React from "react"
-import BackgroundImg from "../../components/OtherComponents/Background/BackgroundImg"
 import { inject, observer } from "mobx-react"
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -26,9 +24,7 @@ const schema = yup.object({
     password: yup.string().min(6).max(100).required(),
     invite: yup.string().required(),
 }).required();
-
-import Loading from "./../../components/OtherComponents/Loading/Loading";
-const Registration = inject("rootStore", "uiStore", "authorizationStore")(observer(({ rootStore, authorizationStore, uiStore }) => {
+const Registration = inject("authorizationStore")(observer(({ authorizationStore }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const router = useRouter()
@@ -42,7 +38,7 @@ const Registration = inject("rootStore", "uiStore", "authorizationStore")(observ
     React.useEffect(() => {
         console.log("query", router.query)
         if (router.query.invite) setValue("invite", router.query.invite)
-    }, [router.query])
+    }, [router.query, setValue])
     // console.log("query1", router.query)
 
     return (
@@ -77,7 +73,7 @@ const Registration = inject("rootStore", "uiStore", "authorizationStore")(observ
                         alignItems="baseline"
                     >
                         <Typography
-                            component={"h1"}
+                            component="h1"
                             onClick={() => {
                                 router.push({
                                     pathname: "/",
@@ -99,7 +95,7 @@ const Registration = inject("rootStore", "uiStore", "authorizationStore")(observ
                             Ξ
                         </Typography>
                         <Typography
-                            component={"h1"}
+                            component="h1"
                             onClick={() => {
                                 router.push({
                                     pathname: "/",
@@ -147,7 +143,7 @@ const Registration = inject("rootStore", "uiStore", "authorizationStore")(observ
                     >
                         <Image
                             alt="alt"
-                            src={"/landing/blob4.svg"}
+                            src="/landing/blob4.svg"
                             quality={100}
                             width={256}
                             height={256}
@@ -163,7 +159,7 @@ const Registration = inject("rootStore", "uiStore", "authorizationStore")(observ
                     >
                         <Image
                             alt="alt"
-                            src={"/landing/blob2.svg"}
+                            src="/landing/blob2.svg"
                             quality={100}
                             width={256}
                             height={256}
@@ -198,7 +194,7 @@ const Registration = inject("rootStore", "uiStore", "authorizationStore")(observ
                             >
                                 <Image
                                     alt="alt"
-                                    src={"/auth/MobileLogin.svg"}
+                                    src="/auth/MobileLogin.svg"
                                     quality={100}
                                     width={456}
                                     height={456}
@@ -243,8 +239,7 @@ const Registration = inject("rootStore", "uiStore", "authorizationStore")(observ
                                     alignItems="flex-start"
                                     spacing={1}
                                     sx={{ width: "100%", minHeight: 16, mb: 1.2 }}
-                                >
-                                </Stack>
+                                />
                                 <Controller
                                     name="email"
                                     control={control}
@@ -369,7 +364,7 @@ const Registration = inject("rootStore", "uiStore", "authorizationStore")(observ
                                             <Input
                                                 sx={{ width: "100%", }}
                                                 label="Код-приглашение"
-                                                type={"text"}
+                                                type="text"
                                                 {...field}
                                                 endAdornment={
                                                     <InputAdornment sx={{ mr: 2 }} position="end">
@@ -438,9 +433,7 @@ const Registration = inject("rootStore", "uiStore", "authorizationStore")(observ
                         </Box>
                     </Paper>
                 </Box>
-                <div>
-
-                </div>
+                <div />
 
             </Stack>
         </>

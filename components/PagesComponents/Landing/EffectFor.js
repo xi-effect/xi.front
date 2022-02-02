@@ -1,9 +1,10 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 import React from "react";
-import { useRouter } from "next/router"
-import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, IconButton } from "@mui/material";
+import { Stack, useMediaQuery, Grid, Box, Paper, Typography, IconButton } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useSwipeable } from "react-swipeable";
@@ -25,7 +26,7 @@ const cardsList = [
     "fifthCard",
 ]
 
-const EffectFor = () => {
+function EffectFor() {
 
     const mobile = useMediaQuery(theme => theme.breakpoints.down("gx"));
 
@@ -33,14 +34,10 @@ const EffectFor = () => {
 
     const handlers = useSwipeable({
         onSwipedLeft: () => {
-            setTab(prev => {
-                return prev === features.content.length - 1 ? prev = 0 : prev + 1
-            })
+            setTab(prev => prev === features.content.length - 1 ? prev = 0 : prev + 1)
         },
         onSwipedRight: () => {
-            setTab(prev => {
-                return prev === 0 ? prev = features.content.length - 1 : prev - 1
-            })
+            setTab(prev => prev === 0 ? prev = features.content.length - 1 : prev - 1)
         },
     });
 
@@ -61,7 +58,7 @@ const EffectFor = () => {
                 }}
             >
                 <Typography
-                    component={"h3"}
+                    component="h3"
                     variant="IBMPlexSans700WhyLabel"
                     sx={{
                         cursor: "default",
@@ -142,7 +139,7 @@ const EffectFor = () => {
                         }}
                         onClick={() => {
                             if (tab === 0) setTab(4)
-                            if (tab != 0) setTab(tab - 1)
+                            if (tab !== 0) setTab(tab - 1)
                         }}>
                         <ArrowBackIosNewIcon fontSize="large" />
                     </IconButton>
@@ -182,7 +179,7 @@ const EffectFor = () => {
                         }}
                         onClick={() => {
                             if (tab === 4) setTab(0)
-                            if (tab != 4) setTab(tab + 1)
+                            if (tab !== 4) setTab(tab + 1)
                         }}>
                         <ArrowForwardIosIcon fontSize="large" />
                     </IconButton>
@@ -212,7 +209,7 @@ const EffectFor = () => {
                 >
                     <Image
                         alt="alt"
-                        src={"/landing/Learning.svg"}
+                        src="/landing/Learning.svg"
                         quality={100}
                         width={256}
                         height={256}
@@ -227,7 +224,7 @@ const EffectFor = () => {
                 >
                     <Image
                         alt="alt"
-                        src={"/landing/BookLover.svg"}
+                        src="/landing/BookLover.svg"
                         quality={100}
                         width={256}
                         height={256}
@@ -278,7 +275,7 @@ const EffectFor = () => {
                                     >
                                         <Grid item>
                                             <Typography
-                                                component={"h4"}
+                                                component="h4"
                                                 variant="IBMPlexSans700WhyLabel"
                                                 sx={{
                                                     cursor: "default",
@@ -300,7 +297,7 @@ const EffectFor = () => {
                                         </Grid>
                                         <Grid item>
                                             <Typography
-                                                component={"p"}
+                                                component="p"
                                                 variant="OpenSans400WhyLabel"
                                                 sx={{
                                                     cursor: "default",

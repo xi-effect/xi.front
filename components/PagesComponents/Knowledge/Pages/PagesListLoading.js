@@ -1,18 +1,13 @@
 /* eslint-disable react/display-name */
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Grid,
   Skeleton,
 } from "@mui/material";
 import { inject, observer } from "mobx-react";
 
-const PagesListLoading = inject(
-  "knowledgeStore",
-  "uiStore"
-)(
-  observer(({ knowledgeStore, uiStore }) => {
-
-    return (
+const PagesListLoading = inject()(
+  observer(() => (
       <Grid
         container
         direction="row"
@@ -22,7 +17,7 @@ const PagesListLoading = inject(
           m: 0,
           p: 1,
           width: "100%",
-          //backgroundColor: "background.1",
+          // backgroundColor: "background.1",
         }}
       >
         {[...Array(20)].map((page, index) => (
@@ -63,8 +58,7 @@ const PagesListLoading = inject(
         )
         )}
       </Grid >
-    );
-  })
+    ))
 );
 
 export default PagesListLoading;

@@ -1,13 +1,12 @@
-import React, { useRef, useEffect } from "react";
-import { Skeleton, Stack, Radio, Input, Grid, Box, InputLabel, Link, InputAdornment, Tooltip, IconButton, Checkbox, FormControl, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Typography, } from "@mui/material";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from "react";
+import { Stack, Input, Grid, Link, InputAdornment, Tooltip, IconButton, Checkbox, FormControl, Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, } from "@mui/material";
 import { inject, observer } from "mobx-react"
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 
-const ChatDialog = inject("rootStore", "messageStore")(observer(({ rootStore, messageStore }) => {
-
-    return (
+const ChatDialog = inject("messageStore")(observer(({ messageStore }) => (
         <Dialog
             open={messageStore.dialogChatCreation.openDialog}
             onClose={() => messageStore.setDialogChatCreation("openDialog", false)}
@@ -48,7 +47,7 @@ const ChatDialog = inject("rootStore", "messageStore")(observer(({ rootStore, me
                             <Checkbox
                                 color="default"
                                 sx={{ color: "text.main" }}
-                                checked={true}
+                                checked
                                 onClick={() => messageStore.deleteInUsersForChat(index)}
                             />
                             <Stack
@@ -66,11 +65,6 @@ const ChatDialog = inject("rootStore", "messageStore")(observer(({ rootStore, me
                                         cursor: "pointer",
                                         color: "text.main",
                                     }}
-                                    // onClick={() => {
-                                    //     router.push({
-                                    //         pathname: "/students",
-                                    //     })
-                                    // }}
                                     underline="hover"
                                 >
                                     {item.username}
@@ -150,11 +144,6 @@ const ChatDialog = inject("rootStore", "messageStore")(observer(({ rootStore, me
                                         cursor: "pointer",
                                         color: "text.main",
                                     }}
-                                    // onClick={() => {
-                                    //     router.push({
-                                    //         pathname: "/students",
-                                    //     })
-                                    // }}
                                     underline="hover"
                                 >
                                     {item.username}
@@ -177,7 +166,6 @@ const ChatDialog = inject("rootStore", "messageStore")(observer(({ rootStore, me
                 <Button sx={{ color: "text.main" }} onClick={() => messageStore.createChat()}>Готово</Button>
             </DialogActions>
         </Dialog>
-    );
-}))
+    )))
 
 export default ChatDialog

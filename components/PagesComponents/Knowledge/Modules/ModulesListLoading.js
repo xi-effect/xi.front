@@ -6,13 +6,8 @@ import {
 } from "@mui/material";
 import { inject, observer } from "mobx-react";
 
-const ModulesListLoading = inject(
-  "knowledgeStore",
-  "uiStore"
-)(
-  observer(({ knowledgeStore, uiStore }) => {
-
-    return (
+const ModulesListLoading = inject()(
+  observer(() => (
       <Grid
         container
         direction="row"
@@ -22,7 +17,7 @@ const ModulesListLoading = inject(
           m: 0,
           p: 1,
           width: "100%",
-          //backgroundColor: "background.1",
+          // backgroundColor: "background.1",
         }}
       >
         {[...Array(20)].map((page, index) => (
@@ -63,8 +58,7 @@ const ModulesListLoading = inject(
         )
         )}
       </Grid >
-    );
-  })
+    ))
 );
 
 export default ModulesListLoading;

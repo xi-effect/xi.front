@@ -1,18 +1,12 @@
 import React from "react";
-import { useRouter } from "next/router"
 import Image from "next/image";
 import { motion } from "framer-motion"
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography } from "@mui/material";
+import { Stack, useMediaQuery, Grid, Box, Paper, Typography } from "@mui/material";
 
 import { whys } from "../../../texts/landing/WhyLabel";
 
-const WhyLabel = () => {
-    const theme = useTheme();
-
-    const router = useRouter()
+function WhyLabel() {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
-
 
     return (
         <Stack
@@ -30,7 +24,7 @@ const WhyLabel = () => {
             }}
         >
             <Typography
-                component={"h3"}
+                component="h3"
                 textAlign="center"
                 variant="IBMPlexSans700WhyLabel"
                 sx={{
@@ -86,7 +80,7 @@ const WhyLabel = () => {
                         >
                             <Grid item>
                                 <Typography
-                                    component={"h4"}
+                                    component="h4"
                                     variant="OpenSans600WhyLabel"
                                     sx={{
                                         cursor: "default",
@@ -108,7 +102,7 @@ const WhyLabel = () => {
                             </Grid>
                             <Grid item>
                                 <Typography
-                                    component={"p"}
+                                    component="p"
                                     variant="OpenSans400WhyLabel"
                                     sx={{
                                         cursor: "default",
@@ -156,11 +150,8 @@ const WhyLabel = () => {
                     bottom: "-210px",
                     zIndex: 0,
                 }}
-            >
-
-            </Box>
+            />
         </Stack >
-
     );
 }
 

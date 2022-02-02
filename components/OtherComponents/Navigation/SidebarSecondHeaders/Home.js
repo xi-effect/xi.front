@@ -1,17 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router"
 import { inject, observer } from "mobx-react"
 
-import { Typography, Stack, Tooltip, IconButton, MenuList, ListItemText, useMediaQuery } from "@mui/material";
-import Image from "next/image";
+import { Typography, Stack, Tooltip, IconButton } from "@mui/material";
 import PlusOneIcon from "@mui/icons-material/PlusOne";
 
 import { useSnackbar } from "notistack";
 
 
-const Home = inject("rootStore")(observer(({ rootStore }) => {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+const Home = inject()(observer(() => {
+    const { enqueueSnackbar } = useSnackbar();
     return (
         <Stack
             direction="row"

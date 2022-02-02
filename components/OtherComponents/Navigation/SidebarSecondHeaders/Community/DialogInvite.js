@@ -1,18 +1,14 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 import InputAdornment from "@mui/material/InputAdornment";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Alert from "@mui/material/Alert";
 import {
   Typography,
-  MenuItem,
-  useTheme,
   Tab,
   Tabs,
-  Radio,
-  Switch,
   Button,
   Chip,
   FormControl,
@@ -22,39 +18,24 @@ import {
   DialogContent,
   Stack,
   Tooltip,
-  Box,
   IconButton,
-  Popper,
-  Grow,
-  MenuList,
-  Paper,
-  ClickAwayListener,
-  Divider,
-  ListItemIcon,
-  ListItemText,
   useMediaQuery,
-  Container,
-  DialogActions,
   TextField,
 } from "@mui/material";
-import Image from "next/image";
 
 import CloseIcon from "@mui/icons-material/Close";
 import UndoIcon from "@mui/icons-material/Undo";
-import { useSnackbar } from "notistack";
 import QRCode from "react-qr-code";
-import PropTypes from "prop-types";
 import { useCopyToClipboard } from "react-use";
 
-const DialogInvite = inject("rootStore")(
+const DialogInvite = inject()(
   observer(
-    ({ rootStore, settingsStore, openDialogInvite, setOpenDialogInvite }) => {
-      const theme = useTheme();
+    ({ openDialogInvite, setOpenDialogInvite }) => {
       const fullScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
       const [step, setStep] = React.useState(0);
       const [statusCopy, setStatusCopy] = React.useState(false);
       const [state, copyToClipboard] = useCopyToClipboard();
-      const url_invite = `https://xieffect.ru/invite/community/${123}`;
+      const urlInvite = `https://xieffect.ru/invite/community/${123}`;
 
       const [value, setValue] = React.useState(0);
       const handleChange = (event, newValue) => {
@@ -135,7 +116,7 @@ const DialogInvite = inject("rootStore")(
                   <Input
                     sx={{ width: "100%" }}
                     label="Лимит использования приглашения"
-                    type={"text"}
+                    type="text"
                   />
                 </FormControl>
                 <Stack
@@ -183,7 +164,7 @@ const DialogInvite = inject("rootStore")(
                   <Input
                     sx={{ width: "100%" }}
                     label="Время действия приглашения"
-                    type={"text"}
+                    type="text"
                   />
                 </FormControl>
                 <Stack
@@ -323,17 +304,16 @@ const DialogInvite = inject("rootStore")(
                     aria-label="tabs invite"
                     sx={{ mb: "20px" }}
                   >
-                    <Tab label="Link" id={`Link`} aria-controls={`Link`} />
+                    <Tab label="Link" id="Link" aria-controls="Link" />
                     <Tab
                       label="QR-code"
-                      id={`QR-code`}
-                      aria-controls={`QR-code`}
+                      id="QR-code"
+                      aria-controls="QR-code"
                     />
                   </Tabs>
 
                   {value === 0 ? (
-                    <>
-                      <Tooltip
+                    <Tooltip
                         sx={{ ml: "10px", mr: "10px", width: "100%" }}
                         title={
                           statusCopy
@@ -344,9 +324,9 @@ const DialogInvite = inject("rootStore")(
                         <TextField
                           id="invite-code"
                           label="Код-приглашения"
-                          defaultValue={url_invite}
+                          defaultValue={urlInvite}
                           onClick={() => {
-                            copyToClipboard(url_invite);
+                            copyToClipboard(urlInvite);
                             setStatusCopy(true);
                           }}
                           InputProps={{
@@ -365,9 +345,8 @@ const DialogInvite = inject("rootStore")(
                           }}
                         />
                       </Tooltip>
-                    </>
                   ) : (
-                    <QRCode size={512} value={url_invite} />
+                    <QRCode size={512} value={urlInvite} />
                   )}
                 </Stack>
                 <Button

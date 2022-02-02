@@ -1,14 +1,11 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { styled } from "@mui/material/styles";
-import { Grid, useTheme, Divider, useMediaQuery, Typography, Link } from "@mui/material"
-import clsx from "clsx"
+import { Grid, Divider, useMediaQuery, Typography, Link } from "@mui/material"
 
 import { useRouter } from "next/router"
 
+// eslint-disable-next-line no-underscore-dangle
 export default function _404() {
-    const theme = useTheme();
-
-
     const mobile = useMediaQuery(theme => theme.breakpoints.down("lg"));
     const router = useRouter()
 
@@ -34,9 +31,7 @@ export default function _404() {
                 backgroundColor: "#659DBD",
             }}
         >
-            <Grid sx={{ margin: 2, }}>
-
-            </Grid>
+            <Grid sx={{ margin: 2, }} />
             <Grid
                 item
                 container
@@ -76,9 +71,7 @@ export default function _404() {
                     Вернуться в Ξffect
                 </Link>
             </Grid>
-            <Grid item>
-
-            </Grid>
+            <Grid item />
         </Grid>
     );
 }

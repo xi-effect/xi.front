@@ -1,18 +1,16 @@
-import React, { useState } from "react"
-import { Slider, Dialog, DialogTitle, Stack, useTheme, DialogContent, DialogContentText, DialogActions, Link, InputAdornment, Tooltip, IconButton, ClickAwayListener, Divider, ButtonGroup, MenuList, MenuItem, Avatar, Paper, Grow, Popper, Badge, Grid, FormControl, InputLabel, TextField, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button } from "@mui/material"
+/* eslint-disable no-continue */
+import React from "react"
+import { Dialog, DialogTitle, Stack, DialogContent, DialogContentText, DialogActions, InputAdornment, IconButton, FormControl, InputLabel, OutlinedInput, Typography, Button } from "@mui/material"
 
 
 import { inject, observer } from "mobx-react"
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-let Crypto = require("crypto-js")
+const Crypto = require("crypto-js")
 
 
-const DialogChangePassword = inject("rootStore", "settingsStore")(observer(({ rootStore, settingsStore, openPasswordChangeDialog, setOpenPasswordChangeDialog }) => {
-    const theme = useTheme()
-
-
+const DialogChangePassword = inject("rootStore", "settingsStore")(observer(({ rootStore, openPasswordChangeDialog, setOpenPasswordChangeDialog }) => {
     const [password, setPassword] = React.useState("")
     const [newPassword, setNewPassword] = React.useState("")
     const [showPassword, setShowPassword] = React.useState(false)
@@ -33,11 +31,11 @@ const DialogChangePassword = inject("rootStore", "settingsStore")(observer(({ ro
         setSymError(false)
         setPasswordError(false)
         setErrorServer(false)
-        let sym = "1234567890qwertyuiopasdfghjklzxcvbnm_QWERTYUIOPASDFGHJKLZXCVBNM"
+        const sym = "1234567890qwertyuiopasdfghjklzxcvbnm_QWERTYUIOPASDFGHJKLZXCVBNM"
         if (newPassword.length < 6) {
             setLengthError(true)
         }
-        for (let i = 0; i < newPassword.length; i++) {
+        for (let i = 0; i < newPassword.length; i += 1) {
             if (sym.includes(newPassword[i])) continue
             else {
                 setSymError(true)
@@ -48,8 +46,8 @@ const DialogChangePassword = inject("rootStore", "settingsStore")(observer(({ ro
             rootStore.fetchDataScr(`${rootStore.url}/password-change/`, "POST", { "password": Crypto.SHA384(password).toString(), "new-password": Crypto.SHA384(newPassword).toString() },)
                 .then((data) => {
                     console.log(data)
-                    if (data != undefined) {
-                        if (data.a == "Success") { //userId //"Success"
+                    if (data !== undefined) {
+                        if (data.a === "Success") { // userId //"Success"
                             setOpenPasswordChangeDialog(false)
                         } else {
                             setPasswordError(true)

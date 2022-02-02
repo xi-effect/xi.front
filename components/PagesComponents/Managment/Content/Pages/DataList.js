@@ -146,7 +146,7 @@ EnhancedTableHead.propTypes = {
     rowCount: PropTypes.number.isRequired,
 };
 
-const EnhancedTableToolbar = (props) => {
+function EnhancedTableToolbar(props) {
     const { managmentStore, rows, selected, numSelected, deletePages } = props;
     const router = useRouter();
 
@@ -197,7 +197,7 @@ const EnhancedTableToolbar = (props) => {
                 </Tooltip>}
         </Toolbar>
     );
-};
+}
 
 EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
@@ -262,7 +262,7 @@ const DataList = inject("rootStore", "managmentStore")(observer(({ rootStore, ma
 
     const deletePages = () => {
         console.log("selected", selected)
-        let newRows = rows.filter((el, index) => !(selected.includes(index)))
+        const newRows = rows.filter((el, index) => !(selected.includes(index)))
         selected.forEach((item, index) => {
             rootStore.fetchDataScr(`${rootStore.url}/wip/pages/${rows[item].id}/`, "DELETE").then(
                 (data) => {
@@ -289,7 +289,7 @@ const DataList = inject("rootStore", "managmentStore")(observer(({ rootStore, ma
                     >
                         <Image
                             alt="alt"
-                            src={"/app/NoData.svg"}
+                            src="/app/NoData.svg"
                             quality={100}
                             width={256}
                             height={232}
@@ -301,7 +301,7 @@ const DataList = inject("rootStore", "managmentStore")(observer(({ rootStore, ma
                     {rows.length != 0 && <Table
                         sx={{ minWidth: 750 }}
                         aria-labelledby="tableTitle"
-                        size={"medium"}
+                        size="medium"
                     >
                         <EnhancedTableHead
                             numSelected={selected.length}
@@ -371,7 +371,7 @@ const DataList = inject("rootStore", "managmentStore")(observer(({ rootStore, ma
                     count={rows.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
-                    labelRowsPerPage={"Строк на странице"}
+                    labelRowsPerPage="Строк на странице"
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />}

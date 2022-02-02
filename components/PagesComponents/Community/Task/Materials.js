@@ -1,24 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-
 import {
-    Divider,
-    Paper,
-    Skeleton,
-    Box,
-    useMediaQuery,
-    Grid,
     Stack,
-    FormControlLabel,
-    Button,
-    useTheme,
-    Menu,
-    Hidden,
-    IconButton,
-    InputBase,
-    Switch,
     Typography,
 } from "@mui/material";
 
@@ -38,12 +21,8 @@ const arrowVariants = {
     }
 }
 
-const Materials = inject(
-    "rootStore",
-)(
-    observer(({ rootStore, messageStore }) => {
-        const theme = useTheme();
-        const router = useRouter();
+const Materials = inject()(
+    observer(() => {
         const [materials, setMaterials] = React.useState(false)
 
         return (
@@ -82,7 +61,7 @@ const Materials = inject(
                             fontSize: 14,
                         }}
                     >
-                        {"материалы"}
+                        материалы
                     </Typography>
                 </Stack>
                 {materials && <Typography variant="subtitle1">

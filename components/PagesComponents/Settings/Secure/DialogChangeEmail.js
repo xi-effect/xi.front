@@ -1,18 +1,15 @@
 import React from "react"
-import { Stack, Dialog, DialogTitle, useTheme, DialogContent, DialogContentText, DialogActions, InputAdornment, Tooltip, IconButton, Avatar, Grid, FormControl, InputLabel, TextField, OutlinedInput, Typography, Box, Button } from "@mui/material"
+import { Stack, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, InputAdornment, Tooltip, IconButton, FormControl, InputLabel, OutlinedInput, Typography, Button } from "@mui/material"
 import { inject, observer } from "mobx-react"
 
 import SaveIcon from "@mui/icons-material/Save";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-let Crypto = require("crypto-js")
+const Crypto = require("crypto-js")
 
 
-const DialogChangeEmail = inject("rootStore", "settingsStore")(observer(({ rootStore, settingsStore, openEmailChangeDialog, setOpenEmailChangeDialog }) => {
-    const theme = useTheme();
-
-
+const DialogChangeEmail = inject("rootStore", "settingsStore")(observer(({ rootStore, openEmailChangeDialog, setOpenEmailChangeDialog }) => {
     const [newEmail, setNewEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
     const [showPassword, setShowPassword] = React.useState(false)
@@ -20,7 +17,7 @@ const DialogChangeEmail = inject("rootStore", "settingsStore")(observer(({ rootS
     const [emailError, setEmailError] = React.useState(false)
     const [passwordError, setPasswordError] = React.useState(false)
     const [symError, setSymError] = React.useState(false)
-    //const [password, setPassword] = React.useState("")
+    // const [password, setPassword] = React.useState("")
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
@@ -38,12 +35,12 @@ const DialogChangeEmail = inject("rootStore", "settingsStore")(observer(({ rootS
             rootStore.fetchDataScr(`${rootStore.url}/email-change/`, "POST", { "password": Crypto.SHA384(password).toString(), "new-email": newEmail }) // postData /auth //Crypto.SHA384(store.settingsNew.passwordOldChange).toString() //Crypto.SHA384(store.settingsNew.passwordNewChange).toString()
                 .then((data) => {
                     console.log(data)
-                    if (data != undefined) {
-                        if (data.a == "Success") { //userId //"Success"
+                    if (data !== undefined) {
+                        if (data.a === "Success") { // userId //"Success"
                             setOpenEmailChangeDialog(false)
-                        } else if (data.a == "Email in use") {
+                        } else if (data.a === "Email in use") {
                             setEmailError(true)
-                        } else if (data.a == "Wrong password") {
+                        } else if (data.a === "Wrong password") {
                             setPasswordError(true)
                         }
                     }

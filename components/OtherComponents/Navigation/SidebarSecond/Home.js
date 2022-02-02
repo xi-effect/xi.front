@@ -3,10 +3,8 @@ import React from "react";
 import { useRouter } from "next/router"
 import { inject, observer } from "mobx-react"
 
-import { Typography, MenuItem, Box, MenuList, ListItemText, useMediaQuery } from "@mui/material";
+import { MenuItem, Box, MenuList, useMediaQuery } from "@mui/material";
 import Image from "next/image";
-
-import { motion } from "framer-motion";
 
 const menuHome = [
     {
@@ -16,7 +14,7 @@ const menuHome = [
     },
 ]
 
-const MenuHomeComp = inject("rootStore", "uiStore", "messageStore")(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+const MenuHomeComp = inject()(observer(() => {
     const router = useRouter()
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
 
@@ -56,7 +54,7 @@ const MenuHomeComp = inject("rootStore", "uiStore", "messageStore")(observer(({ 
             >
                 <Image
                     alt="alt"
-                    src={"/app/DataReport.svg"}
+                    src="/app/DataReport.svg"
                     quality={100}
                     width={256}
                     height={256}

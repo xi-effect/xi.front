@@ -1,17 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Button, Box, useMediaQuery, InputLabel, Radio, FormControl, Select, ClickAwayListener, Divider, MenuList, Grid, MenuItem, ListItemText, ListItemIcon, Tooltip, Popper, IconButton, Link, Paper, useTheme, Stack, Typography, Grow } from "@mui/material";
-import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-import InfoIcon from "@mui/icons-material/Info";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
-import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import CodeIcon from "@mui/icons-material/Code";
-
-import { motion, AnimatePresence } from "framer-motion"
+import { Button, InputLabel, Radio, FormControl, Select, MenuList, MenuItem, ListItemText, ListItemIcon } from "@mui/material";
 
 const categoryList = [
     { key: 9, title: "Все категории", name: "default" },
@@ -57,16 +48,9 @@ const difficultyList = [
 
 const KnowledgeModulesFilters = inject(
     "knowledgeStore",
-    "managmentStore",
-    "uiStore",
 )(
-    observer(({ knowledgeStore, uiStore, managmentStore }) => {
-        const theme = useTheme();
-        const router = useRouter()
-
-        return (
-            <>
-                <MenuList
+    observer(({ knowledgeStore }) => (
+            <MenuList
                     // spacing={2}
                     sx={{
                         // p: 0.5,
@@ -95,8 +79,9 @@ const KnowledgeModulesFilters = inject(
                             pl: 0.5,
                         }}
                         onClick={() => {
-                            if (knowledgeStore.moduleList.filters.global == "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
-                            if (knowledgeStore.moduleList.filters.global != "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "starred")
+                            if (knowledgeStore.moduleList.filters.global === "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                            if (knowledgeStore.moduleList.filters.global !== "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "starred")
+                            return null
                         }}
                     >
                         <ListItemIcon>
@@ -113,8 +98,9 @@ const KnowledgeModulesFilters = inject(
                             pl: 0.5,
                         }}
                         onClick={() => {
-                            if (knowledgeStore.moduleList.filters.global != "started") return knowledgeStore.setModuleListDataSecondary("filters", "global", "started")
+                            if (knowledgeStore.moduleList.filters.global !== "started") return knowledgeStore.setModuleListDataSecondary("filters", "global", "started")
                             if (knowledgeStore.moduleList.filters.global === "started") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                            return null
                         }}
                     >
                         <ListItemIcon>
@@ -131,8 +117,9 @@ const KnowledgeModulesFilters = inject(
                             pl: 0.5,
                         }}
                         onClick={() => {
-                            if (knowledgeStore.moduleList.filters.global != "pinned") return knowledgeStore.setModuleListDataSecondary("filters", "global", "pinned")
+                            if (knowledgeStore.moduleList.filters.global !== "pinned") return knowledgeStore.setModuleListDataSecondary("filters", "global", "pinned")
                             if (knowledgeStore.moduleList.filters.global === "pinned") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                            return null
                         }}
                     >
                         <ListItemIcon>
@@ -195,9 +182,7 @@ const KnowledgeModulesFilters = inject(
                         Применить
                     </Button>
                 </MenuList>
-            </>
-        );
-    })
+        ))
 );
 
 export default KnowledgeModulesFilters;

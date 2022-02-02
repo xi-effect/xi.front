@@ -1,26 +1,13 @@
 import React from "react";
 import {
-    CircularProgress,
-    Skeleton,
-    Grid,
-    Typography,
-    useTheme,
-    Box,
-    IconButton,
     Stack,
     Paper,
-    Tooltip,
-    Button,
-    Container,
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
 
-const DateLine = inject("knowledgeStore")(
-    observer(({ knowledgeStore }) => {
-
-
-        return (
+const DateLine = inject()(
+    observer(() => (
             <Paper
                 elevation={24}
             >
@@ -55,8 +42,7 @@ const DateLine = inject("knowledgeStore")(
                 </Stack>
             </Paper>
 
-        );
-    })
+        ))
 );
 
 export default DateLine;

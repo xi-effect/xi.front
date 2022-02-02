@@ -1,10 +1,9 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router"
 import { inject, observer } from "mobx-react"
 
-import { Typography, MenuItem, useTheme, Tab, Tabs, Radio, Switch, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container, DialogActions } from "@mui/material";
-import Image from "next/image";
+import { Typography, MenuItem, Stack, Tooltip, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider } from "@mui/material";
 
 import { AnimatePresence, motion } from "framer-motion";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -12,16 +11,10 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import PlusOneIcon from "@mui/icons-material/PlusOne";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import CloseIcon from "@mui/icons-material/Close";
-import UndoIcon from "@mui/icons-material/Undo";
-import { useSnackbar } from "notistack";
-import QRCode from "react-qr-code";
-import PropTypes from "prop-types";
-
 import DialogInvite from "./Community/DialogInvite";
 import DialogSettings from "./Community/DialogSettings";
 import DialogPrivacy from "./Community/DialogPrivacy";
@@ -29,9 +22,7 @@ import DialogChannelCreation from "./Community/DialogChannelCreation";
 import DialogCategoryCreation from "./Community/DialogCategoryCreation";
 
 
-const Community = inject("rootStore", "uiStore", "messageStore")(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
+const Community = inject()(observer(() => {
     const [openDialogInvite, setOpenDialogInvite] = React.useState(false);
     const [openDialogSettings, setOpenDialogSettings] = React.useState(false);
     const [openDialogChannelCreation, setOpenDialogChannelCreation] = React.useState(false);

@@ -1,32 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Head from "next/head";
-import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import {
-  Grid,
   Stack,
   Input,
   Link,
   useMediaQuery,
-  TextField,
-  useTheme,
   InputLabel,
   InputAdornment,
   Tooltip,
   IconButton,
   FormControl,
-  OutlinedInput,
-  FormControlLabel,
-  Switch,
-  AppBar,
-  Tabs,
-  Tab,
   Typography,
   Box,
   Button,
   Paper,
 } from "@mui/material";
-import { Link as LinkUI } from "@mui/material";
+
 import React from "react";
 import { inject, observer } from "mobx-react";
 import Visibility from "@mui/icons-material/Visibility";
@@ -52,7 +44,6 @@ const Login = inject(
   "authorizationStore"
 )(
   observer(({ authorizationStore, uiStore }) => {
-    const theme = useTheme();
     const mobile = useMediaQuery(theme => theme.breakpoints.down("dl"));
 
     const router = useRouter();
@@ -108,7 +99,7 @@ const Login = inject(
               alignItems="baseline"
             >
               <Typography
-                component={"h1"}
+                component="h1"
                 onClick={() => {
                   router.push({
                     pathname: "/",
@@ -130,7 +121,7 @@ const Login = inject(
                 Ξ
               </Typography>
               <Typography
-                component={"h1"}
+                component="h1"
                 onClick={() => {
                   router.push({
                     pathname: "/",
@@ -178,7 +169,7 @@ const Login = inject(
             >
               <Image
                 alt="alt"
-                src={"/landing/blob1.svg"}
+                src="/landing/blob1.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -194,7 +185,7 @@ const Login = inject(
             >
               <Image
                 alt="alt"
-                src={"/landing/blob3.svg"}
+                src="/landing/blob3.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -229,7 +220,7 @@ const Login = inject(
                 >
                   <Image
                     alt="alt"
-                    src={"/auth/Login.svg"}
+                    src="/auth/Login.svg"
                     quality={100}
                     width={456}
                     height={456}
@@ -384,8 +375,8 @@ const Login = inject(
                     >
                       Регистрация
                     </Link>
-                    <Typography component={"span"} sx={{ color: "text.secondary", cursor: "pointer", fontWeight: 500, }} >
-                      {"/"}
+                    <Typography component="span" sx={{ color: "text.secondary", cursor: "pointer", fontWeight: 500, }} >
+                      /
                     </Typography>
                     <Link
                       sx={{ color: "text.secondary", m: 1, fontWeight: 500, cursor: "pointer" }}
@@ -430,7 +421,7 @@ const Login = inject(
             </Paper>
           </Box>
 
-          <div></div>
+          <div />
         </Stack >
       </>
     );

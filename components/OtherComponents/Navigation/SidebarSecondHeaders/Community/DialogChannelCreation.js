@@ -1,14 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router"
 import { inject, observer } from "mobx-react"
 
-import { Typography, MenuItem, useTheme, Tab, Tabs, Radio, Switch, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container, DialogActions } from "@mui/material";
-import Image from "next/image";
+import { Typography, Radio, Button, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Paper, useMediaQuery, DialogActions } from "@mui/material";
 
 
-const DialogChannelCreation = inject("rootStore")(observer(({ rootStore, openDialogChannelCreation, setOpenDialogChannelCreation }) => {
-    const theme = useTheme();
+const DialogChannelCreation = inject()(observer(({openDialogChannelCreation, setOpenDialogChannelCreation }) => {
     const fullScreen = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const [channelSelect, setChannelSelect] = React.useState(null)
@@ -58,7 +55,7 @@ const DialogChannelCreation = inject("rootStore")(observer(({ rootStore, openDia
                             elevation={6}
                             onClick={() => {
                                 if (channelSelect === index) return setChannelSelect(null)
-                                setChannelSelect(index)
+                                return setChannelSelect(index)
                             }}
                             sx={{
                                 mb: 2,
@@ -102,7 +99,7 @@ const DialogChannelCreation = inject("rootStore")(observer(({ rootStore, openDia
                         <Input
                             sx={{ width: "100%", }}
                             label="Название нового канала"
-                            type={"text"}
+                            type="text"
                         />
                     </FormControl>
                 </Stack>

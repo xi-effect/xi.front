@@ -1,10 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react/prop-types */
 import React from "react";
-import { styled } from "@mui/material/styles";
-import clsx from "clsx";
-import { useRouter } from "next/router";
 import {
   Pagination,
-  useMediaQuery,
   Link,
   Box,
   Accordion,
@@ -12,16 +10,6 @@ import {
   Tab,
   AccordionSummary,
   AccordionDetails,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-  Popper,
-  ClickAwayListener,
-  Paper,
-  MenuItem,
-  MenuList,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -29,17 +17,13 @@ import {
   IconButton,
   Button,
   Grid,
-  InputBase,
   Typography,
-  useTheme,
   Tooltip,
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import DoneAllIcon from "@mui/icons-material/DoneAll";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 import DescriptionIcon from "@mui/icons-material/Description";
@@ -47,7 +31,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-import CircleIcon from "@mui/icons-material/Circle";
 
 const categoryList = {
   "middle-school": "Средняя школа",
@@ -110,72 +93,62 @@ function a11yProps(index) {
   };
 }
 
-const DialogEndTestResults = inject("knowledgeStore")(
-  observer(({ knowledgeStore, openTestResults, setOpenTestResults }) => {
-    return (
-      <Dialog
-        open={openTestResults}
-        onClose={() => setOpenTestResults(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Результаты теста"}
-        </DialogTitle>
-        <DialogContent>
-
-        </DialogContent>
-        <DialogActions>
-          <Button sx={{ color: "text.main" }} onClick={() => setOpenTestResults(false)} autoFocus>
-            Закрыть
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  })
+const DialogEndTestResults = inject()(
+  observer(({ openTestResults, setOpenTestResults }) => (
+    <Dialog
+      open={openTestResults}
+      onClose={() => setOpenTestResults(false)}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        Результаты теста
+      </DialogTitle>
+      <DialogContent />
+      <DialogActions>
+        <Button sx={{ color: "text.main" }} onClick={() => setOpenTestResults(false)} autoFocus>
+          Закрыть
+        </Button>
+      </DialogActions>
+    </Dialog>
+  ))
 );
 
-const DialogEndTestApply = inject("knowledgeStore")(
-  observer(({ knowledgeStore, openTestApply, setOpenTestApply, setOpenTestResults }) => {
-    return (
-      <Dialog
-        open={openTestApply}
-        onClose={() => setOpenTestApply(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Завершить тестирование?"}
-        </DialogTitle>
-        <DialogContent>
-          Вы уверены, что хотите завершить тест?
-          После этого вы не сможете изменить ответы и увидете результаты
-        </DialogContent>
-        <DialogActions>
-          <Button sx={{ color: "text.main" }} onClick={() => setOpenTestApply(false)}>Отмена</Button>
-          <Button
-            sx={{ color: "text.main" }}
-            onClick={() => {
-              setOpenTestApply(false)
-              setOpenTestResults(true)
-            }}
-            autoFocus>
-            Завершить тест
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  })
+const DialogEndTestApply = inject()(
+  observer(({ openTestApply, setOpenTestApply, setOpenTestResults }) => (
+    <Dialog
+      open={openTestApply}
+      onClose={() => setOpenTestApply(false)}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        Завершить тестирование?
+      </DialogTitle>
+      <DialogContent>
+        Вы уверены, что хотите завершить тест?
+        После этого вы не сможете изменить ответы и увидете результаты
+      </DialogContent>
+      <DialogActions>
+        <Button sx={{ color: "text.main" }} onClick={() => setOpenTestApply(false)}>Отмена</Button>
+        <Button
+          sx={{ color: "text.main" }}
+          onClick={() => {
+            setOpenTestApply(false)
+            setOpenTestResults(true)
+          }}
+          autoFocus>
+          Завершить тест
+        </Button>
+      </DialogActions>
+    </Dialog>
+  ))
 );
 
 const ModuleInfo = inject("knowledgeStore")(
   observer(({ knowledgeStore, children }) => {
-    const theme = useTheme();
-
-    const router = useRouter();
-
     const [value, setValue] = React.useState(0);
-
+    const mobile = true
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
@@ -184,8 +157,8 @@ const ModuleInfo = inject("knowledgeStore")(
     const [openTestResults, setOpenTestResults] = React.useState(false);
     const [paginationCounter, setPaginationCounter] = React.useState(1);
 
-    const handleChangePagination = (event, value) => {
-      setPaginationCounter(value);
+    const handleChangePagination = (event, v) => {
+      setPaginationCounter(v);
     };
 
     return (
@@ -264,7 +237,7 @@ const ModuleInfo = inject("knowledgeStore")(
 
                   </Grid>
                 </Grid>
-                <Grid item></Grid>
+                <Grid item />
                 <Grid item>
                   {knowledgeStore.module.type === "test" && <Tooltip title="Завершить тест">
                     <span>
@@ -318,7 +291,7 @@ const ModuleInfo = inject("knowledgeStore")(
                       indicatorColor="primary"
                       textColor="primary"
                       aria-label="full width tabs example"
-                    //variant="fullWidth"
+                    // variant="fullWidth"
                     // centered
                     >
                       <Tab
@@ -329,7 +302,7 @@ const ModuleInfo = inject("knowledgeStore")(
                         }
                         {...a11yProps(0)}
                       />
-                      {knowledgeStore.module["map"] != undefined && (
+                      {knowledgeStore.module.map !== undefined && (
                         <Tab
                           label={
                             <Typography sx={{ color: "text.main" }}>
@@ -348,11 +321,11 @@ const ModuleInfo = inject("knowledgeStore")(
                       indicatorColor="primary"
                       textColor="primary"
                       aria-label="full width tabs example"
-                      //variant="fullWidth"
+                      // variant="fullWidth"
                       centered
                     >
                       <Tab label={<DescriptionIcon />} {...a11yProps(0)} />
-                      {knowledgeStore.module["map"] != undefined && (
+                      {knowledgeStore.module.map !== undefined && (
                         <Tab label={<MenuIcon />} {...a11yProps(1)} />
                       )}
                       <Tab label={<AnalyticsIcon />} {...a11yProps(2)} />
@@ -379,13 +352,13 @@ const ModuleInfo = inject("knowledgeStore")(
                         {themeList[knowledgeStore.module.theme]}
                       </Typography>
                       <Typography variant="h6" sx={{ ml: 1 }}>
-                        {"-"}
+                        -
                       </Typography>
                       <Typography variant="subtitle2" sx={{ ml: 1 }}>
                         {categoryList[knowledgeStore.module.category]}
                       </Typography>
                       <Typography variant="h6" sx={{ ml: 1 }}>
-                        {"-"}
+                        -
                       </Typography>
                       <Typography variant="subtitle2" sx={{ ml: 1 }}>
                         {difficultyList[knowledgeStore.module.difficulty]}
@@ -401,13 +374,13 @@ const ModuleInfo = inject("knowledgeStore")(
                       }}
                     >
                       <Typography variant="subtitle2">
-                        {knowledgeStore.module.description != undefined
+                        {knowledgeStore.module.description !== undefined
                           ? knowledgeStore.module.description
                           : "Автор не оставил описания"}
                       </Typography>
                     </Grid>
                   </TabPanel>
-                  {knowledgeStore.module["map"] != undefined && (
+                  {knowledgeStore.module.map !== undefined && (
                     <TabPanel value={value} index={1}>
                       <Grid
                         container
@@ -428,7 +401,7 @@ const ModuleInfo = inject("knowledgeStore")(
                         justifyContent="flex-start"
                         alignItems="flex-start"
                       >
-                        {knowledgeStore.module["map"]
+                        {knowledgeStore.module.map
                           .slice(
                             0 + (paginationCounter - 1) * 10,
                             10 + (paginationCounter - 1) * 10
@@ -487,7 +460,7 @@ const ModuleInfo = inject("knowledgeStore")(
                             },
                           }}
                           count={Math.ceil(
-                            knowledgeStore.module["map"].length / 10
+                            knowledgeStore.module.map.length / 10
                           )}
                           color="primary"
                           onChange={handleChangePagination}

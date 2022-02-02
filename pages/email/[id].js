@@ -3,7 +3,7 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import Image from "next/image";
 
-import { Stack, Paper, Grid, Typography, Box, Button, useMediaQuery } from "@mui/material";
+import { Stack, Paper, Typography, Button, useMediaQuery } from "@mui/material";
 import { inject, observer } from "mobx-react"
 
 
@@ -17,7 +17,7 @@ const Email = inject("rootStore")(observer(({ rootStore }) => {
     const acceptButtonClicked = () => {
         rootStore.fetchData(`${rootStore.url}/email-confirm/`, "POST", { "code": id })
             .then((data) => {
-                if (data.a) { //"Success"
+                if (data.a) { // "Success"
                     setOk(true)
                 }
             })
@@ -35,7 +35,7 @@ const Email = inject("rootStore")(observer(({ rootStore }) => {
                 sx={{
                     width: "100vw",
                     height: "100vh",
-                    backgroundColor: "background.main", //Цвета есть в файле theme.js и в дефолтной теме в MUI
+                    backgroundColor: "background.main", // Цвета есть в файле theme.js и в дефолтной теме в MUI
                 }}
             >
                 <Stack
@@ -52,7 +52,7 @@ const Email = inject("rootStore")(observer(({ rootStore }) => {
                         sx={{ width: "100%" }}
                     >
                         <Typography
-                            component={"h1"}
+                            component="h1"
                             onClick={() => {
                                 router.push({
                                     pathname: "/",
@@ -74,7 +74,7 @@ const Email = inject("rootStore")(observer(({ rootStore }) => {
                             Ξ
                         </Typography>
                         <Typography
-                            component={"h1"}
+                            component="h1"
                             onClick={() => {
                                 router.push({
                                     pathname: "/",
@@ -119,7 +119,7 @@ const Email = inject("rootStore")(observer(({ rootStore }) => {
                     >
                         <Image
                             alt="alt"
-                            src={"/app/ConfirmedEmail.svg"}
+                            src="/app/ConfirmedEmail.svg"
                             quality={100}
                             width={456}
                             height={456}
@@ -159,8 +159,7 @@ const Email = inject("rootStore")(observer(({ rootStore }) => {
                         </Typography>}
                     </Stack>
                 </Paper>
-                <div>
-                </div>
+                <div />
             </Stack>
         </>
     );

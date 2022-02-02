@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router"
 import { inject, observer } from "mobx-react"
 
-import { Typography, MenuItem, useTheme, Tab, Tabs, Radio, Switch, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container, DialogActions } from "@mui/material";
-import Image from "next/image";
+import { Typography, Tab, Tabs, Dialog, DialogContent, Stack, Box, IconButton } from "@mui/material";
 import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -43,7 +41,7 @@ function TabPanel(props) {
 }
 
 TabPanel.propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
     index: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
 };
@@ -55,7 +53,7 @@ function a11yProps(index) {
     };
 }
 
-const DialogSettings = inject("rootStore")(observer(({ rootStore, openDialogSettings, setOpenDialogSettings }) => {
+const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSettings }) => {
 
     const [value, setValue] = React.useState(0);
 

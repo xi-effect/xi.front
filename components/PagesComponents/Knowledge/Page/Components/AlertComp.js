@@ -1,5 +1,5 @@
 import React from "react";
-import { useTheme, Input, Grid, Alert, InputAdornment, useMediaQuery } from "@mui/material";
+import { Input, Grid, Alert, InputAdornment, useMediaQuery } from "@mui/material";
 
 import { inject, observer } from "mobx-react"
 
@@ -8,7 +8,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import WarningIcon from "@mui/icons-material/Warning";
 import ErrorIcon from "@mui/icons-material/Error";
 
-const AlertComp = inject("rootStore")(observer(({ rootStore, value }) => {
+const AlertComp = inject()(observer(({  value }) => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
@@ -17,7 +17,7 @@ const AlertComp = inject("rootStore")(observer(({ rootStore, value }) => {
                 variant="filled"
                 sx={{ width: "100%", }}
                 severity={value.alertType}
-                icon={<span></span>}
+                icon={<span />}
             >
                 <Input
                     sx={{

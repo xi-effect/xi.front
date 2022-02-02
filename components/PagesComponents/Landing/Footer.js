@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from "react";
 import { useRouter } from "next/router"
 import Image from "next/image";
 import { motion } from "framer-motion"
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, Container, IconButton } from "@mui/material";
+import { useMediaQuery, Link, Grid, Box, Typography, Container, IconButton } from "@mui/material";
 import TermsOfUse from "./TermsOfUse";
 
-const Footer = () => {
-    const theme = useTheme();
-
+function Footer() {
     const router = useRouter()
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
@@ -115,7 +113,7 @@ const Footer = () => {
                             <IconButton onClick={() => window.open("https://discord.gg/aNQfXXb")}>
                                 <Image
                                     alt="alt"
-                                    src={"/landing/DiscordLogoWhite.svg"}
+                                    src="/landing/DiscordLogoWhite.svg"
                                     quality={100}
                                     width={32}
                                     height={32}
@@ -143,7 +141,7 @@ const Footer = () => {
                     <IconButton sx={{ mt: 1 }} onClick={() => window.open("https://discord.gg/aNQfXXb")}>
                         <Image
                             alt="alt"
-                            src={"/landing/DiscordLogoWhite.svg"}
+                            src="/landing/DiscordLogoWhite.svg"
                             quality={100}
                             width={32}
                             height={32}

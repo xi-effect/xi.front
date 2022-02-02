@@ -1,11 +1,10 @@
-import React, { useState } from "react"
+import React from "react"
 
-import { Grid, FormControl, useTheme, InputLabel, TextField, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button } from "@mui/material"
+import { Grid, Typography, } from "@mui/material"
 import { inject, observer } from "mobx-react"
 import DarkModeToggle from "react-dark-mode-toggle"
 
 const Customize = inject("rootStore", "settingsStore")(observer(({ rootStore, settingsStore }) => {
-    const theme = useTheme()
 
     // const [isDarkMode, setIsDarkMode] = useState(() => false);
     // const { enqueueSnackbar } = useSnackbar();

@@ -1,20 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react"
-import { styled } from "@mui/material/styles";
 import Head from "next/head"
-import { useRouter } from "next/router";
-
-import { Divider, Paper, Grid, FormControlLabel, Button, useTheme, Menu, Hidden, IconButton, InputBase, Switch, Typography } from "@mui/material"
+import { Grid, } from "@mui/material"
 
 
 import { inject, observer } from "mobx-react"
 
-import NavigationAll from "./../../../components/OtherComponents/Navigation/NavigationAll";
-import PageCompList from "./../../../components/PagesComponents/Knowledge/Page/PageCompList";
+import NavigationAll from "../../../components/OtherComponents/Navigation/NavigationAll";
+import PageCompList from "../../../components/PagesComponents/Knowledge/Page/PageCompList";
 
-const Page = inject("rootStore", "knowledgeStore")(observer(({ rootStore, knowledgeStore }) => {
-    const theme = useTheme();
-
+const Page = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
 
     React.useEffect(() => {
         // LoadComponents()

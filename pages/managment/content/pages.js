@@ -1,13 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Head from "next/head"
-import { styled } from "@mui/material/styles";
-import Image from "next/image"
-import Link from "next/link"
-import Router from "next/router"
 import React from "react";
-import { Grid, Box, AppBar, Tabs, Button, Typography, Tab, useTheme } from "@mui/material";
-
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { Grid, Typography } from "@mui/material";
 import { inject, observer } from "mobx-react"
 
 import NavigationAll from "../../../components/OtherComponents/Navigation/NavigationAll"
@@ -16,8 +10,7 @@ import Toolbar from "../../../components/PagesComponents/Managment/Content/Pages
 import DataList from "../../../components/PagesComponents/Managment/Content/Pages/DataList";
 import DialogPageCreation from "../../../components/PagesComponents/Managment/Content/Pages/DialogPageCreation";
 
-const ContentPages = inject("rootStore")(observer(({ rootStore }) => {
-  const theme = useTheme();
+const ContentPages = inject()(observer(() => {
   const [dialogPageCreation, setDialogPageCreation] = React.useState(false)
 
 

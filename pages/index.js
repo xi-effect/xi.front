@@ -4,14 +4,13 @@ import Image from "next/image";
 import {
   Box,
   useMediaQuery,
-  useTheme,
   Stack,
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
 import { motion } from "framer-motion"
-import Header from "./../components/PagesComponents/Landing/Header";
-import MainLabel from "./../components/PagesComponents/Landing/MainLabel";
+import Header from "../components/PagesComponents/Landing/Header";
+import MainLabel from "../components/PagesComponents/Landing/MainLabel";
 import WhyLabel from "../components/PagesComponents/Landing/WhyLabel";
 import EffectFor from "../components/PagesComponents/Landing/EffectFor";
 import Footer from "../components/PagesComponents/Landing/Footer";
@@ -21,8 +20,7 @@ const Main = inject(
   "rootStore",
   "uiStore"
 )(
-  observer(({ rootStore, uiStore }) => {
-    const theme = useTheme();
+  observer(() => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     // React.useEffect(() => {
@@ -72,7 +70,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src={"/landing/blob1.svg"}
+                src="/landing/blob1.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -90,7 +88,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src={"/landing/blob2.svg"}
+                src="/landing/blob2.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -108,7 +106,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src={"/landing/blob4.svg"}
+                src="/landing/blob4.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -126,7 +124,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src={"/landing/blob3.svg"}
+                src="/landing/blob3.svg"
                 quality={100}
                 width={256}
                 height={256}

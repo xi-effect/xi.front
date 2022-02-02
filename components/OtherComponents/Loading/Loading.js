@@ -1,12 +1,13 @@
 import React from "react";
-import { Grid, Typography, useMediaQuery, Stack, Box, useTheme } from "@mui/material";
+import { Grid, Typography, useMediaQuery, Stack, Box } from "@mui/material";
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { inject, observer } from "mobx-react"
+import { useRouter } from 'next/router'
 
 const Loading = inject("uiStore")(observer(({ uiStore }) => {
-    const theme = useTheme();
     const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)")
+    const router = useRouter()
 
     return (
         <AnimatePresence>
@@ -28,7 +29,7 @@ const Loading = inject("uiStore")(observer(({ uiStore }) => {
                     alignItems="baseline"
                 >
                     <Typography
-                        component={"h1"}
+                        component="h1"
                         onClick={() => {
                             router.push({
                                 pathname: "/",
@@ -50,7 +51,7 @@ const Loading = inject("uiStore")(observer(({ uiStore }) => {
                         Ξ
                     </Typography>
                     <Typography
-                        component={"h1"}
+                        component="h1"
                         onClick={() => {
                             router.push({
                                 pathname: "/",
@@ -81,7 +82,7 @@ const Loading = inject("uiStore")(observer(({ uiStore }) => {
                 >
                     {isDarkTheme && <Image
                         alt="alt"
-                        src={"/loaderForDarkTheme.gif"}
+                        src="/loaderForDarkTheme.gif"
                         quality={90}
                         width={96}
                         height={96}
@@ -89,7 +90,7 @@ const Loading = inject("uiStore")(observer(({ uiStore }) => {
                     />}
                     {!isDarkTheme && <Image
                         alt="alt"
-                        src={"/loaderForWhiteTheme.gif"}
+                        src="/loaderForWhiteTheme.gif"
                         quality={90}
                         width={96}
                         height={96}

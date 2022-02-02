@@ -1,11 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 
-import { Button, Paper, Stack, Box, Grid, Divider, Chip, Tooltip, Typography, useTheme, IconButton } from "@mui/material";
+import { Paper, Stack, Box, Divider, Chip, Tooltip, Typography, IconButton } from "@mui/material";
 
 import { inject, observer } from "mobx-react"
 
-import Image from "next/image"
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -131,8 +131,7 @@ const taskStackVariants = {
     }
 }
 
-const Filters = inject("rootStore", "managmentStore")(observer(({ rootStore, }) => {
-
+const Filters = inject()(observer(() => {
     const [filterId, setFilterId] = React.useState(0)
 
     const getTaskLabel = (t) => {
@@ -141,6 +140,7 @@ const Filters = inject("rootStore", "managmentStore")(observer(({ rootStore, }) 
         if (t === "school") return "школа"
         if (t === "club") return "дополнительные занятия"
         if (t === "homework") return "домашняя работа"
+        return null
     }
 
     return (
@@ -204,99 +204,96 @@ const Filters = inject("rootStore", "managmentStore")(observer(({ rootStore, }) 
     )
 }));
 
-const Days = inject("rootStore", "managmentStore")(observer(({ rootStore, }) => {
-
-    return (
+const Days = inject()(observer(() => (
+    <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+        sx={{
+            width: "100%",
+            height: 128,
+            pl: 2,
+            pr: 2,
+        }}
+    >
+        <IconButton>
+            <ArrowBackIosNewIcon />
+        </IconButton>
         <Stack
             direction="row"
             justifyContent="center"
             alignItems="center"
             spacing={2}
             sx={{
-                width: "100%",
-                height: 128,
-                pl: 2,
-                pr: 2,
+                position: "relative",
+                maxWidth: "calc(100% - 100px)",
+                touchAction: "pan-y",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                zIndex: 10,
             }}
         >
-            <IconButton>
-                <ArrowBackIosNewIcon />
-            </IconButton>
-            <Stack
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                spacing={2}
-                sx={{
-                    position: "relative",
-                    maxWidth: "calc(100% - 100px)",
-                    touchAction: "pan-y",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    zIndex: 10,
-                }}
-            >
-                {days.map((day, index) => (
-                    <Paper
-                        key={index.toString()}
-                        elevation={12}
-                        sx={{
-                            width: 48,
-                            minWidth: 48,
-                            height: 128,
-                            bgcolor: day.dayNumber == 25 ? "primary.dark" : "grey.800",
-                            borderRadius: 4,
-                        }}
+            {days.map((day, index) => (
+                <Paper
+                    key={index.toString()}
+                    elevation={12}
+                    sx={{
+                        width: 48,
+                        minWidth: 48,
+                        height: 128,
+                        bgcolor: day.dayNumber === 25 ? "primary.dark" : "grey.800",
+                        borderRadius: 4,
+                    }}
+                >
+                    <Stack
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                    // spacing={2}
                     >
-                        <Stack
-                            direction="column"
-                            justifyContent="center"
-                            alignItems="center"
-                        // spacing={2}
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
+                                fontSize: 18,
+                                color: "text.primary",
+                                mt: 0.5,
+                            }}
                         >
-                            <Typography
-                                variant="subtitle1"
-                                sx={{
-                                    fontSize: 18,
-                                    color: "text.primary",
-                                    mt: 0.5,
-                                }}
-                            >
-                                {day.weekday}
-                            </Typography>
-                            <Typography
-                                variant="Roboto500XiLabel"
-                                sx={{
-                                    fontSize: 24,
-                                    pt: 3,
-                                    pb: 0,
-                                }}
-                            >
-                                {day.dayNumber}
-                            </Typography>
-                            <Typography
-                                variant="subtitle1"
-                                sx={{
-                                    fontSize: 20,
-                                    p: 0,
-                                    mt: -2,
-                                }}
-                            >
-                                {day.month}
-                            </Typography>
-                        </Stack>
-                    </Paper>
-                ))}
-            </Stack>
-            <IconButton>
-                <ArrowForwardIosIcon />
-            </IconButton>
-        </Stack >
-    )
-}));
+                            {day.weekday}
+                        </Typography>
+                        <Typography
+                            variant="Roboto500XiLabel"
+                            sx={{
+                                fontSize: 24,
+                                pt: 3,
+                                pb: 0,
+                            }}
+                        >
+                            {day.dayNumber}
+                        </Typography>
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
+                                fontSize: 20,
+                                p: 0,
+                                mt: -2,
+                            }}
+                        >
+                            {day.month}
+                        </Typography>
+                    </Stack>
+                </Paper>
+            ))}
+        </Stack>
+        <IconButton>
+            <ArrowForwardIosIcon />
+        </IconButton>
+    </Stack >
+)));
 
 
-const Task = inject("rootStore", "managmentStore")(observer(({ rootStore, managmentStore, task, nextTask }) => {
+const Task = inject()(observer(({ task, nextTask }) => {
     // console.log(task.startTime)
     // console.log(task.endTime)
     const dateStart = moment(task.startTime)
@@ -305,16 +302,16 @@ const Task = inject("rootStore", "managmentStore")(observer(({ rootStore, managm
     const dateEnd = moment(task.endTime)
 
     const gM = (m) => {
-        if (m < 10) return "0" + m
+        if (m < 10) return `0${m}`
         return m
     }
 
     const getHourEndStr = (hours) => {
-        let h = hours % 100
-        if (Math.floor(h / 10) == 1) return "ов"
-        else if (h % 10 == 1) return ""
-        else if (h % 10 > 1 && h % 10 < 5) return "а"
-        else return "ов"
+        const h = hours % 100
+        if (Math.floor(h / 10) === 1) return "ов"
+        if (h % 10 === 1) return ""
+        if (h % 10 > 1 && h % 10 < 5) return "а"
+        return "ов"
     }
 
     const getTaskColor = (t) => {
@@ -322,6 +319,7 @@ const Task = inject("rootStore", "managmentStore")(observer(({ rootStore, managm
         if (t === "school") return "#cddc39"
         if (t === "club") return "#2196f3"
         if (t === "homework") return "#e91e63"
+        return null
     }
 
     const getTaskLabel = (t) => {
@@ -329,11 +327,12 @@ const Task = inject("rootStore", "managmentStore")(observer(({ rootStore, managm
         if (t === "school") return "школа"
         if (t === "club") return "дополнительные занятия"
         if (t === "homework") return "домашняя работа"
+        return null
     }
 
     const getBreak = () => {
-        let diff = dateStartNext.diff(dateEnd, "minutes")
-        if (diff < 60 && diff != 0) return `${diff} минут`
+        const diff = dateStartNext.diff(dateEnd, "minutes")
+        if (diff < 60 && diff !== 0) return `${diff} минут`
         if (diff % 60 === 0) return `${diff / 60} час${getHourEndStr(diff / 60)}`
         return `${Math.floor(diff / 60)} час${getHourEndStr(Math.floor(diff / 60))} ${diff % 60} минут`
         // if (hoursB == 1 && minutesB == 0) return `${hoursB} часов`
@@ -446,17 +445,10 @@ const Task = inject("rootStore", "managmentStore")(observer(({ rootStore, managm
 }));
 
 
-const TaskForDay = inject("rootStore", "managmentStore")(observer(({ rootStore, managmentStore, }) => {
-    const theme = useTheme();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+const TaskForDay = inject()(observer(() => {
+    const { enqueueSnackbar } = useSnackbar();
 
     const [menu, setMenu] = React.useState(null)
-
-    const getAnimate = () => {
-        if (menu === "day") return "openDays"
-        if (menu === "filter") return "openFilters"
-        return "closed"
-    }
 
     return (
         <>
@@ -493,7 +485,7 @@ const TaskForDay = inject("rootStore", "managmentStore")(observer(({ rootStore, 
                                 variant: "info",
                             })
                             if (menu === "day") return setMenu(null)
-                            setMenu("day")
+                            return setMenu("day")
                         }}
                     >
                         <CalendarTodayIcon />
@@ -514,7 +506,7 @@ const TaskForDay = inject("rootStore", "managmentStore")(observer(({ rootStore, 
                                 variant: "info",
                             })
                             if (menu === "filter") return setMenu(null)
-                            setMenu("filter")
+                            return setMenu("filter")
                         }}
                     >
                         <FilterListIcon />
