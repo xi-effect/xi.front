@@ -1,11 +1,7 @@
-import React, { useState } from "react";
-import { styled } from "@mui/material/styles";
-import { Fade, Input, FormControl, Select, MenuItem, InputLabel, IconButton, Grid, useTheme, Tooltip } from "@mui/material";
-
-
-import clsx from "clsx";
+/* eslint-disable no-shadow */
+import React from "react";
+import { Fade, Input, FormControl, Select, MenuItem, InputLabel, IconButton, Grid, Tooltip } from "@mui/material";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import QueueIcon from "@mui/icons-material/Queue";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import PreviewIcon from "@mui/icons-material/Preview";
@@ -209,12 +205,6 @@ const languages = [
 const Code = inject("managmentStore")(observer(({ managmentStore, index }) => {
     // Simulated props for the purpose of the example
     const values = managmentStore.pageCreation.components[index]
-    // Simulated props for the purpose of the example
-    const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: "black", color: "white" };
-
-    // console.log("props", props)
-
-
     const [hover, setHover] = React.useState(false)
     const [edit, setEdit] = React.useState(false)
 

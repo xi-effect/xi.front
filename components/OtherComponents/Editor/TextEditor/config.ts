@@ -1,21 +1,22 @@
+/* eslint-disable import/prefer-default-export */
 export enum BlockType {
     /* Заголовки */
-    h1 = 'header-one',
-    h2 = 'header-two',
-    h3 = 'header-three',
-    h4 = 'header-four',
-    h5 = 'header-five',
-    h6 = 'header-six',
+    H1 = 'header-one',
+    H2 = 'header-two',
+    H3 = 'header-three',
+    H4 = 'header-four',
+    H5 = 'header-five',
+    H6 = 'header-six',
     /* Цитата */
-    blockquote = 'blockquote',
+    Blockquote = 'blockquote',
     /* Блок с кодом */
-    code = 'code-block',
+    Code = 'code-block',
     /* Список */
-    list = 'unordered-list-item',
+    List = 'unordered-list-item',
     /* Нумерованный список */
-    orderList = 'ordered-list-item',
+    OrderList = 'ordered-list-item',
     /* Сноска */
-    cite = 'cite',
+    Cite = 'cite',
     /* Простой текст */
-    default = 'unstyled',
+    Default = 'unstyled',
   }

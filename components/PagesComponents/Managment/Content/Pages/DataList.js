@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
 import * as React from "react";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
@@ -17,10 +19,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { Stack } from "@mui/material"
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { inject, observer } from "mobx-react"
 import EditIcon from "@mui/icons-material/Edit";
@@ -263,7 +262,7 @@ const DataList = inject("rootStore", "managmentStore")(observer(({ rootStore, ma
     const deletePages = () => {
         console.log("selected", selected)
         const newRows = rows.filter((el, index) => !(selected.includes(index)))
-        selected.forEach((item, index) => {
+        selected.forEach((item) => {
             rootStore.fetchDataScr(`${rootStore.url}/wip/pages/${rows[item].id}/`, "DELETE").then(
                 (data) => {
                     console.log("data", data)
@@ -298,7 +297,7 @@ const DataList = inject("rootStore", "managmentStore")(observer(({ rootStore, ma
                             У вас нет ни одной Страницы
                         </Typography>
                     </Stack>}
-                    {rows.length != 0 && <Table
+                    {rows.length !== 0 && <Table
                         sx={{ minWidth: 750 }}
                         aria-labelledby="tableTitle"
                         size="medium"
@@ -365,7 +364,7 @@ const DataList = inject("rootStore", "managmentStore")(observer(({ rootStore, ma
                         </TableBody>
                     </Table>}
                 </TableContainer>
-                {rows.length != 0 && <TablePagination
+                {rows.length !== 0 && <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
                     count={rows.length}

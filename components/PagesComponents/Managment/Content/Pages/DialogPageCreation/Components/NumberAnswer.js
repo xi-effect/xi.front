@@ -1,21 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { styled } from "@mui/material/styles";
-import { Fade, Input, Divider, IconButton, Grid, useTheme, Tooltip } from "@mui/material";
-
-import clsx from "clsx";
+import { Fade, Input, IconButton, Grid, Tooltip } from "@mui/material";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import QueueIcon from "@mui/icons-material/Queue";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import TuneIcon from "@mui/icons-material/Tune";
-import ZoomInIcon from "@mui/icons-material/ZoomIn";
-import ZoomOutIcon from "@mui/icons-material/ZoomOut";
-import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
-import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
-import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
-import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
-import FormatBoldIcon from "@mui/icons-material/FormatBold";
-import FormatItalicIcon from "@mui/icons-material/FormatItalic";
-import FormatUnderlinedIcon from "@mui/icons-material/FormatUnderlined";
 import { inject, observer } from "mobx-react"
 
 const PREFIX = "Header";
@@ -38,9 +25,6 @@ const classes = {
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled("div")((
-    {
-        theme
-    }
 ) => ({
     [`& .${classes.gridButtons}`]: {
         marginLeft: "auto",
@@ -123,10 +107,8 @@ const Header = inject("managmentStore")(observer(({ managmentStore, index }) => 
     // Simulated props for the purpose of the example
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
-    const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: "black", color: "white" };
 
     // console.log("props", props)
-    const theme = useTheme();
 
     console.log("textAlign", values.textAlign)
 

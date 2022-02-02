@@ -1,54 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import clsx from "clsx";
-import { ToggleButton, Accordion, Drawer, AccordionDetails, AccordionSummary, Stack, ToggleButtonGroup, SpeedDial, SpeedDialIcon, SpeedDialAction, Tabs, Tab, ButtonGroup, Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from "@mui/material";
-
-
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Accordion, AccordionDetails, AccordionSummary, IconButton, Stack, SpeedDial, SpeedDialAction, Input, Button, Grid, Box, Typography, Tooltip } from "@mui/material";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { inject, observer } from "mobx-react"
-
-
-// import DnDList from "./../../../../../OtherComponents/DnDList/DnDList";
-// import ComponentsList from "./Components/ComponentsList";
 import TuneIcon from "@mui/icons-material/Tune";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import TextFieldsIcon from "@mui/icons-material/TextFields";
-import TitleIcon from "@mui/icons-material/Title";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import VerticalAlignCenterIcon from "@mui/icons-material/VerticalAlignCenter";
-import ImageIcon from "@mui/icons-material/Image";
-
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import BookIcon from "@mui/icons-material/Book";
-import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import QuizIcon from "@mui/icons-material/Quiz";
 
-const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-};
 
 const ItemList = inject("managmentStore")(observer(({ managmentStore, index }) => {
-    const theme = useTheme();
 
     const value = managmentStore.moduleCreation.points[index].pages
     return <>
         {value.length === 0 && <Typography sx={{ color: "#fff" }}> Перетащите страницу сюда </Typography>}
-        {value.length != 0 && value.map((page, pageIndex) => (
+        {value.length !== 0 && value.map((page, pageIndex) => (
             <Draggable
                 key={pageIndex.toString()}
                 draggableId={`list-${index}-${pageIndex}`}
                 index={pageIndex}>
-                {(provided, snapshot) => (
+                {(provided) => (
                     <Grid
                         sx={{
                             zIndex: 100,
@@ -114,149 +91,143 @@ const ItemList = inject("managmentStore")(observer(({ managmentStore, index }) =
     </>;
 }))
 
-const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => {
-    const theme = useTheme();
+const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => (
+    <Stack
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="center"
+        sx={{
+            width: "100%",
+            height: "calc(100vh - 64px)",
+            p: 4,
+        }}
+    >
+        {/* Выбор страниц */}
+        {/* Основная часть редактора */}
+        {managmentStore.moduleCreation.points.map((point, index) => (
+            <Accordion
+                sx={{
+                    "&.MuiPaper-root": { zIndex: 0, width: "100%", minWidth: 400 },
+                    bgcolor: "primary.dark",
 
-    console.log("pagesStepTwo", managmentStore.pageCreationList.pages)
-
-    return (
-        <Stack
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="center"
-            sx={{
-                width: "100%",
-                height: "calc(100vh - 64px)",
-                p: 4,
-            }}
-        >
-            {/* Выбор страниц */}
-            {/* Основная часть редактора */}
-            {managmentStore.moduleCreation.points.map((point, index) => (
-                <Accordion
-                    sx={{
-                        "&.MuiPaper-root": { zIndex: 0, width: "100%", minWidth: 400 },
-                        bgcolor: "primary.dark",
-
-                    }}
-                    key={index.toString()}
-                    expanded={point.openAccordion} >
-                    <AccordionSummary
-                        expandIcon={<IconButton
-                            onClick={() => managmentStore.setModuleCreationPoints(index, "openAccordion", !managmentStore.moduleCreation.points[index].openAccordion)}
-                            size="large"><ExpandMoreIcon /></IconButton>}
-                    >
-                        <Grid sx={{ width: "calc(100% - 88px)", }}>
-                            <Input
-                                sx={{
-                                    width: "100%",
-                                    color: "text.main",
-                                }}
-                                type="text"
-                                disableUnderline
-                                multiline
-                                fullWidth
-                                value={point.label}
-                                onChange={(event) => managmentStore.setModuleCreationPoints(index, "label", event.target.value)}
-                            />
-                        </Grid>
-                        <SpeedDial
-                            ariaLabel="SpeedDial tooltip example"
-                            sx={{
-                                height: 36,
-                                width: 36,
-                                mt: 0.5,
-                            }}
-                            icon={<TuneIcon />}
-                            onClose={() => managmentStore.setModuleCreationPoints(index, "openSpeedDial", false)}
-                            onOpen={() => managmentStore.setModuleCreationPoints(index, "openSpeedDial", true)}
-                            open={point.openSpeedDial}
-                            direction="left"
-                        >
-                            <SpeedDialAction
-                                tooltipPlacement="bottom"
-                                icon={<DeleteForeverIcon />}
-                                tooltipTitle="Удалить точку"
-                                onClick={() => managmentStore.deletePoint(index)}
-                            />
-                            <SpeedDialAction
-                                tooltipPlacement="bottom"
-                                icon={<ArrowCircleDownIcon />}
-                                tooltipTitle="Переместить точку ниже"
-                                onClick={() => managmentStore.setPointDown(index)}
-                            />
-                            <SpeedDialAction
-                                tooltipPlacement="bottom"
-                                icon={<ArrowCircleUpIcon />}
-                                tooltipTitle="Переместить точку выше"
-                                onClick={() => managmentStore.setPointUp(index)}
-                            />
-
-                        </SpeedDial>
-                        <Tooltip title={point.type === "theory" ? "Теоритическая точка" : "Практическая точка"}>
-                            <IconButton onClick={() => {
-
-                                if (point.type === "theory") {
-                                    return managmentStore.setModuleCreationPoints(index, "type", "practice")
-                                }
-                                if (point.type === "practice") {
-                                    return managmentStore.setModuleCreationPoints(index, "type", "theory")
-                                }
-                            }} sx={{ ml: 3 }}>
-                                {point.type === "theory" && <LibraryBooksIcon />}
-                                {point.type === "practice" && <QuizIcon />}
-                            </IconButton>
-                        </Tooltip>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Droppable droppableId={`list-${index}`}>
-                            {(provided, snapshot) => (
-                                <Grid
-                                        ref={provided.innerRef}
-                                        container
-                                        direction="column"
-                                        justifyContent="flex-start"
-                                        alignItems="center"
-                                        sx={{
-                                            minHeight: 64,
-                                            zIndex: 100,
-                                        }}
-                                    >
-                                        <ItemList index={index} />
-                                        {provided.placeholder}
-
-                                    </Grid>
-                            )}
-                        </Droppable>
-                    </AccordionDetails>
-                </Accordion>
-            ))}
-            {managmentStore.moduleCreation.points.length === 0 && <>
-                <Box
-                    sx={{
-                        mt: 8,
-                        width: 256,
-                        height: 256,
-                    }}
+                }}
+                key={index.toString()}
+                expanded={point.openAccordion} >
+                <AccordionSummary
+                    expandIcon={<IconButton
+                        onClick={() => managmentStore.setModuleCreationPoints(index, "openAccordion", !managmentStore.moduleCreation.points[index].openAccordion)}
+                        size="large"><ExpandMoreIcon /></IconButton>}
                 >
-                    <Image
-                        alt="alt"
-                        src="/app/Teacher.svg"
-                        quality={100}
-                        width={256}
-                        height={256}
-                    />
-                </Box>
-                <Typography>
-                    Здесь пусто, добавьте точку, чтобы начать работать
-                </Typography>
-            </>}
-            <Button sx={{ mt: 6 }} variant="contained" onClick={() => managmentStore.pushNewPoint()}>
-                Добавить точку
-            </Button>
-        </Stack >
-    );
-}))
+                    <Grid sx={{ width: "calc(100% - 88px)", }}>
+                        <Input
+                            sx={{
+                                width: "100%",
+                                color: "text.main",
+                            }}
+                            type="text"
+                            disableUnderline
+                            multiline
+                            fullWidth
+                            value={point.label}
+                            onChange={(event) => managmentStore.setModuleCreationPoints(index, "label", event.target.value)}
+                        />
+                    </Grid>
+                    <SpeedDial
+                        ariaLabel="SpeedDial tooltip example"
+                        sx={{
+                            height: 36,
+                            width: 36,
+                            mt: 0.5,
+                        }}
+                        icon={<TuneIcon />}
+                        onClose={() => managmentStore.setModuleCreationPoints(index, "openSpeedDial", false)}
+                        onOpen={() => managmentStore.setModuleCreationPoints(index, "openSpeedDial", true)}
+                        open={point.openSpeedDial}
+                        direction="left"
+                    >
+                        <SpeedDialAction
+                            tooltipPlacement="bottom"
+                            icon={<DeleteForeverIcon />}
+                            tooltipTitle="Удалить точку"
+                            onClick={() => managmentStore.deletePoint(index)}
+                        />
+                        <SpeedDialAction
+                            tooltipPlacement="bottom"
+                            icon={<ArrowCircleDownIcon />}
+                            tooltipTitle="Переместить точку ниже"
+                            onClick={() => managmentStore.setPointDown(index)}
+                        />
+                        <SpeedDialAction
+                            tooltipPlacement="bottom"
+                            icon={<ArrowCircleUpIcon />}
+                            tooltipTitle="Переместить точку выше"
+                            onClick={() => managmentStore.setPointUp(index)}
+                        />
+
+                    </SpeedDial>
+                    <Tooltip title={point.type === "theory" ? "Теоритическая точка" : "Практическая точка"}>
+                        <IconButton onClick={() => {
+                            if (point.type === "theory") {
+                                return managmentStore.setModuleCreationPoints(index, "type", "practice")
+                            }
+                            if (point.type === "practice") {
+                                return managmentStore.setModuleCreationPoints(index, "type", "theory")
+                            }
+                            return null
+                        }} sx={{ ml: 3 }}>
+                            {point.type === "theory" && <LibraryBooksIcon />}
+                            {point.type === "practice" && <QuizIcon />}
+                        </IconButton>
+                    </Tooltip>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Droppable droppableId={`list-${index}`}>
+                        {(provided) => (
+                            <Grid
+                                ref={provided.innerRef}
+                                container
+                                direction="column"
+                                justifyContent="flex-start"
+                                alignItems="center"
+                                sx={{
+                                    minHeight: 64,
+                                    zIndex: 100,
+                                }}
+                            >
+                                <ItemList index={index} />
+                                {provided.placeholder}
+
+                            </Grid>
+                        )}
+                    </Droppable>
+                </AccordionDetails>
+            </Accordion>
+        ))}
+        {managmentStore.moduleCreation.points.length === 0 && <>
+            <Box
+                sx={{
+                    mt: 8,
+                    width: 256,
+                    height: 256,
+                }}
+            >
+                <Image
+                    alt="alt"
+                    src="/app/Teacher.svg"
+                    quality={100}
+                    width={256}
+                    height={256}
+                />
+            </Box>
+            <Typography>
+                Здесь пусто, добавьте точку, чтобы начать работать
+            </Typography>
+        </>}
+        <Button sx={{ mt: 6 }} variant="contained" onClick={() => managmentStore.pushNewPoint()}>
+            Добавить точку
+        </Button>
+    </Stack >
+)))
 
 export default StepTwo
 

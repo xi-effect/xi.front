@@ -1,24 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { styled } from "@mui/material/styles";
-import { SpeedDial, SpeedDialIcon, SpeedDialAction, Fade, Alert, Input, Divider, IconButton, Grid, useTheme, Tooltip, InputAdornment, Typography } from "@mui/material";
-
-
+import { Fade, Alert, Input, IconButton, Grid, Tooltip, InputAdornment } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import InfoIcon from "@mui/icons-material/Info";
 import WarningIcon from "@mui/icons-material/Warning";
 import ErrorIcon from "@mui/icons-material/Error";
-
-import clsx from "clsx";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import QueueIcon from "@mui/icons-material/Queue";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import TuneIcon from "@mui/icons-material/Tune";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ZoomOutIcon from "@mui/icons-material/ZoomOut";
-import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
-import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
-import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
-import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 import FormatBoldIcon from "@mui/icons-material/FormatBold";
 import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import FormatUnderlinedIcon from "@mui/icons-material/FormatUnderlined";
@@ -46,11 +36,7 @@ const classes = {
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled("div")((
-    {
-        theme
-    }
-) => ({
+const Root = styled("div")(() => ({
     [`& .${classes.gridButtons}`]: {
         marginLeft: "auto",
     },
@@ -137,10 +123,6 @@ const AlertComp = inject("managmentStore")(observer(({ managmentStore, index }) 
     // Simulated props for the purpose of the example
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
-    const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: "black", color: "white" };
-
-    // console.log("props", props)
-    const theme = useTheme();
 
     const handleAlertType = (type) => {
         // console.log(index, "fontSize", newFormats)
@@ -154,12 +136,12 @@ const AlertComp = inject("managmentStore")(observer(({ managmentStore, index }) 
 
     const handleFontSizeUp = () => {
         // console.log(index, "fontSize", newFormats)
-        if (values.fontSize != 48) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
+        if (values.fontSize !== 48) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
     };
 
     const handleFontSizeDown = () => {
         // console.log(index, "fontSize", newFormats)
-        if (values.fontSize != 12) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
+        if (values.fontSize !== 12) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
     };
 
     // const handleTextAlign = (align) => {
@@ -205,6 +187,7 @@ const AlertComp = inject("managmentStore")(observer(({ managmentStore, index }) 
         if (align === "info") return "Информация"
         if (align === "warning") return "Предупреждение"
         if (align === "error") return "Ошибка"
+        return null
     }
 
     const alertTypeIconSelect = (type) => {
@@ -212,6 +195,7 @@ const AlertComp = inject("managmentStore")(observer(({ managmentStore, index }) 
         if (type === "info") return <InfoIcon />
         if (type === "warning") return <WarningIcon />
         if (type === "error") return <ErrorIcon />
+        return null
     }
 
     const [hover, setHover] = React.useState(false)

@@ -1,23 +1,12 @@
+/* eslint-disable no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { Slider, Input, AppBar, Stack, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from "@mui/material";
-
-
+import React from "react";
+import { Slider, Stack, Button, Typography, } from "@mui/material";
 import { inject, observer } from "mobx-react"
-
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import SaveIcon from "@mui/icons-material/Save";
-import CloseIcon from "@mui/icons-material/Close";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AvatarEditor from "react-avatar-editor"
 
 
 const StepThree = inject("rootStore", "managmentStore", "contentStore")(observer(({ rootStore, managmentStore, contentStore }) => {
-    const theme = useTheme();
-
-
     const [value, setValue] = React.useState(10);
 
     React.useEffect(() => {
@@ -42,7 +31,7 @@ const StepThree = inject("rootStore", "managmentStore", "contentStore")(observer
         }
         if (managmentStore.moduleCreation.authorId != null && managmentStore.moduleCreation.imageId != null) {
             rootStore.fetchDataScr(`${rootStore.url}/wip/images/${managmentStore.moduleCreation.imageId}/`, "PUT", img).then(
-                (data) => {
+                () => {
                     console.log("success")
                 })
         }

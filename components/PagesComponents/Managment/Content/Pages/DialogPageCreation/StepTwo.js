@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
-import Link from "next/link";
-import clsx from "clsx";
-import { ToggleButton, ToggleButtonGroup, useMediaQuery, SpeedDial, SpeedDialIcon, SpeedDialAction, Tabs, Tab, ButtonGroup, Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from "@mui/material";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Grid, Typography } from "@mui/material";
+import { Droppable } from "react-beautiful-dnd";
 
 import { inject, observer } from "mobx-react"
-
-
-import DnDList from "../../../../../OtherComponents/DnDList/DnDList";
 import ComponentsList from "./Components/ComponentsList";
 
 

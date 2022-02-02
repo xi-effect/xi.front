@@ -1,3 +1,7 @@
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 import * as React from "react";
 import { Editor } from "draft-js";
 import cn from "classnames";

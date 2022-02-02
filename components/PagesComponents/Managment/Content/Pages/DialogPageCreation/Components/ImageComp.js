@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
@@ -5,130 +6,12 @@ import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import ClearIcon from "@mui/icons-material/Clear";
 import { inject, observer } from "mobx-react"
 import Image from "next/image"
-import { Dialog, DialogContent, Stack, Input, Slider, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from "@mui/material";
+import { Dialog, DialogContent, Stack, Slider, DialogActions, Divider, IconButton, Button, Grid, Typography, useTheme, Tooltip } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
 
-import clsx from "clsx";
-import QueueIcon from "@mui/icons-material/Queue";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useDropzone } from "react-dropzone";
-
-const DialogImgSelect = inject("managmentStore")(observer(({ managmentStore, saveNewAvatar, files, selectFiles, setEditorRef, uploadImg, openDialog, setOpenDialog }) => {
-    // Simulated props for the purpose of the example
-    const theme = useTheme();
-
-
-
-    const [value, setValue] = React.useState(10);
-
-    const handleChangeValue = (event, newValue) => {
-        setValue(newValue);
-    };
-
-    return (
-        <Dialog
-            open={openDialog}
-            onClose={() => setOpenDialog(false)}
-            scroll="paper"
-            aria-labelledby="scroll-dialog-title"
-            aria-describedby="scroll-dialog-description"
-        >
-            {/* <DialogTitle className={classes.dialogTitle} id="scroll-dialog-title"> */}
-            <Grid
-                container
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-            >
-                <Grid>
-                    <Typography> Загрузка Изображения </Typography>
-                </Grid>
-                <Grid>
-                    <Tooltip title="Закрыть">
-                        <IconButton onClick={() => setOpenDialog(false)} size="large">
-                            <CloseIcon />
-                        </IconButton>
-                    </Tooltip>
-                </Grid>
-
-            </Grid>
-            {/* </DialogTitle> */}
-            <DialogContent dividers>
-                <Grid
-                    container
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                >
-
-                    <Grid
-                        container
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                    >
-                        <AvatarEditor
-                            onMouseUp={saveNewAvatar}
-                            ref={setEditorRef}
-                            image={files?.source == undefined ? "/illustrations/defaultModuleImg.png" : files.source}
-                            width={320}
-                            height={180}
-                            border={25}
-                            borderRadius={0}
-                            color={[114, 137, 218, 0.6]} // RGBA
-                            scale={value / 10}
-                            rotate={0}
-                        />
-                    </Grid>
-                    <Grid
-                        container
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center"
-                    >
-                        <Button
-                            onClick={() => {
-                                selectFiles({ accept: "image/*" }, ({ name, size, source, file }) => {
-                                    console.log("Files Selected", { name, size, source, file });
-                                })
-                                saveNewAvatar()
-                            }
-                            }
-                            variant="contained"
-                            color="primary"
-                        >
-                            Загрузить изображение
-                        </Button>
-                        <Typography> Изменить масштаб изображения </Typography>
-
-                    </Grid>
-                    <Grid
-                        container
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                    >
-                        <Slider
-                            value={value}
-                            min={10}
-                            max={30}
-                            onChange={handleChangeValue}
-                            onChangeCommitted={saveNewAvatar}
-                            aria-labelledby="continuous-slider"
-                        />
-                    </Grid>
-                </Grid>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={uploadImg}>
-                    Сохранить
-                </Button>
-            </DialogActions>
-        </Dialog>
-    );
-}));
-
 
 const ImageComp = inject("rootStore", "knowledgeStore", "contentStore", "managmentStore")(observer(({ rootStore, knowledgeStore, contentStore, managmentStore, index }) => {
     const values = managmentStore.pageCreation.components[index]
@@ -168,8 +51,7 @@ const ImageComp = inject("rootStore", "knowledgeStore", "contentStore", "managme
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({ onDrop, multiple: false });
 
     return (
-        <>
-            <Grid
+        <Grid
                 container
                 direction="row"
                 justifyContent="flex-start"
@@ -280,8 +162,6 @@ const ImageComp = inject("rootStore", "knowledgeStore", "contentStore", "managme
                     </Tooltip>
                 </Grid>
             </Grid>
-            {/* <DialogImgSelect saveNewAvatar={saveNewAvatar} files={files} selectFiles={selectFiles} setEditorRef={setEditorRef} uploadImg={uploadImg} openDialog={openDialog} setOpenDialog={setOpenDialog} /> */}
-        </>
     );
 }));
 

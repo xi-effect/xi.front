@@ -1,18 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { styled } from "@mui/material/styles";
-import { Fade, Input, Divider, IconButton, Grid, useTheme, Tooltip } from "@mui/material";
-
-import clsx from "clsx";
+import { Fade, Input, IconButton, Grid, Tooltip } from "@mui/material";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import QueueIcon from "@mui/icons-material/Queue";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import TuneIcon from "@mui/icons-material/Tune";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ZoomOutIcon from "@mui/icons-material/ZoomOut";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
-import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 import FormatBoldIcon from "@mui/icons-material/FormatBold";
 import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import FormatUnderlinedIcon from "@mui/icons-material/FormatUnderlined";
@@ -37,107 +32,98 @@ const classes = {
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled("div")((
-    {
-        theme
-    }
-) => ({
-    [`& .${classes.gridButtons}`]: {
-        marginLeft: "auto",
-    },
+const Root = styled("div")(() => ({
+            [`& .${classes.gridButtons}`]: {
+                marginLeft: "auto",
+            },
 
-    [`& .${classes.divider}`]: {
-        backgroundColor: props => props.palette.primary.main,
-        width: "100%",
-        height: 1,
-        margin: props => props.spacing(1, 0.5),
-    },
+            [`& .${classes.divider}`]: {
+                backgroundColor: props => props.palette.primary.main,
+                width: "100%",
+                height: 1,
+                margin: props => props.spacing(1, 0.5),
+            },
 
-    [`& .${classes.gridTextWrapper}`]: {
-        width: "calc(100% - 4px)",
-    },
+            [`& .${classes.gridTextWrapper}`]: {
+                width: "calc(100% - 4px)",
+            },
 
-    [`& .${classes.text}`]: {
-        width: "100%",
-        color: props => props.palette.primary.contrastText,
-        fontSize: props => props.fontSize,
-        fontStyle: props => props.fontStyle,
-        textAlign: props => props.textAlign,
-        fontWeight: props => props.fontWeight,
-        textDecoration: props => props.textDecoration,
-        lineHeight: "normal",
-    },
+            [`& .${classes.text}`]: {
+                width: "100%",
+                color: props => props.palette.primary.contrastText,
+                fontSize: props => props.fontSize,
+                fontStyle: props => props.fontStyle,
+                textAlign: props => props.textAlign,
+                fontWeight: props => props.fontWeight,
+                textDecoration: props => props.textDecoration,
+                lineHeight: "normal",
+            },
 
-    [`& .${classes.icon}`]: {
-        color: props => props.palette.primary.contrastText,
-    },
+            [`& .${classes.icon}`]: {
+                color: props => props.palette.primary.contrastText,
+            },
 
-    [`& .${classes.speedDial}`]: {
-        height: 36,
-        width: 36,
-        marginTop: 4,
-        marginLeft: 16,
-        // position: "absolute",
-        // top: theme => theme.spacing(10),
-        // left: theme => theme.spacing(2),
-    },
+            [`& .${classes.speedDial}`]: {
+                height: 36,
+                width: 36,
+                marginTop: 4,
+                marginLeft: 16,
+                // position: "absolute",
+                // top: theme => theme.spacing(10),
+                // left: theme => theme.spacing(2),
+            },
 
-    [`& .${classes.speedDialActionFirst}`]: {
-        marginLeft: 16,
-        color: props => props.palette.primary.main,
-    },
+            [`& .${classes.speedDialActionFirst}`]: {
+                marginLeft: 16,
+                color: props => props.palette.primary.main,
+            },
 
-    [`& .${classes.speedDialAction}`]: {
-        marginLeft: 16,
-        color: props => props.palette.primary.main,
-    },
+            [`& .${classes.speedDialAction}`]: {
+                marginLeft: 16,
+                color: props => props.palette.primary.main,
+            },
 
-    [`& .${classes.disableIcon}`]: {
-        color: props => props.palette.error.main,
-    },
+            [`& .${classes.disableIcon}`]: {
+                color: props => props.palette.error.main,
+            },
 
-    [`& .${classes.activeIcon}`]: {
-        color: props => props.palette.primary.contrastText,
-        backgroundColor: props => props.palette.primary.main,
-        "&:hover": {
-            color: props => props.palette.primary.contrastText,
-            backgroundColor: props => props.palette.primary.main,
-        }
-    },
+            [`& .${classes.activeIcon}`]: {
+                color: props => props.palette.primary.contrastText,
+                backgroundColor: props => props.palette.primary.main,
+                "&:hover": {
+                    color: props => props.palette.primary.contrastText,
+                    backgroundColor: props => props.palette.primary.main,
+                }
+            },
 
-    [`& .${classes.iconSpeedDial}`]: {
-        height: 24,
-        width: 24,
-    },
+            [`& .${classes.iconSpeedDial}`]: {
+                height: 24,
+                width: 24,
+            },
 
-    [`& .${classes.IconButtonSpeedDial}`]: {
-        color: props => props.palette.primary.contrastText,
-    },
+            [`& .${classes.IconButtonSpeedDial}`]: {
+                color: props => props.palette.primary.contrastText,
+            },
 
-    [`& .${classes.leftIconButton}`]: {
-        marginLeft: "auto"
-    }
-}));
+            [`& .${classes.leftIconButton}`]: {
+                marginLeft: "auto"
+            }
+        }));
 
 const Header = inject("managmentStore")(observer(({ managmentStore, index }) => {
     // Simulated props for the purpose of the example
     const values = managmentStore.pageCreation.components[index]
-    // Simulated props for the purpose of the example
-    const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: "black", color: "white" };
-
-    // console.log("props", props)
-    const theme = useTheme();
 
     console.log("textAlign", values.textAlign)
 
-    const handleFontSizeUp = (event, newFormats) => {
+    const handleFontSizeUp = () => {
         // console.log(index, "fontSize", newFormats)
-        if (values.fontSize != 64) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
+        if (values.fontSize !== 64) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
     };
 
-    const handleFontSizeDown = (event, newFormats) => {
+    const handleFontSizeDown = () => {
         // console.log(index, "fontSize", newFormats)
-        if (values.fontSize != 24) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
+        if (values.fontSize !== 24) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
     };
 
     const handleTextAlign = (align) => {
@@ -164,26 +150,19 @@ const Header = inject("managmentStore")(observer(({ managmentStore, index }) => 
         return managmentStore.setPageCreationComponents(index, "textDecoration", "none");
     };
 
-    const [open, setOpen] = React.useState(false);
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
     const textAlignIconSelect = (align) => {
         if (align === "left") return <FormatAlignLeftIcon />
         if (align === "center") return <FormatAlignCenterIcon />
         if (align === "right") return <FormatAlignRightIcon />
         // if (align === "justify") return <FormatAlignJustifyIcon />
+        return null
     }
 
     const textAlignLabelSelect = (align) => {
         if (align === "left") return "по левому краю"
         if (align === "center") return "по правому краю"
         if (align === "right") return "по центру"
+        return null
         // if (align === "justify") return "по ширине"
     }
 

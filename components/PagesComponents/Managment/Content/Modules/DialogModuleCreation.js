@@ -1,12 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { styled } from "@mui/material/styles";
-import Link from "next/link";
-import clsx from "clsx";
-import { Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from "@mui/material";
-
-
+import React from "react";
+import { AppBar, Toolbar, Dialog, DialogContent, IconButton, Button, Grid, Typography, useTheme, Tooltip } from "@mui/material";
 import { inject, observer } from "mobx-react"
-
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import SaveIcon from "@mui/icons-material/Save";
@@ -120,9 +114,9 @@ const DialogModuleCreation = inject("managmentStore")(observer(({ managmentStore
                     justifyContent="center"
                     alignItems="flex-start"
                 >
-                    {activeStep == 0 && <StepOne />}
-                    {activeStep == 1 && <StepTwo />}
-                    {activeStep == 2 && <StepThree />}
+                    {activeStep === 0 && <StepOne />}
+                    {activeStep === 1 && <StepTwo />}
+                    {activeStep === 2 && <StepThree />}
 
                 </Grid>
             </DialogContent>
