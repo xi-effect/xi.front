@@ -9,7 +9,7 @@ import React from "react";
 import { useRouter } from "next/router"
 
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
-import ContentEditor from "../../../../components/OtherComponents/Content/ContentEditor";
+// import ContentEditor from "../../../../components/OtherComponents/Content/ContentEditor";
 
 
 const PagePage = inject("rootStore", "settingsStore", "profileStore")(observer(({ rootStore, settingsStore, profileStore }) => {
@@ -33,7 +33,7 @@ const PagePage = inject("rootStore", "settingsStore", "profileStore")(observer((
                 <meta name="robots" content="noindex" />
             </Head>
             <NavigationAll>
-                <ContentEditor />
+                {/* <ContentEditor /> */}
             </NavigationAll>
         </>
     );
