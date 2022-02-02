@@ -51,7 +51,7 @@ const DialogChangePassword = inject("rootStore", "settingsStore")(observer(({ ro
                     if (data != undefined) {
                         if (data.a == "Success") { //userId //"Success"
                             setOpenPasswordChangeDialog(false)
-                        } else { //"User doesn"t exist"
+                        } else {
                             setPasswordError(true)
                         }
                     } else {

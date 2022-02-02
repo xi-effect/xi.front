@@ -41,9 +41,9 @@ const DialogChangeEmail = inject("rootStore", "settingsStore")(observer(({ rootS
                     if (data != undefined) {
                         if (data.a == "Success") { //userId //"Success"
                             setOpenEmailChangeDialog(false)
-                        } else if (data.a == "Email in use") { //"User doesn"t exist"
+                        } else if (data.a == "Email in use") {
                             setEmailError(true)
-                        } else if (data.a == "Wrong password") { //"User doesn"t exist"
+                        } else if (data.a == "Wrong password") {
                             setPasswordError(true)
                         }
                     }

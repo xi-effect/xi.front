@@ -242,7 +242,7 @@ const Login = inject(
                       <FormControl
                         error={
                           errors?.email?.type === "required" ||
-                          authorizationStore.login.error === "User doesn"t exist"
+                          authorizationStore.login.error === "User doesn't exist"
                         }
                         fullWidth
                         sx={{
@@ -281,7 +281,7 @@ const Login = inject(
                     spacing={1}
                     sx={{ width: "100%", minHeight: 16, mb: 1.2 }}
                   >
-                    {authorizationStore.login.error === "User doesn"t exist" && (
+                    {authorizationStore.login.error === "User doesn't exist" && (
                       <Typography
                         variant="subtitle1"
                         sx={{ mt: 1, ml: 1 }}
