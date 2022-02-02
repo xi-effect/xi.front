@@ -26,7 +26,7 @@ const clientSideEmotionCache = createEmotionCache();
 import "../styles/globals.css"
 
 import PlausibleProvider from "next-plausible"
-import { TextEditorProvider } from "../components/OtherComponents/Editor/context.tsx";
+import { TextEditorProvider } from "../components/OtherComponents/Editor/TextEditor/context.tsx";
 
 import NProgress from "nprogress"; //nprogress module
 import "nprogress/nprogress.css"; //styles of nprogress
