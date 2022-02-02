@@ -1,5 +1,5 @@
-import { EditorState } from 'draft-js';
-import * as React from 'react';
+import { EditorState } from "draft-js";
+import * as React from "react";
 
 export type EditorApi = {
   state: EditorState;
