@@ -72,7 +72,7 @@ const DialogInvite = inject("rootStore")(
           maxWidth="md"
           sx={
             {
-              // height: '100%'
+              // height: "100%"
             }
           }
         >
@@ -161,7 +161,7 @@ const DialogInvite = inject("rootStore")(
                           // height: 30,
                           // width: 30,
                           // borderRadius: 2,
-                          // border: '4px solid'
+                          // border: "4px solid"
                         }
                       }
                     />
@@ -210,7 +210,7 @@ const DialogInvite = inject("rootStore")(
                             // height: 30,
                             // width: 30,
                             // borderRadius: 2,
-                            // border: '4px solid'
+                            // border: "4px solid"
                           }
                         }
                       />
@@ -250,7 +250,7 @@ const DialogInvite = inject("rootStore")(
                             // height: 30,
                             // width: 30,
                             // borderRadius: 2,
-                            // border: '4px solid'
+                            // border: "4px solid"
                           }
                         }
                       />

@@ -1,17 +1,17 @@
-import React from 'react';
-import { useRouter } from 'next/router'
+import React from "react";
+import { useRouter } from "next/router"
 import Image from "next/image";
 import { motion } from "framer-motion"
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography } from "@mui/material";
 
-import { whys } from '../../../texts/landing/WhyLabel';
+import { whys } from "../../../texts/landing/WhyLabel";
 
 const WhyLabel = () => {
     const theme = useTheme();
 
     const router = useRouter()
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
 
     return (
@@ -24,9 +24,9 @@ const WhyLabel = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 2 }}
             sx={{
-                mt: mobile ? '90px' : '180px',
-                width: '100%',
-                position: 'relative',
+                mt: mobile ? "90px" : "180px",
+                width: "100%",
+                position: "relative",
             }}
         >
             <Typography
@@ -34,12 +34,12 @@ const WhyLabel = () => {
                 textAlign="center"
                 variant="IBMPlexSans700WhyLabel"
                 sx={{
-                    cursor: 'default',
+                    cursor: "default",
                     fontSize: {
-                        xs: '28px',
-                        sm: '30px',
-                        md: '36px',
-                        lg: '40px',
+                        xs: "28px",
+                        sm: "30px",
+                        md: "36px",
+                        lg: "40px",
                     },
                 }}
             >
@@ -51,8 +51,8 @@ const WhyLabel = () => {
                 justifyContent="center"
                 alignItems="center"
                 sx={{
-                    mt: mobile ? '30px' : '80px',
-                    width: '100%',
+                    mt: mobile ? "30px" : "80px",
+                    width: "100%",
                     zIndex: 10,
                 }}
             >
@@ -68,9 +68,9 @@ const WhyLabel = () => {
                             mr: 2,
                             mt: 2,
                             mb: 2,
-                            maxWidth: '400px',
-                            width: '100',
-                            height: '500px',
+                            maxWidth: "400px",
+                            width: "100",
+                            height: "500px",
                             bgcolor: "grey.400",
                             borderRadius: "20px",
                         }}
@@ -87,19 +87,19 @@ const WhyLabel = () => {
                             <Grid item>
                                 <Typography
                                     component={"h4"}
-                                    variant='OpenSans600WhyLabel'
+                                    variant="OpenSans600WhyLabel"
                                     sx={{
-                                        cursor: 'default',
-                                        color: '#272731',
-                                        pt: '40px',
-                                        pl: '32px',
-                                        pr: '32px',
-                                        textAlign: 'center',
+                                        cursor: "default",
+                                        color: "#272731",
+                                        pt: "40px",
+                                        pl: "32px",
+                                        pr: "32px",
+                                        textAlign: "center",
                                         fontSize: {
-                                            xs: '20px',
-                                            sm: '20px',
-                                            md: '20px',
-                                            lg: '20px',
+                                            xs: "20px",
+                                            sm: "20px",
+                                            md: "20px",
+                                            lg: "20px",
                                         },
                                     }}
                                 >
@@ -109,18 +109,18 @@ const WhyLabel = () => {
                             <Grid item>
                                 <Typography
                                     component={"p"}
-                                    variant='OpenSans400WhyLabel'
+                                    variant="OpenSans400WhyLabel"
                                     sx={{
-                                        cursor: 'default',
-                                        color: '#555569',
-                                        pt: '20px',
-                                        pl: '32px',
-                                        pr: '32px',
+                                        cursor: "default",
+                                        color: "#555569",
+                                        pt: "20px",
+                                        pl: "32px",
+                                        pr: "32px",
                                         fontSize: {
-                                            xs: '18px',
-                                            sm: '18px',
-                                            md: '18px',
-                                            lg: '18px',
+                                            xs: "18px",
+                                            sm: "18px",
+                                            md: "18px",
+                                            lg: "18px",
                                         },
                                     }}
                                 >
@@ -129,10 +129,10 @@ const WhyLabel = () => {
                             </Grid>
                             <Grid item
                                 sx={{
-                                    width: '312px',
-                                    height: '312px',
-                                    mt: 'auto',
-                                    mb: '60px',
+                                    width: "312px",
+                                    height: "312px",
+                                    mt: "auto",
+                                    mb: "60px",
                                 }}
                             >
                                 <Image
@@ -149,11 +149,11 @@ const WhyLabel = () => {
             </Grid >
             <Box
                 sx={{
-                    width: 'calc(100vw - 8px)',
-                    height: '333px',
-                    bgcolor: 'primary.main',
-                    position: 'absolute',
-                    bottom: '-210px',
+                    width: "calc(100vw - 8px)",
+                    height: "333px",
+                    bgcolor: "primary.main",
+                    position: "absolute",
+                    bottom: "-210px",
                     zIndex: 0,
                 }}
             >

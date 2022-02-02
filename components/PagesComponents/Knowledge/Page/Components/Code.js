@@ -1,7 +1,7 @@
-import { Grid, useTheme, Tooltip } from '@mui/material';
-import { inject, observer } from 'mobx-react'
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { Grid, useTheme, Tooltip } from "@mui/material";
+import { inject, observer } from "mobx-react"
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 const languages = [
     "oneC(1c)",
@@ -196,7 +196,7 @@ const languages = [
     "zephir",
 ]
 
-const Code = inject('rootStore')(observer(({ rootStore, value }) => {
+const Code = inject("rootStore")(observer(({ rootStore, value }) => {
 
     return (
         <Grid

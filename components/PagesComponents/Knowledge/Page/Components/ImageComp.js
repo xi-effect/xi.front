@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import { useTheme, Grid } from '@mui/material';
+import React from "react";
+import { useTheme, Grid } from "@mui/material";
 
-import { inject, observer } from 'mobx-react'
-import Image from 'next/image'
+import { inject, observer } from "mobx-react"
+import Image from "next/image"
 
-const ImageComp = inject('rootStore')(observer(({ rootStore, value }) => {
-    const props = { fontSize: value.fontSize, textAlign: value.textAlign, fontStyle: value.fontStyle, fontWeight: value.fontWeight, textDecoration: value.textDecoration, backgroundColor: 'black', color: 'white' };
+const ImageComp = inject("rootStore")(observer(({ rootStore, value }) => {
+    const props = { fontSize: value.fontSize, textAlign: value.textAlign, fontStyle: value.fontStyle, fontWeight: value.fontWeight, textDecoration: value.textDecoration, backgroundColor: "black", color: "white" };
     const theme = useTheme();
 
 
@@ -31,7 +31,7 @@ const ImageComp = inject('rootStore')(observer(({ rootStore, value }) => {
                             width={960}
                             height={540}
                             //objectFit="contain"
-                            layout='responsive'
+                            layout="responsive"
                             src={contentStore.images[`${value.authorId}-${value.imageId}`]}
                             alt="Picture of the author"
                         />

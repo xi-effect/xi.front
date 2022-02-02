@@ -1,18 +1,18 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import { Accordion, AccordionSummary, AccordionDetails, Dialog, DialogContent, Typography, Divider, IconButton, DialogActions, TextField, DialogContentText, DialogTitle, Button, useTheme, Tooltip } from '@mui/material';
+import React from "react";
+import { styled } from "@mui/material/styles";
+import { Accordion, AccordionSummary, AccordionDetails, Dialog, DialogContent, Typography, Divider, IconButton, DialogActions, TextField, DialogContentText, DialogTitle, Button, useTheme, Tooltip } from "@mui/material";
 
 
-import CloseIcon from '@mui/icons-material/Close';
-import PageviewIcon from '@mui/icons-material/Pageview';
-import ClearAllIcon from '@mui/icons-material/ClearAll';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import CloseIcon from "@mui/icons-material/Close";
+import PageviewIcon from "@mui/icons-material/Pageview";
+import ClearAllIcon from "@mui/icons-material/ClearAll";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react"
 
-const PREFIX = 'DialogReports';
+const PREFIX = "DialogReports";
 
 const classes = {
     dialog: `${PREFIX}-dialog`,
@@ -36,8 +36,8 @@ const StyledDialog = styled(Dialog)((
 ) => ({
     [`&.${classes.dialog}`]: {
         zIndex: "10 !important",
-        width: '100vw',
-        height: '100vh',
+        width: "100vw",
+        height: "100vh",
     },
 
     [`& .${classes.DialogTitle}`]: {
@@ -55,7 +55,7 @@ const StyledDialog = styled(Dialog)((
     },
 
     [`& .${classes.closeButton}`]: {
-        position: 'absolute',
+        position: "absolute",
         right: theme => theme.spacing(1),
         top: theme => theme.spacing(1),
         color: theme => theme.palette.primary.contrastText,
@@ -71,7 +71,7 @@ const StyledDialog = styled(Dialog)((
 
     [`& .${classes.heading}`]: {
         fontSize: theme => theme.typography.pxToRem(15),
-        flexBasis: '33.33%',
+        flexBasis: "33.33%",
         flexShrink: 0,
     },
 
@@ -93,7 +93,7 @@ const StyledDialog = styled(Dialog)((
     }
 }));
 
-const DialogReports = inject('store')(observer(({ packageId, openDialogReports, setOpenDialogReports, store }) => {
+const DialogReports = inject("store")(observer(({ packageId, openDialogReports, setOpenDialogReports, store }) => {
     const theme = useTheme();
 
 
@@ -128,7 +128,7 @@ const DialogReports = inject('store')(observer(({ packageId, openDialogReports, 
                 </DialogContentText>
                 {
                     aсcordion.map((item, index) => (
-                        <Accordion elevation={0} key={index} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                        <Accordion elevation={0} key={index} expanded={expanded === "panel1"} onChange={handleChange("panel1")}>
                             <AccordionSummary
                                 className={classes.AccordionSummary}
                                 expandIcon={<ExpandMoreIcon className={classes.icon} />}

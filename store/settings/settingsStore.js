@@ -1,5 +1,5 @@
-import { action, observable, computed, runInAction, makeObservable } from 'mobx'
-import Router from 'next/router'
+import { action, observable, computed, runInAction, makeObservable } from "mobx"
+import Router from "next/router"
 
 class SettingsStore {
     // `this` from rootstore passed to the constructor and we can 
@@ -21,7 +21,7 @@ class SettingsStore {
             facialHair: 0,
             bgcolor: 0,
         },
-        username: '',
+        username: "",
         darkTheme: true,
         emailConfirmed: null,
         invite: null,
@@ -48,7 +48,7 @@ class SettingsStore {
             (data) => {
                 if (data?.a) {
                     const router = Router
-                    router.push('/login')
+                    router.push("/login")
                 }
             })
     }

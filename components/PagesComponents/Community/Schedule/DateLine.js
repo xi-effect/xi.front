@@ -29,9 +29,9 @@ const DateLine = inject("knowledgeStore")(
                     justifyContent="flex-start"
                     alignItems="flex-start"
                     sx={{
-                        width: '100%',
-                        height: '100%',
-                        bgcolor: 'primary.main',
+                        width: "100%",
+                        height: "100%",
+                        bgcolor: "primary.main",
                         // borderTopLeftRadius: 16,
                         pl: "82px",
                     }}
@@ -45,8 +45,8 @@ const DateLine = inject("knowledgeStore")(
                             sx={{
                                 height: 32,
                                 width: 356,
-                                borderLeft: '1px solid',
-                                borderColor: 'text.secondary',
+                                borderLeft: "1px solid",
+                                borderColor: "text.secondary",
                             }}
                         >
                             {`пт, ${1 + index} января`}

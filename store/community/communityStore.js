@@ -1,4 +1,4 @@
-import { action, observable, computed, runInAction, makeObservable } from 'mobx'
+import { action, observable, computed, runInAction, makeObservable } from "mobx"
 
 
 class CommunityStore {
@@ -13,126 +13,126 @@ class CommunityStore {
     @observable channels = [
         {
             id: 0,
-            type: 'chat',
-            name: 'Канал 2',
+            type: "chat",
+            name: "Канал 2",
             unread: 0, //Для чатов
         },
         {
             id: 1,
-            type: 'category',
-            name: 'Категория 1',
+            type: "category",
+            name: "Категория 1",
             open: true,
             children: [
                 {
                     id: 2,
-                    type: 'room',
-                    name: 'Комната',
+                    type: "room",
+                    name: "Комната",
                 },
                 {
                     id: 4,
-                    type: 'chat',
-                    name: 'Чат',
+                    type: "chat",
+                    name: "Чат",
                 },
             ]
         },
         {
             id: 2,
-            type: 'chat',
-            name: 'Чат',
+            type: "chat",
+            name: "Чат",
         },
         {
             id: 4,
-            type: 'room',
-            name: 'Комната',
+            type: "room",
+            name: "Комната",
         },
         {
             id: 1,
-            type: 'category',
-            name: 'Категория 2',
+            type: "category",
+            name: "Категория 2",
             open: true,
             children: [
                 {
                     id: 2,
-                    type: 'room',
-                    name: 'Комната',
+                    type: "room",
+                    name: "Комната",
                 },
                 {
                     id: 4,
-                    type: 'chat',
-                    name: 'Чат',
+                    type: "chat",
+                    name: "Чат",
                 },
             ]
         },
         {
             id: 5,
-            type: 'room',
-            name: 'Комната',
+            type: "room",
+            name: "Комната",
         },
         {
             id: 2,
-            type: 'chat',
-            name: 'Чат',
+            type: "chat",
+            name: "Чат",
         },
         {
             id: 4,
-            type: 'room',
-            name: 'Комната',
+            type: "room",
+            name: "Комната",
         },
         {
             id: 1,
-            type: 'category',
-            name: 'Категория 2',
+            type: "category",
+            name: "Категория 2",
             open: true,
             children: [
                 {
                     id: 2,
-                    type: 'room',
-                    name: 'Комната',
+                    type: "room",
+                    name: "Комната",
                 },
                 {
                     id: 4,
-                    type: 'chat',
-                    name: 'Чат',
+                    type: "chat",
+                    name: "Чат",
                 },
             ]
         },
         {
             id: 5,
-            type: 'room',
-            name: 'Комната',
+            type: "room",
+            name: "Комната",
         },
         {
             id: 2,
-            type: 'chat',
-            name: 'Чат',
+            type: "chat",
+            name: "Чат",
         },
         {
             id: 4,
-            type: 'room',
-            name: 'Комната',
+            type: "room",
+            name: "Комната",
         },
         {
             id: 1,
-            type: 'category',
-            name: 'Категория 2',
+            type: "category",
+            name: "Категория 2",
             open: true,
             children: [
                 {
                     id: 2,
-                    type: 'room',
-                    name: 'Комната',
+                    type: "room",
+                    name: "Комната",
                 },
                 {
                     id: 4,
-                    type: 'chat',
-                    name: 'Чат',
+                    type: "chat",
+                    name: "Чат",
                 },
             ]
         },
         {
             id: 5,
-            type: 'room',
-            name: 'Комната',
+            type: "room",
+            name: "Комната",
         },
     ]
 

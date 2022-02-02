@@ -1,6 +1,6 @@
 import React from "react";
-import Moment from 'react-moment';
-import 'moment/locale/ru';
+import Moment from "react-moment";
+import "moment/locale/ru";
 import {
     CircularProgress,
     Skeleton,
@@ -14,14 +14,14 @@ import {
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
-Moment.globalLocale = 'ru';
+Moment.globalLocale = "ru";
 
 const GetTime = () => {
     const [time, setTime] = React.useState(Date.now());
@@ -34,7 +34,7 @@ const GetTime = () => {
     }, []);
 
     return (
-        <Moment format='ddd, D MMMM HH:mm' interval={0}>{time}</Moment>
+        <Moment format="ddd, D MMMM HH:mm" interval={0}>{time}</Moment>
     )
 }
 
@@ -49,7 +49,7 @@ const Toolbar = inject("knowledgeStore")(
                 alignItems="center"
                 // spacing={1}
                 sx={{
-                    width: '100%',
+                    width: "100%",
                     height: 64,
                     pl: 4,
                 }}
@@ -63,19 +63,19 @@ const Toolbar = inject("knowledgeStore")(
                 <Tooltip title="Скопировать занятие">
                     <IconButton
                         sx={{
-                            mr: 'aauto',
+                            mr: "aauto",
                             ml: 0,
                         }}
                     >
                         <ContentCopyIcon />
                     </IconButton>
                 </Tooltip>
-                <Tooltip title='Сегодня'>
+                <Tooltip title="Сегодня">
                     <Typography
                         variant="subtitle1"
                         sx={{
-                            ml: 'auto',
-                            color: 'text.secondary',
+                            ml: "auto",
+                            color: "text.secondary",
                             mr: 1,
                         }}>
                         <GetTime />

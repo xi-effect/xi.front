@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, CircularProgress, Grid, Typography, useTheme } from '@mui/material';
-import { inject, observer } from 'mobx-react';
-import Head from 'next/head';
-import Image from 'next/image';
-import React from 'react';
-import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
-import PagesList from '../../components/PagesComponents/Knowledge/Pages/PagesList';
-import PagesListLoading from '../../components/PagesComponents/Knowledge/Pages/PagesListLoading';
+import { Button, CircularProgress, Grid, Typography, useTheme } from "@mui/material";
+import { inject, observer } from "mobx-react";
+import Head from "next/head";
+import Image from "next/image";
+import React from "react";
+import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
+import PagesList from "../../components/PagesComponents/Knowledge/Pages/PagesList";
+import PagesListLoading from "../../components/PagesComponents/Knowledge/Pages/PagesListLoading";
 
-const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
+const Toolbar = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
     return (
         <Grid
             container
@@ -17,20 +17,20 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
             alignItems="center"
             sx={{ height: 64 }}
         >
-            <Button onClick={knowledgeStore.prevPageInPages} sx={{ mr: 2, ml: 2, color: 'text.main' }} variant="contained" color="primary" disabled={knowledgeStore.pageList.counter === 0 ? true : false}>
+            <Button onClick={knowledgeStore.prevPageInPages} sx={{ mr: 2, ml: 2, color: "text.main" }} variant="contained" color="primary" disabled={knowledgeStore.pageList.counter === 0 ? true : false}>
                 Назад
             </Button>
             <Typography variant="subtitle1">
                 {`Страница ${knowledgeStore.pageList.counter + 1}`}
             </Typography>
-            <Button onClick={knowledgeStore.nextPageInPages} sx={{ mr: 2, ml: 2, color: 'text.main' }} variant="contained" color="primary" disabled={knowledgeStore.pageList.pages.length < 50 ? true : false}>
+            <Button onClick={knowledgeStore.nextPageInPages} sx={{ mr: 2, ml: 2, color: "text.main" }} variant="contained" color="primary" disabled={knowledgeStore.pageList.pages.length < 50 ? true : false}>
                 Вперёд
             </Button>
         </Grid>
     );
 }));
 
-const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
+const Pages = inject("knowledgeStore", "uiStore")(observer(({ knowledgeStore, uiStore }) => {
 
 
     // React.useEffect(() => {
@@ -58,9 +58,9 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                     justifyContent="center"
                     alignItems="center"
                     sx={{
-                        // width: 'calc(100% - 32px)',
+                        // width: "calc(100% - 32px)",
                         pb: 20,
-                        width: '100%',
+                        width: "100%",
                         zIndex: 1,
                     }}
                 >
@@ -75,8 +75,8 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                             sx={{
                                 pt: 6,
                                 marginBottom: 2,
-                                height: '100%',
-                                width: '100%',
+                                height: "100%",
+                                width: "100%",
                             }}
                         >
                             <Typography> Это всё, что мы нашли по вашему запросу </Typography>
@@ -92,8 +92,8 @@ const Pages = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, ui
                             sx={{
                                 marginTop: 2,
                                 marginBottom: 2,
-                                height: '100%',
-                                // width: '100%',
+                                height: "100%",
+                                // width: "100%",
                             }}
                         >
                             <Typography sx={{ marginTop: 4 }}> Ничего не найдено по запросу </Typography>

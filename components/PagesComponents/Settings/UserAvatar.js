@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 
-import { FormControl, Stack, Grid, useTheme, Divider, InputLabel, TextField, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, IconButton } from '@mui/material'
-import { inject, observer } from 'mobx-react'
+import { FormControl, Stack, Grid, useTheme, Divider, InputLabel, TextField, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, IconButton } from "@mui/material"
+import { inject, observer } from "mobx-react"
 
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import CustomAvatar from '../../OtherComponents/Avatar/CustomAvatar';
-import CheckIcon from '@mui/icons-material/Check';
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import CustomAvatar from "../../OtherComponents/Avatar/CustomAvatar";
+import CheckIcon from "@mui/icons-material/Check";
 
 const styles = {
     peepStyle: {
@@ -14,8 +14,8 @@ const styles = {
         height: 390,
         padding: 32,
         borderRadius: 16,
-        justifyContent: 'bottom',
-        alignSelf: 'bottom'
+        justifyContent: "bottom",
+        alignSelf: "bottom"
     },
 };
 
@@ -25,7 +25,7 @@ const bgcolor = [
     "#673ab7",
     "#2196f3",
     "#03a9f4",
-    '#00bcd4',
+    "#00bcd4",
     "#009688",
     "#4caf50",
     "#8bc34a",
@@ -35,7 +35,7 @@ const bgcolor = [
     "#ff9800",
 ]
 
-const UserAvatar = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore }) => {
+const UserAvatar = inject("rootStore", "settingsStore")(observer(({ rootStore, settingsStore }) => {
     const theme = useTheme()
 
     return (
@@ -144,7 +144,7 @@ const UserAvatar = inject('rootStore', 'settingsStore')(observer(({ rootStore, s
                     </IconButton>
                 </Grid>
             </Grid>
-            <Divider sx={{ height: 1, bgcolor: 'text.dark', width: '100%' }} />
+            <Divider sx={{ height: 1, bgcolor: "text.dark", width: "100%" }} />
             <Grid
                 container
                 direction="column"
@@ -168,8 +168,8 @@ const UserAvatar = inject('rootStore', 'settingsStore')(observer(({ rootStore, s
                             alignItems="center"
                         // spacing={2}
                         >
-                            <Box onClick={() => settingsStore.setSettingsSecond("avatar", "bgcolor", index)} sx={{ height: 64, width: 64, m: 1, cursor: 'pointer' }}>
-                                <CustomAvatar avatar={{ ...settingsStore.settings.avatar, bgcolor: index }} viewBox={{ x: '50', y: '-100', width: '732', height: '732' }} />
+                            <Box onClick={() => settingsStore.setSettingsSecond("avatar", "bgcolor", index)} sx={{ height: 64, width: 64, m: 1, cursor: "pointer" }}>
+                                <CustomAvatar avatar={{ ...settingsStore.settings.avatar, bgcolor: index }} viewBox={{ x: "50", y: "-100", width: "732", height: "732" }} />
                             </Box>
                             {/* <Box sx={{ height: 32, width: 64, m: 1, }}> */}
                             {settingsStore.settings.avatar.bgcolor === index && <CheckIcon />}

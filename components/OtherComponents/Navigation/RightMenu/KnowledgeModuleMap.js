@@ -5,11 +5,11 @@ import { inject, observer } from "mobx-react";
 
 import { Button, Box, useMediaQuery, ClickAwayListener, Divider, MenuList, MenuItem, ListItemText, ListItemIcon, Tooltip, Popper, IconButton, Link, Paper, useTheme, Stack, Typography, Grow } from "@mui/material";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-import InfoIcon from '@mui/icons-material/Info';
-import TaskIcon from '@mui/icons-material/Task';
+import InfoIcon from "@mui/icons-material/Info";
+import TaskIcon from "@mui/icons-material/Task";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-import { Scrollbars } from 'react-custom-scrollbars-2';
+import { Scrollbars } from "react-custom-scrollbars-2";
 
 
 import { motion, AnimatePresence } from "framer-motion"

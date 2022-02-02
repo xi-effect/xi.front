@@ -26,7 +26,7 @@ import {
 import { inject, observer } from "mobx-react";
 
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
-import Chat from '../../../../components/OtherComponents/Chat/Chat'
+import Chat from "../../../../components/OtherComponents/Chat/Chat"
 import socket from "../../../../utils/socket";
 
 

@@ -12,7 +12,7 @@ import {
 
 import { inject, observer } from "mobx-react";
 
-import ComponentsSelect from './Components/ComponentsSelect'
+import ComponentsSelect from "./Components/ComponentsSelect"
 
 
 const PageCompList = inject("knowledgeStore")(

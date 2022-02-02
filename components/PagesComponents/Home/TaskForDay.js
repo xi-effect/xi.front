@@ -1,122 +1,122 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React from "react";
 
-import { Button, Paper, Stack, Box, Grid, Divider, Chip, Tooltip, Typography, useTheme, IconButton } from '@mui/material';
+import { Button, Paper, Stack, Box, Grid, Divider, Chip, Tooltip, Typography, useTheme, IconButton } from "@mui/material";
 
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react"
 
-import Image from 'next/image'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import PlusOneIcon from '@mui/icons-material/PlusOne';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import Image from "next/image"
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import PlusOneIcon from "@mui/icons-material/PlusOne";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { AnimatePresence, motion } from "framer-motion"
-import moment from 'moment';
-import { useSnackbar } from 'notistack';
+import moment from "moment";
+import { useSnackbar } from "notistack";
 
 const tasks = [
     {
-        startTime: '2021-12-19T06:50:00.000+04:00',
-        endTime: '2021-12-19T07:20:00.000+04:00',
-        label: 'Зарядка и умывание',
-        type: 'live',
+        startTime: "2021-12-19T06:50:00.000+04:00",
+        endTime: "2021-12-19T07:20:00.000+04:00",
+        label: "Зарядка и умывание",
+        type: "live",
     },
     {
-        startTime: '2021-12-19T07:30:00.000+04:00',
-        endTime: '2021-12-19T07:45:00.000+04:00',
-        label: 'Медитация',
-        type: 'live',
+        startTime: "2021-12-19T07:30:00.000+04:00",
+        endTime: "2021-12-19T07:45:00.000+04:00",
+        label: "Медитация",
+        type: "live",
     },
     {
-        startTime: '2021-12-19T08:00:00.000+04:00',
-        endTime: '2021-12-19T08:30:00.000+04:00',
-        label: 'Завтрак',
-        type: 'live',
+        startTime: "2021-12-19T08:00:00.000+04:00",
+        endTime: "2021-12-19T08:30:00.000+04:00",
+        label: "Завтрак",
+        type: "live",
     },
     {
-        startTime: '2021-12-19T09:00:00.000+04:00',
-        endTime: '2021-12-19T09:45:00.000+04:00',
-        label: 'Математика',
-        type: 'school',
+        startTime: "2021-12-19T09:00:00.000+04:00",
+        endTime: "2021-12-19T09:45:00.000+04:00",
+        label: "Математика",
+        type: "school",
     },
     {
-        startTime: '2021-12-19T10:00:00.000+04:00',
-        endTime: '2021-12-19T10:45:00.000+04:00',
-        label: 'Литература',
-        type: 'school',
+        startTime: "2021-12-19T10:00:00.000+04:00",
+        endTime: "2021-12-19T10:45:00.000+04:00",
+        label: "Литература",
+        type: "school",
     },
     {
-        startTime: '2021-12-19T11:00:00.000+04:00',
-        endTime: '2021-12-19T12:45:00.000+04:00',
-        label: 'История',
-        type: 'school',
+        startTime: "2021-12-19T11:00:00.000+04:00",
+        endTime: "2021-12-19T12:45:00.000+04:00",
+        label: "История",
+        type: "school",
     },
 
     {
-        startTime: '2021-12-19T13:45:00.000+04:00',
-        endTime: '2021-12-19T16:00:00.000+04:00',
-        label: 'Обед',
-        type: 'live',
+        startTime: "2021-12-19T13:45:00.000+04:00",
+        endTime: "2021-12-19T16:00:00.000+04:00",
+        label: "Обед",
+        type: "live",
     },
     {
-        startTime: '2021-12-19T16:45:00.000+04:00',
-        endTime: '2021-12-19T19:00:00.000+04:00',
-        label: 'Кружок исторических реконструкций',
-        type: 'club',
+        startTime: "2021-12-19T16:45:00.000+04:00",
+        endTime: "2021-12-19T19:00:00.000+04:00",
+        label: "Кружок исторических реконструкций",
+        type: "club",
     },
     {
-        startTime: '2021-12-19T20:45:00.000+04:00',
-        endTime: '2021-12-19T21:00:00.000+04:00',
-        label: 'Домашнее задание. Информатика',
-        type: 'homework',
+        startTime: "2021-12-19T20:45:00.000+04:00",
+        endTime: "2021-12-19T21:00:00.000+04:00",
+        label: "Домашнее задание. Информатика",
+        type: "homework",
     },
 ]
 
 const days = [
     {
-        dayNumber: '22',
-        month: 'дек',
-        weekday: 'ср',
+        dayNumber: "22",
+        month: "дек",
+        weekday: "ср",
     },
     {
-        dayNumber: '23',
-        month: 'дек',
-        weekday: 'чт',
+        dayNumber: "23",
+        month: "дек",
+        weekday: "чт",
     },
     {
-        dayNumber: '24',
-        month: 'дек',
-        weekday: 'пт',
+        dayNumber: "24",
+        month: "дек",
+        weekday: "пт",
     },
     {
-        dayNumber: '25',
-        month: 'дек',
-        weekday: 'сб',
+        dayNumber: "25",
+        month: "дек",
+        weekday: "сб",
     },
     {
-        dayNumber: '26',
-        month: 'дек',
-        weekday: 'чт',
+        dayNumber: "26",
+        month: "дек",
+        weekday: "чт",
     },
     {
-        dayNumber: '27',
-        month: 'дек',
-        weekday: 'пт',
+        dayNumber: "27",
+        month: "дек",
+        weekday: "пт",
     },
     {
-        dayNumber: '28',
-        month: 'дек',
-        weekday: 'сб',
+        dayNumber: "28",
+        month: "дек",
+        weekday: "сб",
     },
 ]
 
 const filters = [
-    'all',
-    'live',
-    'school',
-    'homework',
-    'club',
+    "all",
+    "live",
+    "school",
+    "homework",
+    "club",
 ]
 
 const taskStackVariants = {
@@ -131,16 +131,16 @@ const taskStackVariants = {
     }
 }
 
-const Filters = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) => {
+const Filters = inject("rootStore", "managmentStore")(observer(({ rootStore, }) => {
 
     const [filterId, setFilterId] = React.useState(0)
 
     const getTaskLabel = (t) => {
-        if (t === 'all') return 'все'
-        if (t === 'live') return 'жизнь'
-        if (t === 'school') return 'школа'
-        if (t === 'club') return 'дополнительные занятия'
-        if (t === 'homework') return 'домашняя работа'
+        if (t === "all") return "все"
+        if (t === "live") return "жизнь"
+        if (t === "school") return "школа"
+        if (t === "club") return "дополнительные занятия"
+        if (t === "homework") return "домашняя работа"
     }
 
     return (
@@ -150,12 +150,12 @@ const Filters = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) 
             alignItems="center"
             spacing={2}
             sx={{
-                width: '100%',
+                width: "100%",
                 height: 48,
                 pl: 2,
                 pr: 2,
                 zIndex: 100,
-                bgcolor: 'background.main'
+                bgcolor: "background.main"
             }}
         >
             <IconButton>
@@ -167,11 +167,11 @@ const Filters = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) 
                 alignItems="center"
                 spacing={2}
                 sx={{
-                    position: 'relative',
-                    maxWidth: 'calc(100% - 100px)',
-                    touchAction: 'pan-y',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
+                    position: "relative",
+                    maxWidth: "calc(100% - 100px)",
+                    touchAction: "pan-y",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
                     zIndex: 10,
                 }}
             >
@@ -184,13 +184,13 @@ const Filters = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) 
                         color="primary"
                         onClick={null}
                         sx={{
-                            '& .MuiChip-label': {
+                            "& .MuiChip-label": {
                                 fontSize: 18,
                                 fontWeight: 500,
-                                color: 'text.primary'
+                                color: "text.primary"
                             },
-                            '& .MuiButtonBase-root .MuiChip-root': {
-                                border: '2px solid #fafafa'
+                            "& .MuiButtonBase-root .MuiChip-root": {
+                                border: "2px solid #fafafa"
                             },
 
                         }}
@@ -204,7 +204,7 @@ const Filters = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) 
     )
 }));
 
-const Days = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) => {
+const Days = inject("rootStore", "managmentStore")(observer(({ rootStore, }) => {
 
     return (
         <Stack
@@ -213,7 +213,7 @@ const Days = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) => 
             alignItems="center"
             spacing={2}
             sx={{
-                width: '100%',
+                width: "100%",
                 height: 128,
                 pl: 2,
                 pr: 2,
@@ -228,11 +228,11 @@ const Days = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) => 
                 alignItems="center"
                 spacing={2}
                 sx={{
-                    position: 'relative',
-                    maxWidth: 'calc(100% - 100px)',
-                    touchAction: 'pan-y',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
+                    position: "relative",
+                    maxWidth: "calc(100% - 100px)",
+                    touchAction: "pan-y",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
                     zIndex: 10,
                 }}
             >
@@ -244,7 +244,7 @@ const Days = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) => 
                             width: 48,
                             minWidth: 48,
                             height: 128,
-                            bgcolor: day.dayNumber == 25 ? 'primary.dark' : 'grey.800',
+                            bgcolor: day.dayNumber == 25 ? "primary.dark" : "grey.800",
                             borderRadius: 4,
                         }}
                     >
@@ -255,10 +255,10 @@ const Days = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) => 
                         // spacing={2}
                         >
                             <Typography
-                                variant='subtitle1'
+                                variant="subtitle1"
                                 sx={{
                                     fontSize: 18,
-                                    color: 'text.primary',
+                                    color: "text.primary",
                                     mt: 0.5,
                                 }}
                             >
@@ -275,7 +275,7 @@ const Days = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) => 
                                 {day.dayNumber}
                             </Typography>
                             <Typography
-                                variant='subtitle1'
+                                variant="subtitle1"
                                 sx={{
                                     fontSize: 20,
                                     p: 0,
@@ -296,7 +296,7 @@ const Days = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) => 
 }));
 
 
-const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore, task, nextTask }) => {
+const Task = inject("rootStore", "managmentStore")(observer(({ rootStore, managmentStore, task, nextTask }) => {
     // console.log(task.startTime)
     // console.log(task.endTime)
     const dateStart = moment(task.startTime)
@@ -305,7 +305,7 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
     const dateEnd = moment(task.endTime)
 
     const gM = (m) => {
-        if (m < 10) return '0' + m
+        if (m < 10) return "0" + m
         return m
     }
 
@@ -314,25 +314,25 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
         if (Math.floor(h / 10) == 1) return "ов"
         else if (h % 10 == 1) return ""
         else if (h % 10 > 1 && h % 10 < 5) return "а"
-        else return "ов"    
+        else return "ов"
     }
 
     const getTaskColor = (t) => {
-        if (t === 'live') return '#ff9800'
-        if (t === 'school') return '#cddc39'
-        if (t === 'club') return '#2196f3'
-        if (t === 'homework') return '#e91e63'
+        if (t === "live") return "#ff9800"
+        if (t === "school") return "#cddc39"
+        if (t === "club") return "#2196f3"
+        if (t === "homework") return "#e91e63"
     }
 
     const getTaskLabel = (t) => {
-        if (t === 'live') return 'жизнь'
-        if (t === 'school') return 'школа'
-        if (t === 'club') return 'дополнительные занятия'
-        if (t === 'homework') return 'домашняя работа'
+        if (t === "live") return "жизнь"
+        if (t === "school") return "школа"
+        if (t === "club") return "дополнительные занятия"
+        if (t === "homework") return "домашняя работа"
     }
 
     const getBreak = () => {
-        let diff = dateStartNext.diff(dateEnd, 'minutes')
+        let diff = dateStartNext.diff(dateEnd, "minutes")
         if (diff < 60 && diff != 0) return `${diff} минут`
         if (diff % 60 === 0) return `${diff / 60} час${getHourEndStr(diff / 60)}`
         return `${Math.floor(diff / 60)} час${getHourEndStr(Math.floor(diff / 60))} ${diff % 60} минут`
@@ -347,39 +347,39 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
             <Box
                 sx={{
                     mt: 2,
-                    width: '100%',
-                    position: 'relative',
+                    width: "100%",
+                    position: "relative",
                     ml: 16,
                 }}
             >
                 {moment().isBetween(dateStart, dateEnd) && <ArrowForwardIosIcon sx={{
-                    color: 'secondary.main',
-                    position: 'absolute',
+                    color: "secondary.main",
+                    position: "absolute",
                     top: "0px",
                     left: "-70px",
                 }} />}
                 <Typography
                     variant="subtitle1"
                     sx={{
-                        color: 'text.secondary',
-                        position: 'absolute',
+                        color: "text.secondary",
+                        position: "absolute",
                         top: "0px",
                         left: "-46px",
                     }}
                 >
-                    {`${dateStart.get('hour')}:${gM(dateStart.get('minute'))}`}
+                    {`${dateStart.get("hour")}:${gM(dateStart.get("minute"))}`}
 
                 </Typography>
                 <Typography
                     variant="subtitle1"
                     sx={{
-                        color: 'text.secondary',
-                        position: 'absolute',
+                        color: "text.secondary",
+                        position: "absolute",
                         bottom: "-4px",
                         left: "-46px",
                     }}
                 >
-                    {`${dateEnd.get('hour')}:${gM(dateEnd.get('minute'))}`}
+                    {`${dateEnd.get("hour")}:${gM(dateEnd.get("minute"))}`}
                 </Typography>
                 <Paper
                     elevation={12}
@@ -387,18 +387,18 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
                     // justifyContent="flex-start"
                     // alignItems="center"
                     sx={{
-                        // position: 'absolute',
+                        // position: "absolute",
                         // top: 60 * (dateStart.getHours() - 6) + dateStart.getMinutes(),
-                        height: 60 * (dateEnd.get('hour') - dateStart.get('hour')) + (dateEnd.get('minute') - dateStart.get('minute')),
+                        height: 60 * (dateEnd.get("hour") - dateStart.get("hour")) + (dateEnd.get("minute") - dateStart.get("minute")),
                         minHeight: "64px",
-                        width: 'calc(100% - 88px)',
+                        width: "calc(100% - 88px)",
                         // minWidth: 300,
-                        // bgcolor: 'primary.main',
+                        // bgcolor: "primary.main",
                         borderRadius: 2,
                         ml: 0.5,
                         "&:before": {
                             position: "absolute",
-                            content: '""',
+                            content: "''",
                             top: 0,
                             left: 2,
                             right: 0,
@@ -430,7 +430,7 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
                             variant="h5"
                             sx={{
                                 // color: getTaskColor(task.type),
-                                width: 'calc(100% - 16px)',
+                                width: "calc(100% - 16px)",
                                 ml: 2,
                             }}
                             noWrap
@@ -440,21 +440,21 @@ const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managm
                     </Stack>
                 </Paper>
             </Box>
-            {nextTask != null && <Divider sx={{ color: 'text.secondary', fontSize: 14, mt: 2 }}> {`перерыв ${getBreak()}`}</Divider>}
+            {nextTask != null && <Divider sx={{ color: "text.secondary", fontSize: 14, mt: 2 }}> {`перерыв ${getBreak()}`}</Divider>}
         </>
     )
 }));
 
 
-const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore, }) => {
+const TaskForDay = inject("rootStore", "managmentStore")(observer(({ rootStore, managmentStore, }) => {
     const theme = useTheme();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const [menu, setMenu] = React.useState(null)
 
     const getAnimate = () => {
-        if (menu === 'day') return "openDays"
-        if (menu === 'filter') return "openFilters"
+        if (menu === "day") return "openDays"
+        if (menu === "filter") return "openFilters"
         return "closed"
     }
 
@@ -465,12 +465,12 @@ const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, 
                 justifyContent="flex-start"
                 alignItems="center"
                 sx={{
-                    height: '100%',
-                    width: '100%',
+                    height: "100%",
+                    width: "100%",
                 }}
             >
                 <Typography
-                    variant='OpenSans600WhyLabel'
+                    variant="OpenSans600WhyLabel"
                     sx={{
                         fontSize: 22,
                         ml: 2,
@@ -485,15 +485,15 @@ const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, 
                             mr: 0.5,
                             height: 36,
                             width: 36,
-                            ml: 'auto',
-                            color: menu === 'day' ? 'primary.light' : 'text.primary',
+                            ml: "auto",
+                            color: menu === "day" ? "primary.light" : "text.primary",
                         }}
                         onClick={() => {
-                            enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
-                                variant: 'info',
+                            enqueueSnackbar("Эту функцию мы ещё только разрабатываем", {
+                                variant: "info",
                             })
-                            if (menu === 'day') return setMenu(null)
-                            setMenu('day')
+                            if (menu === "day") return setMenu(null)
+                            setMenu("day")
                         }}
                     >
                         <CalendarTodayIcon />
@@ -507,14 +507,14 @@ const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, 
                             height: 36,
                             width: 36,
                             ml: 0.5,
-                            color: menu === 'filter' ? 'primary.light' : 'text.primary',
+                            color: menu === "filter" ? "primary.light" : "text.primary",
                         }}
                         onClick={() => {
-                            enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
-                                variant: 'info',
+                            enqueueSnackbar("Эту функцию мы ещё только разрабатываем", {
+                                variant: "info",
                             })
-                            if (menu === 'filter') return setMenu(null)
-                            setMenu('filter')
+                            if (menu === "filter") return setMenu(null)
+                            setMenu("filter")
                         }}
                     >
                         <FilterListIcon />
@@ -529,8 +529,8 @@ const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, 
                             height: 36,
                             width: 36,
                         }}
-                        onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
-                            variant: 'info',
+                        onClick={() => enqueueSnackbar("Эту функцию мы ещё только разрабатываем", {
+                            variant: "info",
                         })}
                     >
                         <PlusOneIcon />
@@ -539,14 +539,14 @@ const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, 
             </Stack>
             <Box
                 sx={{
-                    width: '100%',
-                    height: 'auto',
-                    position: 'relative',
+                    width: "100%",
+                    height: "auto",
+                    position: "relative",
                 }}
             >
                 <AnimatePresence initial={false} exitBeforeEnter>
-                    {menu === 'filter' && <Box
-                        key='filter'
+                    {menu === "filter" && <Box
+                        key="filter"
                         component={motion.div}
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -554,15 +554,15 @@ const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, 
                         transition={{ duration: 0.6, delay: 0, }}
                         sx={{
                             pt: 1,
-                            width: '100%',
-                            height: 'auto',
-                            position: 'absolute',
+                            width: "100%",
+                            height: "auto",
+                            position: "absolute",
                         }}
                     >
                         <Filters />
                     </Box>}
-                    {menu === 'day' && <Box
-                        key='day'
+                    {menu === "day" && <Box
+                        key="day"
                         component={motion.div}
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -571,9 +571,9 @@ const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, 
                         sx={{
                             mt: 1,
                             mb: 1,
-                            width: '100%',
-                            height: 'auto',
-                            position: 'absolute',
+                            width: "100%",
+                            height: "auto",
+                            position: "absolute",
                         }}
                     >
                         <Days />
@@ -583,14 +583,14 @@ const TaskForDay = inject('rootStore', 'managmentStore')(observer(({ rootStore, 
             <Stack
                 component={motion.div}
                 variants={taskStackVariants}
-                animate={menu === 'day' && 'openDays' || menu === 'filter' && 'openFilters' || menu === null && 'closed'}
+                animate={menu === "day" && "openDays" || menu === "filter" && "openFilters" || menu === null && "closed"}
                 transition={{ duration: 0.6, delay: 0, }}
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="center"
                 sx={{
-                    height: '100%',
-                    width: '100%',
+                    height: "100%",
+                    width: "100%",
                 }}
             >
                 {tasks.map((task, index) => (

@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
-import { CircularProgress, Grid, Typography, useTheme } from '@mui/material';
+import { CircularProgress, Grid, Typography, useTheme } from "@mui/material";
 
 
-import { inject, observer } from 'mobx-react'
-import Image from 'next/image'
-import Toolbar from './Content/Toolbar';
-import DataList from './Content/DataList';
-const PREFIX = 'Content';
+import { inject, observer } from "mobx-react"
+import Image from "next/image"
+import Toolbar from "./Content/Toolbar";
+import DataList from "./Content/DataList";
+const PREFIX = "Content";
 const classes = {};
 
 const StyledGrid = styled(Grid)((
@@ -18,7 +18,7 @@ const StyledGrid = styled(Grid)((
     }
 ) => ({}));
 
-const Content = inject('rootStore')(observer(({ rootStore }) => {
+const Content = inject("rootStore")(observer(({ rootStore }) => {
     const theme = useTheme();
 
 

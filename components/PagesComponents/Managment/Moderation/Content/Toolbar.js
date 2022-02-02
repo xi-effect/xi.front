@@ -1,25 +1,25 @@
-import React from 'react';
+import React from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
-import { ButtonGroup, Hidden, Button, Grid, Paper, Typography, Divider, useTheme, Tooltip } from '@mui/material';
+import { ButtonGroup, Hidden, Button, Grid, Paper, Typography, Divider, useTheme, Tooltip } from "@mui/material";
 
 
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react"
 
-import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import FeedbackIcon from '@mui/icons-material/Feedback';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import FeedbackIcon from "@mui/icons-material/Feedback";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-import Image from 'next/image'
-const PREFIX = 'Toolbar';
+import Image from "next/image"
+const PREFIX = "Toolbar";
 
 const classes = {
     ButtonGroup: `${PREFIX}-ButtonGroup`,
     Button: `${PREFIX}-Button`
 };
 
-const Root = styled('div')((
+const Root = styled("div")((
     {
         theme
     }
@@ -33,7 +33,7 @@ const Root = styled('div')((
     }
 }));
 
-const Toolbar = inject('store')(observer(({ store }) => {
+const Toolbar = inject("store")(observer(({ store }) => {
     const theme = useTheme();
 
 

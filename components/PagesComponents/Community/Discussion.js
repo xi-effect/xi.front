@@ -43,8 +43,8 @@ const Discussion = inject(
                 justifyContent="flex-start"
                 alignItems="center"
                 sx={{
-                    width: '100%',
-                    height: '100vh',
+                    width: "100%",
+                    height: "100vh",
                 }}
             >
                 <Comments />

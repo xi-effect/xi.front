@@ -28,7 +28,7 @@ import CustomAvatar from "../../components/OtherComponents/Avatar/CustomAvatar";
 
 import Secure from "./../../components/PagesComponents/Settings/Secure";
 
-import { useSnackbar } from 'notistack';
+import { useSnackbar } from "notistack";
 
 const Invite = dynamic(() =>
   import("./../../components/PagesComponents/Settings/Invite")
@@ -86,14 +86,14 @@ const Settings = inject(
 
     React.useEffect(() => {
       console.log("query", router.query)
-      if (router.query.option && (router.query.option === 'secure' || router.query.option === 'useravatar' || router.query.option === 'customize' || router.query.option === 'invite')) setExpanded(router.query.option)
+      if (router.query.option && (router.query.option === "secure" || router.query.option === "useravatar" || router.query.option === "customize" || router.query.option === "invite")) setExpanded(router.query.option)
     }, [router.query])
 
     return (
       <>
         <Head>
           <title>Ξffect | Настройки</title>
-          <meta name="robots" content="noindex"/>
+          <meta name="robots" content="noindex" />
         </Head>
         <NavigationAll>
           <Box sx={{ width: "100%" }}>
@@ -168,8 +168,8 @@ const Settings = inject(
               >
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === 'secure'}
-                  onChange={handleChange('secure')}
+                  expanded={expanded === "secure"}
+                  onChange={handleChange("secure")}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -184,8 +184,8 @@ const Settings = inject(
                 </Accordion>
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === 'useravatar'}
-                  onChange={handleChange('useravatar')}
+                  expanded={expanded === "useravatar"}
+                  onChange={handleChange("useravatar")}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -200,8 +200,8 @@ const Settings = inject(
                 </Accordion>
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === 'customize'}
-                  onChange={handleChange('customize')}
+                  expanded={expanded === "customize"}
+                  onChange={handleChange("customize")}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -216,8 +216,8 @@ const Settings = inject(
                 </Accordion>
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === 'invite'}
-                  onChange={handleChange('invite')}
+                  expanded={expanded === "invite"}
+                  onChange={handleChange("invite")}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}

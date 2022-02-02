@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
-import { useRouter } from 'next/router'
+import React, { useState } from "react";
+import { useRouter } from "next/router"
 import Image from "next/image";
 import { motion } from "framer-motion"
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, Container, IconButton } from '@mui/material';
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, Container, IconButton } from "@mui/material";
 import TermsOfUse from "./TermsOfUse";
 
 const Footer = () => {
     const theme = useTheme();
 
     const router = useRouter()
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const [open, setOpen] = React.useState(false);
     const [type, setType] = React.useState(0);
@@ -22,13 +22,13 @@ const Footer = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 2 }}
             sx={{
-                width: 'calc(100vw - 8px)',
-                minHeight: mobile ? '325px' : '128px',
-                // height: '100%',
-                bgcolor: 'primary.main',
-                // position: 'absolute',
-                // bottom: '-210px',
-                mt: '100px',
+                width: "calc(100vw - 8px)",
+                minHeight: mobile ? "325px" : "128px",
+                // height: "100%",
+                bgcolor: "primary.main",
+                // position: "absolute",
+                // bottom: "-210px",
+                mt: "100px",
                 zIndex: 0,
             }}
         >
@@ -41,7 +41,7 @@ const Footer = () => {
                     sx={{
                         maxWidth: 1920,
                         p: 2,
-                        width: '100%',
+                        width: "100%",
                     }}
                 >
                     <Grid
@@ -55,17 +55,17 @@ const Footer = () => {
                         }}
                     >
                         <Grid item>
-                            <Link sx={{ color: 'text.primary', cursor: 'pointer' }}> Наш блог </Link>
-                            <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}> Справочник </Link>
-                            <Link onClick={() => router.push(`/support`)} sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}> Поддержка </Link>
-                            <Link sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}> Приложение </Link>
+                            <Link sx={{ color: "text.primary", cursor: "pointer" }}> Наш блог </Link>
+                            <Link sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Справочник </Link>
+                            <Link onClick={() => router.push(`/support`)} sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Поддержка </Link>
+                            <Link sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Приложение </Link>
                         </Grid>
                         <Grid item
                             sx={{
-                                ml: 'auto', mr: 1
+                                ml: "auto", mr: 1
                             }}
                         >
-                            <Typography sx={{ cursor: 'default', }}> Социальные сети  </Typography>
+                            <Typography sx={{ cursor: "default", }}> Социальные сети  </Typography>
                         </Grid>
                     </Grid>
                     <Grid
@@ -88,7 +88,7 @@ const Footer = () => {
                         >
                             <Typography> © 2022 xieffect.ru  </Typography>
                             <Link
-                                sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}
+                                sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}
                                 onClick={() => {
                                     setType(0)
                                     setOpen(true)
@@ -96,7 +96,7 @@ const Footer = () => {
                                 Пользовательское соглашение
                             </Link>
                             <Link
-                                sx={{ color: 'text.primary', ml: 1.5, cursor: 'pointer' }}
+                                sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}
                                 onClick={() => {
                                     setType(1)
                                     setOpen(true)
@@ -105,14 +105,14 @@ const Footer = () => {
                             </Link>
 
                         </Grid>
-                        <TermsOfUse open={open} setOpen={setOpen} type={type}/>
+                        <TermsOfUse open={open} setOpen={setOpen} type={type} />
 
                         <Grid item
                             sx={{
-                                ml: 'auto', mr: 1
+                                ml: "auto", mr: 1
                             }}
                         >
-                            <IconButton onClick={() => window.open('https://discord.gg/aNQfXXb')}>
+                            <IconButton onClick={() => window.open("https://discord.gg/aNQfXXb")}>
                                 <Image
                                     alt="alt"
                                     src={"/landing/DiscordLogoWhite.svg"}
@@ -132,15 +132,15 @@ const Footer = () => {
                     sx={{
                         maxWidth: 1920,
                         p: 2,
-                        width: '100%',
+                        width: "100%",
                     }}
                 >
-                    <Link sx={{ color: 'text.primary', cursor: 'pointer' }}> Наш блог </Link>
-                    <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Справочник </Link>
-                    <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Поддержка </Link>
-                    <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Приложение </Link>
-                    <Typography sx={{ mt: 2, cursor: 'default', }}> Социальные сети  </Typography>
-                    <IconButton sx={{ mt: 1 }} onClick={() => window.open('https://discord.gg/aNQfXXb')}>
+                    <Link sx={{ color: "text.primary", cursor: "pointer" }}> Наш блог </Link>
+                    <Link sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Справочник </Link>
+                    <Link sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Поддержка </Link>
+                    <Link sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Приложение </Link>
+                    <Typography sx={{ mt: 2, cursor: "default", }}> Социальные сети  </Typography>
+                    <IconButton sx={{ mt: 1 }} onClick={() => window.open("https://discord.gg/aNQfXXb")}>
                         <Image
                             alt="alt"
                             src={"/landing/DiscordLogoWhite.svg"}
@@ -149,8 +149,8 @@ const Footer = () => {
                             height={32}
                         />
                     </IconButton>
-                    <Link sx={{ color: 'text.primary', mt: 2, cursor: 'pointer' }}>  Пользовательское соглашение </Link>
-                    <Link sx={{ color: 'text.primary', mt: 1, cursor: 'pointer' }}> Лицензионное соглашение</Link>
+                    <Link sx={{ color: "text.primary", mt: 2, cursor: "pointer" }}>  Пользовательское соглашение </Link>
+                    <Link sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Лицензионное соглашение</Link>
                     <Typography sx={{ mt: 3 }}> © 2022 xieffect.netlify.app  </Typography>
                 </Grid>}
             </Container>

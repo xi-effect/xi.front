@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react"
 
-import { Box } from '@mui/material'
-import { inject, observer } from 'mobx-react'
-import Peep from 'react-peeps';
+import { Box } from "@mui/material"
+import { inject, observer } from "mobx-react"
+import Peep from "react-peeps";
 
 const styles = {
     peepStyle: {
-        justifyContent: 'center',
-        alignSelf: 'center'
+        justifyContent: "center",
+        alignSelf: "center"
     },
 };
 
@@ -168,7 +168,7 @@ const bgcolor = [
     "#673ab7",
     "#2196f3",
     "#03a9f4",
-    '#00bcd4',
+    "#00bcd4",
     "#009688",
     "#4caf50",
     "#8bc34a",
@@ -178,14 +178,14 @@ const bgcolor = [
     "#ff9800",
 ]
 
-const CustomAvatar = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore, avatar, viewBox, reverse = false }) => {
+const CustomAvatar = inject("rootStore", "settingsStore")(observer(({ rootStore, settingsStore, avatar, viewBox, reverse = false }) => {
     return (
         <Box sx={{
-            height: '100%',
-            width: '100%',
-            bgcolor: bgcolor[avatar.bgcolor] ?? 'none',
+            height: "100%",
+            width: "100%",
+            bgcolor: bgcolor[avatar.bgcolor] ?? "none",
             borderRadius: 2,
-            transform: reverse ? 'scale(-1, 1)' : 'none',
+            transform: reverse ? "scale(-1, 1)" : "none",
         }}>
             <Peep
                 style={styles.peepStyle}
@@ -194,7 +194,7 @@ const CustomAvatar = inject('rootStore', 'settingsStore')(observer(({ rootStore,
                 face={face[avatar?.face ?? 0]}
                 hair={hair[avatar?.hair ?? 0]}
                 facialHair={facialHair[avatar?.facialHair ?? 0]}
-                strokeColor='#000000'
+                strokeColor="#000000"
                 backgroundColor={"rgba(255, 255, 255, 0.9)"}
                 viewBox={viewBox}
             />

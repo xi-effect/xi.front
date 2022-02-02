@@ -1,8 +1,8 @@
-import React from 'react';
-import { Skeleton, Divider, Grid, Typography } from '@mui/material';
-import { inject, observer } from 'mobx-react'
+import React from "react";
+import { Skeleton, Divider, Grid, Typography } from "@mui/material";
+import { inject, observer } from "mobx-react"
 
-const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
+const Toolbar = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
 
     return (
         <>

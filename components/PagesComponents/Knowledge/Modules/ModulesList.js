@@ -32,7 +32,7 @@ import {
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import { inject, observer } from "mobx-react";
 
@@ -126,7 +126,7 @@ const Views = React.memo(({ views }) => {
   }
 });
 
-const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
+const ModulesList = inject("knowledgeStore", "uiStore")(observer(({ knowledgeStore, uiStore }) => {
   const theme = useTheme();
   const router = useRouter()
 
@@ -182,9 +182,9 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
               sx={{
                 width: "100%",
                 height: "100%",
-                // bgcolor: 'primary.main',
+                // bgcolor: "primary.main",
                 borderRadius: 2,
-                position: 'relative',
+                position: "relative",
               }}
             >
               <Stack
@@ -193,8 +193,8 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                 alignItems="flex-start"
                 // spacing={2}
                 sx={{
-                  width: '100%',
-                  // height: '100%',
+                  width: "100%",
+                  // height: "100%",
                   p: 1.5,
                 }}
               >
@@ -203,8 +203,8 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                   justifyContent="flex-start"
                   alignItems="center"
                   sx={{
-                    width: '100%',
-                    maxWidth: '100%',
+                    width: "100%",
+                    maxWidth: "100%",
                   }}
                 >
                   <Tooltip title={module.name}>
@@ -212,9 +212,9 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                       variant="OpenSans700MainLabel"
                       noWrap
                       sx={{
-                        width: 'calc(100% - 32px)',
+                        width: "calc(100% - 32px)",
                         lineHeight: "26px",
-                        cursor: 'default',
+                        cursor: "default",
                         fontSize: 20,
                       }}
                     >
@@ -250,13 +250,13 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                     justifyContent="flex-start"
                     alignItems="center"
                     sx={{
-                      width: '100%',
-                      maxWidth: '100%',
+                      width: "100%",
+                      maxWidth: "100%",
                     }}
                   >
                     <MenuList
                       sx={{
-                        width: '100%',
+                        width: "100%",
                       }}
                     >
                       <MenuItem>
@@ -269,7 +269,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                             ml: 1,
                           }}
                         >
-                          <Avatar sx={{ borderRadius: 2, bgcolor: 'grey.400' }}>
+                          <Avatar sx={{ borderRadius: 2, bgcolor: "grey.400" }}>
                             {module["author-name"][0].toUpperCase()}
                           </Avatar>
                           <Stack
@@ -282,9 +282,9 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                               variant="subtitle1"
                               sx={{
                                 // fontSize: 8,
-                                // textTransform: 'uppercase',
+                                // textTransform: "uppercase",
                                 // letterSpacing: 1,
-                                color: 'text.secondary',
+                                color: "text.secondary",
                               }}>
                               Создатель
                             </Typography>
@@ -330,8 +330,8 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                     justifyContent="center"
                     alignItems="center"
                     sx={{
-                      width: '100%',
-                      maxWidth: '100%',
+                      width: "100%",
+                      maxWidth: "100%",
                       pl: 1,
                       pr: 1,
                     }}
@@ -341,9 +341,9 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                       sx={{
                         maxHeight: 290,
                         minWidth: 220,
-                        width: '100%',
+                        width: "100%",
                         lineHeight: "26px",
-                        cursor: 'default',
+                        cursor: "default",
                         fontSize: 16,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
@@ -357,7 +357,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                       justifyContent="center"
                       alignItems="center"
                       sx={{
-                        width: '100%',
+                        width: "100%",
                         maxHeight: 290,
                       }}
 
@@ -381,14 +381,14 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                   variant="OpenSans700MainLabel"
                   noWrap
                   sx={{
-                    position: 'absolute',
-                    color: 'text.secondary',
+                    position: "absolute",
+                    color: "text.secondary",
                     borderRadius: 8,
                     bottom: 8,
                     left: 8,
-                    width: 'calc(100% - 64px)',
+                    width: "calc(100% - 64px)",
                     lineHeight: "26px",
-                    cursor: 'default',
+                    cursor: "default",
                     fontSize: 14,
                   }}
                 >
@@ -403,20 +403,20 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                 onMouseLeave={() => setHover(null)}
                 onClick={() => router.push(`/knowledge/module/${module.id}/start`)}
                 sx={{
-                  '&.MuiButtonBase-root': {
+                  "&.MuiButtonBase-root": {
                     height: 48,
                     width: 48,
                     minWidth: 48,
                   },
-                  position: 'absolute',
-                  color: 'text.primary',
+                  position: "absolute",
+                  color: "text.primary",
                   borderRadius: 8,
                   bottom: 8,
                   right: 8,
                   boxShadow: 4,
-                  bgcolor: 'secondary.main',
-                  '&:hover': {
-                    bgcolor: 'secondary.main',
+                  bgcolor: "secondary.main",
+                  "&:hover": {
+                    bgcolor: "secondary.main",
                   }
                 }}
               >
@@ -428,8 +428,8 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                       alignItems="center"
                       spacing={2}
                       sx={{
-                        width: '100%',
-                        height: '100%',
+                        width: "100%",
+                        height: "100%",
                       }}
                       key="textButton1"
                       component={motion.div}
@@ -442,13 +442,13 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                         variant="IBMPlexMono500XiLabelEnd"
                         sx={{
                           lineHeight: "20px",
-                          cursor: 'pointer',
+                          cursor: "pointer",
                           fontSize: 16,
                         }}
                       >
                         Перейти к модулю
                       </Typography>
-                      <ArrowForwardIcon fontSize="large"/>
+                      <ArrowForwardIcon fontSize="large" />
                     </Stack>
                   }
                   {!(hover === index) &&
@@ -461,7 +461,7 @@ const ModulesList = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeSto
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.6, }}
                     >
-                      <ArrowForwardIcon fontSize="large"/>
+                      <ArrowForwardIcon fontSize="large" />
                     </Stack>}
                 </AnimatePresence>
               </Button>

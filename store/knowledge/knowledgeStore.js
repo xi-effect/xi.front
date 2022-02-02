@@ -6,7 +6,7 @@ import {
   makeObservable,
 } from "mobx";
 
-import Router from 'next/router'
+import Router from "next/router"
 const router = Router
 class KnowledgeStore {
   // `this` from rootstore passed to the constructor and we can
@@ -95,7 +95,7 @@ class KnowledgeStore {
 
   @action setAnswer = (type, index, indexAnswer) => {
     console.log("setAQ", type, index, indexAnswer, this.page.components[index])
-    if (type === 'multiple') {
+    if (type === "multiple") {
       if (!(this.page.components[index].userAnswers.includes(indexAnswer))) {
         console.log("add")
         this.page.components[index].userAnswers.push(indexAnswer)
@@ -109,7 +109,7 @@ class KnowledgeStore {
         return;
       }
     }
-    if (type === 'single') {
+    if (type === "single") {
       if (this.page.components[index].userAnswers.includes(indexAnswer)) {
         console.log("remove")
         return this.page.components[index].userAnswers = []
@@ -186,7 +186,7 @@ class KnowledgeStore {
       .fetchDataScr(`${this.rootStore.url}/pages/${id}/`, "GET")
       .then((data) => {
         console.log("meta", data);
-        if (data.a === 'Page not found') return this.setPageData("loading", true)
+        if (data.a === "Page not found") return this.setPageData("loading", true)
         this.setPage(data);
         this.setPageData("authorId", data["author-id"]);
         this.setPageData("authorName", data["author-name"]);
@@ -501,7 +501,7 @@ class KnowledgeStore {
           this.module.type !== "theory-block" &&
           this.module.type !== "standard"
         ) {
-          if (firstId !== 'start') {
+          if (firstId !== "start") {
             this.setModuleData("activeIdInMap", Number(firstId));
             this.loadPageInModule(Number(firstId), true);
           } else {
@@ -573,8 +573,8 @@ class KnowledgeStore {
         this.setPageData("authorId", data["author-id"]);
         this.setPageData("authorName", data["author-name"]);
         this.page.components.forEach((item, index) => {
-          if (item.type === 'quiz') {
-            this.setPageComponentsData(index, 'userAnswers', this.moduleCompleted.results[indx].answers[index])
+          if (item.type === "quiz") {
+            this.setPageComponentsData(index, "userAnswers", this.moduleCompleted.results[indx].answers[index])
           }
         })
         router.push(`/knowledge/module/results/${id}/`)

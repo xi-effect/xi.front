@@ -33,7 +33,7 @@ import {
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import { inject, observer } from "mobx-react";
 
@@ -112,7 +112,7 @@ const PagesList = inject(
           m: 0,
           p: 1,
           width: "100%",
-          //backgroundColor: 'background.1',
+          //backgroundColor: "background.1",
         }}
       >
         {knowledgeStore.pageList.pages.map((page, index) => {
@@ -146,9 +146,9 @@ const PagesList = inject(
                 sx={{
                   width: "100%",
                   height: "100%",
-                  // bgcolor: 'primary.main',
+                  // bgcolor: "primary.main",
                   borderRadius: 2,
-                  position: 'relative',
+                  position: "relative",
                 }}
               >
                 <Stack
@@ -157,8 +157,8 @@ const PagesList = inject(
                   alignItems="flex-start"
                   // spacing={2}
                   sx={{
-                    width: '100%',
-                    // height: '100%',
+                    width: "100%",
+                    // height: "100%",
                     p: 1.5,
                   }}
                 >
@@ -167,8 +167,8 @@ const PagesList = inject(
                     justifyContent="flex-start"
                     alignItems="center"
                     sx={{
-                      width: '100%',
-                      maxWidth: '100%',
+                      width: "100%",
+                      maxWidth: "100%",
                     }}
                   >
                     <Tooltip title={page.name}>
@@ -176,9 +176,9 @@ const PagesList = inject(
                         variant="OpenSans700MainLabel"
                         noWrap
                         sx={{
-                          width: 'calc(100% - 32px)',
+                          width: "calc(100% - 32px)",
                           lineHeight: "26px",
-                          cursor: 'default',
+                          cursor: "default",
                           fontSize: 20,
                         }}
                       >
@@ -214,13 +214,13 @@ const PagesList = inject(
                       justifyContent="flex-start"
                       alignItems="center"
                       sx={{
-                        width: '100%',
-                        maxWidth: '100%',
+                        width: "100%",
+                        maxWidth: "100%",
                       }}
                     >
                       <MenuList
                         sx={{
-                          width: '100%',
+                          width: "100%",
                         }}
                       >
                         <MenuItem>
@@ -233,7 +233,7 @@ const PagesList = inject(
                               ml: 1,
                             }}
                           >
-                            <Avatar sx={{ borderRadius: 2, bgcolor: 'grey.400' }}>
+                            <Avatar sx={{ borderRadius: 2, bgcolor: "grey.400" }}>
                               {page["author-name"][0].toUpperCase()}
                             </Avatar>
                             <Stack
@@ -246,9 +246,9 @@ const PagesList = inject(
                                 variant="subtitle1"
                                 sx={{
                                   // fontSize: 8,
-                                  // textTransform: 'uppercase',
+                                  // textTransform: "uppercase",
                                   // letterSpacing: 1,
-                                  color: 'text.secondary',
+                                  color: "text.secondary",
                                 }}>
                                 Создатель
                               </Typography>
@@ -278,8 +278,8 @@ const PagesList = inject(
                       justifyContent="center"
                       alignItems="center"
                       sx={{
-                        width: '100%',
-                        maxWidth: '100%',
+                        width: "100%",
+                        maxWidth: "100%",
                         pl: 1,
                         pr: 1,
                       }}
@@ -289,9 +289,9 @@ const PagesList = inject(
                         sx={{
                           maxHeight: 290,
                           minWidth: 220,
-                          width: '100%',
+                          width: "100%",
                           lineHeight: "26px",
-                          cursor: 'default',
+                          cursor: "default",
                           fontSize: 16,
                           overflow: "hidden",
                           textOverflow: "ellipsis",
@@ -305,7 +305,7 @@ const PagesList = inject(
                         justifyContent="center"
                         alignItems="center"
                         sx={{
-                          width: '100%',
+                          width: "100%",
                           maxHeight: 290,
                         }}
 
@@ -329,14 +329,14 @@ const PagesList = inject(
                     variant="OpenSans700MainLabel"
                     noWrap
                     sx={{
-                      position: 'absolute',
-                      color: 'text.secondary',
+                      position: "absolute",
+                      color: "text.secondary",
                       borderRadius: 8,
                       bottom: 8,
                       left: 8,
-                      width: 'calc(100% - 64px)',
+                      width: "calc(100% - 64px)",
                       lineHeight: "26px",
-                      cursor: 'default',
+                      cursor: "default",
                       fontSize: 14,
                     }}
                   >
@@ -351,20 +351,20 @@ const PagesList = inject(
                   onMouseLeave={() => setHover(null)}
                   onClick={() => router.push(`/knowledge/page/${page.id}`)}
                   sx={{
-                    '&.MuiButtonBase-root': {
+                    "&.MuiButtonBase-root": {
                       height: 48,
                       width: 48,
                       minWidth: 48,
                     },
-                    position: 'absolute',
-                    color: 'text.primary',
+                    position: "absolute",
+                    color: "text.primary",
                     borderRadius: 8,
                     bottom: 8,
                     right: 8,
                     boxShadow: 4,
-                    bgcolor: 'secondary.main',
-                    '&:hover': {
-                      bgcolor: 'secondary.main',
+                    bgcolor: "secondary.main",
+                    "&:hover": {
+                      bgcolor: "secondary.main",
                     }
                   }}
                 >
@@ -376,8 +376,8 @@ const PagesList = inject(
                         alignItems="center"
                         spacing={2}
                         sx={{
-                          width: '100%',
-                          height: '100%',
+                          width: "100%",
+                          height: "100%",
                         }}
                         key="textButton1"
                         component={motion.div}
@@ -390,7 +390,7 @@ const PagesList = inject(
                           variant="IBMPlexMono500XiLabelEnd"
                           sx={{
                             lineHeight: "20px",
-                            cursor: 'pointer',
+                            cursor: "pointer",
                             fontSize: 16,
                           }}
                         >

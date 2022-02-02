@@ -1,20 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import ClearIcon from '@mui/icons-material/Clear';
-import { inject, observer } from 'mobx-react'
-import Image from 'next/image'
-import { Dialog, DialogContent, Stack, Input, Slider, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
+import React, { useState } from "react";
+import { styled } from "@mui/material/styles";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import ClearIcon from "@mui/icons-material/Clear";
+import { inject, observer } from "mobx-react"
+import Image from "next/image"
+import { Dialog, DialogContent, Stack, Input, Slider, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from "@mui/material";
 
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
-import clsx from 'clsx';
-import QueueIcon from '@mui/icons-material/Queue';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useDropzone } from 'react-dropzone';
+import clsx from "clsx";
+import QueueIcon from "@mui/icons-material/Queue";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { useDropzone } from "react-dropzone";
 
-const DialogImgSelect = inject('managmentStore')(observer(({ managmentStore, saveNewAvatar, files, selectFiles, setEditorRef, uploadImg, openDialog, setOpenDialog }) => {
+const DialogImgSelect = inject("managmentStore")(observer(({ managmentStore, saveNewAvatar, files, selectFiles, setEditorRef, uploadImg, openDialog, setOpenDialog }) => {
     // Simulated props for the purpose of the example
     const theme = useTheme();
 
@@ -30,7 +30,7 @@ const DialogImgSelect = inject('managmentStore')(observer(({ managmentStore, sav
         <Dialog
             open={openDialog}
             onClose={() => setOpenDialog(false)}
-            scroll='paper'
+            scroll="paper"
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
         >
@@ -130,10 +130,10 @@ const DialogImgSelect = inject('managmentStore')(observer(({ managmentStore, sav
 }));
 
 
-const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managmentStore')(observer(({ rootStore, knowledgeStore, contentStore, managmentStore, index }) => {
+const ImageComp = inject("rootStore", "knowledgeStore", "contentStore", "managmentStore")(observer(({ rootStore, knowledgeStore, contentStore, managmentStore, index }) => {
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
-    //const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
+    //const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: "black", color: "white" };
 
     //console.log("props", props)
 
@@ -186,7 +186,7 @@ const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managme
                     {values.authorId && values.imageId && <Image
                         alt="alt"
                         src={`https://xieffect.pythonanywhere.com/wip/images/${values.imageId}/`}
-                        // layout='fill'
+                        // layout="fill"
                         quality={100}
                         width={1920}
                         height={1080}
@@ -197,9 +197,9 @@ const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managme
                         alignItems="center"
                         spacing={2}
                         sx={{
-                            width: '100%',
+                            width: "100%",
                             minHeight: 200,
-                            border: '2px dashed #fafafa',
+                            border: "2px dashed #fafafa",
                             borderRadius: 4,
                         }}
                         {...getRootProps()}
@@ -267,7 +267,7 @@ const ImageComp = inject('rootStore', 'knowledgeStore', 'contentStore', 'managme
                             }}
                             size="large"
                             sx={{
-                                ml: 'auto'
+                                ml: "auto"
                             }}
                         >
                             <DeleteForeverIcon />

@@ -54,7 +54,7 @@ function DnDList({ state, setState, ComponentsList }) {
                         marginLeft: 8,
                         marginRight: 8,
                         height: "calc(100vh - 220px)",
-                        '&::-webkit-scrollbar': {
+                        "&::-webkit-scrollbar": {
                             width: "0! important",
                             height: 0,
                             display: "none !important",

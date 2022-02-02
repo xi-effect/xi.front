@@ -12,7 +12,7 @@ const InfoPage = inject(
 )(
     observer(({ rootStore, knowledgeStore, uiStore, openDialog, setOpenDialog }) => {
         const router = useRouter();
-        const [type, setType] = React.useState('general');
+        const [type, setType] = React.useState("general");
 
 
         return (
@@ -25,7 +25,7 @@ const InfoPage = inject(
                 <Typography
                     variant="subtitle1"
                     sx={{
-                        color: 'text.secondary'
+                        color: "text.secondary"
                     }}
                 >
                     Страница
@@ -33,7 +33,7 @@ const InfoPage = inject(
                 <Typography
                     variant="body1"
                     sx={{
-                        color: 'text.main'
+                        color: "text.main"
                     }}
                 >
                     {knowledgeStore.page.name}
@@ -42,7 +42,7 @@ const InfoPage = inject(
                     variant="subtitle1"
                     sx={{
                         mt: 1,
-                        color: 'text.secondary'
+                        color: "text.secondary"
                     }}
                 >
                     Описание
@@ -50,7 +50,7 @@ const InfoPage = inject(
                 <Typography
                     variant="body1"
                     sx={{
-                        color: 'text.main'
+                        color: "text.main"
                     }}
                 >
                     {knowledgeStore.page.description}
@@ -59,7 +59,7 @@ const InfoPage = inject(
                     variant="subtitle1"
                     sx={{
                         mt: 1,
-                        color: 'text.secondary'
+                        color: "text.secondary"
                     }}
                 >
                     Тема
@@ -67,7 +67,7 @@ const InfoPage = inject(
                 <Typography
                     variant="body1"
                     sx={{
-                        color: 'text.main'
+                        color: "text.main"
                     }}
                 >
                     {knowledgeStore.page.theme}
@@ -76,7 +76,7 @@ const InfoPage = inject(
                     variant="subtitle1"
                     sx={{
                         mt: 1,
-                        color: 'text.secondary'
+                        color: "text.secondary"
                     }}
                 >
                     Тип
@@ -84,7 +84,7 @@ const InfoPage = inject(
                 <Typography
                     variant="body1"
                     sx={{
-                        color: 'text.main'
+                        color: "text.main"
                     }}
                 >
                     {knowledgeStore.page.kind}
@@ -101,7 +101,7 @@ const InfoModule = inject(
 )(
     observer(({ rootStore, knowledgeStore, uiStore, openDialog, setOpenDialog }) => {
         const router = useRouter();
-        const [type, setType] = React.useState('general');
+        const [type, setType] = React.useState("general");
 
 
         return (
@@ -114,7 +114,7 @@ const InfoModule = inject(
                 <Typography
                     variant="subtitle1"
                     sx={{
-                        color: 'text.secondary'
+                        color: "text.secondary"
                     }}
                 >
                     Страница
@@ -122,7 +122,7 @@ const InfoModule = inject(
                 <Typography
                     variant="body1"
                     sx={{
-                        color: 'text.main'
+                        color: "text.main"
                     }}
                 >
                     {knowledgeStore.module.name}
@@ -131,7 +131,7 @@ const InfoModule = inject(
                     variant="subtitle1"
                     sx={{
                         mt: 1,
-                        color: 'text.secondary'
+                        color: "text.secondary"
                     }}
                 >
                     Описание
@@ -139,7 +139,7 @@ const InfoModule = inject(
                 <Typography
                     variant="body1"
                     sx={{
-                        color: 'text.main'
+                        color: "text.main"
                     }}
                 >
                     {knowledgeStore.module.description}
@@ -148,7 +148,7 @@ const InfoModule = inject(
                     variant="subtitle1"
                     sx={{
                         mt: 1,
-                        color: 'text.secondary'
+                        color: "text.secondary"
                     }}
                 >
                     Тема
@@ -156,7 +156,7 @@ const InfoModule = inject(
                 <Typography
                     variant="body1"
                     sx={{
-                        color: 'text.main'
+                        color: "text.main"
                     }}
                 >
                     {knowledgeStore.module.theme}
@@ -165,7 +165,7 @@ const InfoModule = inject(
                     variant="subtitle1"
                     sx={{
                         mt: 1,
-                        color: 'text.secondary'
+                        color: "text.secondary"
                     }}
                 >
                     Тип
@@ -173,7 +173,7 @@ const InfoModule = inject(
                 <Typography
                     variant="body1"
                     sx={{
-                        color: 'text.main'
+                        color: "text.main"
                     }}
                 >
                     {knowledgeStore.module.type}
@@ -191,7 +191,7 @@ const InfoDialog = inject(
 )(
     observer(({ rootStore, knowledgeStore, uiStore, openDialog, setOpenDialog }) => {
         const router = useRouter();
-        const [type, setType] = React.useState('general');
+        const [type, setType] = React.useState("general");
 
 
         return (
@@ -209,7 +209,7 @@ const InfoDialog = inject(
                     spacing={2}
                     sx={{
                         height: 64,
-                        width: '100%',
+                        width: "100%",
                         p: 1,
                     }}
                 >

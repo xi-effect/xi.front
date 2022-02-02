@@ -1,16 +1,16 @@
-import * as React from 'react';
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import Image from 'next/image';
+import * as React from "react";
+import Head from "next/head"
+import { useRouter } from "next/router"
+import Image from "next/image";
 
-import { Stack, Paper, Grid, Typography, Box, Button, useMediaQuery } from '@mui/material';
-import { inject, observer } from 'mobx-react'
+import { Stack, Paper, Grid, Typography, Box, Button, useMediaQuery } from "@mui/material";
+import { inject, observer } from "mobx-react"
 
 
-const Email = inject('rootStore')(observer(({ rootStore }) => {
+const Email = inject("rootStore")(observer(({ rootStore }) => {
     const router = useRouter()
     const { id } = router.query
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const [ok, setOk] = React.useState(false)
 
@@ -35,14 +35,14 @@ const Email = inject('rootStore')(observer(({ rootStore }) => {
                 sx={{
                     width: "100vw",
                     height: "100vh",
-                    backgroundColor: 'background.main', //Цвета есть в файле theme.js и в дефолтной теме в MUI
+                    backgroundColor: "background.main", //Цвета есть в файле theme.js и в дефолтной теме в MUI
                 }}
             >
                 <Stack
                     direction="row"
                     justifyContent="space-between"
                     alignItems="center"
-                    sx={{ height: mobile ? '100px' : "140px", p: mobile ? '20px' : '40px', width: '100%', }}
+                    sx={{ height: mobile ? "100px" : "140px", p: mobile ? "20px" : "40px", width: "100%", }}
                 >
                     <Stack
                         direction="row"
@@ -55,19 +55,19 @@ const Email = inject('rootStore')(observer(({ rootStore }) => {
                             component={"h1"}
                             onClick={() => {
                                 router.push({
-                                    pathname: '/',
+                                    pathname: "/",
                                 })
                             }}
 
                             variant="Roboto500XiLabel"
                             sx={{
-                                mt: '1px',
-                                cursor: 'pointer',
-                                color: 'secondary.main',
+                                mt: "1px",
+                                cursor: "pointer",
+                                color: "secondary.main",
                                 fontSize: {
-                                    sm: '28px',
-                                    md: '34px',
-                                    lg: '40px',
+                                    sm: "28px",
+                                    md: "34px",
+                                    lg: "40px",
                                 },
                             }}
                         >
@@ -77,20 +77,20 @@ const Email = inject('rootStore')(observer(({ rootStore }) => {
                             component={"h1"}
                             onClick={() => {
                                 router.push({
-                                    pathname: '/',
+                                    pathname: "/",
                                 })
                             }}
 
                             variant="IBMPlexMono500XiLabelEnd"
                             sx={{
-                                '&.MuiTypography-root': {
-                                    cursor: 'pointer',
-                                    color: 'secondary.main',
+                                "&.MuiTypography-root": {
+                                    cursor: "pointer",
+                                    color: "secondary.main",
                                 },
                                 fontSize: {
-                                    sm: '28px',
-                                    md: '34px',
-                                    lg: '40px',
+                                    sm: "28px",
+                                    md: "34px",
+                                    lg: "40px",
                                 },
                             }}
                         >
@@ -102,7 +102,7 @@ const Email = inject('rootStore')(observer(({ rootStore }) => {
                     elevation={24}
                     sx={{
                         zIndex: 10,
-                        width: 'calc(100% - 32px)',
+                        width: "calc(100% - 32px)",
                         maxWidth: 512,
                         // mt: mobile ? "2px" : -32,
                         mt: 0,
@@ -133,19 +133,19 @@ const Email = inject('rootStore')(observer(({ rootStore }) => {
                             size="large"
                             type="submit"
                             sx={{
-                                '&.MuiButton-root': {
-                                    fontFamily: 'Open Sans, sans-serif',
-                                    fontStyle: 'normal',
+                                "&.MuiButton-root": {
+                                    fontFamily: "Open Sans, sans-serif",
+                                    fontStyle: "normal",
                                     fontWeight: 600,
-                                    fontSize: '16px',
-                                    lineHeight: '25px',
-                                    width: '160px',
-                                    height: '50px',
-                                    color: 'text.primary',
-                                    bgcolor: 'secondary.main',
-                                    borderRadius: '88px',
-                                    '&:hover': {
-                                        bgcolor: 'secondary.main',
+                                    fontSize: "16px",
+                                    lineHeight: "25px",
+                                    width: "160px",
+                                    height: "50px",
+                                    color: "text.primary",
+                                    bgcolor: "secondary.main",
+                                    borderRadius: "88px",
+                                    "&:hover": {
+                                        bgcolor: "secondary.main",
                                     },
                                     mt: 2,
                                     boxShadow: 12,

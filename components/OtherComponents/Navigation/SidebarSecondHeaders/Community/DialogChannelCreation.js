@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import { useRouter } from 'next/router'
-import { inject, observer } from 'mobx-react'
+import React from "react";
+import { useRouter } from "next/router"
+import { inject, observer } from "mobx-react"
 
-import { Typography, MenuItem, useTheme, Tab, Tabs, Radio, Switch, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container, DialogActions } from '@mui/material';
+import { Typography, MenuItem, useTheme, Tab, Tabs, Radio, Switch, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container, DialogActions } from "@mui/material";
 import Image from "next/image";
 
 
-const DialogChannelCreation = inject('rootStore')(observer(({ rootStore, openDialogChannelCreation, setOpenDialogChannelCreation }) => {
+const DialogChannelCreation = inject("rootStore")(observer(({ rootStore, openDialogChannelCreation, setOpenDialogChannelCreation }) => {
     const theme = useTheme();
-    const fullScreen = useMediaQuery(theme => theme.breakpoints.down('md'));
+    const fullScreen = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const [channelSelect, setChannelSelect] = React.useState(null)
 
@@ -23,7 +23,7 @@ const DialogChannelCreation = inject('rootStore')(observer(({ rootStore, openDia
             fullWidth
             maxWidth="md"
             sx={{
-                // height: '100%'
+                // height: "100%"
             }}
         >
             <Stack
@@ -33,11 +33,11 @@ const DialogChannelCreation = inject('rootStore')(observer(({ rootStore, openDia
                 // spacing={2}
                 sx={{
                     height: 64,
-                    width: '100%',
+                    width: "100%",
                     p: 1,
                 }}
             >
-                <Typography sx={{ mt: 2, ml: 2, mr: 'auto' }} variant="h5">
+                <Typography sx={{ mt: 2, ml: 2, mr: "auto" }} variant="h5">
                     Создание канала
                 </Typography>
             </Stack>
@@ -49,7 +49,7 @@ const DialogChannelCreation = inject('rootStore')(observer(({ rootStore, openDia
                     // spacing={2}
                     sx={{
                         height: 360,
-                        width: '100%',
+                        width: "100%",
                     }}
                 >
                     {["Чат", "Расписание", "Комната", "Доска", "Задание",].map((item, index) => (
@@ -63,8 +63,8 @@ const DialogChannelCreation = inject('rootStore')(observer(({ rootStore, openDia
                             sx={{
                                 mb: 2,
                                 height: 36,
-                                width: '100%',
-                                bgcolor: 'grey.900'
+                                width: "100%",
+                                bgcolor: "grey.900"
                             }}
                         >
                             <Stack
@@ -73,7 +73,7 @@ const DialogChannelCreation = inject('rootStore')(observer(({ rootStore, openDia
                                 alignItems="center"
                                 sx={{
                                     height: 36,
-                                    width: '100%',
+                                    width: "100%",
                                 }}
                             >
                                 <Radio

@@ -1,26 +1,26 @@
-import React from 'react'
-import { Stack, Dialog, DialogTitle, useTheme, DialogContent, DialogContentText, DialogActions, InputAdornment, Tooltip, IconButton, Avatar, Grid, FormControl, InputLabel, TextField, OutlinedInput, Typography, Box, Button } from '@mui/material'
-import { inject, observer } from 'mobx-react'
+import React from "react"
+import { Stack, Dialog, DialogTitle, useTheme, DialogContent, DialogContentText, DialogActions, InputAdornment, Tooltip, IconButton, Avatar, Grid, FormControl, InputLabel, TextField, OutlinedInput, Typography, Box, Button } from "@mui/material"
+import { inject, observer } from "mobx-react"
 
-import SaveIcon from '@mui/icons-material/Save';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import SaveIcon from "@mui/icons-material/Save";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-let Crypto = require('crypto-js')
+let Crypto = require("crypto-js")
 
 
-const DialogChangeEmail = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore, openEmailChangeDialog, setOpenEmailChangeDialog }) => {
+const DialogChangeEmail = inject("rootStore", "settingsStore")(observer(({ rootStore, settingsStore, openEmailChangeDialog, setOpenEmailChangeDialog }) => {
     const theme = useTheme();
 
 
-    const [newEmail, setNewEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
+    const [newEmail, setNewEmail] = React.useState("")
+    const [password, setPassword] = React.useState("")
     const [showPassword, setShowPassword] = React.useState(false)
 
     const [emailError, setEmailError] = React.useState(false)
     const [passwordError, setPasswordError] = React.useState(false)
     const [symError, setSymError] = React.useState(false)
-    //const [password, setPassword] = React.useState('')
+    //const [password, setPassword] = React.useState("")
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
@@ -31,7 +31,7 @@ const DialogChangeEmail = inject('rootStore', 'settingsStore')(observer(({ rootS
         setEmailError(false)
         setPasswordError(false)
         setSymError(false)
-        if (!newEmail.includes('@') || !newEmail.includes('.') || newEmail.length < 5) {
+        if (!newEmail.includes("@") || !newEmail.includes(".") || newEmail.length < 5) {
             setSymError(true)
         }
         if (!symError) {
@@ -41,9 +41,9 @@ const DialogChangeEmail = inject('rootStore', 'settingsStore')(observer(({ rootS
                     if (data != undefined) {
                         if (data.a == "Success") { //userId //"Success"
                             setOpenEmailChangeDialog(false)
-                        } else if (data.a == "Email in use") { //"User doesn't exist"
+                        } else if (data.a == "Email in use") { //"User doesn"t exist"
                             setEmailError(true)
-                        } else if (data.a == "Wrong password") { //"User doesn't exist"
+                        } else if (data.a == "Wrong password") { //"User doesn"t exist"
                             setPasswordError(true)
                         }
                     }
@@ -65,13 +65,13 @@ const DialogChangeEmail = inject('rootStore', 'settingsStore')(observer(({ rootS
                     justifyContent="center"
                     alignItems="flex-start"
                     spacing={2}
-                    sx={{pt: 2}}
+                    sx={{ pt: 2 }}
                 >
                     <FormControl fullWidth variant="outlined">
                         <InputLabel htmlFor="outlined-adornment-password"> <Typography>Пароль</Typography> </InputLabel>
                         <OutlinedInput
                             label="Пароль"
-                            type={showPassword ? 'text' : 'password'}
+                            type={showPassword ? "text" : "password"}
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}
                             endAdornment={
@@ -93,7 +93,7 @@ const DialogChangeEmail = inject('rootStore', 'settingsStore')(observer(({ rootS
                         <InputLabel htmlFor="outlined-adornment-password"> <Typography>Новый адрес почты</Typography> </InputLabel>
                         <OutlinedInput
                             label="Новый адрес почты"
-                            type='text'
+                            type="text"
                             value={newEmail}
                             onChange={(event) => setNewEmail(event.target.value)}
                             endAdornment={

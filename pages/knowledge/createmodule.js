@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, CircularProgress, Grid, Typography, Stack, useTheme } from '@mui/material';
-import { inject, observer } from 'mobx-react';
-import Head from 'next/head';
-import Image from 'next/image';
-import React from 'react';
-import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { Button, CircularProgress, Grid, Typography, Stack, useTheme } from "@mui/material";
+import { inject, observer } from "mobx-react";
+import Head from "next/head";
+import Image from "next/image";
+import React from "react";
+import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-import StepOne from '../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation/StepOne';
-import StepTwo from '../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation/StepTwo';
-import StepThree from '../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation/StepThree';
-import { useUnmount } from 'react-use';
-import { useSnackbar } from 'notistack';
+import StepOne from "../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation/StepOne";
+import StepTwo from "../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation/StepTwo";
+import StepThree from "../../components/PagesComponents/Managment/Content/Modules/DialogModuleCreation/StepThree";
+import { useUnmount } from "react-use";
+import { useSnackbar } from "notistack";
 
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -22,13 +22,13 @@ const reorder = (list, startIndex, endIndex) => {
     return result;
 };
 
-const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(observer(({ knowledgeStore, managmentStore, uiStore }) => {
+const Createmodule = inject("knowledgeStore", "managmentStore", "uiStore")(observer(({ knowledgeStore, managmentStore, uiStore }) => {
 
     useUnmount(() => {
         if (managmentStore.moduleCreation.id) {
             managmentStore.saveModule(true)
-            enqueueSnackbar('Модуль сохранен', {
-                variant: 'success',
+            enqueueSnackbar("Модуль сохранен", {
+                variant: "success",
             })
         }
     });
@@ -45,7 +45,7 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
             return;
         }
 
-        if (result.source.droppableId === 'list-pages') {
+        if (result.source.droppableId === "list-pages") {
             let newArray = [...managmentStore.moduleCreation.points[result.destination.droppableId.slice(5)].pages]
             let newPage = {}
             newPage.id = managmentStore.pageCreationList.pages[result.source.index].id
@@ -71,7 +71,7 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
         }
 
         //Перетаскивание между точками 
-        if (result.source.droppableId != 'list-pages' && result.destination.droppableId != result.source.droppableId) {
+        if (result.source.droppableId != "list-pages" && result.destination.droppableId != result.source.droppableId) {
             let newArray = [...managmentStore.moduleCreation.points[Number(result.destination.droppableId.slice(5))].pages]
             let newPage = managmentStore.moduleCreation.points[Number(result.source.droppableId.slice(5))].pages[result.source.index]
             newArray.splice(result.destination.index, 0, newPage)
@@ -137,7 +137,7 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
                             justifyContent="center"
                             alignItems="flex-start"
                             sx={{
-                                width: '100%',
+                                width: "100%",
                                 zIndex: 1,
                             }}
                         >

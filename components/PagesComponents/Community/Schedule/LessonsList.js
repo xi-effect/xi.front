@@ -25,9 +25,9 @@ const LessonsList = inject("knowledgeStore")(
                 justifyContent="flex-start"
                 alignItems="flex-start"
                 sx={{
-                    width: '100%',
-                    // maxHeight: 'calc(100vh - 120px)',
-                    height: '100%',
+                    width: "100%",
+                    // maxHeight: "calc(100vh - 120px)",
+                    height: "100%",
                 }}
             >
                 <Stack
@@ -35,11 +35,11 @@ const LessonsList = inject("knowledgeStore")(
                     justifyContent="center"
                     alignItems="center"
                     sx={{
-                        bgcolor: 'grey.800',
+                        bgcolor: "grey.800",
                         // borderTopLeftRadius: 16,
                         // borderBottomLeftRadius: 16,
                         width: "82px",
-                        height: '100%',
+                        height: "100%",
                     }}
                 >
                     <Stack
@@ -47,12 +47,12 @@ const LessonsList = inject("knowledgeStore")(
                         justifyContent="flex-start"
                         alignItems="center"
                         sx={{
-                            height: '100%',
-                            width: '100%',
+                            height: "100%",
+                            width: "100%",
                             pt: 1,
-                            touchAction: 'pan-y',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
+                            touchAction: "pan-y",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
                         }}
                     >
                         {[...Array(20)].map((item, index) =>
@@ -62,8 +62,8 @@ const LessonsList = inject("knowledgeStore")(
                                 alignItems="center"
                                 key={index.toString()}
                                 sx={{
-                                    minHeight: '90px',
-                                    width: '100%',
+                                    minHeight: "90px",
+                                    width: "100%",
                                     width: "82px",
                                 }}
                             >
@@ -88,8 +88,8 @@ const LessonsList = inject("knowledgeStore")(
                                 key={index.toString()}
                                 sx={{
                                     mt: 2,
-                                    width: '100%',
-                                    position: 'relative',
+                                    width: "100%",
+                                    position: "relative",
                                     m: 1,
                                 }}
                             >
@@ -99,14 +99,14 @@ const LessonsList = inject("knowledgeStore")(
                                     // justifyContent="flex-start"
                                     // alignItems="center"
                                     sx={{
-                                        // position: 'absolute',
+                                        // position: "absolute",
                                         // top: 60 * (dateStart.getHours() - 6) + dateStart.getMinutes(),
                                         // height: 60 * index,
                                         minHeight: "32px",
                                         height: "32px",
-                                        width: 'calc(100% - 8px)',
+                                        width: "calc(100% - 8px)",
                                         // minWidth: 300,
-                                        // bgcolor: 'primary.main',
+                                        // bgcolor: "primary.main",
                                         borderRadius: "8px",
                                         // ml: 0.5,
                                         // mt: 1.5,
@@ -126,7 +126,7 @@ const LessonsList = inject("knowledgeStore")(
                                             sx={{
                                                 height: "32px",
                                                 width: "72px",
-                                                bgcolor: 'primary.main',
+                                                bgcolor: "primary.main",
                                                 borderTopLeftRadius: "8px",
                                                 borderBottomLeftRadius: "8px",
                                             }}
@@ -135,24 +135,24 @@ const LessonsList = inject("knowledgeStore")(
                                                 variant="subtitle1"
                                                 sx={{
                                                     // color: getTaskColor(task.type),
-                                                    // width: 'calc(100% - 16px)',
+                                                    // width: "calc(100% - 16px)",
                                                     // ml: 2,
                                                 }}
                                                 noWrap
                                             >
-                                                {'11:00'}
+                                                {"11:00"}
                                             </Typography>
                                         </Stack>
                                         <Typography
                                             variant="h5"
                                             sx={{
                                                 // color: getTaskColor(task.type),
-                                                width: 'calc(100% - 16px)',
+                                                width: "calc(100% - 16px)",
                                                 ml: 2,
                                             }}
                                             noWrap
                                         >
-                                            {'Занятие'}
+                                            {"Занятие"}
                                         </Typography>
                                     </Stack>
                                 </Paper>

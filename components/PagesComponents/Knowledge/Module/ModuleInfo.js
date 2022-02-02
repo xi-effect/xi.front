@@ -126,7 +126,7 @@ const DialogEndTestResults = inject("knowledgeStore")(
 
         </DialogContent>
         <DialogActions>
-          <Button sx={{color: 'text.main'}} onClick={() => setOpenTestResults(false)} autoFocus>
+          <Button sx={{ color: "text.main" }} onClick={() => setOpenTestResults(false)} autoFocus>
             Закрыть
           </Button>
         </DialogActions>
@@ -138,7 +138,7 @@ const DialogEndTestResults = inject("knowledgeStore")(
 const DialogEndTestApply = inject("knowledgeStore")(
   observer(({ knowledgeStore, openTestApply, setOpenTestApply, setOpenTestResults }) => {
     return (
-<Dialog
+      <Dialog
         open={openTestApply}
         onClose={() => setOpenTestApply(false)}
         aria-labelledby="alert-dialog-title"
@@ -148,18 +148,18 @@ const DialogEndTestApply = inject("knowledgeStore")(
           {"Завершить тестирование?"}
         </DialogTitle>
         <DialogContent>
-            Вы уверены, что хотите завершить тест?
-            После этого вы не сможете изменить ответы и увидете результаты
+          Вы уверены, что хотите завершить тест?
+          После этого вы не сможете изменить ответы и увидете результаты
         </DialogContent>
         <DialogActions>
-          <Button sx={{color: 'text.main'}} onClick={() => setOpenTestApply(false)}>Отмена</Button>
+          <Button sx={{ color: "text.main" }} onClick={() => setOpenTestApply(false)}>Отмена</Button>
           <Button
-          sx={{color: 'text.main'}}
-          onClick={() => {
+            sx={{ color: "text.main" }}
+            onClick={() => {
               setOpenTestApply(false)
               setOpenTestResults(true)
             }}
-             autoFocus>
+            autoFocus>
             Завершить тест
           </Button>
         </DialogActions>
@@ -261,26 +261,26 @@ const ModuleInfo = inject("knowledgeStore")(
                         </IconButton>
                       </span>
                     </Tooltip>
-                    
+
                   </Grid>
                 </Grid>
                 <Grid item></Grid>
                 <Grid item>
-                {knowledgeStore.module.type === "test" && <Tooltip title="Завершить тест">
+                  {knowledgeStore.module.type === "test" && <Tooltip title="Завершить тест">
                     <span>
                       <Button
                         onClick={() =>
                           setOpenTestApply(true)
                         }
                         size="large"
-                        sx={{color: 'text.main'}}
+                        sx={{ color: "text.main" }}
                       >
                         Завершить
                       </Button>
                     </span>
                   </Tooltip>}
-                  {<DialogEndTestApply openTestApply={openTestApply} setOpenTestApply={setOpenTestApply} setOpenTestResults={setOpenTestResults}/>}
-                  {<DialogEndTestResults openTestResults={openTestResults} setOpenTestResults={setOpenTestResults}/>}
+                  {<DialogEndTestApply openTestApply={openTestApply} setOpenTestApply={setOpenTestApply} setOpenTestResults={setOpenTestResults} />}
+                  {<DialogEndTestResults openTestResults={openTestResults} setOpenTestResults={setOpenTestResults} />}
                   <Tooltip title="Вперёд">
                     <span>
                       <IconButton
@@ -318,8 +318,8 @@ const ModuleInfo = inject("knowledgeStore")(
                       indicatorColor="primary"
                       textColor="primary"
                       aria-label="full width tabs example"
-                      //variant="fullWidth"
-                      // centered
+                    //variant="fullWidth"
+                    // centered
                     >
                       <Tab
                         label={
@@ -443,19 +443,19 @@ const ModuleInfo = inject("knowledgeStore")(
                             >
                               {knowledgeStore.module.activeIdInMap ===
                                 index + (paginationCounter - 1) * 10 && (
-                                <ArrowRightIcon />
-                              )}
+                                  <ArrowRightIcon />
+                                )}
                               {/* {knowledgeStore.module.activeIdInMap !== (index + (paginationCounter - 1) * 10) && <CircleIcon sx={{fontSize: "8px", m: 1}} />} */}
                               <Link
                                 sx={{
                                   cursor:
                                     knowledgeStore.module.activeIdInMap ===
-                                    index + (paginationCounter - 1) * 10
+                                      index + (paginationCounter - 1) * 10
                                       ? "default"
                                       : "pointer",
                                   ml:
                                     knowledgeStore.module.activeIdInMap ===
-                                    index + (paginationCounter - 1) * 10
+                                      index + (paginationCounter - 1) * 10
                                       ? 0
                                       : 3,
                                 }}
@@ -467,7 +467,7 @@ const ModuleInfo = inject("knowledgeStore")(
                                 color="inherit"
                                 underline={
                                   knowledgeStore.module.activeIdInMap ===
-                                  index + (paginationCounter - 1) * 10
+                                    index + (paginationCounter - 1) * 10
                                     ? "none"
                                     : "hover"
                                 }

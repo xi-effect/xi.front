@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
+import React, { useState, useEffect } from "react";
+import { styled } from "@mui/material/styles";
 import Link from "next/link";
-import cx from 'clsx';
-import { FormControl, FormControlLabel, Grid, Switch, Button, Typography, useTheme, Tooltip } from '@mui/material';
+import cx from "clsx";
+import { FormControl, FormControlLabel, Grid, Switch, Button, Typography, useTheme, Tooltip } from "@mui/material";
 
 
 
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react"
 
-const PREFIX = 'StepThree';
+const PREFIX = "StepThree";
 
 const classes = {
     gridWrapper: `${PREFIX}-gridWrapper`,
@@ -34,14 +34,14 @@ const StyledGrid = styled(Grid)((
     [`& .${classes.stepLabel}`]: {
         marginLeft: 16,
         fontSize: 24,
-        cursor: 'default',
+        cursor: "default",
         color: theme => theme.palette.primary.contrastText,
     },
 
     [`& .${classes.stepSecondLabel}`]: {
         marginLeft: 16,
         fontSize: 20,
-        cursor: 'default',
+        cursor: "default",
         color: theme => theme.palette.primary.contrastText,
         // color: theme => theme.main.palette.content.border,
     },
@@ -74,7 +74,7 @@ const StyledGrid = styled(Grid)((
     }
 }));
 
-const StepThree = inject('managmentStore')(observer(({ managmentStore }) => {
+const StepThree = inject("managmentStore")(observer(({ managmentStore }) => {
     const theme = useTheme();
 
 
@@ -90,11 +90,11 @@ const StepThree = inject('managmentStore')(observer(({ managmentStore }) => {
             alignItems="flex-start"
         >
             <Typography
-                variant='Roboto500XiLabel'
+                variant="Roboto500XiLabel"
                 sx={{
                     marginLeft: 2,
                     fontSize: 24,
-                    cursor: 'default',
+                    cursor: "default",
                 }}
             >
                 Шаг 3. Публикация

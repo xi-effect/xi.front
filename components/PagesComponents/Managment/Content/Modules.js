@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
-import { CircularProgress, Grid, Typography, useTheme } from '@mui/material';
+import { CircularProgress, Grid, Typography, useTheme } from "@mui/material";
 
 
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react"
 
-import Image from 'next/image'
-import Toolbar from './Modules/Toolbar';
-import DataList from './Modules/DataList';
-import DialogModuleCreation from './Modules/DialogModuleCreation';
+import Image from "next/image"
+import Toolbar from "./Modules/Toolbar";
+import DataList from "./Modules/DataList";
+import DialogModuleCreation from "./Modules/DialogModuleCreation";
 
-const Modules = inject('store')(observer(({ store }) => {
+const Modules = inject("store")(observer(({ store }) => {
     const theme = useTheme();
 
 

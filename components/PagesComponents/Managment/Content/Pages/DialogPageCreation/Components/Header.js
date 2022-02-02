@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
-import { Fade, Input, Divider, IconButton, Grid, useTheme, Tooltip } from '@mui/material';
+import React, { useState } from "react";
+import { styled } from "@mui/material/styles";
+import { Fade, Input, Divider, IconButton, Grid, useTheme, Tooltip } from "@mui/material";
 
-import clsx from 'clsx';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import QueueIcon from '@mui/icons-material/Queue';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import TuneIcon from '@mui/icons-material/Tune';
-import ZoomInIcon from '@mui/icons-material/ZoomIn';
-import ZoomOutIcon from '@mui/icons-material/ZoomOut';
-import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
-import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
-import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
-import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
-import FormatBoldIcon from '@mui/icons-material/FormatBold';
-import FormatItalicIcon from '@mui/icons-material/FormatItalic';
-import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
-import { inject, observer } from 'mobx-react'
+import clsx from "clsx";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import QueueIcon from "@mui/icons-material/Queue";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import TuneIcon from "@mui/icons-material/Tune";
+import ZoomInIcon from "@mui/icons-material/ZoomIn";
+import ZoomOutIcon from "@mui/icons-material/ZoomOut";
+import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
+import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
+import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
+import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
+import FormatBoldIcon from "@mui/icons-material/FormatBold";
+import FormatItalicIcon from "@mui/icons-material/FormatItalic";
+import FormatUnderlinedIcon from "@mui/icons-material/FormatUnderlined";
+import { inject, observer } from "mobx-react"
 
-const PREFIX = 'Header';
+const PREFIX = "Header";
 
 const classes = {
     gridButtons: `${PREFIX}-gridButtons`,
@@ -37,7 +37,7 @@ const classes = {
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
+const Root = styled("div")((
     {
         theme
     }
@@ -77,7 +77,7 @@ const Root = styled('div')((
         width: 36,
         marginTop: 4,
         marginLeft: 16,
-        // position: 'absolute',
+        // position: "absolute",
         // top: theme => theme.spacing(10),
         // left: theme => theme.spacing(2),
     },
@@ -99,7 +99,7 @@ const Root = styled('div')((
     [`& .${classes.activeIcon}`]: {
         color: props => props.palette.primary.contrastText,
         backgroundColor: props => props.palette.primary.main,
-        '&:hover': {
+        "&:hover": {
             color: props => props.palette.primary.contrastText,
             backgroundColor: props => props.palette.primary.main,
         }
@@ -119,11 +119,11 @@ const Root = styled('div')((
     }
 }));
 
-const Header = inject('managmentStore')(observer(({ managmentStore, index }) => {
+const Header = inject("managmentStore")(observer(({ managmentStore, index }) => {
     // Simulated props for the purpose of the example
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
-    const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
+    const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: "black", color: "white" };
 
     // console.log("props", props)
     const theme = useTheme();
@@ -142,10 +142,10 @@ const Header = inject('managmentStore')(observer(({ managmentStore, index }) => 
 
     const handleTextAlign = (align) => {
         let newAlignment = null
-        if (align === 'left') newAlignment = 'center'
-        else if (align === 'center') newAlignment = 'right'
-        else if (align === 'right') newAlignment = 'left'
-        // else if (align === 'justify') newAlignment = 'left'
+        if (align === "left") newAlignment = "center"
+        else if (align === "center") newAlignment = "right"
+        else if (align === "right") newAlignment = "left"
+        // else if (align === "justify") newAlignment = "left"
         managmentStore.setPageCreationComponents(index, "textAlign", newAlignment)
     };
 
@@ -174,17 +174,17 @@ const Header = inject('managmentStore')(observer(({ managmentStore, index }) => 
     };
 
     const textAlignIconSelect = (align) => {
-        if (align === 'left') return <FormatAlignLeftIcon />
-        if (align === 'center') return <FormatAlignCenterIcon />
-        if (align === 'right') return <FormatAlignRightIcon />
-        // if (align === 'justify') return <FormatAlignJustifyIcon />
+        if (align === "left") return <FormatAlignLeftIcon />
+        if (align === "center") return <FormatAlignCenterIcon />
+        if (align === "right") return <FormatAlignRightIcon />
+        // if (align === "justify") return <FormatAlignJustifyIcon />
     }
 
     const textAlignLabelSelect = (align) => {
-        if (align === 'left') return 'по левому краю'
-        if (align === 'center') return 'по правому краю'
-        if (align === 'right') return 'по центру'
-        // if (align === 'justify') return 'по ширине'
+        if (align === "left") return "по левому краю"
+        if (align === "center") return "по правому краю"
+        if (align === "right") return "по центру"
+        // if (align === "justify") return "по ширине"
     }
 
     const [hover, setHover] = React.useState(false)
@@ -204,9 +204,9 @@ const Header = inject('managmentStore')(observer(({ managmentStore, index }) => 
                 <Grid className={classes.gridTextWrapper}>
                     <Input
                         sx={{
-                            '& .MuiInput-input': {
+                            "& .MuiInput-input": {
                                 width: "100%",
-                                color: 'text.main',
+                                color: "text.main",
                                 fontSize: values.fontSize,
                                 fontStyle: values.fontStyle,
                                 textAlign: values.textAlign,
@@ -225,7 +225,7 @@ const Header = inject('managmentStore')(observer(({ managmentStore, index }) => 
                 </Grid>
                 <Fade
                     in={hover}
-                    style={{ transformOrigin: '0 0 0' }}
+                    style={{ transformOrigin: "0 0 0" }}
                     {...(hover ? { timeout: 1000 } : {})}
                 >
                     <Grid
@@ -233,33 +233,33 @@ const Header = inject('managmentStore')(observer(({ managmentStore, index }) => 
                         direction="row"
                         className={classes.gridButtons}
                     >
-                        {/* <Typography sx={{color: 'main.dark', ml: 1, mt: 1.5,}} variant="subtitle2"> настройки: </Typography> */}
-                        <IconButton onClick={() => handleFontSizeUp()} sx={{ ml: 1, color: values.fontSize === 48 ? 'error.main' : 'text.main', }} edge="end" size="large">
+                        {/* <Typography sx={{color: "main.dark", ml: 1, mt: 1.5,}} variant="subtitle2"> настройки: </Typography> */}
+                        <IconButton onClick={() => handleFontSizeUp()} sx={{ ml: 1, color: values.fontSize === 48 ? "error.main" : "text.main", }} edge="end" size="large">
                             <Tooltip title={`Увеличить шрифт. Сейчас - ${values.fontSize}`}>
                                 <ZoomInIcon />
                             </Tooltip>
                         </IconButton>
-                        <IconButton onClick={() => handleFontSizeDown()} sx={{ ml: 1, color: values.fontSize === 12 ? 'error.main' : 'text.main', }} edge="end" size="large">
+                        <IconButton onClick={() => handleFontSizeDown()} sx={{ ml: 1, color: values.fontSize === 12 ? "error.main" : "text.main", }} edge="end" size="large">
                             <Tooltip title={`Уменьшить шрифт. Сейчас - ${values.fontSize}`}>
                                 <ZoomOutIcon />
                             </Tooltip>
                         </IconButton>
-                        <IconButton onClick={() => handleTextAlign(values.textAlign)} sx={{ ml: 1, color: 'text.main', }} edge="end" size="large">
+                        <IconButton onClick={() => handleTextAlign(values.textAlign)} sx={{ ml: 1, color: "text.main", }} edge="end" size="large">
                             <Tooltip title={`Изменить выравнивание текста. Сейчас - ${textAlignLabelSelect(values.textAlign)}`}>
                                 {textAlignIconSelect(values.textAlign)}
                             </Tooltip>
                         </IconButton>
-                        <IconButton onClick={() => handleFontWeight()} sx={{ ml: 1, color: values.fontWeight === 'bold' ? 'text.main' : 'text.dark', }} edge="end" size="large">
+                        <IconButton onClick={() => handleFontWeight()} sx={{ ml: 1, color: values.fontWeight === "bold" ? "text.main" : "text.dark", }} edge="end" size="large">
                             <Tooltip title={`Полужирный`}>
                                 <FormatBoldIcon />
                             </Tooltip>
                         </IconButton>
-                        <IconButton onClick={() => handleFontStyle()} sx={{ ml: 1, color: values.fontStyle === 'italic' ? 'text.main' : 'text.dark', }} edge="end" size="large">
+                        <IconButton onClick={() => handleFontStyle()} sx={{ ml: 1, color: values.fontStyle === "italic" ? "text.main" : "text.dark", }} edge="end" size="large">
                             <Tooltip title={`Курсив`}>
                                 <FormatItalicIcon />
                             </Tooltip>
                         </IconButton>
-                        <IconButton onClick={() => handleTextDecoration()} sx={{ ml: 1, color: values.textDecoration === 'underline' ? 'text.main' : 'text.dark', }} edge="end" size="large">
+                        <IconButton onClick={() => handleTextDecoration()} sx={{ ml: 1, color: values.textDecoration === "underline" ? "text.main" : "text.dark", }} edge="end" size="large">
                             <Tooltip title={`Подчёркнутый`}>
                                 <FormatUnderlinedIcon />
                             </Tooltip>

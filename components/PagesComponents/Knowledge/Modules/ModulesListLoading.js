@@ -22,7 +22,7 @@ const ModulesListLoading = inject(
           m: 0,
           p: 1,
           width: "100%",
-          //backgroundColor: 'background.1',
+          //backgroundColor: "background.1",
         }}
       >
         {[...Array(20)].map((page, index) => (
@@ -56,7 +56,7 @@ const ModulesListLoading = inject(
                 width: "100%",
                 height: "100%",
                 borderRadius: 2,
-                position: 'relative',
+                position: "relative",
               }}
             />
           </Grid>

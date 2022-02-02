@@ -32,7 +32,7 @@ const Support = inject("rootStore")(
             overflow: "auto",
             height: "100vh",
             bgcolor: "background.main",
-            // position: 'relative',
+            // position: "relative",
           }}
         >
           <Stack

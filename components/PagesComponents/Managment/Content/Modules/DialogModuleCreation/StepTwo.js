@@ -1,33 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import clsx from 'clsx';
-import { ToggleButton, Accordion, Drawer, AccordionDetails, AccordionSummary, Stack, ToggleButtonGroup, SpeedDial, SpeedDialIcon, SpeedDialAction, Tabs, Tab, ButtonGroup, Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
+import clsx from "clsx";
+import { ToggleButton, Accordion, Drawer, AccordionDetails, AccordionSummary, Stack, ToggleButtonGroup, SpeedDial, SpeedDialIcon, SpeedDialAction, Tabs, Tab, ButtonGroup, Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from "@mui/material";
 
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { inject, observer } from 'mobx-react'
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { inject, observer } from "mobx-react"
 
 
-// import DnDList from './../../../../../OtherComponents/DnDList/DnDList';
-// import ComponentsList from './Components/ComponentsList';
-import TuneIcon from '@mui/icons-material/Tune';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import TextFieldsIcon from '@mui/icons-material/TextFields';
-import TitleIcon from '@mui/icons-material/Title';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import VerticalAlignCenterIcon from '@mui/icons-material/VerticalAlignCenter';
-import ImageIcon from '@mui/icons-material/Image';
+// import DnDList from "./../../../../../OtherComponents/DnDList/DnDList";
+// import ComponentsList from "./Components/ComponentsList";
+import TuneIcon from "@mui/icons-material/Tune";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import TextFieldsIcon from "@mui/icons-material/TextFields";
+import TitleIcon from "@mui/icons-material/Title";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import VerticalAlignCenterIcon from "@mui/icons-material/VerticalAlignCenter";
+import ImageIcon from "@mui/icons-material/Image";
 
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import BookIcon from '@mui/icons-material/Book';
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
-import QuizIcon from '@mui/icons-material/Quiz';
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import BookIcon from "@mui/icons-material/Book";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import QuizIcon from "@mui/icons-material/Quiz";
 
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -37,7 +37,7 @@ const reorder = (list, startIndex, endIndex) => {
     return result;
 };
 
-const ItemList = inject('managmentStore')(observer(({ managmentStore, index }) => {
+const ItemList = inject("managmentStore")(observer(({ managmentStore, index }) => {
     const theme = useTheme();
 
     const value = managmentStore.moduleCreation.points[index].pages
@@ -53,7 +53,7 @@ const ItemList = inject('managmentStore')(observer(({ managmentStore, index }) =
                         sx={{
                             zIndex: 100,
                             position: "relative",
-                            backgroundColor: 'background.1',
+                            backgroundColor: "background.1",
                             height: 64,
                             width: "calc(100% - 16px)",
                             margin: 1,
@@ -76,7 +76,7 @@ const ItemList = inject('managmentStore')(observer(({ managmentStore, index }) =
                                         marginLeft: 1,
                                         marginRight: "128px",
                                         fontSize: "20px",
-                                        color: 'text.main',
+                                        color: "text.main",
                                     }} noWrap>{page.name}</Typography>
                                 </Tooltip>
                             </Grid>
@@ -88,7 +88,7 @@ const ItemList = inject('managmentStore')(observer(({ managmentStore, index }) =
                         }}>
                             <Link
                                 href={{
-                                    pathname: '/knowledge/page/[id]',
+                                    pathname: "/knowledge/page/[id]",
                                     query: { id: page.id },
                                 }}
                                 passHref>
@@ -114,7 +114,7 @@ const ItemList = inject('managmentStore')(observer(({ managmentStore, index }) =
     </>;
 }))
 
-const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
+const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => {
     const theme = useTheme();
 
     console.log("pagesStepTwo", managmentStore.pageCreationList.pages)
@@ -135,8 +135,8 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
             {managmentStore.moduleCreation.points.map((point, index) => (
                 <Accordion
                     sx={{
-                        '&.MuiPaper-root': { zIndex: 0, width: "100%", minWidth: 400 },
-                        bgcolor: 'primary.dark',
+                        "&.MuiPaper-root": { zIndex: 0, width: "100%", minWidth: 400 },
+                        bgcolor: "primary.dark",
 
                     }}
                     key={index.toString()}
@@ -150,7 +150,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                             <Input
                                 sx={{
                                     width: "100%",
-                                    color: 'text.main',
+                                    color: "text.main",
                                 }}
                                 type="text"
                                 disableUnderline
@@ -200,7 +200,7 @@ const StepTwo = inject('managmentStore')(observer(({ managmentStore }) => {
                                     return managmentStore.setModuleCreationPoints(index, "type", "practice")
                                 }
                                 if (point.type === "practice") {
-                                   return managmentStore.setModuleCreationPoints(index, "type", "theory")
+                                    return managmentStore.setModuleCreationPoints(index, "type", "theory")
                                 }
                             }} sx={{ ml: 3 }}>
                                 {point.type === "theory" && <LibraryBooksIcon />}

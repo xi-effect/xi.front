@@ -134,8 +134,8 @@ const PassResetEmail = inject(
           </Stack>
           <Box
             sx={{
-              position: 'relative',
-              width: 'calc(100% - 32px)',
+              position: "relative",
+              width: "calc(100% - 32px)",
               maxWidth: 512,
               zIndex: 0,
               // mt: mobile ? "2px" : -32,
@@ -148,9 +148,9 @@ const PassResetEmail = inject(
           >
             {!mobile && <Box
               sx={{
-                position: 'absolute',
-                top: '0px',
-                right: '-156px',
+                position: "absolute",
+                top: "0px",
+                right: "-156px",
                 zIndex: -1,
               }}
             >
@@ -164,9 +164,9 @@ const PassResetEmail = inject(
             </Box>}
             {!mobile && <Box
               sx={{
-                position: 'absolute',
-                bottom: '0px',
-                left: '-156px',
+                position: "absolute",
+                bottom: "0px",
+                left: "-156px",
                 zIndex: -1,
               }}
             >

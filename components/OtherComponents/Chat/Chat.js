@@ -57,7 +57,7 @@ const LoadingSkeleton = () => {
                             pr: 2,
                             mt: 1,
                             borderRadius: 1,
-                            // width: '100%',
+                            // width: "100%",
                             // maxWidth: 1200,
                             width: "100%",
                         }}
@@ -113,7 +113,7 @@ const LoadingSkeleton = () => {
 //         paths: [
 //             { params: { ... } } // See the "paths" section below
 //         ],
-//         fallback: 'blocking' // See the "fallback" section below
+//         fallback: "blocking" // See the "fallback" section below
 //     };
 // }
 
@@ -174,7 +174,7 @@ const Chat = inject(
                     overflowY: "auto",
                     overFlowX: "hidden",
                     display: "flex",
-                    position: 'relative',
+                    position: "relative",
                     flexDirection: "column-reverse",
                 }}
             >
@@ -186,7 +186,7 @@ const Chat = inject(
                     inverse={true} //
                     scrollThreshold={0.6}
                     hasMore={messageStore.chat.hasNext}
-                    //endMessage={<Typography align='center' sx={{ color: 'text.main', width: '100%', m: 4 }} variant="subtitle2"> Это всё </Typography>}
+                    //endMessage={<Typography align="center" sx={{ color: "text.main", width: "100%", m: 4 }} variant="subtitle2"> Это всё </Typography>}
                     loader={<LoadingSkeleton />}
                     scrollableTarget="scrollableDiv"
                 >

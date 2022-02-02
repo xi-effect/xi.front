@@ -24,7 +24,7 @@ import {
 
 import { inject, observer } from "mobx-react";
 
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import { motion } from "framer-motion";
 import MarkdownEditor from "../../../OtherComponents/MarkdownEditor/MarkdownEditor";
@@ -71,13 +71,13 @@ const Result = inject(
                     justifyContent="flex-start"
                     alignItems="center"
                     sx={{
-                        width: '100%',
+                        width: "100%",
                         pl: 0,
                         pr: 1,
-                        cursor: 'pointer',
-                        color: 'text.secondary',
-                        '&:hover': {
-                            color: 'text.primary',
+                        cursor: "pointer",
+                        color: "text.secondary",
+                        "&:hover": {
+                            color: "text.primary",
                         },
                         zIndex: 1
                     }}
@@ -91,13 +91,13 @@ const Result = inject(
                         sx={{ fontSize: 8 }}
                     />
                     <Typography
-                        variant='subtitle2'
+                        variant="subtitle2"
                         sx={{
                             ml: 1,
                             fontSize: 14,
                         }}
                     >
-                        {'результат'}
+                        {"результат"}
                     </Typography>
                 </Stack>
                 {result && <Stack
@@ -105,7 +105,7 @@ const Result = inject(
                     justifyContent="flex-start"
                     alignItems="center"
                     sx={{
-                        width: '100%'
+                        width: "100%"
                     }}
                 >
                     <MarkdownEditor

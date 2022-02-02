@@ -12,17 +12,17 @@ import {
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
-import EditIcon from '@mui/icons-material/Edit';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import TitleIcon from '@mui/icons-material/Title';
-import FormatBoldIcon from '@mui/icons-material/FormatBold';
-import FormatItalicIcon from '@mui/icons-material/FormatItalic';
-import CodeIcon from '@mui/icons-material/Code';
-import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough';
-import InsertLinkIcon from '@mui/icons-material/InsertLink';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import TitleIcon from "@mui/icons-material/Title";
+import FormatBoldIcon from "@mui/icons-material/FormatBold";
+import FormatItalicIcon from "@mui/icons-material/FormatItalic";
+import CodeIcon from "@mui/icons-material/Code";
+import FormatStrikethroughIcon from "@mui/icons-material/FormatStrikethrough";
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 const Upbar = inject(
     "rootStore",
@@ -37,8 +37,8 @@ const Upbar = inject(
                 justifyContent="flex-start"
                 alignItems="center"
                 sx={{
-                    width: '100%',
-                    height: '48px',
+                    width: "100%",
+                    height: "48px",
                     pl: 1,
                 }}
             >
@@ -47,9 +47,9 @@ const Upbar = inject(
                     // color="inherit"
                     sx={{
                         borderRadius: 16,
-                        bgcolor: edit ? 'primary.dark' : 'transparent',
-                        '&:hover': {
-                            bgcolor: edit ? 'primary.dark' : 'transparent',
+                        bgcolor: edit ? "primary.dark" : "transparent",
+                        "&:hover": {
+                            bgcolor: edit ? "primary.dark" : "transparent",
                         }
                     }}
                     startIcon={<EditIcon />}
@@ -63,9 +63,9 @@ const Upbar = inject(
                     sx={{
                         ml: 1,
                         borderRadius: 16,
-                        bgcolor: !edit ? 'primary.dark' : 'transparent',
-                        '&:hover': {
-                            bgcolor: !edit ? 'primary.dark' : 'transparent',
+                        bgcolor: !edit ? "primary.dark" : "transparent",
+                        "&:hover": {
+                            bgcolor: !edit ? "primary.dark" : "transparent",
                         }
                     }}
                     startIcon={<VisibilityIcon />}
@@ -75,7 +75,7 @@ const Upbar = inject(
                 </Button>
                 <IconButton
                     sx={{
-                        ml: 'auto'
+                        ml: "auto"
                     }}
                 >
                     <TitleIcon />

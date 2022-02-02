@@ -53,7 +53,7 @@ const Login = inject(
 )(
   observer(({ authorizationStore, uiStore }) => {
     const theme = useTheme();
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('dl'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down("dl"));
 
     const router = useRouter();
     const [showPassword, setShowPassword] = React.useState(false);
@@ -87,7 +87,7 @@ const Login = inject(
           sx={{
             width: "100%",
             height: "100%",
-            minHeight: '100vh',
+            minHeight: "100vh",
             backgroundColor: "background.main",
           }}
         >
@@ -100,7 +100,7 @@ const Login = inject(
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ height: mobile ? '100px' : "140px", p: mobile ? '20px' : '40px', width: '100%', }}
+            sx={{ height: mobile ? "100px" : "140px", p: mobile ? "20px" : "40px", width: "100%", }}
           >
             <Stack
               direction="row"
@@ -111,19 +111,19 @@ const Login = inject(
                 component={"h1"}
                 onClick={() => {
                   router.push({
-                    pathname: '/',
+                    pathname: "/",
                   })
                 }}
 
                 variant="Roboto500XiLabel"
                 sx={{
-                  mt: '1px',
-                  cursor: 'pointer',
-                  color: 'secondary.main',
+                  mt: "1px",
+                  cursor: "pointer",
+                  color: "secondary.main",
                   fontSize: {
-                    sm: '28px',
-                    md: '34px',
-                    lg: '40px',
+                    sm: "28px",
+                    md: "34px",
+                    lg: "40px",
                   },
                 }}
               >
@@ -133,20 +133,20 @@ const Login = inject(
                 component={"h1"}
                 onClick={() => {
                   router.push({
-                    pathname: '/',
+                    pathname: "/",
                   })
                 }}
 
                 variant="IBMPlexMono500XiLabelEnd"
                 sx={{
-                  '&.MuiTypography-root': {
-                    cursor: 'pointer',
-                    color: 'secondary.main',
+                  "&.MuiTypography-root": {
+                    cursor: "pointer",
+                    color: "secondary.main",
                   },
                   fontSize: {
-                    sm: '28px',
-                    md: '34px',
-                    lg: '40px',
+                    sm: "28px",
+                    md: "34px",
+                    lg: "40px",
                   },
                 }}
               >
@@ -156,8 +156,8 @@ const Login = inject(
           </Stack>
           <Box
             sx={{
-              position: 'relative',
-              width: 'calc(100% - 32px)',
+              position: "relative",
+              width: "calc(100% - 32px)",
               maxWidth: 512,
               zIndex: 0,
               // mt: mobile ? "2px" : -32,
@@ -170,9 +170,9 @@ const Login = inject(
           >
             {!mobile && <Box
               sx={{
-                position: 'absolute',
-                top: '0px',
-                right: '-156px',
+                position: "absolute",
+                top: "0px",
+                right: "-156px",
                 zIndex: -1,
               }}
             >
@@ -186,9 +186,9 @@ const Login = inject(
             </Box>}
             {!mobile && <Box
               sx={{
-                position: 'absolute',
-                bottom: '0px',
-                left: '-156px',
+                position: "absolute",
+                bottom: "0px",
+                left: "-156px",
                 zIndex: -1,
               }}
             >
@@ -242,7 +242,7 @@ const Login = inject(
                       <FormControl
                         error={
                           errors?.email?.type === "required" ||
-                          authorizationStore.login.error === "User doesn't exist"
+                          authorizationStore.login.error === "User doesn"t exist"
                         }
                         fullWidth
                         sx={{
@@ -281,7 +281,7 @@ const Login = inject(
                     spacing={1}
                     sx={{ width: "100%", minHeight: 16, mb: 1.2 }}
                   >
-                    {authorizationStore.login.error === "User doesn't exist" && (
+                    {authorizationStore.login.error === "User doesn"t exist" && (
                       <Typography
                         variant="subtitle1"
                         sx={{ mt: 1, ml: 1 }}
@@ -374,7 +374,7 @@ const Login = inject(
                     sx={{ width: "100%" }}
                   >
                     <Link
-                      sx={{ color: 'text.secondary', ml: 1.5, fontWeight: 500, cursor: "pointer" }}
+                      sx={{ color: "text.secondary", ml: 1.5, fontWeight: 500, cursor: "pointer" }}
                       onClick={() => {
                         router.push({
                           pathname: "/registration",
@@ -384,11 +384,11 @@ const Login = inject(
                     >
                       Регистрация
                     </Link>
-                    <Typography component={"span"} sx={{ color: 'text.secondary', cursor: "pointer", fontWeight: 500, }} >
+                    <Typography component={"span"} sx={{ color: "text.secondary", cursor: "pointer", fontWeight: 500, }} >
                       {"/"}
                     </Typography>
                     <Link
-                      sx={{ color: 'text.secondary', m: 1, fontWeight: 500, cursor: "pointer" }}
+                      sx={{ color: "text.secondary", m: 1, fontWeight: 500, cursor: "pointer" }}
                       onClick={() => {
                         router.push({
                           pathname: "/resetpassword/email",
@@ -404,19 +404,19 @@ const Login = inject(
                     size="large"
                     type="submit"
                     sx={{
-                      '&.MuiButton-root': {
-                        fontFamily: 'Open Sans, sans-serif',
-                        fontStyle: 'normal',
+                      "&.MuiButton-root": {
+                        fontFamily: "Open Sans, sans-serif",
+                        fontStyle: "normal",
                         fontWeight: 600,
-                        fontSize: '16px',
-                        lineHeight: '25px',
-                        width: mobile ? '140px' : '160px',
-                        height: mobile ? '40px' : '50px',
-                        color: 'text.primary',
-                        bgcolor: 'secondary.main',
-                        borderRadius: mobile ? '62px' : '88px',
-                        '&:hover': {
-                          bgcolor: 'secondary.main',
+                        fontSize: "16px",
+                        lineHeight: "25px",
+                        width: mobile ? "140px" : "160px",
+                        height: mobile ? "40px" : "50px",
+                        color: "text.primary",
+                        bgcolor: "secondary.main",
+                        borderRadius: mobile ? "62px" : "88px",
+                        "&:hover": {
+                          bgcolor: "secondary.main",
                         },
                         mt: 2,
                         boxShadow: 12,
@@ -431,7 +431,7 @@ const Login = inject(
           </Box>
 
           <div></div>
-        </Stack>
+        </Stack >
       </>
     );
   })

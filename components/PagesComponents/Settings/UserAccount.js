@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import { styled } from '@mui/material/styles';
+import React, { useState } from "react"
+import { styled } from "@mui/material/styles";
 
 
-//import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { Slider, Dialog, useTheme, DialogTitle, DialogContent, DialogContentText, DialogActions, Link, InputAdornment, Tooltip, IconButton, ClickAwayListener, Divider, ButtonGroup, MenuList, MenuItem, Avatar, Paper, Grow, Popper, Badge, Grid, FormControl, InputLabel, TextField, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button } from '@mui/material'
-import { inject, observer } from 'mobx-react'
-import Image from 'next/image'
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+//import UploadFileIcon from "@mui/icons-material/UploadFile";
+import { Slider, Dialog, useTheme, DialogTitle, DialogContent, DialogContentText, DialogActions, Link, InputAdornment, Tooltip, IconButton, ClickAwayListener, Divider, ButtonGroup, MenuList, MenuItem, Avatar, Paper, Grow, Popper, Badge, Grid, FormControl, InputLabel, TextField, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button } from "@mui/material"
+import { inject, observer } from "mobx-react"
+import Image from "next/image"
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-import AvatarEditor from 'react-avatar-editor'
-import DialogChangePassword from './Secure/DialogChangePassword'
-import DialogChangeEmail from './Secure/DialogChangeEmail';
-import SaveIcon from '@mui/icons-material/Save';
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
-const PREFIX = 'UserAccount';
+import AvatarEditor from "react-avatar-editor"
+import DialogChangePassword from "./Secure/DialogChangePassword"
+import DialogChangeEmail from "./Secure/DialogChangeEmail";
+import SaveIcon from "@mui/icons-material/Save";
+import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+const PREFIX = "UserAccount";
 
 const classes = {
     root: `${PREFIX}-root`,
@@ -56,14 +56,14 @@ const classes = {
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
+const Root = styled("div")((
     {
         theme
     }
 ) => ({
     [`& .${classes.root}`]: {
-        width: '100%',
-        height: 'auto',
+        width: "100%",
+        height: "auto",
         //backgroundColor: theme => theme.main.palette.content.background,
     },
 
@@ -134,7 +134,7 @@ const Root = styled('div')((
     },
 
     [`& .${classes.icons}`]: {
-        //color: 'rgb(142,146,151)',
+        //color: "rgb(142,146,151)",
     },
 
     [`& .${classes.inputLabel}`]: {
@@ -188,7 +188,7 @@ const Root = styled('div')((
 
     [`& .${classes.link}`]: {
         color: theme => theme.palette.primary.light,
-        cursor: 'pointer',
+        cursor: "pointer",
         paddingLeft: 4,
         paddingTop: 4,
     },
@@ -203,19 +203,19 @@ const Root = styled('div')((
     },
 
     [`& .${classes.gridDialogItem}`]: {
-        width: '100%',
+        width: "100%",
         paddingTop: 16,
         paddingLeft: -4,
     },
 
     [`& .${classes.gridRootDialogItem}`]: {
-        width: '100%',
+        width: "100%",
         paddingRight: 24,
     },
 
     // icons: {
     //     zIndex: 999,
-    //     color: 'rgb(142,146,151)',
+    //     color: "rgb(142,146,151)",
     // },,
     [`& .${classes.ErrorLabel}`]: {
         zIndex: 999,
@@ -237,7 +237,7 @@ const Root = styled('div')((
     },
 
     [`& .${classes.gridDialogAv}`]: {
-        height: '100%'
+        height: "100%"
         //width: "550px",
     },
 
@@ -246,11 +246,11 @@ const Root = styled('div')((
     },
 
     [`& .${classes.Img}`]: {
-        borderRadius: '50%'
+        borderRadius: "50%"
     },
 
     [`& .${classes.background}`]: {
-        //position: 'fixed',
+        //position: "fixed",
         // height: 96,
         // width: 96,
         //borderRadius: 64,
@@ -266,15 +266,15 @@ const Root = styled('div')((
     }
 }));
 
-//import { SnackbarProvider, useSnackbar } from 'notistack';
+//import { SnackbarProvider, useSnackbar } from "notistack";
 
-let Crypto = require('crypto-js')
+let Crypto = require("crypto-js")
 
 
-const UserAccount = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore }) => {
+const UserAccount = inject("rootStore", "settingsStore")(observer(({ rootStore, settingsStore }) => {
     const theme = useTheme()
 
-    const options = ['Участник', 'Ученик', 'Преподаватель', 'Автор', 'Родитель'];
+    const options = ["Участник", "Ученик", "Преподаватель", "Автор", "Родитель"];
 
     // const { enqueueSnackbar } = useSnackbar();
 
@@ -341,7 +341,7 @@ const UserAccount = inject('rootStore', 'settingsStore')(observer(({ rootStore, 
         const img = canvas.toDataURL()
         console.log(img)
         //setF(i)
-        settingsStore.setSettings('avatar', img)
+        settingsStore.setSettings("avatar", img)
         settingsStore.fetchDataScr(`${rootStore.url}/avatar/`, "POST", img)
             .then((data) => {
                 console.log(data)
@@ -366,12 +366,12 @@ const UserAccount = inject('rootStore', 'settingsStore')(observer(({ rootStore, 
         })
             .then((data) => {
                 if (data.a) {
-                    // enqueueSnackbar('Успешно', {
-                    //     variant: 'success',
+                    // enqueueSnackbar("Успешно", {
+                    //     variant: "success",
                     // });
                 } else {
-                    // enqueueSnackbar('Ошибка', {
-                    //     variant: 'error',
+                    // enqueueSnackbar("Ошибка", {
+                    //     variant: "error",
                     // });
                 }
             })
@@ -393,8 +393,8 @@ const UserAccount = inject('rootStore', 'settingsStore')(observer(({ rootStore, 
                                 className={classes.Badge}
                                 overlap="circular"
                                 anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'right',
+                                    vertical: "bottom",
+                                    horizontal: "right",
                                 }}
                                 badgeContent={
                                     <CloudDownloadIcon className={classes.Icon} />
@@ -431,7 +431,7 @@ const UserAccount = inject('rootStore', 'settingsStore')(observer(({ rootStore, 
                             <OutlinedInput
                                 label="Имя пользователя"
                                 className={classes.OutlinedInput}
-                                type='text'
+                                type="text"
                                 value={settingsStore.settings.username}
                                 onChange={(event) => settingsStore.setSettings("username", event.target.value)}
                                 endAdornment={

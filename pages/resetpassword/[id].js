@@ -1,14 +1,14 @@
-import Head from 'next/head'
+import Head from "next/head"
 
-import { useRouter } from 'next/router'
-import { Stack, useMediaQuery, Paper, useTheme, InputLabel, InputAdornment, IconButton, FormControl, OutlinedInput, Typography, Box, Button, Input } from '@mui/material';
-import React from 'react'
-import { inject, observer } from 'mobx-react'
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useRouter } from "next/router"
+import { Stack, useMediaQuery, Paper, useTheme, InputLabel, InputAdornment, IconButton, FormControl, OutlinedInput, Typography, Box, Button, Input } from "@mui/material";
+import React from "react"
+import { inject, observer } from "mobx-react"
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object({
@@ -17,10 +17,10 @@ const schema = yup.object({
 
 
 
-const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ rootStore, authorizationStore, uiStore }) => {
+const PasswordReset = inject("rootStore", "uiStore", "authorizationStore")(observer(({ rootStore, authorizationStore, uiStore }) => {
     const theme = useTheme();
 
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const router = useRouter()
 
@@ -51,7 +51,7 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                 sx={{
                     width: "100vw",
                     height: "100vh",
-                    backgroundColor: 'background.main',
+                    backgroundColor: "background.main",
                 }}
             >
 
@@ -59,7 +59,7 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                     direction="row"
                     justifyContent="space-between"
                     alignItems="center"
-                    sx={{ height: mobile ? '100px' : "140px", p: mobile ? '20px' : '40px', width: '100%', }}
+                    sx={{ height: mobile ? "100px" : "140px", p: mobile ? "20px" : "40px", width: "100%", }}
                 >
 
                     <Stack
@@ -74,19 +74,19 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                             component={"h1"}
                             onClick={() => {
                                 router.push({
-                                    pathname: '/',
+                                    pathname: "/",
                                 })
                             }}
 
                             variant="Roboto500XiLabel"
                             sx={{
-                                mt: '1px',
-                                cursor: 'pointer',
-                                color: 'secondary.main',
+                                mt: "1px",
+                                cursor: "pointer",
+                                color: "secondary.main",
                                 fontSize: {
-                                    sm: '28px',
-                                    md: '34px',
-                                    lg: '40px',
+                                    sm: "28px",
+                                    md: "34px",
+                                    lg: "40px",
                                 },
                             }}
                         >
@@ -96,20 +96,20 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                             component={"h1"}
                             onClick={() => {
                                 router.push({
-                                    pathname: '/',
+                                    pathname: "/",
                                 })
                             }}
 
                             variant="IBMPlexMono500XiLabelEnd"
                             sx={{
-                                '&.MuiTypography-root': {
-                                    cursor: 'pointer',
-                                    color: 'secondary.main',
+                                "&.MuiTypography-root": {
+                                    cursor: "pointer",
+                                    color: "secondary.main",
                                 },
                                 fontSize: {
-                                    sm: '28px',
-                                    md: '34px',
-                                    lg: '40px',
+                                    sm: "28px",
+                                    md: "34px",
+                                    lg: "40px",
                                 },
                             }}
                         >
@@ -119,8 +119,8 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                 </Stack>
                 <Box
                     sx={{
-                        position: 'relative',
-                        width: 'calc(100% - 32px)',
+                        position: "relative",
+                        width: "calc(100% - 32px)",
                         maxWidth: 512,
                         zIndex: 0,
                         // mt: mobile ? "2px" : -32,
@@ -133,9 +133,9 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                 >
                     {!mobile && <Box
                         sx={{
-                            position: 'absolute',
-                            top: '0px',
-                            right: '-156px',
+                            position: "absolute",
+                            top: "0px",
+                            right: "-156px",
                             zIndex: -1,
                         }}
                     >
@@ -149,9 +149,9 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                     </Box>}
                     {!mobile && <Box
                         sx={{
-                            position: 'absolute',
-                            bottom: '0px',
-                            left: '-156px',
+                            position: "absolute",
+                            bottom: "0px",
+                            left: "-156px",
                             zIndex: -1,
                         }}
                     >
@@ -198,11 +198,11 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                                     control={control}
                                     defaultValue=""
                                     render={({ field }) => <FormControl error={errors?.password?.type === "required"} fullWidth sx={{ maxWidth: 512, }} >
-                                        <InputLabel htmlFor="outlined-adornment-password"> <Typography sx={{ color: 'text.main' }}>Пароль</Typography> </InputLabel>
+                                        <InputLabel htmlFor="outlined-adornment-password"> <Typography sx={{ color: "text.main" }}>Пароль</Typography> </InputLabel>
                                         <Input
-                                            sx={{ backgroundColor: 'background.2', width: "100%", }}
+                                            sx={{ backgroundColor: "background.2", width: "100%", }}
                                             label="Адрес почты"
-                                            type={showPassword ? 'text' : 'password'}
+                                            type={showPassword ? "text" : "password"}
 
                                             // value={emailReset}
                                             // onChange={null}
@@ -215,7 +215,7 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                                                         onMouseDown={handleMouseDownPassword}
                                                         edge="end"
                                                         size="large">
-                                                        {showPassword ? <Visibility sx={{ color: 'text.main' }} /> : <VisibilityOff sx={{ color: 'text.main' }} />}
+                                                        {showPassword ? <Visibility sx={{ color: "text.main" }} /> : <VisibilityOff sx={{ color: "text.main" }} />}
                                                     </IconButton>
                                                 </InputAdornment>
                                             }
@@ -229,19 +229,19 @@ const PasswordReset = inject('rootStore', 'uiStore', 'authorizationStore')(obser
                                     size="large"
                                     type="submit"
                                     sx={{
-                                        '&.MuiButton-root': {
-                                            fontFamily: 'Open Sans, sans-serif',
-                                            fontStyle: 'normal',
+                                        "&.MuiButton-root": {
+                                            fontFamily: "Open Sans, sans-serif",
+                                            fontStyle: "normal",
                                             fontWeight: 600,
-                                            fontSize: '16px',
-                                            lineHeight: '25px',
-                                            width: mobile ? '140px' : '280px',
-                                            height: mobile ? '40px' : '50px',
-                                            color: 'text.primary',
-                                            bgcolor: 'secondary.main',
-                                            borderRadius: mobile ? '62px' : '88px',
-                                            '&:hover': {
-                                                bgcolor: 'secondary.main',
+                                            fontSize: "16px",
+                                            lineHeight: "25px",
+                                            width: mobile ? "140px" : "280px",
+                                            height: mobile ? "40px" : "50px",
+                                            color: "text.primary",
+                                            bgcolor: "secondary.main",
+                                            borderRadius: mobile ? "62px" : "88px",
+                                            "&:hover": {
+                                                bgcolor: "secondary.main",
                                             },
                                             mt: 2,
                                             boxShadow: 12,

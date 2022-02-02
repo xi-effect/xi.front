@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
-import { CircularProgress, Button, Grid, Typography, useTheme } from '@mui/material';
+import { CircularProgress, Button, Grid, Typography, useTheme } from "@mui/material";
 
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react"
 
-import Image from 'next/image'
-import Toolbar from './Pages/Toolbar';
-import DataList from './Pages/DataList';
-import DialogPageCreation from './Pages/DialogPageCreation';
+import Image from "next/image"
+import Toolbar from "./Pages/Toolbar";
+import DataList from "./Pages/DataList";
+import DialogPageCreation from "./Pages/DialogPageCreation";
 
-const ToolbarBottom = inject('managmentStore')(observer(({ managmentStore }) => {
+const ToolbarBottom = inject("managmentStore")(observer(({ managmentStore }) => {
     const theme = useTheme();
 
 
@@ -23,7 +23,7 @@ const ToolbarBottom = inject('managmentStore')(observer(({ managmentStore }) => 
             justifyContent="center"
             alignItems="center"
         >
-            <Button onClick={managmentStore.prevPageList}  variant="contained" color="primary" disabled={managmentStore.pageCreationList.counter === 0 ? true : false}>
+            <Button onClick={managmentStore.prevPageList} variant="contained" color="primary" disabled={managmentStore.pageCreationList.counter === 0 ? true : false}>
                 Назад
             </Button>
             <Typography variant="subtitle1">
@@ -38,7 +38,7 @@ const ToolbarBottom = inject('managmentStore')(observer(({ managmentStore }) => 
 
 
 
-const Pages = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore }) => {
+const Pages = inject("rootStore", "managmentStore")(observer(({ rootStore, managmentStore }) => {
     const theme = useTheme();
 
 

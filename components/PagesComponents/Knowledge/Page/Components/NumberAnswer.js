@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Fade, Input, Divider, IconButton, Grid, useTheme, Tooltip } from '@mui/material';
-import { inject, observer } from 'mobx-react'
+import React, { useState } from "react";
+import { Fade, Input, Divider, IconButton, Grid, useTheme, Tooltip } from "@mui/material";
+import { inject, observer } from "mobx-react"
 
-const NumberAnswer = inject('managmentStore')(observer(({ managmentStore, index }) => {
+const NumberAnswer = inject("managmentStore")(observer(({ managmentStore, index }) => {
     // Simulated props for the purpose of the example
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
-    const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
+    const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: "black", color: "white" };
 
     // console.log("props", props)
     const theme = useTheme();
@@ -22,9 +22,9 @@ const NumberAnswer = inject('managmentStore')(observer(({ managmentStore, index 
         >
             <Input
                 sx={{
-                    '& .MuiInput-input': {
+                    "& .MuiInput-input": {
                         width: "100%",
-                        color: 'text.main',
+                        color: "text.main",
                         lineHeight: "normal",
                     }
                 }}
@@ -48,7 +48,7 @@ const NumberAnswer = inject('managmentStore')(observer(({ managmentStore, index 
                     sx={{
                         ml: 2,
                         mt: 1,
-                        color: 'text.main',
+                        color: "text.main",
                     }}
                     variant="text"
                     onClick={() => knowledgeStore.isAnswerRight(index, "numanswer")}
@@ -60,7 +60,7 @@ const NumberAnswer = inject('managmentStore')(observer(({ managmentStore, index 
                     sx={{
                         ml: 2,
                         mt: 1,
-                        color: 'text.main',
+                        color: "text.main",
                     }}
                 >
                     {values.successAnswer ? `Ответ Верный!` : `Ответ Неправильный!`}

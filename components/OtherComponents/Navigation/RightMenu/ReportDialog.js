@@ -24,9 +24,9 @@ const ReportGeneral = inject(
                     Здесь вы можете написать разработчикам. Это свободная форма.
                 </Typography>
                 <Input
-                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                    type='text'
-                    value={uiStore.reportData.reportText ?? ''}
+                    sx={{ backgroundColor: "background.2", width: "100%", }}
+                    type="text"
+                    value={uiStore.reportData.reportText ?? ""}
                     onChange={(e) => uiStore.setReportData("reportText", e.target.value)}
                     multiline
                     maxRows={5}
@@ -77,36 +77,36 @@ const ReportBug = inject(
                     Здесь вы можете рассказать о технической ошибке.
                 </Typography>
                 <Input
-                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                    type='text'
-                    value={uiStore.reportData.errorDescription ?? ''}
+                    sx={{ backgroundColor: "background.2", width: "100%", }}
+                    type="text"
+                    value={uiStore.reportData.errorDescription ?? ""}
                     onChange={(e) => uiStore.setReportData("errorDescription", e.target.value)}
                     multiline
                     maxRows={5}
                     placeholder="Опишите ошибку"
                 />
                 <Input
-                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                    type='text'
-                    value={uiStore.reportData.sitePart ?? ''}
+                    sx={{ backgroundColor: "background.2", width: "100%", }}
+                    type="text"
+                    value={uiStore.reportData.sitePart ?? ""}
                     onChange={(e) => uiStore.setReportData("sitePart", e.target.value)}
                     multiline
                     maxRows={5}
                     placeholder="Укажите, в какой части сайта она произошла. Можно, скопировать url-адрес в это поле"
                 />
                 <Input
-                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                    type='text'
-                    value={uiStore.reportData.errorRepeat ?? ''}
+                    sx={{ backgroundColor: "background.2", width: "100%", }}
+                    type="text"
+                    value={uiStore.reportData.errorRepeat ?? ""}
                     onChange={(e) => uiStore.setReportData("errorRepeat", e.target.value)}
                     multiline
                     maxRows={5}
                     placeholder="Расскажите о том, как появилась ошибка - что вы делали перед тем, как появилась ошибка или как её воспроизвести"
                 />
                 <Input
-                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                    type='text'
-                    value={uiStore.reportData.deviceInfo ?? ''}
+                    sx={{ backgroundColor: "background.2", width: "100%", }}
+                    type="text"
+                    value={uiStore.reportData.deviceInfo ?? ""}
                     onChange={(e) => uiStore.setReportData("deviceInfo", e.target.value)}
                     multiline
                     maxRows={5}
@@ -136,18 +136,18 @@ const ReportContent = inject(
                     Здесь вы можете отправить жалобу на контент. Укажите как можно больше информации о контенте и причине жалобы
                 </Typography>
                 <Input
-                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                    type='text'
-                    value={uiStore.reportData.contentName ?? ''}
+                    sx={{ backgroundColor: "background.2", width: "100%", }}
+                    type="text"
+                    value={uiStore.reportData.contentName ?? ""}
                     onChange={(e) => uiStore.setReportData("contentName", e.target.value)}
                     multiline
                     maxRows={5}
                     placeholder="Название контента (страницы, модуля)"
                 />
                 <Input
-                    sx={{ backgroundColor: 'background.2', width: "100%", }}
-                    type='text'
-                    value={uiStore.reportData.errorDescription ?? ''}
+                    sx={{ backgroundColor: "background.2", width: "100%", }}
+                    type="text"
+                    value={uiStore.reportData.errorDescription ?? ""}
                     onChange={(e) => uiStore.setReportData("errorDescription", e.target.value)}
                     multiline
                     maxRows={5}
@@ -166,7 +166,7 @@ const ReportDialog = inject(
 )(
     observer(({ rootStore, knowledgeStore, uiStore, openDialog, setOpenDialog }) => {
         const router = useRouter();
-        const [type, setType] = React.useState('general');
+        const [type, setType] = React.useState("general");
 
         const handleChange = (event) => {
             setType(event.target.value);
@@ -174,17 +174,17 @@ const ReportDialog = inject(
 
         const sendReport = () => {
             let dataReport
-            if (type === 'general') {
+            if (type === "general") {
                 dataReport = {
                     reportText: uiStore.reportData.reportText,
                 }
             }
-            if (type === 'detailed') {
+            if (type === "detailed") {
                 dataReport = {
 
                 }
             }
-            if (type === 'bug-report') {
+            if (type === "bug-report") {
                 dataReport = {
                     errorDescription: uiStore.reportData.errorDescription,
                     sitePart: uiStore.reportData.sitePart,
@@ -192,7 +192,7 @@ const ReportDialog = inject(
                     deviceInfo: uiStore.reportData.deviceInfo,
                 }
             }
-            if (type === 'content-report') {
+            if (type === "content-report") {
                 dataReport = {
                     contentName: uiStore.reportData.contentName,
                     errorDescription: uiStore.reportData.errorDescription,
@@ -219,7 +219,7 @@ const ReportDialog = inject(
                     spacing={2}
                     sx={{
                         height: 64,
-                        width: '100%',
+                        width: "100%",
                         p: 1,
                     }}
                 >
@@ -288,7 +288,7 @@ const ReportDialog = inject(
                     </AnimatePresence>
                 </DialogContent>
                 <DialogActions>
-                    <Button sx={{ color: 'text.main' }} onClick={() => setOpenDialog(false)}>Отмена</Button>
+                    <Button sx={{ color: "text.main" }} onClick={() => setOpenDialog(false)}>Отмена</Button>
                     <Button variant="contained" onClick={() => sendReport()} autoFocus>
                         Отправить отзыв
                     </Button>

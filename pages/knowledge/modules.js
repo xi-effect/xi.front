@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, CircularProgress, Grid, Typography, useTheme } from '@mui/material';
-import { inject, observer } from 'mobx-react';
-import Head from 'next/head';
-import Image from 'next/image';
-import React from 'react';
-import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
-import ModulesList from '../../components/PagesComponents/Knowledge/Modules/ModulesList';
-import ModulesListLoading from '../../components/PagesComponents/Knowledge/Modules/ModulesListLoading';
+import { Button, CircularProgress, Grid, Typography, useTheme } from "@mui/material";
+import { inject, observer } from "mobx-react";
+import Head from "next/head";
+import Image from "next/image";
+import React from "react";
+import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
+import ModulesList from "../../components/PagesComponents/Knowledge/Modules/ModulesList";
+import ModulesListLoading from "../../components/PagesComponents/Knowledge/Modules/ModulesListLoading";
 
 
 
-const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
+const Toolbar = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
     const theme = useTheme();
 
     return (
@@ -36,7 +36,7 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
 }));
 
 
-const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, uiStore }) => {
+const Modules = inject("knowledgeStore", "uiStore")(observer(({ knowledgeStore, uiStore }) => {
     const theme = useTheme();
 
     React.useEffect(() => {
@@ -59,9 +59,9 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                     justifyContent="center"
                     alignItems="center"
                     sx={{
-                        // height: '100%',
+                        // height: "100%",
                         pb: 20,
-                        width: '100%',
+                        width: "100%",
                         zIndex: 1,
                     }}
                 >
@@ -76,8 +76,8 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                             sx={{
                                 pt: 6,
                                 marginBottom: 2,
-                                height: '100%',
-                                width: '100%',
+                                height: "100%",
+                                width: "100%",
                             }}
                         >
                             <Typography> Это всё, что мы нашли по вашему запросу </Typography>
@@ -93,8 +93,8 @@ const Modules = inject('knowledgeStore', 'uiStore')(observer(({ knowledgeStore, 
                             sx={{
                                 marginTop: 2,
                                 marginBottom: 2,
-                                height: '100%',
-                                width: '100%',
+                                height: "100%",
+                                width: "100%",
                             }}
                         >
                             <Typography sx={{ marginTop: 4 }}> Ничего не найдено по запросу </Typography>

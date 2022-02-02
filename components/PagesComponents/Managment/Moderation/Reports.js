@@ -1,17 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
-import { CircularProgress, Grid, Typography, useTheme } from '@mui/material';
+import { CircularProgress, Grid, Typography, useTheme } from "@mui/material";
 
 
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react"
 
-import Image from 'next/image'
-import Toolbar from './Reports/Toolbar';
-import DataList from './Reports/DataList';
-import DialogReports from './Reports/DialogReports';
-const PREFIX = 'Reports';
+import Image from "next/image"
+import Toolbar from "./Reports/Toolbar";
+import DataList from "./Reports/DataList";
+import DialogReports from "./Reports/DialogReports";
+const PREFIX = "Reports";
 const classes = {};
 
 const StyledGrid = styled(Grid)((
@@ -21,7 +21,7 @@ const StyledGrid = styled(Grid)((
 ) => ({}));
 
 
-const Reports = inject('rootStore')(observer(({ rootStore }) => {
+const Reports = inject("rootStore")(observer(({ rootStore }) => {
     const theme = useTheme();
 
 

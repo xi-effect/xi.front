@@ -47,8 +47,8 @@ const Task = inject(
                 justifyContent="center"
                 alignItems="center"
                 sx={{
-                    width: '100%',
-                    height: '100vh',
+                    width: "100%",
+                    height: "100vh",
                 }}
             >
                 <Stack
@@ -57,8 +57,8 @@ const Task = inject(
                     alignItems="flex-start"
                     spacing={2}
                     sx={{
-                        width: '100%',
-                        height: '100%',
+                        width: "100%",
+                        height: "100%",
                         maxWidth: 1200,
                         p: 3,
                     }}

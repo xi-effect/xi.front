@@ -13,16 +13,16 @@ import {
   IconButton,
   Box,
 } from "@mui/material";
-import { useSnackbar } from 'notistack';
+import { useSnackbar } from "notistack";
 
 import HomeIcon from "@mui/icons-material/Home";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MessageIcon from "@mui/icons-material/Message";
-import AddBoxIcon from '@mui/icons-material/AddBox';
+import AddBoxIcon from "@mui/icons-material/AddBox";
 
 import { motion } from "framer-motion";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic"
 const DialogCreateCommunity = dynamic(
   () => import("./DialogCreateCommunity"),
   { ssr: false }
@@ -103,7 +103,7 @@ const Sidebar = inject(
             pt: 2,
             width: 80,
             height: "100vh",
-            // bgcolor: 'grey.800',
+            // bgcolor: "grey.800",
           }}
         >
           {menuList.map((item, index) => (
@@ -118,8 +118,8 @@ const Sidebar = inject(
                   }
                   else if (item.href === "createcommunity") {
                     setOpenDialogCC(true)
-                    enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
-                      variant: 'info',
+                    enqueueSnackbar("Эту функцию мы ещё только разрабатываем", {
+                      variant: "info",
                     })
                   }
                   else router.push(item.href);
@@ -147,9 +147,9 @@ const Sidebar = inject(
                 }}
                 sx={{
                   bgcolor: router.pathname.includes(`/community/${item.cId}`) ? "primary.main" : "primary.dark",
-                  borderRadius: router.pathname.includes(`/community/${item.cId}`) ? '8px' : '21px',
-                  height: '42px',
-                  width: '42px',
+                  borderRadius: router.pathname.includes(`/community/${item.cId}`) ? "8px" : "21px",
+                  height: "42px",
+                  width: "42px",
                   "&:hover": {
                     bgcolor: router.pathname.includes(`/community/${item.cId}`) ? "primary.main" : "primary.dark",
                   },
@@ -160,23 +160,23 @@ const Sidebar = inject(
             </Tooltip>
           ))}
           <Box sx={{
-            height: '100%',
+            height: "100%",
           }}>
 
           </Box>
-          <Tooltip placement="right" title={'Настройки'}>
+          <Tooltip placement="right" title={"Настройки"}>
             <IconButton
               component={motion.li}
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => {
-                router.push('/settings');
+                router.push("/settings");
               }}
               sx={{
-                bgcolor: router.pathname.includes('/settings') ? "primary.main" : "",
+                bgcolor: router.pathname.includes("/settings") ? "primary.main" : "",
                 borderRadius: 2,
                 "&:hover": {
-                  bgcolor: router.pathname.includes('/settings') ? "primary.main" : "",
+                  bgcolor: router.pathname.includes("/settings") ? "primary.main" : "",
                 },
               }}
             >
@@ -184,7 +184,7 @@ const Sidebar = inject(
             </IconButton>
           </Tooltip>
           <Box sx={{
-            height: '4px',
+            height: "4px",
           }}>
 
           </Box>

@@ -24,7 +24,7 @@ import {
 
 import { inject, observer } from "mobx-react";
 
-import CustomAvatar from '../../../OtherComponents/Avatar/CustomAvatar';
+import CustomAvatar from "../../../OtherComponents/Avatar/CustomAvatar";
 
 
 const Comment = inject(
@@ -43,8 +43,8 @@ const Comment = inject(
                 justifyContent="flex-start"
                 alignItems="flex-start"
                 sx={{
-                    width: '100%',
-                    height: '100%',
+                    width: "100%",
+                    height: "100%",
                 }}
             >
                 <Box
@@ -52,7 +52,7 @@ const Comment = inject(
                         height: 52,
                         width: 52,
                     }}>
-                    <CustomAvatar avatar={{ bgcolor: 'none' }} viewBox={{ x: '50', y: '-100', width: '732', height: '732' }} />
+                    <CustomAvatar avatar={{ bgcolor: "none" }} viewBox={{ x: "50", y: "-100", width: "732", height: "732" }} />
                 </Box>
                 <Stack
                     direction="column"
@@ -60,10 +60,10 @@ const Comment = inject(
                     alignItems="center"
                     sx={{
                         borderRadius: 2,
-                        border: '1px solid',
-                        borderColor: 'primary.main',
-                        width: '100%',
-                        height: '100%',
+                        border: "1px solid",
+                        borderColor: "primary.main",
+                        width: "100%",
+                        height: "100%",
                     }}
                 >
                     asfbdabfdsgnfsnhfdmn
@@ -89,8 +89,8 @@ const Comments = inject(
                 justifyContent="flex-start"
                 alignItems="center"
                 sx={{
-                    width: '100%',
-                    height: '100%',
+                    width: "100%",
+                    height: "100%",
                 }}
             >
                 {[...Array(10)].map((comment, index) => (

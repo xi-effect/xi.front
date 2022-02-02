@@ -15,9 +15,9 @@ import { io } from "socket.io-client";
 
 import socket from "../../../utils/socket";
 
-import { Scrollbars } from 'react-custom-scrollbars-2';
+import { Scrollbars } from "react-custom-scrollbars-2";
 import { motion, AnimatePresence } from "framer-motion"
-import { useSwipeable } from 'react-swipeable';
+import { useSwipeable } from "react-swipeable";
 
 const NavigationAll = inject(
   "rootStore",
@@ -85,15 +85,15 @@ const NavigationAll = inject(
     //   });
     // }
 
-    const [hoverLeftName, setHoverLeftName] = React.useState('')
+    const [hoverLeftName, setHoverLeftName] = React.useState("")
 
 
 
     React.useEffect(() => {
-      if (router.pathname.includes('/home')) setHoverLeftName('/home')
-      if (router.pathname.includes('/knowledge')) setHoverLeftName('/knowledge')
-      if (router.pathname.includes('/messages')) setHoverLeftName('/messages')
-      if (router.pathname.includes('/settings')) setHoverLeftName('/settings')
+      if (router.pathname.includes("/home")) setHoverLeftName("/home")
+      if (router.pathname.includes("/knowledge")) setHoverLeftName("/knowledge")
+      if (router.pathname.includes("/messages")) setHoverLeftName("/messages")
+      if (router.pathname.includes("/settings")) setHoverLeftName("/settings")
     }, [router.pathname]);
 
     const getWidth = () => {
@@ -120,12 +120,12 @@ const NavigationAll = inject(
     const handlers = useSwipeable({
       onSwiped: (eventData) => console.log("User Swiped!", eventData),
       onSwipedLeft: () => {
-        if (uiStore.navigation.swipe === 'center') uiStore.setNavigation('swipe', 'left')
-        if (uiStore.navigation.swipe === 'right') uiStore.setNavigation('swipe', 'center')
+        if (uiStore.navigation.swipe === "center") uiStore.setNavigation("swipe", "left")
+        if (uiStore.navigation.swipe === "right") uiStore.setNavigation("swipe", "center")
       },
       onSwipedRight: () => {
-        if (uiStore.navigation.swipe === 'center') uiStore.setNavigation('swipe', 'right')
-        if (uiStore.navigation.swipe === 'left') uiStore.setNavigation('swipe', 'center')
+        if (uiStore.navigation.swipe === "center") uiStore.setNavigation("swipe", "right")
+        if (uiStore.navigation.swipe === "left") uiStore.setNavigation("swipe", "center")
       },
       ...config,
     });
@@ -139,7 +139,7 @@ const NavigationAll = inject(
               // display: "flex",
               backgroundColor: "background.main",
               minHeight: "100vh",
-              overflow: 'hidden',
+              overflow: "hidden",
               width: "100%",
             }}
           >
@@ -152,16 +152,16 @@ const NavigationAll = inject(
                 // display: "flex",
                 backgroundColor: "background.main",
                 height: "100vh",
-                overflow: 'hidden',
+                overflow: "hidden",
                 width: `calc(100% - 592px)`,
-                ml: '336px',
-                mr: '256px',
+                ml: "336px",
+                mr: "256px",
               }}
             >
               <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
-              {!(router.pathname.includes('/message') && !(router.pathname.includes('chat'))) && <Scrollbars
-                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
-                renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
+              {!(router.pathname.includes("/message") && !(router.pathname.includes("chat"))) && <Scrollbars
+                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
+                renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
                 universal={true}
                 style={{ width: "100%", height: "100%", }}
                 autoHide
@@ -170,7 +170,7 @@ const NavigationAll = inject(
               >
                 {children}
               </Scrollbars>}
-              {router.pathname.includes('message') || router.pathname.includes('chat') && children}
+              {router.pathname.includes("message") || router.pathname.includes("chat") && children}
               {/* <ChatDialog /> */}
             </Box>
           </Box>
@@ -224,13 +224,13 @@ const NavigationAll = inject(
               // display: "flex",
               backgroundColor: "background.main",
               minHeight: "100vh",
-              overflow: 'hidden',
+              overflow: "hidden",
               // width: "100%",
             }}
             {...handlers}
           >
             <AnimatePresence initial={false}>
-              {uiStore.navigation.swipe === 'right' && <Box
+              {uiStore.navigation.swipe === "right" && <Box
                 component={motion.div}
                 variants={SidebarVariantsRight}
                 // initial={{ x: -200 }}
@@ -257,7 +257,7 @@ const NavigationAll = inject(
               </Box>}
             </AnimatePresence>
             <AnimatePresence initial={false}>
-              {uiStore.navigation.swipe === 'left' && <Box
+              {uiStore.navigation.swipe === "left" && <Box
                 component={motion.div}
                 variants={SidebarVariantsLeft}
                 // initial={{ x: 200 }}
@@ -287,16 +287,16 @@ const NavigationAll = inject(
                 zIndex: 0,
                 // display: "flex",
                 backgroundColor: "background.main",
-                filter: uiStore.navigation.swipe === 'right' || uiStore.navigation.swipe === 'left' ? 'brightness(40%)' : 'none',
+                filter: uiStore.navigation.swipe === "right" || uiStore.navigation.swipe === "left" ? "brightness(40%)" : "none",
                 height: "100vh",
-                overflow: 'hidden',
+                overflow: "hidden",
                 width: `100vw`,
                 ml: 0,
                 mr: 0,
               }}
               component={motion.div}
               variants={dragVariants}
-              initial={{ x: uiStore.navigation.swipe === 'right' ? 200 : 0 }}
+              initial={{ x: uiStore.navigation.swipe === "right" ? 200 : 0 }}
               animate={() => {
                 console.log("animate", uiStore.navigation.swipe)
                 if (uiStore.navigation.swipe === "left") return "left"
@@ -310,18 +310,18 @@ const NavigationAll = inject(
               }}
             >
               <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
-              {!(router.pathname.includes('/message')) && <Scrollbars
-                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
-                renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
+              {!(router.pathname.includes("/message")) && <Scrollbars
+                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
+                renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
                 universal={true}
-                style={{ width: "100vw", height: "100%", overflowY: 'hidden !important', }}
+                style={{ width: "100vw", height: "100%", overflowY: "hidden !important", }}
                 autoHide
                 autoHideTimeout={1000}
                 autoHideDuration={200}
               >
                 {children}
               </Scrollbars>}
-              {router.pathname.includes('/message') && children}
+              {router.pathname.includes("/message") && children}
               {/* <ChatDialog /> */}
             </Box>
           </Box>

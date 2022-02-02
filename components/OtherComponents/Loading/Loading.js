@@ -1,10 +1,10 @@
-import React from 'react';
-import { Grid, Typography, useMediaQuery, Stack, Box, useTheme } from '@mui/material';
-import Image from 'next/image'
+import React from "react";
+import { Grid, Typography, useMediaQuery, Stack, Box, useTheme } from "@mui/material";
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react"
 
-const Loading = inject('uiStore')(observer(({ uiStore }) => {
+const Loading = inject("uiStore")(observer(({ uiStore }) => {
     const theme = useTheme();
     const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)")
 
@@ -16,7 +16,7 @@ const Loading = inject('uiStore')(observer(({ uiStore }) => {
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                sx={{ position: 'absolute', height: "100vh", width: '100vw', zIndex: 99999, bgcolor: isDarkTheme ? "#26282B" : '#fafafa', }}
+                sx={{ position: "absolute", height: "100vh", width: "100vw", zIndex: 99999, bgcolor: isDarkTheme ? "#26282B" : "#fafafa", }}
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -31,19 +31,19 @@ const Loading = inject('uiStore')(observer(({ uiStore }) => {
                         component={"h1"}
                         onClick={() => {
                             router.push({
-                                pathname: '/',
+                                pathname: "/",
                             })
                         }}
 
                         variant="Roboto500XiLabel"
                         sx={{
-                            mt: '1px',
-                            cursor: 'pointer',
-                            color: 'secondary.main',
+                            mt: "1px",
+                            cursor: "pointer",
+                            color: "secondary.main",
                             fontSize: {
-                                sm: '28px',
-                                md: '34px',
-                                lg: '40px',
+                                sm: "28px",
+                                md: "34px",
+                                lg: "40px",
                             },
                         }}
                     >
@@ -53,20 +53,20 @@ const Loading = inject('uiStore')(observer(({ uiStore }) => {
                         component={"h1"}
                         onClick={() => {
                             router.push({
-                                pathname: '/',
+                                pathname: "/",
                             })
                         }}
 
                         variant="IBMPlexMono500XiLabelEnd"
                         sx={{
-                            '&.MuiTypography-root': {
-                                cursor: 'pointer',
-                                color: 'secondary.main',
+                            "&.MuiTypography-root": {
+                                cursor: "pointer",
+                                color: "secondary.main",
                             },
                             fontSize: {
-                                sm: '28px',
-                                md: '34px',
-                                lg: '40px',
+                                sm: "28px",
+                                md: "34px",
+                                lg: "40px",
                             },
                         }}
                     >

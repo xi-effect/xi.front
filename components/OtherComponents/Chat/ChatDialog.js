@@ -1,11 +1,11 @@
 import React, { useRef, useEffect } from "react";
 import { Skeleton, Stack, Radio, Input, Grid, Box, InputLabel, Link, InputAdornment, Tooltip, IconButton, Checkbox, FormControl, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Typography, } from "@mui/material";
-import { inject, observer } from 'mobx-react'
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { inject, observer } from "mobx-react"
+import SearchIcon from "@mui/icons-material/Search";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 
-const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, messageStore }) => {
+const ChatDialog = inject("rootStore", "messageStore")(observer(({ rootStore, messageStore }) => {
 
     return (
         <Dialog
@@ -15,7 +15,7 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
         >
-            <DialogTitle sx={{ bgcolor: 'background.2' }} id="scroll-dialog-title">
+            <DialogTitle sx={{ bgcolor: "background.2" }} id="scroll-dialog-title">
                 <Stack
                     direction="column"
                     justifyContent="center"
@@ -25,15 +25,15 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                     <Typography variant="h5"> Создание чата </Typography>
                     <FormControl sx={{ width: "100%", }} fullWidth variant="outlined">
                         <Input
-                            sx={{ backgroundColor: 'background.2', width: "100%", }}
-                            type='text'
+                            sx={{ backgroundColor: "background.2", width: "100%", }}
+                            type="text"
                             value={messageStore.dialogChatCreation.chatName}
                             onChange={(e) => messageStore.setDialogChatCreation("chatName", e.target.value)}
                             placeholder="Имя чата (не обязательно)"
                         />
                     </FormControl>
                     <Typography> Пользователи в новом чате: </Typography>
-                    {messageStore.dialogChatCreation.usersForChat.length === 0 && <Typography sx={{ width: '100%' }} align="center" variant="subtitle1"> Вы пока не выбрали ни одного пользователя </Typography>}
+                    {messageStore.dialogChatCreation.usersForChat.length === 0 && <Typography sx={{ width: "100%" }} align="center" variant="subtitle1"> Вы пока не выбрали ни одного пользователя </Typography>}
                     {messageStore.dialogChatCreation.usersForChat.length !== 0 && messageStore.dialogChatCreation.usersForChat.map((item, index) => (
                         <Stack
                             key={index.toString()}
@@ -42,12 +42,12 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                             alignItems="center"
                             spacing={0}
                             sx={{
-                                width: '100%',
+                                width: "100%",
                             }}
                         >
                             <Checkbox
                                 color="default"
-                                sx={{ color: 'text.main' }}
+                                sx={{ color: "text.main" }}
                                 checked={true}
                                 onClick={() => messageStore.deleteInUsersForChat(index)}
                             />
@@ -57,18 +57,18 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                                 alignItems="flex-start"
                                 // spacing={1}
                                 sx={{
-                                    width: '100%',
+                                    width: "100%",
                                 }}
                             >
                                 <Link
                                     sx={{
                                         fontSize: 22,
                                         cursor: "pointer",
-                                        color: 'text.main',
+                                        color: "text.main",
                                     }}
                                     // onClick={() => {
                                     //     router.push({
-                                    //         pathname: '/students',
+                                    //         pathname: "/students",
                                     //     })
                                     // }}
                                     underline="hover"
@@ -90,7 +90,7 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
 
                 </Stack>
             </DialogTitle>
-            <DialogContent sx={{ bgcolor: 'background.2' }} dividers>
+            <DialogContent sx={{ bgcolor: "background.2" }} dividers>
                 <Stack
                     direction="column"
                     justifyContent="center"
@@ -100,8 +100,8 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                 >
                     <FormControl fullWidth variant="outlined">
                         <Input
-                            sx={{ backgroundColor: 'background.2', width: "100%", }}
-                            type='text'
+                            sx={{ backgroundColor: "background.2", width: "100%", }}
+                            type="text"
                             value={messageStore.dialogChatCreation.search}
                             onChange={(e) => messageStore.setDialogChatCreation("search", e.target.value)}
                             placeholder="Поиск"
@@ -109,7 +109,7 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                                 <InputAdornment position="end">
                                     <IconButton onClick={() => messageStore.searchUsers()} type="submit" edge="end" size="large">
                                         <Tooltip title="Найти" arrow>
-                                            <SearchIcon sx={{ color: 'text.main' }} />
+                                            <SearchIcon sx={{ color: "text.main" }} />
                                         </Tooltip>
                                     </IconButton>
                                 </InputAdornment>
@@ -117,7 +117,7 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                         />
                     </FormControl>
                     <Typography> Результаты поиска: </Typography>
-                    {messageStore.dialogChatCreation.searchResults.length === 0 && <Typography sx={{ width: '100%' }} align="center" variant="subtitle1"> Введите поисковой запрос </Typography>}
+                    {messageStore.dialogChatCreation.searchResults.length === 0 && <Typography sx={{ width: "100%" }} align="center" variant="subtitle1"> Введите поисковой запрос </Typography>}
                     {messageStore.dialogChatCreation.searchResults.length !== 0 && messageStore.dialogChatCreation.searchResults.map((item, index) => (
                         <Stack
                             key={index.toString()}
@@ -126,12 +126,12 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                             alignItems="center"
                             spacing={0}
                             sx={{
-                                width: '100%',
+                                width: "100%",
                             }}
                         >
                             <Checkbox
                                 color="default"
-                                sx={{ color: 'text.main' }}
+                                sx={{ color: "text.main" }}
                                 checked={null}
                                 onClick={() => messageStore.selectUserInSearch(index)}
                             />
@@ -141,18 +141,18 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                                 alignItems="flex-start"
                                 // spacing={1}
                                 sx={{
-                                    width: '100%',
+                                    width: "100%",
                                 }}
                             >
                                 <Link
                                     sx={{
                                         fontSize: 22,
                                         cursor: "pointer",
-                                        color: 'text.main',
+                                        color: "text.main",
                                     }}
                                     // onClick={() => {
                                     //     router.push({
-                                    //         pathname: '/students',
+                                    //         pathname: "/students",
                                     //     })
                                     // }}
                                     underline="hover"
@@ -172,9 +172,9 @@ const ChatDialog = inject('rootStore', 'messageStore')(observer(({ rootStore, me
                     ))}
                 </Stack>
             </DialogContent>
-            <DialogActions sx={{ bgcolor: 'background.2' }}>
-                <Button sx={{ color: 'text.main' }} onClick={() => messageStore.setDialogChatCreation("openDialog", false)}>Отмена</Button>
-                <Button sx={{ color: 'text.main' }} onClick={() => messageStore.createChat()}>Готово</Button>
+            <DialogActions sx={{ bgcolor: "background.2" }}>
+                <Button sx={{ color: "text.main" }} onClick={() => messageStore.setDialogChatCreation("openDialog", false)}>Отмена</Button>
+                <Button sx={{ color: "text.main" }} onClick={() => messageStore.createChat()}>Готово</Button>
             </DialogActions>
         </Dialog>
     );

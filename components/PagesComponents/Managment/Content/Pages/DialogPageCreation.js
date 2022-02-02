@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
+import React, { useState, useEffect } from "react";
+import { styled } from "@mui/material/styles";
 import Link from "next/link";
-import clsx from 'clsx';
-import { Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
+import clsx from "clsx";
+import { Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from "@mui/material";
 
 
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react"
 
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import SaveIcon from '@mui/icons-material/Save';
-import CloseIcon from '@mui/icons-material/Close';
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import SaveIcon from "@mui/icons-material/Save";
+import CloseIcon from "@mui/icons-material/Close";
 
-import StepOne from './DialogPageCreation/StepOne';
-import StepTwo from './DialogPageCreation/StepTwo';
-import StepThree from './DialogPageCreation/StepThree';
+import StepOne from "./DialogPageCreation/StepOne";
+import StepTwo from "./DialogPageCreation/StepTwo";
+import StepThree from "./DialogPageCreation/StepThree";
 
-const PREFIX = 'DialogPageCreation';
+const PREFIX = "DialogPageCreation";
 
 const classes = {
     button: `${PREFIX}-button`,
@@ -74,21 +74,21 @@ const StyledDialog = styled(Dialog)((
     [`& .${classes.gridMain}`]: {
         margin: 0,
         padding: 0,
-        height: '100%',
-        // width: 'calc(100vw-48px)',
+        height: "100%",
+        // width: "calc(100vw-48px)",
     },
 
     [`& .${classes.gridMainStepFour}`]: {
         margin: 0,
         padding: 0,
-        // width: '100vw',
+        // width: "100vw",
         // marginTop: "-20px",
         // marginLeft: "-24px",
     },
 
     [`& .${classes.stepLabel}`]: {
         fontSize: 24,
-        cursor: 'default',
+        cursor: "default",
     },
 
     [`& .${classes.stepSecondLabel}`]: {
@@ -132,16 +132,16 @@ const StyledDialog = styled(Dialog)((
         paddingBottom: 4,
         // borderRadius: 8,
         // border: `${theme.main.palette.content.border} solid 2px`,
-        // '&:hover': {
+        // "&:hover": {
         //     border: `${theme.main.palette.content.border} solid 2px`,
         // },
     },
 
     [`& .${classes.divider}`]: {
-        marginTop: '-4px',
+        marginTop: "-4px",
         color: theme => theme.palette.primary.contrastText,
-        width: '100%',
-        height: '2px',
+        width: "100%",
+        height: "2px",
     },
 
     [`& .${classes.dialogTitle}`]: {
@@ -169,7 +169,7 @@ const StyledDialog = styled(Dialog)((
 }));
 
 
-const DialogPageCreation = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore }) => {
+const DialogPageCreation = inject("rootStore", "managmentStore")(observer(({ rootStore, managmentStore }) => {
     const theme = useTheme();
 
 
@@ -187,20 +187,20 @@ const DialogPageCreation = inject('rootStore', 'managmentStore')(observer(({ roo
         <Dialog
             sx={{
                 zIndex: "1200 !important",
-                width: '100vw',
-                height: '100vh',
+                width: "100vw",
+                height: "100vh",
             }}
             fullScreen
             open={managmentStore.pageCreationList.dialogOpen}
             onClose={() => managmentStore.setPageCreationList("dialogOpen", false)}
-            scroll='paper'
+            scroll="paper"
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
         >
             <AppBar sx={{
-                position: 'relative',
+                position: "relative",
                 zIndex: 1,
-                backgroundColor: 'background.2',
+                backgroundColor: "background.2",
             }}>
                 <Toolbar>
                     <Grid
@@ -233,9 +233,9 @@ const DialogPageCreation = inject('rootStore', 'managmentStore')(observer(({ roo
                             <Button sx={{
                                 marginLeft: 0.5,
                                 marginRight: 0.5,
-                                color: 'text.main',
+                                color: "text.main",
                             }} onClick={handleBack} disabled={activeStep === 0}>
-                                {theme.direction === 'rtl' ? (
+                                {theme.direction === "rtl" ? (
                                     <KeyboardArrowRight />
                                 ) : (
                                     <KeyboardArrowLeft />
@@ -245,10 +245,10 @@ const DialogPageCreation = inject('rootStore', 'managmentStore')(observer(({ roo
                             <Button sx={{
                                 marginLeft: 0.5,
                                 marginRight: 0.5,
-                                color: 'text.main',
+                                color: "text.main",
                             }} onClick={handleNext} disabled={activeStep === 2}>
                                 Вперёд
-                                {theme.direction === 'rtl' ? (
+                                {theme.direction === "rtl" ? (
                                     <KeyboardArrowLeft />
                                 ) : (
                                     <KeyboardArrowRight />
@@ -264,7 +264,7 @@ const DialogPageCreation = inject('rootStore', 'managmentStore')(observer(({ roo
             <DialogContent sx={{
                 margin: 0,
                 padding: 0,
-                backgroundColor: 'background.0',
+                backgroundColor: "background.0",
                 zIndex: 1,
             }}>
                 <Grid

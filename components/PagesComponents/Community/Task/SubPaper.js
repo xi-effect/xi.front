@@ -36,8 +36,8 @@ const SubPaper = inject(
             <Paper
                 elevation={18}
                 sx={{
-                    width: '100%',
-                    height: '100%',
+                    width: "100%",
+                    height: "100%",
                     maxWidth: 300,
                     borderRadius: 8,
                 }}
@@ -47,8 +47,8 @@ const SubPaper = inject(
                     justifyContent="flex-start"
                     alignItems="flex-start"
                     sx={{
-                        width: '100%',
-                        height: '100%',
+                        width: "100%",
+                        height: "100%",
                         p: 2,
                     }}
                 >

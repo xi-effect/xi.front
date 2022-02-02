@@ -1,20 +1,20 @@
-import React from 'react';
-import { useRouter } from 'next/router'
+import React from "react";
+import { useRouter } from "next/router"
 import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, IconButton } from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { useSwipeable } from 'react-swipeable';
-import { features } from '../../../texts/landing/EffectFor';
+import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, IconButton } from "@mui/material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { useSwipeable } from "react-swipeable";
+import { features } from "../../../texts/landing/EffectFor";
 
 const menu = [
-    'Ученикам',
-    'Учителям',
-    'Родителям',
-    'Авторам',
-    'Организациям'
+    "Ученикам",
+    "Учителям",
+    "Родителям",
+    "Авторам",
+    "Организациям"
 ]
 
 const cardsList = [
@@ -27,7 +27,7 @@ const cardsList = [
 
 const EffectFor = () => {
 
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('gx'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down("gx"));
 
     const [tab, setTab] = React.useState(0)
 
@@ -53,7 +53,7 @@ const EffectFor = () => {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            sx={{ zIndex: 1, p: 2, mt: '330px', width: '100%', }}
+            sx={{ zIndex: 1, p: 2, mt: "330px", width: "100%", }}
         >
             <Box
                 sx={{
@@ -64,14 +64,14 @@ const EffectFor = () => {
                     component={"h3"}
                     variant="IBMPlexSans700WhyLabel"
                     sx={{
-                        cursor: 'default',
-                        textAlign: 'center',
-                        maxWidth: '1250px',
+                        cursor: "default",
+                        textAlign: "center",
+                        maxWidth: "1250px",
                         fontSize: {
-                            xs: '28px',
-                            sm: '30px',
-                            md: '36px',
-                            lg: '40px',
+                            xs: "28px",
+                            sm: "30px",
+                            md: "36px",
+                            lg: "40px",
                         },
                     }}
                 >
@@ -84,12 +84,12 @@ const EffectFor = () => {
                 justifyContent="center"
                 alignItems="center"
                 sx={{
-                    maxWidth: '1250px',
-                    minHeight: '80px',
-                    mt: '80px',
-                    background: 'linear-gradient(180deg, #FFFFFF 0%, #FBFDFF 100%)',
-                    boxShadow: '0px 24px 65px rgba(29, 99, 255, 0.05)',
-                    borderRadius: '63px',
+                    maxWidth: "1250px",
+                    minHeight: "80px",
+                    mt: "80px",
+                    background: "linear-gradient(180deg, #FFFFFF 0%, #FBFDFF 100%)",
+                    boxShadow: "0px 24px 65px rgba(29, 99, 255, 0.05)",
+                    borderRadius: "63px",
                 }}
             >
                 {menu.map((item, index) => (
@@ -102,18 +102,18 @@ const EffectFor = () => {
                         alignItems="center"
                         onClick={() => setTab(index)}
                         sx={{
-                            color: tab === index ? '#FFFFFF' : '#555569',
-                            bgcolor: tab === index ? 'primary.main' : 'transparent',
-                            boxShadow: tab === index ? 12 : 'none',
-                            width: '232px',
-                            height: '64px',
-                            borderRadius: '88px',
-                            fontFamily: 'Open Sans',
+                            color: tab === index ? "#FFFFFF" : "#555569",
+                            bgcolor: tab === index ? "primary.main" : "transparent",
+                            boxShadow: tab === index ? 12 : "none",
+                            width: "232px",
+                            height: "64px",
+                            borderRadius: "88px",
+                            fontFamily: "Open Sans",
                             fontWeight: 600,
-                            fontSize: '20px',
-                            lineHeight: '27px',
-                            mr: '3px',
-                            cursor: 'pointer',
+                            fontSize: "20px",
+                            lineHeight: "27px",
+                            mr: "3px",
+                            cursor: "pointer",
                         }}
                     >
                         {item}
@@ -126,25 +126,25 @@ const EffectFor = () => {
                 justifyContent="center"
                 alignItems="center"
                 sx={{
-                    maxWidth: '400px',
-                    minHeight: '80px',
-                    mt: '80px',
-                    background: 'linear-gradient(180deg, #FFFFFF 0%, #FBFDFF 100%)',
-                    boxShadow: '0px 24px 65px rgba(29, 99, 255, 0.05)',
-                    borderRadius: '63px',
+                    maxWidth: "400px",
+                    minHeight: "80px",
+                    mt: "80px",
+                    background: "linear-gradient(180deg, #FFFFFF 0%, #FBFDFF 100%)",
+                    boxShadow: "0px 24px 65px rgba(29, 99, 255, 0.05)",
+                    borderRadius: "63px",
                 }}
             >
                 <Grid item>
                     <IconButton
                         sx={{
-                            color: 'secondary.light',
+                            color: "secondary.light",
                             mr: 2,
                         }}
                         onClick={() => {
                             if (tab === 0) setTab(4)
                             if (tab != 0) setTab(tab - 1)
                         }}>
-                        <ArrowBackIosNewIcon fontSize='large' />
+                        <ArrowBackIosNewIcon fontSize="large" />
                     </IconButton>
                 </Grid>
                 <Grid
@@ -154,37 +154,37 @@ const EffectFor = () => {
                     justifyContent="center"
                     alignItems="center"
                     sx={{
-                        color: '#FFFFFF',
-                        bgcolor: 'primary.main',
+                        color: "#FFFFFF",
+                        bgcolor: "primary.main",
                         boxShadow: 12,
-                        width: '200px',
-                        height: '64px',
-                        borderRadius: '88px',
-                        fontFamily: 'Open Sans',
+                        width: "200px",
+                        height: "64px",
+                        borderRadius: "88px",
+                        fontFamily: "Open Sans",
                         fontWeight: 600,
-                        fontSize: '20px',
-                        lineHeight: '27px',
-                        mr: '3px',
-                        cursor: 'pointer',
+                        fontSize: "20px",
+                        lineHeight: "27px",
+                        mr: "3px",
+                        cursor: "pointer",
                     }}
                 >
-                    {(tab === 0) && 'Ученикам'}
-                    {(tab === 1) && 'Учителям'}
-                    {(tab === 2) && 'Родителям'}
-                    {(tab === 3) && 'Авторам'}
-                    {(tab === 4) && 'Организациям'}
+                    {(tab === 0) && "Ученикам"}
+                    {(tab === 1) && "Учителям"}
+                    {(tab === 2) && "Родителям"}
+                    {(tab === 3) && "Авторам"}
+                    {(tab === 4) && "Организациям"}
                 </Grid>
                 <Grid item>
                     <IconButton
                         sx={{
-                            color: 'secondary.light',
+                            color: "secondary.light",
                             ml: 2,
                         }}
                         onClick={() => {
                             if (tab === 4) setTab(0)
                             if (tab != 4) setTab(tab + 1)
                         }}>
-                        <ArrowForwardIosIcon fontSize='large' />
+                        <ArrowForwardIosIcon fontSize="large" />
                     </IconButton>
                 </Grid>
             </Grid>}
@@ -194,19 +194,19 @@ const EffectFor = () => {
                 sx={{
                     zIndex: 10,
                     mt: mobile ? "40px" : "80px",
-                    width: mobile ? 'calc(100% - 16px)' : 'calc(100% - 200px)',
+                    width: mobile ? "calc(100% - 16px)" : "calc(100% - 200px)",
                     ml: mobile ? "8px" : "100px",
                     mr: mobile ? "8px" : "100px",
                     bgcolor: "grey.400",
                     borderRadius: "20px",
-                    minHeight: mobile ? '1350px' : '900px',
-                    position: 'relative',
+                    minHeight: mobile ? "1350px" : "900px",
+                    position: "relative",
                 }}
             >
                 <Box
                     sx={{
-                        position: 'absolute',
-                        bottom: '-20px',
+                        position: "absolute",
+                        bottom: "-20px",
                         left: 0,
                     }}
                 >
@@ -220,8 +220,8 @@ const EffectFor = () => {
                 </Box>
                 {!mobile && <Box
                     sx={{
-                        position: 'absolute',
-                        bottom: mobile ? '330px' : '-20px',
+                        position: "absolute",
+                        bottom: mobile ? "330px" : "-20px",
                         right: 0,
                     }}
                 >
@@ -247,8 +247,8 @@ const EffectFor = () => {
                             justifyContent="center"
                             alignItems="flex-start"
                             sx={{
-                                // mt: mobile ? '30px' : '80px',
-                                width: '100%',
+                                // mt: mobile ? "30px" : "80px",
+                                width: "100%",
                                 zIndex: 10,
                             }}
                         >
@@ -262,9 +262,9 @@ const EffectFor = () => {
                                         mr: 2,
                                         mt: 2,
                                         mb: 2,
-                                        width: '100%',
-                                        maxWidth: '680px',
-                                        height: '340px',
+                                        width: "100%",
+                                        maxWidth: "680px",
+                                        height: "340px",
                                         bgcolor: "primary.main",
                                         borderRadius: "20px",
                                     }}
@@ -279,19 +279,19 @@ const EffectFor = () => {
                                         <Grid item>
                                             <Typography
                                                 component={"h4"}
-                                                variant='IBMPlexSans700WhyLabel'
+                                                variant="IBMPlexSans700WhyLabel"
                                                 sx={{
-                                                    cursor: 'default',
-                                                    // color: '#272731',
-                                                    pt: mobile ? '20px' : '40px',
-                                                    pl: mobile ? '16px' : '32px',
-                                                    pr: mobile ? '16px' : '32px',
-                                                    textAlign: 'center',
+                                                    cursor: "default",
+                                                    // color: "#272731",
+                                                    pt: mobile ? "20px" : "40px",
+                                                    pl: mobile ? "16px" : "32px",
+                                                    pr: mobile ? "16px" : "32px",
+                                                    textAlign: "center",
                                                     fontSize: {
-                                                        xs: '28px',
-                                                        sm: '30px',
-                                                        md: '36px',
-                                                        lg: '40px',
+                                                        xs: "28px",
+                                                        sm: "30px",
+                                                        md: "36px",
+                                                        lg: "40px",
                                                     },
                                                 }}
                                             >
@@ -301,18 +301,18 @@ const EffectFor = () => {
                                         <Grid item>
                                             <Typography
                                                 component={"p"}
-                                                variant='OpenSans400WhyLabel'
+                                                variant="OpenSans400WhyLabel"
                                                 sx={{
-                                                    cursor: 'default',
-                                                    color: 'text.secondary',
-                                                    pt: mobile ? '10px' : '20px',
-                                                    pl: mobile ? '16px' : '32px',
-                                                    pr: mobile ? '16px' : '32px',
+                                                    cursor: "default",
+                                                    color: "text.secondary",
+                                                    pt: mobile ? "10px" : "20px",
+                                                    pl: mobile ? "16px" : "32px",
+                                                    pr: mobile ? "16px" : "32px",
                                                     fontSize: {
-                                                        xs: '16px',
-                                                        sm: '16px',
-                                                        md: '22px',
-                                                        lg: '22px',
+                                                        xs: "16px",
+                                                        sm: "16px",
+                                                        md: "22px",
+                                                        lg: "22px",
                                                     },
                                                 }}
                                             >

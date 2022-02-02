@@ -1,8 +1,8 @@
-import {  Grid, useTheme, Tooltip } from '@mui/material';
-import { inject, observer } from 'mobx-react'
-import ReactMarkdown from 'react-markdown'
+import { Grid, useTheme, Tooltip } from "@mui/material";
+import { inject, observer } from "mobx-react"
+import ReactMarkdown from "react-markdown"
 
-const Markdown = inject('rootStore')(observer(({ rootStore, value }) => {
+const Markdown = inject("rootStore")(observer(({ rootStore, value }) => {
 
     return (
         <Grid

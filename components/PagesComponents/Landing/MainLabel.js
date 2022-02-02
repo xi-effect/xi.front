@@ -1,24 +1,24 @@
-import React from 'react';
-import { useRouter } from 'next/router'
+import React from "react";
+import { useRouter } from "next/router"
 import Image from "next/image";
 import { motion } from "framer-motion"
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography } from '@mui/material';
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography } from "@mui/material";
 
-import { labels } from '../../../texts/landing/MainLabel';
+import { labels } from "../../../texts/landing/MainLabel";
 
 const MainLabel = () => {
     const theme = useTheme();
 
     const router = useRouter()
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('dl'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down("dl"));
 
 
     return (
         <Box
             sx={{
-                position: 'relative',
-                width: 'calc(100% - 64px)',
+                position: "relative",
+                width: "calc(100% - 64px)",
             }}
         >
             <Paper
@@ -26,13 +26,13 @@ const MainLabel = () => {
                 sx={{
                     zIndex: 10,
                     mt: "20px",
-                    width: mobile ? 'calc(100% - 0px)' : 'calc(100% - 200px)',
+                    width: mobile ? "calc(100% - 0px)" : "calc(100% - 200px)",
                     ml: mobile ? "0px" : "100px",
                     mr: mobile ? "0px" : "100px",
                     bgcolor: "grey.400",
                     borderRadius: "20px",
-                    // minHeight: '500px',
-                    position: 'relative',
+                    // minHeight: "500px",
+                    position: "relative",
                 }}
             >
                 <Stack
@@ -47,24 +47,24 @@ const MainLabel = () => {
                         // component={"h1"}
                         variant="OpenSans700MainLabel"
                         sx={{
-                            '&.MuiTypography-root': {
-                                cursor: 'default',
-                                color: '#272731',
-                                textAlign: 'center',
+                            "&.MuiTypography-root": {
+                                cursor: "default",
+                                color: "#272731",
+                                textAlign: "center",
                                 p: 2,
 
                             },
                             fontSize: {
-                                xs: '28px',
-                                sm: '36px',
-                                md: '44px',
-                                lg: '60px',
+                                xs: "28px",
+                                sm: "36px",
+                                md: "44px",
+                                lg: "60px",
                             },
                             lineHeight: {
-                                xs: '44px',
-                                sm: '44px',
-                                md: '71px',
-                                lg: '71px',
+                                xs: "44px",
+                                sm: "44px",
+                                md: "71px",
+                                lg: "71px",
                             },
                             mt: "20px",
                         }}
@@ -75,15 +75,15 @@ const MainLabel = () => {
                         // component={"h2"}
                         variant="OpenSans500MainLabel"
                         sx={{
-                            cursor: 'default',
-                            color: '#555569',
-                            textAlign: 'center',
+                            cursor: "default",
+                            color: "#555569",
+                            textAlign: "center",
                             p: 2,
                             fontSize: {
-                                xs: '16px',
-                                sm: '18px',
-                                md: '20px',
-                                lg: '22px',
+                                xs: "16px",
+                                sm: "18px",
+                                md: "20px",
+                                lg: "22px",
                             },
                         }}
                     >
@@ -95,7 +95,7 @@ const MainLabel = () => {
                         justifyContent="space-between"
                         alignItems="center"
                         sx={{
-                            width: '100%',
+                            width: "100%",
                         }}
                     >
                         <Grid
@@ -127,36 +127,36 @@ const MainLabel = () => {
                             <Button
                                 onClick={() => {
                                     router.push({
-                                        pathname: '/registration',
+                                        pathname: "/registration",
                                     })
                                 }}
                                 sx={{
-                                    '&.MuiButton-root': {
-                                        width: '272px',
-                                        height: '60px',
-                                        color: 'text.main',
-                                        bgcolor: 'primary.main',
-                                        borderRadius: '88px',
+                                    "&.MuiButton-root": {
+                                        width: "272px",
+                                        height: "60px",
+                                        color: "text.main",
+                                        bgcolor: "primary.main",
+                                        borderRadius: "88px",
                                         boxShadow: 24,
-                                        '&:hover': {
-                                            bgcolor: 'primary.main',
+                                        "&:hover": {
+                                            bgcolor: "primary.main",
                                         },
                                     },
-                                    mt: '20px',
-                                    mb: '20px',
+                                    mt: "20px",
+                                    mb: "20px",
                                 }}
                             >
                                 <Typography
                                     sx={{
-                                        '&.MuiTypography-root': {
-                                            fontFamily: 'Open Sans, sans-serif',
-                                            fontStyle: 'normal',
+                                        "&.MuiTypography-root": {
+                                            fontFamily: "Open Sans, sans-serif",
+                                            fontStyle: "normal",
                                             fontWeight: 600,
-                                            fontSize: '18px',
-                                            lineHeight: '25px',
+                                            fontSize: "18px",
+                                            lineHeight: "25px",
                                         },
-                                        ml: '32px',
-                                        color: 'text.primary',
+                                        ml: "32px",
+                                        color: "text.primary",
                                     }}
                                 >
                                     {labels.enterButton}
@@ -170,9 +170,9 @@ const MainLabel = () => {
                                         bgcolor: "secondary.main",
                                         height: "46px",
                                         width: "46px",
-                                        borderRadius: '50%',
-                                        ml: 'auto',
-                                        mr: '0px',
+                                        borderRadius: "50%",
+                                        ml: "auto",
+                                        mr: "0px",
                                     }}
                                 >
                                     <ArrowForwardIcon />
@@ -202,7 +202,7 @@ const MainLabel = () => {
                         justifyContent="flex-end"
                         alignItems="center"
                         sx={{
-                            width: '100%'
+                            width: "100%"
                         }}
                     >
                         <Image
@@ -216,36 +216,36 @@ const MainLabel = () => {
                     {/* {<Button
                         onClick={() => {
                             router.push({
-                                pathname: '/registration',
+                                pathname: "/registration",
                             })
                         }}
                         sx={{
-                            '&.MuiButton-root': {
-                                width: '272px',
-                                height: '60px',
-                                color: 'text.main',
-                                bgcolor: 'primary.main',
-                                borderRadius: '88px',
+                            "&.MuiButton-root": {
+                                width: "272px",
+                                height: "60px",
+                                color: "text.main",
+                                bgcolor: "primary.main",
+                                borderRadius: "88px",
                                 boxShadow: 24,
-                                '&:hover': {
-                                    bgcolor: 'primary.main',
+                                "&:hover": {
+                                    bgcolor: "primary.main",
                                 },
                             },
-                            mt: mobile ? '20px' : '90px',
-                            mb: '20px',
+                            mt: mobile ? "20px" : "90px",
+                            mb: "20px",
                         }}
                     >
                         <Typography
                             sx={{
-                                '&.MuiTypography-root': {
-                                    fontFamily: 'Open Sans, sans-serif',
-                                    fontStyle: 'normal',
+                                "&.MuiTypography-root": {
+                                    fontFamily: "Open Sans, sans-serif",
+                                    fontStyle: "normal",
                                     fontWeight: 600,
-                                    fontSize: '18px',
-                                    lineHeight: '25px',
+                                    fontSize: "18px",
+                                    lineHeight: "25px",
                                 },
-                                ml: '32px',
-                                color: 'text.primary',
+                                ml: "32px",
+                                color: "text.primary",
                             }}
                         >
                             {labels.enterButton}
@@ -259,9 +259,9 @@ const MainLabel = () => {
                                 bgcolor: "secondary.main",
                                 height: "46px",
                                 width: "46px",
-                                borderRadius: '50%',
-                                ml: 'auto',
-                                mr: '0px',
+                                borderRadius: "50%",
+                                ml: "auto",
+                                mr: "0px",
                             }}
                         >
                             <ArrowForwardIcon />
@@ -272,7 +272,7 @@ const MainLabel = () => {
                         justifyContent="flex-start"
                         alignItems="center"
                         sx={{
-                            width: '100%'
+                            width: "100%"
                         }}
                     >
                         <Image

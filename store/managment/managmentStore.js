@@ -1,4 +1,4 @@
-import { action, observable, computed, runInAction, makeObservable, makeAutoObservable } from 'mobx'
+import { action, observable, computed, runInAction, makeObservable, makeAutoObservable } from "mobx"
 
 
 class ManagmentStore {
@@ -13,10 +13,10 @@ class ManagmentStore {
 
     @observable pageCreation = {
         id: null,
-        name: '',
-        description: '',
-        theme: '',
-        kind: '',
+        name: "",
+        description: "",
+        theme: "",
+        kind: "",
         components: [],
         blueprint: false,
         reusable: false,
@@ -26,10 +26,10 @@ class ManagmentStore {
     @action setPagecreationDefault = () => {
         this.pageCreation = {
             id: null,
-            name: '',
-            description: '',
-            theme: '',
-            kind: '',
+            name: "",
+            description: "",
+            theme: "",
+            kind: "",
             components: [],
             blueprint: false,
             reusable: false,
@@ -72,10 +72,10 @@ class ManagmentStore {
             this.pageCreation.components.push({ type: "img", authorId: null, imageId: null, })
         }
         if (type === "quiz") {
-            this.pageCreation.components.push({ type: "quiz", quizType: 'single', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", }], rightAnswers: [], userAnswers: [], successAnswer: null })
+            this.pageCreation.components.push({ type: "quiz", quizType: "single", fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", }], rightAnswers: [], userAnswers: [], successAnswer: null })
         }
         if (type === "list") {
-            this.pageCreation.components.push({ type: "list", listType: 'dotted', fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", },] })
+            this.pageCreation.components.push({ type: "list", listType: "dotted", fontSize: 14, textAlign: "left", fontWeight: "normal", fontStyle: "normal", textDecoration: "none", content: [{ label: "", },] })
         }
         if (type === "markdown") {
             this.pageCreation.components.push({ type: "markdown", label: "markdown" })
@@ -84,7 +84,7 @@ class ManagmentStore {
             this.pageCreation.components.push({ type: "numanswer", label: 0, userAnswer: null })
         }
         if (type === "code") {
-            this.pageCreation.components.push({ type: "code", label: "code", lang: 0,  })
+            this.pageCreation.components.push({ type: "code", label: "code", lang: 0, })
         }
         console.log("compot", this.pageCreation.components)
     }
@@ -102,7 +102,7 @@ class ManagmentStore {
 
     @action setAnswerQuiz = (type, index, indexAnswer) => {
         console.log("setAQ", type, index, indexAnswer, this.pageCreation.components[index])
-        if (type === 'm') {
+        if (type === "m") {
             if (!(this.pageCreation.components[index].rightAnswers.includes(indexAnswer))) {
                 console.log("add")
                 this.pageCreation.components[index].rightAnswers.push(indexAnswer)
@@ -116,7 +116,7 @@ class ManagmentStore {
                 return;
             }
         }
-        if (type === 's') {
+        if (type === "s") {
             if (this.pageCreation.components[index].rightAnswers.includes(indexAnswer)) {
                 console.log("remove")
                 return this.pageCreation.components[index].rightAnswers = []
@@ -140,10 +140,10 @@ class ManagmentStore {
     }
 
     @action pushContentToComponent = (index, type) => {
-        if (type === 'list') {
+        if (type === "list") {
             this.pageCreation.components[index]["content"].push({ label: "", })
         }
-        if (type === 'quiz') {
+        if (type === "quiz") {
             this.pageCreation.components[index]["content"].push({ label: "", })
         }
     }
@@ -223,7 +223,7 @@ class ManagmentStore {
     }
 
     @action LoadPageList = () => {
-        console.log('LoadPageList')
+        console.log("LoadPageList")
         this.rootStore.fetchDataScr(`${this.rootStore.url}/wip/pages/index/`, "POST", { "counter": this.pageCreationList.counter }).then(
             (data) => {
                 console.log("log", data.results)
@@ -275,12 +275,12 @@ class ManagmentStore {
 
     @observable moduleCreation = {
         id: null,
-        name: '',
-        description: '',
-        theme: '',
+        name: "",
+        description: "",
+        theme: "",
         difficulty: "",
         category: "",
-        type: '',
+        type: "",
         imageId: null,
         authorId: null,
         points: [],
@@ -289,12 +289,12 @@ class ManagmentStore {
     @action setModulecreationDefault = () => {
         this.moduleCreation = {
             id: null,
-            name: '',
-            description: '',
-            theme: '',
+            name: "",
+            description: "",
+            theme: "",
             difficulty: "",
             category: "",
-            type: '',
+            type: "",
             imageId: null,
             authorId: null,
             points: [],

@@ -58,7 +58,7 @@ const Invite = inject(
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <Button sx={{ color: 'text.primary' }}>
+                  <Button sx={{ color: "text.primary" }}>
                     <ContentCopyIcon />
                   </Button>
                 </InputAdornment>

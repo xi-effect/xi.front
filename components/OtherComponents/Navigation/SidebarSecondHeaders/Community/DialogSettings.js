@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import { useRouter } from 'next/router'
-import { inject, observer } from 'mobx-react'
+import React from "react";
+import { useRouter } from "next/router"
+import { inject, observer } from "mobx-react"
 
-import { Typography, MenuItem, useTheme, Tab, Tabs, Radio, Switch, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container, DialogActions } from '@mui/material';
+import { Typography, MenuItem, useTheme, Tab, Tabs, Radio, Switch, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container, DialogActions } from "@mui/material";
 import Image from "next/image";
-import PropTypes from 'prop-types';
-import CloseIcon from '@mui/icons-material/Close';
+import PropTypes from "prop-types";
+import CloseIcon from "@mui/icons-material/Close";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -17,8 +17,8 @@ function TabPanel(props) {
             justifyContent="center"
             alignItems="flex-start"
             // sx={{
-            //     width: '100%',
-            //     heght: '100%',
+            //     width: "100%",
+            //     heght: "100%",
             // }}
             role="tabpanel"
             hidden={value !== index}
@@ -30,8 +30,8 @@ function TabPanel(props) {
                 <Box
                     sx={{
                         p: 3,
-                        width: '100%',
-                        heght: '100%',
+                        width: "100%",
+                        heght: "100%",
                         minWidth: 200,
                     }}
                 >
@@ -51,11 +51,11 @@ TabPanel.propTypes = {
 function a11yProps(index) {
     return {
         id: `vertical-tab-${index}`,
-        'aria-controls': `vertical-tabpanel-${index}`,
+        "aria-controls": `vertical-tabpanel-${index}`,
     };
 }
 
-const DialogSettings = inject('rootStore')(observer(({ rootStore, openDialogSettings, setOpenDialogSettings }) => {
+const DialogSettings = inject("rootStore")(observer(({ rootStore, openDialogSettings, setOpenDialogSettings }) => {
 
     const [value, setValue] = React.useState(0);
 
@@ -71,7 +71,7 @@ const DialogSettings = inject('rootStore')(observer(({ rootStore, openDialogSett
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             sx={{
-                // height: '100%'
+                // height: "100%"
             }}
         >
             <DialogContent>
@@ -80,8 +80,8 @@ const DialogSettings = inject('rootStore')(observer(({ rootStore, openDialogSett
                     justifyContent="center"
                     alignItems="center"
                     sx={{
-                        height: 'calc(100vh - 64px)',
-                        width: '100%',
+                        height: "calc(100vh - 64px)",
+                        width: "100%",
                     }}
                 >
                     <Stack
@@ -89,7 +89,7 @@ const DialogSettings = inject('rootStore')(observer(({ rootStore, openDialogSett
                         justifyContent="flex-start"
                         alignItems="center"
                         sx={{
-                            width: '100%',
+                            width: "100%",
                             maxWidth: 1200,
                             pl: 24,
                         }}
@@ -98,9 +98,9 @@ const DialogSettings = inject('rootStore')(observer(({ rootStore, openDialogSett
                             Настройки сообщества
                         </Typography>
                         <IconButton
-                            aria-label='закрыть'
+                            aria-label="закрыть"
                             sx={{
-                                ml: 'auto'
+                                ml: "auto"
                             }}
                             onClick={() => setOpenDialogSettings(false)}
                         >
@@ -112,8 +112,8 @@ const DialogSettings = inject('rootStore')(observer(({ rootStore, openDialogSett
                         justifyContent="flex-start"
                         alignItems="flex-start"
                         sx={{
-                            height: '100%',
-                            width: '100%',
+                            height: "100%",
+                            width: "100%",
                             maxWidth: 1200,
                         }}
                     >
@@ -124,7 +124,7 @@ const DialogSettings = inject('rootStore')(observer(({ rootStore, openDialogSett
                             onChange={handleChange}
                             aria-label="Vertical tabs example"
                             textColor="inherit"
-                            sx={{ borderRight: 2, height: '100%', borderColor: 'divider' }}
+                            sx={{ borderRight: 2, height: "100%", borderColor: "divider" }}
                         >
                             <Tab label="Основные" {...a11yProps(0)} />
                             <Tab label="Приглашения" {...a11yProps(1)} />

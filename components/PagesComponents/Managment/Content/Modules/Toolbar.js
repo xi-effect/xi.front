@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
-import { ButtonGroup, Button, Divider, useTheme, Tooltip } from '@mui/material';
+import { ButtonGroup, Button, Divider, useTheme, Tooltip } from "@mui/material";
 
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react"
 
-const Toolbar = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore }) => {
+const Toolbar = inject("rootStore", "managmentStore")(observer(({ rootStore, managmentStore }) => {
     const theme = useTheme();
 
 

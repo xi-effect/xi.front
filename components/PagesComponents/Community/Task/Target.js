@@ -24,7 +24,7 @@ import {
 
 import { inject, observer } from "mobx-react";
 
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import { motion } from "framer-motion";
 
@@ -56,13 +56,13 @@ const Target = inject(
                     justifyContent="flex-start"
                     alignItems="center"
                     sx={{
-                        width: '100%',
+                        width: "100%",
                         pl: 0,
                         pr: 1,
-                        cursor: 'pointer',
-                        color: 'text.secondary',
-                        '&:hover': {
-                            color: 'text.primary',
+                        cursor: "pointer",
+                        color: "text.secondary",
+                        "&:hover": {
+                            color: "text.primary",
                         },
                         zIndex: 1
                     }}
@@ -76,13 +76,13 @@ const Target = inject(
                         sx={{ fontSize: 8 }}
                     />
                     <Typography
-                        variant='subtitle2'
+                        variant="subtitle2"
                         sx={{
                             ml: 1,
                             fontSize: 14,
                         }}
                     >
-                        {'цель'}
+                        {"цель"}
                     </Typography>
                 </Stack>
                 {target && <Typography variant="subtitle1">
