@@ -29,11 +29,6 @@ class CommunityStore {
                     name: 'Комната',
                 },
                 {
-                    id: 3,
-                    type: 'schedule',
-                    name: 'Расписание 1',
-                },
-                {
                     id: 4,
                     type: 'chat',
                     name: 'Чат',
@@ -44,11 +39,6 @@ class CommunityStore {
             id: 2,
             type: 'chat',
             name: 'Чат',
-        },
-        {
-            id: 3,
-            type: 'schedule',
-            name: 'Расписание 2',
         },
         {
             id: 4,
@@ -65,11 +55,6 @@ class CommunityStore {
                     id: 2,
                     type: 'room',
                     name: 'Комната',
-                },
-                {
-                    id: 3,
-                    type: 'schedule',
-                    name: 'Расписание 1',
                 },
                 {
                     id: 4,
@@ -89,11 +74,6 @@ class CommunityStore {
             name: 'Чат',
         },
         {
-            id: 3,
-            type: 'schedule',
-            name: 'Расписание 2',
-        },
-        {
             id: 4,
             type: 'room',
             name: 'Комната',
@@ -108,11 +88,6 @@ class CommunityStore {
                     id: 2,
                     type: 'room',
                     name: 'Комната',
-                },
-                {
-                    id: 3,
-                    type: 'schedule',
-                    name: 'Расписание 1',
                 },
                 {
                     id: 4,
@@ -132,11 +107,6 @@ class CommunityStore {
             name: 'Чат',
         },
         {
-            id: 3,
-            type: 'schedule',
-            name: 'Расписание 2',
-        },
-        {
             id: 4,
             type: 'room',
             name: 'Комната',
@@ -151,11 +121,6 @@ class CommunityStore {
                     id: 2,
                     type: 'room',
                     name: 'Комната',
-                },
-                {
-                    id: 3,
-                    type: 'schedule',
-                    name: 'Расписание 1',
                 },
                 {
                     id: 4,

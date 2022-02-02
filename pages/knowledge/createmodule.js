@@ -110,8 +110,9 @@ const Createmodule = inject('knowledgeStore', 'managmentStore', 'uiStore')(obser
         <>
             <Head>
                 <title>
-                    Ξffect
+                    Ξffect | Создание модуля
                 </title>
+                <meta name="robots" content="noindex" />
             </Head>
             <Stack
                 direction="column"

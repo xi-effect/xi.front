@@ -35,6 +35,7 @@ const Community = inject('rootStore', 'settingsStore', 'profileStore')(observer(
                 <title>
                     Ξffect
                 </title>
+                <meta name="robots" content="noindex" />
             </Head>
             <NavigationAll>
                 <Stack

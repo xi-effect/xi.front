@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { styled } from "@mui/material/styles";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -26,8 +25,7 @@ import {
 import { inject, observer } from "mobx-react";
 
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
-import Chat from '../../../../components/OtherComponents/Chat/Chat'
-import socket from "../../../../utils/socket";
+import Discussion from "../../../../components/PagesComponents/Community/Discussion";
 
 
 const DiscussionPage = inject(
@@ -44,9 +42,10 @@ const DiscussionPage = inject(
             <>
                 <Head>
                     <title>Ξffect</title>
+                    <meta name="robots" content="noindex" />
                 </Head>
                 <NavigationAll>
-
+                    <Discussion/>
                 </NavigationAll>
             </>
         );

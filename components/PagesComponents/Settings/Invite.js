@@ -52,7 +52,7 @@ const Invite = inject(
             defaultValue={settingsStore.settings.invite}
             // value={settingsStore.settings.invite}
             onClick={() => {
-              copyToClipboard("https://xieffect.netlify.app/registration?invite=" + settingsStore.settings.invite)
+              copyToClipboard("https://xieffect.ru/registration?invite=" + settingsStore.settings.invite)
               setStatusCopy(true)
             }}
             InputProps={{

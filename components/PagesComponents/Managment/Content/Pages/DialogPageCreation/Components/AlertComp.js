@@ -219,6 +219,7 @@ const AlertComp = inject('managmentStore')(observer(({ managmentStore, index }) 
     return (
         <Root>
             <Grid
+                onFocus={() => setHover(true)}
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
                 container

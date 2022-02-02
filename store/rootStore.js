@@ -23,7 +23,7 @@ let store
 // console.log(process.env)
 
 class RootStore {
-  url = process.env.NEXT_PUBLIC_URL
+  url = process.env.NEXT_PUBLIC_SERVER_URL
   constructor() {
     this.uiStore = new UIStore(this)
     this.homeStore = new HomeStore(this)

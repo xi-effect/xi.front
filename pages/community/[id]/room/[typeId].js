@@ -29,6 +29,7 @@ const RoomPage = inject('rootStore', 'settingsStore', 'profileStore')(observer((
                 <title>
                     Ξffect
                 </title>
+                <meta name="robots" content="noindex" />
             </Head>
             <NavigationAll>
 
