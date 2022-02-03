@@ -1,28 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import { useRouter } from 'next/router'
-import { inject, observer } from 'mobx-react'
+import React from "react";
+import { useRouter } from "next/router"
+import { inject, observer } from "mobx-react"
 
-import { Typography, MenuItem, Box, MenuList, ListItemText, useMediaQuery } from '@mui/material';
+import { MenuItem, Box, MenuList, useMediaQuery } from "@mui/material";
 import Image from "next/image";
-
-import { motion } from "framer-motion";
 
 const menuHome = [
     {
         id: 0,
         label: "Профиль 1",
-        href: '/home?profile=1',
+        href: "/home?profile=1",
     },
 ]
 
-const MenuHomeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ rootStore, uiStore, messageStore, hoverLeft, hoverLeftName, setHoverLeft }) => {
+const MenuHomeComp = inject()(observer(() => {
     const router = useRouter()
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
 
     return (
         <>
-            <MenuList sx={{ width: '100%', }}>
+            <MenuList sx={{ width: "100%", }}>
                 {menuHome.map((item, index) => (
                     <MenuItem
                         selected
@@ -30,9 +28,9 @@ const MenuHomeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ 
                         key={index.toString()}
                         sx={{
                             "&.Mui-selected": {
-                                bgcolor: 'primary.light',
-                                '&:hover': {
-                                    bgcolor: 'primary.light',
+                                bgcolor: "primary.light",
+                                "&:hover": {
+                                    bgcolor: "primary.light",
                                 }
                             },
                             pl: 1,
@@ -40,9 +38,9 @@ const MenuHomeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ 
                             pt: 0.2,
                             pb: 0.2,
                             fontSize: mobile ? 18 : 22,
-                            width: '100%',
+                            width: "100%",
                             borderRadius: 1,
-                            cursor: 'pointer',
+                            cursor: "pointer",
                         }}
                     >
                         {item.label.toLowerCase()}
@@ -56,7 +54,7 @@ const MenuHomeComp = inject('rootStore', 'uiStore', 'messageStore')(observer(({ 
             >
                 <Image
                     alt="alt"
-                    src={"/app/DataReport.svg"}
+                    src="/app/DataReport.svg"
                     quality={100}
                     width={256}
                     height={256}

@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
-import Link from "next/link";
-import cx from 'clsx';
-import { FormControl, FormControlLabel, Grid, Switch, Button, Typography, useTheme, Tooltip } from '@mui/material';
+import React from "react";
+import { styled } from "@mui/material/styles";
+import { FormControl, FormControlLabel, Grid, Switch, Button, Typography } from "@mui/material";
 
 
 
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react"
 
-const PREFIX = 'StepThree';
+const PREFIX = "StepThree";
 
 const classes = {
     gridWrapper: `${PREFIX}-gridWrapper`,
@@ -22,9 +20,6 @@ const classes = {
 };
 
 const StyledGrid = styled(Grid)((
-    {
-        theme
-    }
 ) => ({
     [`&.${classes.gridWrapper}`]: {
         margin: 16,
@@ -34,14 +29,14 @@ const StyledGrid = styled(Grid)((
     [`& .${classes.stepLabel}`]: {
         marginLeft: 16,
         fontSize: 24,
-        cursor: 'default',
+        cursor: "default",
         color: theme => theme.palette.primary.contrastText,
     },
 
     [`& .${classes.stepSecondLabel}`]: {
         marginLeft: 16,
         fontSize: 20,
-        cursor: 'default',
+        cursor: "default",
         color: theme => theme.palette.primary.contrastText,
         // color: theme => theme.main.palette.content.border,
     },
@@ -74,64 +69,58 @@ const StyledGrid = styled(Grid)((
     }
 }));
 
-const StepThree = inject('managmentStore')(observer(({ managmentStore }) => {
-    const theme = useTheme();
-
-
-
-    return (
-        <StyledGrid
-            className={classes.gridWrapper}
-            xs={12} sm={12} md={6} lg={6} xl={6}
-            container
-            item
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="flex-start"
+const StepThree = inject("managmentStore")(observer(({ managmentStore }) => (
+    <StyledGrid
+        className={classes.gridWrapper}
+        xs={12} sm={12} md={6} lg={6} xl={6}
+        container
+        item
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+    >
+        <Typography
+            variant="Roboto500XiLabel"
+            sx={{
+                marginLeft: 2,
+                fontSize: 24,
+                cursor: "default",
+            }}
         >
-            <Typography
-                variant='Roboto500XiLabel'
-                sx={{
-                    marginLeft: 2,
-                    fontSize: 24,
-                    cursor: 'default',
-                }}
-            >
-                Шаг 3. Публикация
-            </Typography>
-            <Typography className={classes.stepSecondLabel}> Теперь осталось только опубликовать вашу страницу, для этого необходимо заполнить информацию:</Typography>
-            <FormControl className={classes.FormControl} fullWidth>
-                <FormControlLabel
-                    control={
-                        <Switch
-                            checked={managmentStore.pageCreation.reusable}
-                            onChange={(event) => managmentStore.setPageCreation("reusable", !managmentStore.pageCreation.reusable)}
-                            name="reusable"
-                            color="primary"
-                        />
-                    }
-                    label="Позволить другим авторам использовать эту страницу в своих модулях"
-                />
-            </FormControl>
-            <FormControl className={classes.FormControl} fullWidth>
-                <FormControlLabel
-                    control={
-                        <Switch
-                            checked={managmentStore.pageCreation.public}
-                            onChange={(event) => managmentStore.setPageCreation("public", !managmentStore.pageCreation.public)}
-                            name="public"
-                            color="primary"
-                        />
-                    }
-                    label="Сделать страницу публичной. Все пользователи смогут её увидеть "
-                />
-            </FormControl>
+            Шаг 3. Публикация
+        </Typography>
+        <Typography className={classes.stepSecondLabel}> Теперь осталось только опубликовать вашу страницу, для этого необходимо заполнить информацию:</Typography>
+        <FormControl className={classes.FormControl} fullWidth>
+            <FormControlLabel
+                control={
+                    <Switch
+                        checked={managmentStore.pageCreation.reusable}
+                        onChange={() => managmentStore.setPageCreation("reusable", !managmentStore.pageCreation.reusable)}
+                        name="reusable"
+                        color="primary"
+                    />
+                }
+                label="Позволить другим авторам использовать эту страницу в своих модулях"
+            />
+        </FormControl>
+        <FormControl className={classes.FormControl} fullWidth>
+            <FormControlLabel
+                control={
+                    <Switch
+                        checked={managmentStore.pageCreation.public}
+                        onChange={() => managmentStore.setPageCreation("public", !managmentStore.pageCreation.public)}
+                        name="public"
+                        color="primary"
+                    />
+                }
+                label="Сделать страницу публичной. Все пользователи смогут её увидеть "
+            />
+        </FormControl>
 
-            <Button onClick={() => managmentStore.savePage(true)} variant="contained" color="primary" className={classes.Button}>
-                Опубликовать
-            </Button>
-        </StyledGrid>
-    );
-}))
+        <Button onClick={() => managmentStore.savePage(true)} variant="contained" color="primary" className={classes.Button}>
+            Опубликовать
+        </Button>
+    </StyledGrid>
+)))
 
 export default StepThree

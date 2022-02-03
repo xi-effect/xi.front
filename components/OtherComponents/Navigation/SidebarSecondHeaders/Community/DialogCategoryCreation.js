@@ -1,14 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import { useRouter } from 'next/router'
-import { inject, observer } from 'mobx-react'
+import React from "react";
+import { inject, observer } from "mobx-react"
 
-import { Typography, MenuItem, useTheme, Tab, Tabs, Radio, Switch, Button, Chip, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Tooltip, Box, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider, ListItemIcon, ListItemText, useMediaQuery, Container, DialogActions } from '@mui/material';
-import Image from "next/image";
+import { Typography, Button, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, useMediaQuery, DialogActions } from "@mui/material";
 
-const DialogCategoryCreation = inject('rootStore')(observer(({ rootStore, openDialogCategoryCreation, setOpenDialogCategoryCreation }) => {
-    const theme = useTheme();
-    const fullScreen = useMediaQuery(theme => theme.breakpoints.down('md'));
+const DialogCategoryCreation = inject()(observer(({ openDialogCategoryCreation, setOpenDialogCategoryCreation }) => {
+    const fullScreen = useMediaQuery(theme => theme.breakpoints.down("md"));
 
 
     return (
@@ -21,7 +18,7 @@ const DialogCategoryCreation = inject('rootStore')(observer(({ rootStore, openDi
             fullWidth
             maxWidth="md"
             sx={{
-                // height: '100%'
+                // height: "100%"
             }}
         >
             <Stack
@@ -31,11 +28,11 @@ const DialogCategoryCreation = inject('rootStore')(observer(({ rootStore, openDi
                 // spacing={2}
                 sx={{
                     height: 64,
-                    width: '100%',
+                    width: "100%",
                     p: 1,
                 }}
             >
-                <Typography sx={{ mt: 2, ml: 2, mr: 'auto' }} variant="h5">
+                <Typography sx={{ mt: 2, ml: 2, mr: "auto" }} variant="h5">
                     Создание категории сообщества
                 </Typography>
             </Stack>
@@ -47,7 +44,7 @@ const DialogCategoryCreation = inject('rootStore')(observer(({ rootStore, openDi
                     // spacing={2}
                     sx={{
                         height: 100,
-                        width: '100%',
+                        width: "100%",
                     }}
                 >
                     <FormControl
@@ -66,7 +63,7 @@ const DialogCategoryCreation = inject('rootStore')(observer(({ rootStore, openDi
                         <Input
                             sx={{ width: "100%", }}
                             label="Название новой категории"
-                            type={"text"}
+                            type="text"
                         />
                     </FormControl>
                 </Stack>

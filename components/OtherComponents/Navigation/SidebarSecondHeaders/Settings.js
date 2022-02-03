@@ -1,15 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import { useRouter } from 'next/router'
-import { inject, observer } from 'mobx-react'
+import React from "react";
+import { inject, observer } from "mobx-react"
 
-import { Typography, Stack, } from '@mui/material';
+import { Typography, Stack, } from "@mui/material";
 
-import { motion } from "framer-motion";
 
-const Settings = inject('rootStore')(observer(({ rootStore }) => {
-
-    return (
+const Settings = inject()(observer(() => (
         <Stack
             direction="row"
             justifyContent="space-between"
@@ -26,7 +22,6 @@ const Settings = inject('rootStore')(observer(({ rootStore }) => {
                 Настройки
             </Typography>
         </Stack>
-    )
-}));
+    )));
 
 export default Settings;

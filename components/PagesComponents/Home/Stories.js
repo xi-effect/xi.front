@@ -1,117 +1,111 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React from "react";
 
-import { Button, Paper, Stack, Box, Grid, Typography, useTheme, IconButton } from '@mui/material';
+import { Button, Paper, Stack, Box, Typography, IconButton } from "@mui/material";
 
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from "mobx-react"
 
-import Image from 'next/image'
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Image from "next/image"
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { motion } from "framer-motion"
 
 const stories = [
     {
-        label: 'Текст заголовка, название штуки, я не смог в название',
-        image: '/app/OrganizingProjects.svg',
+        label: "Текст заголовка, название штуки, я не смог в название",
+        image: "/app/OrganizingProjects.svg",
     },
     {
-        label: 'Текст заголовка, название штуки, я не смог в название',
-        image: '/app/Notebook.svg',
+        label: "Текст заголовка, название штуки, я не смог в название",
+        image: "/app/Notebook.svg",
     },
     {
-        label: 'Текст заголовка, название штуки, я не смог в название',
-        image: '/app/Schedule.svg',
+        label: "Текст заголовка, название штуки, я не смог в название",
+        image: "/app/Schedule.svg",
     },
     {
-        label: 'Текст заголовка, название штуки, я не смог в название',
-        image: '/app/StaticWebsite.svg',
+        label: "Текст заголовка, название штуки, я не смог в название",
+        image: "/app/StaticWebsite.svg",
     },
     {
-        label: 'Текст заголовка, название штуки, я не смог в название',
-        image: '/app/JavaScriptFrameworks.svg',
+        label: "Текст заголовка, название штуки, я не смог в название",
+        image: "/app/JavaScriptFrameworks.svg",
     },
     {
-        label: 'Текст заголовка, название штуки, я не смог в название',
-        image: '/app/Content.svg',
+        label: "Текст заголовка, название штуки, я не смог в название",
+        image: "/app/Content.svg",
     },
     {
-        label: 'Текст заголовка, название штуки, я не смог в название',
-        image: '/app/AdvancedCustomization.svg',
+        label: "Текст заголовка, название штуки, я не смог в название",
+        image: "/app/AdvancedCustomization.svg",
     },
 ]
 
-const Story = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore, item }) => {
-    const theme = useTheme();
-
-
-    return (
-        <Paper
-            elevation={24}
+const Story = inject()(observer(({ item }) => (
+    <Paper
+        elevation={24}
+        sx={{
+            height: 300,
+            minWidth: 300,
+            // bgcolor: "primary.main",
+            borderRadius: 2,
+        }}
+    >
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={0}
             sx={{
-                height: 300,
-                minWidth: 300,
-                // bgcolor: 'primary.main',
-                borderRadius: 2,
+                mt: -2,
+                position: "relative",
+                width: "100%",
+                height: "100%",
             }}
         >
-            <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={0}
+            <Box
                 sx={{
-                    mt: -2,
-                    position: 'relative',
-                    width: '100%',
-                    height: '100%',
+                    width: 216,
+                    height: 216,
                 }}
             >
-                <Box
-                    sx={{
-                        width: 216,
-                        height: 216,
-                    }}
-                >
-                    <Image
-                        alt="alt"
-                        src={item.image}
-                        quality={100}
-                        width={216}
-                        height={216}
-                    />
-                </Box>
-                <Typography
-                    sx={{
-                        pl: 1,
-                        pr: 1,
-                    }}
-                >
-                    {item.label}
-                </Typography>
-                <IconButton
-                    sx={{
-                        position: 'absolute',
-                        bottom: -8,
-                        right: 8,
-                        boxShadow: 4,
-                        bgcolor: 'secondary.main',
-                        '&:hover': {
-                            bgcolor: 'secondary.main',
-                        }
-                    }}
-                >
-                    <ArrowForwardIcon />
-                </IconButton>
-            </Stack>
-        </Paper>
-    )
-}));
+                <Image
+                    alt="alt"
+                    src={item.image}
+                    quality={100}
+                    width={216}
+                    height={216}
+                />
+            </Box>
+            <Typography
+                sx={{
+                    pl: 1,
+                    pr: 1,
+                }}
+            >
+                {item.label}
+            </Typography>
+            <IconButton
+                sx={{
+                    position: "absolute",
+                    bottom: -8,
+                    right: 8,
+                    boxShadow: 4,
+                    bgcolor: "secondary.main",
+                    "&:hover": {
+                        bgcolor: "secondary.main",
+                    }
+                }}
+            >
+                <ArrowForwardIcon />
+            </IconButton>
+        </Stack>
+    </Paper>
+)));
 
 
-const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore }) => {
-    const theme = useTheme();
+const Stories = inject()(observer(() => {
     const [cardIndex, setCardIndex] = React.useState(0)
 
     return (
@@ -122,12 +116,12 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                 alignItems="center"
                 spacing={2}
                 sx={{
-                    width: '100%',
+                    width: "100%",
                     p: 1,
                 }}
             >
                 <Typography
-                    variant='OpenSans600WhyLabel'
+                    variant="OpenSans600WhyLabel"
                     sx={{
                         fontSize: 22,
                         ml: 2,
@@ -147,11 +141,11 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                     <Button
                         variant="contained"
                         sx={{
-                            '&.MuiButtonBase-root': {
+                            "&.MuiButtonBase-root": {
                                 height: 36,
                                 width: 36,
                                 minWidth: 36,
-                                bgcolor: 'secondary.dark',
+                                bgcolor: "secondary.dark",
                             }
                         }}
                         disabled={cardIndex === 0}
@@ -162,11 +156,11 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                     <Button
                         variant="contained"
                         sx={{
-                            '&.MuiButtonBase-root': {
+                            "&.MuiButtonBase-root": {
                                 height: 36,
                                 width: 36,
                                 minWidth: 36,
-                                bgcolor: 'secondary.dark',
+                                bgcolor: "secondary.dark",
                             }
                         }}
                         disabled={cardIndex === stories.length - 1}
@@ -187,10 +181,10 @@ const Stories = inject('rootStore', 'managmentStore')(observer(({ rootStore, man
                 animate={{ opacity: 1, x: cardIndex * -316 }}
                 transition={{ duration: 0.6 }}
                 sx={{
-                    width: '100%',
+                    width: "100%",
                     mt: 1,
                     ml: 3,
-                    position: 'relative',
+                    position: "relative",
                 }}
             >
                 {stories.map((item, index) => (

@@ -1,5 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import React from "react";
@@ -11,7 +11,6 @@ import {
   Box,
   Stack,
   Tooltip,
-  useTheme,
   Typography,
   AccordionDetails,
   Grid,
@@ -26,16 +25,10 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
 import CustomAvatar from "../../components/OtherComponents/Avatar/CustomAvatar";
 
-import Secure from "./../../components/PagesComponents/Settings/Secure";
-
-import { useSnackbar } from 'notistack';
+import Secure from "../../components/PagesComponents/Settings/Secure";
 
 const Invite = dynamic(() =>
-  import("./../../components/PagesComponents/Settings/Invite")
-);
-
-const Customize = dynamic(() =>
-  import("./../../components/PagesComponents/Settings/Customize")
+  import("../../components/PagesComponents/Settings/Invite")
 );
 
 const UserAvatar = dynamic(() =>
@@ -45,10 +38,8 @@ const UserAvatar = dynamic(() =>
 const Settings = inject(
   "rootStore",
   "settingsStore",
-  "messageStore"
 )(
-  observer(({ rootStore, settingsStore, messageStore }) => {
-    const theme = useTheme()
+  observer(({ rootStore, settingsStore }) => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"))
     const router = useRouter()
 
@@ -68,11 +59,11 @@ const Settings = inject(
         .then((data) => {
           if (data) {
             console.log("settings", data);
-            let emailArr = data.email.split("@", 2)
+            const emailArr = data.email.split("@", 2)
             settingsStore.setSettings("emailBefore", emailArr[0])
-            settingsStore.setSettings("emailAfter", "@" + emailArr[1])
+            settingsStore.setSettings("emailAfter", `@${emailArr[1]}`)
             settingsStore.setSettings("emailConfirmed", data["email-confirmed"])
-            settingsStore.setSettings("avatar", data["avatar"])
+            settingsStore.setSettings("avatar", data.avatar)
             settingsStore.setSettings("invite", data.code)
           }
         });
@@ -86,14 +77,14 @@ const Settings = inject(
 
     React.useEffect(() => {
       console.log("query", router.query)
-      if (router.query.option && (router.query.option === 'secure' || router.query.option === 'useravatar' || router.query.option === 'customize' || router.query.option === 'invite')) setExpanded(router.query.option)
+      if (router.query.option && (router.query.option === "secure" || router.query.option === "useravatar" || router.query.option === "customize" || router.query.option === "invite")) setExpanded(router.query.option)
     }, [router.query])
 
     return (
       <>
         <Head>
           <title>Ξffect | Настройки</title>
-          <meta name="robots" content="noindex"/>
+          <meta name="robots" content="noindex" />
         </Head>
         <NavigationAll>
           <Box sx={{ width: "100%" }}>
@@ -168,8 +159,8 @@ const Settings = inject(
               >
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === 'secure'}
-                  onChange={handleChange('secure')}
+                  expanded={expanded === "secure"}
+                  onChange={handleChange("secure")}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -184,8 +175,8 @@ const Settings = inject(
                 </Accordion>
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === 'useravatar'}
-                  onChange={handleChange('useravatar')}
+                  expanded={expanded === "useravatar"}
+                  onChange={handleChange("useravatar")}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -200,8 +191,8 @@ const Settings = inject(
                 </Accordion>
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === 'customize'}
-                  onChange={handleChange('customize')}
+                  expanded={expanded === "customize"}
+                  onChange={handleChange("customize")}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -216,8 +207,8 @@ const Settings = inject(
                 </Accordion>
                 <Accordion
                   sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === 'invite'}
-                  onChange={handleChange('invite')}
+                  expanded={expanded === "invite"}
+                  onChange={handleChange("invite")}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}

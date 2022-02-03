@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React from "react"
 
-import { Grid, FormControl, useTheme, InputLabel, TextField, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button } from '@mui/material'
-import { inject, observer } from 'mobx-react'
+import { Grid, Typography, } from "@mui/material"
+import { inject, observer } from "mobx-react"
 import DarkModeToggle from "react-dark-mode-toggle"
 
-const Customize = inject('rootStore', 'settingsStore')(observer(({ rootStore, settingsStore }) => {
-    const theme = useTheme()
+const Customize = inject("rootStore", "settingsStore")(observer(({ rootStore, settingsStore }) => {
 
     // const [isDarkMode, setIsDarkMode] = useState(() => false);
     // const { enqueueSnackbar } = useSnackbar();
@@ -18,13 +17,13 @@ const Customize = inject('rootStore', 'settingsStore')(observer(({ rootStore, se
                 console.log(data)
                 if (data.a) {
                     settingsStore.setSettings("darkTheme", !settingsStore.settings.darkTheme)
-                    // enqueueSnackbar('Успешно', {
-                    //     variant: 'success',
+                    // enqueueSnackbar("Успешно", {
+                    //     variant: "success",
 
                     // });
                 } else {
-                    // enqueueSnackbar('Ошибка', {
-                    //     variant: 'error',
+                    // enqueueSnackbar("Ошибка", {
+                    //     variant: "error",
                     // });
                 }
             })
@@ -32,8 +31,8 @@ const Customize = inject('rootStore', 'settingsStore')(observer(({ rootStore, se
 
     return (
         <Grid spacing={1} container sx={{
-            width: '100%',
-            height: 'auto',
+            width: "100%",
+            height: "auto",
         }}>
             <Grid item container direction="row" sx={{ m: 1, }}>
                 <Grid>

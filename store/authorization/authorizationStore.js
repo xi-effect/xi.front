@@ -1,9 +1,9 @@
-import { action, observable, computed, runInAction, makeObservable } from 'mobx'
-import Router from 'next/router'
-import socket from '../../utils/socket'
+import { action, observable, computed, runInAction, makeObservable } from "mobx"
+import Router from "next/router"
+import socket from "../../utils/socket"
 import { io } from "socket.io-client";
 
-let Crypto = require('crypto-js')
+let Crypto = require("crypto-js")
 
 class AuthorizationStore {
     // `this` from rootstore passed to the constructor and we can 
@@ -78,7 +78,7 @@ class AuthorizationStore {
                     if (data.a) { //true
                         this.rootStore.uiStore.setLoading("loading", true)
                         const router = Router
-                        router.push('/home')
+                        router.push("/home")
                         setTimeout(() => {
                             this.rootStore.uiStore.setLoading("loading", false)
                         }, 3000);
@@ -115,7 +115,7 @@ class AuthorizationStore {
                     if (data.a == "Success") {
                         this.rootStore.uiStore.setLoading("loading", true)
                         const router = Router
-                        router.push('/home')
+                        router.push("/home")
                         this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/`, "GET")
                             .then((data) => {
                                 console.log(data)
@@ -134,20 +134,20 @@ class AuthorizationStore {
                                 }, 3000);
                             });
                     } else if (data.a === "User doesn't exist") {
-                        this.setLogin("error", "User doesn't exist")
+                    this.setLogin("error", "User doesn't exist")
                     } else if (data.a === "Wrong password") {
-                        this.setLogin("error", "Wrong password")
-                    }
-                } else {
-                    this.setLogin("error", "Server error")
-
+                    this.setLogin("error", "Wrong password")
                 }
-            })
-        // this.rootStore.fetchData(`https://xieffect-socketio.herokuapp.com/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
-        //     .then((data) => {
+            } else {
+                this.setLogin("error", "Server error")
 
-        //     })
-    }
+            }
+            })
+    // this.rootStore.fetchData(`https://xieffect-socketio.herokuapp.com/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
+    //     .then((data) => {
+
+    //     })
+}
 }
 
 export default AuthorizationStore;

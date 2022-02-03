@@ -1,47 +1,43 @@
-//import '../styles/globals.css'
-import React from 'react';
+/* eslint-disable react/forbid-prop-types */
+// import "../styles/globals.css"
+import React from "react";
 import Head from "next/head";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import {
   createTheme,
   ThemeProvider,
   StyledEngineProvider,
   responsiveFontSizes,
-} from '@mui/material/styles';
-import { useRouter } from 'next/router'
-import { Provider } from 'mobx-react'
-import { useStore } from '../store/rootStore'
-import { inject, observer } from 'mobx-react'
-import CssBaseline from '@mui/material/CssBaseline';
-import { getDesignTokens } from '../theme'
-import { CacheProvider } from '@emotion/react';
-import createEmotionCache from '../store/createEmotionCache';
-import 'moment/locale/ru';
+} from "@mui/material/styles";
+import Router from "next/router"
+import { Provider, observer } from "mobx-react"
 
-import { SnackbarProvider } from 'notistack';
+import CssBaseline from "@mui/material/CssBaseline";
+import { CacheProvider } from "@emotion/react";
+import "moment/locale/ru";
 
-import Router from 'next/router';
-// Client-side cache, shared for the whole session of the user in the browser.
-const clientSideEmotionCache = createEmotionCache();
+import { SnackbarProvider } from "notistack";
+
 import "../styles/globals.css"
 
-import PlausibleProvider from 'next-plausible'
-
-import NProgress from 'nprogress'; //nprogress module
-import 'nprogress/nprogress.css'; //styles of nprogress
-import Loading from '../components/OtherComponents/Loading/Loading';
-//Binding events. 
+import NProgress from "nprogress"; // nprogress module
+import createEmotionCache from "../store/createEmotionCache";
+import { useStore } from "../store/rootStore"
+import { getDesignTokens } from "../theme"
+import { TextEditorProvider } from "../components/OtherComponents/Editor/TextEditor/context.tsx";
+import "nprogress/nprogress.css"; // styles of nprogress
+import Loading from "../components/OtherComponents/Loading/Loading";
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
+// Binding events. 
 NProgress.configure({ showSpinner: false })
-Router.events.on('routeChangeStart', () => NProgress.start());
-Router.events.on('routeChangeComplete', () => NProgress.done());
-Router.events.on('routeChangeError', () => NProgress.done());
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
 
 const MyApp = (observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-
-  const router = useRouter()
-
   const rootStore = useStore(pageProps.initialState)
   // console.log("darkMode", rootStore.settingsStore.settings.darkTheme)
   const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsStore.settings.darkTheme))), [rootStore.settingsStore.settings.darkTheme])
@@ -85,26 +81,27 @@ const MyApp = (observer((props) => {
         messageStore={rootStore.messageStore}
         communityStore={rootStore.communityStore}
       >
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>
-            {/* <SnackbarProvider
+        <TextEditorProvider >
+          <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={theme}>
+              {/* <SnackbarProvider
                 autoHideDuration={800}
                 anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
+                  vertical: "bottom",
+                  horizontal: "right",
                 }}
                 maxSnack={3}> */}
-            {/* <MenuLayout> */}
-            <CssBaseline />
-            <Loading />
-            {/* <PlausibleProvider
+              {/* <MenuLayout> */}
+              <CssBaseline />
+              <Loading />
+              {/* <PlausibleProvider
               domain={"xieffect.ru"}
               // selfHosted
             > */}
               <SnackbarProvider
                 anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
+                  vertical: "bottom",
+                  horizontal: "center",
                 }}
                 maxSnack={3}
                 preventDuplicate
@@ -112,12 +109,13 @@ const MyApp = (observer((props) => {
               >
                 <Component {...pageProps} />
               </SnackbarProvider>
-            {/* </PlausibleProvider> */}
-            {/* </MenuLayout> */}
-            {/* </SnackbarProvider> */}
-          </ThemeProvider>
+              {/* </PlausibleProvider> */}
+              {/* </MenuLayout> */}
+              {/* </SnackbarProvider> */}
+            </ThemeProvider>
 
-        </StyledEngineProvider>
+          </StyledEngineProvider>
+        </TextEditorProvider>
       </Provider>
       {/* </Context.Provider> */}
     </CacheProvider>

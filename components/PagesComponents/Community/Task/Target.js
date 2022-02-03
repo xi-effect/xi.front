@@ -1,30 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-
 import {
-    Divider,
-    Paper,
-    Skeleton,
-    Box,
-    useMediaQuery,
-    Grid,
     Stack,
-    FormControlLabel,
-    Button,
-    useTheme,
-    Menu,
-    Hidden,
-    IconButton,
-    InputBase,
-    Switch,
     Typography,
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
 
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import { motion } from "framer-motion";
 
@@ -38,12 +21,8 @@ const arrowVariants = {
     }
 }
 
-const Target = inject(
-    "rootStore",
-)(
-    observer(({ rootStore, messageStore }) => {
-        const theme = useTheme();
-        const router = useRouter();
+const Target = inject()(
+    observer(() => {
         const [target, setTarget] = React.useState(false)
 
         return (
@@ -56,13 +35,13 @@ const Target = inject(
                     justifyContent="flex-start"
                     alignItems="center"
                     sx={{
-                        width: '100%',
+                        width: "100%",
                         pl: 0,
                         pr: 1,
-                        cursor: 'pointer',
-                        color: 'text.secondary',
-                        '&:hover': {
-                            color: 'text.primary',
+                        cursor: "pointer",
+                        color: "text.secondary",
+                        "&:hover": {
+                            color: "text.primary",
                         },
                         zIndex: 1
                     }}
@@ -76,13 +55,13 @@ const Target = inject(
                         sx={{ fontSize: 8 }}
                     />
                     <Typography
-                        variant='subtitle2'
+                        variant="subtitle2"
                         sx={{
                             ml: 1,
                             fontSize: 14,
                         }}
                     >
-                        {'цель'}
+                        цель
                     </Typography>
                 </Stack>
                 {target && <Typography variant="subtitle1">

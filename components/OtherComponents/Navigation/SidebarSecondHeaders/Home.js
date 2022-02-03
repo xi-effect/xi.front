@@ -1,17 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import { useRouter } from 'next/router'
-import { inject, observer } from 'mobx-react'
+import React from "react";
+import { inject, observer } from "mobx-react"
 
-import { Typography, Stack, Tooltip, IconButton, MenuList, ListItemText, useMediaQuery } from '@mui/material';
-import Image from "next/image";
-import PlusOneIcon from '@mui/icons-material/PlusOne';
+import { Typography, Stack, Tooltip, IconButton } from "@mui/material";
+import PlusOneIcon from "@mui/icons-material/PlusOne";
 
-import { useSnackbar } from 'notistack';
+import { useSnackbar } from "notistack";
 
 
-const Home = inject('rootStore')(observer(({ rootStore }) => {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+const Home = inject()(observer(() => {
+    const { enqueueSnackbar } = useSnackbar();
     return (
         <Stack
             direction="row"
@@ -35,8 +33,8 @@ const Home = inject('rootStore')(observer(({ rootStore }) => {
                         height: 36,
                         width: 36,
                     }}
-                    onClick={() => enqueueSnackbar('Эту функцию мы ещё только разрабатываем', {
-                        variant: 'info',
+                    onClick={() => enqueueSnackbar("Эту функцию мы ещё только разрабатываем", {
+                        variant: "info",
                     })}
                 >
                     <PlusOneIcon />

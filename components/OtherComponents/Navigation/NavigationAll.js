@@ -1,23 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useRouter } from "next/router";
-import clsx from "clsx";
 import { inject, observer } from "mobx-react";
 
-import { Box, Paper, useMediaQuery, useTheme } from "@mui/material";
-
+import { Box, useMediaQuery } from "@mui/material";
+import { Scrollbars } from "react-custom-scrollbars-2";
+import { motion, AnimatePresence } from "framer-motion"
+import { useSwipeable } from "react-swipeable";
 import Sidebar from "./Sidebar";
 import SidebarSecond from "./SidebarSecond";
 import RightMenu from "./RightMenu";
 import Upbar from "./Upbar";
-
-import { io } from "socket.io-client";
-
-import socket from "../../../utils/socket";
-
-import { Scrollbars } from 'react-custom-scrollbars-2';
-import { motion, AnimatePresence } from "framer-motion"
-import { useSwipeable } from 'react-swipeable';
 
 const NavigationAll = inject(
   "rootStore",
@@ -25,8 +18,7 @@ const NavigationAll = inject(
   "uiStore",
   "messageStore"
 )(
-  observer(({ rootStore, settingsStore, uiStore, messageStore, haveSecondMenu = false, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
-    const theme = useTheme();
+  observer(({ rootStore, settingsStore, uiStore, messageStore, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
     const router = useRouter();
 
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
@@ -51,8 +43,6 @@ const NavigationAll = inject(
             settingsStore.setSettings("username", data.username);
             uiStore.setLoading("loading", false)
             uiStore.setLoading("app", false)
-          } else {
-
           }
         });
       rootStore
@@ -60,11 +50,11 @@ const NavigationAll = inject(
         .then((data) => {
           if (data) {
             console.log("settings", data);
-            let emailArr = data.email.split("@", 2)
+            const emailArr = data.email.split("@", 2)
             settingsStore.setSettings("emailBefore", emailArr[0])
-            settingsStore.setSettings("emailAfter", "@" + emailArr[1])
+            settingsStore.setSettings("emailAfter", `@${emailArr[1]}`)
             settingsStore.setSettings("emailConfirmed", data["email-confirmed"])
-            settingsStore.setSettings("avatar", data["avatar"])
+            settingsStore.setSettings("avatar", data.avatar)
             settingsStore.setSettings("invite", data.code)
             uiStore.setLoading("loading", false)
             uiStore.setLoading("app", false)
@@ -85,29 +75,16 @@ const NavigationAll = inject(
     //   });
     // }
 
-    const [hoverLeftName, setHoverLeftName] = React.useState('')
+    const [hoverLeftName, setHoverLeftName] = React.useState("")
 
 
 
     React.useEffect(() => {
-      if (router.pathname.includes('/home')) setHoverLeftName('/home')
-      if (router.pathname.includes('/knowledge')) setHoverLeftName('/knowledge')
-      if (router.pathname.includes('/messages')) setHoverLeftName('/messages')
-      if (router.pathname.includes('/settings')) setHoverLeftName('/settings')
+      if (router.pathname.includes("/home")) setHoverLeftName("/home")
+      if (router.pathname.includes("/knowledge")) setHoverLeftName("/knowledge")
+      if (router.pathname.includes("/messages")) setHoverLeftName("/messages")
+      if (router.pathname.includes("/settings")) setHoverLeftName("/settings")
     }, [router.pathname]);
-
-    const getWidth = () => {
-      let w = 240
-      if (haveRightToolbar) return w + 64
-      if (haveRightMenu) return w + 156
-      if (haveRightMenuMore) return w + 256
-    }
-
-
-    const getWidthMobile = () => {
-      let w = 32
-      return w
-    }
 
     const config = {
       delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
@@ -120,61 +97,59 @@ const NavigationAll = inject(
     const handlers = useSwipeable({
       onSwiped: (eventData) => console.log("User Swiped!", eventData),
       onSwipedLeft: () => {
-        if (uiStore.navigation.swipe === 'center') uiStore.setNavigation('swipe', 'left')
-        if (uiStore.navigation.swipe === 'right') uiStore.setNavigation('swipe', 'center')
+        if (uiStore.navigation.swipe === "center") uiStore.setNavigation("swipe", "left")
+        if (uiStore.navigation.swipe === "right") uiStore.setNavigation("swipe", "center")
       },
       onSwipedRight: () => {
-        if (uiStore.navigation.swipe === 'center') uiStore.setNavigation('swipe', 'right')
-        if (uiStore.navigation.swipe === 'left') uiStore.setNavigation('swipe', 'center')
+        if (uiStore.navigation.swipe === "center") uiStore.setNavigation("swipe", "right")
+        if (uiStore.navigation.swipe === "left") uiStore.setNavigation("swipe", "center")
       },
       ...config,
     });
 
     if (!mobile) {
       return (
-        <>
+        <Box
+          sx={{
+            zIndex: 0,
+            // display: "flex",
+            backgroundColor: "background.main",
+            minHeight: "100vh",
+            overflow: "hidden",
+            width: "100%",
+          }}
+        >
+          <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+          <SidebarSecond hoverLeftName={hoverLeftName} />
+          <RightMenu />
           <Box
             sx={{
               zIndex: 0,
               // display: "flex",
               backgroundColor: "background.main",
-              minHeight: "100vh",
-              overflow: 'hidden',
-              width: "100%",
+              height: "100vh",
+              overflow: "hidden",
+              width: `calc(100% - 592px)`,
+              ml: "336px",
+              mr: "256px",
             }}
           >
-            <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
-            <SidebarSecond hoverLeftName={hoverLeftName} />
-            <RightMenu />
-            <Box
-              sx={{
-                zIndex: 0,
-                // display: "flex",
-                backgroundColor: "background.main",
-                height: "100vh",
-                overflow: 'hidden',
-                width: `calc(100% - 592px)`,
-                ml: '336px',
-                mr: '256px',
-              }}
+            <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
+            {!(router.pathname.includes("/message") && !(router.pathname.includes("chat"))) && <Scrollbars
+              renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
+              renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
+              universal
+              style={{ width: "100%", height: "100%", }}
+              autoHide
+              autoHideTimeout={1000}
+              autoHideDuration={200}
             >
-              <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
-              {!(router.pathname.includes('/message') && !(router.pathname.includes('chat'))) && <Scrollbars
-                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
-                renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
-                universal={true}
-                style={{ width: "100%", height: "100%", }}
-                autoHide
-                autoHideTimeout={1000}
-                autoHideDuration={200}
-              >
-                {children}
-              </Scrollbars>}
-              {router.pathname.includes('message') || router.pathname.includes('chat') && children}
-              {/* <ChatDialog /> */}
-            </Box>
+              {children}
+            </Scrollbars>}
+            {router.pathname.includes("message") || router.pathname.includes("chat") && children}
+            {/* <ChatDialog /> */}
           </Box>
-        </>
+        </Box>
       );
     }
 
@@ -217,118 +192,117 @@ const NavigationAll = inject(
 
     if (mobile) {
       return (
-        <>
+        <Box
+          sx={{
+            zIndex: 0,
+            // display: "flex",
+            backgroundColor: "background.main",
+            minHeight: "100vh",
+            overflow: "hidden",
+            // width: "100%",
+          }}
+          {...handlers}
+        >
+          <AnimatePresence initial={false}>
+            {uiStore.navigation.swipe === "right" && <Box
+              component={motion.div}
+              variants={SidebarVariantsRight}
+              // initial={{ x: -200 }}
+              animate="visible"
+              transition={{
+                delay: 0,
+                duration: 0.5,
+              }}
+              exit={{ x: -200, opacity: 0 }}
+              sx={{ zIndex: 100 }}
+            >
+              <Box
+                component={motion.div}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  delay: 0,
+                  duration: 0.5,
+                }}
+              >
+                <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+                <SidebarSecond hoverLeftName={hoverLeftName} />
+              </Box>
+            </Box>}
+          </AnimatePresence>
+          <AnimatePresence initial={false}>
+            {uiStore.navigation.swipe === "left" && <Box
+              component={motion.div}
+              variants={SidebarVariantsLeft}
+              // initial={{ x: 200 }}
+              animate="visible"
+              transition={{
+                delay: 0,
+                duration: 0.5,
+              }}
+              exit={{ x: 200, opacity: 0 }}
+              sx={{ zIndex: 100 }}
+            >
+              <Box
+                component={motion.div}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  delay: 0,
+                  duration: 0.5,
+                }}
+              >
+                <RightMenu />
+              </Box>
+            </Box>}
+          </AnimatePresence>
           <Box
             sx={{
               zIndex: 0,
               // display: "flex",
               backgroundColor: "background.main",
-              minHeight: "100vh",
-              overflow: 'hidden',
-              // width: "100%",
+              filter: uiStore.navigation.swipe === "right" || uiStore.navigation.swipe === "left" ? "brightness(40%)" : "none",
+              height: "100vh",
+              overflow: "hidden",
+              width: `100vw`,
+              ml: 0,
+              mr: 0,
             }}
-            {...handlers}
+            component={motion.div}
+            variants={dragVariants}
+            initial={{ x: uiStore.navigation.swipe === "right" ? 200 : 0 }}
+            animate={() => {
+              console.log("animate", uiStore.navigation.swipe)
+              if (uiStore.navigation.swipe === "left") return "left"
+              if (uiStore.navigation.swipe === "center") return "center"
+              if (uiStore.navigation.swipe === "right") return "right"
+              if (uiStore.navigation.swipe === "bottom") return "bottom"
+              return null
+            }}
+            transition={{
+              delay: 0,
+              duration: 0.5,
+            }}
           >
-            <AnimatePresence initial={false}>
-              {uiStore.navigation.swipe === 'right' && <Box
-                component={motion.div}
-                variants={SidebarVariantsRight}
-                // initial={{ x: -200 }}
-                animate="visible"
-                transition={{
-                  delay: 0,
-                  duration: 0.5,
-                }}
-                exit={{ x: -200, opacity: 0 }}
-                sx={{ zIndex: 100 }}
-              >
-                <Box
-                  component={motion.div}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{
-                    delay: 0,
-                    duration: 0.5,
-                  }}
-                >
-                  <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
-                  <SidebarSecond hoverLeftName={hoverLeftName} />
-                </Box>
-              </Box>}
-            </AnimatePresence>
-            <AnimatePresence initial={false}>
-              {uiStore.navigation.swipe === 'left' && <Box
-                component={motion.div}
-                variants={SidebarVariantsLeft}
-                // initial={{ x: 200 }}
-                animate="visible"
-                transition={{
-                  delay: 0,
-                  duration: 0.5,
-                }}
-                exit={{ x: 200, opacity: 0 }}
-                sx={{ zIndex: 100 }}
-              >
-                <Box
-                  component={motion.div}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{
-                    delay: 0,
-                    duration: 0.5,
-                  }}
-                >
-                  <RightMenu />
-                </Box>
-              </Box>}
-            </AnimatePresence>
-            <Box
-              sx={{
-                zIndex: 0,
-                // display: "flex",
-                backgroundColor: "background.main",
-                filter: uiStore.navigation.swipe === 'right' || uiStore.navigation.swipe === 'left' ? 'brightness(40%)' : 'none',
-                height: "100vh",
-                overflow: 'hidden',
-                width: `100vw`,
-                ml: 0,
-                mr: 0,
-              }}
-              component={motion.div}
-              variants={dragVariants}
-              initial={{ x: uiStore.navigation.swipe === 'right' ? 200 : 0 }}
-              animate={() => {
-                console.log("animate", uiStore.navigation.swipe)
-                if (uiStore.navigation.swipe === "left") return "left"
-                if (uiStore.navigation.swipe === "center") return "center"
-                if (uiStore.navigation.swipe === "right") return "right"
-                if (uiStore.navigation.swipe === "bottom") return "bottom"
-              }}
-              transition={{
-                delay: 0,
-                duration: 0.5,
-              }}
+            <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
+            {!(router.pathname.includes("/message")) && <Scrollbars
+              renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
+              renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
+              universal
+              style={{ width: "100vw", height: "100%", overflowY: "hidden !important", }}
+              autoHide
+              autoHideTimeout={1000}
+              autoHideDuration={200}
             >
-              <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
-              {!(router.pathname.includes('/message')) && <Scrollbars
-                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
-                renderThumbVertical={props => <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4, }} />}
-                universal={true}
-                style={{ width: "100vw", height: "100%", overflowY: 'hidden !important', }}
-                autoHide
-                autoHideTimeout={1000}
-                autoHideDuration={200}
-              >
-                {children}
-              </Scrollbars>}
-              {router.pathname.includes('/message') && children}
-              {/* <ChatDialog /> */}
-            </Box>
+              {children}
+            </Scrollbars>}
+            {router.pathname.includes("/message") && children}
+            {/* <ChatDialog /> */}
           </Box>
-        </>
+        </Box>
       );
     }
-
+    return null
   })
 );
 

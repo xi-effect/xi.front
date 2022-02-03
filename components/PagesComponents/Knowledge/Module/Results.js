@@ -1,43 +1,41 @@
-import * as React from 'react';
-import { Box, Stack, Typography, Paper, Tooltip, IconButton, TableHead, Toolbar, TableRow, TableSortLabel, Table, TableBody, TableCell, TableContainer, } from '@mui/material';
-import { inject, observer } from 'mobx-react'
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import * as React from "react";
+import { Box, Stack, Typography, Paper, Tooltip, IconButton, TableHead, Toolbar, TableRow, Table, TableBody, TableCell, TableContainer, } from "@mui/material";
+import { inject, observer } from "mobx-react"
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import Image from "next/image";
 
 const headCells = [
     {
-        id: 'pageName',
+        id: "pageName",
         numeric: false,
         disablePadding: false,
-        label: 'Название страницы',
+        label: "Название страницы",
     },
     {
-        id: 'right-answers',
+        id: "right-answers",
         numeric: false,
         disablePadding: false,
-        label: 'Правильных ответов',
+        label: "Правильных ответов",
     },
     {
-        id: 'total-answers',
+        id: "total-answers",
         numeric: false,
         disablePadding: false,
-        label: 'Вопросов',
+        label: "Вопросов",
     },
 ];
 
-function EnhancedTableHead(props) {
+function EnhancedTableHead() {
 
     return (
         <TableHead>
             <TableRow>
-                <TableCell padding="checkbox">
-
-                </TableCell>
+                <TableCell padding="checkbox" />
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        align={headCell.numeric ? 'right' : 'left'}
-                        padding={headCell.disablePadding ? 'none' : 'normal'}
+                        align={headCell.numeric ? "right" : "left"}
+                        padding={headCell.disablePadding ? "none" : "normal"}
                     >
                         {headCell.label}
                     </TableCell>
@@ -47,18 +45,18 @@ function EnhancedTableHead(props) {
     );
 }
 
-const EnhancedTableToolbar = (props) => {
+function EnhancedTableToolbar() {
 
     return (
         <Toolbar
             sx={{
                 pl: { sm: 2 },
                 pr: { xs: 1, sm: 1 },
-                // bgcolor: 'primary.main',
+                // bgcolor: "primary.main",
             }}
         >
             <Typography
-                sx={{ flex: '1 1 100%' }}
+                sx={{ flex: "1 1 100%" }}
                 variant="h6"
                 id="tableTitle"
                 component="div"
@@ -67,27 +65,27 @@ const EnhancedTableToolbar = (props) => {
             </Typography>
         </Toolbar>
     );
-};
+}
 
-const Results = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, knowledgeStore }) => {
+const Results = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
 
 
     if (knowledgeStore.moduleCompleted.results.length === 0) {
         return (
-            <Box sx={{ width: '100%', minHeight: 400, p: 3 }}>
+            <Box sx={{ width: "100%", minHeight: 400, p: 3 }}>
                 <Stack
                     direction="column"
                     justifyContent="center"
                     alignItems="center"
                     spacing={2}
                     sx={{
-                        width: '100%',
-                        height: '100%',
+                        width: "100%",
+                        height: "100%",
                     }}
                 >
                     <Image
                         alt="alt"
-                        src={"/app/NoSata.svg"}
+                        src="/app/NoSata.svg"
                         quality={100}
                         width={256}
                         height={232}
@@ -101,18 +99,18 @@ const Results = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kno
     }
 
     return (
-        <Box sx={{ width: '100%', p: 3 }}>
-            <Paper sx={{ width: '100%', mb: 2 }}>
+        <Box sx={{ width: "100%", p: 3 }}>
+            <Paper sx={{ width: "100%", mb: 2 }}>
                 <EnhancedTableToolbar />
                 <TableContainer>
                     <Table
                         sx={{ minWidth: 750 }}
                         aria-labelledby="tableTitle"
-                        size={'medium'}
+                        size="medium"
                     >
                         <EnhancedTableHead />
                         <TableBody>
-                            {/* if you don't need to support IE11, you can replace the `stableSort` call with:
+                            {/* if you don"t need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
                             {knowledgeStore.moduleCompleted.results.map((result, index) => {
                                 const labelId = `enhanced-table-checkbox-${index}`;
@@ -144,9 +142,9 @@ const Results = inject('rootStore', 'knowledgeStore')(observer(({ rootStore, kno
                                             <TableCell align="left">{result["total-answers"] ?? 0}</TableCell>
                                         </TableRow>
                                     );
-                                } else {
-                                    return null
                                 }
+                                return null
+
 
                             })}
                             {/* {emptyRows > 0 && (

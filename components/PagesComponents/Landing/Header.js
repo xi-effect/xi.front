@@ -1,17 +1,12 @@
-import React from 'react';
-import clsx from 'clsx'
-import { useRouter } from 'next/router'
-import { motion } from "framer-motion"
-
-import { Divider, Stack, useMediaQuery, Link, Button, Grid, Box, Paper, useTheme, Typography, Container } from '@mui/material';
+import React from "react";
+import { useRouter } from "next/router"
+import { Stack, useMediaQuery, Button, Typography } from "@mui/material";
 
 
-const Header = () => {
-    const theme = useTheme();
-
+function Header() {
     const router = useRouter()
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-    
+    const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
+
 
     return (
         <Stack
@@ -22,7 +17,7 @@ const Header = () => {
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ height: mobile ? '100px' : "140px", p: mobile ? '20px' : '40px', width: '100%', }}
+            sx={{ height: mobile ? "100px" : "140px", p: mobile ? "20px" : "40px", width: "100%", }}
         >
             <Stack
                 direction="row"
@@ -30,45 +25,45 @@ const Header = () => {
                 alignItems="baseline"
             >
                 <Typography
-                    component={"h1"}
+                    component="h1"
                     onClick={() => {
                         router.push({
-                            pathname: '/',
+                            pathname: "/",
                         })
                     }}
 
                     variant="Roboto500XiLabel"
                     sx={{
-                        mt: '1px',
-                        cursor: 'pointer',
-                        color: 'secondary.main',
+                        mt: "1px",
+                        cursor: "pointer",
+                        color: "secondary.main",
                         fontSize: {
-                            sm: '28px',
-                            md: '34px',
-                            lg: '40px',
+                            sm: "28px",
+                            md: "34px",
+                            lg: "40px",
                         },
                     }}
                 >
                     Ξ
                 </Typography>
                 <Typography
-                    component={"h1"}
+                    component="h1"
                     onClick={() => {
                         router.push({
-                            pathname: '/',
+                            pathname: "/",
                         })
                     }}
 
                     variant="IBMPlexMono500XiLabelEnd"
                     sx={{
-                        '&.MuiTypography-root': {
-                            cursor: 'pointer',
-                            color: 'secondary.main',
+                        "&.MuiTypography-root": {
+                            cursor: "pointer",
+                            color: "secondary.main",
                         },
                         fontSize: {
-                            sm: '28px',
-                            md: '34px',
-                            lg: '40px',
+                            sm: "28px",
+                            md: "34px",
+                            lg: "40px",
                         },
                     }}
                 >
@@ -81,7 +76,7 @@ const Header = () => {
 
                         onClick={() => {
                             router.push({
-                                pathname: '/students',
+                                pathname: "/students",
                             })
                         }}
                         underline="hover"
@@ -92,7 +87,7 @@ const Header = () => {
                         
                         onClick={() => {
                             router.push({
-                                pathname: '/teachers',
+                                pathname: "/teachers",
                             })
                         }}
                         underline="hover"
@@ -103,7 +98,7 @@ const Header = () => {
                         
                         onClick={() => {
                             router.push({
-                                pathname: '/schools',
+                                pathname: "/schools",
                             })
                         }}
                         underline="hover"
@@ -115,23 +110,23 @@ const Header = () => {
             <Button
                 onClick={() => {
                     router.push({
-                        pathname: '/home',
+                        pathname: "/home",
                     })
                 }}
                 sx={{
-                    '&.MuiButton-root': {
-                        fontFamily: 'Open Sans, sans-serif',
-                        fontStyle: 'normal',
+                    "&.MuiButton-root": {
+                        fontFamily: "Open Sans, sans-serif",
+                        fontStyle: "normal",
                         fontWeight: 600,
-                        fontSize: '18px',
-                        lineHeight: '25px',
-                        width: mobile ? '120px' : '180px',
-                        height: mobile ? '40px' : '60px',
-                        color: 'text.primary',
-                        bgcolor: 'secondary.main',
-                        borderRadius: mobile ? '62px' : '88px',
-                        '&:hover': {
-                            bgcolor: 'secondary.main',
+                        fontSize: "18px",
+                        lineHeight: "25px",
+                        width: mobile ? "120px" : "180px",
+                        height: mobile ? "40px" : "60px",
+                        color: "text.primary",
+                        bgcolor: "secondary.main",
+                        borderRadius: mobile ? "62px" : "88px",
+                        "&:hover": {
+                            bgcolor: "secondary.main",
                         },
                     }
                 }}

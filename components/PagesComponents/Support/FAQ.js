@@ -1,3 +1,5 @@
+/* eslint-disable import/no-named-as-default */
+/* eslint-disable import/no-absolute-path */
 import React from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -5,8 +7,8 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { Box, Paper, Grid, Stack } from "@mui/material";
-import { questions } from "/texts/support/FAQ";
+import { Box, Paper,Stack } from "@mui/material";
+import questions from "../../../texts/support/FAQ";
 
 function FAQ() {
   if (questions && questions.length) {
@@ -21,7 +23,7 @@ function FAQ() {
         }}
       >
         <Typography
-          component={"p"}
+          component="p"
           variant="IBMPlexSans700WhyLabel"
           sx={{
             cursor: "default",
@@ -37,7 +39,7 @@ function FAQ() {
             mr: "10px",
           }}
         >
-          {"Список часто задаваемых вопросов"}
+          Список часто задаваемых вопросов
         </Typography>
 
         <Paper
@@ -73,7 +75,7 @@ function FAQ() {
                 >
                   <Box sx={{ width: "100%" }}>
                     <Typography
-                      component={"div"}
+                      component="div"
                       sx={{
                         cursor: "default",
                         fontSize: {
@@ -93,7 +95,7 @@ function FAQ() {
                 <AccordionDetails>
                   <Box sx={{ width: "100%" }}>
                     <Typography
-                      component={"p"}
+                      component="p"
                       variant="OpenSans400WhyLabel"
                       sx={{
                         cursor: "default",

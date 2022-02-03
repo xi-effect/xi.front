@@ -1,37 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { styled } from "@mui/material/styles";
-import Head from "next/head";
-import { useRouter } from "next/router";
-
 import {
-    Divider,
-    Paper,
     Skeleton,
     Box,
     useMediaQuery,
-    Grid,
     Stack,
-    FormControlLabel,
-    Button,
-    useTheme,
-    Menu,
-    Hidden,
-    IconButton,
-    InputBase,
-    Switch,
-    Typography,
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import ChatBar from "./ChatBar";
 import ChatItem from "./ChatItem";
 
-import InfiniteScroll from "react-infinite-scroll-component";
 
-// import socket from "../../../../utils/socket";
-
-const LoadingSkeleton = () => {
+function LoadingSkeleton() {
     return (
         <>
             {[...Array(30)].map((item, index) => (
@@ -57,7 +39,7 @@ const LoadingSkeleton = () => {
                             pr: 2,
                             mt: 1,
                             borderRadius: 1,
-                            // width: '100%',
+                            // width: "100%",
                             // maxWidth: 1200,
                             width: "100%",
                         }}
@@ -106,64 +88,15 @@ const LoadingSkeleton = () => {
             ))}
         </>
     );
-};
+}
 
-// export async function getStaticPaths() {
-//     return {
-//         paths: [
-//             { params: { ... } } // See the "paths" section below
-//         ],
-//         fallback: 'blocking' // See the "fallback" section below
-//     };
-// }
 
 const Chat = inject(
     "rootStore",
     "messageStore"
 )(
-    observer(({ rootStore, messageStore }) => {
-        const theme = useTheme();
-        const router = useRouter();
+    observer(({messageStore }) => {
         const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
-        const mobileSecond = useMediaQuery((theme) => theme.breakpoints.up("md"));
-
-        // console.log("router.query", router.query.id);
-        // if (socket !== null) {
-        //     socket.on("send-message", (arg) => {
-        //         if (messageStore.chat.hasNext) {
-        //             let newArray = messageStore.chat.messages;
-        //             newArray.pop();
-        //             messageStore.setChat("messages", newArray);
-        //         }
-        //     });
-        // }
-
-        // if (socket !== null) {
-        //     socket.on("edit-message", (arg) => {
-        //         messageStore.editMessageInChat(arg["message-id"], arg["content"]);
-        //     });
-        // }
-
-        // if (socket !== null) {
-        //     socket.on("delete-message", (arg) => {
-
-        //     });
-        // }
-
-        // React.useEffect(() => {
-        //     const id = window.location.href.split("/").pop();
-        //     // socket.emit("open", { "chat-id": id });
-        //     console.log("open socket");
-        //     console.log("id", id);
-        //     messageStore.loadMetaForChat(id);
-        //     messageStore.loadUsersForChat(id);
-        //     messageStore.uploadFirstMessages(id);
-        //     return () => {
-        //         // socket.emit("close", { "chat-id": id });
-        //         console.log("close socket");
-        //         messageStore.clearChat();
-        //     };
-        // }, [router.query.typeId]);
 
         return (
             <div
@@ -174,23 +107,23 @@ const Chat = inject(
                     overflowY: "auto",
                     overFlowX: "hidden",
                     display: "flex",
-                    position: 'relative',
+                    position: "relative",
                     flexDirection: "column-reverse",
                 }}
             >
-                {/*Put the scroll bar always on the bottom*/}
+                {/* Put the scroll bar always on the bottom */}
                 <InfiniteScroll
                     dataLength={messageStore.chat.messages.length}
                     next={() => messageStore.uploadMoreMessages(messageStore.chat.id)}
-                    style={{ display: "flex", flexDirection: "column-reverse" }} //To put endMessage and loader to the top.
-                    inverse={true} //
+                    style={{ display: "flex", flexDirection: "column-reverse" }} // To put endMessage and loader to the top.
+                    inverse //
                     scrollThreshold={0.6}
                     hasMore={messageStore.chat.hasNext}
-                    //endMessage={<Typography align='center' sx={{ color: 'text.main', width: '100%', m: 4 }} variant="subtitle2"> Это всё </Typography>}
+                    // endMessage={<Typography align="center" sx={{ color: "text.main", width: "100%", m: 4 }} variant="subtitle2"> Это всё </Typography>}
                     loader={<LoadingSkeleton />}
                     scrollableTarget="scrollableDiv"
                 >
-                    <Stack sx={{ height: mobile ? "96px" : "96px" }}></Stack>
+                    <Stack sx={{ height: mobile ? "96px" : "96px" }} />
                     {messageStore.chat.messages.length === 0 && <LoadingSkeleton />}
                     {messageStore.chat.messages.map((item, index) => (
                         <Stack
@@ -209,7 +142,7 @@ const Chat = inject(
                             <ChatItem
                                 item={item}
                                 nextItem={
-                                    messageStore.chat.messages.length != index + 1
+                                    messageStore.chat.messages.length !== index + 1
                                         ? messageStore.chat.messages[index + 1]
                                         : null
                                 }
@@ -217,7 +150,7 @@ const Chat = inject(
                         </Stack>
                     ))}
                 </InfiniteScroll>
-                <Stack sx={{ height: mobile ? "96px" : "96px" }}></Stack>
+                <Stack sx={{ height: mobile ? "96px" : "96px" }} />
                 <ChatBar />
             </div>
         );

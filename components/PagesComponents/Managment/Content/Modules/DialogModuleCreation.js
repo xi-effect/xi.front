@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
-import Link from "next/link";
-import clsx from 'clsx';
-import { Input, AppBar, Toolbar, Dialog, InputLabel, NativeSelect, FormControl, DialogContent, MobileStepper, DialogActions, DialogContentText, DialogTitle, Popper, MenuList, Paper, Grow, ClickAwayListener, Divider, IconButton, Skeleton, CardMedia, Avatar, CardContent, CardHeader, Menu, MenuItem, Button, Card, CardActions, Grid, Box, Typography, useTheme, Tooltip } from '@mui/material';
+import React from "react";
+import { AppBar, Toolbar, Dialog, DialogContent, IconButton, Button, Grid, Typography, useTheme, Tooltip } from "@mui/material";
+import { inject, observer } from "mobx-react"
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import SaveIcon from "@mui/icons-material/Save";
+import CloseIcon from "@mui/icons-material/Close";
+
+import StepOne from "./DialogModuleCreation/StepOne";
+import StepTwo from "./DialogModuleCreation/StepTwo";
+import StepThree from "./DialogModuleCreation/StepThree";
 
 
-import { inject, observer } from 'mobx-react'
-
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import SaveIcon from '@mui/icons-material/Save';
-import CloseIcon from '@mui/icons-material/Close';
-
-import StepOne from './DialogModuleCreation/StepOne';
-import StepTwo from './DialogModuleCreation/StepTwo';
-import StepThree from './DialogModuleCreation/StepThree';
-
-
-const DialogModuleCreation = inject('managmentStore')(observer(({ managmentStore }) => {
+const DialogModuleCreation = inject("managmentStore")(observer(({ managmentStore }) => {
     const theme = useTheme();
 
     const [activeStep, setActiveStep] = React.useState(0);
@@ -34,20 +28,20 @@ const DialogModuleCreation = inject('managmentStore')(observer(({ managmentStore
         <Dialog
             sx={{
                 zIndex: "10000 !important",
-                width: '100vw',
-                height: '100vh',
+                width: "100vw",
+                height: "100vh",
             }}
             fullScreen
             open={managmentStore.moduleCreationList.dialogOpen}
             onClose={() => managmentStore.setModuleCreationList("dialogOpen", false)}
-            scroll='paper'
+            scroll="paper"
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
         >
             <AppBar sx={{
-                position: 'relative',
+                position: "relative",
                 zIndex: 1,
-                backgroundColor: 'background.2',
+                backgroundColor: "background.2",
             }}>
                 <Toolbar>
                     <Grid
@@ -80,9 +74,9 @@ const DialogModuleCreation = inject('managmentStore')(observer(({ managmentStore
                             <Button sx={{
                                 marginLeft: 0.5,
                                 marginRight: 0.5,
-                                color: 'text.main',
+                                color: "text.main",
                             }} onClick={handleBack} disabled={activeStep === 0}>
-                                {theme.direction === 'rtl' ? (
+                                {theme.direction === "rtl" ? (
                                     <KeyboardArrowRight />
                                 ) : (
                                     <KeyboardArrowLeft />
@@ -92,10 +86,10 @@ const DialogModuleCreation = inject('managmentStore')(observer(({ managmentStore
                             <Button sx={{
                                 marginLeft: 0.5,
                                 marginRight: 0.5,
-                                color: 'text.main',
+                                color: "text.main",
                             }} onClick={handleNext} disabled={activeStep === 2}>
                                 Вперёд
-                                {theme.direction === 'rtl' ? (
+                                {theme.direction === "rtl" ? (
                                     <KeyboardArrowLeft />
                                 ) : (
                                     <KeyboardArrowRight />
@@ -111,7 +105,7 @@ const DialogModuleCreation = inject('managmentStore')(observer(({ managmentStore
             <DialogContent sx={{
                 margin: 0,
                 padding: 0,
-                bgcolor: 'background.0',
+                bgcolor: "background.0",
                 zIndex: 1,
             }}>
                 <Grid
@@ -120,9 +114,9 @@ const DialogModuleCreation = inject('managmentStore')(observer(({ managmentStore
                     justifyContent="center"
                     alignItems="flex-start"
                 >
-                    {activeStep == 0 && <StepOne />}
-                    {activeStep == 1 && <StepTwo />}
-                    {activeStep == 2 && <StepThree />}
+                    {activeStep === 0 && <StepOne />}
+                    {activeStep === 1 && <StepTwo />}
+                    {activeStep === 2 && <StepThree />}
 
                 </Grid>
             </DialogContent>

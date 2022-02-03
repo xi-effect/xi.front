@@ -1,21 +1,19 @@
-import Head from 'next/head'
-import { styled } from '@mui/material/styles';
-import { useRouter } from 'next/router'
-import clsx from 'clsx';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import Head from "next/head"
+import { useRouter } from "next/router"
 import Image from "next/image";
-import { Grid, Stack, Input, Link, useMediaQuery, TextField, useTheme, InputLabel, InputAdornment, Tooltip, IconButton, FormControl, OutlinedInput, FormControlLabel, Switch, AppBar, Tabs, Tab, Typography, Box, Button, Paper } from '@mui/material';
-import { Link as LinkUI } from '@mui/material';
-import React from 'react'
-import BackgroundImg from '../../components/OtherComponents/Background/BackgroundImg'
-import { inject, observer } from 'mobx-react'
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import EmailIcon from '@mui/icons-material/Email';
-import HelpIcon from '@mui/icons-material/Help';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import { Stack, Input, Link, useMediaQuery, InputLabel, InputAdornment, Tooltip, IconButton, FormControl, Typography, Box, Button, Paper } from "@mui/material";
+
+import React from "react"
+import { inject, observer } from "mobx-react"
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import EmailIcon from "@mui/icons-material/Email";
+import HelpIcon from "@mui/icons-material/Help";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 
 import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { motion } from "framer-motion"
@@ -26,10 +24,8 @@ const schema = yup.object({
     password: yup.string().min(6).max(100).required(),
     invite: yup.string().required(),
 }).required();
-
-import Loading from './../../components/OtherComponents/Loading/Loading';
-const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observer(({ rootStore, authorizationStore, uiStore }) => {
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+const Registration = inject("authorizationStore")(observer(({ authorizationStore }) => {
+    const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const router = useRouter()
     const [showPassword, setShowPassword] = React.useState(false)
@@ -42,7 +38,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
     React.useEffect(() => {
         console.log("query", router.query)
         if (router.query.invite) setValue("invite", router.query.invite)
-    }, [router.query])
+    }, [router.query, setValue])
     // console.log("query1", router.query)
 
     return (
@@ -57,7 +53,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                 sx={{
                     width: "100%",
                     height: "100%",
-                    minHeight: '100vh',
+                    minHeight: "100vh",
                     backgroundColor: "background.main",
                 }}
             >
@@ -69,7 +65,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                     direction="row"
                     justifyContent="space-between"
                     alignItems="center"
-                    sx={{ height: mobile ? '100px' : "140px", p: mobile ? '20px' : '40px', width: '100%', }}
+                    sx={{ height: mobile ? "100px" : "140px", p: mobile ? "20px" : "40px", width: "100%", }}
                 >
                     <Stack
                         direction="row"
@@ -77,45 +73,45 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                         alignItems="baseline"
                     >
                         <Typography
-                            component={"h1"}
+                            component="h1"
                             onClick={() => {
                                 router.push({
-                                    pathname: '/',
+                                    pathname: "/",
                                 })
                             }}
 
                             variant="Roboto500XiLabel"
                             sx={{
-                                mt: '1px',
-                                cursor: 'pointer',
-                                color: 'secondary.main',
+                                mt: "1px",
+                                cursor: "pointer",
+                                color: "secondary.main",
                                 fontSize: {
-                                    sm: '28px',
-                                    md: '34px',
-                                    lg: '40px',
+                                    sm: "28px",
+                                    md: "34px",
+                                    lg: "40px",
                                 },
                             }}
                         >
                             Ξ
                         </Typography>
                         <Typography
-                            component={"h1"}
+                            component="h1"
                             onClick={() => {
                                 router.push({
-                                    pathname: '/',
+                                    pathname: "/",
                                 })
                             }}
 
                             variant="IBMPlexMono500XiLabelEnd"
                             sx={{
-                                '&.MuiTypography-root': {
-                                    cursor: 'pointer',
-                                    color: 'secondary.main',
+                                "&.MuiTypography-root": {
+                                    cursor: "pointer",
+                                    color: "secondary.main",
                                 },
                                 fontSize: {
-                                    sm: '28px',
-                                    md: '34px',
-                                    lg: '40px',
+                                    sm: "28px",
+                                    md: "34px",
+                                    lg: "40px",
                                 },
                             }}
                         >
@@ -125,8 +121,8 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                 </Stack>
                 <Box
                     sx={{
-                        position: 'relative',
-                        width: 'calc(100% - 32px)',
+                        position: "relative",
+                        width: "calc(100% - 32px)",
                         maxWidth: 512,
                         zIndex: 0,
                         // mt: mobile ? "2px" : -32,
@@ -139,15 +135,15 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                 >
                     {!mobile && <Box
                         sx={{
-                            position: 'absolute',
-                            top: '50px',
-                            left: '-156px',
+                            position: "absolute",
+                            top: "50px",
+                            left: "-156px",
                             zIndex: -1,
                         }}
                     >
                         <Image
                             alt="alt"
-                            src={"/landing/blob4.svg"}
+                            src="/landing/blob4.svg"
                             quality={100}
                             width={256}
                             height={256}
@@ -155,15 +151,15 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                     </Box>}
                     {!mobile && <Box
                         sx={{
-                            position: 'absolute',
-                            bottom: '50px',
-                            right: '-156px',
+                            position: "absolute",
+                            bottom: "50px",
+                            right: "-156px",
                             zIndex: -1,
                         }}
                     >
                         <Image
                             alt="alt"
-                            src={"/landing/blob2.svg"}
+                            src="/landing/blob2.svg"
                             quality={100}
                             width={256}
                             height={256}
@@ -198,7 +194,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                             >
                                 <Image
                                     alt="alt"
-                                    src={"/auth/MobileLogin.svg"}
+                                    src="/auth/MobileLogin.svg"
                                     quality={100}
                                     width={456}
                                     height={456}
@@ -223,13 +219,13 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                             <Input
                                                 sx={{ width: "100%" }}
                                                 label="Имя пользователя"
-                                                type='text'
+                                                type="text"
                                                 {...field}
                                                 endAdornment={
                                                     <InputAdornment sx={{ mr: 2 }} position="end">
                                                         <IconButton edge="end" size="large">
                                                             <Tooltip title="Придумайте себе Имя пользователя, это ваше основное имя на просторах нашего портала." arrow>
-                                                                <HelpIcon sx={{ color: 'text.secondary' }} />
+                                                                <HelpIcon sx={{ color: "text.secondary" }} />
                                                             </Tooltip>
                                                         </IconButton>
                                                     </InputAdornment>
@@ -243,8 +239,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                     alignItems="flex-start"
                                     spacing={1}
                                     sx={{ width: "100%", minHeight: 16, mb: 1.2 }}
-                                >
-                                </Stack>
+                                />
                                 <Controller
                                     name="email"
                                     control={control}
@@ -260,18 +255,18 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                             }}
                                         >
                                             <InputLabel>
-                                                <Typography sx={{ color: 'text.primary' }}>Адрес почты</Typography>
+                                                <Typography sx={{ color: "text.primary" }}>Адрес почты</Typography>
                                             </InputLabel>
                                             <Input
                                                 sx={{ width: "100%", }}
                                                 label="Адрес почты"
-                                                type='text'
+                                                type="text"
                                                 {...field}
                                                 endAdornment={
                                                     <InputAdornment sx={{ mr: 2 }} position="end">
                                                         <IconButton edge="end" size="large">
                                                             <Tooltip title="Ваш адресс электронной почты" arrow>
-                                                                <EmailIcon sx={{ color: 'text.main' }} />
+                                                                <EmailIcon sx={{ color: "text.main" }} />
                                                             </Tooltip>
                                                         </IconButton>
                                                     </InputAdornment>
@@ -310,12 +305,12 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                             }}
                                         >
                                             <InputLabel>
-                                                <Typography sx={{ color: 'text.primary' }}>Пароль</Typography>
+                                                <Typography sx={{ color: "text.primary" }}>Пароль</Typography>
                                             </InputLabel>
                                             <Input
                                                 sx={{ width: "100%", }}
                                                 label="Пароль"
-                                                type={showPassword ? 'text' : 'password'}
+                                                type={showPassword ? "text" : "password"}
                                                 {...field}
                                                 endAdornment={
                                                     <InputAdornment sx={{ mr: 2 }} position="end">
@@ -324,7 +319,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                                             onClick={() => setShowPassword(!showPassword)}
                                                             edge="end"
                                                             size="large">
-                                                            {showPassword ? <Visibility sx={{ color: 'text.secondary' }} /> : <VisibilityOff sx={{ color: 'text.secondary' }} />}
+                                                            {showPassword ? <Visibility sx={{ color: "text.secondary" }} /> : <VisibilityOff sx={{ color: "text.secondary" }} />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 }
@@ -364,12 +359,12 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                             }}
                                         >
                                             <InputLabel>
-                                                <Typography sx={{ color: 'text.primary' }}>Код-приглашение</Typography>
+                                                <Typography sx={{ color: "text.primary" }}>Код-приглашение</Typography>
                                             </InputLabel>
                                             <Input
                                                 sx={{ width: "100%", }}
                                                 label="Код-приглашение"
-                                                type={'text'}
+                                                type="text"
                                                 {...field}
                                                 endAdornment={
                                                     <InputAdornment sx={{ mr: 2 }} position="end">
@@ -378,7 +373,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                                             edge="end"
                                                             size="large">
                                                             <Tooltip title="Код-приглашение. Вы можете зарегистрироватся только если у вас есть код, который вы получили у пользователя платформы" arrow>
-                                                                <VerifiedUserIcon sx={{ color: 'text.secondary' }} />
+                                                                <VerifiedUserIcon sx={{ color: "text.secondary" }} />
                                                             </Tooltip>
                                                         </IconButton>
                                                     </InputAdornment>
@@ -395,10 +390,10 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                     sx={{ width: "100%", mt: 2, }}
                                 >
                                     <Link
-                                        sx={{ color: 'text.secondary', ml: 1.5, fontWeight: 500, cursor: "pointer" }}
+                                        sx={{ color: "text.secondary", ml: 1.5, fontWeight: 500, cursor: "pointer" }}
                                         onClick={() => {
                                             router.push({
-                                                pathname: '/login',
+                                                pathname: "/login",
                                             });
                                         }}
                                         underline="hover"
@@ -412,19 +407,19 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                                     size="large"
                                     type="submit"
                                     sx={{
-                                        '&.MuiButton-root': {
-                                            fontFamily: 'Open Sans, sans-serif',
-                                            fontStyle: 'normal',
+                                        "&.MuiButton-root": {
+                                            fontFamily: "Open Sans, sans-serif",
+                                            fontStyle: "normal",
                                             fontWeight: 600,
-                                            fontSize: '16px',
-                                            lineHeight: '25px',
-                                            width: mobile ? '220px' : '260px',
-                                            height: mobile ? '40px' : '50px',
-                                            color: 'text.primary',
-                                            bgcolor: 'secondary.main',
-                                            borderRadius: mobile ? '62px' : '88px',
-                                            '&:hover': {
-                                                bgcolor: 'secondary.main',
+                                            fontSize: "16px",
+                                            lineHeight: "25px",
+                                            width: mobile ? "220px" : "260px",
+                                            height: mobile ? "40px" : "50px",
+                                            color: "text.primary",
+                                            bgcolor: "secondary.main",
+                                            borderRadius: mobile ? "62px" : "88px",
+                                            "&:hover": {
+                                                bgcolor: "secondary.main",
                                             },
                                             mt: 4,
                                             mb: 2,
@@ -438,9 +433,7 @@ const Registration = inject('rootStore', 'uiStore', 'authorizationStore')(observ
                         </Box>
                     </Paper>
                 </Box>
-                <div>
-
-                </div>
+                <div />
 
             </Stack>
         </>

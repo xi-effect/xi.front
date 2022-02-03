@@ -1,37 +1,31 @@
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Button, Box, useMediaQuery, Grid, ClickAwayListener, Divider, MenuList, MenuItem, ListItemText, ListItemIcon, Tooltip, Popper, IconButton, Link, Paper, useTheme, Stack, Typography, Grow } from "@mui/material";
-import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-import InfoIcon from '@mui/icons-material/Info';
+import { Grid, IconButton, Stack, Typography } from "@mui/material";
 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import TextFieldsIcon from '@mui/icons-material/TextFields';
-import TitleIcon from '@mui/icons-material/Title';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import VerticalAlignCenterIcon from '@mui/icons-material/VerticalAlignCenter';
-import ImageIcon from '@mui/icons-material/Image';
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import ListAltIcon from '@mui/icons-material/ListAlt';
-import LineStyleIcon from '@mui/icons-material/LineStyle';
-import QuizIcon from '@mui/icons-material/Quiz';
-import PlusOneIcon from '@mui/icons-material/PlusOne';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import CodeIcon from '@mui/icons-material/Code';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import TextFieldsIcon from "@mui/icons-material/TextFields";
+import TitleIcon from "@mui/icons-material/Title";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import VerticalAlignCenterIcon from "@mui/icons-material/VerticalAlignCenter";
+import ImageIcon from "@mui/icons-material/Image";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import LineStyleIcon from "@mui/icons-material/LineStyle";
+import QuizIcon from "@mui/icons-material/Quiz";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import CodeIcon from "@mui/icons-material/Code";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 
 const KnowledgeСreatePageMap = inject(
-    "knowledgeStore",
-    "managmentStore",
     "uiStore",
 )(
-    observer(({ knowledgeStore, uiStore, managmentStore }) => {
+    observer(({ uiStore}) => {
 
         const components = [
             { name: "Текст", icon: <TextFieldsIcon />, type: "text" },
@@ -48,9 +42,8 @@ const KnowledgeСreatePageMap = inject(
 
         return (
             <>
-                {uiStore.knowledge.activeStep === 1 && <>
-                    <Droppable isDropDisabled droppableId="list-components">
-                        {(provided, snapshot) => (
+                {uiStore.knowledge.activeStep === 1 && <Droppable isDropDisabled droppableId="list-components">
+                        {(provided) => (
                             <Grid
                                 ref={provided.innerRef}
                                 container
@@ -58,7 +51,7 @@ const KnowledgeСreatePageMap = inject(
                                 justifyContent="flex-start"
                                 alignItems="flex-start"
                                 sx={{
-                                    height: '100%',
+                                    height: "100%",
                                 }}
                             >
                                 <Typography variant="subtitle1" sx={{ ml: 0.5 }}>Компоненты:</Typography>
@@ -78,24 +71,24 @@ const KnowledgeСreatePageMap = inject(
                                                 component={motion.div}
                                                 sx={{
                                                     zIndex: 100,
-                                                    width: '100%',
-                                                    cursor: 'default',
-                                                    // bgcolor: 'primary.dark',
+                                                    width: "100%",
+                                                    cursor: "default",
+                                                    // bgcolor: "primary.dark",
                                                     "&:hover": {
-                                                        bgcolor: 'primary.main',
+                                                        bgcolor: "primary.main",
                                                     }
                                                 }}
                                                 ref={provided.innerRef}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
                                             >
-                                                <IconButton sx={{ ml: 1, mr: 1, cursor: 'pointer' }}>
+                                                <IconButton sx={{ ml: 1, mr: 1, cursor: "pointer" }}>
                                                     {component.icon}
                                                 </IconButton>
                                                 <Typography sx={{ maxWidth: 250, ml: 1 }} noWrap>
                                                     {component.name}
                                                 </Typography>
-                                                <IconButton sx={{ ml: 'auto', mr: 1, cursor: 'pointer' }}>
+                                                <IconButton sx={{ ml: "auto", mr: 1, cursor: "pointer" }}>
                                                     <DragIndicatorIcon />
                                                 </IconButton>
                                             </Stack>
@@ -106,8 +99,7 @@ const KnowledgeСreatePageMap = inject(
                                 {provided.placeholder}
                             </Grid>
                         )}
-                    </Droppable >
-                </>}
+                    </Droppable >}
             </>
         );
     })
