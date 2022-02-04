@@ -1,27 +1,21 @@
-import React, { useState } from "react";
-
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from "react";
 import {
-    FormControl,
     Stack,
     Typography,
-    Box,
     Button,
     Link,
-    IconButton,
 } from "@mui/material";
-import InputAdornment from "@mui/material/InputAdornment";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 import { inject, observer } from "mobx-react";
 
-import DialogChangeEmail from './Secure/DialogChangeEmail';
-import DialogChangePassword from './Secure/DialogChangePassword';
+import DialogChangeEmail from "./Secure/DialogChangeEmail";
+import DialogChangePassword from "./Secure/DialogChangePassword";
 
 const Secure = inject(
-    "rootStore",
     "settingsStore"
 )(
-    observer(({ rootStore, settingsStore }) => {
+    observer(({ settingsStore }) => {
         const [hiddenEmail, setHiddenEmail] = React.useState(true)
 
         const [openEmailChangeDialog, setOpenEmailChangeDialog] = React.useState(false)
@@ -51,8 +45,8 @@ const Secure = inject(
                     {!hiddenEmail && <Typography > {settingsStore.settings.emailBefore} </Typography>}
                     {hiddenEmail && <Typography > {getStars()} </Typography>}
                     <Typography > {settingsStore.settings.emailAfter} </Typography>
-                    {hiddenEmail && <Link sx={{ color: 'text.primary', cursor: 'pointer', pl: 1 }} onClick={() => setHiddenEmail(false)}> показать </Link>}
-                    {!hiddenEmail && <Link sx={{ color: 'text.primary', cursor: 'pointer', pl: 1 }} onClick={() => setHiddenEmail(true)}> скрыть </Link>}
+                    {hiddenEmail && <Link sx={{ color: "text.primary", cursor: "pointer", pl: 1 }} onClick={() => setHiddenEmail(false)}> показать </Link>}
+                    {!hiddenEmail && <Link sx={{ color: "text.primary", cursor: "pointer", pl: 1 }} onClick={() => setHiddenEmail(true)}> скрыть </Link>}
                 </Stack>
                 <Stack
                     direction="row"

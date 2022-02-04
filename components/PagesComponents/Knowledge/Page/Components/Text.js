@@ -1,17 +1,16 @@
-import react from 'react';
-import { Input, Grid, useMediaQuery } from '@mui/material';
-import { inject, observer } from 'mobx-react'
+import { Input, Grid, useMediaQuery } from "@mui/material";
+import { inject, observer } from "mobx-react"
 
-const Text = inject('rootStore')(observer(({ rootStore, value }) => {
+const Text = inject()(observer(({ value }) => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
         <Grid sx={{ width: "100%", }}>
             <Input
                 sx={{
-                    '& .MuiInput-input': {
+                    "& .MuiInput-input": {
                         width: "100%",
-                        color: 'text.main',
+                        color: "text.main",
                         fontSize: mobile ? value.fontSize * 0.8 : value.fontSize,
                         fontStyle: value.fontStyle,
                         textAlign: value.textAlign,

@@ -1,7 +1,7 @@
-import { action, observable, computed, runInAction, makeObservable } from 'mobx'
-import { enableStaticRendering } from 'mobx-react'
-import { useMemo } from 'react'
-import Router from 'next/router'
+import { action, observable, computed, runInAction, makeObservable } from "mobx"
+import { enableStaticRendering } from "mobx-react"
+import { useMemo } from "react"
+import Router from "next/router"
 
 import { io } from "socket.io-client";
 
@@ -17,13 +17,13 @@ import ProfileStore from "./profile/profileStore";
 import CommunityStore from "./community/communityStore";
 
 
-enableStaticRendering(typeof window === 'undefined')
+enableStaticRendering(typeof window === "undefined")
 
 let store
 // console.log(process.env)
 
 class RootStore {
-  url = process.env.NEXT_PUBLIC_URL
+  url = process.env.NEXT_PUBLIC_SERVER_URL
   constructor() {
     this.uiStore = new UIStore(this)
     this.homeStore = new HomeStore(this)
@@ -46,7 +46,7 @@ class RootStore {
   @action getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+    if (parts.length === 2) return parts.pop().split(";").shift();
   }
 
   @action async fetchData(url, method, data) { // mode, cache, credentials, redirect, referrerPolicy
@@ -56,11 +56,11 @@ class RootStore {
       if (data != null) {
         response = await fetch(url, {
           method: method, // *GET, POST, PUT, DELETE, etc.
-          //mode: 'no-cors', // no-cors, *cors, same-origin
+          //mode: "no-cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
           credentials: "include", // include, *same-origin, omit
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           // redirect, // manual, *follow, error
           // referrerPolicy, // no-referrer, *client
@@ -70,11 +70,11 @@ class RootStore {
       if (data == null) {
         response = await fetch(url, {
           method: method, // *GET, POST, PUT, DELETE, etc.
-          //mode: 'no-cors', // no-cors, *cors, same-origin
+          //mode: "no-cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
           credentials: "include", // include, *same-origin, omit
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           // redirect, // manual, *follow, error
           // referrerPolicy, // no-referrer, *client
@@ -92,23 +92,23 @@ class RootStore {
       }
     } catch (error) {
       //console.log(error)
-      console.log('Возникла проблема с вашим fetch запросом: ', error.message);
+      console.log("Возникла проблема с вашим fetch запросом: ", error.message);
     }
   }
 
   @action async fetchDataScr(url, method, data = null) { // mode, cache, credentials, redirect, referrerPolicy
     // Default options are marked with *
     try {
-      //console.log("Печенье:", this.getCookie('csrf_access_token'))
+      //console.log("Печенье:", this.getCookie("csrf_access_token"))
       let response = null
       if (data != null) {
         response = await fetch(url, {
           method: method, // *GET, POST, PUT, DELETE, etc.
-          //mode: 'no-cors', // no-cors, *cors, same-origin
+          //mode: "no-cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
           credentials: "include", // include, *same-origin, omit
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           // redirect, // manual, *follow, error
           // referrerPolicy, // no-referrer, *client
@@ -118,11 +118,11 @@ class RootStore {
       if (data == null) {
         response = await fetch(url, {
           method: method, // *GET, POST, PUT, DELETE, etc.
-          //mode: 'no-cors', // no-cors, *cors, same-origin
+          //mode: "no-cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
           credentials: "include", // include, *same-origin, omit
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           // redirect, // manual, *follow, error
           // referrerPolicy, // no-referrer, *client
@@ -132,7 +132,7 @@ class RootStore {
 
       if (response.status === 422 || response.status === 401) {
         const router = Router
-        router.push('/login')
+        router.push("/login")
         return null
       }
       if (response.ok) {
@@ -146,7 +146,7 @@ class RootStore {
       }
     } catch (error) {
       // console.log(error)
-      console.log('Возникла проблема с вашим fetch запросом: ', error.message);
+      console.log("Возникла проблема с вашим fetch запросом: ", error.message);
     }
   }
 
@@ -161,7 +161,7 @@ function initializeStore(initialData = null) {
     _store.hydrate(initialData)
   }
   // For SSG and SSR always create a new store
-  if (typeof window === 'undefined') return _store
+  if (typeof window === "undefined") return _store
   // Create the store once in the client
   if (!store) store = _store
 

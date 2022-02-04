@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 
 import {
@@ -21,9 +22,8 @@ const Invite = inject(
   "settingsStore"
 )(
   observer(({ rootStore, settingsStore }) => {
-    const theme = useTheme();
 
-    //Используется тестовый код, нужно заменить значение из API
+    // Используется тестовый код, нужно заменить значение из API
     const [statusCopy, setStatusCopy] = useState(false);
     const [openQR, setOpenQR] = React.useState(false)
 
@@ -52,13 +52,13 @@ const Invite = inject(
             defaultValue={settingsStore.settings.invite}
             // value={settingsStore.settings.invite}
             onClick={() => {
-              copyToClipboard("https://xieffect.netlify.app/registration?invite=" + settingsStore.settings.invite)
+              copyToClipboard(`https://xieffect.ru/registration?invite=${  settingsStore.settings.invite}`)
               setStatusCopy(true)
             }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <Button sx={{ color: 'text.primary' }}>
+                  <Button sx={{ color: "text.primary" }}>
                     <ContentCopyIcon />
                   </Button>
                 </InputAdornment>
@@ -82,7 +82,7 @@ const Invite = inject(
               height: 256,
             }}
           >
-            <QRCode value={"https://xieffect.netlify.app/registration?invite=" + settingsStore.settings.invite} />
+            <QRCode value={`https://xieffect.netlify.app/registration?invite=${  settingsStore.settings.invite}`} />
           </Box>}
       </Grid >
     );

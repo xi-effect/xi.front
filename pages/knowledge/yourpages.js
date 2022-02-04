@@ -1,17 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, CircularProgress, Grid, Typography, useTheme } from '@mui/material';
-import { inject, observer } from 'mobx-react';
-import Head from 'next/head';
-import Image from 'next/image';
-import React from 'react';
-import NavigationAll from '../../components/OtherComponents/Navigation/NavigationAll';
-import DataList from '../../components/PagesComponents/Managment/Content/Pages/DataList';
+import { Grid } from "@mui/material";
+import { inject, observer } from "mobx-react";
+import Head from "next/head";
+import React from "react";
+import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
+import DataList from "../../components/PagesComponents/Managment/Content/Pages/DataList";
 
 
-const Yourpages = inject('knowledgeStore', 'uiStore', 'managmentStore')(observer(({ knowledgeStore, uiStore, managmentStore }) => {
-    const theme = useTheme();
-
+const Yourpages = inject("knowledgeStore", "uiStore", "managmentStore")(observer(({ managmentStore }) => {
     React.useEffect(() => {
         managmentStore.LoadPageList()
     }, []);
@@ -20,7 +17,7 @@ const Yourpages = inject('knowledgeStore', 'uiStore', 'managmentStore')(observer
         <>
             <Head>
                 <title>
-                    Ξffect
+                    Ξffect | Ваши страницы
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>
@@ -31,7 +28,7 @@ const Yourpages = inject('knowledgeStore', 'uiStore', 'managmentStore')(observer
                     justifyContent="center"
                     alignItems="flex-start"
                     sx={{
-                        width: '100%',
+                        width: "100%",
                         zIndex: 1,
                         p: 2,
                     }}

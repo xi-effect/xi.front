@@ -1,5 +1,5 @@
-import { action, observable, computed, runInAction, makeObservable } from 'mobx'
-import socket from '../../utils/socket'
+import { action, observable, computed, runInAction, makeObservable } from "mobx"
+import socket from "../../utils/socket"
 
 class MessageStore {
     // `this` from rootstore passed to the constructor and we can 
@@ -22,11 +22,11 @@ class MessageStore {
     }
 
     @action loadChatsInMenu = () => {
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/index/`, "POST", { "counter": 0 }).then(
-            (data) => {
-                console.log("chats", data.results)
-                this.setMenu("chats", data.results)
-            })
+        // this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/index/`, "POST", { "counter": 0 }).then(
+        //     (data) => {
+        //         console.log("chats", data.results)
+        //         this.setMenu("chats", data.results)
+        //     })
     }
 
     // Диалог создания чата
@@ -194,10 +194,10 @@ class MessageStore {
     }
 
     @action editMessageInChat = (id, content) => {
-      let mId = this.chat.messages.findIndex(el => el.id === id)
-      if (mId !== -1) {
-        this.setChatSecondArray("messages", mId, "content", content)
-      }
+        let mId = this.chat.messages.findIndex(el => el.id === id)
+        if (mId !== -1) {
+            this.setChatSecondArray("messages", mId, "content", content)
+        }
     }
 
 }

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -6,7 +7,6 @@ import {
   Input,
   Link,
   useMediaQuery,
-  useTheme,
   InputLabel,
   InputAdornment,
   Tooltip,
@@ -37,7 +37,6 @@ const PassResetEmail = inject(
   "authorizationStore"
 )(
   observer(({ authorizationStore }) => {
-    const theme = useTheme();
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
     const {
@@ -88,7 +87,7 @@ const PassResetEmail = inject(
               alignItems="baseline"
             >
               <Typography
-                component={"h1"}
+                component="h1"
                 onClick={() => {
                   router.push({
                     pathname: "/",
@@ -109,7 +108,7 @@ const PassResetEmail = inject(
                 Ξ
               </Typography>
               <Typography
-                component={"h1"}
+                component="h1"
                 onClick={() => {
                   router.push({
                     pathname: "/",
@@ -134,8 +133,8 @@ const PassResetEmail = inject(
           </Stack>
           <Box
             sx={{
-              position: 'relative',
-              width: 'calc(100% - 32px)',
+              position: "relative",
+              width: "calc(100% - 32px)",
               maxWidth: 512,
               zIndex: 0,
               // mt: mobile ? "2px" : -32,
@@ -148,15 +147,15 @@ const PassResetEmail = inject(
           >
             {!mobile && <Box
               sx={{
-                position: 'absolute',
-                top: '0px',
-                right: '-156px',
+                position: "absolute",
+                top: "0px",
+                right: "-156px",
                 zIndex: -1,
               }}
             >
               <Image
                 alt="alt"
-                src={"/landing/blob3.svg"}
+                src="/landing/blob3.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -164,15 +163,15 @@ const PassResetEmail = inject(
             </Box>}
             {!mobile && <Box
               sx={{
-                position: 'absolute',
-                bottom: '0px',
-                left: '-156px',
+                position: "absolute",
+                bottom: "0px",
+                left: "-156px",
                 zIndex: -1,
               }}
             >
               <Image
                 alt="alt"
-                src={"/landing/blob2.svg"}
+                src="/landing/blob2.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -207,7 +206,7 @@ const PassResetEmail = inject(
                 >
                   <Image
                     alt="alt"
-                    src={"/auth/ResetPassword.svg"}
+                    src="/auth/ResetPassword.svg"
                     quality={100}
                     width={456}
                     height={256}
@@ -329,7 +328,7 @@ const PassResetEmail = inject(
               </Box>
             </Paper>
           </Box>
-          <div></div>
+          <div />
         </Stack>
       </>
     );

@@ -1,16 +1,16 @@
-const { createServer } = require('https');
-const { parse } = require('url');
-const { readFileSync } = require('fs');
-const next = require('next');
+const { createServer } = require("https");
+const { parse } = require("url");
+const { readFileSync } = require("fs");
+const next = require("next");
 
 const port = 443;
-const dev = process.env.NODE_ENV !== 'production';
+const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const httpsOptions = {
-    key: readFileSync('/etc/letsencrypt/live/xieffect.ru/privkey.pem'),
-    cert: readFileSync('/etc/letsencrypt/live/xieffect.ru/fullchain.pem')
+    key: readFileSync("/etc/letsencrypt/live/xieffect.ru/privkey.pem"),
+    cert: readFileSync("/etc/letsencrypt/live/xieffect.ru/fullchain.pem")
 };
 
 app.prepare()

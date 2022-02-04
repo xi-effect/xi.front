@@ -1,11 +1,7 @@
 import React from "react";
 import {
-  useTheme,
-  Button,
   Input,
   Grid,
-  Radio,
-  Checkbox,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -14,24 +10,11 @@ import { inject, observer } from "mobx-react";
 import LensIcon from "@mui/icons-material/Lens";
 
 const List = inject(
-  "rootStore",
   "knowledgeStore"
 )(
-  observer(({ rootStore, knowledgeStore, index }) => {
+  observer(({ knowledgeStore, index }) => {
     const value = knowledgeStore.page.components[index];
-    // Simulated props for the purpose of the example
-    const props = {
-      fontSize: value.fontSize,
-      textAlign: value.textAlign,
-      fontStyle: value.fontStyle,
-      fontWeight: value.fontWeight,
-      textDecoration: value.textDecoration,
-      backgroundColor: "black",
-      color: "white",
-    };
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
-    console.log("props", props);
-    const theme = useTheme();
 
     return (
       <Grid

@@ -1,4 +1,4 @@
-import { action, observable, computed, runInAction, makeObservable } from 'mobx'
+import { action, observable, computed, runInAction, makeObservable } from "mobx"
 
 
 class UIStore {
@@ -12,7 +12,7 @@ class UIStore {
     }
 
     @observable navigation = {
-        swipe: 'center',
+        swipe: "center",
     }
 
     @action setNavigation = (name, value) => {

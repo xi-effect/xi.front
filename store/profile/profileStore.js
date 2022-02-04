@@ -1,5 +1,5 @@
-import { action, observable, computed, runInAction, makeObservable } from 'mobx'
-import Router from 'next/router'
+import { action, observable, computed, runInAction, makeObservable } from "mobx"
+import Router from "next/router"
 
 const router = Router
 

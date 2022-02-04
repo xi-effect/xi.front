@@ -1,33 +1,19 @@
-import { Button, Grid, Tab, Tabs, Typography, Stack, Box, Divider, useTheme, Avatar } from '@mui/material';
-
-import { inject, observer } from 'mobx-react';
-import PropTypes from 'prop-types';
-
-import Image from "next/image";
-import Head from 'next/head';
-import React from 'react';
-import { useRouter } from 'next/router'
-
-import CustomAvatar from '../../components/OtherComponents/Avatar/CustomAvatar';
+import { Stack } from "@mui/material";
+import { inject, observer } from "mobx-react";
+import Head from "next/head";
+import React from "react";
+import { useRouter } from "next/router"
 import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
 
 
-const Community = inject('rootStore', 'settingsStore', 'profileStore')(observer(({ rootStore, settingsStore, profileStore }) => {
+const Community = inject("profileStore")(observer(({ profileStore }) => {
     // console.log("router.query", router.query.id);
-
     const router = useRouter()
-
     React.useEffect(() => {
         if (router.query.id !== undefined) {
             profileStore.loadUserInfo(router.query.id)
         }
-    }, [router.query.id]);
-
-    const [value, setValue] = React.useState(0);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+    }, [profileStore, router.query.id]);
 
     return (
         <>
@@ -46,9 +32,7 @@ const Community = inject('rootStore', 'settingsStore', 'profileStore')(observer(
                     sx={{
                         p: 2,
                     }}
-                >
-                    
-                </Stack>
+                />
             </NavigationAll>
         </>
     );

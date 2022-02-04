@@ -1,32 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Head from "next/head";
-import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import {
-  Grid,
   Stack,
   Input,
   Link,
   useMediaQuery,
-  TextField,
-  useTheme,
   InputLabel,
   InputAdornment,
   Tooltip,
   IconButton,
   FormControl,
-  OutlinedInput,
-  FormControlLabel,
-  Switch,
-  AppBar,
-  Tabs,
-  Tab,
   Typography,
   Box,
   Button,
   Paper,
 } from "@mui/material";
-import { Link as LinkUI } from "@mui/material";
+
 import React from "react";
 import { inject, observer } from "mobx-react";
 import Visibility from "@mui/icons-material/Visibility";
@@ -52,8 +44,7 @@ const Login = inject(
   "authorizationStore"
 )(
   observer(({ authorizationStore, uiStore }) => {
-    const theme = useTheme();
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('dl'));
+    const mobile = useMediaQuery(theme => theme.breakpoints.down("dl"));
 
     const router = useRouter();
     const [showPassword, setShowPassword] = React.useState(false);
@@ -87,7 +78,7 @@ const Login = inject(
           sx={{
             width: "100%",
             height: "100%",
-            minHeight: '100vh',
+            minHeight: "100vh",
             backgroundColor: "background.main",
           }}
         >
@@ -100,7 +91,7 @@ const Login = inject(
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ height: mobile ? '100px' : "140px", p: mobile ? '20px' : '40px', width: '100%', }}
+            sx={{ height: mobile ? "100px" : "140px", p: mobile ? "20px" : "40px", width: "100%", }}
           >
             <Stack
               direction="row"
@@ -108,45 +99,45 @@ const Login = inject(
               alignItems="baseline"
             >
               <Typography
-                component={"h1"}
+                component="h1"
                 onClick={() => {
                   router.push({
-                    pathname: '/',
+                    pathname: "/",
                   })
                 }}
 
                 variant="Roboto500XiLabel"
                 sx={{
-                  mt: '1px',
-                  cursor: 'pointer',
-                  color: 'secondary.main',
+                  mt: "1px",
+                  cursor: "pointer",
+                  color: "secondary.main",
                   fontSize: {
-                    sm: '28px',
-                    md: '34px',
-                    lg: '40px',
+                    sm: "28px",
+                    md: "34px",
+                    lg: "40px",
                   },
                 }}
               >
                 Ξ
               </Typography>
               <Typography
-                component={"h1"}
+                component="h1"
                 onClick={() => {
                   router.push({
-                    pathname: '/',
+                    pathname: "/",
                   })
                 }}
 
                 variant="IBMPlexMono500XiLabelEnd"
                 sx={{
-                  '&.MuiTypography-root': {
-                    cursor: 'pointer',
-                    color: 'secondary.main',
+                  "&.MuiTypography-root": {
+                    cursor: "pointer",
+                    color: "secondary.main",
                   },
                   fontSize: {
-                    sm: '28px',
-                    md: '34px',
-                    lg: '40px',
+                    sm: "28px",
+                    md: "34px",
+                    lg: "40px",
                   },
                 }}
               >
@@ -156,8 +147,8 @@ const Login = inject(
           </Stack>
           <Box
             sx={{
-              position: 'relative',
-              width: 'calc(100% - 32px)',
+              position: "relative",
+              width: "calc(100% - 32px)",
               maxWidth: 512,
               zIndex: 0,
               // mt: mobile ? "2px" : -32,
@@ -170,15 +161,15 @@ const Login = inject(
           >
             {!mobile && <Box
               sx={{
-                position: 'absolute',
-                top: '0px',
-                right: '-156px',
+                position: "absolute",
+                top: "0px",
+                right: "-156px",
                 zIndex: -1,
               }}
             >
               <Image
                 alt="alt"
-                src={"/landing/blob1.svg"}
+                src="/landing/blob1.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -186,15 +177,15 @@ const Login = inject(
             </Box>}
             {!mobile && <Box
               sx={{
-                position: 'absolute',
-                bottom: '0px',
-                left: '-156px',
+                position: "absolute",
+                bottom: "0px",
+                left: "-156px",
                 zIndex: -1,
               }}
             >
               <Image
                 alt="alt"
-                src={"/landing/blob3.svg"}
+                src="/landing/blob3.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -229,7 +220,7 @@ const Login = inject(
                 >
                   <Image
                     alt="alt"
-                    src={"/auth/Login.svg"}
+                    src="/auth/Login.svg"
                     quality={100}
                     width={456}
                     height={456}
@@ -374,7 +365,7 @@ const Login = inject(
                     sx={{ width: "100%" }}
                   >
                     <Link
-                      sx={{ color: 'text.secondary', ml: 1.5, fontWeight: 500, cursor: "pointer" }}
+                      sx={{ color: "text.secondary", ml: 1.5, fontWeight: 500, cursor: "pointer" }}
                       onClick={() => {
                         router.push({
                           pathname: "/registration",
@@ -384,11 +375,11 @@ const Login = inject(
                     >
                       Регистрация
                     </Link>
-                    <Typography component={"span"} sx={{ color: 'text.secondary', cursor: "pointer", fontWeight: 500, }} >
-                      {"/"}
+                    <Typography component="span" sx={{ color: "text.secondary", cursor: "pointer", fontWeight: 500, }} >
+                      /
                     </Typography>
                     <Link
-                      sx={{ color: 'text.secondary', m: 1, fontWeight: 500, cursor: "pointer" }}
+                      sx={{ color: "text.secondary", m: 1, fontWeight: 500, cursor: "pointer" }}
                       onClick={() => {
                         router.push({
                           pathname: "/resetpassword/email",
@@ -404,19 +395,19 @@ const Login = inject(
                     size="large"
                     type="submit"
                     sx={{
-                      '&.MuiButton-root': {
-                        fontFamily: 'Open Sans, sans-serif',
-                        fontStyle: 'normal',
+                      "&.MuiButton-root": {
+                        fontFamily: "Open Sans, sans-serif",
+                        fontStyle: "normal",
                         fontWeight: 600,
-                        fontSize: '16px',
-                        lineHeight: '25px',
-                        width: mobile ? '140px' : '160px',
-                        height: mobile ? '40px' : '50px',
-                        color: 'text.primary',
-                        bgcolor: 'secondary.main',
-                        borderRadius: mobile ? '62px' : '88px',
-                        '&:hover': {
-                          bgcolor: 'secondary.main',
+                        fontSize: "16px",
+                        lineHeight: "25px",
+                        width: mobile ? "140px" : "160px",
+                        height: mobile ? "40px" : "50px",
+                        color: "text.primary",
+                        bgcolor: "secondary.main",
+                        borderRadius: mobile ? "62px" : "88px",
+                        "&:hover": {
+                          bgcolor: "secondary.main",
                         },
                         mt: 2,
                         boxShadow: 12,
@@ -430,8 +421,8 @@ const Login = inject(
             </Paper>
           </Box>
 
-          <div></div>
-        </Stack>
+          <div />
+        </Stack >
       </>
     );
   })

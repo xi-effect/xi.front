@@ -1,24 +1,11 @@
-import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
-import { Fade, Input, Divider, IconButton, Grid, useTheme, Tooltip } from '@mui/material';
+import React from "react";
+import { styled } from "@mui/material/styles";
+import { Fade, Input, IconButton, Grid, Tooltip } from "@mui/material";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { inject, observer } from "mobx-react"
 
-import clsx from 'clsx';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import QueueIcon from '@mui/icons-material/Queue';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import TuneIcon from '@mui/icons-material/Tune';
-import ZoomInIcon from '@mui/icons-material/ZoomIn';
-import ZoomOutIcon from '@mui/icons-material/ZoomOut';
-import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
-import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
-import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
-import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
-import FormatBoldIcon from '@mui/icons-material/FormatBold';
-import FormatItalicIcon from '@mui/icons-material/FormatItalic';
-import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
-import { inject, observer } from 'mobx-react'
-
-const PREFIX = 'Header';
+const PREFIX = "Header";
 
 const classes = {
     gridButtons: `${PREFIX}-gridButtons`,
@@ -37,10 +24,7 @@ const classes = {
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-    {
-        theme
-    }
+const Root = styled("div")((
 ) => ({
     [`& .${classes.gridButtons}`]: {
         marginLeft: "auto",
@@ -77,7 +61,7 @@ const Root = styled('div')((
         width: 36,
         marginTop: 4,
         marginLeft: 16,
-        // position: 'absolute',
+        // position: "absolute",
         // top: theme => theme.spacing(10),
         // left: theme => theme.spacing(2),
     },
@@ -99,7 +83,7 @@ const Root = styled('div')((
     [`& .${classes.activeIcon}`]: {
         color: props => props.palette.primary.contrastText,
         backgroundColor: props => props.palette.primary.main,
-        '&:hover': {
+        "&:hover": {
             color: props => props.palette.primary.contrastText,
             backgroundColor: props => props.palette.primary.main,
         }
@@ -119,14 +103,12 @@ const Root = styled('div')((
     }
 }));
 
-const Header = inject('managmentStore')(observer(({ managmentStore, index }) => {
+const Header = inject("managmentStore")(observer(({ managmentStore, index }) => {
     // Simulated props for the purpose of the example
     const values = managmentStore.pageCreation.components[index]
     // Simulated props for the purpose of the example
-    const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: 'black', color: 'white' };
 
     // console.log("props", props)
-    const theme = useTheme();
 
     console.log("textAlign", values.textAlign)
 
@@ -135,6 +117,7 @@ const Header = inject('managmentStore')(observer(({ managmentStore, index }) => 
     return (
         <Root>
             <Grid
+                onFocus={() => setHover(true)}
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
                 container
@@ -146,9 +129,9 @@ const Header = inject('managmentStore')(observer(({ managmentStore, index }) => 
                 <Grid className={classes.gridTextWrapper}>
                     <Input
                         sx={{
-                            '& .MuiInput-input': {
+                            "& .MuiInput-input": {
                                 width: "100%",
-                                color: 'text.main',
+                                color: "text.main",
                                 lineHeight: "normal",
                             }
                         }}
@@ -164,7 +147,7 @@ const Header = inject('managmentStore')(observer(({ managmentStore, index }) => 
                 </Grid>
                 <Fade
                     in={hover}
-                    style={{ transformOrigin: '0 0 0' }}
+                    style={{ transformOrigin: "0 0 0" }}
                     {...(hover ? { timeout: 1000 } : {})}
                 >
                     <Grid
@@ -172,7 +155,7 @@ const Header = inject('managmentStore')(observer(({ managmentStore, index }) => 
                         direction="row"
                         className={classes.gridButtons}
                     >
-                        {/* <Typography sx={{color: 'main.dark', ml: 1, mt: 1.5,}} variant="subtitle2"> настройки: </Typography> */}
+                        {/* <Typography sx={{color: "main.dark", ml: 1, mt: 1.5,}} variant="subtitle2"> настройки: </Typography> */}
                         <Tooltip title="Удалить блок">
                             <IconButton
                                 className={classes.leftIconButton}

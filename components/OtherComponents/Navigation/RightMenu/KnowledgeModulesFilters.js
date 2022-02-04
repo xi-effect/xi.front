@@ -1,17 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Button, Box, useMediaQuery, InputLabel, Radio, FormControl, Select, ClickAwayListener, Divider, MenuList, Grid, MenuItem, ListItemText, ListItemIcon, Tooltip, Popper, IconButton, Link, Paper, useTheme, Stack, Typography, Grow } from "@mui/material";
-import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-import InfoIcon from '@mui/icons-material/Info';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import CodeIcon from '@mui/icons-material/Code';
-
-import { motion, AnimatePresence } from "framer-motion"
+import { Button, InputLabel, Radio, FormControl, Select, MenuList, MenuItem, ListItemText, ListItemIcon } from "@mui/material";
 
 const categoryList = [
     { key: 9, title: "Все категории", name: "default" },
@@ -57,16 +48,9 @@ const difficultyList = [
 
 const KnowledgeModulesFilters = inject(
     "knowledgeStore",
-    "managmentStore",
-    "uiStore",
 )(
-    observer(({ knowledgeStore, uiStore, managmentStore }) => {
-        const theme = useTheme();
-        const router = useRouter()
-
-        return (
-            <>
-                <MenuList
+    observer(({ knowledgeStore }) => (
+            <MenuList
                     // spacing={2}
                     sx={{
                         // p: 0.5,
@@ -95,8 +79,9 @@ const KnowledgeModulesFilters = inject(
                             pl: 0.5,
                         }}
                         onClick={() => {
-                            if (knowledgeStore.moduleList.filters.global == "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
-                            if (knowledgeStore.moduleList.filters.global != "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "starred")
+                            if (knowledgeStore.moduleList.filters.global === "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                            if (knowledgeStore.moduleList.filters.global !== "starred") return knowledgeStore.setModuleListDataSecondary("filters", "global", "starred")
+                            return null
                         }}
                     >
                         <ListItemIcon>
@@ -113,8 +98,9 @@ const KnowledgeModulesFilters = inject(
                             pl: 0.5,
                         }}
                         onClick={() => {
-                            if (knowledgeStore.moduleList.filters.global != "started") return knowledgeStore.setModuleListDataSecondary("filters", "global", "started")
+                            if (knowledgeStore.moduleList.filters.global !== "started") return knowledgeStore.setModuleListDataSecondary("filters", "global", "started")
                             if (knowledgeStore.moduleList.filters.global === "started") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                            return null
                         }}
                     >
                         <ListItemIcon>
@@ -131,8 +117,9 @@ const KnowledgeModulesFilters = inject(
                             pl: 0.5,
                         }}
                         onClick={() => {
-                            if (knowledgeStore.moduleList.filters.global != "pinned") return knowledgeStore.setModuleListDataSecondary("filters", "global", "pinned")
+                            if (knowledgeStore.moduleList.filters.global !== "pinned") return knowledgeStore.setModuleListDataSecondary("filters", "global", "pinned")
                             if (knowledgeStore.moduleList.filters.global === "pinned") return knowledgeStore.setModuleListDataSecondary("filters", "global", "default")
+                            return null
                         }}
                     >
                         <ListItemIcon>
@@ -143,61 +130,59 @@ const KnowledgeModulesFilters = inject(
                         </ListItemIcon>
                         <ListItemText>Смотреть позже</ListItemText>
                     </MenuItem>
-                    <FormControl fullWidth variant="standard" sx={{ mt: 2, ml: 2, mr: 2, width: 'calc(100% - 32px)' }}>
+                    <FormControl fullWidth variant="standard" sx={{ mt: 2, ml: 2, mr: 2, width: "calc(100% - 32px)" }}>
                         <InputLabel variant="standard" htmlFor="uncontrolled-native">
                             Тема
                         </InputLabel>
                         <Select
                             sx={{
-                                color: 'text.main',
+                                color: "text.main",
                             }}
                             value={knowledgeStore.moduleList.filters.theme ?? null}
                             onChange={(event) => knowledgeStore.setModuleListDataSecondary("filters", "theme", event.target.value)}
                         >
                             {themeList.map((item, index) => (
-                                <MenuItem key={index.toString()} sx={{ color: 'text.main' }} value={item.name}> {item.title} </MenuItem>
+                                <MenuItem key={index.toString()} sx={{ color: "text.main" }} value={item.name}> {item.title} </MenuItem>
                             ))}
                         </Select>
                     </FormControl>
-                    <FormControl fullWidth variant="standard" sx={{ mt: 2, ml: 2, mr: 2, width: 'calc(100% - 32px)' }}>
+                    <FormControl fullWidth variant="standard" sx={{ mt: 2, ml: 2, mr: 2, width: "calc(100% - 32px)" }}>
                         <InputLabel variant="standard" htmlFor="uncontrolled-native">
                             Категория
                         </InputLabel>
                         <Select
                             sx={{
-                                color: 'text.main',
+                                color: "text.main",
                             }}
                             value={knowledgeStore.moduleList.filters.category ?? null}
                             onChange={(event) => knowledgeStore.setModuleListDataSecondary("filters", "category", event.target.value)}
                         >
                             {categoryList.map((item, index) => (
-                                <MenuItem key={index.toString()} sx={{ color: 'text.main' }} value={item.name}> {item.title} </MenuItem>
+                                <MenuItem key={index.toString()} sx={{ color: "text.main" }} value={item.name}> {item.title} </MenuItem>
                             ))}
                         </Select>
                     </FormControl>
-                    <FormControl fullWidth variant="standard" sx={{ mt: 2, ml: 2, mr: 2, width: 'calc(100% - 32px)' }}>
+                    <FormControl fullWidth variant="standard" sx={{ mt: 2, ml: 2, mr: 2, width: "calc(100% - 32px)" }}>
                         <InputLabel variant="standard" htmlFor="uncontrolled-native">
                             Сложность
                         </InputLabel>
                         <Select
                             sx={{
-                                color: 'text.main',
+                                color: "text.main",
                             }}
                             value={knowledgeStore.moduleList.filters.difficulty ?? null}
                             onChange={(event) => knowledgeStore.setModuleListDataSecondary("filters", "difficulty", event.target.value)}
                         >
                             {difficultyList.map((item, index) => (
-                                <MenuItem key={index.toString()} sx={{ color: 'text.main' }} value={item.name}> {item.title} </MenuItem>
+                                <MenuItem key={index.toString()} sx={{ color: "text.main" }} value={item.name}> {item.title} </MenuItem>
                             ))}
                         </Select>
                     </FormControl>
-                    <Button onClick={() => knowledgeStore.loadModuleList()} variant="contained" sx={{ color: 'text.primary', ml: 8, mt: 2, }}>
+                    <Button onClick={() => knowledgeStore.loadModuleList()} variant="contained" sx={{ color: "text.primary", ml: 8, mt: 2, }}>
                         Применить
                     </Button>
                 </MenuList>
-            </>
-        );
-    })
+        ))
 );
 
 export default KnowledgeModulesFilters;

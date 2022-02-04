@@ -1,29 +1,28 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import { Stack } from '@mui/material'
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { visuallyHidden } from '@mui/utils';
-import { inject, observer } from 'mobx-react'
-import EditIcon from '@mui/icons-material/Edit';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
+import * as React from "react";
+import PropTypes from "prop-types";
+import { alpha } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Checkbox from "@mui/material/Checkbox";
+import { Stack } from "@mui/material"
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { visuallyHidden } from "@mui/utils";
+import { inject, observer } from "mobx-react"
+import EditIcon from "@mui/icons-material/Edit";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
@@ -38,12 +37,12 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-    return order === 'desc'
+    return order === "desc"
         ? (a, b) => descendingComparator(a, b, orderBy)
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// This method is created for cross-browser compatibility, if you don't
+// This method is created for cross-browser compatibility, if you don"t
 // need to support IE11, you can use Array.prototype.sort() directly
 function stableSort(array, comparator) {
     const stabilizedThis = array.map((el, index) => [el, index]);
@@ -59,52 +58,52 @@ function stableSort(array, comparator) {
 
 const headCells = [
     {
-        id: 'name',
+        id: "name",
         numeric: false,
         disablePadding: true,
-        label: 'Название',
+        label: "Название",
     },
     {
-        id: 'status',
+        id: "status",
         numeric: false,
         disablePadding: false,
-        label: 'Статус',
+        label: "Статус",
     },
     {
-        id: 'views',
+        id: "views",
         numeric: false,
         disablePadding: false,
-        label: 'Просмотры',
+        label: "Просмотры",
     },
     {
-        id: 'blueprint',
+        id: "blueprint",
         numeric: false,
         disablePadding: false,
-        label: 'Чертёж',
+        label: "Чертёж",
     },
     {
-        id: 'type',
+        id: "type",
         numeric: false,
         disablePadding: false,
-        label: 'Тип',
+        label: "Тип",
     },
     {
-        id: 'theme',
+        id: "theme",
         numeric: false,
         disablePadding: false,
-        label: 'Тема',
+        label: "Тема",
     },
     {
-        id: 'category',
+        id: "category",
         numeric: false,
         disablePadding: false,
-        label: 'Категория',
+        label: "Категория",
     },
     {
-        id: 'difficulty',
+        id: "difficulty",
         numeric: false,
         disablePadding: false,
-        label: 'Сложность',
+        label: "Сложность",
     },
 ];
 
@@ -125,26 +124,26 @@ function EnhancedTableHead(props) {
                         checked={rowCount > 0 && numSelected === rowCount}
                         onChange={onSelectAllClick}
                         inputProps={{
-                            'aria-label': 'select all desserts',
+                            "aria-label": "select all desserts",
                         }}
                     />
                 </TableCell>
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        align={headCell.numeric ? 'right' : 'left'}
-                        padding={headCell.disablePadding ? 'none' : 'normal'}
+                        align={headCell.numeric ? "right" : "left"}
+                        padding={headCell.disablePadding ? "none" : "normal"}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
                         <TableSortLabel
                             active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : 'asc'}
+                            direction={orderBy === headCell.id ? order : "asc"}
                             onClick={createSortHandler(headCell.id)}
                         >
                             {headCell.label}
                             {orderBy === headCell.id ? (
                                 <Box component="span" sx={visuallyHidden}>
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                                    {order === "desc" ? "sorted descending" : "sorted ascending"}
                                 </Box>
                             ) : null}
                         </TableSortLabel>
@@ -159,12 +158,12 @@ EnhancedTableHead.propTypes = {
     numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
     onSelectAllClick: PropTypes.func.isRequired,
-    order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+    order: PropTypes.oneOf(["asc", "desc"]).isRequired,
     orderBy: PropTypes.string.isRequired,
     rowCount: PropTypes.number.isRequired,
 };
 
-const EnhancedTableToolbar = (props) => {
+function EnhancedTableToolbar(props) {
     const { managmentStore, rows, selected, numSelected, deletePages } = props;
     const router = useRouter();
 
@@ -181,7 +180,7 @@ const EnhancedTableToolbar = (props) => {
         >
             {numSelected > 0 ? (
                 <Typography
-                    sx={{ flex: '1 1 100%' }}
+                    sx={{ flex: "1 1 100%" }}
                     color="inherit"
                     variant="subtitle1"
                     component="div"
@@ -190,7 +189,7 @@ const EnhancedTableToolbar = (props) => {
                 </Typography>
             ) : (
                 <Typography
-                    sx={{ flex: '1 1 100%' }}
+                    sx={{ flex: "1 1 100%" }}
                     variant="h6"
                     id="tableTitle"
                     component="div"
@@ -215,17 +214,17 @@ const EnhancedTableToolbar = (props) => {
                 </Tooltip>}
         </Toolbar>
     );
-};
+}
 
 EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore }) => {
+const DataList = inject("rootStore", "managmentStore")(observer(({ rootStore, managmentStore }) => {
 
     const [rows, setRows] = React.useState([])
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('calories');
+    const [order, setOrder] = React.useState("asc");
+    const [orderBy, setOrderBy] = React.useState("calories");
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -239,8 +238,8 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
     }, [])
 
     const handleRequestSort = (event, property) => {
-        const isAsc = orderBy === property && order === 'asc';
-        setOrder(isAsc ? 'desc' : 'asc');
+        const isAsc = orderBy === property && order === "asc";
+        setOrder(isAsc ? "desc" : "asc");
         setOrderBy(property);
     };
 
@@ -280,8 +279,8 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
 
     const deletePages = () => {
         console.log("selected", selected)
-        let newRows = rows.filter((el, index) => !(selected.includes(index)))
-        selected.forEach((item, index) => {
+        const newRows = rows.filter((el, index) => !(selected.includes(index)))
+        selected.forEach((item) => {
             rootStore.fetchDataScr(`${rootStore.url}/wip/modules/${rows[item].id}/`, "DELETE").then(
                 (data) => {
                     console.log("data", data)
@@ -294,8 +293,8 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
     }
 
     return (
-        <Box sx={{ width: '100%', mt: 2 }}>
-            <Paper sx={{ width: '100%', mb: 2 }}>
+        <Box sx={{ width: "100%", mt: 2 }}>
+            <Paper sx={{ width: "100%", mb: 2 }}>
                 <EnhancedTableToolbar managmentStore={managmentStore} rows={rows} selected={selected} deletePages={deletePages} numSelected={selected.length} />
                 <TableContainer>
                     {rows.length === 0 && <Stack
@@ -303,11 +302,11 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                         justifyContent="center"
                         alignItems="center"
                         spacing={2}
-                        sx={{ width: '100%', height: 400 }}
+                        sx={{ width: "100%", height: 400 }}
                     >
                         <Image
                             alt="alt"
-                            src={"/app/NoData.svg"}
+                            src="/app/NoData.svg"
                             quality={100}
                             width={256}
                             height={232}
@@ -316,10 +315,10 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                             У вас нет ни одного Модуля
                         </Typography>
                     </Stack>}
-                    {rows.length != 0 && <Table
+                    {rows.length !== 0 && <Table
                         sx={{ minWidth: 750 }}
                         aria-labelledby="tableTitle"
-                        size={'medium'}
+                        size="medium"
                     >
                         <EnhancedTableHead
                             numSelected={selected.length}
@@ -330,7 +329,7 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                             rowCount={rows.length}
                         />
                         <TableBody>
-                            {/* if you don't need to support IE11, you can replace the `stableSort` call with:
+                            {/* if you don"t need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
                             {stableSort(rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -352,7 +351,7 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                                                     color="primary"
                                                     checked={selected.includes(index)}
                                                     inputProps={{
-                                                        'aria-labelledby': labelId,
+                                                        "aria-labelledby": labelId,
                                                     }}
                                                 />
                                             </TableCell>
@@ -386,13 +385,13 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
                         </TableBody>
                     </Table>}
                 </TableContainer>
-                {rows.length != 0 && <TablePagination
+                {rows.length !== 0 && <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
                     count={rows.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
-                    labelRowsPerPage={'Строк на странице'}
+                    labelRowsPerPage="Строк на странице"
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />}
@@ -402,139 +401,3 @@ const DataList = inject('rootStore', 'managmentStore')(observer(({ rootStore, ma
 }));
 
 export default DataList
-
-// const columns = [
-//     {
-//         field: 'name',
-//         headerName: 'Название',
-//         //type: 'number',
-//         width: 220,
-//         renderCell: (params) => (
-//             <Grid container wrap="nowrap" spacing={2}>
-//                 <Grid item xs zeroMinWidth>
-//                     <Tooltip title={params.value != null ? params.value : ""}>
-//                         <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
-//                     </Tooltip>
-//                 </Grid>
-//             </Grid>
-//         ),
-//     },
-//     {
-//         field: 'status',
-//         headerName: 'Статус',
-//         width: 180,
-//         renderCell: (params) => (
-//             <Typography style={{ cursor: "default" }}> {statusSelect(params.value)} </Typography>
-//         ),
-//     },
-//     {
-//         field: 'views',
-//         headerName: 'Просмотры',
-//         width: 180,
-//         renderCell: (params) => (
-//             <Typography style={{ cursor: "default" }}> {params.value} </Typography>
-//         ),
-//     },
-//     // {
-//     //     field: 'blueprint',
-//     //     headerName: 'Тип',
-//     //     width: 180,
-//     // },
-//     {
-//         field: 'type',
-//         headerName: 'Тип',
-//         width: 200,
-//         renderCell: (params) => (
-//             <Typography style={{ cursor: "default" }}> {kindSelect(params.value)} </Typography>
-//         ),
-//     },
-//     {
-//         field: 'theme',
-//         headerName: 'Тема',
-//         width: 210,
-//         renderCell: (params) => (
-//             <Grid container wrap="nowrap" spacing={2}>
-//                 <Grid item xs zeroMinWidth>
-//                     <Tooltip title={params.value != null ? params.value : ""}>
-//                         <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
-//                     </Tooltip>
-//                 </Grid>
-//             </Grid>
-//         ),
-//     },
-//     {
-//         field: 'category',
-//         headerName: 'Категория',
-//         width: 210,
-//         renderCell: (params) => (
-//             <Grid container wrap="nowrap" spacing={2}>
-//                 <Grid item xs zeroMinWidth>
-//                     <Tooltip title={params.value != null ? params.value : ""}>
-//                         <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
-//                     </Tooltip>
-//                 </Grid>
-//             </Grid>
-//         ),
-//     },
-//     {
-//         field: 'difficulty',
-//         headerName: 'Сложность',
-//         width: 210,
-//         renderCell: (params) => (
-//             <Grid container wrap="nowrap" spacing={2}>
-//                 <Grid item xs zeroMinWidth>
-//                     <Tooltip title={params.value != null ? params.value : ""}>
-//                         <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
-//                     </Tooltip>
-//                 </Grid>
-//             </Grid>
-//         ),
-//     },
-//     {
-//         field: 'description',
-//         headerName: 'Описание',
-//         flex: 1,
-//         minWidth: 150,
-//         renderCell: (params) => (
-//             <Grid container wrap="nowrap" spacing={2}>
-//                 <Grid item xs zeroMinWidth>
-//                     <Tooltip title={params.value != null ? params.value : ""}>
-//                         <Typography style={{ cursor: "default" }} noWrap>{params.value}</Typography>
-//                     </Tooltip>
-//                 </Grid>
-//             </Grid>
-//         ),
-//     },
-//     {
-//         field: '',
-//         headerName: '',
-//         //type: 'number',
-//         width: 130,
-//         renderCell: (params) => (
-//             <Grid>
-//                 <Tooltip title="Изменить">
-//                     <IconButton
-//                         onClick={() => managmentStore.changeOldModuleList(params.row.id)}
-//                         variant="contained"
-//                         //color="primary"
-//                         size="small"
-//                         style={{ marginLeft: 16, marginTop: -4, color: theme => theme.palette.primary.contrastText }}
-//                     >
-//                         <EditIcon />
-//                     </IconButton>
-//                 </Tooltip>
-//                 <Tooltip title="Удалить">
-//                     <IconButton
-//                         onClick={() => managmentStore.deleteModuleInList(params.row.id)}
-//                         variant="contained"
-//                         //color="primary"
-//                         size="small"
-//                         style={{ marginLeft: 16, marginTop: -4, color: theme => theme.palette.primary.contrastText }}
-//                     >
-//                         <DeleteForeverIcon />
-//                     </IconButton>
-//                 </Tooltip>
-//             </Grid>
-//         ),
-//     },
-// ];

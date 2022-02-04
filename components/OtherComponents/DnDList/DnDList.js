@@ -1,18 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Box } from "@mui/material";
 
-
-const initial = Array.from({ length: 10 }, (v, k) => k).map(k => {
-    const custom = {
-        id: `id-${k}`,
-        content: `Quote ${k}`
-    };
-
-    return custom;
-});
-
-const grid = 8;
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -21,13 +11,8 @@ const reorder = (list, startIndex, endIndex) => {
     return result;
 };
 
-
 function DnDList({ state, setState, ComponentsList }) {
-    //state = initial
-    //const [state, setState] = useState({ quotes: initial });
-
-
-    function onDragEnd(result) {
+    const onDragEnd = (result) => {
         if (!result.destination) {
             return;
         }
@@ -41,7 +26,6 @@ function DnDList({ state, setState, ComponentsList }) {
             result.source.index,
             result.destination.index
         );
-        console.log("newState", newState)
         setState("components", newState);
     }
 
@@ -54,7 +38,7 @@ function DnDList({ state, setState, ComponentsList }) {
                         marginLeft: 8,
                         marginRight: 8,
                         height: "calc(100vh - 220px)",
-                        '&::-webkit-scrollbar': {
+                        "&::-webkit-scrollbar": {
                             width: "0! important",
                             height: 0,
                             display: "none !important",

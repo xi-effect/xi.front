@@ -1,10 +1,8 @@
-import React from 'react';
-import { Skeleton, Divider, Grid, Typography } from '@mui/material';
-import { inject, observer } from 'mobx-react'
+import React from "react";
+import { Skeleton, Divider, Grid, Typography } from "@mui/material";
+import { inject, observer } from "mobx-react"
 
-const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
-
-    return (
+const Toolbar = inject("knowledgeStore")(observer(({ knowledgeStore }) => (
         <>
             <Grid
                 container
@@ -31,8 +29,7 @@ const Toolbar = inject('knowledgeStore')(observer(({ knowledgeStore }) => {
                 maxWidth: "800px",
             }} />
         </>
-    );
-}));
+    )));
 
 
 export default Toolbar;
