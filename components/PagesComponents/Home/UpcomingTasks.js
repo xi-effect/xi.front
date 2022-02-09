@@ -68,6 +68,7 @@ const getTaskLabel = (t) => {
     if (t === 'school') return 'Школа'
     if (t === 'club') return 'Дополнительные занятия'
     if (t === 'homework') return 'Домашняя работа'
+    return null
 }
 
 const getTaskColor = (t) => {
@@ -75,143 +76,135 @@ const getTaskColor = (t) => {
     if (t === 'school') return '#cddc39'
     if (t === 'club') return '#2196f3'
     if (t === 'homework') return '#e91e63'
+    return null
 }
 
-const capitalize = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-}
+const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
 
-const Task = inject('rootStore', 'managmentStore')(observer(({ rootStore, managmentStore, task, nextTask }) => {
+const Task = inject()(observer(({ task }) => (
+    <Box
+        sx={{
+            mt: 2,
+            width: '100%',
+            position: 'relative'
+        }}>
 
-    return (
-        <>
-            <Box
-                sx={{
-                    mt: 2,
-                    width: '100%',
-                    position: 'relative'
-                }}>
+        <Typography
+            variant="subtitle1"
+            sx={{
+                color: 'text.secondary',
+                position: 'absolute',
+                top: "0px",
+                left: "-46px",
 
+            }} />
+
+        <Typography
+            variant="subtitle1"
+            sx={{
+                color: 'text.secondary',
+                position: 'absolute',
+                bottom: "-4px",
+                left: "-46px",
+            }} />
+
+        <Paper
+            elevation={12}
+            // direction="row"
+            // justifyContent="flex-start"
+            // alignItems="center"
+            sx={{
+                // position: 'absolute',
+                // top: 60 * (dateStart.getHours() - 6) + dateStart.getMinutes(),
+                height: 95,
+                minHeight: "64px",
+                width: 'calc(100% - 88px)',
+                // minWidth: 300,
+                // bgcolor: 'primary.main',
+                borderRadius: 2,
+                ml: 0.5,
+                "&:before": {
+                    position: "absolute",
+                    content: '""',
+                    top: 0,
+                    left: 2,
+                    right: 0,
+                    width: "10px",
+                    height: "100%",
+                    borderRadius: 2,
+                    // background: getTaskColor(task.type),
+                },
+                // mt: 1.5,
+                // ml: 1,
+            }}>
+
+            <Stack
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+            // spacing={1}
+            >
                 <Typography
                     variant="subtitle1"
                     sx={{
-                        color: 'text.secondary',
-                        position: 'absolute',
-                        top: "0px",
-                        left: "-46px",
-
+                        color: getTaskColor(task.type),
+                        ml: 2,
                     }}>
+
+                    {getTaskLabel(task.type)}
+
                 </Typography>
 
                 <Typography
-                    variant="subtitle1"
                     sx={{
-                        color: 'text.secondary',
-                        position: 'absolute',
-                        bottom: "-4px",
-                        left: "-46px",
-                    }}>
+                        width: 'calc(100% - 16px)',
+                        ml: 2,
+                    }}
+                    noWrap>
+
+                    {capitalize(moment().to(task.endTime))}
+
                 </Typography>
 
-                <Paper
-                    elevation={12}
-                    // direction="row"
-                    // justifyContent="flex-start"
-                    // alignItems="center"
+                <Typography
+                    variant="h5"
                     sx={{
-                        // position: 'absolute',
-                        // top: 60 * (dateStart.getHours() - 6) + dateStart.getMinutes(),
-                        height: 95,
-                        minHeight: "64px",
-                        width: 'calc(100% - 88px)',
-                        // minWidth: 300,
-                        // bgcolor: 'primary.main',
-                        borderRadius: 2,
-                        ml: 0.5,
-                        "&:before": {
-                            position: "absolute",
-                            content: '""',
-                            top: 0,
-                            left: 2,
-                            right: 0,
-                            width: "10px",
-                            height: "100%",
-                            borderRadius: 2,
-                            // background: getTaskColor(task.type),
-                        },
-                        // mt: 1.5,
-                        // ml: 1,
-                    }}>
+                        width: 'calc(100% - 32px)',
+                        ml: 2,
+                    }}
+                    noWrap >
 
-                    <Stack
-                        direction="column"
-                        justifyContent="flex-start"
-                        alignItems="flex-start"
-                    // spacing={1}
-                    >
-                        <Typography
-                            variant="subtitle1"
-                            sx={{
-                                color: getTaskColor(task.type),
-                                ml: 2,
-                            }}>
+                    {task.label}
 
-                            {getTaskLabel(task.type)}
+                </Typography>
 
-                        </Typography>
-
-                        <Typography
-                            sx={{
-                                width: 'calc(100% - 16px)',
-                                ml: 2,
-                            }}
-                            noWrap>
-
-                            {capitalize(moment().to(task.endTime))}
-
-                        </Typography>
-
-                        <Typography
-                            variant="h5"
-                            sx={{
-                                width: 'calc(100% - 32px)',
-                                ml: 2,
-                            }}
-                            noWrap >
-
-                            {task.label}
-
-                        </Typography>
-
-                        <IconButton
-                            style={{ float: "right" }}
-                            sx={{
-                                position: 'absolute',
-                                bottom: 32,
-                                right: 100,
-                                boxShadow: 4,
-                                height: 32,
-                                width: 32,
-                                bgcolor: 'secondary.main',
-                                '&:hover': {
-                                    bgcolor: 'secondary.main',
-                                }
-                            }}
-                        >
-                            <ArrowForwardIcon />
-                        </IconButton>
+                <IconButton
+                    style={{ float: "right" }}
+                    sx={{
+                        position: 'absolute',
+                        bottom: 32,
+                        right: 100,
+                        boxShadow: 4,
+                        height: 32,
+                        width: 32,
+                        bgcolor: 'secondary.main',
+                        '&:hover': {
+                            bgcolor: 'secondary.main',
+                        }
+                    }}
+                >
+                    <ArrowForwardIcon />
+                </IconButton>
 
 
-                    </Stack>
-                </Paper>
-            </Box>
-        </>
-    )
-}));
+            </Stack>
+        </Paper>
+    </Box>
+)));
 
-const UpcomingTasks = inject('rootStore', 'managmentStore')(observer(({ rootStore, }) => {
+const UpcomingTasks = inject()(observer(() => {
 
-    const SEPARATOR = 10; //период отслеживаемого дедлайна в часах;
+    const SEPARATOR = 10; // период отслеживаемого дедлайна в часах;
 
     const upTasks = tasks.filter(task => moment().diff(task.endTime) < 0 && moment().date() === moment(task.endTime).date() && (moment(task.endTime).hours() - moment().hours()) <= SEPARATOR)
         .sort((a, b) => moment(a.endTime) - moment(b.endTime))
