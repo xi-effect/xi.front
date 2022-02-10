@@ -6,10 +6,10 @@ import {
 
 import { inject, observer } from "mobx-react";
 
-import Description from "./Task/Description";
-import Target from "./Task/Target";
-import Materials from "./Task/Materials";
-import Result from "./Task/Result";
+import Description from "./Description";
+import Target from "./Target";
+import Materials from "./Materials";
+import Result from "./Result";
 
 
 const Task = inject()(

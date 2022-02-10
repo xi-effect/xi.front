@@ -6,66 +6,46 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 import * as React from 'react';
-import Popper, { PopperProps } from '@mui/material/Popper';
-import Typography from '@mui/material/Typography';
-import Fade from '@mui/material/Fade';
-import Paper from '@mui/material/Paper';
-import InlineToolPanel from '../InlineToolPanel/InlineToolPanel';
+import { Menu, MenuItem, Stack, Typography } from '@mui/material';
+import { NewBlocks } from '../config';
 // import "./TextEditor.scss";
 
-export type NewItemMenuProps = {
+type NewItemMenuProps = {
   className?: string;
+  contextMenu: any;
+  selectItemMenu: (type: string) => void;
+  closeMenu: () => void;
 };
 
-const NewItemMenu: React.FC<NewItemMenuProps> = () => {
-  const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<PopperProps['anchorEl']>(null);
+const ITEM_HEIGHT = 80;
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleMouseUp = () => {
-    const selection = window.getSelection();
-
-    // Resets when the selection has a length of 0
-    if (!selection || selection.anchorOffset === selection.focusOffset) {
-      handleClose();
-      return;
+const NewItemMenu: React.FC<NewItemMenuProps> = ({ contextMenu, selectItemMenu, closeMenu }) => (
+  <Menu
+    open={contextMenu !== null}
+    onClose={closeMenu}
+    anchorReference="anchorPosition"
+    anchorPosition={
+      contextMenu !== null
+        ? { top: contextMenu.mouseY + 8, left: contextMenu.mouseX + 8 }
+        : undefined
     }
-
-    const getBoundingClientRect = () => selection.getRangeAt(0).getBoundingClientRect();
-
-    setOpen(true);
-    setAnchorEl({
-      getBoundingClientRect,
-    });
-  };
-
-  const id = open ? 'virtual-element-popper' : undefined;
-
-  return (
-    <div onMouseLeave={handleClose}>
-      <Typography aria-describedby={id} onMouseUp={handleMouseUp}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ipsum purus, bibendum sit
-        amet vulputate eget, porta semper ligula. Donec bibendum vulputate erat, ac fringilla mi
-        finibus nec. Donec ac dolor sed dolor porttitor blandit vel vel purus. Fusce vel malesuada
-        ligula. Nam quis vehicula ante, eu finibus est. Proin ullamcorper fermentum orci, quis
-        finibus massa. Nunc lobortis, massa ut rutrum ultrices, metus metus finibus ex, sit amet
-        facilisis neque enim sed neque. Quisque accumsan metus vel maximus consequat. Suspendisse
-        lacinia tellus a libero volutpat maximus.
-      </Typography>
-      <Popper id={id} open={open} anchorEl={anchorEl} transition placement="bottom-start">
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <Paper>
-              <InlineToolPanel />
-            </Paper>
-          </Fade>
-        )}
-      </Popper>
-    </div>
-  );
-};
+    PaperProps={{
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5,
+        width: '40ch',
+      },
+    }}>
+    {NewBlocks.map((item, index) => (
+      <MenuItem key={index.toString()} onClick={() => selectItemMenu(item.type)}>
+        <Stack direction="column" justifyContent="center" alignItems="flex-start">
+          <Typography variant="h6">{item.label}</Typography>
+          <Typography sx={{ color: 'text.secondary' }} variant="subtitle1">
+            {item.description}
+          </Typography>
+        </Stack>
+      </MenuItem>
+    ))}
+  </Menu>
+);
 
 export default NewItemMenu;
