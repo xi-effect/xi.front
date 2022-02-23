@@ -23,18 +23,42 @@ const DragDrop = dynamic(() => import("../../../../components/OtherComponents/Ed
 const quotesIn = [
     {
         id: "0",
+        type: "h1",
         value: "Irure ex officia laborum qui mollit fugiat cupidatat occaecat do. Eiusmod aliqua cupidatat dolore commodo laboris ex sunt ea. Sint ea velit enim ut nulla pariatur sint commodo duis proident excepteur.",
     },
     {
         id: "1",
+        type: "text",
         value: "In in ut officia qui dolore anim ea excepteur. Pariatur fugiat ipsum cillum Lorem officia deserunt sint esse culpa deserunt enim consequat voluptate labore. Labore cillum duis nulla laborum commodo labore irure fugiat duis magna. Velit eu labore amet cillum incididunt sint. Lorem exercitation officia laboris ad proident irure laboris reprehenderit.",
     },
     {
         id: "2",
+        type: "ul",
         value: "Consequat esse minim anim duis elit exercitation fugiat nostrud ut officia eu tempor fugiat mollit.",
     },
     {
         id: "3",
+        type: "ul",
+        value: "Cupidatat incididunt velit pariatur occaecat aliqua consectetur adipisicing occaecat cupidatat aliqua nostrud in proident magna. Qui reprehenderit nisi amet mollit eu veniam non magna mollit aute reprehenderit consectetur occaecat id. Aute nulla ut et eu. Pariatur ad irure qui aliqua non ullamco ut ad enim excepteur proident id.",
+    },
+    {
+        id: "4",
+        type: "text",
+        value: "Irure ex officia laborum qui mollit fugiat cupidatat occaecat do. Eiusmod aliqua cupidatat dolore commodo laboris ex sunt ea. Sint ea velit enim ut nulla pariatur sint commodo duis proident excepteur.Irure ex officia laborum qui mollit fugiat cupidatat occaecat do. Eiusmod aliqua cupidatat dolore commodo laboris ex sunt ea. Sint ea velit enim ut nulla pariatur sint commodo duis proident excepteur.Irure ex officia laborum qui mollit fugiat cupidatat occaecat do. Eiusmod aliqua cupidatat dolore commodo laboris ex sunt ea. Sint ea velit enim ut nulla pariatur sint commodo duis proident excepteur.Irure ex officia laborum qui mollit fugiat cupidatat occaecat do. Eiusmod aliqua cupidatat dolore commodo laboris ex sunt ea. Sint ea velit enim ut nulla pariatur sint commodo duis proident excepteur.Irure ex officia laborum qui mollit fugiat cupidatat occaecat do. Eiusmod aliqua cupidatat dolore commodo laboris ex sunt ea. Sint ea velit enim ut nulla pariatur sint commodo duis proident excepteur.Irure ex officia laborum qui mollit fugiat cupidatat occaecat do. Eiusmod aliqua cupidatat dolore commodo laboris ex sunt ea. Sint ea velit enim ut nulla pariatur sint commodo duis proident excepteur.Irure ex officia laborum qui mollit fugiat cupidatat occaecat do. Eiusmod aliqua cupidatat dolore commodo laboris ex sunt ea. Sint ea velit enim ut nulla pariatur sint commodo duis proident excepteur.",
+    },
+    {
+        id: "5",
+        type: "h2",
+        value: "In in ut officia qui dolore anim ea excepteur. Pariatur fugiat ipsum cillum Lorem officia deserunt sint esse culpa deserunt enim consequat voluptate labore. Labore cillum duis nulla laborum commodo labore irure fugiat duis magna. Velit eu labore amet cillum incididunt sint. Lorem exercitation officia laboris ad proident irure laboris reprehenderit.",
+    },
+    {
+        id: "6",
+        type: "h3",
+        value: "Consequat esse minim anim duis elit exercitation fugiat nostrud ut officia eu tempor fugiat mollit.",
+    },
+    {
+        id: "7",
+        type: "text",
         value: "Cupidatat incididunt velit pariatur occaecat aliqua consectetur adipisicing occaecat cupidatat aliqua nostrud in proident magna. Qui reprehenderit nisi amet mollit eu veniam non magna mollit aute reprehenderit consectetur occaecat id. Aute nulla ut et eu. Pariatur ad irure qui aliqua non ullamco ut ad enim excepteur proident id.",
     },
 ]
@@ -67,10 +91,11 @@ const PagePage = inject("rootStore", "settingsStore", "profileStore")(observer((
                     spacing={6}
                     sx={{
                         p: 6,
+                        // height: "100%",
                     }}
                 >
-                    <TextEditor />
-                    <InlineToolPanel />
+                    {/* <TextEditor /> */}
+                    {/* <InlineToolPanel /> */}
                     <DragDrop quotes={quotes} setQuotes={setQuotes} />
                 </Stack>
             </NavigationAll>

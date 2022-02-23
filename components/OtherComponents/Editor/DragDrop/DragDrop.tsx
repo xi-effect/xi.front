@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable func-names */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prefer-exact-props */
@@ -9,19 +10,20 @@
 /* eslint-disable react/display-name */
 // @flow
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import 'react-virtualized/styles.css';
-import { AutoSizer, List } from 'react-virtualized';
+// import { AutoSizer, List } from 'react-virtualized';
 import {
   Droppable,
   Draggable,
   DragDropContext,
-  DroppableProvided,
+  // DroppableProvided,
   DraggableProvided,
   DraggableStateSnapshot,
-  DraggableRubric,
+  // DraggableRubric,
   DropResult,
 } from 'react-beautiful-dnd';
+import { Grid } from '@mui/material';
 import QuoteItem from './QuoteItem';
 
 const reorder = (list: any[], startIndex: number, endIndex: number): any[] => {
@@ -34,6 +36,7 @@ const reorder = (list: any[], startIndex: number, endIndex: number): any[] => {
 
 type Quote = {
   id: string;
+  type: string;
   value: string;
 };
 
@@ -42,27 +45,53 @@ type Props = {
   setQuotes: (quotes: Quote[]) => void;
 };
 
-type RowProps = {
+type ComponentProps = {
+  quote: Quote;
   index: number;
+  deleteItem: (index: number) => void;
+  duplicateItem: (index: number) => void;
 };
 
-const getRowRender = (quotes: Quote[]) =>
-  function ({ index }: RowProps) {
-    const quote: Quote = quotes[index];
+function Component(props: ComponentProps) {
+  const { quote, index, deleteItem, duplicateItem } = props;
+  return (
+    <Draggable draggableId={quote.id} index={index} key={quote.id}>
+      {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
+        <QuoteItem
+          deleteItem={deleteItem}
+          duplicateItem={duplicateItem}
+          provided={provided}
+          quote={quote}
+          isDragging={snapshot.isDragging}
+          index={index}
+        />
+      )}
+    </Draggable>
+  );
+}
 
-    return (
-      <Draggable draggableId={quote.id} index={index} key={quote.id}>
-        {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-          <QuoteItem
-            provided={provided}
-            quote={quote}
-            isDragging={snapshot.isDragging}
-            index={index}
-          />
-        )}
-      </Draggable>
-    );
-  };
+type ComponentsListProps = {
+  quotes: Quote[];
+  deleteItem: (index: number) => void;
+  duplicateItem: (index: number) => void;
+};
+
+function ComponentsList(props: ComponentsListProps) {
+  const { quotes, deleteItem, duplicateItem } = props;
+  return (
+    <>
+      {quotes.map((quote, index) => (
+        <Component
+          deleteItem={deleteItem}
+          duplicateItem={duplicateItem}
+          quote={quote}
+          index={index}
+          key={index.toString()}
+        />
+      ))}
+    </>
+  );
+}
 
 function DragDrop(props: Props) {
   const { quotes, setQuotes } = props;
@@ -78,50 +107,70 @@ function DragDrop(props: Props) {
     setQuotes(newQuotes);
   }
 
+  const deleteItem = (index: number) => {
+    let newQuotes: Quote[] = quotes;
+    newQuotes.splice(index, 1);
+    // for (let i = 0; i < newQuotes.length; i += 1) {
+    //   newQuotes[i].id = i.toString();
+    // }
+    const newItems: Quote[] = newQuotes.map((item, indx) => ({
+      ...item,
+      id: indx.toString(),
+    }));
+
+    console.log('newItems', newItems);
+    setQuotes([...newItems]);
+  };
+
+  const duplicateItem = (index: number) => {
+    let newQuotes: Quote[] = quotes;
+    newQuotes.splice(index, 0, quotes[index]);
+    // for (let i = 0; i < newQuotes.length; i += 1) {
+    //   newQuotes[i].id = i.toString();
+    //   console.log('newQuotes[i]', newQuotes[i]);
+    // }
+    const newItems: Quote[] = newQuotes.map((item, indx) => ({
+      ...item,
+      id: indx.toString(),
+    }));
+    
+    console.log('newItems', newItems);
+    setQuotes([...newItems]);
+  };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable
         droppableId="droppable"
-        mode="virtual"
-        renderClone={(
-          provided: DraggableProvided,
-          snapshot: DraggableStateSnapshot,
-          rubric: DraggableRubric,
-        ) => (
-          <QuoteItem
-            provided={provided}
-            isDragging={snapshot.isDragging}
-            quote={quotes[rubric.source.index]}
-            index={rubric.source.index}
-          />
-        )}>
-        {(droppableProvided: DroppableProvided) => (
-          <AutoSizer>
-            {({ height, width }) => (
-              <List
-                autoHeight
-                rowCount={quotes.length}
-                height={height}
-                // isScrolling={isScrolling}
-                // onScroll={onChildScroll}
-                // scrollTop={scrollTop}
-                rowHeight={110}
-                width={width}
-                ref={(ref: React.ReactInstance | null | undefined) => {
-                  // react-virtualized has no way to get the list's ref that I can so
-                  // So we use the `ReactDOM.findDOMNode(ref)` escape hatch to get the ref
-                  if (ref) {
-                    // eslint-disable-next-line react/no-find-dom-node
-                    const whatHasMyLifeComeTo = ReactDOM.findDOMNode(ref);
-                    if (whatHasMyLifeComeTo instanceof HTMLElement) {
-                      droppableProvided.innerRef(whatHasMyLifeComeTo);
-                    }
-                  }
-                }}
-                rowRenderer={getRowRender(quotes)}
-              />
-            )}
-          </AutoSizer>
+        // mode="virtual"
+        // renderClone={(
+        //   provided: DraggableProvided,
+        //   snapshot: DraggableStateSnapshot,
+        //   rubric: DraggableRubric,
+        // ) => (
+        //   <QuoteItem
+        //     provided={provided}
+        //     isDragging={snapshot.isDragging}
+        //     quote={quotes[rubric.source.index]}
+        //     index={rubric.source.index}
+        //   />
+        // )}
+      >
+        {(provided) => (
+          <Grid
+            ref={provided.innerRef}
+            sx={{
+              width: 'calc(100% - 16px)',
+              height: '100%',
+              pb: 30,
+            }}
+            container
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center">
+            <ComponentsList quotes={quotes} deleteItem={deleteItem} duplicateItem={duplicateItem} />
+            {provided.placeholder}
+          </Grid>
         )}
       </Droppable>
     </DragDropContext>

@@ -134,6 +134,7 @@ const NavigationAll = inject(
               mr: "256px",
             }}
           >
+            {/* && !(router.pathname.includes("/page/")) */}
             <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
             {!(router.pathname.includes("/message") && !(router.pathname.includes("chat"))) && <Scrollbars
               renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
@@ -146,6 +147,7 @@ const NavigationAll = inject(
             >
               {children}
             </Scrollbars>}
+            {/* || router.pathname.includes("/page/") */}
             {router.pathname.includes("message") || router.pathname.includes("chat") && children}
             {/* <ChatDialog /> */}
           </Box>
@@ -285,7 +287,7 @@ const NavigationAll = inject(
             }}
           >
             <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
-            {!(router.pathname.includes("/message")) && <Scrollbars
+            {!(router.pathname.includes("/message")) && !(router.pathname.includes("/page/")) && <Scrollbars
               renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
               renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
               universal
@@ -296,7 +298,7 @@ const NavigationAll = inject(
             >
               {children}
             </Scrollbars>}
-            {router.pathname.includes("/message") && children}
+            {router.pathname.includes("/message") || router.pathname.includes("/page/") && children}
             {/* <ChatDialog /> */}
           </Box>
         </Box>

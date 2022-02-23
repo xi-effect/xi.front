@@ -48,7 +48,7 @@ const MyApp = (observer((props) => {
         {/* <title>
           Ξ Effect
         </title> */}
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
         <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
         <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
         <meta name="yandex-verification" content="879d56b8525183be" />

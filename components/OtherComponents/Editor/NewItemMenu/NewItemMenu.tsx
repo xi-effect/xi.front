@@ -35,6 +35,9 @@ const NewItemMenu: React.FC<NewItemMenuProps> = ({ contextMenu, selectItemMenu, 
         width: '40ch',
       },
     }}>
+    <Typography variant="h6" sx={{ ml: 2 }}>
+      Выберите новый блок
+    </Typography>
     {NewBlocks.map((item, index) => (
       <MenuItem key={index.toString()} onClick={() => selectItemMenu(item.type)}>
         <Stack direction="column" justifyContent="center" alignItems="flex-start">
