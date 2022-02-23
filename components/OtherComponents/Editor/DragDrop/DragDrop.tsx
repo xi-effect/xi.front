@@ -118,7 +118,7 @@ function DragDrop(props: Props) {
       id: indx.toString(),
     }));
 
-    console.log('newItems', newItems);
+    // console.log('newItems', newItems); 
     setQuotes([...newItems]);
   };
 
@@ -133,8 +133,8 @@ function DragDrop(props: Props) {
       ...item,
       id: indx.toString(),
     }));
-    
-    console.log('newItems', newItems);
+
+    // console.log('newItems', newItems);
     setQuotes([...newItems]);
   };
 

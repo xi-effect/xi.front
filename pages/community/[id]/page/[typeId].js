@@ -8,13 +8,13 @@ import dynamic from "next/dynamic";
 import { Stack } from "@mui/material";
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
 
-const TextEditor = dynamic(() => import("../../../../components/OtherComponents/Editor/TextEditor/TextEditor.tsx"), {
-    ssr: false,
-})
+// const TextEditor = dynamic(() => import("../../../../components/OtherComponents/Editor/TextEditor/TextEditor.tsx"), {
+//     ssr: false,
+// })
 
-const InlineToolPanel = dynamic(() => import("../../../../components/OtherComponents/Editor/InlineToolPanel/InlineToolPanel.tsx"), {
-    ssr: false,
-})
+// const InlineToolPanel = dynamic(() => import("../../../../components/OtherComponents/Editor/InlineToolPanel/InlineToolPanel.tsx"), {
+//     ssr: false,
+// })
 
 const DragDrop = dynamic(() => import("../../../../components/OtherComponents/Editor/DragDrop/DragDrop.tsx"), {
     ssr: false,

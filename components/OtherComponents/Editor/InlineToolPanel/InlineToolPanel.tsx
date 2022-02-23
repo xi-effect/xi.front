@@ -7,7 +7,7 @@
 /* eslint-disable import/extensions */
 import * as React from 'react';
 import Popper, { PopperProps } from '@mui/material/Popper';
-import { Paper, Stack, Fade, Typography, Button, ClickAwayListener } from '@mui/material';
+import { Paper, Stack, Fade, Typography, Button } from '@mui/material';
 // import "./TextEditor.scss";
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 
@@ -34,14 +34,15 @@ const InlineToolPanel: React.FC<InlineToolPanelProps> = () => {
       // if (selection && selection.rangeCount > 0) {
       // Resets when the selection has a length of 0
 
-      const getBoundingClientRect = () => {
+      const getBoundingClientReact = () => {
         if (selection && selection.rangeCount >= 1) return selection.getRangeAt(0).getBoundingClientRect();
         return null;
       } 
       console.log('selection1', selection);
       setOpen(true);
       setAnchorEl({
-        getBoundingClientRect,
+        // @ts-ignore
+        getBoundingClientReact,
       });
     }
     // }
