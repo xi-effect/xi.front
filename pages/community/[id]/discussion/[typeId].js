@@ -4,8 +4,7 @@ import Head from "next/head";
 import { inject, observer } from "mobx-react";
 
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
-import Discussion from "../../../../components/PagesComponents/Community/Discussion";
-
+import Discussion from "../../../../components/PagesComponents/Community/Discussion/Discussion";
 
 const DiscussionPage = inject(
 )(observer(() => (
