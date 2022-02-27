@@ -19,6 +19,7 @@ import { grey } from '@mui/material/colors';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 const drawerBleeding = 0;
 // @ts-ignore
@@ -152,6 +153,18 @@ function MobileContextMenu(props: Props) {
             </ListItemIcon>
             <ListItemText disableTypography sx={{ fontSize: 18, fontWeight: 'bold' }}>
               Дублировать
+            </ListItemText>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              duplicateItem(index);
+              setOpen(false); 
+            }}>
+            <ListItemIcon>
+              <FileCopyIcon />
+            </ListItemIcon>
+            <ListItemText disableTypography sx={{ fontSize: 18, fontWeight: 'bold' }}>
+              Скопировать текст
             </ListItemText>
           </MenuItem>
         </Box>

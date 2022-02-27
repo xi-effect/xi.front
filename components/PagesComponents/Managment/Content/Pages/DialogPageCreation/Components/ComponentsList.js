@@ -12,8 +12,6 @@ import Quiz from "./Quiz";
 import List from "./List";
 import Markdown from "./Markdown";
 import NumberAnswer from "./NumberAnswer";
-import Code from "./Code";
-
 
 function ModuleSelect(component, index) {
     if (component.type === "h") return (
@@ -42,9 +40,6 @@ function ModuleSelect(component, index) {
     )
     if (component.type === "numanswer") return (
         <NumberAnswer index={index} />
-    )
-    if (component.type === "code") return (
-        <Code index={index} />
     )
 }
 

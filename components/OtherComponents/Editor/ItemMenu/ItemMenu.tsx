@@ -10,6 +10,7 @@ import { Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 // import "./TextEditor.scss";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 type ItemMenuProps = {
   className?: string;
@@ -66,6 +67,16 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
         <ContentCopyIcon fontSize="small" />
       </ListItemIcon>
       <ListItemText>Дублировать</ListItemText>
+    </MenuItem>
+    <MenuItem
+      onClick={() => {
+        duplicateItem(index);
+        selectItemMenu();
+      }}>
+      <ListItemIcon>
+        <FileCopyIcon fontSize="small" />
+      </ListItemIcon>
+      <ListItemText>Скопировать текст</ListItemText>
     </MenuItem>
   </Menu>
 );
