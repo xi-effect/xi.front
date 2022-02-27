@@ -75,6 +75,7 @@
     "remark-gfm": "^3.0.1",
     "socket.io-client": "^4.3.2",
     "typescript": "^4.5.5",
+    "use-double-click": "^1.0.5",
     "use-long-press": "^1.1.2",
     "worker-loader": "^3.0.8",
     "yup": "^0.32.11"
