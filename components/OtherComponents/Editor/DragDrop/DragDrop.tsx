@@ -24,7 +24,8 @@ import {
   DropResult,
 } from 'react-beautiful-dnd';
 import { Grid } from '@mui/material';
-import QuoteItem from './QuoteItem';
+import Item from './Item';
+import { BlocksTypeDict } from '../config';
 
 const reorder = (list: any[], startIndex: number, endIndex: number): any[] => {
   const result = Array.from(list);
@@ -34,34 +35,36 @@ const reorder = (list: any[], startIndex: number, endIndex: number): any[] => {
   return result;
 };
 
-type Quote = {
+type ItemType = {
   id: string;
   type: string;
   value: string;
 };
 
 type Props = {
-  quotes: Quote[];
-  setQuotes: (quotes: Quote[]) => void;
+  items: ItemType[];
+  setItems: (Items: ItemType[]) => void;
 };
 
 type ComponentProps = {
-  quote: Quote;
+  item: ItemType;
   index: number;
   deleteItem: (index: number) => void;
   duplicateItem: (index: number) => void;
+  addNewItem: (index: number, type: string) => void;
 };
 
 function Component(props: ComponentProps) {
-  const { quote, index, deleteItem, duplicateItem } = props;
+  const { item, index, addNewItem, deleteItem, duplicateItem } = props;
   return (
-    <Draggable draggableId={quote.id} index={index} key={quote.id}>
+    <Draggable draggableId={item.id} index={index} key={item.id}>
       {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-        <QuoteItem
+        <Item
+          addNewItem={addNewItem}
           deleteItem={deleteItem}
           duplicateItem={duplicateItem}
           provided={provided}
-          quote={quote}
+          item={item}
           isDragging={snapshot.isDragging}
           index={index}
         />
@@ -71,20 +74,22 @@ function Component(props: ComponentProps) {
 }
 
 type ComponentsListProps = {
-  quotes: Quote[];
+  items: ItemType[];
   deleteItem: (index: number) => void;
   duplicateItem: (index: number) => void;
+  addNewItem: (index: number, type: string) => void;
 };
 
 function ComponentsList(props: ComponentsListProps) {
-  const { quotes, deleteItem, duplicateItem } = props;
+  const { items, addNewItem, deleteItem, duplicateItem } = props;
   return (
     <>
-      {quotes.map((quote, index) => (
+      {items.map((item, index) => (
         <Component
+          addNewItem={addNewItem}
           deleteItem={deleteItem}
           duplicateItem={duplicateItem}
-          quote={quote}
+          item={item}
           index={index}
           key={index.toString()}
         />
@@ -94,7 +99,7 @@ function ComponentsList(props: ComponentsListProps) {
 }
 
 function DragDrop(props: Props) {
-  const { quotes, setQuotes } = props;
+  const { items, setItems } = props;
   function onDragEnd(result: DropResult) {
     if (!result.destination) {
       return;
@@ -103,39 +108,59 @@ function DragDrop(props: Props) {
       return;
     }
 
-    const newQuotes: Quote[] = reorder(quotes, result.source.index, result.destination.index);
-    setQuotes(newQuotes);
+    const newItems: ItemType[] = reorder(items, result.source.index, result.destination.index);
+    setItems(newItems);
   }
 
   const deleteItem = (index: number) => {
-    let newQuotes: Quote[] = quotes;
-    newQuotes.splice(index, 1);
-    // for (let i = 0; i < newQuotes.length; i += 1) {
-    //   newQuotes[i].id = i.toString();
+    let newItems: ItemType[] = items;
+    newItems.splice(index, 1);
+    // for (let i = 0; i < newItems.length; i += 1) {
+    //   newItems[i].id = i.toString();
     // }
-    const newItems: Quote[] = newQuotes.map((item, indx) => ({
-      ...item,
-      id: indx.toString(),
-    }));
-
-    // console.log('newItems', newItems); 
-    setQuotes([...newItems]);
-  };
-
-  const duplicateItem = (index: number) => {
-    let newQuotes: Quote[] = quotes;
-    newQuotes.splice(index, 0, quotes[index]);
-    // for (let i = 0; i < newQuotes.length; i += 1) {
-    //   newQuotes[i].id = i.toString();
-    //   console.log('newQuotes[i]', newQuotes[i]);
-    // }
-    const newItems: Quote[] = newQuotes.map((item, indx) => ({
+    const newItemsLast: ItemType[] = newItems.map((item, indx) => ({
       ...item,
       id: indx.toString(),
     }));
 
     // console.log('newItems', newItems);
-    setQuotes([...newItems]);
+    setItems([...newItemsLast]);
+  };
+
+  const duplicateItem = (index: number) => {
+    let newItems: ItemType[] = items;
+    newItems.splice(index, 0, items[index]);
+    // for (let i = 0; i < newItems.length; i += 1) {
+    //   newItems[i].id = i.toString();
+    //   console.log('newItems[i]', newItems[i]);
+    // }
+    const newItemsLast: ItemType[] = newItems.map((item, indx) => ({
+      ...item,
+      id: indx.toString(),
+    }));
+
+    // console.log('newItems', newItems);
+    setItems([...newItemsLast]);
+  };
+
+  const addNewItem = (index: number, type: string) => {
+    let newItems: ItemType[] = items;
+    // @ts-ignore
+    if (BlocksTypeDict[type]) {
+      // @ts-ignore
+      newItems.splice(index + 1, 0, BlocksTypeDict[type]);
+    }
+    // for (let i = 0; i < newItems.length; i += 1) {
+    //   newItems[i].id = i.toString();
+    //   console.log('newItems[i]', newItems[i]);
+    // }
+    const newItemsLast: ItemType[] = newItems.map((item, indx) => ({
+      ...item,
+      id: indx.toString(),
+    }));
+
+    // console.log('newItems', newItems);
+    setItems([...newItemsLast]);
   };
 
   return (
@@ -148,10 +173,10 @@ function DragDrop(props: Props) {
         //   snapshot: DraggableStateSnapshot,
         //   rubric: DraggableRubric,
         // ) => (
-        //   <QuoteItem
+        //   <ItemItem
         //     provided={provided}
         //     isDragging={snapshot.isDragging}
-        //     quote={quotes[rubric.source.index]}
+        //     Item={Items[rubric.source.index]}
         //     index={rubric.source.index}
         //   />
         // )}
@@ -168,7 +193,12 @@ function DragDrop(props: Props) {
             direction="row"
             justifyContent="flex-start"
             alignItems="center">
-            <ComponentsList quotes={quotes} deleteItem={deleteItem} duplicateItem={duplicateItem} />
+            <ComponentsList
+              items={items}
+              addNewItem={addNewItem}
+              deleteItem={deleteItem}
+              duplicateItem={duplicateItem}
+            />
             {provided.placeholder}
           </Grid>
         )}

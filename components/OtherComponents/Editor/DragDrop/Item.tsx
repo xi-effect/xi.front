@@ -4,27 +4,30 @@
 /* eslint-disable react/prefer-exact-props */
 // @flow
 import React from 'react';
-import { IconButton, Stack } from '@mui/material';
+import { IconButton, Stack, useMediaQuery } from '@mui/material';
 import type { DraggableProvided } from 'react-beautiful-dnd';
 import AddIcon from '@mui/icons-material/Add';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import { useLongPress } from 'use-long-press';
 import NewItemMenu from '../NewItemMenu/NewItemMenu';
 import ItemMenu from '../ItemMenu/ItemMenu';
 import BlockSelection from '../Blocks/BlockSelection';
+import MobileContextMenu from './MobileContextMenu';
 
-type Quote = {
+type ItemType = {
   id: string;
   type: string;
   value: string;
 };
 
 type Props = {
-  quote: Quote;
+  item: ItemType;
   isDragging: boolean;
   provided: DraggableProvided;
   index: number;
   deleteItem: (index: number) => void;
   duplicateItem: (index: number) => void;
+  addNewItem: (index: number, type: string) => void;
 };
 
 // Previously this extended React.Component
@@ -35,11 +38,14 @@ type Props = {
 // things we should be doing in the selector as we do not know if consumers
 // will be using PureComponent
 
-function QuoteItem(props: Props) {
-  const { index, isDragging, quote, provided, deleteItem, duplicateItem } = props;
+function Item(props: Props) {
+  const { index, isDragging, item, provided, addNewItem, deleteItem, duplicateItem } = props;
+  // @ts-ignore
+  const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
 
   const [hover, setHover] = React.useState(false);
   const [contextNewMenu, setContextNewMenu] = React.useState(null);
+  const [mobileContext, setMobileContext] = React.useState(false);
 
   const handleContextNewMenu = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -77,6 +83,16 @@ function QuoteItem(props: Props) {
 
   // console.log('provided', provided);
 
+  const bind = useLongPress(
+    () => {
+      console.log('Long pressed!');
+      setMobileContext(true);
+    },
+    {
+      threshold: 600,
+    },
+  );
+
   return (
     <Stack
       onMouseEnter={() => setHover(true)}
@@ -86,55 +102,82 @@ function QuoteItem(props: Props) {
       alignItems="flex-start"
       sx={{
         p: 1,
+        width: '100%',
         cursor: 'default !important',
       }}
       ref={provided.innerRef}
       draggable={isDragging}
       {...provided.draggableProps}>
-      <AddIcon
-        onClick={(e) => handleContextNewMenu(e)}
-        sx={{
-          color: 'text.secondary',
-          cursor: 'pointer !important',
-          visibility: hover ? 'visible' : 'hidden',
-          transition: '0.1s',
-          mt: '12px',
-        }}
-      />
-      <NewItemMenu
-        contextMenu={contextNewMenu}
-        selectItemMenu={() => setContextNewMenu(null)}
-        closeMenu={() => setContextNewMenu(null)}
-      />
-      <IconButton
-        onClick={(e) => handleContextMenu(e)}
-        {...provided.dragHandleProps}
-        sx={{
-          cursor: 'grab !important',
-          visibility: hover ? 'visible' : 'hidden',
-          transition: '0.1s',
-          mt: '4px',
-        }}>
-        <DragIndicatorIcon
+      {!mobile && (
+        <AddIcon
+          onClick={(event) => handleContextNewMenu(event)}
           sx={{
             color: 'text.secondary',
+            cursor: 'pointer !important',
+            visibility: hover ? 'visible' : 'hidden',
+            transition: '0.1s',
+            mt: '12px',
           }}
         />
-      </IconButton>
-      <ItemMenu
-        contextMenu={contextMenu}
-        selectItemMenu={() => setContextMenu(null)}
-        closeMenu={() => setContextMenu(null)}
+      )}
+      {!mobile && (
+        <NewItemMenu
+          contextMenu={contextNewMenu}
+          selectItemMenu={() => setContextNewMenu(null)}
+          closeMenu={() => setContextNewMenu(null)}
+          addNewItem={addNewItem}
+          index={index}
+        />
+      )}
+      {!mobile && (
+        <IconButton
+          onClick={(e) => handleContextMenu(e)}
+          {...provided.dragHandleProps}
+          sx={{
+            cursor: 'grab !important',
+            visibility: hover ? 'visible' : 'hidden',
+            transition: '0.1s',
+            mt: '4px',
+          }}>
+          <DragIndicatorIcon
+            sx={{
+              color: 'text.secondary',
+            }}
+          />
+        </IconButton>
+      )}
+      {!mobile && (
+        <ItemMenu
+          contextMenu={contextMenu}
+          selectItemMenu={() => setContextMenu(null)}
+          closeMenu={() => setContextMenu(null)}
+          deleteItem={deleteItem}
+          duplicateItem={duplicateItem}
+          index={index}
+        />
+      )}
+      <MobileContextMenu
+        open={mobileContext}
+        index={index}
+        setOpen={setMobileContext}
+        addNewItem={addNewItem}
         deleteItem={deleteItem}
         duplicateItem={duplicateItem}
-        index={index}
       />
-      <Stack direction="row" justifyContent="flex-start" alignItems="center">
+      <Stack
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="center"
+        sx={{
+          width: '100%',
+          // minHeight: '32px',
+        }}
+        {...bind}>
         {/* @ts-ignore */}
-        <BlockSelection type={quote.type}>{quote.value}</BlockSelection>
+        <BlockSelection type={item.type}>{item.value}</BlockSelection>
       </Stack>
     </Stack>
   );
 }
 
-export default React.memo<Props>(QuoteItem);
+export default React.memo<Props>(Item);

@@ -15,11 +15,19 @@ type NewItemMenuProps = {
   contextMenu: any;
   selectItemMenu: (type: string) => void;
   closeMenu: () => void;
+  addNewItem: (index: number, type: string) => void;
+  index: number;
 };
 
 const ITEM_HEIGHT = 80;
 
-const NewItemMenu: React.FC<NewItemMenuProps> = ({ contextMenu, selectItemMenu, closeMenu }) => (
+const NewItemMenu: React.FC<NewItemMenuProps> = ({
+  contextMenu,
+  selectItemMenu,
+  closeMenu,
+  addNewItem,
+  index,
+}) => (
   <Menu
     open={contextMenu !== null}
     onClose={closeMenu}
@@ -38,8 +46,13 @@ const NewItemMenu: React.FC<NewItemMenuProps> = ({ contextMenu, selectItemMenu, 
     <Typography variant="h6" sx={{ ml: 2 }}>
       Выберите новый блок
     </Typography>
-    {NewBlocks.map((item, index) => (
-      <MenuItem key={index.toString()} onClick={() => selectItemMenu(item.type)}>
+    {NewBlocks.map((item, indx) => (
+      <MenuItem
+        key={indx.toString()}
+        onClick={() => {
+          addNewItem(index, item.type);
+          selectItemMenu(item.type);
+        }}>
         <Stack direction="column" justifyContent="center" alignItems="flex-start">
           <Typography variant="h6">{item.label}</Typography>
           <Typography sx={{ color: 'text.secondary' }} variant="subtitle1">

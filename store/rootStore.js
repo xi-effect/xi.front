@@ -24,6 +24,7 @@ let store
 
 class RootStore {
   url = process.env.NEXT_PUBLIC_SERVER_URL
+
   constructor() {
     this.uiStore = new UIStore(this)
     this.homeStore = new HomeStore(this)
@@ -55,8 +56,8 @@ class RootStore {
       let response = null
       if (data != null) {
         response = await fetch(url, {
-          method: method, // *GET, POST, PUT, DELETE, etc.
-          //mode: "no-cors", // no-cors, *cors, same-origin
+          method, // *GET, POST, PUT, DELETE, etc.
+          // mode: "no-cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
           credentials: "include", // include, *same-origin, omit
           headers: {
@@ -69,8 +70,8 @@ class RootStore {
       }
       if (data == null) {
         response = await fetch(url, {
-          method: method, // *GET, POST, PUT, DELETE, etc.
-          //mode: "no-cors", // no-cors, *cors, same-origin
+          method, // *GET, POST, PUT, DELETE, etc.
+          // mode: "no-cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
           credentials: "include", // include, *same-origin, omit
           headers: {
@@ -80,18 +81,18 @@ class RootStore {
           // referrerPolicy, // no-referrer, *client
         });
       }
-      //console.log(response.headers)
+      // console.log(response.headers)
       if (response.ok) {
         const string = await response.text();
         const json = string === "" ? {} : JSON.parse(string);
         return json; // parses JSON response into native JavaScript objects
-      } else {
+      } 
         const string = await response.text();
         const json = string === "" ? {} : JSON.parse(string);
         return json;
-      }
+      
     } catch (error) {
-      //console.log(error)
+      // console.log(error)
       console.log("Возникла проблема с вашим fetch запросом: ", error.message);
     }
   }
@@ -99,12 +100,12 @@ class RootStore {
   @action async fetchDataScr(url, method, data = null) { // mode, cache, credentials, redirect, referrerPolicy
     // Default options are marked with *
     try {
-      //console.log("Печенье:", this.getCookie("csrf_access_token"))
+      // console.log("Печенье:", this.getCookie("csrf_access_token"))
       let response = null
       if (data != null) {
         response = await fetch(url, {
-          method: method, // *GET, POST, PUT, DELETE, etc.
-          //mode: "no-cors", // no-cors, *cors, same-origin
+          method, // *GET, POST, PUT, DELETE, etc.
+          // mode: "no-cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
           credentials: "include", // include, *same-origin, omit
           headers: {
@@ -117,8 +118,8 @@ class RootStore {
       }
       if (data == null) {
         response = await fetch(url, {
-          method: method, // *GET, POST, PUT, DELETE, etc.
-          //mode: "no-cors", // no-cors, *cors, same-origin
+          method, // *GET, POST, PUT, DELETE, etc.
+          // mode: "no-cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
           credentials: "include", // include, *same-origin, omit
           headers: {
@@ -139,11 +140,11 @@ class RootStore {
         const string = await response.text();
         const json = string === "" ? {} : JSON.parse(string);
         return json; // parses JSON response into native JavaScript objects
-      } else {
+      } 
         const string = await response.text();
         const json = string === "" ? {} : JSON.parse(string);
         return json;
-      }
+      
     } catch (error) {
       // console.log(error)
       console.log("Возникла проблема с вашим fetch запросом: ", error.message);

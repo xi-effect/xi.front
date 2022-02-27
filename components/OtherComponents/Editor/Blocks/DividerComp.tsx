@@ -15,5 +15,7 @@ type DividerProps = {
   // children: React.ReactElement;
 };
 
-const DividerComp: React.FC<DividerProps> = () => <Divider flexItem/>;
+const DividerComp: React.FC<DividerProps> = () => (
+  <Divider flexItem sx={{ height: '1px', width: '100%', bgcolor: 'text.primary', mt: 3 }} />
+);
 export default DividerComp;

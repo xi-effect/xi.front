@@ -7,6 +7,7 @@
 /* eslint-disable import/extensions */
 import { Typography } from '@mui/material';
 import * as React from 'react';
+import LensIcon from '@mui/icons-material/Lens';
 // import { Menu, MenuItem, Stack, ListItemIcon, ListItemText, Typography } from '@mui/material';
 // import "./TextEditor.scss";
 
@@ -15,5 +16,10 @@ type UlProps = {
   // children: React.ReactElement;
 };
 
-const Ul: React.FC<UlProps> = ({ children }) => <Typography>{children}</Typography>;
+const Ul: React.FC<UlProps> = ({ children }) => (
+  <>
+    <LensIcon sx={{ ml: 1, mr: 2, fontSize: 12 }} />
+    <Typography>{children}</Typography>
+  </>
+);
 export default Ul;

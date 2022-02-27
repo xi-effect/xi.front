@@ -112,7 +112,6 @@ const NavigationAll = inject(
         <Box
           sx={{
             zIndex: 0,
-            // display: "flex",
             backgroundColor: "background.main",
             minHeight: "100vh",
             overflow: "hidden",
@@ -125,7 +124,6 @@ const NavigationAll = inject(
           <Box
             sx={{
               zIndex: 0,
-              // display: "flex",
               backgroundColor: "background.main",
               height: "100vh",
               overflow: "hidden",
@@ -134,7 +132,6 @@ const NavigationAll = inject(
               mr: "256px",
             }}
           >
-            {/* && !(router.pathname.includes("/page/")) */}
             <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
             {!(router.pathname.includes("/message") && !(router.pathname.includes("chat"))) && <Scrollbars
               renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
@@ -197,11 +194,9 @@ const NavigationAll = inject(
         <Box
           sx={{
             zIndex: 0,
-            // display: "flex",
             backgroundColor: "background.main",
             minHeight: "100vh",
             overflow: "hidden",
-            // width: "100%",
           }}
           {...handlers}
         >
@@ -209,7 +204,6 @@ const NavigationAll = inject(
             {uiStore.navigation.swipe === "right" && <Box
               component={motion.div}
               variants={SidebarVariantsRight}
-              // initial={{ x: -200 }}
               animate="visible"
               transition={{
                 delay: 0,
@@ -236,7 +230,6 @@ const NavigationAll = inject(
             {uiStore.navigation.swipe === "left" && <Box
               component={motion.div}
               variants={SidebarVariantsLeft}
-              // initial={{ x: 200 }}
               animate="visible"
               transition={{
                 delay: 0,
@@ -261,7 +254,6 @@ const NavigationAll = inject(
           <Box
             sx={{
               zIndex: 0,
-              // display: "flex",
               backgroundColor: "background.main",
               filter: uiStore.navigation.swipe === "right" || uiStore.navigation.swipe === "left" ? "brightness(40%)" : "none",
               height: "100vh",
@@ -287,7 +279,7 @@ const NavigationAll = inject(
             }}
           >
             <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
-            {!(router.pathname.includes("/message")) && !(router.pathname.includes("/page/")) && <Scrollbars
+            {!(router.pathname.includes("/message")) && <Scrollbars
               renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
               renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
               universal
@@ -298,7 +290,7 @@ const NavigationAll = inject(
             >
               {children}
             </Scrollbars>}
-            {router.pathname.includes("/message") || router.pathname.includes("/page/") && children}
+            {router.pathname.includes("/message") && children}
             {/* <ChatDialog /> */}
           </Box>
         </Box>

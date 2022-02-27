@@ -5,7 +5,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import dynamic from "next/dynamic";
-import { Stack } from "@mui/material";
+import { Stack, useMediaQuery } from "@mui/material";
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
 
 // const TextEditor = dynamic(() => import("../../../../components/OtherComponents/Editor/TextEditor/TextEditor.tsx"), {
@@ -20,7 +20,7 @@ const DragDrop = dynamic(() => import("../../../../components/OtherComponents/Ed
     ssr: false,
 })
 
-const quotesIn = [
+const itemsIn = [
     {
         id: "0",
         type: "h1",
@@ -65,7 +65,9 @@ const quotesIn = [
 
 const PagePage = inject("rootStore", "settingsStore", "profileStore")(observer(() => {
     // console.log("router.query", router.query.id);
-    const [quotes, setQuotes] = React.useState(quotesIn)
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
+
+    const [items, setItems] = React.useState(itemsIn)
     const router = useRouter()
 
     React.useEffect(() => {
@@ -90,13 +92,13 @@ const PagePage = inject("rootStore", "settingsStore", "profileStore")(observer((
                     alignItems="flex-start"
                     spacing={6}
                     sx={{
-                        p: 6,
+                        p: mobile ? 1 : 6,
                         // height: "100%",
                     }}
                 >
                     {/* <TextEditor /> */}
                     {/* <InlineToolPanel /> */}
-                    <DragDrop quotes={quotes} setQuotes={setQuotes} />
+                    <DragDrop items={items} setItems={setItems} />
                 </Stack>
             </NavigationAll>
         </>
