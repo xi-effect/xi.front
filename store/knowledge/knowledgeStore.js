@@ -1,12 +1,11 @@
 import {
   action,
   observable,
-  computed,
-  runInAction,
   makeObservable,
 } from "mobx";
 
 import Router from "next/router"
+
 const router = Router
 class KnowledgeStore {
   // `this` from rootstore passed to the constructor and we can
@@ -18,7 +17,7 @@ class KnowledgeStore {
     makeObservable(this);
   }
 
-  //PageList
+  // PageList
 
   @observable pageList = {
     pages: [],
@@ -71,7 +70,7 @@ class KnowledgeStore {
       });
   };
 
-  //Page
+  // Page
 
   @observable page = {
     loading: true,
@@ -165,8 +164,8 @@ class KnowledgeStore {
     this.page.components.rightAnswersCounter = 0
     this.page.components.forEach((item, index) => {
       if (item.type === "quiz") {
-        let ra = item.rightAnswers
-        let ua = item.userAnswers
+        const ra = item.rightAnswers
+        const ua = item.userAnswers
         ra.sort()
         ua.sort()
         if (JSON.stringify(ra) === JSON.stringify(ua)) {
@@ -179,7 +178,7 @@ class KnowledgeStore {
 
   @action loadPage = () => {
     this.setPageData("loading", true);
-    let str = document.location.href.toString();
+    const str = document.location.href.toString();
     const id = str.slice(str.lastIndexOf("/") + 1);
     console.log("id", id);
     this.rootStore
@@ -194,7 +193,7 @@ class KnowledgeStore {
       });
   };
 
-  //ModuleList
+  // ModuleList
 
   @observable moduleList = {
     modules: [],
@@ -262,7 +261,7 @@ class KnowledgeStore {
       })
       .then((data) => {
         if (data.a) {
-          if (name != "hide")
+          if (name !== "hide")
             this.setModuleListDataInModules(index, indexName, value);
           if (name === "hide") this.loadModuleList();
         }
@@ -289,7 +288,7 @@ class KnowledgeStore {
     this.setModuleListData("loadingInd", true);
     this.rootStore
       .fetchDataScr(`${this.rootStore.url}/modules/`, "POST", {
-        filters: filters,
+        filters,
         counter: this.moduleList.counter,
         search: this.moduleList.search,
         sort: this.moduleList.sort,
@@ -428,7 +427,7 @@ class KnowledgeStore {
               )
               .then((data) => {
                 console.log("uaData", data)
-                for (let key in data) {
+                for (const key in data) {
                   console.log("key", key)
                   if (key !== "pageName") {
                     this.setPageComponentsData(key, "userAnswers", data[key])

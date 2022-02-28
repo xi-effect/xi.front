@@ -92,7 +92,7 @@ const PagePage = inject("rootStore", "settingsStore", "profileStore")(observer((
                     alignItems="flex-start"
                     spacing={6}
                     sx={{
-                        p: mobile ? 1 : 6,
+                        p: mobile ? 1 : 2,
                         // height: "100%",
                     }}
                 >

@@ -1,5 +1,4 @@
-import { action, observable, computed, runInAction, makeObservable } from "mobx"
-
+import { action, observable, makeObservable } from "mobx"
 
 class CommunityStore {
     // `this` from rootstore passed to the constructor and we can 
@@ -10,12 +9,13 @@ class CommunityStore {
         this.rootStore = rootStore;
         makeObservable(this)
     }
+
     @observable channels = [
         {
             id: 0,
             type: "chat",
             name: "Канал 2",
-            unread: 0, //Для чатов
+            unread: 0, // Для чатов
         },
         {
             id: 1,

@@ -8,7 +8,7 @@ import { IconButton, Stack, useMediaQuery } from '@mui/material';
 import type { DraggableProvided } from 'react-beautiful-dnd';
 import AddIcon from '@mui/icons-material/Add';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import useDoubleClick from 'use-double-click';
+import { useLongPress } from 'use-long-press';
 import NewItemMenu from '../NewItemMenu/NewItemMenu';
 import ItemMenu from '../ItemMenu/ItemMenu';
 import BlockSelection from '../Blocks/BlockSelection';
@@ -83,19 +83,16 @@ function Item(props: Props) {
 
   // console.log('provided', provided);
 
-  const buttonRef = React.useRef();
-
-  useDoubleClick({
-    onSingleClick: (e) => {
-      console.log(e, 'single click');
-    },
-    onDoubleClick: (e) => {
-      console.log(e, 'double click');
+  const bind = useLongPress(
+    () => {
+      console.log('Long pressed!');
       if (mobile) setMobileContext(true);
     },
-    ref: buttonRef,
-    latency: 400,
-  });
+    {
+      cancelOnMovement: true,
+      threshold: 500,
+    },
+  );
 
   return (
     <Stack
@@ -169,12 +166,13 @@ function Item(props: Props) {
         duplicateItem={duplicateItem}
       />
       <Stack
-        ref={buttonRef}
+        {...bind}
         direction="row"
         justifyContent="flex-start"
         alignItems="center"
         sx={{
           width: '100%',
+          userSelect: 'none',
           // minHeight: '32px',
         }}>
         {/* @ts-ignore */}
