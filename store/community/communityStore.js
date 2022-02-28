@@ -33,6 +33,11 @@ class CommunityStore {
                     type: "chat",
                     name: "Чат",
                 },
+                {
+                    id: 5,
+                    type: "page",
+                    name: "Страница",
+                },
             ]
         },
         {
@@ -67,6 +72,11 @@ class CommunityStore {
             id: 5,
             type: "room",
             name: "Комната",
+        },
+        {
+            id: 50,
+            type: "page",
+            name: "Страница",
         },
         {
             id: 2,
