@@ -6,24 +6,20 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 import * as React from 'react';
-import Text from './Text';
-import H1 from './H1';
-import H2 from './H2';
-import H3 from './H3';
-import Ul from './Ul';
-import Ol from './Ol';
-import DividerComp from './DividerComp';
-import Quote from './Quote';
+import Text from '../Blocks/Text';
+import H1 from '../Blocks/H1';
+import H2 from '../Blocks/H2';
+import H3 from '../Blocks/H3';
+import Ul from '../Blocks/Ul';
+import Ol from '../Blocks/Ol';
+import DividerComp from '../Blocks/DividerComp';
+import Quote from '../Blocks/Quote';
+import { SelectionHOCProps } from '../types';
 
 // import { Menu, MenuItem, Stack, ListItemIcon, ListItemText, Typography } from '@mui/material';
 // import "./TextEditor.scss";
 
-type BlockSelectionProps = {
-  type: string;
-  children: React.ReactElement;
-};
-
-const BlockSelection: React.FC<BlockSelectionProps> = ({ type, children }) => {
+const SelectionHOC: React.FC<SelectionHOCProps> = ({ type, children }) => {
   if (type === 'text') {
     return <Text>{children}</Text>;
   }
@@ -51,4 +47,4 @@ const BlockSelection: React.FC<BlockSelectionProps> = ({ type, children }) => {
   return null;
 };
 
-export default BlockSelection;
+export default SelectionHOC;

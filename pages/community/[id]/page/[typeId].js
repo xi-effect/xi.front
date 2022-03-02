@@ -16,7 +16,7 @@ import NavigationAll from "../../../../components/OtherComponents/Navigation/Nav
 //     ssr: false,
 // })
 
-const DragDrop = dynamic(() => import("../../../../components/OtherComponents/Editor/DragDrop/DragDrop.tsx"), {
+const ContentEditor = dynamic(() => import("../../../../components/OtherComponents/Editor/ContentEditor/ContentEditor.tsx"), {
     ssr: false,
 })
 
@@ -92,13 +92,14 @@ const PagePage = inject("rootStore", "settingsStore", "profileStore")(observer((
                     alignItems="flex-start"
                     spacing={6}
                     sx={{
-                        p: mobile ? 1 : 2,
+                        pl: mobile ? 1 : 2,
+                        pr: mobile ? 1 : 8,
                         // height: "100%",
                     }}
                 >
                     {/* <TextEditor /> */}
                     {/* <InlineToolPanel /> */}
-                    <DragDrop items={items} setItems={setItems} />
+                    <ContentEditor items={items} setItems={setItems} />
                 </Stack>
             </NavigationAll>
         </>

@@ -21,8 +21,8 @@ const Quote: React.FC<QuoteProps> = ({ children }) => (
       orientation="vertical"
       sx={{
         bgcolor: 'text.secondary',
-        height: '100%',
-        minHeight: '48px',
+        // height: '100%',
+        // minHeight: '48px',
         width: '4px',
         borderRadius: '2px',
         ml: 2,

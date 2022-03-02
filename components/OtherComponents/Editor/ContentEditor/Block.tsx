@@ -5,30 +5,14 @@
 // @flow
 import React from 'react';
 import { IconButton, Stack, useMediaQuery } from '@mui/material';
-import type { DraggableProvided } from 'react-beautiful-dnd';
 import AddIcon from '@mui/icons-material/Add';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { useLongPress } from 'use-long-press';
-import NewItemMenu from '../NewItemMenu/NewItemMenu';
-import ItemMenu from '../ItemMenu/ItemMenu';
-import BlockSelection from '../Blocks/BlockSelection';
-import MobileContextMenu from './MobileContextMenu';
-
-type ItemType = {
-  id: string;
-  type: string;
-  value: string;
-};
-
-type Props = {
-  item: ItemType;
-  isDragging: boolean;
-  provided: DraggableProvided;
-  index: number;
-  deleteItem: (index: number) => void;
-  duplicateItem: (index: number) => void;
-  addNewItem: (index: number, type: string) => void;
-};
+import NewItemMenu from '../Menus/NewItemMenu';
+import ItemMenu from '../Menus/ItemMenu';
+import SelectionHOC from './SelectionHOC';
+import MobileContextMenu from '../Menus/MobileContextMenu';
+import { BlockProps } from '../types';
 
 // Previously this extended React.Component
 // That was a good thing, because using React.PureComponent can hide
@@ -38,8 +22,17 @@ type Props = {
 // things we should be doing in the selector as we do not know if consumers
 // will be using PureComponent
 
-function Item(props: Props) {
-  const { index, isDragging, item, provided, addNewItem, deleteItem, duplicateItem } = props;
+function Block(props: BlockProps) {
+  const {
+    index,
+    isDragging,
+    item,
+    provided,
+    addNewItem,
+    deleteItem,
+    duplicateItem,
+    changeItemType,
+  } = props;
   // @ts-ignore
   const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
 
@@ -84,7 +77,8 @@ function Item(props: Props) {
   // console.log('provided', provided);
 
   const bind = useLongPress(
-    () => {
+    (event) => {
+      event?.preventDefault();
       console.log('Long pressed!');
       if (mobile) setMobileContext(true);
     },
@@ -104,6 +98,7 @@ function Item(props: Props) {
       sx={{
         p: 1,
         width: '100%',
+        height: '100%',
         cursor: 'default !important',
       }}
       ref={provided.innerRef}
@@ -151,9 +146,10 @@ function Item(props: Props) {
         <ItemMenu
           contextMenu={contextMenu}
           selectItemMenu={() => setContextMenu(null)}
-          closeMenu={() => setContextMenu(null)}
+          setContextMenu={setContextMenu}
           deleteItem={deleteItem}
           duplicateItem={duplicateItem}
+          changeItemType={changeItemType}
           index={index}
         />
       )}
@@ -164,6 +160,7 @@ function Item(props: Props) {
         addNewItem={addNewItem}
         deleteItem={deleteItem}
         duplicateItem={duplicateItem}
+        changeItemType={changeItemType}
       />
       <Stack
         {...bind}
@@ -172,14 +169,15 @@ function Item(props: Props) {
         alignItems="center"
         sx={{
           width: '100%',
+          height: '100%',
           userSelect: 'none',
           // minHeight: '32px',
         }}>
         {/* @ts-ignore */}
-        <BlockSelection type={item.type}>{item.value}</BlockSelection>
+        <SelectionHOC type={item.type}>{item.value}</SelectionHOC>
       </Stack>
     </Stack>
   );
 }
 
-export default React.memo<Props>(Item);
+export default React.memo<BlockProps>(Block);

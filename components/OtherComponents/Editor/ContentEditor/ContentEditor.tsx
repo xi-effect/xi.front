@@ -24,8 +24,9 @@ import {
   DropResult,
 } from 'react-beautiful-dnd';
 import { Grid } from '@mui/material';
-import Item from './Item';
+import Block from './Block';
 import { BlocksTypeDict } from '../config';
+import { BlockItemProps, BlocksListProps, BlockType, ContentEditorProps } from '../types';
 
 const reorder = (list: any[], startIndex: number, endIndex: number): any[] => {
   const result = Array.from(list);
@@ -35,34 +36,16 @@ const reorder = (list: any[], startIndex: number, endIndex: number): any[] => {
   return result;
 };
 
-type ItemType = {
-  id: string;
-  type: string;
-  value: string;
-};
-
-type Props = {
-  items: ItemType[];
-  setItems: (Items: ItemType[]) => void;
-};
-
-type ComponentProps = {
-  item: ItemType;
-  index: number;
-  deleteItem: (index: number) => void;
-  duplicateItem: (index: number) => void;
-  addNewItem: (index: number, type: string) => void;
-};
-
-function Component(props: ComponentProps) {
-  const { item, index, addNewItem, deleteItem, duplicateItem } = props;
+function BlockItem(props: BlockItemProps) {
+  const { item, index, addNewItem, deleteItem, duplicateItem, changeItemType } = props;
   return (
     <Draggable draggableId={item.id} index={index} key={item.id}>
       {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-        <Item
+        <Block
           addNewItem={addNewItem}
           deleteItem={deleteItem}
           duplicateItem={duplicateItem}
+          changeItemType={changeItemType}
           provided={provided}
           item={item}
           isDragging={snapshot.isDragging}
@@ -73,22 +56,16 @@ function Component(props: ComponentProps) {
   );
 }
 
-type ComponentsListProps = {
-  items: ItemType[];
-  deleteItem: (index: number) => void;
-  duplicateItem: (index: number) => void;
-  addNewItem: (index: number, type: string) => void;
-};
-
-function ComponentsList(props: ComponentsListProps) {
-  const { items, addNewItem, deleteItem, duplicateItem } = props;
+function BlocksList(props: BlocksListProps) {
+  const { items, addNewItem, deleteItem, duplicateItem, changeItemType } = props;
   return (
     <>
       {items.map((item, index) => (
-        <Component
+        <BlockItem
           addNewItem={addNewItem}
           deleteItem={deleteItem}
           duplicateItem={duplicateItem}
+          changeItemType={changeItemType}
           item={item}
           index={index}
           key={index.toString()}
@@ -98,7 +75,7 @@ function ComponentsList(props: ComponentsListProps) {
   );
 }
 
-function DragDrop(props: Props) {
+function ContentEditor(props: ContentEditorProps) {
   const { items, setItems } = props;
   function onDragEnd(result: DropResult) {
     if (!result.destination) {
@@ -108,17 +85,17 @@ function DragDrop(props: Props) {
       return;
     }
 
-    const newItems: ItemType[] = reorder(items, result.source.index, result.destination.index);
+    const newItems: BlockType[] = reorder(items, result.source.index, result.destination.index);
     setItems(newItems);
   }
 
   const deleteItem = (index: number) => {
-    let newItems: ItemType[] = items;
+    let newItems: BlockType[] = items;
     newItems.splice(index, 1);
     // for (let i = 0; i < newItems.length; i += 1) {
     //   newItems[i].id = i.toString();
     // }
-    const newItemsLast: ItemType[] = newItems.map((item, indx) => ({
+    const newItemsLast: BlockType[] = newItems.map((item, indx) => ({
       ...item,
       id: indx.toString(),
     }));
@@ -128,13 +105,13 @@ function DragDrop(props: Props) {
   };
 
   const duplicateItem = (index: number) => {
-    let newItems: ItemType[] = items;
+    let newItems: BlockType[] = items;
     newItems.splice(index, 0, items[index]);
     // for (let i = 0; i < newItems.length; i += 1) {
     //   newItems[i].id = i.toString();
     //   console.log('newItems[i]', newItems[i]);
     // }
-    const newItemsLast: ItemType[] = newItems.map((item, indx) => ({
+    const newItemsLast: BlockType[] = newItems.map((item, indx) => ({
       ...item,
       id: indx.toString(),
     }));
@@ -144,7 +121,7 @@ function DragDrop(props: Props) {
   };
 
   const addNewItem = (index: number, type: string) => {
-    let newItems: ItemType[] = items;
+    let newItems: BlockType[] = items;
     // @ts-ignore
     if (BlocksTypeDict[type]) {
       // @ts-ignore
@@ -154,12 +131,24 @@ function DragDrop(props: Props) {
     //   newItems[i].id = i.toString();
     //   console.log('newItems[i]', newItems[i]);
     // }
-    const newItemsLast: ItemType[] = newItems.map((item, indx) => ({
+    const newItemsLast: BlockType[] = newItems.map((item, indx) => ({
       ...item,
       id: indx.toString(),
     }));
 
     // console.log('newItems', newItems);
+    setItems([...newItemsLast]);
+  };
+
+  const changeItemType = (index: number, newType: string) => {
+    let newItems: BlockType[] = items;
+    newItems[index].type = newType;
+
+    const newItemsLast: BlockType[] = newItems.map((item, indx) => ({
+      ...item,
+      id: indx.toString(),
+    }));
+
     setItems([...newItemsLast]);
   };
 
@@ -193,11 +182,12 @@ function DragDrop(props: Props) {
             direction="row"
             justifyContent="flex-start"
             alignItems="center">
-            <ComponentsList
+            <BlocksList
               items={items}
               addNewItem={addNewItem}
               deleteItem={deleteItem}
               duplicateItem={duplicateItem}
+              changeItemType={changeItemType}
             />
             {provided.placeholder}
           </Grid>
@@ -207,4 +197,4 @@ function DragDrop(props: Props) {
   );
 }
 
-export default DragDrop;
+export default ContentEditor;
