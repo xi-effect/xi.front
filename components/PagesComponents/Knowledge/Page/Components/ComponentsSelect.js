@@ -10,7 +10,6 @@ import Quiz from "./Quiz";
 import Markdown from "./Markdown";
 import List from "./List";
 import NumberAnswer from "./NumberAnswer";
-import Code from "./Code";
 
 
 
@@ -52,10 +51,6 @@ const ComponentsSelect = inject()(
         if (value.type === "numanswer")
             return (
                 <NumberAnswer value={value} index={index} />
-            );
-        if (value.type === "code")
-            return (
-                <Code value={value} index={index} />
             );
         return null
     }));

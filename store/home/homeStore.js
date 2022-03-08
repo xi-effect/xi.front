@@ -1,4 +1,4 @@
-import { action, observable, computed, runInAction, makeObservable } from "mobx"
+import { observable, makeObservable } from "mobx"
 
 
 class HomeStore {

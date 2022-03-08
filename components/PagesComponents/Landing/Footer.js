@@ -149,7 +149,7 @@ function Footer() {
                     </IconButton>
                     <Link sx={{ color: "text.primary", mt: 2, cursor: "pointer" }}>  Пользовательское соглашение </Link>
                     <Link sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Лицензионное соглашение</Link>
-                    <Typography sx={{ mt: 3 }}> © 2022 xieffect.netlify.app  </Typography>
+                    <Typography sx={{ mt: 3 }}> © 2022 xieffect.ru  </Typography>
                 </Grid>}
             </Container>
         </Box>

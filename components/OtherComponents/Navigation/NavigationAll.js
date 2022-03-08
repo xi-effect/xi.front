@@ -112,7 +112,6 @@ const NavigationAll = inject(
         <Box
           sx={{
             zIndex: 0,
-            // display: "flex",
             backgroundColor: "background.main",
             minHeight: "100vh",
             overflow: "hidden",
@@ -125,7 +124,6 @@ const NavigationAll = inject(
           <Box
             sx={{
               zIndex: 0,
-              // display: "flex",
               backgroundColor: "background.main",
               height: "100vh",
               overflow: "hidden",
@@ -146,6 +144,7 @@ const NavigationAll = inject(
             >
               {children}
             </Scrollbars>}
+            {/* || router.pathname.includes("/page/") */}
             {router.pathname.includes("message") || router.pathname.includes("chat") && children}
             {/* <ChatDialog /> */}
           </Box>
@@ -195,11 +194,9 @@ const NavigationAll = inject(
         <Box
           sx={{
             zIndex: 0,
-            // display: "flex",
             backgroundColor: "background.main",
             minHeight: "100vh",
             overflow: "hidden",
-            // width: "100%",
           }}
           {...handlers}
         >
@@ -207,7 +204,6 @@ const NavigationAll = inject(
             {uiStore.navigation.swipe === "right" && <Box
               component={motion.div}
               variants={SidebarVariantsRight}
-              // initial={{ x: -200 }}
               animate="visible"
               transition={{
                 delay: 0,
@@ -234,7 +230,6 @@ const NavigationAll = inject(
             {uiStore.navigation.swipe === "left" && <Box
               component={motion.div}
               variants={SidebarVariantsLeft}
-              // initial={{ x: 200 }}
               animate="visible"
               transition={{
                 delay: 0,
@@ -259,7 +254,6 @@ const NavigationAll = inject(
           <Box
             sx={{
               zIndex: 0,
-              // display: "flex",
               backgroundColor: "background.main",
               filter: uiStore.navigation.swipe === "right" || uiStore.navigation.swipe === "left" ? "brightness(40%)" : "none",
               height: "100vh",

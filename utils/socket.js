@@ -1,6 +1,6 @@
 // import { io } from "socket.io-client";
 
-let socket = null
+const socket = null
 
 // if (socket != null) {
 //     socket.on("open", (arg) => {

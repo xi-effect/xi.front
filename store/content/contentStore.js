@@ -1,4 +1,4 @@
-import { action, observable, computed, runInAction, makeObservable } from "mobx"
+import { action, observable, makeObservable } from "mobx"
 
 
 class ContentStore {
@@ -11,7 +11,7 @@ class ContentStore {
         makeObservable(this)
     }
 
-    //Loading Screen
+    // Loading Screen
     @observable images = {
 
     }

@@ -6,7 +6,7 @@ import {
 
 import { inject, observer } from "mobx-react";
 
-import Comments from "./Discussion/Comments";
+import Comments from "./Comments";
 
 
 const Discussion = inject()(

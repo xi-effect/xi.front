@@ -44,7 +44,7 @@ function TermsOfUse({ open, setOpen, type }) {
                     <DownloadIcon />
                 </IconButton>
             </DialogTitle>
-            <DialogContent dividers="paper">
+            <DialogContent dividers>
                 <DialogContentText
                     id="dialog-content"
                 >

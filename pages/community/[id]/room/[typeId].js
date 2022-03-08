@@ -22,11 +22,13 @@ const RoomPage = inject("rootStore", "settingsStore", "profileStore")(observer((
         <>
             <Head>
                 <title>
-                    Ξffect
+                    Ξffect | Комната
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>
-            <NavigationAll />
+            <NavigationAll>
+               rjvgjytyns nen
+            </NavigationAll>
         </>
     );
 }))

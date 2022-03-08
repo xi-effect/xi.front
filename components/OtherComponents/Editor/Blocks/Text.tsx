@@ -5,18 +5,15 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
+import { Typography } from '@mui/material';
 import * as React from 'react';
-import {Editor, EditorState} from 'draft-js';
+// import { Menu, MenuItem, Stack, ListItemIcon, ListItemText, Typography } from '@mui/material';
 // import "./TextEditor.scss";
 
-export type TextEditorProps = {
-  className?: string;
+type TextProps = {
+  // item: string;
+  children: React.ReactElement | string;
 };
 
-const TextEditor: React.FC<TextEditorProps> = () => {
-  const [editorState, setEditorState] = React.useState(() => EditorState.createEmpty());
-
-  return <Editor editorState={editorState} onChange={setEditorState} />;
-};
-
-export default TextEditor;
+const Text: React.FC<TextProps> = ({ children }) => <Typography>{children}</Typography>;
+export default Text;

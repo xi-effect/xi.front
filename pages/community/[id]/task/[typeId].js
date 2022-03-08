@@ -4,8 +4,7 @@ import React from "react";
 import { useRouter } from "next/router"
 
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
-import Task from "../../../../components/PagesComponents/Community/Task";
-
+import Task from "../../../../components/PagesComponents/Community/Task/Task";
 
 const TaskPage = inject()(observer(() => {
     // console.log("router.query", router.query.id);

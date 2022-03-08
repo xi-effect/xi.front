@@ -19,12 +19,12 @@ import "moment/locale/ru";
 import { SnackbarProvider } from "notistack";
 
 import "../styles/globals.css"
+import 'draft-js/dist/Draft.css';
 
 import NProgress from "nprogress"; // nprogress module
 import createEmotionCache from "../store/createEmotionCache";
 import { useStore } from "../store/rootStore"
 import { getDesignTokens } from "../theme"
-import { TextEditorProvider } from "../components/OtherComponents/Editor/TextEditor/context.tsx";
 import "nprogress/nprogress.css"; // styles of nprogress
 import Loading from "../components/OtherComponents/Loading/Loading";
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -48,6 +48,7 @@ const MyApp = (observer((props) => {
         {/* <title>
           Ξ Effect
         </title> */}
+        <meta charSet="utf-8" />
         <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
         <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
         <meta name="yandex-verification" content="879d56b8525183be" />
@@ -81,41 +82,39 @@ const MyApp = (observer((props) => {
         messageStore={rootStore.messageStore}
         communityStore={rootStore.communityStore}
       >
-        <TextEditorProvider >
-          <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}>
-              {/* <SnackbarProvider
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            {/* <SnackbarProvider
                 autoHideDuration={800}
                 anchorOrigin={{
                   vertical: "bottom",
                   horizontal: "right",
                 }}
                 maxSnack={3}> */}
-              {/* <MenuLayout> */}
-              <CssBaseline />
-              <Loading />
-              {/* <PlausibleProvider
+            {/* <MenuLayout> */}
+            <CssBaseline />
+            <Loading />
+            {/* <PlausibleProvider
               domain={"xieffect.ru"}
               // selfHosted
             > */}
-              <SnackbarProvider
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center",
-                }}
-                maxSnack={3}
-                preventDuplicate
-                dense
-              >
-                <Component {...pageProps} />
-              </SnackbarProvider>
-              {/* </PlausibleProvider> */}
-              {/* </MenuLayout> */}
-              {/* </SnackbarProvider> */}
-            </ThemeProvider>
+            <SnackbarProvider
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              maxSnack={3}
+              preventDuplicate
+              dense
+            >
+              <Component {...pageProps} />
+            </SnackbarProvider>
+            {/* </PlausibleProvider> */}
+            {/* </MenuLayout> */}
+            {/* </SnackbarProvider> */}
+          </ThemeProvider>
 
-          </StyledEngineProvider>
-        </TextEditorProvider>
+        </StyledEngineProvider>
       </Provider>
       {/* </Context.Provider> */}
     </CacheProvider>
