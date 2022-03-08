@@ -6,94 +6,39 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 import * as React from 'react';
-import Popper, { PopperProps } from '@mui/material/Popper';
-import { Paper, Stack, Fade, Typography, Button } from '@mui/material';
-// import "./TextEditor.scss";
+import { ControlledMenu } from '@szhsin/react-menu';
+import { Paper, Stack, Button } from '@mui/material';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import '@szhsin/react-menu/dist/index.css';
 
 export type InlineToolPanelProps = {
-  className?: string;
+  editorRef: any;
+  menuProps: any;
+  toggleMenu: any;
+  anchorPoint: any;
 };
 
-const InlineToolPanel: React.FC<InlineToolPanelProps> = () => {
-  const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<PopperProps['anchorEl']>(null);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleMouseUp = () => {
-    const selection = window.getSelection();
-    console.log('selection', selection);
-    if (selection) {
-      if (!selection || selection.anchorOffset === selection.focusOffset) {
-        handleClose();
-        return;
-      }
-      // if (selection && selection.rangeCount > 0) {
-      // Resets when the selection has a length of 0
-
-      const getBoundingClientReact = () => {
-        if (selection && selection.rangeCount >= 1) return selection.getRangeAt(0).getBoundingClientRect();
-        return null;
-      } 
-      console.log('selection1', selection);
-      setOpen(true);
-      setAnchorEl({
-        // @ts-ignore
-        getBoundingClientReact,
-      });
-    }
-    // }
-  };
-
-  const id = open ? 'virtual-element-popper' : undefined;
+const InlineToolPanel: React.FC<InlineToolPanelProps> = (props: InlineToolPanelProps) => {
+  const { editorRef, menuProps, toggleMenu, anchorPoint } = props;
+  console.log('editorRef', editorRef);
 
   return (
-    <div onMouseLeave={handleClose}>
-      <Typography aria-describedby={id} onMouseUp={handleMouseUp}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ipsum purus, bibendum sit
-        amet vulputate eget, porta semper ligula. Donec bibendum vulputate erat, ac fringilla mi
-        finibus nec. Donec ac dolor sed dolor porttitor blandit vel vel purus. Fusce vel malesuada
-        ligula. Nam quis vehicula ante, eu finibus est. Proin ullamcorper fermentum orci, quis
-        finibus massa. Nunc lobortis, massa ut rutrum ultrices, metus metus finibus ex, sit amet
-        facilisis neque enim sed neque. Quisque accumsan metus vel maximus consequat. Suspendisse
-        lacinia tellus a libero volutpat maximus.
-      </Typography>
-      <Popper
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        transition
-        placement="top-start"
-        modifiers={[
-          {
-            name: 'offset',
-            enabled: true,
-            options: {
-              offset: [-40, 10],
-            },
-          },
-        ]}>
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <Paper
-              sx={{
-                bgcolor: 'primary.main',
-              }}>
-              <Stack direction="row" justifyContent="flex-start" alignItems="center">
-                {[...Array(5)].map((item, index) => (
-                  <Button key={index.toString()}>
-                    <FormatBoldIcon sx={{ color: 'text.primary' }} />
-                  </Button>
-                ))}
-              </Stack>
-            </Paper>
-          </Fade>
-        )}
-      </Popper>
-    </div>
+    <ControlledMenu {...menuProps} anchorPoint={anchorPoint} onClose={() => toggleMenu(false)}>
+      <Paper
+        sx={{
+          bgcolor: 'primary.main',
+          width: 300,
+          height: 32,
+        }}>
+        <Stack direction="row" justifyContent="flex-start" alignItems="center">
+          {[...Array(5)].map((item, index) => (
+            <Button onClick={() => toggleMenu(false)} key={index.toString()}>
+              <FormatBoldIcon sx={{ color: 'text.primary' }} />
+            </Button>
+          ))}
+        </Stack>
+      </Paper>
+    </ControlledMenu>
   );
 };
 
