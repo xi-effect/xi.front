@@ -13,7 +13,7 @@
 /* eslint-disable react/display-name */
 // @flow
 import React from 'react';
-import { Editor, EditorProps, EditorState } from 'draft-js';
+import { Editor, EditorProps, EditorState, RichUtils } from 'draft-js';
 import 'react-virtualized/styles.css';
 import { Box } from '@mui/material';
 import { useMenuState } from '@szhsin/react-menu';
@@ -64,8 +64,12 @@ function ContentEditor(props: ContentEditorProps) {
     }
   }
 
+  const handleToggleInlineStyleType = (type: string) => {
+    onChangeFn(RichUtils.toggleInlineStyle(editorState, type));
+  };
+
   return (
-    <Box sx={{ width: '100%', p: 2 }}>
+    <Box sx={{ width: '100%', p: 2, mt: 4 }}>
       <TextEditor
         {...props}
         editorRef={editorRef}
@@ -74,10 +78,12 @@ function ContentEditor(props: ContentEditorProps) {
         onChange={onChangeFn}
       />
       <InlineToolPanel
+        editorState={editorState}
         editorRef={editorRef}
         menuProps={menuProps}
         toggleMenu={toggleMenu}
         anchorPoint={anchorPoint}
+        onToggleInlineStyleType={handleToggleInlineStyleType}
       />
     </Box>
   );

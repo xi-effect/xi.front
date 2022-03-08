@@ -1,31 +1,36 @@
 /* eslint-disable import/prefer-default-export */
-export enum BlockType {
-  /* Заголовки */
-  H1 = 'header-one',
-  H2 = 'header-two',
-  H3 = 'header-three',
-  H4 = 'header-four',
-  H5 = 'header-five',
-  H6 = 'header-six',
-  /* Цитата */
-  Blockquote = 'blockquote',
-  /* Блок с кодом */
-  Code = 'code-block',
-  /* Список */
-  List = 'unordered-list-item',
-  /* Нумерованный список */
-  OrderList = 'ordered-list-item',
-  /* Сноска */
-  Cite = 'cite',
-  /* Простой текст */
-  Default = 'unstyled',
-}
+// @ts-nocheck
+import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import FormatItalicIcon from '@mui/icons-material/FormatItalic';
+import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
+import StrikethroughSIcon from '@mui/icons-material/StrikethroughS';
 
-export const inlineStyles = [
-  { label: 'Bold', style: 'BOLD' },
-  { label: 'Italic', style: 'ITALIC' },
-  { label: 'Underline', style: 'UNDERLINE' },
-  { label: 'Monospace', style: 'CODE' },
+export const INLINE_STYLES = [
+  {
+    label: 'Bold',
+    style: 'BOLD',
+    component: <FormatBoldIcon fontSize="small" />,
+  },
+  {
+    label: 'Italic',
+    style: 'ITALIC',
+    component: <FormatItalicIcon fontSize="small" />,
+  },
+  {
+    label: 'Strike Through',
+    style: 'STRIKETHROUGH',
+    component: <StrikethroughSIcon fontSize="small" />,
+  },
+  {
+    label: 'Underline',
+    style: 'UNDERLINE',
+    component: <FormatUnderlinedIcon fontSize="small" />,
+  },
+  // {
+  //   label: 'Code',
+  //   style: 'CODE',
+  //   component: <CodeRoundedIcon fontSize="small" />,
+  // },
 ];
 
 export const BlockStyles = [
@@ -54,12 +59,12 @@ export const NewBlocks = [
 ];
 
 export const BlocksTypeDict = {
-  "text": { type: 'text', value: '' },
-  "h1": { type: 'h1', value: '' },
-  "h2": { type: 'h2', value: '' },
-  "h3": { type: 'h3', value: '' },
-  "ul": { type: 'ul', value: '' },
-  "ol": { type: 'ol', value: '' },
-  "divider": { type: 'divider' },
-  "quote": { type: 'quote', value: '' },
+  text: { type: 'text', value: '' },
+  h1: { type: 'h1', value: '' },
+  h2: { type: 'h2', value: '' },
+  h3: { type: 'h3', value: '' },
+  ul: { type: 'ul', value: '' },
+  ol: { type: 'ol', value: '' },
+  divider: { type: 'divider' },
+  quote: { type: 'quote', value: '' },
 };
