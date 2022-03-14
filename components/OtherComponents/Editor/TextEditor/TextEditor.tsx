@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 /* eslint-disable no-shadow */
 /* eslint-disable prefer-const */
 /* eslint-disable func-names */
@@ -12,92 +13,48 @@
 // @flow
 import React from 'react';
 import {
+  ContentState,
+  convertFromHTML,
   DraftHandleValue,
   Editor,
   EditorProps,
   EditorState,
   getDefaultKeyBinding,
+  Modifier,
   RichUtils,
 } from 'draft-js';
 // import ReactDOM from 'react-dom';
 import 'react-virtualized/styles.css';
 import { Box } from '@mui/material';
-import { Map } from 'immutable';
 
-import { indigo, orange } from '@mui/material/colors';
 import {
   // insertCustomEmoji,
   // insertEmoji,
   // insertMention,
   removeCurrentBlockText,
 } from '../utils';
-
+import { blockRenderMap, styleMap } from '../config';
+import H1 from '../Blocks/H1';
+import Text from '../Blocks/Text';
+import { SelectionHOCProps } from '../types';
 
 export type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 export type SyntheticEvent = React.SyntheticEvent<{}>;
 
-export const styleMap = {
-  UNDERLINE: {
-    textDecoration: 'underline',
-  },
-  STRKIETHROUGH: {
-    textDecoration: 'line-through',
-  },
-  CODE: {
-    color: orange[600],
-    border: '1px solid rgba(0, 0, 0, 0.1)',
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    fontSize: '0.75rem',
-    paddingLeft: 4,
-    paddingRight: 4,
-    borderRadius: 4,
-  },
-  MENTION: {
-    color: '#fff',
-    border: '1px solid rgba(0, 0, 0, 0.1)',
-    backgroundColor: indigo[200],
-    fontSize: '0.75rem',
-    paddingLeft: 4,
-    paddingRight: 4,
-    borderRadius: 4,
-  },
-};
-
-const blockRenderMap = Map({
-  unstyled: {
-    element: 'div',
-  },
-  'code-block': {
-    element: 'code',
-    wrapper: <pre spellCheck="false" />,
-  },
-  blockquote: {
-    element: 'blockquote',
-  },
-  'ordered-list-item': {
-    element: 'li',
-    wrapper: <ol />,
-  },
-  'unordered-list-item': {
-    element: 'li',
-    wrapper: <ul />,
-  },
-});
-
 export type EditorMode = 'editor' | 'chat';
 export interface TextEditorProps extends EditorProps {
-  editorRef?: React.RefObject<Editor>; 
+  editorRef?: React.RefObject<Editor>;
   readOnly?: boolean;
   editorMode?: EditorMode;
   // mentions?: Mention[];
   // onDragDropFiles?: (acceptedFiles: File[]) => UploadFile[];
   // onExtraButtonClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onHandleKeyBinding?: (e: SyntheticKeyboardEvent) => string | null;
-  // onHandlePastedText?: (
-  //   text: string,
-  //   html: string | undefined,
-  //   editorState: EditorState,
-  // ) => DraftHandleValue;
+  onHandlePastedText?: (
+    text: string,
+    html: string | undefined,
+    editorState: EditorState,
+  ) => DraftHandleValue;
   // onHandleKeyCommand?: (
   //   command: string,
   //   editorState: EditorState,
@@ -112,6 +69,49 @@ export interface TextEditorProps extends EditorProps {
   // onHandleMentionClick?: (mention: Mention) => void;
 }
 
+const SelectionHOC: React.FC<SelectionHOCProps> = (props) => {
+  console.log('SelectionHOC', props);
+  const { contentState, blockProps, block } = props;
+  if (blockProps?.type === 'unstyled') {
+    return <Text contentState={contentState} blockProps={blockProps} block={block}/>;
+  }
+  if (blockProps?.type === 'h1') {
+    return <H1 contentState={contentState} blockProps={blockProps} block={block}/>;
+  }
+  // if (type === 'h2') {
+  //   return <H2 />;
+  // }
+  // if (type === 'h3') {
+  //   return <H3 />;
+  // }
+  // if (type === 'ul') {
+  //   return <Ul />;
+  // }
+  // if (type === 'ol') {
+  //   return <Ol />;
+  // }
+  // if (type === 'divider') {
+  //   return <DividerComp />;
+  // }
+  // if (type === 'quote') {
+  //   return <Quote />;
+  // }
+  return null;
+};
+
+function myBlockRenderer(contentBlock) {
+  const type = contentBlock.getType();
+  console.log('contentBlock', contentBlock);
+  return {
+    // @ts-ignore
+    component: SelectionHOC,
+    editable: false,
+    props: {
+      type
+    },
+  };
+}
+
 function TextEditor(props: TextEditorProps) {
   const {
     // editorMode,
@@ -123,7 +123,7 @@ function TextEditor(props: TextEditorProps) {
     // onDragDropFiles,
     // onExtraButtonClick,
     onHandleKeyBinding,
-    // onHandlePastedText,
+    onHandlePastedText,
     // onHandleKeyCommand,
     // onHandleReturn,
     onHandleBeforeInput,
@@ -182,18 +182,58 @@ function TextEditor(props: TextEditorProps) {
     return onHandleKeyBinding ? onHandleKeyBinding(e) : getDefaultKeyBinding(e);
   };
 
+  const handlePastedText = (text: string, html: string | undefined, editorState: EditorState) => {
+    if (html) {
+      const blocksFromHTML = convertFromHTML(html);
+      const pastedBlocks = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap,
+      ).getBlockMap();
+
+      const newState = Modifier.replaceWithFragment(
+        editorState.getCurrentContent(),
+        editorState.getSelection(),
+        pastedBlocks,
+      );
+
+      const newEditorState = EditorState.push(editorState, newState, 'insert-fragment');
+      onChange(EditorState.moveFocusToEnd(newEditorState));
+
+      return 'handled';
+    }
+
+    if (text) {
+      const pastedBlocks = ContentState.createFromText(text).getBlockMap();
+      const newState = Modifier.replaceWithFragment(
+        editorState.getCurrentContent(),
+        editorState.getSelection(),
+        pastedBlocks,
+      );
+
+      const newEditorState = EditorState.push(editorState, newState, 'insert-fragment');
+      onChange(EditorState.moveFocusToEnd(newEditorState));
+
+      return 'handled';
+    }
+
+    return onHandlePastedText ? onHandlePastedText(text, html, editorState) : 'not-handled';
+  };
+
   return (
     <Box sx={{ width: '100%' }}>
       <Editor
         {...props}
         ref={editorRef}
-        readOnly={readOnly}
+        // readOnly={readOnly}
+        readOnly
         placeholder="Напишите тут"
         customStyleMap={styleMap}
         blockRenderMap={blockRenderMap}
+        blockRendererFn={myBlockRenderer}
         editorState={editorState}
         onChange={onChange}
         keyBindingFn={handleKeyBinding}
+        handlePastedText={handlePastedText}
         handleBeforeInput={handleBeforeInput}
       />
     </Box>

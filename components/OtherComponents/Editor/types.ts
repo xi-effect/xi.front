@@ -1,9 +1,10 @@
-import React from 'react';
+// import React from 'react';
 import type { DraggableProvided } from 'react-beautiful-dnd';
 
 export type SelectionHOCProps = {
-  type: string;
-  children: React.ReactElement;
+  contentState: any;
+  blockProps: any;
+  block: any;
 };
 
 export type BlockType = {

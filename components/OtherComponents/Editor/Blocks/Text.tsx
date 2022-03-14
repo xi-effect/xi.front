@@ -11,9 +11,17 @@ import * as React from 'react';
 // import "./TextEditor.scss";
 
 type TextProps = {
-  // item: string;
-  children: React.ReactElement | string;
+  contentState: any;
+  blockProps: any;
+  block: any;
 };
 
-const Text: React.FC<TextProps> = ({ children }) => <Typography>{children}</Typography>;
+const Text: React.FC<TextProps> = (props) => {
+  const { contentState } = props;
+  console.log('contentStateText', contentState);
+  // const { foo } = props.blockProps;
+  // const data = contentState.getEntity(block.getEntityAt(0)).getData();
+  // console.log('data', data, foo);
+  return <Typography> Text </Typography>;
+};
 export default Text;

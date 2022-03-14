@@ -10,7 +10,7 @@ import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { useLongPress } from 'use-long-press';
 import NewItemMenu from '../Menus/NewItemMenu';
 import ItemMenu from '../Menus/ItemMenu';
-import SelectionHOC from './SelectionHOC';
+// import SelectionHOC from './SelectionHOC';
 import MobileContextMenu from '../Menus/MobileContextMenu';
 import { BlockProps } from '../types';
 
@@ -26,7 +26,7 @@ function Block(props: BlockProps) {
   const {
     index,
     isDragging,
-    item,
+    // item,
     provided,
     addNewItem,
     deleteItem,
@@ -174,7 +174,7 @@ function Block(props: BlockProps) {
           // minHeight: '32px',
         }}>
         {/* @ts-ignore */}
-        <SelectionHOC type={item.type}>{item.value}</SelectionHOC>
+        {/* <SelectionHOC type={item.type}>{item.value}</SelectionHOC> */}
       </Stack>
     </Stack>
   );

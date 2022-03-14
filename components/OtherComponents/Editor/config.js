@@ -4,33 +4,36 @@ import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
 import StrikethroughSIcon from '@mui/icons-material/StrikethroughS';
+import CodeIcon from '@mui/icons-material/Code';
+import { indigo, orange } from '@mui/material/colors';
+import { Map } from 'immutable';
 
 export const INLINE_STYLES = [
   {
     label: 'Bold',
     style: 'BOLD',
-    component: <FormatBoldIcon fontSize="small" />,
+    component: <FormatBoldIcon />,
   },
   {
     label: 'Italic',
     style: 'ITALIC',
-    component: <FormatItalicIcon fontSize="small" />,
+    component: <FormatItalicIcon />,
   },
   {
     label: 'Strike Through',
     style: 'STRIKETHROUGH',
-    component: <StrikethroughSIcon fontSize="small" />,
+    component: <StrikethroughSIcon />,
   },
   {
     label: 'Underline',
     style: 'UNDERLINE',
-    component: <FormatUnderlinedIcon fontSize="small" />,
+    component: <FormatUnderlinedIcon />,
   },
-  // {
-  //   label: 'Code',
-  //   style: 'CODE',
-  //   component: <CodeRoundedIcon fontSize="small" />,
-  // },
+  {
+    label: 'Code',
+    style: 'CODE',
+    component: <CodeIcon />,
+  },
 ];
 
 export const BlockStyles = [
@@ -57,6 +60,54 @@ export const NewBlocks = [
   { type: 'divider', label: 'Разделитель', description: 'визуально разделите блоки' },
   { type: 'quote', label: 'Цитата', description: 'создайте цитату' },
 ];
+
+export const styleMap = {
+  UNDERLINE: {
+    textDecoration: 'underline',
+  },
+  STRKIETHROUGH: {
+    textDecoration: 'line-through',
+  },
+  CODE: {
+    color: orange[600],
+    border: '1px solid rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    fontSize: '1.25rem',
+    paddingLeft: 4,
+    paddingRight: 4,
+    borderRadius: 4,
+  },
+  MENTION: {
+    color: '#fff',
+    border: '1px solid rgba(0, 0, 0, 0.1)',
+    backgroundColor: indigo[200],
+    fontSize: '0.75rem',
+    paddingLeft: 4,
+    paddingRight: 4,
+    borderRadius: 4,
+  },
+};
+
+export const blockRenderMap = Map({
+  unstyled: {
+    element: 'div',
+  },
+  'code-block': {
+    element: 'code',
+    wrapper: <pre spellCheck="false" />,
+  },
+  blockquote: {
+    element: 'blockquote',
+  },
+  'ordered-list-item': {
+    element: 'li',
+    wrapper: <ol />,
+  },
+  'unordered-list-item': {
+    element: 'li',
+    wrapper: <ul />,
+  },
+});
 
 export const BlocksTypeDict = {
   text: { type: 'text', value: '' },

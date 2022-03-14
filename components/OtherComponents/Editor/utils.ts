@@ -210,9 +210,9 @@ export function insertEmoji(editorState: EditorState, emoji: string) {
   const contentState = editorState.getCurrentContent();
   let nextContentState;
   if (selection.isCollapsed()) {
-    nextContentState = Modifier.insertText(contentState, selection, `${emoji  } `);
+    nextContentState = Modifier.insertText(contentState, selection, `${emoji}`);
   } else {
-    nextContentState = Modifier.replaceText(contentState, selection, `${emoji  } `);
+    nextContentState = Modifier.replaceText(contentState, selection, `${emoji}`);
   }
 
   return EditorState.push(editorState, nextContentState, 'insert-characters');

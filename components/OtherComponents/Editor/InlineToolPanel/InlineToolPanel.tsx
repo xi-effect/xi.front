@@ -8,11 +8,13 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { menuSelector } from '@szhsin/react-menu/style-utils';
+import { EmojiData } from 'emoji-mart';
 import { ControlledMenu as ControlledMenuInner } from '@szhsin/react-menu';
-import { Paper, Stack, Button, Tooltip } from '@mui/material';
-
+import { Paper, Stack, Button, Tooltip, Menu } from '@mui/material';
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import '@szhsin/react-menu/dist/index.css';
 import { INLINE_STYLES } from '../config';
+import EmojiPicker from '../Menus/EmojiPicker';
 
 const ControlledMenu = styled(ControlledMenuInner)`
   ${menuSelector.name} {
@@ -40,7 +42,15 @@ const StyleButton = ({
 
   return (
     <Tooltip title={label} placement="top">
-      <Button sx={{ color: active ? '#333' : '#fff', minWidth: 16 }} onMouseDown={handleToggle}>
+      <Button
+        sx={{
+          color: active ? 'text.primary' : 'text.secondary',
+          minWidth: 16,
+          bgcolor: active ? 'primary.light' : 'primary.dark',
+          borderRadius: 0,
+        }}
+        size="large"
+        onMouseDown={handleToggle}>
         {component}
       </Button>
     </Tooltip>
@@ -54,6 +64,7 @@ export type InlineToolPanelProps = {
   toggleMenu: any;
   anchorPoint: any;
   onToggleInlineStyleType: (type: string) => void;
+  onAddEmoji: (emoji: EmojiData) => void;
 };
 
 const InlineToolPanel: React.FC<InlineToolPanelProps> = (props: InlineToolPanelProps) => {
@@ -64,16 +75,42 @@ const InlineToolPanel: React.FC<InlineToolPanelProps> = (props: InlineToolPanelP
     toggleMenu,
     anchorPoint,
     onToggleInlineStyleType,
+    onAddEmoji,
   } = props;
   console.log('editorRef', editorRef);
 
   const currentStyle = editorState.getCurrentInlineStyle();
+
+  const [emojiPickerEl, setEmojiPickerEl] = React.useState<HTMLButtonElement | null>(null);
+
+  const handleEmojiPickerClose = () => {
+    setEmojiPickerEl(null);
+  };
+
+  const openEmojiPicker = Boolean(emojiPickerEl);
+
+  const handleClickEmojiPicker = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setEmojiPickerEl(
+      emojiPickerEl === null
+        ? {
+            // @ts-ignore
+            mouseX: event.clientX - 2,
+            mouseY: event.clientY - 4,
+          }
+        : // repeated contextmenu when it is already open closes it with Chrome 84 on Ubuntu
+          // Other native context menus might behave different.
+          // With this behavior we prevent contextmenu from the backdrop to re-locale existing context menus.
+          null,
+    );
+  };
 
   return (
     <ControlledMenu {...menuProps} anchorPoint={anchorPoint} onClose={() => toggleMenu(false)}>
       <Paper
         sx={{
           bgcolor: 'primary.main',
+          borderRadius: 0,
           // width: 300,
           // height: 36,
         }}>
@@ -88,6 +125,38 @@ const InlineToolPanel: React.FC<InlineToolPanelProps> = (props: InlineToolPanelP
               style={type.style}
             />
           ))}
+          <Tooltip title="Emoji">
+            <Button
+              sx={{
+                color: 'text.primary',
+                minWidth: 16,
+                bgcolor: 'primary.dark',
+                borderRadius: 0,
+              }}
+              size="large"
+              onClick={handleClickEmojiPicker}>
+              <EmojiEmotionsIcon />
+            </Button>
+          </Tooltip>
+          <Menu
+            open={openEmojiPicker}
+            onClose={handleEmojiPickerClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            anchorReference="anchorPosition"
+            anchorPosition={
+              emojiPickerEl !== null
+                // @ts-ignore
+                ? { top: emojiPickerEl.mouseY - 40, left: emojiPickerEl.mouseX + 8 }
+                : undefined
+            }
+            MenuListProps={{
+              style: {
+                paddingBottom: 0,
+                paddingTop: 0,
+              },
+            }}>
+            <EmojiPicker onSelect={onAddEmoji} />
+          </Menu>
         </Stack>
       </Paper>
     </ControlledMenu>
