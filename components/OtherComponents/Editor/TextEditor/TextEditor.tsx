@@ -224,8 +224,7 @@ function TextEditor(props: TextEditorProps) {
       <Editor
         {...props}
         ref={editorRef}
-        // readOnly={readOnly}
-        readOnly
+        readOnly={readOnly}
         placeholder="Напишите тут"
         customStyleMap={styleMap}
         blockRenderMap={blockRenderMap}
