@@ -57,10 +57,10 @@ export default class MyDocument extends Document {
 
 
           <link rel="manifest" href="/manifest.json" />
-          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5F85D8" />
-          <meta name="msapplication-TileColor" content="#5F85D8" />
+          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5d74a6" />
+          <meta name="msapplication-TileColor" content="#5d74a6" />
           <meta name='msapplication-tap-highlight' content='no' />
-          <meta name="theme-color" content="#5F85D8" />
+          <meta name="theme-color" content="#5d74a6" />
           {/* <script defer data-domain="xieffect.ru" src="https://xieffect.ru:5000/static/plausible.js"></script> */}
         </Head>
         <body>
