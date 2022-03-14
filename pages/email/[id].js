@@ -119,7 +119,7 @@ const Email = inject("rootStore")(observer(({ rootStore }) => {
                     >
                         <Image
                             alt="alt"
-                            src="/app/ConfirmedEmail.svg"
+                            src="/assets/app/ConfirmedEmail.svg"
                             quality={100}
                             width={456}
                             height={456}

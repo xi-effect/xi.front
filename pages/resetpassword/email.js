@@ -155,7 +155,7 @@ const PassResetEmail = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob3.svg"
+                src="/assets/landing/blob3.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -171,7 +171,7 @@ const PassResetEmail = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob2.svg"
+                src="/assets/landing/blob2.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -206,7 +206,7 @@ const PassResetEmail = inject(
                 >
                   <Image
                     alt="alt"
-                    src="/auth/ResetPassword.svg"
+                    src="/assets/auth/ResetPassword.svg"
                     quality={100}
                     width={456}
                     height={256}

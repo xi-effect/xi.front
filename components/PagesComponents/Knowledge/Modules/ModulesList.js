@@ -325,7 +325,7 @@ const ModulesList = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
                   >
                     <Image
                       alt="alt"
-                      src="/app/NoData.svg"
+                      src="/assets/app/NoData.svg"
                       quality={100}
                       width={290}
                       height={290}

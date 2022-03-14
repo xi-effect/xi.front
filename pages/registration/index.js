@@ -143,7 +143,7 @@ const Registration = inject("authorizationStore")(observer(({ authorizationStore
                     >
                         <Image
                             alt="alt"
-                            src="/landing/blob4.svg"
+                            src="/assets/landing/blob4.svg"
                             quality={100}
                             width={256}
                             height={256}
@@ -159,7 +159,7 @@ const Registration = inject("authorizationStore")(observer(({ authorizationStore
                     >
                         <Image
                             alt="alt"
-                            src="/landing/blob2.svg"
+                            src="/assets/landing/blob2.svg"
                             quality={100}
                             width={256}
                             height={256}
@@ -194,7 +194,7 @@ const Registration = inject("authorizationStore")(observer(({ authorizationStore
                             >
                                 <Image
                                     alt="alt"
-                                    src="/auth/MobileLogin.svg"
+                                    src="/assets/auth/MobileLogin.svg"
                                     quality={100}
                                     width={456}
                                     height={456}

@@ -95,7 +95,7 @@ const Modules = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
                             <div>
                                 <Image
                                     alt="img"
-                                    src="/app/NoData.svg"
+                                    src="/assets/app/NoData.svg"
                                     // layout="fill"
                                     width={256}
                                     height={236}

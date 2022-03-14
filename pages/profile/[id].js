@@ -136,7 +136,7 @@ const Profile = inject("settingsStore", "profileStore")(observer(({ settingsStor
                             >
                                 <Image
                                     alt="alt"
-                                    src="/app/NoData.svg"
+                                    src="/assets/app/NoData.svg"
                                     quality={100}
                                     width={256}
                                     height={232}
@@ -156,7 +156,7 @@ const Profile = inject("settingsStore", "profileStore")(observer(({ settingsStor
                             >
                                 <Image
                                     alt="alt"
-                                    src="/app/NoData.svg"
+                                    src="/assets/app/NoData.svg"
                                     quality={100}
                                     width={256}
                                     height={232}
@@ -176,7 +176,7 @@ const Profile = inject("settingsStore", "profileStore")(observer(({ settingsStor
                             >
                                 <Image
                                     alt="alt"
-                                    src="/app/NoData.svg"
+                                    src="/assets/app/NoData.svg"
                                     quality={100}
                                     width={256}
                                     height={232}

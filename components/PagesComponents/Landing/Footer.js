@@ -113,7 +113,7 @@ function Footer() {
                             <IconButton onClick={() => window.open("https://discord.gg/aNQfXXb")}>
                                 <Image
                                     alt="alt"
-                                    src="/landing/DiscordLogoWhite.svg"
+                                    src="/assets/landing/DiscordLogoWhite.svg"
                                     quality={100}
                                     width={32}
                                     height={32}
@@ -141,7 +141,7 @@ function Footer() {
                     <IconButton sx={{ mt: 1 }} onClick={() => window.open("https://discord.gg/aNQfXXb")}>
                         <Image
                             alt="alt"
-                            src="/landing/DiscordLogoWhite.svg"
+                            src="/assets/landing/DiscordLogoWhite.svg"
                             quality={100}
                             width={32}
                             height={32}

@@ -85,7 +85,7 @@ const Results = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
                 >
                     <Image
                         alt="alt"
-                        src="/app/NoSata.svg"
+                        src="/assets/app/NoSata.svg"
                         quality={100}
                         width={256}
                         height={232}

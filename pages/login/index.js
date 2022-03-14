@@ -169,7 +169,7 @@ const Login = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob1.svg"
+                src="/assets/landing/blob1.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -185,7 +185,7 @@ const Login = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob3.svg"
+                src="/assets/landing/blob3.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -220,7 +220,7 @@ const Login = inject(
                 >
                   <Image
                     alt="alt"
-                    src="/auth/Login.svg"
+                    src="/assets/auth/Login.svg"
                     quality={100}
                     width={456}
                     height={456}

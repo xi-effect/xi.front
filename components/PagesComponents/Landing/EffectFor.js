@@ -209,7 +209,7 @@ function EffectFor() {
                 >
                     <Image
                         alt="alt"
-                        src="/landing/Learning.svg"
+                        src="/assets/landing/Learning.svg"
                         quality={100}
                         width={256}
                         height={256}
@@ -224,7 +224,7 @@ function EffectFor() {
                 >
                     <Image
                         alt="alt"
-                        src="/landing/BookLover.svg"
+                        src="/assets/landing/BookLover.svg"
                         quality={100}
                         width={256}
                         height={256}

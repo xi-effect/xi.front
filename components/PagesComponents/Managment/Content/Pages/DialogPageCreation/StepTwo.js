@@ -45,7 +45,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => {
                         <Image
                             quality={100}
                             alt="howtocreateamodule"
-                            src="/app/Content.svg"
+                            src="/assets/app/Content.svg"
                             // layout="fill"
                             width={480}
                             height={480}

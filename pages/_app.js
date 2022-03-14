@@ -45,29 +45,8 @@ const MyApp = (observer((props) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        {/* <title>
-          Ξ Effect
-        </title> */}
-        <meta charSet="utf-8" />
-        <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
         <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-        <meta name="yandex-verification" content="879d56b8525183be" />
-        <meta name="google-site-verification" content="VAN7yVAfRqd5NWFpUJlz0MVL1wcv0mdhDY-16-d48-U" />
-        <meta
-          name="description"
-          content="Всё, что нужно для вашего Образования."
-        />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff7d6c" />
-        <meta name="msapplication-TileColor" content="#ff7d6c" />
-        <meta name="theme-color" content="#ffffff" />
-        {/* <link rel="shortcut icon" href="/static/favicon.ico" /> */}
       </Head>
-      {/* <Context.Provider value={{ files, selectFiles }}> */}
       <Provider
         store={rootStore}
         rootStore={rootStore}
@@ -84,20 +63,8 @@ const MyApp = (observer((props) => {
       >
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
-            {/* <SnackbarProvider
-                autoHideDuration={800}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-                maxSnack={3}> */}
-            {/* <MenuLayout> */}
             <CssBaseline />
             <Loading />
-            {/* <PlausibleProvider
-              domain={"xieffect.ru"}
-              // selfHosted
-            > */}
             <SnackbarProvider
               anchorOrigin={{
                 vertical: "bottom",
@@ -109,14 +76,9 @@ const MyApp = (observer((props) => {
             >
               <Component {...pageProps} />
             </SnackbarProvider>
-            {/* </PlausibleProvider> */}
-            {/* </MenuLayout> */}
-            {/* </SnackbarProvider> */}
           </ThemeProvider>
-
         </StyledEngineProvider>
       </Provider>
-      {/* </Context.Provider> */}
     </CacheProvider>
   );
 }))

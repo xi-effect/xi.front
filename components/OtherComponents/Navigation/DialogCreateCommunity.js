@@ -57,7 +57,7 @@ const CommunityType = inject()(
                         >
                             <Image
                                 alt="alt"
-                                src="/app/AdvancedCustomization.svg"
+                                src="/assets/app/AdvancedCustomization.svg"
                                 quality={100}
                                 width={mobile ? 68 : 100}
                                 height={mobile ? 68 : 100}
@@ -124,7 +124,7 @@ const CommunityType = inject()(
                         >
                             <Image
                                 alt="alt"
-                                src="/app/Professor.svg"
+                                src="/assets/app/Professor.svg"
                                 quality={100}
                                 width={mobile ? 68 : 100}
                                 height={mobile ? 68 : 100}
@@ -191,7 +191,7 @@ const CommunityType = inject()(
                         >
                             <Image
                                 alt="alt"
-                                src="/app/Connecting.svg"
+                                src="/assets/app/Connecting.svg"
                                 quality={100}
                                 width={mobile ? 68 : 100}
                                 height={mobile ? 68 : 100}
@@ -258,7 +258,7 @@ const CommunityType = inject()(
                         >
                             <Image
                                 alt="alt"
-                                src="/app/Classroom.svg"
+                                src="/assets/app/Classroom.svg"
                                 quality={100}
                                 width={mobile ? 68 : 100}
                                 height={mobile ? 68 : 100}
@@ -370,7 +370,7 @@ const CommunityName = inject(
                 >
                     <Image
                         alt="alt"
-                        src="/app/RemoteMeeting.svg"
+                        src="/assets/app/RemoteMeeting.svg"
                         quality={100}
                         width={mobile ? 256 : 420}
                         height={mobile ? 256 : 420}

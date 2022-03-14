@@ -54,7 +54,7 @@ const MenuHomeComp = inject()(observer(() => {
             >
                 <Image
                     alt="alt"
-                    src="/app/DataReport.svg"
+                    src="/assets/app/DataReport.svg"
                     quality={100}
                     width={256}
                     height={256}

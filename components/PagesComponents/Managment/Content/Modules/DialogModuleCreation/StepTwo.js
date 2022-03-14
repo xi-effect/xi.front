@@ -213,7 +213,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => (
             >
                 <Image
                     alt="alt"
-                    src="/app/Teacher.svg"
+                    src="/assets/app/Teacher.svg"
                     quality={100}
                     width={256}
                     height={256}

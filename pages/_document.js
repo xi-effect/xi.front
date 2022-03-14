@@ -14,20 +14,6 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
-          <meta charSet="utf-8" />
-          <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
-          <meta name="yandex-verification" content="42187efe6d19061b" />
-          <meta name="google-site-verification" content="VAN7yVAfRqd5NWFpUJlz0MVL1wcv0mdhDY-16-d48-U" />
-          <meta
-            name="description"
-            content="Всё, что нужно для вашего Образования."
-          />
-          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-          <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-          <link rel="manifest" href="/site.webmanifest" />
-          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff7d6c" />
           <link
             href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap"
             rel="stylesheet"
@@ -36,8 +22,45 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&display=swap" rel="stylesheet" />
-          <meta name="msapplication-TileColor" content="#ff7d6c" />
-          <meta name="theme-color" content="#ffffff" />
+
+          <meta charSet="utf-8" />
+          <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
+          <meta name="yandex-verification" content="42187efe6d19061b" />
+          <meta name="google-site-verification" content="VAN7yVAfRqd5NWFpUJlz0MVL1wcv0mdhDY-16-d48-U" />
+          <meta
+            name="description"
+            content="Всё, что нужно для вашего Образования"
+          />
+
+          <meta name='application-name' content="\u039effect" />
+          <meta name='apple-mobile-web-app-capable' content='yes' />
+          <meta name='apple-mobile-web-app-status-bar-style' content='default' />
+          <meta name='apple-mobile-web-app-title' content='\u039effect' />
+          <meta name='mobile-web-app-capable' content='yes' />
+          <meta name='msapplication-config' content='/browserconfig.xml' />
+          <meta name="format-detection" content="telephone=no" />
+          <meta name="format-detection" content="address=no" />
+
+          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+          <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+          <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/icon-16x16.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-32x32.png" />
+          <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/icon-48x48.png" />
+          <link rel="icon" type="image/png" sizes="72x72" href="/assets/icons/icon-72x72.png" />
+          <link rel="icon" type="image/png" sizes="128x128" href="/assets/icons/icon-128x128.png" />
+          <link rel="icon" type="image/png" sizes="144x144" href="/assets/icons/icon-144x144.png" />
+          <link rel="icon" type="image/png" sizes="152x152" href="/assets/icons/icon-152x152.png" />
+          <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192x192.png" />
+          <link rel="icon" type="image/png" sizes="384x384" href="/assets/icons/icon-384x384.png" />
+          <link rel="icon" type="image/png" sizes="512x512" href="/assets/icons/icon-512x512.png" />
+
+
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5F85D8" />
+          <meta name="msapplication-TileColor" content="#5F85D8" />
+          <meta name='msapplication-tap-highlight' content='no' />
+          <meta name="theme-color" content="#5F85D8" />
           {/* <script defer data-domain="xieffect.ru" src="https://xieffect.ru:5000/static/plausible.js"></script> */}
         </Head>
         <body>
@@ -84,9 +107,9 @@ MyDocument.getInitialProps = async (ctx) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) => function(props) {
-  return <App emotionCache={cache} {...props} />
-},
+      enhanceApp: (App) => function (props) {
+        return <App emotionCache={cache} {...props} />
+      },
     });
 
   const initialProps = await Document.getInitialProps(ctx);

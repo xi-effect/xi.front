@@ -70,7 +70,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob1.svg"
+                src="/assets/landing/blob1.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -88,7 +88,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob2.svg"
+                src="/assets/landing/blob2.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -106,7 +106,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob4.svg"
+                src="/assets/landing/blob4.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -124,7 +124,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob3.svg"
+                src="/assets/landing/blob3.svg"
                 quality={100}
                 width={256}
                 height={256}
