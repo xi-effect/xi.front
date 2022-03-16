@@ -44,18 +44,6 @@ export default class MyDocument extends Document {
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
           <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-          <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/icon-16x16.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-32x32.png" />
-          <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/icon-48x48.png" />
-          <link rel="icon" type="image/png" sizes="72x72" href="/assets/icons/icon-72x72.png" />
-          <link rel="icon" type="image/png" sizes="128x128" href="/assets/icons/icon-128x128.png" />
-          <link rel="icon" type="image/png" sizes="144x144" href="/assets/icons/icon-144x144.png" />
-          <link rel="icon" type="image/png" sizes="152x152" href="/assets/icons/icon-152x152.png" />
-          <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192x192.png" />
-          <link rel="icon" type="image/png" sizes="384x384" href="/assets/icons/icon-384x384.png" />
-          <link rel="icon" type="image/png" sizes="512x512" href="/assets/icons/icon-512x512.png" />
-
-
           <link rel="manifest" href="/manifest.json" />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5d74a6" />
           <meta name="msapplication-TileColor" content="#5d74a6" />

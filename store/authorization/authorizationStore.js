@@ -27,8 +27,8 @@ class AuthorizationStore {
         this.setNewPasswordReset("emailResetOk", false)
         this.rootStore.fetchData(`${this.rootStore.url}/password-reset/confirm/`, "POST", { "code": id, "password": Crypto.SHA384(data.password).toString() },)
             .then((data) => {
-                if (data != undefined) {
-                    if (data.a == "Success") { //"Success"
+                if (data !== undefined) {
+                    if (data.a === "Success") { // "Success"
                         this.setNewPasswordReset("emailResetOk", true)
                     }
                 }

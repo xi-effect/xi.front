@@ -46,19 +46,13 @@
     },
     {
       "src": "/assets/icons/icon-384x384.png",
-      "sizes": "384x384",
+      "sizes": "284x284",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
       "src": "/assets/icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/assets/icons/square-icon.png",
-      "sizes": "180x180",
       "type": "image/png",
       "purpose": "maskable any"
     }
