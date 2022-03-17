@@ -41,11 +41,11 @@ export default class MyDocument extends Document {
           <meta name="format-detection" content="telephone=no" />
           <meta name="format-detection" content="address=no" />
 
-          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
           <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
           <link rel="manifest" href="/manifest.json" />
-          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5d74a6" />
+          <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#5d74a6" />
           <meta name="msapplication-TileColor" content="#5d74a6" />
           <meta name='msapplication-tap-highlight' content='no' />
           <meta name="theme-color" content="#5d74a6" />
