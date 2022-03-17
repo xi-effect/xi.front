@@ -5,7 +5,7 @@ import Router from "next/router"
 // import socket from "../../utils/socket"
 // import { io } from "socket.io-client";
 
-// let Crypto = require("crypto-js")
+const Crypto = require("crypto-js")
 
 class AuthorizationStore {
     // `this` from rootstore passed to the constructor and we can 
