@@ -1,9 +1,11 @@
-import { action, observable, computed, runInAction, makeObservable } from "mobx"
+/* eslint-disable no-undef */
+/* eslint-disable no-shadow */
+import { action, observable, makeObservable } from "mobx"
 import Router from "next/router"
-import socket from "../../utils/socket"
-import { io } from "socket.io-client";
+// import socket from "../../utils/socket"
+// import { io } from "socket.io-client";
 
-let Crypto = require("crypto-js")
+// let Crypto = require("crypto-js")
 
 class AuthorizationStore {
     // `this` from rootstore passed to the constructor and we can 
@@ -50,7 +52,7 @@ class AuthorizationStore {
         this.rootStore.fetchDataScr(`${this.rootStore.url}/password-reset/`, "POST", { email: data.email },)
             .then((data) => {
                 console.log(data)
-                if (data != undefined) {
+                if (data !== undefined) {
                     if (data.a === true) {
                         this.setPasswordReset("errorEmailNotFounedReset", true)
                     } else if (data.a === false) {
@@ -74,8 +76,8 @@ class AuthorizationStore {
         this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString(), "username": data.username, "code": data.invite })
             .then((data) => {
                 console.log(data)
-                if (data != undefined) {
-                    if (data.a) { //true
+                if (data !== undefined) {
+                    if (data.a) { // true
                         this.rootStore.uiStore.setLoading("loading", true)
                         const router = Router
                         router.push("/home")
@@ -89,12 +91,6 @@ class AuthorizationStore {
                     this.setSignup("error", "serverError")
                 }
             });
-        // this.rootStore.fetchData(`https://xieffect-socketio.herokuapp.com/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
-        //     .then((data) => {
-        //         socket = io("https://xieffect-socketio.herokuapp.com/", {
-        //             withCredentials: true,
-        //         });
-        //     })
     }
 
     @observable login = {
@@ -111,19 +107,19 @@ class AuthorizationStore {
         this.rootStore.fetchData(`${this.rootStore.url}/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
             .then((data) => {
                 console.log("/auth/", data)
-                if (data != undefined) {
-                    if (data.a == "Success") {
+                if (data !== undefined) {
+                    if (data.a === "Success") {
                         this.rootStore.uiStore.setLoading("loading", true)
                         const router = Router
                         router.push("/home")
                         this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/`, "GET")
                             .then((data) => {
                                 console.log(data)
-                                if (data != undefined) {
-                                    let emailArr = data.email.split("@", 2)
+                                if (data !== undefined) {
+                                    const emailArr = data.email.split("@", 2)
                                     this.rootStore.settingsStore.setSettings("username", data.username)
                                     this.rootStore.settingsStore.setSettings("emailBefore", emailArr[0])
-                                    this.rootStore.settingsStore.setSettings("emailAfter", "@" + emailArr[1])
+                                    this.rootStore.settingsStore.setSettings("emailAfter", `@${emailArr[1]}`)
                                     this.rootStore.settingsStore.setSettings("darkTheme", data["dark-theme"])
                                     this.rootStore.settingsStore.setSettings("emailConfirmed", data["email-confirmed"])
                                 } else {
@@ -134,20 +130,16 @@ class AuthorizationStore {
                                 }, 3000);
                             });
                     } else if (data.a === "User doesn't exist") {
-                    this.setLogin("error", "User doesn't exist")
+                        this.setLogin("error", "User doesn't exist")
                     } else if (data.a === "Wrong password") {
-                    this.setLogin("error", "Wrong password")
+                        this.setLogin("error", "Wrong password")
+                    }
+                } else {
+                    this.setLogin("error", "Server error")
+
                 }
-            } else {
-                this.setLogin("error", "Server error")
-
-            }
             })
-    // this.rootStore.fetchData(`https://xieffect-socketio.herokuapp.com/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
-    //     .then((data) => {
-
-    //     })
-}
+    }
 }
 
 export default AuthorizationStore;

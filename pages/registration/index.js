@@ -24,21 +24,22 @@ const schema = yup.object({
     password: yup.string().min(6).max(100).required(),
     invite: yup.string().required(),
 }).required();
+
 const Registration = inject("authorizationStore")(observer(({ authorizationStore }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
-    const router = useRouter()
-    const [showPassword, setShowPassword] = React.useState(false)
+    const router = useRouter();
+    const [showPassword, setShowPassword] = React.useState(false);
     const { control, setValue, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
-    console.log("errors", errors)
+    // console.log("errors", errors);
     const onSubmit = data => authorizationStore.clickRegistrationButton(data);
 
     React.useEffect(() => {
         console.log("query", router.query)
         if (router.query.invite) setValue("invite", router.query.invite)
-    }, [router.query, setValue])
+    }, [router.query, setValue]);
     // console.log("query1", router.query)
 
     return (
@@ -125,10 +126,6 @@ const Registration = inject("authorizationStore")(observer(({ authorizationStore
                         width: "calc(100% - 32px)",
                         maxWidth: 512,
                         zIndex: 0,
-                        // mt: mobile ? "2px" : -32,
-                        // mt: 10,
-                        // ml: mobile ? "16px" : "100px",
-                        // mr: mobile ? "16px" : "100px",
                         bgcolor: "grey.800",
                         borderRadius: "20px",
                     }}
@@ -169,10 +166,6 @@ const Registration = inject("authorizationStore")(observer(({ authorizationStore
                         elevation={24}
                         sx={{
                             zIndex: 500,
-                            // mt: mobile ? "2px" : -32,
-                            // mt: 10,
-                            // ml: mobile ? "16px" : "100px",
-                            // mr: mobile ? "16px" : "100px",
                             bgcolor: "grey.800",
                             borderRadius: "20px",
                         }}
@@ -403,7 +396,6 @@ const Registration = inject("authorizationStore")(observer(({ authorizationStore
                                     </Link>
                                 </Stack>
                                 <Button
-                                    variant="outlined"
                                     size="large"
                                     type="submit"
                                     sx={{
@@ -440,4 +432,4 @@ const Registration = inject("authorizationStore")(observer(({ authorizationStore
     );
 }))
 
-export default Registration
+export default Registration;

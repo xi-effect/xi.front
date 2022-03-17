@@ -1,9 +1,14 @@
-import { action, observable, computed, runInAction, makeObservable } from "mobx"
+/* eslint-disable no-shadow */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable consistent-return */
+/* eslint-disable class-methods-use-this */
+import { action, makeObservable } from "mobx"
 import { enableStaticRendering } from "mobx-react"
 import { useMemo } from "react"
 import Router from "next/router"
 
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 
 import UIStore from "./ui/uiStore";
 import HomeStore from "./home/homeStore";

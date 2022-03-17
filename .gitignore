@@ -36,3 +36,4 @@ yarn-error.log*
 # IntellijIdea files
 *.iml
 .idea
+public/sw.js.map

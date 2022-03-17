@@ -1,3 +1,8 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-shadow */
+/* eslint-disable consistent-return */
+/* eslint-disable no-return-assign */
 import {
   action,
   observable,
@@ -103,7 +108,7 @@ class KnowledgeStore {
       }
       if (this.page.components[index].userAnswers.includes(indexAnswer)) {
         console.log("remove")
-        this.page.components[index].userAnswers = this.page.components[index].userAnswers.filter(item => item != indexAnswer)
+        this.page.components[index].userAnswers = this.page.components[index].userAnswers.filter(item => item !== indexAnswer)
         console.log("this.page.components[index]", this.page.components[index])
         return;
       }
@@ -117,7 +122,6 @@ class KnowledgeStore {
         console.log("add")
         return this.page.components[index].userAnswers[0] = indexAnswer
       }
-
     }
   };
 
@@ -270,13 +274,13 @@ class KnowledgeStore {
 
   @action loadModuleList = (isSearch = false) => {
     let filters = {};
-    if (this.moduleList.filters.global != "default")
+    if (this.moduleList.filters.global !== "default")
       filters.global = this.moduleList.filters.global;
-    if (this.moduleList.filters.category != "default")
+    if (this.moduleList.filters.category !== "default")
       filters.category = this.moduleList.filters.category;
-    if (this.moduleList.filters.theme != "default")
+    if (this.moduleList.filters.theme !== "default")
       filters.theme = this.moduleList.filters.theme;
-    if (this.moduleList.filters.difficulty != "default")
+    if (this.moduleList.filters.difficulty !== "default")
       filters.difficulty = this.moduleList.filters.difficulty;
     if (
       this.moduleList.filters.global === "default" &&

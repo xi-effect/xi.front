@@ -23,21 +23,12 @@ const Main = inject(
   observer(() => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
-    // React.useEffect(() => {
-    //   if (uiStore.load.landing) uiStore.setLoading("loading", true)
-    //   setTimeout(() => {
-    //     uiStore.setLoading("loading", false)
-    //     uiStore.setLoading("landing", false)
-    //   }, 1500);
-    // }, [])
-
     return (
       <>
         <Head>
           <title>Ξffect</title>
           <meta name="description" content="Всё, что нужно для вашего образования" />
         </Head>
-        {/* <Background /> */}
         <Stack
           component={motion.div}
           initial={{ opacity: 0 }}
@@ -47,11 +38,9 @@ const Main = inject(
           justifyContent="flex-start"
           alignItems="center"
           sx={{
-            // transition: "0.8s",
             zIndex: 1,
             margin: 0,
             overflow: "auto",
-            // width: `100vw`,
             height: "100vh",
             bgcolor: "background.main",
             position: "relative",

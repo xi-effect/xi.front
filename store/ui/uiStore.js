@@ -1,4 +1,4 @@
-import { action, observable, computed, runInAction, makeObservable } from "mobx"
+import { action, observable, makeObservable } from "mobx"
 
 
 class UIStore {
@@ -19,7 +19,7 @@ class UIStore {
         this.navigation[name] = value
     }
 
-    //Loading Screen
+    // Loading Screen
     @observable load = {
         loading: false,
         landing: true,
