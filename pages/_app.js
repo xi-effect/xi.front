@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 /* eslint-disable react/forbid-prop-types */
 // import "../styles/globals.css"
 import React from "react";
@@ -29,7 +28,6 @@ import { getDesignTokens } from "../theme"
 import "nprogress/nprogress.css"; // styles of nprogress
 import Loading from "../components/OtherComponents/Loading/Loading";
 
-import '../node_modules/@fortawesome/fontawesome-svg-core/styles.css'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 // Binding events. 
