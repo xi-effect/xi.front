@@ -72,6 +72,7 @@ const MyApp = (observer((props) => {
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
             <CssBaseline />
+            <Loading />
             <SnackbarProvider
               anchorOrigin={{
                 vertical: "bottom",
@@ -81,7 +82,6 @@ const MyApp = (observer((props) => {
               preventDuplicate
               dense
             >
-              <Loading />
               <Component {...pageProps} />
             </SnackbarProvider>
           </ThemeProvider>
