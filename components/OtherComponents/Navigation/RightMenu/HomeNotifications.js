@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Box, Stack, Typography } from "@mui/material";
 
 const HomeNotifications = inject(
-    "knowledgeStore",
+    "knowledgeSt",
 )(
     observer(() => (
         <>

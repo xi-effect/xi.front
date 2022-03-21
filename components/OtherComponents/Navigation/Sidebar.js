@@ -11,13 +11,13 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 
-import HomeIcon from "@mui/icons-material/Home";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
-import SettingsIcon from "@mui/icons-material/Settings";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic"
+
+const HomeIcon = dynamic(() => import('@mui/icons-material/Home'));
+const MenuBookIcon = dynamic(() => import('@mui/icons-material/MenuBook'));
+const SettingsIcon = dynamic(() => import('@mui/icons-material/Settings'));
+const AddBoxIcon = dynamic(() => import('@mui/icons-material/AddBox'));
 
 const DialogCreateCommunity = dynamic(
   () => import("./DialogCreateCommunity"),

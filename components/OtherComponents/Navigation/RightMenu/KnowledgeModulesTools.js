@@ -7,13 +7,13 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 
 const KnowledgeModulesTools = inject(
-    "knowledgeStore"
+    "knowledgeSt"
 )(
-    observer(({ knowledgeStore }) => (
+    observer(({ knowledgeSt }) => (
         <>
             <Button
-                onClick={knowledgeStore.prevPageInModules}
-                disabled={knowledgeStore.moduleList.counter === 0}
+                onClick={knowledgeSt.prevPageInModules}
+                disabled={knowledgeSt.moduleList.counter === 0}
                 sx={{
                     color: "text.primary",
                     width: 142,
@@ -23,10 +23,10 @@ const KnowledgeModulesTools = inject(
             >
                 Назад <NavigateBeforeIcon sx={{ ml: "auto", mr: 0 }} />
             </Button>
-            <Typography sx={{ cursor: "default" }}> {`Страница ${knowledgeStore.moduleList.counter + 1}`} </Typography>
+            <Typography sx={{ cursor: "default" }}> {`Страница ${knowledgeSt.moduleList.counter + 1}`} </Typography>
             <Button
-                onClick={knowledgeStore.nextPageInModules}
-                disabled={knowledgeStore.moduleList.modules.length < 12}
+                onClick={knowledgeSt.nextPageInModules}
+                disabled={knowledgeSt.moduleList.modules.length < 12}
                 sx={{
                     color: "text.primary",
                     width: 142,

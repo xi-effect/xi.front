@@ -113,21 +113,21 @@ const Root = styled("div")((
     }
 }));
 
-const Text = inject("managmentStore")(observer(({ managmentStore, index }) => {
+const Text = inject("managmentSt")(observer(({ managmentSt, index }) => {
     // Simulated props for the purpose of the example
-    const values = managmentStore.pageCreation.components[index]
+    const values = managmentSt.pageCreation.components[index]
     // Simulated props for the purpose of the example
 
     // console.log("props", props)
 
     const handleFontSizeUp = () => {
         // console.log(index, "fontSize", newFormats)
-        if (values.fontSize !== 48) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
+        if (values.fontSize !== 48) managmentSt.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
     };
 
     const handleFontSizeDown = () => {
         // console.log(index, "fontSize", newFormats)
-        if (values.fontSize !== 12) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
+        if (values.fontSize !== 12) managmentSt.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
     };
 
     const handleTextAlign = (align) => {
@@ -136,22 +136,22 @@ const Text = inject("managmentStore")(observer(({ managmentStore, index }) => {
         else if (align === "center") newAlignment = "right"
         else if (align === "right") newAlignment = "justify"
         else if (align === "justify") newAlignment = "left"
-        managmentStore.setPageCreationComponents(index, "textAlign", newAlignment)
+        managmentSt.setPageCreationComponents(index, "textAlign", newAlignment)
     };
 
     const handleFontStyle = () => {
-        if (values.fontStyle === "normal") return managmentStore.setPageCreationComponents(index, "fontStyle", "italic")
-        return managmentStore.setPageCreationComponents(index, "fontStyle", "normal");
+        if (values.fontStyle === "normal") return managmentSt.setPageCreationComponents(index, "fontStyle", "italic")
+        return managmentSt.setPageCreationComponents(index, "fontStyle", "normal");
     };
 
     const handleFontWeight = () => {
-        if (values.fontWeight === "normal") return managmentStore.setPageCreationComponents(index, "fontWeight", "bold");
-        return managmentStore.setPageCreationComponents(index, "fontWeight", "normal");
+        if (values.fontWeight === "normal") return managmentSt.setPageCreationComponents(index, "fontWeight", "bold");
+        return managmentSt.setPageCreationComponents(index, "fontWeight", "normal");
     };
 
     const handleTextDecoration = () => {
-        if (values.textDecoration === "none") return managmentStore.setPageCreationComponents(index, "textDecoration", "underline");
-        return managmentStore.setPageCreationComponents(index, "textDecoration", "none");
+        if (values.textDecoration === "none") return managmentSt.setPageCreationComponents(index, "textDecoration", "underline");
+        return managmentSt.setPageCreationComponents(index, "textDecoration", "none");
     };
 
     const textAlignIconSelect = (align) => {
@@ -182,7 +182,7 @@ const Text = inject("managmentStore")(observer(({ managmentStore, index }) => {
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                onClick={() => managmentStore.setPageCreationList("selectId", index)}
+                onClick={() => managmentSt.setPageCreationList("selectId", index)}
             >
                 <Grid className={classes.gridTextWrapper}>
                     <Input
@@ -203,7 +203,7 @@ const Text = inject("managmentStore")(observer(({ managmentStore, index }) => {
                         multiline
                         fullWidth
                         value={values.label}
-                        onChange={(event) => managmentStore.setPageCreationComponents(index, "label", event.target.value)}
+                        onChange={(event) => managmentSt.setPageCreationComponents(index, "label", event.target.value)}
                     />
                 </Grid>
                 <Fade
@@ -250,7 +250,7 @@ const Text = inject("managmentStore")(observer(({ managmentStore, index }) => {
                         <Tooltip title="Удалить блок">
                             <IconButton
                                 className={classes.leftIconButton}
-                                onClick={() => managmentStore.deleteComponent(index)}
+                                onClick={() => managmentSt.deleteComponent(index)}
                                 size="large">
                                 <DeleteForeverIcon className={classes.icon} />
                             </IconButton>

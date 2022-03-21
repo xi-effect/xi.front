@@ -18,7 +18,7 @@ import Footer from "../components/PagesComponents/Landing/Footer";
 
 const Main = inject(
   "rootStore",
-  "uiStore"
+  "uiSt"
 )(
   observer(() => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));

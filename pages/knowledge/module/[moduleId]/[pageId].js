@@ -11,10 +11,10 @@ import NavigationAll from "../../../../components/OtherComponents/Navigation/Nav
 import PageCompList from "../../../../components/PagesComponents/Knowledge/Page/PageCompList";
 
 
-const ModuleId = inject("rootStore", "knowledgeStore")(observer(({ knowledgeStore }) => {
+const ModuleId = inject("rootStore", "knowledgeSt")(observer(({ knowledgeSt }) => {
     React.useEffect(() => {
-        knowledgeStore.clearModule()
-        knowledgeStore.loadModule()
+        knowledgeSt.clearModule()
+        knowledgeSt.loadModule()
     }, []);
 
     return (

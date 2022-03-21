@@ -61,7 +61,7 @@ function Component({ component, index }) {
     );
 }
 
-const ComponentsList = inject("managmentStore")(observer(({ managmentStore }) => managmentStore.pageCreation.components.map((component, index) => (
+const ComponentsList = inject("managmentSt")(observer(({ managmentSt }) => managmentSt.pageCreation.components.map((component, index) => (
     <Component component={component} index={index} key={index.toString()} />
 ))));
 

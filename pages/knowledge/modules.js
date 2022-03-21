@@ -11,7 +11,7 @@ import ModulesListLoading from "../../components/PagesComponents/Knowledge/Modul
 
 
 
-const Toolbar = inject("knowledgeStore")(observer(({ knowledgeStore }) => (
+const Toolbar = inject("knowledgeSt")(observer(({ knowledgeSt }) => (
     <Grid
         container
         direction="row"
@@ -19,22 +19,22 @@ const Toolbar = inject("knowledgeStore")(observer(({ knowledgeStore }) => (
         alignItems="center"
         sx={{ height: 64 }}
     >
-        <Button onClick={knowledgeStore.prevPageInModules} sx={{ ml: 2, mr: 2, }} variant="contained" color="primary" disabled={knowledgeStore.moduleList.counter === 0}>
+        <Button onClick={knowledgeSt.prevPageInModules} sx={{ ml: 2, mr: 2, }} variant="contained" color="primary" disabled={knowledgeSt.moduleList.counter === 0}>
             Назад
         </Button>
         <Typography variant="subtitle1">
-            {`Страница ${knowledgeStore.moduleList.counter + 1}`}
+            {`Страница ${knowledgeSt.moduleList.counter + 1}`}
         </Typography>
-        <Button onClick={knowledgeStore.nextPageInModules} sx={{ ml: 2, mr: 2, }} variant="contained" color="primary" disabled={knowledgeStore.moduleList.modules.length < 12}>
+        <Button onClick={knowledgeSt.nextPageInModules} sx={{ ml: 2, mr: 2, }} variant="contained" color="primary" disabled={knowledgeSt.moduleList.modules.length < 12}>
             Вперёд
         </Button>
     </Grid>
 )));
 
 
-const Modules = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
+const Modules = inject("knowledgeSt")(observer(({ knowledgeSt }) => {
     React.useEffect(() => {
-        knowledgeStore.loadModuleList()
+        knowledgeSt.loadModuleList()
     }, []);
 
     return (
@@ -59,10 +59,10 @@ const Modules = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
                         zIndex: 1,
                     }}
                 >
-                    {knowledgeStore.moduleList.loadingInd && <ModulesListLoading />}
-                    {!knowledgeStore.moduleList.loadingNothing && <>
-                        {!knowledgeStore.moduleList.loadingInd && <ModulesList />}
-                        {!knowledgeStore.moduleList.loadingInd && knowledgeStore.moduleList.modules.length < 12 && <Grid
+                    {knowledgeSt.moduleList.loadingInd && <ModulesListLoading />}
+                    {!knowledgeSt.moduleList.loadingNothing && <>
+                        {!knowledgeSt.moduleList.loadingInd && <ModulesList />}
+                        {!knowledgeSt.moduleList.loadingInd && knowledgeSt.moduleList.modules.length < 12 && <Grid
                             container
                             direction="column"
                             justifyContent="center"
@@ -76,9 +76,9 @@ const Modules = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
                         >
                             <Typography> Это всё, что мы нашли по вашему запросу </Typography>
                         </Grid>}
-                        {!knowledgeStore.moduleList.loadingInd && <Toolbar />}
+                        {!knowledgeSt.moduleList.loadingInd && <Toolbar />}
                     </>}
-                    {knowledgeStore.moduleList.loadingNothing &&
+                    {knowledgeSt.moduleList.loadingNothing &&
                         <Grid
                             container
                             direction="column"

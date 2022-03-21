@@ -40,10 +40,10 @@ const schema = yup
 
 
 const Login = inject(
-  "uiStore",
-  "authorizationStore"
+  "uiSt",
+  "authorizationSt"
 )(
-  observer(({ authorizationStore, uiStore }) => {
+  observer(({ authorizationSt, uiSt }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("dl"));
 
     const router = useRouter();
@@ -56,13 +56,13 @@ const Login = inject(
       resolver: yupResolver(schema),
     });
     console.log("errors", errors);
-    const onSubmit = (data) => authorizationStore.clickEnterButton(data);
+    const onSubmit = (data) => authorizationSt.clickEnterButton(data);
 
     React.useEffect(() => {
-      if (uiStore.load.login) uiStore.setLoading("loading", true)
+      if (uiSt.load.login) uiSt.setLoading("loading", true)
       setTimeout(() => {
-        uiStore.setLoading("loading", false)
-        uiStore.setLoading("login", false)
+        uiSt.setLoading("loading", false)
+        uiSt.setLoading("login", false)
       }, 1500);
     }, [])
 
@@ -233,7 +233,7 @@ const Login = inject(
                       <FormControl
                         error={
                           errors?.email?.type === "required" ||
-                          authorizationStore.login.error === "User doesn't exist"
+                          authorizationSt.login.error === "User doesn't exist"
                         }
                         fullWidth
                         sx={{
@@ -272,7 +272,7 @@ const Login = inject(
                     spacing={1}
                     sx={{ width: "100%", minHeight: 16, mb: 1.2 }}
                   >
-                    {authorizationStore.login.error === "User doesn't exist" && (
+                    {authorizationSt.login.error === "User doesn't exist" && (
                       <Typography
                         variant="subtitle1"
                         sx={{ mt: 1, ml: 1 }}
@@ -291,7 +291,7 @@ const Login = inject(
                         error={
                           errors?.password?.type === "min" ||
                           errors?.password?.type === "required" ||
-                          authorizationStore.login.error === "Wrong password"
+                          authorizationSt.login.error === "Wrong password"
                         }
                         fullWidth
                         sx={{
@@ -338,7 +338,7 @@ const Login = inject(
                     spacing={1}
                     sx={{ width: "100%", minHeight: 4, mb: 1.2 }}
                   >
-                    {authorizationStore.login.error === "Wrong password" && (
+                    {authorizationSt.login.error === "Wrong password" && (
                       <Typography
                         variant="subtitle1"
                         sx={{ mt: 1, ml: 1 }}
@@ -347,7 +347,7 @@ const Login = inject(
                         Неверный Пароль
                       </Typography>
                     )}
-                    {authorizationStore.login.error === "Server error" && (
+                    {authorizationSt.login.error === "Server error" && (
                       <Typography
                         variant="subtitle1"
                         sx={{ mt: 1, ml: 1 }}

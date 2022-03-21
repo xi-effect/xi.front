@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
 
 
-const RoomPage = inject("rootStore", "settingsStore", "profileStore")(observer(() => {
+const RoomPage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
     // console.log("router.query", router.query.id);
 
     const router = useRouter()
@@ -27,7 +27,7 @@ const RoomPage = inject("rootStore", "settingsStore", "profileStore")(observer((
                 <meta name="robots" content="noindex" />
             </Head>
             <NavigationAll>
-               rjvgjytyns nen
+                rjvgjytyns nen
             </NavigationAll>
         </>
     );

@@ -11,9 +11,9 @@ import { Scrollbars } from "react-custom-scrollbars-2";
 
 
 const KnowledgeModuleMap = inject(
-    "knowledgeStore",
+    "knowledgeSt",
 )(
-    observer(({ knowledgeStore }) => (
+    observer(({ knowledgeSt }) => (
         <>
             <Typography variant="subtitle1" sx={{ ml: 0.5 }}>Карта модуля:</Typography>
             <Stack
@@ -32,39 +32,39 @@ const KnowledgeModuleMap = inject(
                     autoHideTimeout={1000}
                     autoHideDuration={200}
                 >
-                    {knowledgeStore.module.map.map((name, index) => (
+                    {knowledgeSt.module.map.map((name, index) => (
                         <Stack
                             direction="row"
                             justifyContent="flex-start"
                             alignItems="center"
                             key={index.toString()}
                         >
-                            {knowledgeStore.module.activeIdInMap ===
+                            {knowledgeSt.module.activeIdInMap ===
                                 index && (
                                     <ArrowRightIcon />
                                 )}
-                            {/* {knowledgeStore.module.activeIdInMap !== (index + (paginationCounter - 1) * 10) && <CircleIcon sx={{fontSize: "8px", m: 1}} />} */}
+                            {/* {knowledgeSt.module.activeIdInMap !== (index + (paginationCounter - 1) * 10) && <CircleIcon sx={{fontSize: "8px", m: 1}} />} */}
                             <Link
                                 sx={{
                                     cursor:
-                                        knowledgeStore.module.activeIdInMap ===
+                                        knowledgeSt.module.activeIdInMap ===
                                             index
                                             ? "default"
                                             : "pointer",
                                     ml:
-                                        knowledgeStore.module.activeIdInMap ===
+                                        knowledgeSt.module.activeIdInMap ===
                                             index
                                             ? 0
                                             : 3,
                                 }}
                                 onClick={() =>
-                                    knowledgeStore.loadPageInModule(
+                                    knowledgeSt.loadPageInModule(
                                         index
                                     )
                                 }
                                 color="inherit"
                                 underline={
-                                    knowledgeStore.module.activeIdInMap ===
+                                    knowledgeSt.module.activeIdInMap ===
                                         index
                                         ? "none"
                                         : "hover"

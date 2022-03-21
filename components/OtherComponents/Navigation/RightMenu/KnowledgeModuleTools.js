@@ -9,15 +9,15 @@ import InfoIcon from "@mui/icons-material/Info";
 import TaskIcon from "@mui/icons-material/Task";
 
 const KnowledgeModuleTools = inject(
-    "knowledgeStore",
+    "knowledgeSt",
 )(
-    observer(({ knowledgeStore, goNext, setOpenDialog }) => {
+    observer(({ knowledgeSt, goNext, setOpenDialog }) => {
         const router = useRouter()
 
         return (
             <>
                 <>
-                    {knowledgeStore.moduleCompleted.isFinished && router.pathname.includes("/knowledge/module/results") && !(router.pathname === "/knowledge/module/results") && <Button
+                    {knowledgeSt.moduleCompleted.isFinished && router.pathname.includes("/knowledge/module/results") && !(router.pathname === "/knowledge/module/results") && <Button
                         sx={{
                             color: "text.primary",
                             width: 152,
@@ -37,13 +37,13 @@ const KnowledgeModuleTools = inject(
                     >
                         Закрыть тест
                     </Button>}
-                    {knowledgeStore.module.type === "test" && !(router.pathname.includes("/knowledge/module/results")) && <Button
+                    {knowledgeSt.module.type === "test" && !(router.pathname.includes("/knowledge/module/results")) && <Button
                         sx={{
                             color: "text.primary",
                             width: 142,
                             alignItems: "space-between",
                         }}
-                        onClick={() => knowledgeStore.getTestModuleResults()} size="large"
+                        onClick={() => knowledgeSt.getTestModuleResults()} size="large"
                     >
                         Завершить <TaskIcon sx={{ ml: "auto", mr: 0 }} />
                     </Button>}
@@ -69,7 +69,7 @@ const KnowledgeModuleTools = inject(
                         Вперёд <DoubleArrowIcon sx={{ ml: "auto", mr: 0 }} />
                     </Button>}
                 </>
-                {(knowledgeStore.moduleCompleted.isFinished || !(knowledgeStore.module.map !== undefined) || knowledgeStore.module.map.length === 0) && <>
+                {(knowledgeSt.moduleCompleted.isFinished || !(knowledgeSt.module.map !== undefined) || knowledgeSt.module.map.length === 0) && <>
 
                 </>}
             </>

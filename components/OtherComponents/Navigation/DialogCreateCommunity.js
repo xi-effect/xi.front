@@ -347,8 +347,8 @@ const CommunityType = inject()(
 
 const CommunityName = inject(
     "rootStore",
-    "knowledgeStore",
-    "uiStore",
+    "knowledgeSt",
+    "uiSt",
 )(
     observer(() => {
         const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));

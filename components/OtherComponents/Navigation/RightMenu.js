@@ -26,10 +26,10 @@ import ReportDialog from "./RightMenu/ReportDialog";
 import InfoDialog from "./RightMenu/InfoDialog";
 
 const RightMenu = inject(
-  "knowledgeStore",
-  "settingsStore",
+  "knowledgeSt",
+  "settingsSt",
 )(
-  observer(({ knowledgeStore, settingsStore }) => {
+  observer(({ knowledgeSt, settingsSt }) => {
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
 
@@ -84,21 +84,21 @@ const RightMenu = inject(
 
     const goNext = () => {
       if (!router.pathname.includes("/knowledge/module/results")) {
-        knowledgeStore.loadPageInModule(
-          knowledgeStore.module.activeIdInMap + 1
+        knowledgeSt.loadPageInModule(
+          knowledgeSt.module.activeIdInMap + 1
         )
       }
       if (router.pathname.includes("/knowledge/module/results")) {
-        console.log("r", knowledgeStore.moduleCompleted.results)
-        let indx = knowledgeStore.moduleCompleted.results.findIndex((item) => {
-          console.log(item, knowledgeStore.page.id)
-          if (item["page-id"] === knowledgeStore.page.id) return true
+        console.log("r", knowledgeSt.moduleCompleted.results)
+        let indx = knowledgeSt.moduleCompleted.results.findIndex((item) => {
+          console.log(item, knowledgeSt.page.id)
+          if (item["page-id"] === knowledgeSt.page.id) return true
           return null
         })
         console.log("indx", indx)
-        if (indx + 1 === knowledgeStore.moduleCompleted.results.length) return knowledgeStore.uploadPageForResults(knowledgeStore.moduleCompleted.results[0]["page-id"], 0)
+        if (indx + 1 === knowledgeSt.moduleCompleted.results.length) return knowledgeSt.uploadPageForResults(knowledgeSt.moduleCompleted.results[0]["page-id"], 0)
         indx += 1
-        return knowledgeStore.uploadPageForResults(knowledgeStore.moduleCompleted.results[indx]["page-id"], indx)
+        return knowledgeSt.uploadPageForResults(knowledgeSt.moduleCompleted.results[indx]["page-id"], indx)
       }
       return null
     }
@@ -166,7 +166,7 @@ const RightMenu = inject(
                 <Box
                   sx={{ height: 64, width: 64, m: 1, mt: "-2px", mr: 0, cursor: "pointer" }}
                 >
-                  <CustomAvatar avatar={{ ...settingsStore.settings.avatar, bgcolor: "rgba(0,0,0,0)" }} viewBox={{ x: "50", y: "-110", width: "690", height: "790" }} reverse />
+                  <CustomAvatar avatar={{ ...settingsSt.settings.avatar, bgcolor: "rgba(0,0,0,0)" }} viewBox={{ x: "50", y: "-110", width: "690", height: "790" }} reverse />
                 </Box>
                 <Stack
                   direction="column"
@@ -178,11 +178,11 @@ const RightMenu = inject(
                   }}
                 >
                   <Typography variant="h6" sx={{ mt: 0, ml: 0, mr: 0, width: "calc(100% - 0px)" }} noWrap>
-                    {settingsStore.settings.username}
+                    {settingsSt.settings.username}
                     {/* asfbdvasbfdafbdafbdab */}
                   </Typography>
                   <Typography variant="subtitle1" sx={{ mt: 0, ml: 0, mr: 0, width: "calc(100% - 0px)" }}>
-                    {`${settingsStore.settings.username} ${settingsStore.settings.username}`}
+                    {`${settingsSt.settings.username} ${settingsSt.settings.username}`}
                   </Typography>
                 </Stack>
               </Stack>
@@ -210,7 +210,7 @@ const RightMenu = inject(
                 }}
               >
                 <MenuItem disabled={!open} component={motion.li} variants={variantsChild} sx={{ cursor: "pointer" }} onClick={() => {
-                  router.push(`/profile/${settingsStore.settings.id}/`)
+                  router.push(`/profile/${settingsSt.settings.id}/`)
                 }}>
                   <ListItemIcon>
                     <AccountCircleIcon fontSize="small" />
@@ -230,7 +230,7 @@ const RightMenu = inject(
                   </ListItemText>
                 </MenuItem>
                 <MenuItem disabled={!open} component={motion.li} variants={variantsChild} sx={{ "& .MuiMenuItem-root": { cursor: "pointer" } }} onClick={() => {
-                  settingsStore.logout()
+                  settingsSt.logout()
                 }}>
                   <ListItemIcon>
                     <LogoutIcon sx={{ color: "error.main" }} fontSize="small" />
@@ -254,7 +254,7 @@ const RightMenu = inject(
               {router.pathname.includes("/knowledge/createpage") && <KnowledgeСreatePageMap />}
               {router.pathname.includes("/knowledge/createmodule") && <KnowledgeСreateModuleMap />}
               {router.pathname.includes("/knowledge/modules") && <KnowledgeModulesFilters />}
-              {!knowledgeStore.moduleCompleted.isFinished && knowledgeStore.module.map !== undefined && knowledgeStore.module.map.length !== 0 && router.pathname.includes("/knowledge/module/") && <KnowledgeModuleMap goNext={goNext} />}
+              {!knowledgeSt.moduleCompleted.isFinished && knowledgeSt.module.map !== undefined && knowledgeSt.module.map.length !== 0 && router.pathname.includes("/knowledge/module/") && <KnowledgeModuleMap goNext={goNext} />}
             </Stack>
             <Stack
               direction="column"

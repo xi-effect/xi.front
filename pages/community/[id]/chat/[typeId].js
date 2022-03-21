@@ -9,25 +9,25 @@ import NavigationAll from "../../../../components/OtherComponents/Navigation/Nav
 import Chat from "../../../../components/OtherComponents/Chat/Chat"
 
 const ChatPage = inject(
-    "messageStore"
+    "messageSt"
 )(
-    observer(({ messageStore }) => {
+    observer(({ messageSt }) => {
         const router = useRouter();
 
         // console.log("router.query", router.query.id);
         // if (socket !== null) {
         //     socket.on("send-message", (arg) => {
-        //         if (messageStore.chat.hasNext) {
-        //             let newArray = messageStore.chat.messages;
+        //         if (messageSt.chat.hasNext) {
+        //             let newArray = messageSt.chat.messages;
         //             newArray.pop();
-        //             messageStore.setChat("messages", newArray);
+        //             messageSt.setChat("messages", newArray);
         //         }
         //     });
         // }
 
         // if (socket !== null) {
         //     socket.on("edit-message", (arg) => {
-        //         messageStore.editMessageInChat(arg["message-id"], arg["content"]);
+        //         messageSt.editMessageInChat(arg["message-id"], arg["content"]);
         //     });
         // }
 
@@ -42,13 +42,13 @@ const ChatPage = inject(
             // socket.emit("open", { "chat-id": id });
             // console.log("open socket");
             // console.log("id", id);
-            messageStore.loadMetaForChat(id);
-            messageStore.loadUsersForChat(id);
-            messageStore.uploadFirstMessages(id);
+            messageSt.loadMetaForChat(id);
+            messageSt.loadUsersForChat(id);
+            messageSt.uploadFirstMessages(id);
             return () => {
                 // socket.emit("close", { "chat-id": id });
                 console.log("close socket");
-                messageStore.clearChat();
+                messageSt.clearChat();
             };
         }, [router.query.typeId]);
 

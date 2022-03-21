@@ -24,7 +24,7 @@ moment.locale("ru", {
 })
 
 
-const ChatItem = inject("rootStore", "uiStore", "messageStore", "settingsStore")(observer(({messageStore, settingsStore, item, nextItem }) => {
+const ChatItem = inject("rootStore", "uiSt", "messageSt", "settingsSt")(observer(({ messageSt, settingsSt, item, nextItem }) => {
     const [contextMenu, setContextMenu] = React.useState(null);
 
     const handleContextMenu = (event) => {
@@ -117,7 +117,7 @@ const ChatItem = inject("rootStore", "uiStore", "messageStore", "settingsStore")
                             <Typography> {item.content} </Typography>
                         </Grid>
                     </Grid>
-                    {messageStore.chat.role !== "muted" && <Menu
+                    {messageSt.chat.role !== "muted" && <Menu
                         open={contextMenu !== null}
                         onClose={handleClose}
                         anchorReference="anchorPosition"
@@ -128,103 +128,103 @@ const ChatItem = inject("rootStore", "uiStore", "messageStore", "settingsStore")
                         }
                     >
                         <Typography align="center" sx={{ color: "text.dark", width: "100%", }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
-                        {item["sender-id"] !== settingsStore.settings.id && <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>}
-                        {item["sender-id"] === settingsStore.settings.id && <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>}
-                        {(item["sender-id"] === settingsStore.settings.id || messageStore.chat.role === "moder" || messageStore.chat.role === "admin" || messageStore.chat.role === "owner") && <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>}
-                        {/* {item["sender-id"] === settingsStore.settings.id && <MenuItem onClick={handleClose}> <VolumeMuteIcon sx={{ mr: 1 }} /> Заглушить</MenuItem>} */}
+                        {item["sender-id"] !== settingsSt.settings.id && <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>}
+                        {item["sender-id"] === settingsSt.settings.id && <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>}
+                        {(item["sender-id"] === settingsSt.settings.id || messageSt.chat.role === "moder" || messageSt.chat.role === "admin" || messageSt.chat.role === "owner") && <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>}
+                        {/* {item["sender-id"] === settingsSt.settings.id && <MenuItem onClick={handleClose}> <VolumeMuteIcon sx={{ mr: 1 }} /> Заглушить</MenuItem>} */}
                     </Menu>}
                 </Stack >
             </Stack >
         );
     }
-    
-        return (
+
+    return (
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="flex-start"
+            sx={{
+                position: "relative",
+                // pl: mobile ? 0 : 2,
+                // pt: 1,
+                // pr: 2,
+                mt: 2,
+                borderRadius: 1,
+                width: "100%",
+                "&:hover": {
+                    bgcolor: "action.hover",
+                },
+            }}
+        >
+            <Box
+                sx={{
+                    position: "absolute",
+                    top: "2px",
+                    left: "8px",
+                    height: 52,
+                    width: 52,
+                }}>
+                <CustomAvatar avatar={item["sender-avatar"]} viewBox={{ x: "50", y: "-100", width: "732", height: "732" }} />
+            </Box>
             <Stack
+                onContextMenu={handleContextMenu}
                 direction="column"
                 justifyContent="center"
                 alignItems="flex-start"
                 sx={{
                     position: "relative",
-                    // pl: mobile ? 0 : 2,
-                    // pt: 1,
-                    // pr: 2,
-                    mt: 2,
-                    borderRadius: 1,
-                    width: "100%",
+                    pl: 1,
+                    pr: 6,
+                    ml: 8,
+                    width: "calc(100% - 54px)",
                     "&:hover": {
-                        bgcolor: "action.hover",
-                    },
+                        bgcolor: "background.1",
+                    }
                 }}
             >
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "2px",
-                        left: "8px",
-                        height: 52,
-                        width: 52,
-                    }}>
-                    <CustomAvatar avatar={item["sender-avatar"]} viewBox={{ x: "50", y: "-100", width: "732", height: "732" }} />
-                </Box>
                 <Stack
-                    onContextMenu={handleContextMenu}
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="flex-start"
-                    sx={{
-                        position: "relative",
-                        pl: 1,
-                        pr: 6,
-                        ml: 8,
-                        width: "calc(100% - 54px)",
-                        "&:hover": {
-                            bgcolor: "background.1",
-                        }
-                    }}
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    spacing={2}
                 >
-                    <Stack
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                        spacing={2}
+                    <Link
+                        sx={{
+                            fontSize: 22,
+                            cursor: "pointer",
+                            color: "text.primary",
+                        }}
+                        underline="hover"
                     >
-                        <Link
-                            sx={{
-                                fontSize: 22,
-                                cursor: "pointer",
-                                color: "text.primary",
-                            }}
-                            underline="hover"
-                        >
-                            {item["sender-name"]}
-                        </Link>
-                        <Typography sx={{ color: "text.secondary", pt: "8px" }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
-                    </Stack>
-                    <Grid container wrap="nowrap">
-                        <Grid item xs>
-                            <Typography> {item.content} </Typography>
-                        </Grid>
+                        {item["sender-name"]}
+                    </Link>
+                    <Typography sx={{ color: "text.secondary", pt: "8px" }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
+                </Stack>
+                <Grid container wrap="nowrap">
+                    <Grid item xs>
+                        <Typography> {item.content} </Typography>
                     </Grid>
-                    {messageStore.chat.role !== "muted" && <Menu
-                        open={contextMenu !== null}
-                        onClose={handleClose}
-                        anchorReference="anchorPosition"
-                        anchorPosition={
-                            contextMenu !== null
-                                ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
-                                : undefined
-                        }
-                    >
-                        <Typography align="center" sx={{ color: "text.dark", width: "100%", }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
-                        {item["sender-id"] !== settingsStore.settings.id && <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>}
-                        {item["sender-id"] === settingsStore.settings.id && <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>}
-                        {(item["sender-id"] === settingsStore.settings.id || messageStore.chat.role === "moder" || messageStore.chat.role === "admin" || messageStore.chat.role === "owner") && <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>}
-                        {/* {item["sender-id"] === settingsStore.settings.id && <MenuItem onClick={handleClose}> <VolumeMuteIcon sx={{ mr: 1 }} /> Заглушить</MenuItem>} */}
-                    </Menu>}
-                </Stack >
+                </Grid>
+                {messageSt.chat.role !== "muted" && <Menu
+                    open={contextMenu !== null}
+                    onClose={handleClose}
+                    anchorReference="anchorPosition"
+                    anchorPosition={
+                        contextMenu !== null
+                            ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
+                            : undefined
+                    }
+                >
+                    <Typography align="center" sx={{ color: "text.dark", width: "100%", }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
+                    {item["sender-id"] !== settingsSt.settings.id && <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>}
+                    {item["sender-id"] === settingsSt.settings.id && <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>}
+                    {(item["sender-id"] === settingsSt.settings.id || messageSt.chat.role === "moder" || messageSt.chat.role === "admin" || messageSt.chat.role === "owner") && <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>}
+                    {/* {item["sender-id"] === settingsSt.settings.id && <MenuItem onClick={handleClose}> <VolumeMuteIcon sx={{ mr: 1 }} /> Заглушить</MenuItem>} */}
+                </Menu>}
             </Stack >
-        )
-    
+        </Stack >
+    )
+
 }))
 
 export default ChatItem

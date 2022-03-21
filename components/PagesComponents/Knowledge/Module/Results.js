@@ -67,10 +67,10 @@ function EnhancedTableToolbar() {
     );
 }
 
-const Results = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
+const Results = inject("knowledgeSt")(observer(({ knowledgeSt }) => {
 
 
-    if (knowledgeStore.moduleCompleted.results.length === 0) {
+    if (knowledgeSt.moduleCompleted.results.length === 0) {
         return (
             <Box sx={{ width: "100%", minHeight: 400, p: 3 }}>
                 <Stack
@@ -112,7 +112,7 @@ const Results = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
                         <TableBody>
                             {/* if you don"t need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
-                            {knowledgeStore.moduleCompleted.results.map((result, index) => {
+                            {knowledgeSt.moduleCompleted.results.map((result, index) => {
                                 const labelId = `enhanced-table-checkbox-${index}`;
                                 if (result["total-answers"] !== 0) {
                                     return (
@@ -125,7 +125,7 @@ const Results = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
                                         >
                                             <TableCell padding="checkbox">
                                                 <Tooltip title="перейти к странице">
-                                                    <IconButton onClick={() => knowledgeStore.uploadPageForResults(result["page-id"], index)}>
+                                                    <IconButton onClick={() => knowledgeSt.uploadPageForResults(result["page-id"], index)}>
                                                         <ArrowCircleRightIcon />
                                                     </IconButton>
                                                 </Tooltip>

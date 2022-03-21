@@ -87,7 +87,7 @@ const Views = React.memo(({ views }) => {
   return null
 });
 
-const ModulesList = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
+const ModulesList = inject("knowledgeSt")(observer(({ knowledgeSt }) => {
   const router = useRouter()
 
   const [open, setOpen] = React.useState(false)
@@ -113,7 +113,7 @@ const ModulesList = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
         width: "100%",
       }}
     >
-      {knowledgeStore.moduleList.modules.map((module, index) => (
+      {knowledgeSt.moduleList.modules.map((module, index) => (
         <Grid
           ax={12}
           xs={12}
@@ -264,7 +264,7 @@ const ModulesList = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
                     </Tooltip>
                     <MenuItem>
                       <Switch
-                        onClick={() => knowledgeStore.setPreferenceInModules(index, "starred", module.id, module.starred ? "unstar" : "star", !module.starred)}
+                        onClick={() => knowledgeSt.setPreferenceInModules(index, "starred", module.id, module.starred ? "unstar" : "star", !module.starred)}
                         checked={module.starred}
                         color="default"
                       />
@@ -272,7 +272,7 @@ const ModulesList = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
                     </MenuItem>
                     <MenuItem>
                       <Switch
-                        onClick={() => knowledgeStore.setPreferenceInModules(index, "pinned", module.id, module.pinned ? "unpin" : "pin", !module.pinned)}
+                        onClick={() => knowledgeSt.setPreferenceInModules(index, "pinned", module.id, module.pinned ? "unpin" : "pin", !module.pinned)}
                         checked={module.pinned}
                         color="default"
                       />

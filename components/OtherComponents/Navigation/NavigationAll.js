@@ -14,17 +14,17 @@ import Upbar from "./Upbar";
 
 const NavigationAll = inject(
   "rootStore",
-  "settingsStore",
-  "uiStore",
-  "messageStore"
+  "settingsSt",
+  "uiSt",
+  "messageSt"
 )(
-  observer(({ rootStore, settingsStore, uiStore, messageStore, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
+  observer(({ rootStore, settingsSt, uiSt, messageSt, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
     const router = useRouter();
 
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     React.useEffect(() => {
-      if (uiStore.load.app) uiStore.setLoading("loading", true)
+      if (uiSt.load.app) uiSt.setLoading("loading", true)
       // Главное подключение к сокету
       // socket = io("https://xieffect-socketio.herokuapp.com/", {
       //   withCredentials: true,
@@ -37,12 +37,12 @@ const NavigationAll = inject(
           console.log("data1", data)
           if (data) {
             console.log("settings/main", data);
-            messageStore.loadChatsInMenu();
-            settingsStore.setSettings("darkTheme", data["dark-theme"]);
-            settingsStore.setSettings("id", data.id);
-            settingsStore.setSettings("username", data.username);
-            uiStore.setLoading("loading", false)
-            uiStore.setLoading("app", false)
+            messageSt.loadChatsInMenu();
+            settingsSt.setSettings("darkTheme", data["dark-theme"]);
+            settingsSt.setSettings("id", data.id);
+            settingsSt.setSettings("username", data.username);
+            uiSt.setLoading("loading", false)
+            uiSt.setLoading("app", false)
           }
         });
       rootStore
@@ -51,13 +51,13 @@ const NavigationAll = inject(
           if (data) {
             console.log("settings", data);
             const emailArr = data.email.split("@", 2)
-            settingsStore.setSettings("emailBefore", emailArr[0])
-            settingsStore.setSettings("emailAfter", `@${emailArr[1]}`)
-            settingsStore.setSettings("emailConfirmed", data["email-confirmed"])
-            settingsStore.setSettings("avatar", data.avatar)
-            settingsStore.setSettings("invite", data.code)
-            uiStore.setLoading("loading", false)
-            uiStore.setLoading("app", false)
+            settingsSt.setSettings("emailBefore", emailArr[0])
+            settingsSt.setSettings("emailAfter", `@${emailArr[1]}`)
+            settingsSt.setSettings("emailConfirmed", data["email-confirmed"])
+            settingsSt.setSettings("avatar", data.avatar)
+            settingsSt.setSettings("invite", data.code)
+            uiSt.setLoading("loading", false)
+            uiSt.setLoading("app", false)
           }
         });
     }, []);
@@ -97,12 +97,12 @@ const NavigationAll = inject(
     const handlers = useSwipeable({
       onSwiped: (eventData) => console.log("User Swiped!", eventData),
       onSwipedLeft: () => {
-        if (uiStore.navigation.swipe === "center") uiStore.setNavigation("swipe", "left")
-        if (uiStore.navigation.swipe === "right") uiStore.setNavigation("swipe", "center")
+        if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "left")
+        if (uiSt.navigation.swipe === "right") uiSt.setNavigation("swipe", "center")
       },
       onSwipedRight: () => {
-        if (uiStore.navigation.swipe === "center") uiStore.setNavigation("swipe", "right")
-        if (uiStore.navigation.swipe === "left") uiStore.setNavigation("swipe", "center")
+        if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "right")
+        if (uiSt.navigation.swipe === "left") uiSt.setNavigation("swipe", "center")
       },
       ...config,
     });
@@ -132,7 +132,7 @@ const NavigationAll = inject(
               mr: "256px",
             }}
           >
-            <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
+            <Upbar swipe={uiSt.navigation.swipe} setSwipe={uiSt.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
             {!(router.pathname.includes("/message") && !(router.pathname.includes("chat"))) && <Scrollbars
               renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
               renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
@@ -201,7 +201,7 @@ const NavigationAll = inject(
           {...handlers}
         >
           <AnimatePresence initial={false}>
-            {uiStore.navigation.swipe === "right" && <Box
+            {uiSt.navigation.swipe === "right" && <Box
               component={motion.div}
               variants={SidebarVariantsRight}
               animate="visible"
@@ -227,7 +227,7 @@ const NavigationAll = inject(
             </Box>}
           </AnimatePresence>
           <AnimatePresence initial={false}>
-            {uiStore.navigation.swipe === "left" && <Box
+            {uiSt.navigation.swipe === "left" && <Box
               component={motion.div}
               variants={SidebarVariantsLeft}
               animate="visible"
@@ -255,7 +255,7 @@ const NavigationAll = inject(
             sx={{
               zIndex: 0,
               backgroundColor: "background.main",
-              filter: uiStore.navigation.swipe === "right" || uiStore.navigation.swipe === "left" ? "brightness(40%)" : "none",
+              filter: uiSt.navigation.swipe === "right" || uiSt.navigation.swipe === "left" ? "brightness(40%)" : "none",
               height: "100vh",
               overflow: "hidden",
               width: `100vw`,
@@ -264,13 +264,13 @@ const NavigationAll = inject(
             }}
             component={motion.div}
             variants={dragVariants}
-            initial={{ x: uiStore.navigation.swipe === "right" ? 200 : 0 }}
+            initial={{ x: uiSt.navigation.swipe === "right" ? 200 : 0 }}
             animate={() => {
-              console.log("animate", uiStore.navigation.swipe)
-              if (uiStore.navigation.swipe === "left") return "left"
-              if (uiStore.navigation.swipe === "center") return "center"
-              if (uiStore.navigation.swipe === "right") return "right"
-              if (uiStore.navigation.swipe === "bottom") return "bottom"
+              console.log("animate", uiSt.navigation.swipe)
+              if (uiSt.navigation.swipe === "left") return "left"
+              if (uiSt.navigation.swipe === "center") return "center"
+              if (uiSt.navigation.swipe === "right") return "right"
+              if (uiSt.navigation.swipe === "bottom") return "bottom"
               return null
             }}
             transition={{
@@ -278,7 +278,7 @@ const NavigationAll = inject(
               duration: 0.5,
             }}
           >
-            <Upbar swipe={uiStore.navigation.swipe} setSwipe={uiStore.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
+            <Upbar swipe={uiSt.navigation.swipe} setSwipe={uiSt.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
             {!(router.pathname.includes("/message")) && <Scrollbars
               renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
               renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}

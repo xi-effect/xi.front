@@ -13,8 +13,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useDropzone } from "react-dropzone";
 
-const ImageComp = inject("rootStore", "knowledgeStore", "contentStore", "managmentStore")(observer(({ rootStore, knowledgeStore, contentStore, managmentStore, index }) => {
-    const values = managmentStore.pageCreation.components[index]
+const ImageComp = inject("rootStore", "knowledgeSt", "contentSt", "managmentSt")(observer(({ rootStore, knowledgeSt, contentSt, managmentSt, index }) => {
+    const values = managmentSt.pageCreation.components[index]
     // Simulated props for the purpose of the example
     // const props = { fontSize: values.fontSize, textAlign: values.textAlign, fontStyle: values.fontStyle, fontWeight: values.fontWeight, textDecoration: values.textDecoration, backgroundColor: "black", color: "white" };
 
@@ -26,8 +26,8 @@ const ImageComp = inject("rootStore", "knowledgeStore", "contentStore", "managme
                 (data) => {
                     if (data) {
                         console.log("done", data)
-                        managmentStore.setPageCreationComponents(index, "authorId", data["author-id"])
-                        managmentStore.setPageCreationComponents(index, "imageId", data["image-id"])
+                        managmentSt.setPageCreationComponents(index, "authorId", data["author-id"])
+                        managmentSt.setPageCreationComponents(index, "imageId", data["image-id"])
                     } else {
                         console.log("fail", data)
                     }
@@ -52,52 +52,52 @@ const ImageComp = inject("rootStore", "knowledgeStore", "contentStore", "managme
 
     return (
         <Grid
+            container
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            onClick={() => managmentSt.setPageCreationList("selectId", index)}
+        >
+            <Grid
                 container
                 direction="row"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                onClick={() => managmentStore.setPageCreationList("selectId", index)}
+                justifyContent="center"
+            // alignItems="center"
             >
-                <Grid
-                    container
-                    direction="row"
-                    justifyContent="center"
-                // alignItems="center"
-                >
 
-                    {values.authorId && values.imageId && <Image
-                        alt="alt"
-                        src={`https://xieffect.pythonanywhere.com/wip/images/${values.imageId}/`}
-                        // layout="fill"
-                        quality={100}
-                        width={1920}
-                        height={1080}
-                    />}
-                    <Stack
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={2}
-                        sx={{
-                            width: "100%",
-                            minHeight: 200,
-                            border: "2px dashed #fafafa",
-                            borderRadius: 4,
-                        }}
-                        {...getRootProps()}
-                    >
-                        <input {...getInputProps()} />
-                        <Typography sx={{
-                            p: 2,
-                        }}> Перетащите изображение или нажмите, чтобы выбрать на своём компьютере </Typography>
-                    </Stack>
-                </Grid>
-                <Divider />
-                <Grid
-                    container
-                    direction="row"
+                {values.authorId && values.imageId && <Image
+                    alt="alt"
+                    src={`https://xieffect.pythonanywhere.com/wip/images/${values.imageId}/`}
+                    // layout="fill"
+                    quality={100}
+                    width={1920}
+                    height={1080}
+                />}
+                <Stack
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={2}
+                    sx={{
+                        width: "100%",
+                        minHeight: 200,
+                        border: "2px dashed #fafafa",
+                        borderRadius: 4,
+                    }}
+                    {...getRootProps()}
                 >
-                    {/* <SpeedDial
+                    <input {...getInputProps()} />
+                    <Typography sx={{
+                        p: 2,
+                    }}> Перетащите изображение или нажмите, чтобы выбрать на своём компьютере </Typography>
+                </Stack>
+            </Grid>
+            <Divider />
+            <Grid
+                container
+                direction="row"
+            >
+                {/* <SpeedDial
                         ariaLabel="SpeedDial tooltip example"
                         className={classes.speedDial}
                         // hidden={hidden}
@@ -127,41 +127,41 @@ const ImageComp = inject("rootStore", "knowledgeStore", "contentStore", "managme
                         />
 
                     </SpeedDial> */}
-                    {/* <Tooltip title="Дублировать блок">
-                        <IconButton className={classes.leftIconButton} onClick={() => managmentStore.duplicateComponent(index)}>
+                {/* <Tooltip title="Дублировать блок">
+                        <IconButton className={classes.leftIconButton} onClick={() => managmentSt.duplicateComponent(index)}>
                             <QueueIcon className={classes.icon} />
                         </IconButton>
                     </Tooltip> */}
-                    <Tooltip title="Удалить блок">
-                        <IconButton
-                            onClick={() => {
-                                if (values.imageId) {
-                                    rootStore.fetchDataScr(`${rootStore.url}/wip/images/${values.imageId}/`, "DELETE").then(
-                                        (data) => {
-                                            if (data) {
-                                                console.log("done", data)
-                                            } else {
-                                                console.log("fail", data)
-                                            }
-                                        })
-                                }
-                                managmentStore.deleteComponent(index)
-                            }}
-                            size="large"
-                            sx={{
-                                ml: "auto"
-                            }}
-                        >
-                            <DeleteForeverIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Перетащить блок">
-                        <IconButton size="large">
-                            <DragIndicatorIcon />
-                        </IconButton>
-                    </Tooltip>
-                </Grid>
+                <Tooltip title="Удалить блок">
+                    <IconButton
+                        onClick={() => {
+                            if (values.imageId) {
+                                rootStore.fetchDataScr(`${rootStore.url}/wip/images/${values.imageId}/`, "DELETE").then(
+                                    (data) => {
+                                        if (data) {
+                                            console.log("done", data)
+                                        } else {
+                                            console.log("fail", data)
+                                        }
+                                    })
+                            }
+                            managmentSt.deleteComponent(index)
+                        }}
+                        size="large"
+                        sx={{
+                            ml: "auto"
+                        }}
+                    >
+                        <DeleteForeverIcon />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Перетащить блок">
+                    <IconButton size="large">
+                        <DragIndicatorIcon />
+                    </IconButton>
+                </Tooltip>
             </Grid>
+        </Grid>
     );
 }));
 

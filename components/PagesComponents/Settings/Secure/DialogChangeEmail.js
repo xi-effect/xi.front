@@ -9,7 +9,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 const Crypto = require("crypto-js")
 
 
-const DialogChangeEmail = inject("rootStore", "settingsStore")(observer(({ rootStore, openEmailChangeDialog, setOpenEmailChangeDialog }) => {
+const DialogChangeEmail = inject("rootStore", "settingsSt")(observer(({ rootStore, openEmailChangeDialog, setOpenEmailChangeDialog }) => {
     const [newEmail, setNewEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
     const [showPassword, setShowPassword] = React.useState(false)

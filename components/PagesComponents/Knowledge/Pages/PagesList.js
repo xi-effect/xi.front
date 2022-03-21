@@ -69,9 +69,9 @@ const Views = React.memo(({ views }) => {
 });
 
 const PagesList = inject(
-  "knowledgeStore",
+  "knowledgeSt",
 )(
-  observer(({ knowledgeStore }) => {
+  observer(({ knowledgeSt }) => {
     const router = useRouter()
 
     const [open, setOpen] = React.useState(null)
@@ -98,7 +98,7 @@ const PagesList = inject(
           // backgroundColor: "background.1",
         }}
       >
-        {knowledgeStore.pageList.pages.map((page, index) => (
+        {knowledgeSt.pageList.pages.map((page, index) => (
           <Grid
             ax={12}
             xs={12}

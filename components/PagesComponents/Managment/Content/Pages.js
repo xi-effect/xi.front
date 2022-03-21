@@ -8,20 +8,20 @@ import Toolbar from "./Pages/Toolbar";
 import DataList from "./Pages/DataList";
 import DialogPageCreation from "./Pages/DialogPageCreation";
 
-const ToolbarBottom = inject("managmentStore")(observer(({ managmentStore }) => (
+const ToolbarBottom = inject("managmentSt")(observer(({ managmentSt }) => (
     <Grid
         container
         direction="row"
         justifyContent="center"
         alignItems="center"
     >
-        <Button onClick={managmentStore.prevPageList} variant="contained" color="primary" disabled={managmentStore.pageCreationList.counter === 0}>
+        <Button onClick={managmentSt.prevPageList} variant="contained" color="primary" disabled={managmentSt.pageCreationList.counter === 0}>
             Назад
         </Button>
         <Typography variant="subtitle1">
-            {`Страница ${managmentStore.pageCreationList.counter + 1}`}
+            {`Страница ${managmentSt.pageCreationList.counter + 1}`}
         </Typography>
-        <Button onClick={managmentStore.nextPageList} variant="contained" color="primary" disabled={managmentStore.pageCreationList.pages.length < 50}>
+        <Button onClick={managmentSt.nextPageList} variant="contained" color="primary" disabled={managmentSt.pageCreationList.pages.length < 50}>
             Вперёд
         </Button>
     </Grid>

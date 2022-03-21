@@ -35,11 +35,11 @@ const components = [
     { type: "img", authorId: null, imageId: null, },
 ]
 
-const Createpage = inject("knowledgeStore", "managmentStore", "uiStore")(observer(({ managmentStore, uiStore }) => {
+const Createpage = inject("knowledgeSt", "managmentSt", "uiSt")(observer(({ managmentSt, uiSt }) => {
     const { enqueueSnackbar } = useSnackbar();
     useUnmount(() => {
-        if (managmentStore.pageCreation.id) {
-            managmentStore.savePage(true)
+        if (managmentSt.pageCreation.id) {
+            managmentSt.savePage(true)
             enqueueSnackbar("Страница сохранена", {
                 variant: "success",
             })
@@ -55,11 +55,11 @@ const Createpage = inject("knowledgeStore", "managmentStore", "uiStore")(observe
 
         if (result.source.droppableId === "list-components" && result.destination.droppableId === "componentsList") {
             console.log("list-pages")
-            const newArray = [...managmentStore.pageCreation.components]
+            const newArray = [...managmentSt.pageCreation.components]
             console.log("newArray", newArray, components[result.source.index])
             newArray.splice(result.destination.index, 0, components[result.source.index])
             console.log("newArray", newArray)
-            managmentStore.setPageCreation("components", newArray)
+            managmentSt.setPageCreation("components", newArray)
             return;
 
         }
@@ -67,21 +67,21 @@ const Createpage = inject("knowledgeStore", "managmentStore", "uiStore")(observe
         // Перетаскивание в рамках одной точки
         if (result.destination.droppableId === result.source.droppableId) {
             const quotes = reorder(
-                managmentStore.pageCreation.components,
+                managmentSt.pageCreation.components,
                 result.source.index,
                 result.destination.index
             );
-            managmentStore.setPageCreation("components", quotes)
+            managmentSt.setPageCreation("components", quotes)
             // console.log("pointsnotgood", result)
         }
 
         // //Перетаскивание между точками 
         // if (result.source.droppableId != "list-pages" && result.destination.droppableId != result.source.droppableId) {
-        //     let newArray = managmentStore.moduleCreation.points[Number(result.destination.droppableId.slice(5))].pages
-        //     let newPage = managmentStore.moduleCreation.points[Number(result.source.droppableId.slice(5))].pages[result.source.index]
+        //     let newArray = managmentSt.moduleCreation.points[Number(result.destination.droppableId.slice(5))].pages
+        //     let newPage = managmentSt.moduleCreation.points[Number(result.source.droppableId.slice(5))].pages[result.source.index]
         //     newArray.splice(result.destination.index, 0, newPage)
-        //     managmentStore.setModuleCreationPoints(Number(result.destination.droppableId.slice(5)), "pages", newArray)
-        //     managmentStore.deletePageInPoint(result.source.droppableId.slice(5), result.source.index)
+        //     managmentSt.setModuleCreationPoints(Number(result.destination.droppableId.slice(5)), "pages", newArray)
+        //     managmentSt.deletePageInPoint(result.source.droppableId.slice(5), result.source.index)
         //     console.log("points", result)
         // }
 
@@ -119,9 +119,9 @@ const Createpage = inject("knowledgeStore", "managmentStore", "uiStore")(observe
                             zIndex: 1,
                         }}
                     >
-                        {uiStore.knowledge.activeStep === 0 && <StepOne />}
-                        {uiStore.knowledge.activeStep === 1 && <StepTwo />}
-                        {uiStore.knowledge.activeStep === 2 && <StepThree />}
+                        {uiSt.knowledge.activeStep === 0 && <StepOne />}
+                        {uiSt.knowledge.activeStep === 1 && <StepTwo />}
+                        {uiSt.knowledge.activeStep === 2 && <StepThree />}
                     </Grid>
                 </NavigationAll>
             </DragDropContext >

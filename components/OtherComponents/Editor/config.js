@@ -6,7 +6,9 @@ import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
 import StrikethroughSIcon from '@mui/icons-material/StrikethroughS';
 import CodeIcon from '@mui/icons-material/Code';
 import { indigo, orange } from '@mui/material/colors';
-import { Map } from 'immutable';
+// import { Map } from 'immutable';
+
+// import Block from './ContentEditor/Block.tsx';
 
 export const INLINE_STYLES = [
   {
@@ -88,26 +90,31 @@ export const styleMap = {
   },
 };
 
-export const blockRenderMap = Map({
-  unstyled: {
-    element: 'div',
-  },
-  'code-block': {
-    element: 'code',
-    wrapper: <pre spellCheck="false" />,
-  },
-  blockquote: {
-    element: 'blockquote',
-  },
-  'ordered-list-item': {
-    element: 'li',
-    wrapper: <ol />,
-  },
-  'unordered-list-item': {
-    element: 'li',
-    wrapper: <ul />,
-  },
-});
+// export const blockRenderMap = Map({
+//   h1: {
+//     element: 'h1',
+//     wrapper: <Block />,
+//   },
+//   unstyled: {
+//     element: 'div',
+//     wrapper: <Block />,
+//   },
+//   'code-block': {
+//     element: 'code',
+//     wrapper: <pre spellCheck="false" />,
+//   },
+//   blockquote: {
+//     element: 'blockquote',
+//   },
+//   'ordered-list-item': {
+//     element: 'li',
+//     wrapper: <ol />,
+//   },
+//   'unordered-list-item': {
+//     element: 'li',
+//     wrapper: <ul />,
+//   },
+// });
 
 export const BlocksTypeDict = {
   text: { type: 'text', value: '' },

@@ -8,7 +8,7 @@ import NavigationAll from "../../components/OtherComponents/Navigation/Navigatio
 import PagesList from "../../components/PagesComponents/Knowledge/Pages/PagesList";
 import PagesListLoading from "../../components/PagesComponents/Knowledge/Pages/PagesListLoading";
 
-const Toolbar = inject("knowledgeStore")(observer(({ knowledgeStore }) => (
+const Toolbar = inject("knowledgeSt")(observer(({ knowledgeSt }) => (
     <Grid
         container
         direction="row"
@@ -16,28 +16,28 @@ const Toolbar = inject("knowledgeStore")(observer(({ knowledgeStore }) => (
         alignItems="center"
         sx={{ height: 64 }}
     >
-        <Button onClick={knowledgeStore.prevPageInPages} sx={{ mr: 2, ml: 2, color: "text.main" }} variant="contained" color="primary" disabled={knowledgeStore.pageList.counter === 0}>
+        <Button onClick={knowledgeSt.prevPageInPages} sx={{ mr: 2, ml: 2, color: "text.main" }} variant="contained" color="primary" disabled={knowledgeSt.pageList.counter === 0}>
             Назад
         </Button>
         <Typography variant="subtitle1">
-            {`Страница ${knowledgeStore.pageList.counter + 1}`}
+            {`Страница ${knowledgeSt.pageList.counter + 1}`}
         </Typography>
-        <Button onClick={knowledgeStore.nextPageInPages} sx={{ mr: 2, ml: 2, color: "text.main" }} variant="contained" color="primary" disabled={knowledgeStore.pageList.pages.length < 50}>
+        <Button onClick={knowledgeSt.nextPageInPages} sx={{ mr: 2, ml: 2, color: "text.main" }} variant="contained" color="primary" disabled={knowledgeSt.pageList.pages.length < 50}>
             Вперёд
         </Button>
     </Grid>
 )));
 
-const Pages = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
+const Pages = inject("knowledgeSt")(observer(({ knowledgeSt }) => {
 
 
     // React.useEffect(() => {
-    //     uiStore.setKnowledgeUI("contentTypeOnPage", localStorage.getItem("contentTypeOnPageInKnowleadge") != undefined ? localStorage.getItem("contentTypeOnPageInKnowleadge") : "info")
-    //     uiStore.setKnowledgeUI("gridTypeOnPage", localStorage.getItem("gridTypeOnPageInKnowleadge") != undefined ? localStorage.getItem("gridTypeOnPageInKnowleadge") : "grid")
+    //     uiSt.setKnowledgeUI("contentTypeOnPage", localStorage.getItem("contentTypeOnPageInKnowleadge") != undefined ? localStorage.getItem("contentTypeOnPageInKnowleadge") : "info")
+    //     uiSt.setKnowledgeUI("gridTypeOnPage", localStorage.getItem("gridTypeOnPageInKnowleadge") != undefined ? localStorage.getItem("gridTypeOnPageInKnowleadge") : "grid")
     // }, [])
 
     React.useEffect(() => {
-        knowledgeStore.loadPageList()
+        knowledgeSt.loadPageList()
     }, []);
 
     return (
@@ -62,10 +62,10 @@ const Pages = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
                         zIndex: 1,
                     }}
                 >
-                    {knowledgeStore.pageList.loadingInd && <PagesListLoading />}
-                    {!knowledgeStore.pageList.loadingNothing && <>
+                    {knowledgeSt.pageList.loadingInd && <PagesListLoading />}
+                    {!knowledgeSt.pageList.loadingNothing && <>
                         <PagesList />
-                        {knowledgeStore.pageList.pages.length < 50 && <Grid
+                        {knowledgeSt.pageList.pages.length < 50 && <Grid
                             container
                             direction="column"
                             justifyContent="center"
@@ -79,9 +79,9 @@ const Pages = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
                         >
                             <Typography> Это всё, что мы нашли по вашему запросу </Typography>
                         </Grid>}
-                        {!knowledgeStore.pageList.loadingInd && <Toolbar />}
+                        {!knowledgeSt.pageList.loadingInd && <Toolbar />}
                     </>}
-                    {knowledgeStore.pageList.loadingNothing &&
+                    {knowledgeSt.pageList.loadingNothing &&
                         <Grid
                             container
                             direction="column"

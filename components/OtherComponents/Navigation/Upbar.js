@@ -10,15 +10,15 @@ import InfoIcon from "@mui/icons-material/Info";
 import ReportDialog from "./RightMenu/ReportDialog";
 
 const KnowledgePagesTools = inject(
-  "knowledgeStore"
+  "knowledgeSt"
 )(
-  observer(({ knowledgeStore }) => {
+  observer(({ knowledgeSt }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("xl"));
     return (
       <>
         {!mobile && <InputBase
-          value={knowledgeStore.pageList.search}
-          onChange={(event) => knowledgeStore.setPageListData("search", event.target.value)}
+          value={knowledgeSt.pageList.search}
+          onChange={(event) => knowledgeSt.setPageListData("search", event.target.value)}
           sx={{
             color: "text.main",
             flex: 1,
@@ -32,8 +32,8 @@ const KnowledgePagesTools = inject(
         {!mobile && <Tooltip title="Очистить поиск">
           <span>
             <IconButton
-              onClick={() => knowledgeStore.clearSearchInPages()}
-              disabled={knowledgeStore.pageList.search.length === 0}
+              onClick={() => knowledgeSt.clearSearchInPages()}
+              disabled={knowledgeSt.pageList.search.length === 0}
               type="submit"
               aria-label="search"
               size="large">
@@ -44,8 +44,8 @@ const KnowledgePagesTools = inject(
         {!mobile && <Tooltip title="Найти">
           <span>
             <IconButton
-              onClick={() => knowledgeStore.goSearchInPages()}
-              disabled={knowledgeStore.pageList.search.length < 3}
+              onClick={() => knowledgeSt.goSearchInPages()}
+              disabled={knowledgeSt.pageList.search.length < 3}
               aria-label="search"
               size="large">
               <SearchIcon />
@@ -58,17 +58,17 @@ const KnowledgePagesTools = inject(
 );
 
 const KnowledgeModulesTools = inject(
-  "knowledgeStore"
+  "knowledgeSt"
 )(
-  observer(({ knowledgeStore }) => {
+  observer(({ knowledgeSt }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("xl"));
 
     return (
       <>
         {/* Поиск в десктоп */}
         {!mobile && <InputBase
-          value={knowledgeStore.moduleList.search}
-          onChange={(event) => knowledgeStore.setModuleListData("search", event.target.value)}
+          value={knowledgeSt.moduleList.search}
+          onChange={(event) => knowledgeSt.setModuleListData("search", event.target.value)}
           sx={{
             color: "text.main",
             flex: 1,
@@ -82,8 +82,8 @@ const KnowledgeModulesTools = inject(
         {!mobile && <Tooltip title="Очистить поиск">
           <span>
             <IconButton
-              onClick={() => knowledgeStore.clearSearchInModules()}
-              disabled={knowledgeStore.moduleList.search.length === 0}
+              onClick={() => knowledgeSt.clearSearchInModules()}
+              disabled={knowledgeSt.moduleList.search.length === 0}
               type="submit"
               aria-label="search"
               size="large">
@@ -94,8 +94,8 @@ const KnowledgeModulesTools = inject(
         {!mobile && <Tooltip title="Найти">
           <span>
             <IconButton
-              onClick={() => knowledgeStore.goSearchInModules()}
-              disabled={knowledgeStore.moduleList.search.length < 3}
+              onClick={() => knowledgeSt.goSearchInModules()}
+              disabled={knowledgeSt.moduleList.search.length < 3}
               aria-label="search"
               size="large">
               <SearchIcon />
@@ -108,37 +108,37 @@ const KnowledgeModulesTools = inject(
 );
 
 const KnowledgePageTools = inject(
-  "knowledgeStore"
+  "knowledgeSt"
 )(
-  observer(({ knowledgeStore }) => (
+  observer(({ knowledgeSt }) => (
     <Grid item xs zeroMinWidth>
-      {knowledgeStore.page.loading ? <Skeleton animation="wave" sx={{ ml: 2, mr: 1, height: 42, borderRadius: 4, maxWidth: 500 }} variant="text" /> :
-        <Typography variant="h5" sx={{ fontWeight: "bolder", ml: 2, mr: 1, cursor: "default" }} noWrap>{knowledgeStore.page.name}</Typography>}
+      {knowledgeSt.page.loading ? <Skeleton animation="wave" sx={{ ml: 2, mr: 1, height: 42, borderRadius: 4, maxWidth: 500 }} variant="text" /> :
+        <Typography variant="h5" sx={{ fontWeight: "bolder", ml: 2, mr: 1, cursor: "default" }} noWrap>{knowledgeSt.page.name}</Typography>}
     </Grid>
   ))
 );
 
 const KnowledgeModuleTools = inject(
-  "knowledgeStore"
+  "knowledgeSt"
 )(
-  observer(({ knowledgeStore }) => {
+  observer(({ knowledgeSt }) => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
       <>
         {!mobile && (
           <Typography variant="h6" sx={{ ml: 1, cursor: "default" }}>
-            {knowledgeStore.module.name}
+            {knowledgeSt.module.name}
           </Typography>
         )}
-        {!mobile && knowledgeStore.page.name !== "" && (
+        {!mobile && knowledgeSt.page.name !== "" && (
           <Typography variant="h5" sx={{ ml: 1, cursor: "default" }}>
             /
           </Typography>
         )}
         {!mobile && (
           <Typography variant="h6" sx={{ ml: 1, cursor: "default" }}>
-            {knowledgeStore.page.name}
+            {knowledgeSt.page.name}
           </Typography>
         )}
       </>

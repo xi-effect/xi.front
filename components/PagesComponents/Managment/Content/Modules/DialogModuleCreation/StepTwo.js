@@ -15,9 +15,9 @@ import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import QuizIcon from "@mui/icons-material/Quiz";
 
 
-const ItemList = inject("managmentStore")(observer(({ managmentStore, index }) => {
+const ItemList = inject("managmentSt")(observer(({ managmentSt, index }) => {
 
-    const value = managmentStore.moduleCreation.points[index].pages
+    const value = managmentSt.moduleCreation.points[index].pages
     return <>
         {value.length === 0 && <Typography sx={{ color: "#fff" }}> Перетащите страницу сюда </Typography>}
         {value.length !== 0 && value.map((page, pageIndex) => (
@@ -76,7 +76,7 @@ const ItemList = inject("managmentStore")(observer(({ managmentStore, index }) =
                                 </Tooltip>
                             </Link>
                             <IconButton
-                                onClick={() => managmentStore.deletePageInPoint(index, pageIndex)}
+                                onClick={() => managmentSt.deletePageInPoint(index, pageIndex)}
                                 size="large">
                                 <DeleteForeverIcon />
                             </IconButton>
@@ -91,7 +91,7 @@ const ItemList = inject("managmentStore")(observer(({ managmentStore, index }) =
     </>;
 }))
 
-const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => (
+const StepTwo = inject("managmentSt")(observer(({ managmentSt }) => (
     <Stack
         direction="column"
         justifyContent="flex-start"
@@ -104,7 +104,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => (
     >
         {/* Выбор страниц */}
         {/* Основная часть редактора */}
-        {managmentStore.moduleCreation.points.map((point, index) => (
+        {managmentSt.moduleCreation.points.map((point, index) => (
             <Accordion
                 sx={{
                     "&.MuiPaper-root": { zIndex: 0, width: "100%", minWidth: 400 },
@@ -115,7 +115,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => (
                 expanded={point.openAccordion} >
                 <AccordionSummary
                     expandIcon={<IconButton
-                        onClick={() => managmentStore.setModuleCreationPoints(index, "openAccordion", !managmentStore.moduleCreation.points[index].openAccordion)}
+                        onClick={() => managmentSt.setModuleCreationPoints(index, "openAccordion", !managmentSt.moduleCreation.points[index].openAccordion)}
                         size="large"><ExpandMoreIcon /></IconButton>}
                 >
                     <Grid sx={{ width: "calc(100% - 88px)", }}>
@@ -129,7 +129,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => (
                             multiline
                             fullWidth
                             value={point.label}
-                            onChange={(event) => managmentStore.setModuleCreationPoints(index, "label", event.target.value)}
+                            onChange={(event) => managmentSt.setModuleCreationPoints(index, "label", event.target.value)}
                         />
                     </Grid>
                     <SpeedDial
@@ -140,8 +140,8 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => (
                             mt: 0.5,
                         }}
                         icon={<TuneIcon />}
-                        onClose={() => managmentStore.setModuleCreationPoints(index, "openSpeedDial", false)}
-                        onOpen={() => managmentStore.setModuleCreationPoints(index, "openSpeedDial", true)}
+                        onClose={() => managmentSt.setModuleCreationPoints(index, "openSpeedDial", false)}
+                        onOpen={() => managmentSt.setModuleCreationPoints(index, "openSpeedDial", true)}
                         open={point.openSpeedDial}
                         direction="left"
                     >
@@ -149,29 +149,29 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => (
                             tooltipPlacement="bottom"
                             icon={<DeleteForeverIcon />}
                             tooltipTitle="Удалить точку"
-                            onClick={() => managmentStore.deletePoint(index)}
+                            onClick={() => managmentSt.deletePoint(index)}
                         />
                         <SpeedDialAction
                             tooltipPlacement="bottom"
                             icon={<ArrowCircleDownIcon />}
                             tooltipTitle="Переместить точку ниже"
-                            onClick={() => managmentStore.setPointDown(index)}
+                            onClick={() => managmentSt.setPointDown(index)}
                         />
                         <SpeedDialAction
                             tooltipPlacement="bottom"
                             icon={<ArrowCircleUpIcon />}
                             tooltipTitle="Переместить точку выше"
-                            onClick={() => managmentStore.setPointUp(index)}
+                            onClick={() => managmentSt.setPointUp(index)}
                         />
 
                     </SpeedDial>
                     <Tooltip title={point.type === "theory" ? "Теоритическая точка" : "Практическая точка"}>
                         <IconButton onClick={() => {
                             if (point.type === "theory") {
-                                return managmentStore.setModuleCreationPoints(index, "type", "practice")
+                                return managmentSt.setModuleCreationPoints(index, "type", "practice")
                             }
                             if (point.type === "practice") {
-                                return managmentStore.setModuleCreationPoints(index, "type", "theory")
+                                return managmentSt.setModuleCreationPoints(index, "type", "theory")
                             }
                             return null
                         }} sx={{ ml: 3 }}>
@@ -203,7 +203,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => (
                 </AccordionDetails>
             </Accordion>
         ))}
-        {managmentStore.moduleCreation.points.length === 0 && <>
+        {managmentSt.moduleCreation.points.length === 0 && <>
             <Box
                 sx={{
                     mt: 8,
@@ -223,7 +223,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => (
                 Здесь пусто, добавьте точку, чтобы начать работать
             </Typography>
         </>}
-        <Button sx={{ mt: 6 }} variant="contained" onClick={() => managmentStore.pushNewPoint()}>
+        <Button sx={{ mt: 6 }} variant="contained" onClick={() => managmentSt.pushNewPoint()}>
             Добавить точку
         </Button>
     </Stack >

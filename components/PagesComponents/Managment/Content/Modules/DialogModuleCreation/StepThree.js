@@ -6,13 +6,13 @@ import { inject, observer } from "mobx-react"
 import AvatarEditor from "react-avatar-editor"
 
 
-const StepThree = inject("rootStore", "managmentStore", "contentStore")(observer(({ rootStore, managmentStore, contentStore }) => {
+const StepThree = inject("rootStore", "managmentSt", "contentSt")(observer(({ rootStore, managmentSt, contentSt }) => {
     const [value, setValue] = React.useState(10);
 
     React.useEffect(() => {
-        if (managmentStore.moduleCreation.authorId != null && managmentStore.moduleCreation.imageId != null) {
-            contentStore.loadImgFromServer(managmentStore.moduleCreation.authorId, managmentStore.moduleCreation.imageId)
-            contentStore.setTemporaryImages("moduleCreation", contentStore.images[`${authorId}-${imageId}`])
+        if (managmentSt.moduleCreation.authorId != null && managmentSt.moduleCreation.imageId != null) {
+            contentSt.loadImgFromServer(managmentSt.moduleCreation.authorId, managmentSt.moduleCreation.imageId)
+            contentSt.setTemporaryImages("moduleCreation", contentSt.images[`${authorId}-${imageId}`])
         }
     }, [])
 
@@ -21,16 +21,16 @@ const StepThree = inject("rootStore", "managmentStore", "contentStore")(observer
     const saveNewAvatar = () => {
         const canvas = setEditorRef.current.getImage()
         const img = canvas.toDataURL()
-        if (managmentStore.moduleCreation.authorId === null && managmentStore.moduleCreation.imageId === null) {
+        if (managmentSt.moduleCreation.authorId === null && managmentSt.moduleCreation.imageId === null) {
             rootStore.fetchDataScr(`${rootStore.url}/wip/images/`, "POST", img).then(
                 (data) => {
                     console.log("success", data, data["author-id"], data["image-id"])
-                    managmentStore.setModuleCreation("authorId", data["author-id"])
-                    managmentStore.setModuleCreation("imageId", data["image-id"])
+                    managmentSt.setModuleCreation("authorId", data["author-id"])
+                    managmentSt.setModuleCreation("imageId", data["image-id"])
                 })
         }
-        if (managmentStore.moduleCreation.authorId != null && managmentStore.moduleCreation.imageId != null) {
-            rootStore.fetchDataScr(`${rootStore.url}/wip/images/${managmentStore.moduleCreation.imageId}/`, "PUT", img).then(
+        if (managmentSt.moduleCreation.authorId != null && managmentSt.moduleCreation.imageId != null) {
+            rootStore.fetchDataScr(`${rootStore.url}/wip/images/${managmentSt.moduleCreation.imageId}/`, "PUT", img).then(
                 () => {
                     console.log("success")
                 })
@@ -56,7 +56,7 @@ const StepThree = inject("rootStore", "managmentStore", "contentStore")(observer
             <AvatarEditor
                 // onMouseUp={saveNewAvatar}
                 ref={setEditorRef}
-                image={contentStore.temporaryImages.moduleCreation == null ? "/illustrations/defaultModuleImg.png" : contentStore.temporaryImages.moduleCreation}
+                image={contentSt.temporaryImages.moduleCreation == null ? "/illustrations/defaultModuleImg.png" : contentSt.temporaryImages.moduleCreation}
                 width={320}
                 height={180}
                 border={25}
@@ -74,7 +74,7 @@ const StepThree = inject("rootStore", "managmentStore", "contentStore")(observer
                     type="file"
                     onChange={(event) => {
                         console.log(event.target.files[0]);
-                        contentStore.setTemporaryImages("moduleCreation", event.target.files[0]);
+                        contentSt.setTemporaryImages("moduleCreation", event.target.files[0]);
                     }}
                 />
                 <Button color="primary" variant="contained" component="span">

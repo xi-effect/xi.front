@@ -69,7 +69,7 @@ const StyledGrid = styled(Grid)((
     }
 }));
 
-const StepThree = inject("managmentStore")(observer(({ managmentStore }) => (
+const StepThree = inject("managmentSt")(observer(({ managmentSt }) => (
     <StyledGrid
         className={classes.gridWrapper}
         xs={12} sm={12} md={6} lg={6} xl={6}
@@ -94,8 +94,8 @@ const StepThree = inject("managmentStore")(observer(({ managmentStore }) => (
             <FormControlLabel
                 control={
                     <Switch
-                        checked={managmentStore.pageCreation.reusable}
-                        onChange={() => managmentStore.setPageCreation("reusable", !managmentStore.pageCreation.reusable)}
+                        checked={managmentSt.pageCreation.reusable}
+                        onChange={() => managmentSt.setPageCreation("reusable", !managmentSt.pageCreation.reusable)}
                         name="reusable"
                         color="primary"
                     />
@@ -107,8 +107,8 @@ const StepThree = inject("managmentStore")(observer(({ managmentStore }) => (
             <FormControlLabel
                 control={
                     <Switch
-                        checked={managmentStore.pageCreation.public}
-                        onChange={() => managmentStore.setPageCreation("public", !managmentStore.pageCreation.public)}
+                        checked={managmentSt.pageCreation.public}
+                        onChange={() => managmentSt.setPageCreation("public", !managmentSt.pageCreation.public)}
                         name="public"
                         color="primary"
                     />
@@ -117,7 +117,7 @@ const StepThree = inject("managmentStore")(observer(({ managmentStore }) => (
             />
         </FormControl>
 
-        <Button onClick={() => managmentStore.savePage(true)} variant="contained" color="primary" className={classes.Button}>
+        <Button onClick={() => managmentSt.savePage(true)} variant="contained" color="primary" className={classes.Button}>
             Опубликовать
         </Button>
     </StyledGrid>

@@ -27,10 +27,10 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import ListIcon from "@mui/icons-material/List";
 
-const QuizItem = inject("managmentStore")(
-  observer(({ managmentStore, index, indexA }) => {
-    const values = managmentStore.pageCreation.components[index];
-    const item = managmentStore.pageCreation.components[index].content[indexA];
+const QuizItem = inject("managmentSt")(
+  observer(({ managmentSt, index, indexA }) => {
+    const values = managmentSt.pageCreation.components[index];
+    const item = managmentSt.pageCreation.components[index].content[indexA];
 
     return (
       <Input
@@ -53,7 +53,7 @@ const QuizItem = inject("managmentStore")(
         fullWidth
         value={item.label}
         onChange={(event) =>
-          managmentStore.setPageCreationContentComponents(
+          managmentSt.setPageCreationContentComponents(
             index,
             indexA,
             "label",
@@ -66,7 +66,7 @@ const QuizItem = inject("managmentStore")(
               <Radio
                 color="primary"
                 checked={values?.rightAnswers.includes(indexA)}
-                onClick={() => managmentStore.setAnswerQuiz("s", index, indexA)}
+                onClick={() => managmentSt.setAnswerQuiz("s", index, indexA)}
               />
             )}
             {values.quizType === "multiple" && (
@@ -74,7 +74,7 @@ const QuizItem = inject("managmentStore")(
                 color="primary"
                 checked={values?.rightAnswers.includes(indexA)}
                 onClick={() =>
-                  managmentStore.setAnswerQuiz(
+                  managmentSt.setAnswerQuiz(
                     "m",
                     index,
                     indexA,
@@ -90,7 +90,7 @@ const QuizItem = inject("managmentStore")(
             <Tooltip title="Удалить блок">
               <IconButton
                 onClick={() =>
-                  managmentStore.deleteComponentContent(index, indexA)
+                  managmentSt.deleteComponentContent(index, indexA)
                 }
                 size="large"
               >
@@ -110,10 +110,10 @@ const QuizItem = inject("managmentStore")(
   })
 );
 
-const QuizList = inject("managmentStore")(
-  observer(({ managmentStore, index }) => {
+const QuizList = inject("managmentSt")(
+  observer(({ managmentSt, index }) => {
     // console.log("props", props) 
-    const values = managmentStore.pageCreation.components[index];
+    const values = managmentSt.pageCreation.components[index];
 
     return (
       <>
@@ -126,7 +126,7 @@ const QuizList = inject("managmentStore")(
             {(provided) => (
               <Grid
                 // onMouseEnter={() =>
-                //   managmentStore.setPageCreationContentComponents(
+                //   managmentSt.setPageCreationContentComponents(
                 //     index,
                 //     indexA,
                 //     "showIcons",
@@ -134,7 +134,7 @@ const QuizList = inject("managmentStore")(
                 //   )
                 // }
                 // onMouseLeave={() =>
-                //   managmentStore.setPageCreationContentComponents(
+                //   managmentSt.setPageCreationContentComponents(
                 //     index,
                 //     indexA,
                 //     "showIcons",
@@ -162,14 +162,14 @@ const QuizList = inject("managmentStore")(
   })
 );
 
-const Quiz = inject("managmentStore")(
-  observer(({ managmentStore, index }) => {
+const Quiz = inject("managmentSt")(
+  observer(({ managmentSt, index }) => {
     // Simulated props for the purpose of the example
-    const values = managmentStore.pageCreation.components[index];
+    const values = managmentSt.pageCreation.components[index];
     const handleFontSizeUp = () => {
       // console.log(index, "fontSize", newFormats)
       if (values.fontSize !== 48)
-        managmentStore.setPageCreationComponents(
+        managmentSt.setPageCreationComponents(
           index,
           "fontSize",
           values.fontSize + 2
@@ -179,7 +179,7 @@ const Quiz = inject("managmentStore")(
     const handleFontSizeDown = () => {
       // console.log(index, "fontSize", newFormats)
       if (values.fontSize !== 12)
-        managmentStore.setPageCreationComponents(
+        managmentSt.setPageCreationComponents(
           index,
           "fontSize",
           values.fontSize - 2
@@ -191,19 +191,19 @@ const Quiz = inject("managmentStore")(
       if (type === "single") newType = "multiple";
       else if (type === "multiple") {
         newType = "single";
-        managmentStore.changeQuizType(index);
+        managmentSt.changeQuizType(index);
       }
-      managmentStore.setPageCreationComponents(index, "quizType", newType);
+      managmentSt.setPageCreationComponents(index, "quizType", newType);
     };
 
     const handleFontStyle = () => {
       if (values.fontStyle === "normal")
-        return managmentStore.setPageCreationComponents(
+        return managmentSt.setPageCreationComponents(
           index,
           "fontStyle",
           "italic"
         );
-      return managmentStore.setPageCreationComponents(
+      return managmentSt.setPageCreationComponents(
         index,
         "fontStyle",
         "normal"
@@ -212,12 +212,12 @@ const Quiz = inject("managmentStore")(
 
     const handleFontWeight = () => {
       if (values.fontWeight === "normal")
-        return managmentStore.setPageCreationComponents(
+        return managmentSt.setPageCreationComponents(
           index,
           "fontWeight",
           "bold"
         );
-      return managmentStore.setPageCreationComponents(
+      return managmentSt.setPageCreationComponents(
         index,
         "fontWeight",
         "normal"
@@ -226,12 +226,12 @@ const Quiz = inject("managmentStore")(
 
     const handleTextDecoration = () => {
       if (values.textDecoration === "none")
-        return managmentStore.setPageCreationComponents(
+        return managmentSt.setPageCreationComponents(
           index,
           "textDecoration",
           "underline"
         );
-      return managmentStore.setPageCreationComponents(
+      return managmentSt.setPageCreationComponents(
         index,
         "textDecoration",
         "none"
@@ -272,7 +272,7 @@ const Quiz = inject("managmentStore")(
         result.source.index,
         result.destination.index
       );
-      managmentStore.setContentToComponent(index, newState);
+      managmentSt.setContentToComponent(index, newState);
     }
 
     const textAlignIconSelect = (align) => {
@@ -298,7 +298,7 @@ const Quiz = inject("managmentStore")(
       else if (align === "center") newAlignment = "right";
       else if (align === "right") newAlignment = "justify";
       else if (align === "justify") newAlignment = "left";
-      managmentStore.setPageCreationComponents(
+      managmentSt.setPageCreationComponents(
         index,
         "textAlign",
         newAlignment
@@ -316,7 +316,7 @@ const Quiz = inject("managmentStore")(
         direction="column"
         justifyContent="center"
         alignItems="center"
-        onClick={() => managmentStore.setPageCreationList("selectId", index)}
+        onClick={() => managmentSt.setPageCreationList("selectId", index)}
       >
         <Grid
           container
@@ -356,7 +356,7 @@ const Quiz = inject("managmentStore")(
           >
             <Tooltip title="Добавить">
               <IconButton
-                onClick={() => managmentStore.pushContentToComponent(index, "quiz")}
+                onClick={() => managmentSt.pushContentToComponent(index, "quiz")}
                 size="large"
               >
                 <AddIcon />
@@ -465,7 +465,7 @@ const Quiz = inject("managmentStore")(
             <Tooltip title="Удалить блок">
               <IconButton
                 sx={{ marginLeft: "auto" }}
-                onClick={() => managmentStore.deleteComponent(index)}
+                onClick={() => managmentSt.deleteComponent(index)}
                 size="large"
               >
                 <DeleteForeverIcon />

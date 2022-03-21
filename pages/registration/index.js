@@ -25,7 +25,7 @@ const schema = yup.object({
     invite: yup.string().required(),
 }).required();
 
-const Registration = inject("authorizationStore")(observer(({ authorizationStore }) => {
+const Registration = inject("authorizationSt")(observer(({ authorizationSt }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const router = useRouter();
@@ -34,7 +34,7 @@ const Registration = inject("authorizationStore")(observer(({ authorizationStore
         resolver: yupResolver(schema)
     });
     // console.log("errors", errors);
-    const onSubmit = data => authorizationStore.clickRegistrationButton(data);
+    const onSubmit = data => authorizationSt.clickRegistrationButton(data);
 
     React.useEffect(() => {
         console.log("query", router.query)
@@ -274,7 +274,7 @@ const Registration = inject("authorizationStore")(observer(({ authorizationStore
                                     spacing={1}
                                     sx={{ width: "100%", minHeight: 16, mb: 1.2 }}
                                 >
-                                    {authorizationStore.signup.error === "emailAlreadyUsed" && (
+                                    {authorizationSt.signup.error === "emailAlreadyUsed" && (
                                         <Typography
                                             variant="subtitle1"
                                             sx={{ mt: 1, ml: 1 }}
@@ -327,7 +327,7 @@ const Registration = inject("authorizationStore")(observer(({ authorizationStore
                                     spacing={1}
                                     sx={{ width: "100%", minHeight: 16, mb: 1.2 }}
                                 >
-                                    {authorizationStore.signup.error === "serverError" && (
+                                    {authorizationSt.signup.error === "serverError" && (
                                         <Typography
                                             variant="subtitle1"
                                             sx={{ mt: 1, ml: 1 }}

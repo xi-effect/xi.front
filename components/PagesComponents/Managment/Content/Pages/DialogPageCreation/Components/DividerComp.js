@@ -42,7 +42,7 @@ const Root = styled("div")(() => ({
     },
 }));
 
-const DividerComp = inject("managmentStore")(observer(({ managmentStore, index }) => {
+const DividerComp = inject("managmentSt")(observer(({ managmentSt, index }) => {
     const [hover, setHover] = React.useState(false)
 
     return (
@@ -54,7 +54,7 @@ const DividerComp = inject("managmentStore")(observer(({ managmentStore, index }
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                onClick={() => managmentStore.setPageCreationList("selectId", index)}
+                onClick={() => managmentSt.setPageCreationList("selectId", index)}
             >
                 <Grid className={classes.gridTextWrapper}>
                     <Divider flexItem
@@ -83,7 +83,7 @@ const DividerComp = inject("managmentStore")(observer(({ managmentStore, index }
                                 sx={{
                                     marginLeft: "auto"
                                 }}
-                                onClick={() => managmentStore.deleteComponent(index)}
+                                onClick={() => managmentSt.deleteComponent(index)}
                                 size="large">
                                 <DeleteForeverIcon sx={{ color: "text.main" }} />
                             </IconButton>

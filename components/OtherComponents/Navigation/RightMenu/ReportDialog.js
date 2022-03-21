@@ -6,10 +6,10 @@ import { Box, Button, Dialog, FormControl, InputLabel, Input, MenuItem, Select, 
 
 const ReportGeneral = inject(
     "rootStore",
-    "knowledgeStore",
-    "uiStore",
+    "knowledgeSt",
+    "uiSt",
 )(
-    observer(({ uiStore }) => (
+    observer(({ uiSt }) => (
         <Stack
             direction="column"
             justifyContent="center"
@@ -22,8 +22,8 @@ const ReportGeneral = inject(
             <Input
                 sx={{ backgroundColor: "background.2", width: "100%", }}
                 type="text"
-                value={uiStore.reportData.reportText ?? ""}
-                onChange={(e) => uiStore.setReportData("reportText", e.target.value)}
+                value={uiSt.reportData.reportText ?? ""}
+                onChange={(e) => uiSt.setReportData("reportText", e.target.value)}
                 multiline
                 maxRows={5}
                 placeholder="Текст отзыва"
@@ -49,10 +49,10 @@ const ReportDetailed = inject()(
 
 const ReportBug = inject(
     "rootStore",
-    "knowledgeStore",
-    "uiStore",
+    "knowledgeSt",
+    "uiSt",
 )(
-    observer(({ uiStore }) => (
+    observer(({ uiSt }) => (
         <Stack
             direction="column"
             justifyContent="center"
@@ -65,8 +65,8 @@ const ReportBug = inject(
             <Input
                 sx={{ backgroundColor: "background.2", width: "100%", }}
                 type="text"
-                value={uiStore.reportData.errorDescription ?? ""}
-                onChange={(e) => uiStore.setReportData("errorDescription", e.target.value)}
+                value={uiSt.reportData.errorDescription ?? ""}
+                onChange={(e) => uiSt.setReportData("errorDescription", e.target.value)}
                 multiline
                 maxRows={5}
                 placeholder="Опишите ошибку"
@@ -74,8 +74,8 @@ const ReportBug = inject(
             <Input
                 sx={{ backgroundColor: "background.2", width: "100%", }}
                 type="text"
-                value={uiStore.reportData.sitePart ?? ""}
-                onChange={(e) => uiStore.setReportData("sitePart", e.target.value)}
+                value={uiSt.reportData.sitePart ?? ""}
+                onChange={(e) => uiSt.setReportData("sitePart", e.target.value)}
                 multiline
                 maxRows={5}
                 placeholder="Укажите, в какой части сайта она произошла. Можно, скопировать url-адрес в это поле"
@@ -83,8 +83,8 @@ const ReportBug = inject(
             <Input
                 sx={{ backgroundColor: "background.2", width: "100%", }}
                 type="text"
-                value={uiStore.reportData.errorRepeat ?? ""}
-                onChange={(e) => uiStore.setReportData("errorRepeat", e.target.value)}
+                value={uiSt.reportData.errorRepeat ?? ""}
+                onChange={(e) => uiSt.setReportData("errorRepeat", e.target.value)}
                 multiline
                 maxRows={5}
                 placeholder="Расскажите о том, как появилась ошибка - что вы делали перед тем, как появилась ошибка или как её воспроизвести"
@@ -92,8 +92,8 @@ const ReportBug = inject(
             <Input
                 sx={{ backgroundColor: "background.2", width: "100%", }}
                 type="text"
-                value={uiStore.reportData.deviceInfo ?? ""}
-                onChange={(e) => uiStore.setReportData("deviceInfo", e.target.value)}
+                value={uiSt.reportData.deviceInfo ?? ""}
+                onChange={(e) => uiSt.setReportData("deviceInfo", e.target.value)}
                 multiline
                 maxRows={5}
                 placeholder="С какого устройства вы пользуетесь порталом? Также укажите браузер"
@@ -104,9 +104,9 @@ const ReportBug = inject(
 
 
 const ReportContent = inject(
-    "uiStore",
+    "uiSt",
 )(
-    observer(({ uiStore }) => (
+    observer(({ uiSt }) => (
         <Stack
             direction="column"
             justifyContent="center"
@@ -119,8 +119,8 @@ const ReportContent = inject(
             <Input
                 sx={{ backgroundColor: "background.2", width: "100%", }}
                 type="text"
-                value={uiStore.reportData.contentName ?? ""}
-                onChange={(e) => uiStore.setReportData("contentName", e.target.value)}
+                value={uiSt.reportData.contentName ?? ""}
+                onChange={(e) => uiSt.setReportData("contentName", e.target.value)}
                 multiline
                 maxRows={5}
                 placeholder="Название контента (страницы, модуля)"
@@ -128,8 +128,8 @@ const ReportContent = inject(
             <Input
                 sx={{ backgroundColor: "background.2", width: "100%", }}
                 type="text"
-                value={uiStore.reportData.errorDescription ?? ""}
-                onChange={(e) => uiStore.setReportData("errorDescription", e.target.value)}
+                value={uiSt.reportData.errorDescription ?? ""}
+                onChange={(e) => uiSt.setReportData("errorDescription", e.target.value)}
                 multiline
                 maxRows={5}
                 placeholder="Опишите ошибку"
@@ -141,10 +141,10 @@ const ReportContent = inject(
 
 const ReportDialog = inject(
     "rootStore",
-    "knowledgeStore",
-    "uiStore",
+    "knowledgeSt",
+    "uiSt",
 )(
-    observer(({ rootStore, uiStore, openDialog, setOpenDialog }) => {
+    observer(({ rootStore, uiSt, openDialog, setOpenDialog }) => {
         const [type, setType] = React.useState("general");
 
         const handleChange = (event) => {
@@ -155,7 +155,7 @@ const ReportDialog = inject(
             let dataReport
             if (type === "general") {
                 dataReport = {
-                    reportText: uiStore.reportData.reportText,
+                    reportText: uiSt.reportData.reportText,
                 }
             }
             if (type === "detailed") {
@@ -165,21 +165,21 @@ const ReportDialog = inject(
             }
             if (type === "bug-report") {
                 dataReport = {
-                    errorDescription: uiStore.reportData.errorDescription,
-                    sitePart: uiStore.reportData.sitePart,
-                    errorRepeat: uiStore.reportData.errorRepeat,
-                    deviceInfo: uiStore.reportData.deviceInfo,
+                    errorDescription: uiSt.reportData.errorDescription,
+                    sitePart: uiSt.reportData.sitePart,
+                    errorRepeat: uiSt.reportData.errorRepeat,
+                    deviceInfo: uiSt.reportData.deviceInfo,
                 }
             }
             if (type === "content-report") {
                 dataReport = {
-                    contentName: uiStore.reportData.contentName,
-                    errorDescription: uiStore.reportData.errorDescription,
+                    contentName: uiSt.reportData.contentName,
+                    errorDescription: uiSt.reportData.errorDescription,
                 }
             }
             rootStore.fetchDataScr(`${rootStore.url}/feedback/`, "POST", { type, data: dataReport }).then(
                 () => {
-                    uiStore.clearReportData()
+                    uiSt.clearReportData()
                 })
         }
 

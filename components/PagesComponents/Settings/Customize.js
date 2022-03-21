@@ -4,19 +4,19 @@ import { Grid, Typography, } from "@mui/material"
 import { inject, observer } from "mobx-react"
 import DarkModeToggle from "react-dark-mode-toggle"
 
-const Customize = inject("rootStore", "settingsStore")(observer(({ rootStore, settingsStore }) => {
+const Customize = inject("rootStore", "settingsSt")(observer(({ rootStore, settingsSt }) => {
 
     // const [isDarkMode, setIsDarkMode] = useState(() => false);
     // const { enqueueSnackbar } = useSnackbar();
 
     const saveNewTheme = () => {
         rootStore.fetchDataScr(`${rootStore.url}/settings/`, "POST", {
-            "changed": { "dark-theme": !settingsStore.settings.darkTheme }
+            "changed": { "dark-theme": !settingsSt.settings.darkTheme }
         })
             .then((data) => {
                 console.log(data)
                 if (data.a) {
-                    settingsStore.setSettings("darkTheme", !settingsStore.settings.darkTheme)
+                    settingsSt.setSettings("darkTheme", !settingsSt.settings.darkTheme)
                     // enqueueSnackbar("Успешно", {
                     //     variant: "success",
 
@@ -38,7 +38,7 @@ const Customize = inject("rootStore", "settingsStore")(observer(({ rootStore, se
                 <Grid>
                     <DarkModeToggle
                         onChange={saveNewTheme}
-                        checked={settingsStore.settings.darkTheme}
+                        checked={settingsSt.settings.darkTheme}
                         size={80}
                     />
                 </Grid>

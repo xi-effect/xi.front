@@ -15,27 +15,14 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { NewBlocks } from '../config';
 
 type ItemMenuProps = {
-  className?: string;
   contextMenu: any;
-  index: number;
   selectItemMenu: () => void;
-  deleteItem: (index: number) => void;
-  duplicateItem: (index: number) => void;
-  changeItemType: (index: number, newType: string) => void;
   setContextMenu: (value: null) => void;
 };
 
 const ITEM_HEIGHT = 80;
 
-const ItemMenu: React.FC<ItemMenuProps> = ({
-  index,
-  contextMenu,
-  selectItemMenu,
-  setContextMenu,
-  deleteItem,
-  duplicateItem,
-  changeItemType,
-}) => {
+const ItemMenu: React.FC<ItemMenuProps> = ({ contextMenu, selectItemMenu, setContextMenu }) => {
   const [openItemsMenu, setOpenItemsMenu] = React.useState<null | string>(null);
 
   return (
@@ -70,7 +57,7 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
           </MenuItem>
           <MenuItem
             onClick={() => {
-              deleteItem(index);
+              // deleteItem(index);
               selectItemMenu();
             }}>
             <ListItemIcon>
@@ -80,7 +67,7 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
           </MenuItem>
           <MenuItem
             onClick={() => {
-              duplicateItem(index);
+              // duplicateItem(index);
               selectItemMenu();
             }}>
             <ListItemIcon>
@@ -90,7 +77,7 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
           </MenuItem>
           <MenuItem
             onClick={() => {
-              duplicateItem(index);
+              // duplicateItem(index);
               selectItemMenu();
             }}>
             <ListItemIcon>
@@ -106,7 +93,7 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
             <MenuItem
               key={indx.toString()}
               onClick={() => {
-                changeItemType(index, item.type);
+                // changeItemType(index, item.type);
                 selectItemMenu();
                 setOpenItemsMenu(null);
               }}>

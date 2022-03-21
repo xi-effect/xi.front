@@ -145,8 +145,8 @@ const DialogEndTestApply = inject()(
   ))
 );
 
-const ModuleInfo = inject("knowledgeStore")(
-  observer(({ knowledgeStore, children }) => {
+const ModuleInfo = inject("knowledgeSt")(
+  observer(({ knowledgeSt, children }) => {
     const [value, setValue] = React.useState(0);
     const mobile = true
     const handleChange = (event, newValue) => {
@@ -190,9 +190,9 @@ const ModuleInfo = inject("knowledgeStore")(
               color: "text.main",
             }}
             expanded={
-              knowledgeStore.module.openAccordion === undefined
+              knowledgeSt.module.openAccordion === undefined
                 ? false
-                : knowledgeStore.module.openAccordion
+                : knowledgeSt.module.openAccordion
             }
           >
             <AccordionSummary
@@ -216,16 +216,16 @@ const ModuleInfo = inject("knowledgeStore")(
                       <span>
                         <IconButton
                           onClick={() =>
-                            knowledgeStore.setModuleData(
+                            knowledgeSt.setModuleData(
                               "openAccordion",
-                              !knowledgeStore.module.openAccordion
+                              !knowledgeSt.module.openAccordion
                             )
                           }
                           size="large"
                         >
                           <ExpandMoreIcon
                             sx={{
-                              transform: knowledgeStore.module.openAccordion
+                              transform: knowledgeSt.module.openAccordion
                                 ? "rotate(0deg)"
                                 : "rotate(-90deg)",
                               transition: "0.2s",
@@ -239,7 +239,7 @@ const ModuleInfo = inject("knowledgeStore")(
                 </Grid>
                 <Grid item />
                 <Grid item>
-                  {knowledgeStore.module.type === "test" && <Tooltip title="Завершить тест">
+                  {knowledgeSt.module.type === "test" && <Tooltip title="Завершить тест">
                     <span>
                       <Button
                         onClick={() =>
@@ -258,8 +258,8 @@ const ModuleInfo = inject("knowledgeStore")(
                     <span>
                       <IconButton
                         onClick={() =>
-                          knowledgeStore.loadPageInModule(
-                            knowledgeStore.module.activeIdInMap + 1
+                          knowledgeSt.loadPageInModule(
+                            knowledgeSt.module.activeIdInMap + 1
                           )
                         }
                         size="large"
@@ -302,7 +302,7 @@ const ModuleInfo = inject("knowledgeStore")(
                         }
                         {...a11yProps(0)}
                       />
-                      {knowledgeStore.module.map !== undefined && (
+                      {knowledgeSt.module.map !== undefined && (
                         <Tab
                           label={
                             <Typography sx={{ color: "text.main" }}>
@@ -325,7 +325,7 @@ const ModuleInfo = inject("knowledgeStore")(
                       centered
                     >
                       <Tab label={<DescriptionIcon />} {...a11yProps(0)} />
-                      {knowledgeStore.module.map !== undefined && (
+                      {knowledgeSt.module.map !== undefined && (
                         <Tab label={<MenuIcon />} {...a11yProps(1)} />
                       )}
                       <Tab label={<AnalyticsIcon />} {...a11yProps(2)} />
@@ -334,10 +334,10 @@ const ModuleInfo = inject("knowledgeStore")(
                   )}
                   <TabPanel value={value} index={0}>
                     <Typography variant="h6">
-                      {knowledgeStore.module.name}
+                      {knowledgeSt.module.name}
                     </Typography>
                     <Typography variant="h6">
-                      {knowledgeStore.page.name}
+                      {knowledgeSt.page.name}
                     </Typography>
                     <Grid
                       container
@@ -349,19 +349,19 @@ const ModuleInfo = inject("knowledgeStore")(
                       }}
                     >
                       <Typography variant="subtitle2">
-                        {themeList[knowledgeStore.module.theme]}
+                        {themeList[knowledgeSt.module.theme]}
                       </Typography>
                       <Typography variant="h6" sx={{ ml: 1 }}>
                         -
                       </Typography>
                       <Typography variant="subtitle2" sx={{ ml: 1 }}>
-                        {categoryList[knowledgeStore.module.category]}
+                        {categoryList[knowledgeSt.module.category]}
                       </Typography>
                       <Typography variant="h6" sx={{ ml: 1 }}>
                         -
                       </Typography>
                       <Typography variant="subtitle2" sx={{ ml: 1 }}>
-                        {difficultyList[knowledgeStore.module.difficulty]}
+                        {difficultyList[knowledgeSt.module.difficulty]}
                       </Typography>
                     </Grid>
                     <Grid
@@ -374,13 +374,13 @@ const ModuleInfo = inject("knowledgeStore")(
                       }}
                     >
                       <Typography variant="subtitle2">
-                        {knowledgeStore.module.description !== undefined
-                          ? knowledgeStore.module.description
+                        {knowledgeSt.module.description !== undefined
+                          ? knowledgeSt.module.description
                           : "Автор не оставил описания"}
                       </Typography>
                     </Grid>
                   </TabPanel>
-                  {knowledgeStore.module.map !== undefined && (
+                  {knowledgeSt.module.map !== undefined && (
                     <TabPanel value={value} index={1}>
                       <Grid
                         container
@@ -401,7 +401,7 @@ const ModuleInfo = inject("knowledgeStore")(
                         justifyContent="flex-start"
                         alignItems="flex-start"
                       >
-                        {knowledgeStore.module.map
+                        {knowledgeSt.module.map
                           .slice(
                             0 + (paginationCounter - 1) * 10,
                             10 + (paginationCounter - 1) * 10
@@ -414,32 +414,32 @@ const ModuleInfo = inject("knowledgeStore")(
                               alignItems="center"
                               key={index.toString()}
                             >
-                              {knowledgeStore.module.activeIdInMap ===
+                              {knowledgeSt.module.activeIdInMap ===
                                 index + (paginationCounter - 1) * 10 && (
                                   <ArrowRightIcon />
                                 )}
-                              {/* {knowledgeStore.module.activeIdInMap !== (index + (paginationCounter - 1) * 10) && <CircleIcon sx={{fontSize: "8px", m: 1}} />} */}
+                              {/* {knowledgeSt.module.activeIdInMap !== (index + (paginationCounter - 1) * 10) && <CircleIcon sx={{fontSize: "8px", m: 1}} />} */}
                               <Link
                                 sx={{
                                   cursor:
-                                    knowledgeStore.module.activeIdInMap ===
+                                    knowledgeSt.module.activeIdInMap ===
                                       index + (paginationCounter - 1) * 10
                                       ? "default"
                                       : "pointer",
                                   ml:
-                                    knowledgeStore.module.activeIdInMap ===
+                                    knowledgeSt.module.activeIdInMap ===
                                       index + (paginationCounter - 1) * 10
                                       ? 0
                                       : 3,
                                 }}
                                 onClick={() =>
-                                  knowledgeStore.loadPageInModule(
+                                  knowledgeSt.loadPageInModule(
                                     index + (paginationCounter - 1) * 10
                                   )
                                 }
                                 color="inherit"
                                 underline={
-                                  knowledgeStore.module.activeIdInMap ===
+                                  knowledgeSt.module.activeIdInMap ===
                                     index + (paginationCounter - 1) * 10
                                     ? "none"
                                     : "hover"
@@ -460,7 +460,7 @@ const ModuleInfo = inject("knowledgeStore")(
                             },
                           }}
                           count={Math.ceil(
-                            knowledgeStore.module.map.length / 10
+                            knowledgeSt.module.map.length / 10
                           )}
                           color="primary"
                           onChange={handleChangePagination}

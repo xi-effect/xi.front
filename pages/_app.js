@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable react/forbid-prop-types */
 // import "../styles/globals.css"
 import React from "react";
@@ -27,6 +28,8 @@ import { useStore } from "../store/rootStore"
 import { getDesignTokens } from "../theme"
 import "nprogress/nprogress.css"; // styles of nprogress
 import Loading from "../components/OtherComponents/Loading/Loading";
+
+import '../node_modules/@fortawesome/fontawesome-svg-core/styles.css'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 // Binding events. 
@@ -35,12 +38,11 @@ Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
-
 const MyApp = (observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const rootStore = useStore(pageProps.initialState)
-  // console.log("darkMode", rootStore.settingsStore.settings.darkTheme)
-  const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsStore.settings.darkTheme))), [rootStore.settingsStore.settings.darkTheme])
+  // console.log("darkMode", rootStore.settingsSt.settings.darkTheme)
+  const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsSt.settings.darkTheme))), [rootStore.settingsSt.settings.darkTheme])
   // console.log("theme", theme)
   return (
     <CacheProvider value={emotionCache}>
@@ -50,16 +52,17 @@ const MyApp = (observer((props) => {
       <Provider
         store={rootStore}
         rootStore={rootStore}
-        uiStore={rootStore.uiStore}
-        homeStore={rootStore.homeStore}
-        knowledgeStore={rootStore.knowledgeStore}
-        managmentStore={rootStore.managmentStore}
-        settingsStore={rootStore.settingsStore}
-        contentStore={rootStore.contentStore}
-        authorizationStore={rootStore.authorizationStore}
-        profileStore={rootStore.profileStore}
-        messageStore={rootStore.messageStore}
-        communityStore={rootStore.communityStore}
+        uiSt={rootStore.uiSt}
+        homeSt={rootStore.homeSt}
+        knowledgeSt={rootStore.knowledgeSt}
+        managmentSt={rootStore.managmentSt}
+        settingsSt={rootStore.settingsSt}
+        contentSt={rootStore.contentSt}
+        authorizationSt={rootStore.authorizationSt}
+        profileSt={rootStore.profileSt}
+        messageSt={rootStore.messageSt}
+        communitySt={rootStore.communitySt}
+        contentEditorSt={rootStore.contentEditorSt}
       >
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>

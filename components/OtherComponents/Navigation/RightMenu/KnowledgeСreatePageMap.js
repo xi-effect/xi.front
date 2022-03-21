@@ -23,9 +23,9 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import { motion } from "framer-motion"
 
 const KnowledgeСreatePageMap = inject(
-    "uiStore",
+    "uiSt",
 )(
-    observer(({ uiStore}) => {
+    observer(({ uiSt }) => {
 
         const components = [
             { name: "Текст", icon: <TextFieldsIcon />, type: "text" },
@@ -42,64 +42,64 @@ const KnowledgeСreatePageMap = inject(
 
         return (
             <>
-                {uiStore.knowledge.activeStep === 1 && <Droppable isDropDisabled droppableId="list-components">
-                        {(provided) => (
-                            <Grid
-                                ref={provided.innerRef}
-                                container
-                                direction="column"
-                                justifyContent="flex-start"
-                                alignItems="flex-start"
-                                sx={{
-                                    height: "100%",
-                                }}
-                            >
-                                <Typography variant="subtitle1" sx={{ ml: 0.5 }}>Компоненты:</Typography>
-                                {components.map((component, index) => (
-                                    <Draggable
-                                        key={index.toString()}
-                                        draggableId={`list-components-id-${index}`}
-                                        index={index}>
-                                        {(provided, snapshot) => (
-                                            <Stack
-                                                // onDoubleClick={() => managmentStore.pushNewComponent(component.type)}
-                                                key={index.toString()}
-                                                direction="row"
-                                                justifyContent="flex-start"
-                                                alignItems="center"
-                                                // spacing={1}
-                                                component={motion.div}
-                                                sx={{
-                                                    zIndex: 100,
-                                                    width: "100%",
-                                                    cursor: "default",
-                                                    // bgcolor: "primary.dark",
-                                                    "&:hover": {
-                                                        bgcolor: "primary.main",
-                                                    }
-                                                }}
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                            >
-                                                <IconButton sx={{ ml: 1, mr: 1, cursor: "pointer" }}>
-                                                    {component.icon}
-                                                </IconButton>
-                                                <Typography sx={{ maxWidth: 250, ml: 1 }} noWrap>
-                                                    {component.name}
-                                                </Typography>
-                                                <IconButton sx={{ ml: "auto", mr: 1, cursor: "pointer" }}>
-                                                    <DragIndicatorIcon />
-                                                </IconButton>
-                                            </Stack>
-                                        )}
-                                    </Draggable>
-                                ))
-                                }
-                                {provided.placeholder}
-                            </Grid>
-                        )}
-                    </Droppable >}
+                {uiSt.knowledge.activeStep === 1 && <Droppable isDropDisabled droppableId="list-components">
+                    {(provided) => (
+                        <Grid
+                            ref={provided.innerRef}
+                            container
+                            direction="column"
+                            justifyContent="flex-start"
+                            alignItems="flex-start"
+                            sx={{
+                                height: "100%",
+                            }}
+                        >
+                            <Typography variant="subtitle1" sx={{ ml: 0.5 }}>Компоненты:</Typography>
+                            {components.map((component, index) => (
+                                <Draggable
+                                    key={index.toString()}
+                                    draggableId={`list-components-id-${index}`}
+                                    index={index}>
+                                    {(provided, snapshot) => (
+                                        <Stack
+                                            // onDoubleClick={() => managmentSt.pushNewComponent(component.type)}
+                                            key={index.toString()}
+                                            direction="row"
+                                            justifyContent="flex-start"
+                                            alignItems="center"
+                                            // spacing={1}
+                                            component={motion.div}
+                                            sx={{
+                                                zIndex: 100,
+                                                width: "100%",
+                                                cursor: "default",
+                                                // bgcolor: "primary.dark",
+                                                "&:hover": {
+                                                    bgcolor: "primary.main",
+                                                }
+                                            }}
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                        >
+                                            <IconButton sx={{ ml: 1, mr: 1, cursor: "pointer" }}>
+                                                {component.icon}
+                                            </IconButton>
+                                            <Typography sx={{ maxWidth: 250, ml: 1 }} noWrap>
+                                                {component.name}
+                                            </Typography>
+                                            <IconButton sx={{ ml: "auto", mr: 1, cursor: "pointer" }}>
+                                                <DragIndicatorIcon />
+                                            </IconButton>
+                                        </Stack>
+                                    )}
+                                </Draggable>
+                            ))
+                            }
+                            {provided.placeholder}
+                        </Grid>
+                    )}
+                </Droppable >}
             </>
         );
     })

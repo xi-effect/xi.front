@@ -22,11 +22,11 @@ const reorder = (list, startIndex, endIndex) => {
     return result;
 };
 
-const Createmodule = inject("knowledgeStore", "managmentStore", "uiStore")(observer(({ managmentStore, uiStore }) => {
+const Createmodule = inject("knowledgeSt", "managmentSt", "uiSt")(observer(({ managmentSt, uiSt }) => {
 
     useUnmount(() => {
-        if (managmentStore.moduleCreation.id) {
-            managmentStore.saveModule(true)
+        if (managmentSt.moduleCreation.id) {
+            managmentSt.saveModule(true)
             enqueueSnackbar("Модуль сохранен", {
                 variant: "success",
             })
@@ -35,7 +35,7 @@ const Createmodule = inject("knowledgeStore", "managmentStore", "uiStore")(obser
 
     React.useEffect(() => {
         console.log("Createmodule")
-        managmentStore.LoadPageList()
+        managmentSt.LoadPageList()
     });
 
     function onDragEnd(result) {
@@ -46,13 +46,13 @@ const Createmodule = inject("knowledgeStore", "managmentStore", "uiStore")(obser
         }
 
         if (result.source.droppableId === "list-pages") {
-            const newArray = [...managmentStore.moduleCreation.points[result.destination.droppableId.slice(5)].pages]
+            const newArray = [...managmentSt.moduleCreation.points[result.destination.droppableId.slice(5)].pages]
             const newPage = {}
-            newPage.id = managmentStore.pageCreationList.pages[result.source.index].id
-            newPage.name = managmentStore.pageCreationList.pages[result.source.index].name
-            newPage.kind = managmentStore.pageCreationList.pages[result.source.index].kind
+            newPage.id = managmentSt.pageCreationList.pages[result.source.index].id
+            newPage.name = managmentSt.pageCreationList.pages[result.source.index].name
+            newPage.kind = managmentSt.pageCreationList.pages[result.source.index].kind
             newArray.splice(result.destination.index, 0, newPage)
-            managmentStore.setModuleCreationPoints(Number(result.destination.droppableId.slice(5)), "pages", newArray)
+            managmentSt.setModuleCreationPoints(Number(result.destination.droppableId.slice(5)), "pages", newArray)
             return;
 
         }
@@ -60,11 +60,11 @@ const Createmodule = inject("knowledgeStore", "managmentStore", "uiStore")(obser
         // Перетаскивание в рамках одной точки
         if (result.destination.droppableId === result.source.droppableId) {
             const quotes = reorder(
-                [...managmentStore.moduleCreation.points[result.destination.droppableId.slice(5)].pages],
+                [...managmentSt.moduleCreation.points[result.destination.droppableId.slice(5)].pages],
                 result.source.index,
                 result.destination.index
             );
-            managmentStore.setModuleCreationPoints(result.destination.droppableId.slice(5), "pages", quotes)
+            managmentSt.setModuleCreationPoints(result.destination.droppableId.slice(5), "pages", quotes)
             // console.log("pointsnotgood", result)
             return;
 
@@ -72,11 +72,11 @@ const Createmodule = inject("knowledgeStore", "managmentStore", "uiStore")(obser
 
         // Перетаскивание между точками 
         if (result.source.droppableId !== "list-pages" && result.destination.droppableId !== result.source.droppableId) {
-            const newArray = [...managmentStore.moduleCreation.points[Number(result.destination.droppableId.slice(5))].pages]
-            const newPage = managmentStore.moduleCreation.points[Number(result.source.droppableId.slice(5))].pages[result.source.index]
+            const newArray = [...managmentSt.moduleCreation.points[Number(result.destination.droppableId.slice(5))].pages]
+            const newPage = managmentSt.moduleCreation.points[Number(result.source.droppableId.slice(5))].pages[result.source.index]
             newArray.splice(result.destination.index, 0, newPage)
-            managmentStore.setModuleCreationPoints(Number(result.destination.droppableId.slice(5)), "pages", newArray)
-            managmentStore.deletePageInPoint(result.source.droppableId.slice(5), result.source.index)
+            managmentSt.setModuleCreationPoints(Number(result.destination.droppableId.slice(5)), "pages", newArray)
+            managmentSt.deletePageInPoint(result.source.droppableId.slice(5), result.source.index)
             console.log("points", result)
         }
 
@@ -141,9 +141,9 @@ const Createmodule = inject("knowledgeStore", "managmentStore", "uiStore")(obser
                                 zIndex: 1,
                             }}
                         >
-                            {uiStore.knowledge.activeStepModuleCreate === 0 && <StepOne />}
-                            {uiStore.knowledge.activeStepModuleCreate === 1 && <StepTwo />}
-                            {uiStore.knowledge.activeStepModuleCreate === 2 && <StepThree />}
+                            {uiSt.knowledge.activeStepModuleCreate === 0 && <StepOne />}
+                            {uiSt.knowledge.activeStepModuleCreate === 1 && <StepTwo />}
+                            {uiSt.knowledge.activeStepModuleCreate === 2 && <StepThree />}
                         </Grid>
                     </NavigationAll>
                 </DragDropContext >

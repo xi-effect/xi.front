@@ -27,10 +27,10 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import LensIcon from "@mui/icons-material/Lens";
 
-const ListItem = inject("managmentStore")(
-  observer(({ managmentStore, index, indexA }) => {
-    const values = managmentStore.pageCreation.components[index];
-    const item = managmentStore.pageCreation.components[index].content[indexA];
+const ListItem = inject("managmentSt")(
+  observer(({ managmentSt, index, indexA }) => {
+    const values = managmentSt.pageCreation.components[index];
+    const item = managmentSt.pageCreation.components[index].content[indexA];
 
     return (
       <Input
@@ -53,7 +53,7 @@ const ListItem = inject("managmentStore")(
         fullWidth
         value={item.label}
         onChange={(event) =>
-          managmentStore.setPageCreationContentComponents(
+          managmentSt.setPageCreationContentComponents(
             index,
             indexA,
             "label",
@@ -87,7 +87,7 @@ const ListItem = inject("managmentStore")(
             <Tooltip title="Удалить блок">
               <IconButton
                 onClick={() =>
-                  managmentStore.deleteComponentContent(index, indexA)
+                  managmentSt.deleteComponentContent(index, indexA)
                 }
                 size="large"
               >
@@ -106,10 +106,10 @@ const ListItem = inject("managmentStore")(
   })
 );
 
-const ListList = inject("managmentStore")(
-  observer(({ managmentStore, index }) => {
+const ListList = inject("managmentSt")(
+  observer(({ managmentSt, index }) => {
     // console.log("props", props)
-    const values = managmentStore.pageCreation.components[index];
+    const values = managmentSt.pageCreation.components[index];
 
     return (
       <>
@@ -122,7 +122,7 @@ const ListList = inject("managmentStore")(
             {(provided) => (
               <Grid
                 // onMouseEnter={() =>
-                //   managmentStore.setPageCreationContentComponents(
+                //   managmentSt.setPageCreationContentComponents(
                 //     index,
                 //     indexA,
                 //     "showIcons",
@@ -130,7 +130,7 @@ const ListList = inject("managmentStore")(
                 //   )
                 // }
                 // onMouseLeave={() =>
-                //   managmentStore.setPageCreationContentComponents(
+                //   managmentSt.setPageCreationContentComponents(
                 //     index,
                 //     indexA,
                 //     "showIcons",
@@ -158,17 +158,17 @@ const ListList = inject("managmentStore")(
   })
 );
 
-const List = inject("managmentStore")(
-  observer(({ managmentStore, index }) => {
+const List = inject("managmentSt")(
+  observer(({ managmentSt, index }) => {
     // Simulated props for the purpose of the example
-    const values = managmentStore.pageCreation.components[index];
+    const values = managmentSt.pageCreation.components[index];
     // Simulated props for the purpose of the example
     // console.log("props", props)
 
     const handleFontSizeUp = () => {
       // console.log(index, "fontSize", newFormats)
       if (values.fontSize !== 48)
-        managmentStore.setPageCreationComponents(
+        managmentSt.setPageCreationComponents(
           index,
           "fontSize",
           values.fontSize + 2
@@ -178,7 +178,7 @@ const List = inject("managmentStore")(
     const handleFontSizeDown = () => {
       // console.log(index, "fontSize", newFormats)
       if (values.fontSize !== 12)
-        managmentStore.setPageCreationComponents(
+        managmentSt.setPageCreationComponents(
           index,
           "fontSize",
           values.fontSize - 2
@@ -191,17 +191,17 @@ const List = inject("managmentStore")(
       else if (type === "numberded") {
         newType = "dotted";
       }
-      managmentStore.setPageCreationComponents(index, "listType", newType);
+      managmentSt.setPageCreationComponents(index, "listType", newType);
     };
 
     const handleFontStyle = () => {
       if (values.fontStyle === "normal")
-        return managmentStore.setPageCreationComponents(
+        return managmentSt.setPageCreationComponents(
           index,
           "fontStyle",
           "italic"
         );
-      return managmentStore.setPageCreationComponents(
+      return managmentSt.setPageCreationComponents(
         index,
         "fontStyle",
         "normal"
@@ -210,12 +210,12 @@ const List = inject("managmentStore")(
 
     const handleFontWeight = () => {
       if (values.fontWeight === "normal")
-        return managmentStore.setPageCreationComponents(
+        return managmentSt.setPageCreationComponents(
           index,
           "fontWeight",
           "bold"
         );
-      return managmentStore.setPageCreationComponents(
+      return managmentSt.setPageCreationComponents(
         index,
         "fontWeight",
         "normal"
@@ -224,12 +224,12 @@ const List = inject("managmentStore")(
 
     const handleTextDecoration = () => {
       if (values.textDecoration === "none")
-        return managmentStore.setPageCreationComponents(
+        return managmentSt.setPageCreationComponents(
           index,
           "textDecoration",
           "underline"
         );
-      return managmentStore.setPageCreationComponents(
+      return managmentSt.setPageCreationComponents(
         index,
         "textDecoration",
         "none"
@@ -270,7 +270,7 @@ const List = inject("managmentStore")(
         result.source.index,
         result.destination.index
       );
-      managmentStore.setContentToComponent(index, newState);
+      managmentSt.setContentToComponent(index, newState);
     }
 
     const textAlignIconSelect = (align) => {
@@ -295,7 +295,7 @@ const List = inject("managmentStore")(
       else if (align === "center") newAlignment = "right";
       else if (align === "right") newAlignment = "justify";
       else if (align === "justify") newAlignment = "left";
-      managmentStore.setPageCreationComponents(
+      managmentSt.setPageCreationComponents(
         index,
         "textAlign",
         newAlignment
@@ -313,7 +313,7 @@ const List = inject("managmentStore")(
         direction="column"
         justifyContent="center"
         alignItems="center"
-        onClick={() => managmentStore.setPageCreationList("selectId", index)}
+        onClick={() => managmentSt.setPageCreationList("selectId", index)}
       >
         <Grid
           container
@@ -354,7 +354,7 @@ const List = inject("managmentStore")(
             <Tooltip title="Добавить">
               <IconButton
                 onClick={() =>
-                  managmentStore.pushContentToComponent(index, "list")
+                  managmentSt.pushContentToComponent(index, "list")
                 }
                 size="large"
               >
@@ -464,7 +464,7 @@ const List = inject("managmentStore")(
             <Tooltip title="Удалить блок">
               <IconButton
                 sx={{ marginLeft: "auto" }}
-                onClick={() => managmentStore.deleteComponent(index)}
+                onClick={() => managmentSt.deleteComponent(index)}
                 size="large"
               >
                 <DeleteForeverIcon />

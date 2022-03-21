@@ -23,7 +23,7 @@ const ContentEditor = dynamic(() => import("../../../../components/OtherComponen
     ssr: false,
 })
 
-const PagePage = inject("rootStore", "settingsStore", "profileStore")(observer(() => {
+const PagePage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
     // console.log("router.query", router.query.id);
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
     const router = useRouter()
@@ -36,8 +36,8 @@ const PagePage = inject("rootStore", "settingsStore", "profileStore")(observer((
     // console.log("router.query", router.query)
 
     const initialContent = EditorState.createEmpty();
+    console.log("initialContent", initialContent);
     const editorRef = React.useRef(null);
-    const [editorState, setEditorState] = React.useState(initialContent);
 
     return (
         <>
@@ -60,8 +60,6 @@ const PagePage = inject("rootStore", "settingsStore", "profileStore")(observer((
                 >
                     <ContentEditor
                         editorRef={editorRef}
-                        editorState={editorState}
-                        setEditorState={setEditorState}
                     />
                 </Stack>
             </NavigationAll>

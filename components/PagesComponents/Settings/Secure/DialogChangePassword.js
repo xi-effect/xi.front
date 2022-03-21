@@ -10,7 +10,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 const Crypto = require("crypto-js")
 
 
-const DialogChangePassword = inject("rootStore", "settingsStore")(observer(({ rootStore, openPasswordChangeDialog, setOpenPasswordChangeDialog }) => {
+const DialogChangePassword = inject("rootStore", "settingsSt")(observer(({ rootStore, openPasswordChangeDialog, setOpenPasswordChangeDialog }) => {
     const [password, setPassword] = React.useState("")
     const [newPassword, setNewPassword] = React.useState("")
     const [showPassword, setShowPassword] = React.useState(false)

@@ -78,11 +78,11 @@ class AuthorizationStore {
                 console.log(data)
                 if (data !== undefined) {
                     if (data.a) { // true
-                        this.rootStore.uiStore.setLoading("loading", true)
+                        this.rootStore.uiSt.setLoading("loading", true)
                         const router = Router
                         router.push("/home")
                         setTimeout(() => {
-                            this.rootStore.uiStore.setLoading("loading", false)
+                            this.rootStore.uiSt.setLoading("loading", false)
                         }, 3000);
                     } else {
                         this.setSignup("error", "emailAlreadyUsed")
@@ -109,7 +109,7 @@ class AuthorizationStore {
                 console.log("/auth/", data)
                 if (data !== undefined) {
                     if (data.a === "Success") {
-                        this.rootStore.uiStore.setLoading("loading", true)
+                        this.rootStore.uiSt.setLoading("loading", true)
                         const router = Router
                         router.push("/home")
                         this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/`, "GET")
@@ -117,16 +117,16 @@ class AuthorizationStore {
                                 console.log(data)
                                 if (data !== undefined) {
                                     const emailArr = data.email.split("@", 2)
-                                    this.rootStore.settingsStore.setSettings("username", data.username)
-                                    this.rootStore.settingsStore.setSettings("emailBefore", emailArr[0])
-                                    this.rootStore.settingsStore.setSettings("emailAfter", `@${emailArr[1]}`)
-                                    this.rootStore.settingsStore.setSettings("darkTheme", data["dark-theme"])
-                                    this.rootStore.settingsStore.setSettings("emailConfirmed", data["email-confirmed"])
+                                    this.rootStore.settingsSt.setSettings("username", data.username)
+                                    this.rootStore.settingsSt.setSettings("emailBefore", emailArr[0])
+                                    this.rootStore.settingsSt.setSettings("emailAfter", `@${emailArr[1]}`)
+                                    this.rootStore.settingsSt.setSettings("darkTheme", data["dark-theme"])
+                                    this.rootStore.settingsSt.setSettings("emailConfirmed", data["email-confirmed"])
                                 } else {
                                     console.log("Проблемы с сервером")
                                 }
                                 setTimeout(() => {
-                                    this.rootStore.uiStore.setLoading("loading", false)
+                                    this.rootStore.uiSt.setLoading("loading", false)
                                 }, 3000);
                             });
                     } else if (data.a === "User doesn't exist") {
