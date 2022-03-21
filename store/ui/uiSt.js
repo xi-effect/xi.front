@@ -22,10 +22,6 @@ class UIStore {
     // Loading Screen
     @observable load = {
         loading: false,
-        landing: true,
-        login: true,
-        registration: true,
-        app: true,
     }
 
     @action setLoading = (name, value) => {

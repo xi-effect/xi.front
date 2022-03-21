@@ -24,11 +24,6 @@ const NavigationAll = inject(
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     React.useEffect(() => {
-      if (uiSt.load.app) uiSt.setLoading("loading", true)
-      // Главное подключение к сокету
-      // socket = io("https://xieffect-socketio.herokuapp.com/", {
-      //   withCredentials: true,
-      // });
       // Каждый раз запрашиваются настройки, чтобы понимать,
       // актуален ли токен авторизации
       rootStore
@@ -62,22 +57,7 @@ const NavigationAll = inject(
         });
     }, []);
 
-    // Сокеты пролсушки для изменения информации в меню для чатов
-    // if (socket != null) {
-    //   socket.on("add-chat", (arg) => {
-    //     console.log(arg);
-    //   });
-    //   socket.on("edit-chat", (arg) => {
-    //     console.log(arg);
-    //   });
-    //   socket.on("delete-chat", (arg) => {
-    //     console.log(arg);
-    //   });
-    // }
-
     const [hoverLeftName, setHoverLeftName] = React.useState("")
-
-
 
     React.useEffect(() => {
       if (router.pathname.includes("/home")) setHoverLeftName("/home")
@@ -118,8 +98,8 @@ const NavigationAll = inject(
             width: "100%",
           }}
         >
-          <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
-          <SidebarSecond hoverLeftName={hoverLeftName} />
+          {!uiSt.load.loading && <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />}
+          {!uiSt.load.loading && <SidebarSecond hoverLeftName={hoverLeftName} />}
           <RightMenu />
           <Box
             sx={{
@@ -221,8 +201,8 @@ const NavigationAll = inject(
                   duration: 0.5,
                 }}
               >
-                <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
-                <SidebarSecond hoverLeftName={hoverLeftName} />
+                {!uiSt.load.loading && <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />}
+                {!uiSt.load.loading && <SidebarSecond hoverLeftName={hoverLeftName} />}
               </Box>
             </Box>}
           </AnimatePresence>

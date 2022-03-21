@@ -1,7 +1,6 @@
 /* eslint-disable import/no-relative-packages */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/forbid-prop-types */
-// import "../styles/globals.css"
 import React from "react";
 import Head from "next/head";
 import PropTypes from "prop-types";
@@ -30,8 +29,6 @@ import { getDesignTokens } from "../theme"
 import "nprogress/nprogress.css"; // styles of nprogress
 import Loading from "../components/OtherComponents/Loading/Loading";
 
-import '../node_modules/@fortawesome/fontawesome-svg-core/styles.css'
-
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 // Binding events. 
@@ -40,12 +37,18 @@ Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
+
+
 const MyApp = (observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
+
   const rootStore = useStore(pageProps.initialState)
-  // console.log("darkMode", rootStore.settingsSt.settings.darkTheme)
-  const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsSt.settings.darkTheme))), [rootStore.settingsSt.settings.darkTheme])
-  // console.log("theme", theme)
+  const theme = React.useMemo(() =>
+    responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsSt.settings.darkTheme))),
+    [rootStore.settingsSt.settings.darkTheme])
+
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -69,7 +72,6 @@ const MyApp = (observer((props) => {
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Loading />
             <SnackbarProvider
               anchorOrigin={{
                 vertical: "bottom",
@@ -79,6 +81,7 @@ const MyApp = (observer((props) => {
               preventDuplicate
               dense
             >
+              <Loading />
               <Component {...pageProps} />
             </SnackbarProvider>
           </ThemeProvider>
