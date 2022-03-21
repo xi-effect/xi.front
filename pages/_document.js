@@ -22,7 +22,6 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&display=swap" rel="stylesheet" />
-          <link href="https://use.fontawesome.com/releases/v5.12.1/css/svg-with-js.css" rel="stylesheet" />
 
           <meta charSet="utf-8" />
           <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
