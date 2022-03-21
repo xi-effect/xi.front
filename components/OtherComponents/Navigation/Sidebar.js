@@ -11,13 +11,13 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 
+import HomeIcon from "@mui/icons-material/Home";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import SettingsIcon from "@mui/icons-material/Settings";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic"
-
-const HomeIcon = dynamic(() => import('@mui/icons-material/Home'));
-const MenuBookIcon = dynamic(() => import('@mui/icons-material/MenuBook'));
-const SettingsIcon = dynamic(() => import('@mui/icons-material/Settings'));
-const AddBoxIcon = dynamic(() => import('@mui/icons-material/AddBox'));
 
 const DialogCreateCommunity = dynamic(
   () => import("./DialogCreateCommunity"),
@@ -35,13 +35,13 @@ const Sidebar = inject()(
     const menuList = [
       {
         id: 0,
-        icon: <HomeIcon sx={{ fontSize: 28 }} />,
+        icon: <HomeIcon />,
         label: "Главная",
         href: "/home",
       },
       {
         id: 1,
-        icon: <MenuBookIcon sx={{ fontSize: 28 }} />,
+        icon: <MenuBookIcon />,
         label: "Знания",
         href: "/knowledge",
       },
@@ -53,7 +53,7 @@ const Sidebar = inject()(
       // },
       {
         id: 3,
-        icon: <AddBoxIcon sx={{ fontSize: 28 }} />,
+        icon: <AddBoxIcon />,
         label: "Создать сообщество",
         href: "createcommunity",
       },
