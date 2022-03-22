@@ -5,10 +5,10 @@ import { Grid } from "@mui/material";
 import { inject, observer } from "mobx-react"
 import Image from "next/image"
 
-const ImageComp = inject("contentStore")(observer(({ contentStore, value }) => {
+const ImageComp = inject("contentSt")(observer(({ contentSt, value }) => {
     React.useEffect(() => {
         if (value.authorId && value.imageId) {
-            contentStore.loadImgFromServer(value.authorId, value.imageId)
+            contentSt.loadImgFromServer(value.authorId, value.imageId)
         }
     }, [])
 
@@ -27,7 +27,7 @@ const ImageComp = inject("contentStore")(observer(({ contentStore, value }) => {
                         height={540}
                         // objectFit="contain"
                         layout="responsive"
-                        src={contentStore.images[`${value.authorId}-${value.imageId}`]}
+                        src={contentSt.images[`${value.authorId}-${value.imageId}`]}
                         alt="Picture of the author"
                     />
                 </div>

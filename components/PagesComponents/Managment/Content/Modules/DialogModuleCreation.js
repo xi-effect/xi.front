@@ -11,7 +11,7 @@ import StepTwo from "./DialogModuleCreation/StepTwo";
 import StepThree from "./DialogModuleCreation/StepThree";
 
 
-const DialogModuleCreation = inject("managmentStore")(observer(({ managmentStore }) => {
+const DialogModuleCreation = inject("managmentSt")(observer(({ managmentSt }) => {
     const theme = useTheme();
 
     const [activeStep, setActiveStep] = React.useState(0);
@@ -32,8 +32,8 @@ const DialogModuleCreation = inject("managmentStore")(observer(({ managmentStore
                 height: "100vh",
             }}
             fullScreen
-            open={managmentStore.moduleCreationList.dialogOpen}
-            onClose={() => managmentStore.setModuleCreationList("dialogOpen", false)}
+            open={managmentSt.moduleCreationList.dialogOpen}
+            onClose={() => managmentSt.setModuleCreationList("dialogOpen", false)}
             scroll="paper"
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
@@ -55,13 +55,13 @@ const DialogModuleCreation = inject("managmentStore")(observer(({ managmentStore
                         </Grid>
                         <Grid>
                             <Tooltip title="Сохранить">
-                                <IconButton onClick={() => managmentStore.saveModule()} size="large">
+                                <IconButton onClick={() => managmentSt.saveModule()} size="large">
                                     <SaveIcon />
                                 </IconButton>
                             </Tooltip>
                             <Tooltip title="Закрыть. Перед закрытием сохраните, иначе прогресс будет потерян">
                                 <IconButton
-                                    onClick={() => managmentStore.setModuleCreationList("dialogOpen", false)}
+                                    onClick={() => managmentSt.setModuleCreationList("dialogOpen", false)}
                                     size="large">
                                     <CloseIcon />
                                 </IconButton>

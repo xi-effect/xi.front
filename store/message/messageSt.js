@@ -1,4 +1,4 @@
-import { action, observable, computed, runInAction, makeObservable } from "mobx"
+import { action, observable, makeObservable } from "mobx"
 import socket from "../../utils/socket"
 
 class MessageStore {
@@ -63,14 +63,14 @@ class MessageStore {
     @action selectUserInSearch = (index) => {
         this.dialogChatCreation.usersForChat.push(this.dialogChatCreation.searchResults[index])
         this.dialogChatCreation.searchResults = this.dialogChatCreation.searchResults.filter((n, id) => {
-            if (id == index) return false
+            if (id === index) return false
             return true
         })
     }
 
     @action deleteInUsersForChat = (index) => {
         this.dialogChatCreation.usersForChat = this.dialogChatCreation.usersForChat.filter((n, id) => {
-            if (id == index) return false
+            if (id === index) return false
             return true
         })
     }
@@ -78,20 +78,20 @@ class MessageStore {
     @action createChat = () => {
         if (this.dialogChatCreation.chatName === "") {
             let newChatName = ""
-            for (let i = 0; i < this.dialogChatCreation.usersForChat.length; i++) {
-                newChatName = newChatName + this.dialogChatCreation.usersForChat[i] + ", "
+            for (let i = 0; i < this.dialogChatCreation.usersForChat.length; i += 1) {
+                newChatName = `${newChatName + this.dialogChatCreation.usersForChat[i]}, `
             }
             this.setDialogChatCreation("chatName", newChatName)
         }
-        let users = []
-        for (let i = 0; i < this.dialogChatCreation.usersForChat.length; i++) {
+        const users = []
+        for (let i = 0; i < this.dialogChatCreation.usersForChat.length; i += 1) {
             users.push(this.dialogChatCreation.usersForChat[i].id)
         }
         this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/`, "POST", { "name": this.dialogChatCreation.chatName }).then(
             (data) => {
                 this.setChat("id", data.id)
                 this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${this.chat.id}/users/add-all/`, "POST", { "ids": users }).then(
-                    (data) => {
+                    () => {
                         this.clearDialogChatCreation()
                     })
             })
@@ -148,10 +148,10 @@ class MessageStore {
         this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${id}/`, "GET").then(
             (data) => {
                 console.log("metachat", data)
-                this.setChat("name", data["name"])
-                this.setChat("role", data["role"])
-                this.setChat("unread", data["unread"])
-                this.setChat("users", data["users"])
+                this.setChat("name", data.name)
+                this.setChat("role", data.role)
+                this.setChat("unread", data.unread)
+                this.setChat("users", data.users)
             })
     }
 
@@ -194,7 +194,7 @@ class MessageStore {
     }
 
     @action editMessageInChat = (id, content) => {
-        let mId = this.chat.messages.findIndex(el => el.id === id)
+        const mId = this.chat.messages.findIndex(el => el.id === id)
         if (mId !== -1) {
             this.setChatSecondArray("messages", mId, "content", content)
         }

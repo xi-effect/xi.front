@@ -18,18 +18,10 @@ import Footer from "../components/PagesComponents/Landing/Footer";
 
 const Main = inject(
   "rootStore",
-  "uiStore"
+  "uiSt"
 )(
   observer(() => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
-
-    // React.useEffect(() => {
-    //   if (uiStore.load.landing) uiStore.setLoading("loading", true)
-    //   setTimeout(() => {
-    //     uiStore.setLoading("loading", false)
-    //     uiStore.setLoading("landing", false)
-    //   }, 1500);
-    // }, [])
 
     return (
       <>
@@ -37,7 +29,6 @@ const Main = inject(
           <title>Ξffect</title>
           <meta name="description" content="Всё, что нужно для вашего образования" />
         </Head>
-        {/* <Background /> */}
         <Stack
           component={motion.div}
           initial={{ opacity: 0 }}
@@ -47,11 +38,9 @@ const Main = inject(
           justifyContent="flex-start"
           alignItems="center"
           sx={{
-            // transition: "0.8s",
             zIndex: 1,
             margin: 0,
             overflow: "auto",
-            // width: `100vw`,
             height: "100vh",
             bgcolor: "background.main",
             position: "relative",
@@ -70,7 +59,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob1.svg"
+                src="/assets/landing/blob1.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -88,7 +77,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob2.svg"
+                src="/assets/landing/blob2.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -106,7 +95,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob4.svg"
+                src="/assets/landing/blob4.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -124,7 +113,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob3.svg"
+                src="/assets/landing/blob3.svg"
                 quality={100}
                 width={256}
                 height={256}

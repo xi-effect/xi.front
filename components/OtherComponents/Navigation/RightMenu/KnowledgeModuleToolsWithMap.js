@@ -13,11 +13,11 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { Scrollbars } from "react-custom-scrollbars-2";
 
 const KnowledgeModuleToolsWithMap = inject(
-    "knowledgeStore",
+    "knowledgeSt",
 )(
-    observer(({ knowledgeStore, goNext }) => {
+    observer(({ knowledgeSt, goNext }) => {
         const router = useRouter()
-        
+
         return (
             <>
                 <Typography variant="subtitle1" sx={{ ml: 0.5 }}>Карта модуля:</Typography>
@@ -37,39 +37,39 @@ const KnowledgeModuleToolsWithMap = inject(
                         autoHideTimeout={1000}
                         autoHideDuration={200}
                     >
-                        {knowledgeStore.module.map.map((name, index) => (
+                        {knowledgeSt.module.map.map((name, index) => (
                             <Stack
                                 direction="row"
                                 justifyContent="flex-start"
                                 alignItems="center"
                                 key={index.toString()}
                             >
-                                {knowledgeStore.module.activeIdInMap ===
+                                {knowledgeSt.module.activeIdInMap ===
                                     index && (
                                         <ArrowRightIcon />
                                     )}
-                                {/* {knowledgeStore.module.activeIdInMap !== (index + (paginationCounter - 1) * 10) && <CircleIcon sx={{fontSize: "8px", m: 1}} />} */}
+                                {/* {knowledgeSt.module.activeIdInMap !== (index + (paginationCounter - 1) * 10) && <CircleIcon sx={{fontSize: "8px", m: 1}} />} */}
                                 <Link
                                     sx={{
                                         cursor:
-                                            knowledgeStore.module.activeIdInMap ===
+                                            knowledgeSt.module.activeIdInMap ===
                                                 index
                                                 ? "default"
                                                 : "pointer",
                                         ml:
-                                            knowledgeStore.module.activeIdInMap ===
+                                            knowledgeSt.module.activeIdInMap ===
                                                 index
                                                 ? 0
                                                 : 3,
                                     }}
                                     onClick={() =>
-                                        knowledgeStore.loadPageInModule(
+                                        knowledgeSt.loadPageInModule(
                                             index
                                         )
                                     }
                                     color="inherit"
                                     underline={
-                                        knowledgeStore.module.activeIdInMap ===
+                                        knowledgeSt.module.activeIdInMap ===
                                             index
                                             ? "none"
                                             : "hover"
@@ -90,7 +90,7 @@ const KnowledgeModuleToolsWithMap = inject(
                         width: "100%",
                     }}
                 >
-                    {knowledgeStore.moduleCompleted.isFinished && router.pathname.includes("/knowledge/module/results") && router.pathname === "/knowledge/module/results" && <Button
+                    {knowledgeSt.moduleCompleted.isFinished && router.pathname.includes("/knowledge/module/results") && router.pathname === "/knowledge/module/results" && <Button
                         sx={{
                             color: "text.primary",
                             width: 152,
@@ -110,13 +110,13 @@ const KnowledgeModuleToolsWithMap = inject(
                     >
                         Закрыть тест
                     </Button>}
-                    {knowledgeStore.module.type === "test" && !(router.pathname.includes("/knowledge/module/results")) && <Button
+                    {knowledgeSt.module.type === "test" && !(router.pathname.includes("/knowledge/module/results")) && <Button
                         sx={{
                             color: "text.primary",
                             width: 142,
                             alignItems: "space-between",
                         }}
-                        onClick={() => knowledgeStore.getTestModuleResults()} size="large"
+                        onClick={() => knowledgeSt.getTestModuleResults()} size="large"
                     >
                         Завершить <TaskIcon sx={{ ml: "auto", mr: 0 }} />
                     </Button>}

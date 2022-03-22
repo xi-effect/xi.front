@@ -11,7 +11,7 @@ class HomeStore {
         makeObservable(this)
     }
 
-    @observable homeStore = {
+    @observable homeSt = {
 
     }
 }

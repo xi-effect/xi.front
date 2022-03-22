@@ -35,13 +35,13 @@ const Sidebar = inject()(
     const menuList = [
       {
         id: 0,
-        icon: <HomeIcon sx={{ fontSize: 28 }} />,
+        icon: <HomeIcon />,
         label: "Главная",
         href: "/home",
       },
       {
         id: 1,
-        icon: <MenuBookIcon sx={{ fontSize: 28 }} />,
+        icon: <MenuBookIcon />,
         label: "Знания",
         href: "/knowledge",
       },
@@ -53,7 +53,7 @@ const Sidebar = inject()(
       // },
       {
         id: 3,
-        icon: <AddBoxIcon sx={{ fontSize: 28 }} />,
+        icon: <AddBoxIcon />,
         label: "Создать сообщество",
         href: "createcommunity",
       },

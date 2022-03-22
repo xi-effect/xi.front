@@ -106,7 +106,7 @@ function MainLabel() {
                         >
                             <Image
                                 alt="alt"
-                                src="/landing/Knowledge.svg"
+                                src="/assets/landing/Knowledge.svg"
                                 quality={100}
                                 width={256}
                                 height={256}
@@ -187,7 +187,7 @@ function MainLabel() {
                         >
                             <Image
                                 alt="alt"
-                                src="/landing/OnlineLearning.svg"
+                                src="/assets/landing/OnlineLearning.svg"
                                 quality={100}
                                 width={256}
                                 height={256}
@@ -204,7 +204,7 @@ function MainLabel() {
                     >
                         <Image
                             alt="alt"
-                            src={"/landing/Knowledge.svg"}
+                            src={"/assets/landing/Knowledge.svg"}
                             quality={100}
                             width={256}
                             height={256}
@@ -274,7 +274,7 @@ function MainLabel() {
                     >
                         <Image
                             alt="alt"
-                            src={"/landing/OnlineLearning.svg"}
+                            src={"/assets/landing/OnlineLearning.svg"}
                             quality={100}
                             width={256}
                             height={256}

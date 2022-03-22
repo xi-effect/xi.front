@@ -93,9 +93,9 @@ function LoadingSkeleton() {
 
 const Chat = inject(
     "rootStore",
-    "messageStore"
+    "messageSt"
 )(
-    observer(({messageStore }) => {
+    observer(({ messageSt }) => {
         const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
 
         return (
@@ -113,19 +113,19 @@ const Chat = inject(
             >
                 {/* Put the scroll bar always on the bottom */}
                 <InfiniteScroll
-                    dataLength={messageStore.chat.messages.length}
-                    next={() => messageStore.uploadMoreMessages(messageStore.chat.id)}
+                    dataLength={messageSt.chat.messages.length}
+                    next={() => messageSt.uploadMoreMessages(messageSt.chat.id)}
                     style={{ display: "flex", flexDirection: "column-reverse" }} // To put endMessage and loader to the top.
                     inverse //
                     scrollThreshold={0.6}
-                    hasMore={messageStore.chat.hasNext}
+                    hasMore={messageSt.chat.hasNext}
                     // endMessage={<Typography align="center" sx={{ color: "text.main", width: "100%", m: 4 }} variant="subtitle2"> Это всё </Typography>}
                     loader={<LoadingSkeleton />}
                     scrollableTarget="scrollableDiv"
                 >
                     <Stack sx={{ height: mobile ? "96px" : "96px" }} />
-                    {messageStore.chat.messages.length === 0 && <LoadingSkeleton />}
-                    {messageStore.chat.messages.map((item, index) => (
+                    {messageSt.chat.messages.length === 0 && <LoadingSkeleton />}
+                    {messageSt.chat.messages.map((item, index) => (
                         <Stack
                             key={index.toString()}
                             direction="row"
@@ -142,8 +142,8 @@ const Chat = inject(
                             <ChatItem
                                 item={item}
                                 nextItem={
-                                    messageStore.chat.messages.length !== index + 1
-                                        ? messageStore.chat.messages[index + 1]
+                                    messageSt.chat.messages.length !== index + 1
+                                        ? messageSt.chat.messages[index + 1]
                                         : null
                                 }
                             />

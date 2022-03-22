@@ -34,9 +34,9 @@ const schema = yup
   .required();
 
 const PassResetEmail = inject(
-  "authorizationStore"
+  "authorizationSt"
 )(
-  observer(({ authorizationStore }) => {
+  observer(({ authorizationSt }) => {
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
     const {
@@ -48,7 +48,7 @@ const PassResetEmail = inject(
     });
 
     const onSubmit = (data) => {
-      authorizationStore.clickPasswordResetButton(data);
+      authorizationSt.clickPasswordResetButton(data);
     };
 
     return (
@@ -56,7 +56,7 @@ const PassResetEmail = inject(
         <Head>
           <title>Ξ Смена пароля</title>
         </Head>
-        {/* {uiStore.loading["/login"] && <Loading />} */}
+        {/* {uiSt.loading["/login"] && <Loading />} */}
         <Stack
           direction="column"
           justifyContent="space-between"
@@ -155,7 +155,7 @@ const PassResetEmail = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob3.svg"
+                src="/assets/landing/blob3.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -171,7 +171,7 @@ const PassResetEmail = inject(
             >
               <Image
                 alt="alt"
-                src="/landing/blob2.svg"
+                src="/assets/landing/blob2.svg"
                 quality={100}
                 width={256}
                 height={256}
@@ -206,7 +206,7 @@ const PassResetEmail = inject(
                 >
                   <Image
                     alt="alt"
-                    src="/auth/ResetPassword.svg"
+                    src="/assets/auth/ResetPassword.svg"
                     quality={100}
                     width={456}
                     height={256}
@@ -286,12 +286,12 @@ const PassResetEmail = inject(
                       </FormControl>
                     )}
                   />
-                  {authorizationStore.passwordReset.errorEmailNotFounedReset && (
+                  {authorizationSt.passwordReset.errorEmailNotFounedReset && (
                     <Typography variant="subtitle1">
                       Пользователя с таким адресом электронной почты не существует
                     </Typography>
                   )}
-                  {!authorizationStore.passwordReset.emailResetOk && (
+                  {!authorizationSt.passwordReset.emailResetOk && (
                     <Button
                       variant="outlined"
                       size="large"
@@ -319,7 +319,7 @@ const PassResetEmail = inject(
                       Отправить письмо
                     </Button>
                   )}
-                  {authorizationStore.passwordReset.emailResetOk && (
+                  {authorizationSt.passwordReset.emailResetOk && (
                     <Typography variant="subtitle1">
                       Письмо отправлено. С этой страницы можно безопасно уходить
                     </Typography>

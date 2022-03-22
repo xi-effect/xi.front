@@ -8,9 +8,9 @@ import NavigationAll from "../../components/OtherComponents/Navigation/Navigatio
 import DataList from "../../components/PagesComponents/Managment/Content/Pages/DataList";
 
 
-const Yourpages = inject("knowledgeStore", "uiStore", "managmentStore")(observer(({ managmentStore }) => {
+const Yourpages = inject("knowledgeSt", "uiSt", "managmentSt")(observer(({ managmentSt }) => {
     React.useEffect(() => {
-        managmentStore.LoadPageList()
+        managmentSt.LoadPageList()
     }, []);
 
     return (

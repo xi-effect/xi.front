@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
 
 
-const Dashboard = inject("rootStore", "settingsStore", "profileStore")(observer(() => {
+const Dashboard = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
     // console.log("router.query", router.query.id);
 
     const router = useRouter()

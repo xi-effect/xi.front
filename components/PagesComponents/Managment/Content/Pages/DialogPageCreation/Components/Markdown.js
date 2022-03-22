@@ -7,9 +7,9 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import { inject, observer } from "mobx-react"
 import ReactMarkdown from "react-markdown"
 
-const Markdown = inject("managmentStore")(observer(({ managmentStore, index }) => {
+const Markdown = inject("managmentSt")(observer(({ managmentSt, index }) => {
     // Simulated props for the purpose of the example
-    const values = managmentStore.pageCreation.components[index]
+    const values = managmentSt.pageCreation.components[index]
     // Simulated props for the purpose of the example
 
     const [hover, setHover] = React.useState(false)
@@ -24,7 +24,7 @@ const Markdown = inject("managmentStore")(observer(({ managmentStore, index }) =
             direction="column"
             justifyContent="center"
             alignItems="center"
-            onClick={() => managmentStore.setPageCreationList("selectId", index)}
+            onClick={() => managmentSt.setPageCreationList("selectId", index)}
         >
             <Grid sx={{ width: "calc(100% - 4px)", }}>
                 {edit && <Input
@@ -40,7 +40,7 @@ const Markdown = inject("managmentStore")(observer(({ managmentStore, index }) =
                     multiline
                     fullWidth
                     value={values.label}
-                    onChange={(event) => managmentStore.setPageCreationComponents(index, "label", event.target.value)}
+                    onChange={(event) => managmentSt.setPageCreationComponents(index, "label", event.target.value)}
                 />}
                 {!edit && <ReactMarkdown>
                     {values.label}
@@ -80,7 +80,7 @@ const Markdown = inject("managmentStore")(observer(({ managmentStore, index }) =
                             sx={{
                                 marginLeft: "auto"
                             }}
-                            onClick={() => managmentStore.deleteComponent(index)}
+                            onClick={() => managmentSt.deleteComponent(index)}
                             size="large">
                             <DeleteForeverIcon sx={{ color: "text.main" }} />
                         </IconButton>

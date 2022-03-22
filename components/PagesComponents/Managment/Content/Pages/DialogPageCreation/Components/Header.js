@@ -33,97 +33,97 @@ const classes = {
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled("div")(() => ({
-            [`& .${classes.gridButtons}`]: {
-                marginLeft: "auto",
-            },
+    [`& .${classes.gridButtons}`]: {
+        marginLeft: "auto",
+    },
 
-            [`& .${classes.divider}`]: {
-                backgroundColor: props => props.palette.primary.main,
-                width: "100%",
-                height: 1,
-                margin: props => props.spacing(1, 0.5),
-            },
+    [`& .${classes.divider}`]: {
+        backgroundColor: props => props.palette.primary.main,
+        width: "100%",
+        height: 1,
+        margin: props => props.spacing(1, 0.5),
+    },
 
-            [`& .${classes.gridTextWrapper}`]: {
-                width: "calc(100% - 4px)",
-            },
+    [`& .${classes.gridTextWrapper}`]: {
+        width: "calc(100% - 4px)",
+    },
 
-            [`& .${classes.text}`]: {
-                width: "100%",
-                color: props => props.palette.primary.contrastText,
-                fontSize: props => props.fontSize,
-                fontStyle: props => props.fontStyle,
-                textAlign: props => props.textAlign,
-                fontWeight: props => props.fontWeight,
-                textDecoration: props => props.textDecoration,
-                lineHeight: "normal",
-            },
+    [`& .${classes.text}`]: {
+        width: "100%",
+        color: props => props.palette.primary.contrastText,
+        fontSize: props => props.fontSize,
+        fontStyle: props => props.fontStyle,
+        textAlign: props => props.textAlign,
+        fontWeight: props => props.fontWeight,
+        textDecoration: props => props.textDecoration,
+        lineHeight: "normal",
+    },
 
-            [`& .${classes.icon}`]: {
-                color: props => props.palette.primary.contrastText,
-            },
+    [`& .${classes.icon}`]: {
+        color: props => props.palette.primary.contrastText,
+    },
 
-            [`& .${classes.speedDial}`]: {
-                height: 36,
-                width: 36,
-                marginTop: 4,
-                marginLeft: 16,
-                // position: "absolute",
-                // top: theme => theme.spacing(10),
-                // left: theme => theme.spacing(2),
-            },
+    [`& .${classes.speedDial}`]: {
+        height: 36,
+        width: 36,
+        marginTop: 4,
+        marginLeft: 16,
+        // position: "absolute",
+        // top: theme => theme.spacing(10),
+        // left: theme => theme.spacing(2),
+    },
 
-            [`& .${classes.speedDialActionFirst}`]: {
-                marginLeft: 16,
-                color: props => props.palette.primary.main,
-            },
+    [`& .${classes.speedDialActionFirst}`]: {
+        marginLeft: 16,
+        color: props => props.palette.primary.main,
+    },
 
-            [`& .${classes.speedDialAction}`]: {
-                marginLeft: 16,
-                color: props => props.palette.primary.main,
-            },
+    [`& .${classes.speedDialAction}`]: {
+        marginLeft: 16,
+        color: props => props.palette.primary.main,
+    },
 
-            [`& .${classes.disableIcon}`]: {
-                color: props => props.palette.error.main,
-            },
+    [`& .${classes.disableIcon}`]: {
+        color: props => props.palette.error.main,
+    },
 
-            [`& .${classes.activeIcon}`]: {
-                color: props => props.palette.primary.contrastText,
-                backgroundColor: props => props.palette.primary.main,
-                "&:hover": {
-                    color: props => props.palette.primary.contrastText,
-                    backgroundColor: props => props.palette.primary.main,
-                }
-            },
+    [`& .${classes.activeIcon}`]: {
+        color: props => props.palette.primary.contrastText,
+        backgroundColor: props => props.palette.primary.main,
+        "&:hover": {
+            color: props => props.palette.primary.contrastText,
+            backgroundColor: props => props.palette.primary.main,
+        }
+    },
 
-            [`& .${classes.iconSpeedDial}`]: {
-                height: 24,
-                width: 24,
-            },
+    [`& .${classes.iconSpeedDial}`]: {
+        height: 24,
+        width: 24,
+    },
 
-            [`& .${classes.IconButtonSpeedDial}`]: {
-                color: props => props.palette.primary.contrastText,
-            },
+    [`& .${classes.IconButtonSpeedDial}`]: {
+        color: props => props.palette.primary.contrastText,
+    },
 
-            [`& .${classes.leftIconButton}`]: {
-                marginLeft: "auto"
-            }
-        }));
+    [`& .${classes.leftIconButton}`]: {
+        marginLeft: "auto"
+    }
+}));
 
-const Header = inject("managmentStore")(observer(({ managmentStore, index }) => {
+const Header = inject("managmentSt")(observer(({ managmentSt, index }) => {
     // Simulated props for the purpose of the example
-    const values = managmentStore.pageCreation.components[index]
+    const values = managmentSt.pageCreation.components[index]
 
     console.log("textAlign", values.textAlign)
 
     const handleFontSizeUp = () => {
         // console.log(index, "fontSize", newFormats)
-        if (values.fontSize !== 64) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
+        if (values.fontSize !== 64) managmentSt.setPageCreationComponents(index, "fontSize", values.fontSize + 2)
     };
 
     const handleFontSizeDown = () => {
         // console.log(index, "fontSize", newFormats)
-        if (values.fontSize !== 24) managmentStore.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
+        if (values.fontSize !== 24) managmentSt.setPageCreationComponents(index, "fontSize", values.fontSize - 2)
     };
 
     const handleTextAlign = (align) => {
@@ -132,22 +132,22 @@ const Header = inject("managmentStore")(observer(({ managmentStore, index }) => 
         else if (align === "center") newAlignment = "right"
         else if (align === "right") newAlignment = "left"
         // else if (align === "justify") newAlignment = "left"
-        managmentStore.setPageCreationComponents(index, "textAlign", newAlignment)
+        managmentSt.setPageCreationComponents(index, "textAlign", newAlignment)
     };
 
     const handleFontStyle = () => {
-        if (values.fontStyle === "normal") return managmentStore.setPageCreationComponents(index, "fontStyle", "italic")
-        return managmentStore.setPageCreationComponents(index, "fontStyle", "normal");
+        if (values.fontStyle === "normal") return managmentSt.setPageCreationComponents(index, "fontStyle", "italic")
+        return managmentSt.setPageCreationComponents(index, "fontStyle", "normal");
     };
 
     const handleFontWeight = () => {
-        if (values.fontWeight === "normal") return managmentStore.setPageCreationComponents(index, "fontWeight", "bold");
-        return managmentStore.setPageCreationComponents(index, "fontWeight", "normal");
+        if (values.fontWeight === "normal") return managmentSt.setPageCreationComponents(index, "fontWeight", "bold");
+        return managmentSt.setPageCreationComponents(index, "fontWeight", "normal");
     };
 
     const handleTextDecoration = () => {
-        if (values.textDecoration === "none") return managmentStore.setPageCreationComponents(index, "textDecoration", "underline");
-        return managmentStore.setPageCreationComponents(index, "textDecoration", "none");
+        if (values.textDecoration === "none") return managmentSt.setPageCreationComponents(index, "textDecoration", "underline");
+        return managmentSt.setPageCreationComponents(index, "textDecoration", "none");
     };
 
     const textAlignIconSelect = (align) => {
@@ -178,7 +178,7 @@ const Header = inject("managmentStore")(observer(({ managmentStore, index }) => 
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                onClick={() => managmentStore.setPageCreationList("selectId", index)}
+                onClick={() => managmentSt.setPageCreationList("selectId", index)}
             >
                 <Grid className={classes.gridTextWrapper}>
                     <Input
@@ -199,7 +199,7 @@ const Header = inject("managmentStore")(observer(({ managmentStore, index }) => 
                         multiline
                         fullWidth
                         value={values.label}
-                        onChange={(event) => managmentStore.setPageCreationComponents(index, "label", event.target.value)}
+                        onChange={(event) => managmentSt.setPageCreationComponents(index, "label", event.target.value)}
                     />
                 </Grid>
                 <Fade
@@ -246,7 +246,7 @@ const Header = inject("managmentStore")(observer(({ managmentStore, index }) => 
                         <Tooltip title="Удалить блок">
                             <IconButton
                                 className={classes.leftIconButton}
-                                onClick={() => managmentStore.deleteComponent(index)}
+                                onClick={() => managmentSt.deleteComponent(index)}
                                 size="large">
                                 <DeleteForeverIcon className={classes.icon} />
                             </IconButton>

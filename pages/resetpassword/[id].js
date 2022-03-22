@@ -17,7 +17,7 @@ const schema = yup.object({
 
 
 
-const PasswordReset = inject("authorizationStore")(observer(({ authorizationStore }) => {
+const PasswordReset = inject("authorizationSt")(observer(({ authorizationSt }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const router = useRouter()
@@ -33,7 +33,7 @@ const PasswordReset = inject("authorizationStore")(observer(({ authorizationStor
         resolver: yupResolver(schema)
     });
     const onSubmit = (data) => {
-        authorizationStore.saveNewPassword(id, data)
+        authorizationSt.saveNewPassword(id, data)
     }
 
     return (
@@ -41,7 +41,7 @@ const PasswordReset = inject("authorizationStore")(observer(({ authorizationStor
             <Head>
                 <title>Ξ Авторизация</title>
             </Head>
-            {/* {uiStore.loading["/login"] && <Loading />} */}
+            {/* {uiSt.loading["/login"] && <Loading />} */}
             <Stack
                 direction="column"
                 justifyContent="space-between"
@@ -139,7 +139,7 @@ const PasswordReset = inject("authorizationStore")(observer(({ authorizationStor
                     >
                         <Image
                             alt="alt"
-                            src="/landing/blob3.svg"
+                            src="/assets/landing/blob3.svg"
                             quality={100}
                             width={256}
                             height={256}
@@ -155,7 +155,7 @@ const PasswordReset = inject("authorizationStore")(observer(({ authorizationStor
                     >
                         <Image
                             alt="alt"
-                            src="/landing/blob2.svg"
+                            src="/assets/landing/blob2.svg"
                             quality={100}
                             width={256}
                             height={256}
@@ -186,7 +186,7 @@ const PasswordReset = inject("authorizationStore")(observer(({ authorizationStor
                             >
                                 <Image
                                     alt="alt"
-                                    src="/auth/ResetPassword.svg"
+                                    src="/assets/auth/ResetPassword.svg"
                                     quality={100}
                                     width={400}
                                     height={400}
@@ -222,7 +222,7 @@ const PasswordReset = inject("authorizationStore")(observer(({ authorizationStor
                                         {errors?.password?.message === "password is a required field" && <Typography variant="subtitle1" sx={{ mt: 1, ml: 1, }} color="error"> Обязательное поле </Typography>}
                                     </FormControl>}
                                 />
-                                {!authorizationStore.passwordReset.emailResetOk && <Button
+                                {!authorizationSt.passwordReset.emailResetOk && <Button
                                     variant="outlined"
                                     size="large"
                                     type="submit"
@@ -249,7 +249,7 @@ const PasswordReset = inject("authorizationStore")(observer(({ authorizationStor
                                 >
                                     Сохранить новый пароль
                                 </Button>}
-                                {authorizationStore.passwordReset.emailResetOk && <Typography variant="subtitle1"> Пароль успешно сохранён. С этой страницы можно безопасно уходить  </Typography>}
+                                {authorizationSt.passwordReset.emailResetOk && <Typography variant="subtitle1"> Пароль успешно сохранён. С этой страницы можно безопасно уходить  </Typography>}
                             </Stack>
                         </Box>
                     </Paper>

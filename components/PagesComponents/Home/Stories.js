@@ -14,31 +14,31 @@ import { motion } from "framer-motion"
 const stories = [
     {
         label: "Текст заголовка, название штуки, я не смог в название",
-        image: "/app/OrganizingProjects.svg",
+        image: "/assets/app/OrganizingProjects.svg",
     },
     {
         label: "Текст заголовка, название штуки, я не смог в название",
-        image: "/app/Notebook.svg",
+        image: "/assets/app/Notebook.svg",
     },
     {
         label: "Текст заголовка, название штуки, я не смог в название",
-        image: "/app/Schedule.svg",
+        image: "/assets/app/Schedule.svg",
     },
     {
         label: "Текст заголовка, название штуки, я не смог в название",
-        image: "/app/StaticWebsite.svg",
+        image: "/assets/app/StaticWebsite.svg",
     },
     {
         label: "Текст заголовка, название штуки, я не смог в название",
-        image: "/app/JavaScriptFrameworks.svg",
+        image: "/assets/app/JavaScriptFrameworks.svg",
     },
     {
         label: "Текст заголовка, название штуки, я не смог в название",
-        image: "/app/Content.svg",
+        image: "/assets/app/Content.svg",
     },
     {
         label: "Текст заголовка, название штуки, я не смог в название",
-        image: "/app/AdvancedCustomization.svg",
+        image: "/assets/app/AdvancedCustomization.svg",
     },
 ]
 

@@ -13,17 +13,17 @@ import DialogChangeEmail from "./Secure/DialogChangeEmail";
 import DialogChangePassword from "./Secure/DialogChangePassword";
 
 const Secure = inject(
-    "settingsStore"
+    "settingsSt"
 )(
-    observer(({ settingsStore }) => {
+    observer(({ settingsSt }) => {
         const [hiddenEmail, setHiddenEmail] = React.useState(true)
 
         const [openEmailChangeDialog, setOpenEmailChangeDialog] = React.useState(false)
         const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = React.useState(false)
 
         const getStars = () => {
-            if (settingsStore.settings.emailBefore) {
-                return "*".repeat(settingsStore.settings.emailBefore.length)
+            if (settingsSt.settings.emailBefore) {
+                return "*".repeat(settingsSt.settings.emailBefore.length)
             }
             return "****"
         }
@@ -42,9 +42,9 @@ const Secure = inject(
                     spacing={0}
                 >
                     <Typography sx={{ mr: 0.5 }}> почта - </Typography>
-                    {!hiddenEmail && <Typography > {settingsStore.settings.emailBefore} </Typography>}
+                    {!hiddenEmail && <Typography > {settingsSt.settings.emailBefore} </Typography>}
                     {hiddenEmail && <Typography > {getStars()} </Typography>}
-                    <Typography > {settingsStore.settings.emailAfter} </Typography>
+                    <Typography > {settingsSt.settings.emailAfter} </Typography>
                     {hiddenEmail && <Link sx={{ color: "text.primary", cursor: "pointer", pl: 1 }} onClick={() => setHiddenEmail(false)}> показать </Link>}
                     {!hiddenEmail && <Link sx={{ color: "text.primary", cursor: "pointer", pl: 1 }} onClick={() => setHiddenEmail(true)}> скрыть </Link>}
                 </Stack>

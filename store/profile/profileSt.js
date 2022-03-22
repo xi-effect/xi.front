@@ -1,7 +1,4 @@
-import { action, observable, computed, runInAction, makeObservable } from "mobx"
-import Router from "next/router"
-
-const router = Router
+import { action, observable, makeObservable } from "mobx"
 
 class ProfileStore {
     // `this` from rootstore passed to the constructor and we can 

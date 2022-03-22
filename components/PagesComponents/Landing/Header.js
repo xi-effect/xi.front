@@ -7,13 +7,8 @@ function Header() {
     const router = useRouter()
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
-
     return (
         <Stack
-            // component={motion.div}
-            // initial={{ opacity: 0 }}
-            // animate={{ opacity: 1 }}
-            // transition={{ delay: 1, duration: 1 }}
             direction="row"
             justifyContent="space-between"
             alignItems="center"
@@ -70,43 +65,6 @@ function Header() {
                     ffect
                 </Typography>
             </Stack>
-            {/* <Grid item>
-                {!mobile && <>
-                    <Link
-
-                        onClick={() => {
-                            router.push({
-                                pathname: "/students",
-                            })
-                        }}
-                        underline="hover"
-                    >
-                        Ученикам
-                    </Link>
-                    <Link
-                        
-                        onClick={() => {
-                            router.push({
-                                pathname: "/teachers",
-                            })
-                        }}
-                        underline="hover"
-                    >
-                        Преподавателям
-                    </Link>
-                    <Link
-                        
-                        onClick={() => {
-                            router.push({
-                                pathname: "/schools",
-                            })
-                        }}
-                        underline="hover"
-                    >
-                        Школам
-                    </Link>
-                </>}
-            </Grid> */}
             <Button
                 onClick={() => {
                     router.push({

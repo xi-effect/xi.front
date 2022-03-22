@@ -34,6 +34,7 @@
       "version": "detect"
     }
   },
+  "ignorePatterns": ["sw.js", "workbox-75794ccf.js", "fallback-xrcLp6oi40dE0e55rzvhr.js"],
   "plugins": ["react", "react-hooks"],
   "rules": {
     // NextJs specific fix: suppress errors for missing 'import React' in files for nextjs

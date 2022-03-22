@@ -3,7 +3,7 @@ import { Input, InputLabel, NativeSelect, FormControl, Typography, Stack } from 
 import { inject, observer } from "mobx-react"
 
 
-const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
+const StepOne = inject("managmentSt")(observer(({ managmentSt }) => (
     <Stack
         spacing={2}
         direction="column"
@@ -34,8 +34,8 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
                     color: "text.main",
                 }}
                 required
-                value={managmentStore.moduleCreation.name}
-                onChange={(event) => managmentStore.setModuleCreation("name", event.target.value)}
+                value={managmentSt.moduleCreation.name}
+                onChange={(event) => managmentSt.setModuleCreation("name", event.target.value)}
             // margin="dense"
             // multiline={true}
             // fullWidth={true}
@@ -58,8 +58,8 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
                     color: "text.main",
                 }}
                 // defaultValue={"Не выбрано"}
-                value={managmentStore.moduleCreation.type}
-                onChange={(event) => managmentStore.setModuleCreation("type", event.target.value)}
+                value={managmentSt.moduleCreation.type}
+                onChange={(event) => managmentSt.setModuleCreation("type", event.target.value)}
             >
                 <option value="standard"> Стандартный </option>
                 <option value="practice-block"> Практика </option>
@@ -84,8 +84,8 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
                     color: "text.main",
                 }}
                 // defaultValue={"Не выбрано"}
-                value={managmentStore.moduleCreation.theme}
-                onChange={(event) => managmentStore.setModuleCreation("theme", event.target.value)}
+                value={managmentSt.moduleCreation.theme}
+                onChange={(event) => managmentSt.setModuleCreation("theme", event.target.value)}
                 inputProps={{
                     name: "age",
                     id: "uncontrolled-native",
@@ -125,8 +125,8 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
                     color: "text.main",
                 }}
                 // defaultValue={"Не выбрано"}
-                value={managmentStore.moduleCreation.category}
-                onChange={(event) => managmentStore.setModuleCreation("category", event.target.value)}
+                value={managmentSt.moduleCreation.category}
+                onChange={(event) => managmentSt.setModuleCreation("category", event.target.value)}
                 inputProps={{
                     name: "age",
                     id: "uncontrolled-native",
@@ -155,8 +155,8 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
                     color: "text.main",
                 }}
                 // defaultValue={"Не выбрано"}
-                value={managmentStore.moduleCreation.difficulty}
-                onChange={(event) => managmentStore.setModuleCreation("difficulty", event.target.value)}
+                value={managmentSt.moduleCreation.difficulty}
+                onChange={(event) => managmentSt.setModuleCreation("difficulty", event.target.value)}
                 inputProps={{
                     name: "age",
                     id: "uncontrolled-native",
@@ -188,8 +188,8 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
                 sx={{
                     color: "text.main",
                 }}
-                value={managmentStore.moduleCreation.description}
-                onChange={(event) => managmentStore.setModuleCreation("description", event.target.value)}
+                value={managmentSt.moduleCreation.description}
+                onChange={(event) => managmentSt.setModuleCreation("description", event.target.value)}
                 multiline
             // fullWidth={true}
             />

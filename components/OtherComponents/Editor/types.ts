@@ -1,9 +1,18 @@
-import React from 'react';
-import type { DraggableProvided } from 'react-beautiful-dnd';
+// import React from 'react';
+// import type { DraggableProvided } from 'react-beautiful-dnd';
 
 export type SelectionHOCProps = {
-  type: string;
-  children: React.ReactElement;
+  props: any;
+  // contentState: any;
+  // blockProps: any;
+  // block: any;
+  // tree: any;
+  // selection: any;
+  // customStyleFn: any;
+  // customStyleMap: any;
+  // direction: any;
+  // forceSelection: boolean;
+  // offsetKey: string;
 };
 
 export type BlockType = {
@@ -13,14 +22,15 @@ export type BlockType = {
 };
 
 export type BlockProps = {
-  item: BlockType;
-  isDragging: boolean;
-  provided: DraggableProvided;
-  index: number;
-  deleteItem: (index: number) => void;
-  duplicateItem: (index: number) => void;
-  addNewItem: (index: number, type: string) => void;
-  changeItemType: (index: number, newType: string) => void;
+  // item: BlockType;
+  // isDragging: boolean;
+  // provided: DraggableProvided;
+  // index: number;
+  // deleteItem: (index: number) => void;
+  // duplicateItem: (index: number) => void;
+  // addNewItem: (index: number, type: string) => void;
+  // changeItemType: (index: number, newType: string) => void;
+  children: any;
 };
 
 export type ContentEditorProps = {

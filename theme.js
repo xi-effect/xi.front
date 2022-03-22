@@ -88,8 +88,8 @@ export const getDesignTokens = (mode) => ({
                     dark: "#3a8559",
                 },
                 background: {
-                    main: "#26282B",
-                    secondary: "#353941",
+                    main: "#f5f5f5",
+                    secondary: "#eeeeee",
                 }
             }
             : {
@@ -105,8 +105,8 @@ export const getDesignTokens = (mode) => ({
                     dark: "#3a8559",
                 },
                 background: {
-                    main: "#26282B",
-                    secondary: "#353941",
+                    main: "#212121",
+                    secondary: "#424242",
                 }
 
             }),

@@ -10,70 +10,70 @@ import SaveAltIcon from "@mui/icons-material/SaveAlt";
 
 
 const KnowledgeСreatePage = inject(
-    "knowledgeStore",
-    "managmentStore",
-    "uiStore",
+    "knowledgeSt",
+    "managmentSt",
+    "uiSt",
 )(
-    observer(({ uiStore, managmentStore }) => (
-            <>
-                <Button
-                    sx={{
-                        color: "text.primary",
-                        width: 142,
-                        alignItems: "space-between",
-                    }}
-                    onClick={() => managmentStore.savePage()} size="large"
-                >
-                    Сохранить <SaveAltIcon sx={{ ml: "auto", mr: 0 }} />
-                </Button>
-                <Button
-                    sx={{
-                        color: "text.primary",
-                        width: 142,
-                        alignItems: "space-between",
-                    }}
-                    onClick={null} size="large"
-                >
-                    Инфо <InfoIcon sx={{ ml: "auto", mr: 0 }} />
-                </Button>
-                <Stack
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={2}
-                >
-                    <Tooltip title="Назад">
-                        <span>
-                            <IconButton
-                                disabled={uiStore.knowledge.activeStep === 0}
-                                sx={{
-                                    color: "text.primary",
-                                }}
-                                onClick={() => uiStore.setKnowledge("activeStep", uiStore.knowledge.activeStep - 1)}
-                                size="large"
-                            >
-                                <ArrowBackIcon sx={{ ml: "auto", mr: 0 }} />
-                            </IconButton>
-                        </span>
-                    </Tooltip>
-                    <Typography variant="subtitle2">{`${uiStore.knowledge.activeStep + 1} / 3`}</Typography>
-                    <Tooltip title="Вперёд">
-                        <span>
-                            <IconButton
-                                disabled={uiStore.knowledge.activeStep === 2}
-                                sx={{
-                                    color: "text.primary",
-                                }}
-                                onClick={() => uiStore.setKnowledge("activeStep", uiStore.knowledge.activeStep + 1)}
-                                size="large"
-                            >
-                                <ArrowForwardIcon sx={{ ml: "auto", mr: 0 }} />
-                            </IconButton>
-                        </span>
-                    </Tooltip>
-                </Stack>
-            </>
-        ))
+    observer(({ uiSt, managmentSt }) => (
+        <>
+            <Button
+                sx={{
+                    color: "text.primary",
+                    width: 142,
+                    alignItems: "space-between",
+                }}
+                onClick={() => managmentSt.savePage()} size="large"
+            >
+                Сохранить <SaveAltIcon sx={{ ml: "auto", mr: 0 }} />
+            </Button>
+            <Button
+                sx={{
+                    color: "text.primary",
+                    width: 142,
+                    alignItems: "space-between",
+                }}
+                onClick={null} size="large"
+            >
+                Инфо <InfoIcon sx={{ ml: "auto", mr: 0 }} />
+            </Button>
+            <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                spacing={2}
+            >
+                <Tooltip title="Назад">
+                    <span>
+                        <IconButton
+                            disabled={uiSt.knowledge.activeStep === 0}
+                            sx={{
+                                color: "text.primary",
+                            }}
+                            onClick={() => uiSt.setKnowledge("activeStep", uiSt.knowledge.activeStep - 1)}
+                            size="large"
+                        >
+                            <ArrowBackIcon sx={{ ml: "auto", mr: 0 }} />
+                        </IconButton>
+                    </span>
+                </Tooltip>
+                <Typography variant="subtitle2">{`${uiSt.knowledge.activeStep + 1} / 3`}</Typography>
+                <Tooltip title="Вперёд">
+                    <span>
+                        <IconButton
+                            disabled={uiSt.knowledge.activeStep === 2}
+                            sx={{
+                                color: "text.primary",
+                            }}
+                            onClick={() => uiSt.setKnowledge("activeStep", uiSt.knowledge.activeStep + 1)}
+                            size="large"
+                        >
+                            <ArrowForwardIcon sx={{ ml: "auto", mr: 0 }} />
+                        </IconButton>
+                    </span>
+                </Tooltip>
+            </Stack>
+        </>
+    ))
 );
 
 export default KnowledgeСreatePage;

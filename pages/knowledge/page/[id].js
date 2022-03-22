@@ -9,12 +9,12 @@ import { inject, observer } from "mobx-react"
 import NavigationAll from "../../../components/OtherComponents/Navigation/NavigationAll";
 import PageCompList from "../../../components/PagesComponents/Knowledge/Page/PageCompList";
 
-const Page = inject("knowledgeStore")(observer(({ knowledgeStore }) => {
+const Page = inject("knowledgeSt")(observer(({ knowledgeSt }) => {
 
     React.useEffect(() => {
         // LoadComponents()
-        console.log("knowledgeStore.loadPage()")
-        knowledgeStore.loadPage()
+        console.log("knowledgeSt.loadPage()")
+        knowledgeSt.loadPage()
     }, []);
 
 

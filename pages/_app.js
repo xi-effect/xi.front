@@ -1,5 +1,6 @@
+/* eslint-disable import/no-relative-packages */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable react/forbid-prop-types */
-// import "../styles/globals.css"
 import React from "react";
 import Head from "next/head";
 import PropTypes from "prop-types";
@@ -27,6 +28,7 @@ import { useStore } from "../store/rootStore"
 import { getDesignTokens } from "../theme"
 import "nprogress/nprogress.css"; // styles of nprogress
 import Loading from "../components/OtherComponents/Loading/Loading";
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 // Binding events. 
@@ -36,68 +38,41 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 
+
 const MyApp = (observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
+
   const rootStore = useStore(pageProps.initialState)
-  // console.log("darkMode", rootStore.settingsStore.settings.darkTheme)
-  const theme = React.useMemo(() => responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsStore.settings.darkTheme))), [rootStore.settingsStore.settings.darkTheme])
-  // console.log("theme", theme)
+  const theme = React.useMemo(() =>
+    responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsSt.settings.darkTheme))),
+    [rootStore.settingsSt.settings.darkTheme])
+
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        {/* <title>
-          Ξ Effect
-        </title> */}
-        <meta charSet="utf-8" />
-        <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
         <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-        <meta name="yandex-verification" content="879d56b8525183be" />
-        <meta name="google-site-verification" content="VAN7yVAfRqd5NWFpUJlz0MVL1wcv0mdhDY-16-d48-U" />
-        <meta
-          name="description"
-          content="Всё, что нужно для вашего Образования."
-        />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff7d6c" />
-        <meta name="msapplication-TileColor" content="#ff7d6c" />
-        <meta name="theme-color" content="#ffffff" />
-        {/* <link rel="shortcut icon" href="/static/favicon.ico" /> */}
       </Head>
-      {/* <Context.Provider value={{ files, selectFiles }}> */}
       <Provider
         store={rootStore}
         rootStore={rootStore}
-        uiStore={rootStore.uiStore}
-        homeStore={rootStore.homeStore}
-        knowledgeStore={rootStore.knowledgeStore}
-        managmentStore={rootStore.managmentStore}
-        settingsStore={rootStore.settingsStore}
-        contentStore={rootStore.contentStore}
-        authorizationStore={rootStore.authorizationStore}
-        profileStore={rootStore.profileStore}
-        messageStore={rootStore.messageStore}
-        communityStore={rootStore.communityStore}
+        uiSt={rootStore.uiSt}
+        homeSt={rootStore.homeSt}
+        knowledgeSt={rootStore.knowledgeSt}
+        managmentSt={rootStore.managmentSt}
+        settingsSt={rootStore.settingsSt}
+        contentSt={rootStore.contentSt}
+        authorizationSt={rootStore.authorizationSt}
+        profileSt={rootStore.profileSt}
+        messageSt={rootStore.messageSt}
+        communitySt={rootStore.communitySt}
+        contentEditorSt={rootStore.contentEditorSt}
       >
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
-            {/* <SnackbarProvider
-                autoHideDuration={800}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-                maxSnack={3}> */}
-            {/* <MenuLayout> */}
             <CssBaseline />
             <Loading />
-            {/* <PlausibleProvider
-              domain={"xieffect.ru"}
-              // selfHosted
-            > */}
             <SnackbarProvider
               anchorOrigin={{
                 vertical: "bottom",
@@ -109,14 +84,9 @@ const MyApp = (observer((props) => {
             >
               <Component {...pageProps} />
             </SnackbarProvider>
-            {/* </PlausibleProvider> */}
-            {/* </MenuLayout> */}
-            {/* </SnackbarProvider> */}
           </ThemeProvider>
-
         </StyledEngineProvider>
       </Provider>
-      {/* </Context.Provider> */}
     </CacheProvider>
   );
 }))

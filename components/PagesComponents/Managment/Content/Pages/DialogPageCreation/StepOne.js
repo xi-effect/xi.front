@@ -6,7 +6,7 @@ import { Input, InputLabel, NativeSelect, FormControl, FormControlLabel, Switch,
 import { inject, observer } from "mobx-react"
 
 
-const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
+const StepOne = inject("managmentSt")(observer(({ managmentSt }) => (
     <Stack
         spacing={2}
         direction="column"
@@ -33,8 +33,8 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
             </InputLabel>
             <Input
                 required
-                value={managmentStore.pageCreation.name}
-                onChange={(event) => managmentStore.setPageCreation("name", event.target.value)}
+                value={managmentSt.pageCreation.name}
+                onChange={(event) => managmentSt.setPageCreation("name", event.target.value)}
             // margin="dense"
             // multiline={true}
             // fullWidth={true}
@@ -46,8 +46,8 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
             </InputLabel>
             <Input
                 required
-                value={managmentStore.pageCreation.description}
-                onChange={(event) => managmentStore.setPageCreation("description", event.target.value)}
+                value={managmentSt.pageCreation.description}
+                onChange={(event) => managmentSt.setPageCreation("description", event.target.value)}
                 multiline
             // fullWidth={true}
             />
@@ -58,8 +58,8 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
             </InputLabel>
             <Input
                 required
-                value={managmentStore.pageCreation.theme}
-                onChange={(event) => managmentStore.setPageCreation("theme", event.target.value)}
+                value={managmentSt.pageCreation.theme}
+                onChange={(event) => managmentSt.setPageCreation("theme", event.target.value)}
                 multiline
             // fullWidth={true}
             />
@@ -72,8 +72,8 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
             <NativeSelect
 
                 // defaultValue={"Не выбрано"}
-                value={managmentStore.pageCreation.kind}
-                onChange={(event) => managmentStore.setPageCreation("kind", event.target.value)}
+                value={managmentSt.pageCreation.kind}
+                onChange={(event) => managmentSt.setPageCreation("kind", event.target.value)}
                 inputProps={{
                     name: "age",
                     id: "uncontrolled-native",
@@ -89,8 +89,8 @@ const StepOne = inject("managmentStore")(observer(({ managmentStore }) => (
             <FormControlLabel
                 control={
                     <Switch
-                        checked={managmentStore.pageCreation.blueprint}
-                        onChange={() => managmentStore.setPageCreation("blueprint", !managmentStore.pageCreation.blueprint)}
+                        checked={managmentSt.pageCreation.blueprint}
+                        onChange={() => managmentSt.setPageCreation("blueprint", !managmentSt.pageCreation.blueprint)}
                         name="checkedB"
                         color="primary"
                     />

@@ -2,9 +2,9 @@ import React from "react";
 import { Input, Grid, Typography, Button, } from "@mui/material";
 import { inject, observer } from "mobx-react"
 
-const NumberAnswer = inject("managmentStore", "knowledgeStore")(observer(({ managmentStore, knowledgeStore, index }) => {
+const NumberAnswer = inject("managmentSt", "knowledgeSt")(observer(({ managmentSt, knowledgeSt, index }) => {
     // Simulated props for the purpose of the example
-    const values = managmentStore.pageCreation.components[index]
+    const values = managmentSt.pageCreation.components[index]
     // Simulated props for the purpose of the example
     return (
         <Grid
@@ -29,10 +29,10 @@ const NumberAnswer = inject("managmentStore", "knowledgeStore")(observer(({ mana
                 placeholder="Ваш ответ (число)"
                 value={values.userAnswer}
                 onChange={(event) => {
-                    if ("1234567890.,".includes(event.nativeEvent.data) || event.nativeEvent.data === null) knowledgeStore.setPageComponentsData(index, "userAnswer", event.target.value)
+                    if ("1234567890.,".includes(event.nativeEvent.data) || event.nativeEvent.data === null) knowledgeSt.setPageComponentsData(index, "userAnswer", event.target.value)
                 }}
             />
-            {knowledgeStore.module.type !== "test" && <Grid
+            {knowledgeSt.module.type !== "test" && <Grid
                 container
                 direction="row"
                 justifyContent="flex-start"
@@ -45,7 +45,7 @@ const NumberAnswer = inject("managmentStore", "knowledgeStore")(observer(({ mana
                         color: "text.main",
                     }}
                     variant="text"
-                    onClick={() => knowledgeStore.isAnswerRight(index, "numanswer")}
+                    onClick={() => knowledgeSt.isAnswerRight(index, "numanswer")}
                 >
                     Проверить
                 </Button>

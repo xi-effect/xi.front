@@ -3,10 +3,10 @@ import { ButtonGroup, Button, Tooltip } from "@mui/material";
 
 import { inject, observer } from "mobx-react"
 
-const Toolbar = inject("managmentStore")(observer(({ managmentStore }) => (
+const Toolbar = inject("managmentSt")(observer(({ managmentSt }) => (
     <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
         <Tooltip title="Создать страницу">
-            <Button onClick={() => managmentStore.setModuleCreationList("dialogOpen", true)}> Создать </Button>
+            <Button onClick={() => managmentSt.setModuleCreationList("dialogOpen", true)}> Создать </Button>
         </Tooltip>
     </ButtonGroup>
 )));

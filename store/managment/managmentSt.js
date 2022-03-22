@@ -1,4 +1,6 @@
-import { action, observable, computed, runInAction, makeObservable, makeAutoObservable } from "mobx"
+/* eslint-disable consistent-return */
+/* eslint-disable no-return-assign */
+import { action, observable, makeObservable } from "mobx"
 
 
 class ManagmentStore {
@@ -51,7 +53,7 @@ class ManagmentStore {
     }
 
     @action setPageCreationContentComponents = (index, contentIndex, name, value) => {
-        this.pageCreation.components[index]["content"][contentIndex][name] = value
+        this.pageCreation.components[index].content[contentIndex][name] = value
     }
 
 
@@ -111,7 +113,7 @@ class ManagmentStore {
             }
             if (this.pageCreation.components[index].rightAnswers.includes(indexAnswer)) {
                 console.log("remove")
-                this.pageCreation.components[index].rightAnswers = this.pageCreation.components[index].rightAnswers.filter(item => item != indexAnswer)
+                this.pageCreation.components[index].rightAnswers = this.pageCreation.components[index].rightAnswers.filter(item => item !== indexAnswer)
                 console.log("this.pageCreation.components[index]", this.pageCreation.components[index])
                 return;
             }
@@ -136,15 +138,15 @@ class ManagmentStore {
     }
 
     @action setContentToComponent = (index, value) => {
-        this.pageCreation.components[index]["content"] = value
+        this.pageCreation.components[index].content = value
     }
 
     @action pushContentToComponent = (index, type) => {
         if (type === "list") {
-            this.pageCreation.components[index]["content"].push({ label: "", })
+            this.pageCreation.components[index].content.push({ label: "", })
         }
         if (type === "quiz") {
-            this.pageCreation.components[index]["content"].push({ label: "", })
+            this.pageCreation.components[index].content.push({ label: "", })
         }
     }
 
@@ -154,7 +156,7 @@ class ManagmentStore {
 
     @action deleteComponent = (index) => {
         this.pageCreation.components = this.pageCreation.components.filter((n, id) => {
-            if (id == index) return false
+            if (id === index) return false
             return true
         })
         console.log("deleteComponent", this.pageCreation.components)
@@ -162,21 +164,20 @@ class ManagmentStore {
 
     @action deleteComponentContent = (index, indexContent) => {
         this.pageCreation.components[index].content = this.pageCreation.components[index].content.filter((n, id) => {
-            if (id == indexContent) return false
+            if (id === indexContent) return false
             return true
         })
     }
 
     @action idComponents = () => {
         for (let i = 0; i < this.pageCreation.components.length; i += 1) {
-            this.pageCreation.components[i]["id"] = i
+            this.pageCreation.components[i].id = i
         }
     }
 
     @action savePage = (close = false) => {
         // Сохранить изменения в странице
         if (this.pageCreation.id) {
-            //console.log("updatePage", this.pageCreation)
             this.rootStore.fetchDataScr(`${this.rootStore.url}/wip/pages/${this.pageCreation.id}/`, "PUT", this.pageCreation).then(
                 (data) => {
                     if (data) {
@@ -190,7 +191,6 @@ class ManagmentStore {
         }
         // Создать новую страницу 
         if (!this.pageCreation.id) {
-            //console.log("savePage", this.pageCreation)
             this.rootStore.fetchDataScr(`${this.rootStore.url}/wip/pages/`, "POST", this.pageCreation).then(
                 (data) => {
                     if (data.id) {
@@ -320,20 +320,20 @@ class ManagmentStore {
 
     @action deletePoint = (index) => {
         this.moduleCreation.points = this.moduleCreation.points.filter((n, id) => {
-            if (id == index) return false
+            if (id === index) return false
             return true
         })
     }
 
     @action deletePageInPoint = (indexPoint, indexPage) => {
         this.moduleCreation.points[indexPoint].pages = this.moduleCreation.points[indexPoint].pages.filter((n, id) => {
-            if (id == indexPage) return false
+            if (id === indexPage) return false
             return true
         })
     }
 
     @action setPointUp = (index) => {
-        if (index != 0) {
+        if (index !== 0) {
             const item = this.moduleCreation.points[index]
             this.moduleCreation.points[index] = this.moduleCreation.points[index - 1]
             this.moduleCreation.points[index - 1] = item
@@ -344,8 +344,8 @@ class ManagmentStore {
     }
 
     @action setPointDown = (index) => {
-        //console.log(this.moduleCreation.points.length, index)
-        if (this.moduleCreation.points.length != index + 1) {
+        // console.log(this.moduleCreation.points.length, index)
+        if (this.moduleCreation.points.length !== index + 1) {
             const item = this.moduleCreation.points[index]
             this.moduleCreation.points[index] = this.moduleCreation.points[index + 1]
             this.moduleCreation.points[index + 1] = item
@@ -355,7 +355,7 @@ class ManagmentStore {
     @action saveModule = (close = false) => {
         // Сохранить изменения в странице
         if (this.moduleCreation.id) {
-            //console.log("updatePage", this.pageCreation)
+            // console.log("updatePage", this.pageCreation)
             this.rootStore.fetchDataScr(`${this.rootStore.url}/wip/modules/${this.moduleCreation.id}/`, "PUT", this.moduleCreation).then(
                 (data) => {
                     if (data) {
@@ -369,7 +369,7 @@ class ManagmentStore {
         }
         // Создать новую страницу 
         if (!this.moduleCreation.id) {
-            //console.log("savePage", this.pageCreation)
+            // console.log("savePage", this.pageCreation)
             this.rootStore.fetchDataScr(`${this.rootStore.url}/wip/modules/`, "POST", this.moduleCreation).then(
                 (data) => {
                     if (data.id) {

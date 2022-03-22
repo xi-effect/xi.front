@@ -44,16 +44,16 @@ function a11yProps(index) {
 }
 
 
-const Profile = inject("settingsStore", "profileStore")(observer(({ settingsStore, profileStore }) => {
+const Profile = inject("settingsSt", "profileSt")(observer(({ settingsSt, profileSt }) => {
     // console.log("router.query", router.query.id);
 
     const router = useRouter()
 
     React.useEffect(() => {
         if (router.query.id !== undefined) {
-            profileStore.loadUserInfo(router.query.id)
+            profileSt.loadUserInfo(router.query.id)
         }
-    }, [profileStore, router.query.id]);
+    }, [profileSt, router.query.id]);
 
     const [value, setValue] = React.useState(0);
 
@@ -90,7 +90,7 @@ const Profile = inject("settingsStore", "profileStore")(observer(({ settingsStor
                         }}
                     >
                         <Box sx={{ height: 290, width: 290, }}>
-                            <CustomAvatar avatar={{ ...settingsStore.settings.avatar, bgcolor: null }} viewBox={{ x: "-175", y: "-100", width: "1256", height: "1256" }} />
+                            <CustomAvatar avatar={{ ...settingsSt.settings.avatar, bgcolor: null }} viewBox={{ x: "-175", y: "-100", width: "1256", height: "1256" }} />
                         </Box>
                         <Stack
                             direction="column"
@@ -99,14 +99,14 @@ const Profile = inject("settingsStore", "profileStore")(observer(({ settingsStor
                             spacing={2}
                             sx={{ pt: 4 }}
                         >
-                            {profileStore?.user?.name && <Typography sx={{ cursor: "default" }} variant="h5">
-                                {profileStore.user.name}
+                            {profileSt?.user?.name && <Typography sx={{ cursor: "default" }} variant="h5">
+                                {profileSt.user.name}
                             </Typography>}
-                            {profileStore?.user?.surname && <Typography sx={{ cursor: "default" }} variant="h5">
-                                {profileStore.user.surname}
+                            {profileSt?.user?.surname && <Typography sx={{ cursor: "default" }} variant="h5">
+                                {profileSt.user.surname}
                             </Typography>}
-                            {profileStore?.user?.username && <Typography sx={{ cursor: "default" }} variant="h5">
-                                {profileStore.user.username}
+                            {profileSt?.user?.username && <Typography sx={{ cursor: "default" }} variant="h5">
+                                {profileSt.user.username}
                             </Typography>}
                         </Stack>
                     </Stack>
@@ -136,7 +136,7 @@ const Profile = inject("settingsStore", "profileStore")(observer(({ settingsStor
                             >
                                 <Image
                                     alt="alt"
-                                    src="/app/NoData.svg"
+                                    src="/assets/app/NoData.svg"
                                     quality={100}
                                     width={256}
                                     height={232}
@@ -156,7 +156,7 @@ const Profile = inject("settingsStore", "profileStore")(observer(({ settingsStor
                             >
                                 <Image
                                     alt="alt"
-                                    src="/app/NoData.svg"
+                                    src="/assets/app/NoData.svg"
                                     quality={100}
                                     width={256}
                                     height={232}
@@ -176,7 +176,7 @@ const Profile = inject("settingsStore", "profileStore")(observer(({ settingsStor
                             >
                                 <Image
                                     alt="alt"
-                                    src="/app/NoData.svg"
+                                    src="/assets/app/NoData.svg"
                                     quality={100}
                                     width={256}
                                     height={232}

@@ -11,8 +11,8 @@ import { inject, observer } from "mobx-react";
 import ComponentsSelect from "./Components/ComponentsSelect"
 
 
-const PageCompList = inject("knowledgeStore")(
-  observer(({ knowledgeStore }) => (
+const PageCompList = inject("knowledgeSt")(
+  observer(({ knowledgeSt }) => (
     <Stack
       direction="column"
       justifyContent="center"
@@ -27,8 +27,8 @@ const PageCompList = inject("knowledgeStore")(
         width: "calc(100% - 16px)",
       }}
     >
-      {!knowledgeStore.page.loading &&
-        knowledgeStore.page.components.map((value, index) => (
+      {!knowledgeSt.page.loading &&
+        knowledgeSt.page.components.map((value, index) => (
           <Box
             sx={{
               border: 0,
@@ -41,7 +41,7 @@ const PageCompList = inject("knowledgeStore")(
             <ComponentsSelect value={value} index={index} />
           </Box>
         ))}
-      {knowledgeStore.page.loading &&
+      {knowledgeSt.page.loading &&
         [...Array(20)].map((value, index) => (
           <Box
             sx={{

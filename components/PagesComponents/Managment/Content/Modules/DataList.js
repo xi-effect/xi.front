@@ -164,7 +164,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-    const { managmentStore, rows, selected, numSelected, deletePages } = props;
+    const { managmentSt, rows, selected, numSelected, deletePages } = props;
     const router = useRouter();
 
     return (
@@ -200,7 +200,7 @@ function EnhancedTableToolbar(props) {
             {numSelected === 1 &&
                 <Tooltip title="Редактировать">
                     <IconButton onClick={() => {
-                        managmentStore.changeOldModuleList(rows[selected[0]].id)
+                        managmentSt.changeOldModuleList(rows[selected[0]].id)
                         router.push(`/knowledge/createmodule`)
                     }}>
                         <EditIcon />
@@ -220,7 +220,7 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-const DataList = inject("rootStore", "managmentStore")(observer(({ rootStore, managmentStore }) => {
+const DataList = inject("rootStore", "managmentSt")(observer(({ rootStore, managmentSt }) => {
 
     const [rows, setRows] = React.useState([])
     const [order, setOrder] = React.useState("asc");
@@ -295,7 +295,7 @@ const DataList = inject("rootStore", "managmentStore")(observer(({ rootStore, ma
     return (
         <Box sx={{ width: "100%", mt: 2 }}>
             <Paper sx={{ width: "100%", mb: 2 }}>
-                <EnhancedTableToolbar managmentStore={managmentStore} rows={rows} selected={selected} deletePages={deletePages} numSelected={selected.length} />
+                <EnhancedTableToolbar managmentSt={managmentSt} rows={rows} selected={selected} deletePages={deletePages} numSelected={selected.length} />
                 <TableContainer>
                     {rows.length === 0 && <Stack
                         direction="column"
@@ -306,7 +306,7 @@ const DataList = inject("rootStore", "managmentStore")(observer(({ rootStore, ma
                     >
                         <Image
                             alt="alt"
-                            src="/app/NoData.svg"
+                            src="/assets/app/NoData.svg"
                             quality={100}
                             width={256}
                             height={232}

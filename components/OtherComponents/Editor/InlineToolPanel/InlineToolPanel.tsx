@@ -6,95 +6,156 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 import * as React from 'react';
-import Popper, { PopperProps } from '@mui/material/Popper';
-import { Paper, Stack, Fade, Typography, Button } from '@mui/material';
-// import "./TextEditor.scss";
-import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import styled from '@emotion/styled';
+import { menuSelector } from '@szhsin/react-menu/style-utils';
+// import { EmojiData } from 'emoji-mart';
+import { ControlledMenu as ControlledMenuInner, useMenuState } from '@szhsin/react-menu';
+import { Paper, Stack, Button, Tooltip, Menu } from '@mui/material';
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import '@szhsin/react-menu/dist/index.css';
+import { inject, observer } from 'mobx-react';
+import { INLINE_STYLES } from '../config';
+import EmojiPicker from '../Menus/EmojiPicker';
 
-export type InlineToolPanelProps = {
-  className?: string;
-};
+const ControlledMenu = styled(ControlledMenuInner)`
+  ${menuSelector.name} {
+    background-color: transparent;
+  }
+`;
 
-const InlineToolPanel: React.FC<InlineToolPanelProps> = () => {
-  const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<PopperProps['anchorEl']>(null);
-
-  const handleClose = () => {
-    setOpen(false);
+const StyleButton = ({
+  label,
+  active,
+  style,
+  component,
+  onToggle,
+}: {
+  label: string;
+  active: boolean;
+  style: string;
+  component: JSX.Element;
+  onToggle: (type: string) => void;
+}) => {
+  const handleToggle = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    onToggle(style);
   };
-
-  const handleMouseUp = () => {
-    const selection = window.getSelection();
-    console.log('selection', selection);
-    if (selection) {
-      if (!selection || selection.anchorOffset === selection.focusOffset) {
-        handleClose();
-        return;
-      }
-      // if (selection && selection.rangeCount > 0) {
-      // Resets when the selection has a length of 0
-
-      const getBoundingClientReact = () => {
-        if (selection && selection.rangeCount >= 1) return selection.getRangeAt(0).getBoundingClientRect();
-        return null;
-      } 
-      console.log('selection1', selection);
-      setOpen(true);
-      setAnchorEl({
-        // @ts-ignore
-        getBoundingClientReact,
-      });
-    }
-    // }
-  };
-
-  const id = open ? 'virtual-element-popper' : undefined;
 
   return (
-    <div onMouseLeave={handleClose}>
-      <Typography aria-describedby={id} onMouseUp={handleMouseUp}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ipsum purus, bibendum sit
-        amet vulputate eget, porta semper ligula. Donec bibendum vulputate erat, ac fringilla mi
-        finibus nec. Donec ac dolor sed dolor porttitor blandit vel vel purus. Fusce vel malesuada
-        ligula. Nam quis vehicula ante, eu finibus est. Proin ullamcorper fermentum orci, quis
-        finibus massa. Nunc lobortis, massa ut rutrum ultrices, metus metus finibus ex, sit amet
-        facilisis neque enim sed neque. Quisque accumsan metus vel maximus consequat. Suspendisse
-        lacinia tellus a libero volutpat maximus.
-      </Typography>
-      <Popper
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        transition
-        placement="top-start"
-        modifiers={[
-          {
-            name: 'offset',
-            enabled: true,
-            options: {
-              offset: [-40, 10],
-            },
-          },
-        ]}>
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <Paper
-              sx={{
-                bgcolor: 'primary.main',
-              }}>
-              <Stack direction="row" justifyContent="flex-start" alignItems="center">
-                {[...Array(5)].map((item, index) => (
-                  <Button key={index.toString()}>
-                    <FormatBoldIcon sx={{ color: 'text.primary' }} />
-                  </Button>
-                ))}
-              </Stack>
-            </Paper>
-          </Fade>
-        )}
-      </Popper>
-    </div>
+    <Tooltip title={label} placement="top">
+      <Button
+        sx={{
+          color: active ? 'text.primary' : 'text.secondary',
+          minWidth: 16,
+          bgcolor: active ? 'primary.light' : 'primary.dark',
+          borderRadius: 0,
+        }}
+        size="large"
+        onMouseDown={handleToggle}>
+        {component}
+      </Button>
+    </Tooltip>
   );
 };
+
+export type InlineToolPanelProps = {
+  contentEditorSt?: any;
+  editorRef?: any;
+};
+
+const InlineToolPanel: React.FC<InlineToolPanelProps> = inject('contentEditorSt')(
+  observer((props) => {
+    const { contentEditorSt } = props;
+
+    const currentStyle = contentEditorSt.editorState.getCurrentInlineStyle();
+
+    const [emojiPickerEl, setEmojiPickerEl] = React.useState<HTMLButtonElement | null>(null);
+
+    const handleEmojiPickerClose = () => {
+      setEmojiPickerEl(null);
+    };
+
+    const openEmojiPicker = Boolean(emojiPickerEl);
+
+    const handleClickEmojiPicker = (event: React.MouseEvent) => {
+      event.preventDefault();
+      setEmojiPickerEl(
+        emojiPickerEl === null
+          ? {
+              // @ts-ignore
+              mouseX: event.clientX - 2,
+              mouseY: event.clientY - 4,
+            }
+          : // repeated contextmenu when it is already open closes it with Chrome 84 on Ubuntu
+            // Other native context menus might behave different.
+            // With this behavior we prevent contextmenu from the backdrop to re-locale existing context menus.
+            null,
+      );
+    };
+
+    const [menuProps] = useMenuState();
+
+    return (
+      <ControlledMenu
+        {...menuProps}
+        state={contentEditorSt.editorMeta.anchorPoint.x !== 0 ? 'open' : 'closed'}
+        anchorPoint={contentEditorSt.editorMeta.anchorPoint}
+        onClose={() => contentEditorSt.setEditorMeta('anchorPoint', { x: 0, y: 0 })}>
+        <Paper
+          sx={{
+            bgcolor: 'primary.main',
+            borderRadius: 0,
+            // width: 300,
+            // height: 36,
+          }}>
+          <Stack direction="row" justifyContent="flex-start" alignItems="center">
+            {INLINE_STYLES.map((type) => (
+              <StyleButton
+                key={type.label}
+                active={currentStyle.has(type.style)}
+                label={type.label}
+                component={type.component}
+                onToggle={contentEditorSt.handleToggleInlineStyleType}
+                style={type.style}
+              />
+            ))}
+            <Tooltip title="Emoji">
+              <Button
+                sx={{
+                  color: 'text.primary',
+                  minWidth: 16,
+                  bgcolor: 'primary.dark',
+                  borderRadius: 0,
+                }}
+                size="large"
+                onClick={handleClickEmojiPicker}>
+                <EmojiEmotionsIcon />
+              </Button>
+            </Tooltip>
+            <Menu
+              open={openEmojiPicker}
+              onClose={handleEmojiPickerClose}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+              anchorReference="anchorPosition"
+              anchorPosition={
+                emojiPickerEl !== null
+                  ? // @ts-ignore
+                    { top: emojiPickerEl.mouseY - 40, left: emojiPickerEl.mouseX + 8 }
+                  : undefined
+              }
+              MenuListProps={{
+                style: {
+                  paddingBottom: 0,
+                  paddingTop: 0,
+                },
+              }}>
+              <EmojiPicker onSelect={contentEditorSt.handleAddEmoji} />
+            </Menu>
+          </Stack>
+        </Paper>
+      </ControlledMenu>
+    );
+  }),
+);
 
 export default InlineToolPanel;

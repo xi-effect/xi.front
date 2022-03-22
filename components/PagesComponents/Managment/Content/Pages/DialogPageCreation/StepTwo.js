@@ -7,11 +7,11 @@ import { inject, observer } from "mobx-react"
 import ComponentsList from "./Components/ComponentsList";
 
 
-const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => {
+const StepTwo = inject("managmentSt")(observer(({ managmentSt }) => {
     console.log("StepTwo")
     React.useEffect(() => {
         console.log("StepTwouseEffect")
-    }, [managmentStore.pageCreation.components])
+    }, [managmentSt.pageCreation.components])
 
     // const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
@@ -30,7 +30,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    {managmentStore.pageCreation.components.length === 0 && <Grid
+                    {managmentSt.pageCreation.components.length === 0 && <Grid
                         item
                         container
                         direction="column"
@@ -45,7 +45,7 @@ const StepTwo = inject("managmentStore")(observer(({ managmentStore }) => {
                         <Image
                             quality={100}
                             alt="howtocreateamodule"
-                            src="/app/Content.svg"
+                            src="/assets/app/Content.svg"
                             // layout="fill"
                             width={480}
                             height={480}

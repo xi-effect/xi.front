@@ -10,10 +10,10 @@ import { inject, observer } from "mobx-react";
 import LensIcon from "@mui/icons-material/Lens";
 
 const List = inject(
-  "knowledgeStore"
+  "knowledgeSt"
 )(
-  observer(({ knowledgeStore, index }) => {
-    const value = knowledgeStore.page.components[index];
+  observer(({ knowledgeSt, index }) => {
+    const value = knowledgeSt.page.components[index];
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (

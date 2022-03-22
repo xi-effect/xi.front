@@ -4,8 +4,8 @@ import { Button, Input, Grid, Radio, Checkbox, Typography, useMediaQuery } from 
 import { inject, observer } from "mobx-react"
 
 
-const Quiz = inject("knowledgeStore")(observer(({ knowledgeStore, index }) => {
-    const value = knowledgeStore.page.components[index]
+const Quiz = inject("knowledgeSt")(observer(({ knowledgeSt, index }) => {
+    const value = knowledgeSt.page.components[index]
     // Simulated props for the purpose of the example
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
@@ -50,32 +50,32 @@ const Quiz = inject("knowledgeStore")(observer(({ knowledgeStore, index }) => {
                         fullWidth
                         readOnly
                         onClick={() => {
-                            // if (value.quizType === "single") knowledgeStore.setSingleQuiz(index, indexA)
-                            // if (value.quizType === "multiple") knowledgeStore.setComponentsContent(index, indexA, "userAnswer", !item.userAnswer)
-                            knowledgeStore.setAnswer(value.quizType, index, indexA)
+                            // if (value.quizType === "single") knowledgeSt.setSingleQuiz(index, indexA)
+                            // if (value.quizType === "multiple") knowledgeSt.setComponentsContent(index, indexA, "userAnswer", !item.userAnswer)
+                            knowledgeSt.setAnswer(value.quizType, index, indexA)
                         }}
                         value={item.label}
                         startAdornment={
                             <>
                                 {value.quizType === "single" && <Radio
                                     sx={{
-                                        color: getIconColor(knowledgeStore.module.showAnswers ?? false, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
+                                        color: getIconColor(knowledgeSt.module.showAnswers ?? false, knowledgeSt.page.components[index].userAnswers.includes(indexA), knowledgeSt.page.components[index].rightAnswers.includes(indexA)),
                                         "&.Mui-checked": {
-                                            color: getIconColor(knowledgeStore.module.showAnswers ?? false, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
+                                            color: getIconColor(knowledgeSt.module.showAnswers ?? false, knowledgeSt.page.components[index].userAnswers.includes(indexA), knowledgeSt.page.components[index].rightAnswers.includes(indexA)),
                                         },
                                     }}
                                     // color="primary"
-                                    checked={knowledgeStore.page.components[index].userAnswers.includes(indexA)}
+                                    checked={knowledgeSt.page.components[index].userAnswers.includes(indexA)}
                                 />}
                                 {value.quizType === "multiple" && <Checkbox
                                     sx={{
-                                        color: getIconColor(knowledgeStore.module.showAnswers ?? false, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
+                                        color: getIconColor(knowledgeSt.module.showAnswers ?? false, knowledgeSt.page.components[index].userAnswers.includes(indexA), knowledgeSt.page.components[index].rightAnswers.includes(indexA)),
                                         "&.Mui-checked": {
-                                            color: getIconColor(knowledgeStore.module.showAnswers ?? false, knowledgeStore.page.components[index].userAnswers.includes(indexA), knowledgeStore.page.components[index].rightAnswers.includes(indexA)),
+                                            color: getIconColor(knowledgeSt.module.showAnswers ?? false, knowledgeSt.page.components[index].userAnswers.includes(indexA), knowledgeSt.page.components[index].rightAnswers.includes(indexA)),
                                         },
                                     }}
                                     // color="primary"
-                                    checked={knowledgeStore.page.components[index].userAnswers.includes(indexA)}
+                                    checked={knowledgeSt.page.components[index].userAnswers.includes(indexA)}
                                 // onChange={handleChange}
                                 />}
 
@@ -84,7 +84,7 @@ const Quiz = inject("knowledgeStore")(observer(({ knowledgeStore, index }) => {
                     />
                 ))}
             </Grid>
-            {knowledgeStore.module.type !== "test" && <Grid
+            {knowledgeSt.module.type !== "test" && <Grid
                 container
                 direction="row"
                 justifyContent="flex-start"
@@ -97,7 +97,7 @@ const Quiz = inject("knowledgeStore")(observer(({ knowledgeStore, index }) => {
                         color: "text.main",
                     }}
                     variant="text"
-                    onClick={() => knowledgeStore.isAnswerRight(index)}
+                    onClick={() => knowledgeSt.isAnswerRight(index)}
                 >
                     Проверить
                 </Button>
@@ -125,7 +125,7 @@ const Quiz = inject("knowledgeStore")(observer(({ knowledgeStore, index }) => {
                         color: "text.main",
                     }}
                     variant="text"
-                    onClick={() => knowledgeStore.isAnswerRight(index)}
+                    onClick={() => knowledgeSt.isAnswerRight(index)}
                 >
                     
                 </Button>

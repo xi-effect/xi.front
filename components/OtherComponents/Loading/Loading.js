@@ -5,13 +5,13 @@ import { motion, AnimatePresence } from "framer-motion"
 import { inject, observer } from "mobx-react"
 import { useRouter } from 'next/router'
 
-const Loading = inject("uiStore")(observer(({ uiStore }) => {
+const Loading = inject("uiSt")(observer(({ uiSt }) => {
     const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)")
     const router = useRouter()
 
     return (
         <AnimatePresence>
-            {uiStore.load.loading && <Grid
+            {uiSt.load.loading && <Grid
                 component={motion.div}
                 container
                 direction="column"

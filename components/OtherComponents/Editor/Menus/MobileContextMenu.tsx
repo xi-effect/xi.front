@@ -49,12 +49,7 @@ const Puller = styled(Box)(({ theme }) => ({
 
 type Props = {
   open: boolean;
-  index: number;
   setOpen: (state: boolean) => void;
-  deleteItem: (index: number) => void;
-  duplicateItem: (index: number) => void;
-  addNewItem: (index: number, type: string) => void;
-  changeItemType: (index: number, newType: string) => void;
 };
 
 // Previously this extended React.Component
@@ -66,7 +61,7 @@ type Props = {
 // will be using PureComponent
 
 function MobileContextMenu(props: Props) {
-  const { open, setOpen, index, addNewItem, deleteItem, duplicateItem, changeItemType } = props;
+  const { open, setOpen } = props;
   // @ts-ignore
   // const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
   const [openItemsMenu, setOpenItemsMenu] = React.useState<null | string>(null);
@@ -164,7 +159,7 @@ function MobileContextMenu(props: Props) {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  deleteItem(index);
+                  // deleteItem(index);
                   setOpen(false);
                 }}>
                 <ListItemIcon>
@@ -178,7 +173,7 @@ function MobileContextMenu(props: Props) {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  duplicateItem(index);
+                  // duplicateItem(index);
                   setOpen(false);
                 }}>
                 <ListItemIcon>
@@ -192,7 +187,7 @@ function MobileContextMenu(props: Props) {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  duplicateItem(index);
+                  // duplicateItem(index);
                   setOpen(false);
                 }}>
                 <ListItemIcon>
@@ -210,7 +205,7 @@ function MobileContextMenu(props: Props) {
                 <MenuItem
                   key={indx.toString()}
                   onClick={() => {
-                    addNewItem(index, item.type);
+                    // addNewItem(index, item.type);
                   }}>
                   <Stack direction="column" justifyContent="center" alignItems="flex-start">
                     <Typography variant="h5">{item.label}</Typography>
@@ -228,7 +223,7 @@ function MobileContextMenu(props: Props) {
                 <MenuItem
                   key={indx.toString()}
                   onClick={() => {
-                    changeItemType(index, item.type);
+                    // changeItemType(index, item.type);
                     setOpen(false);
                     setOpenItemsMenu(null);
                   }}>

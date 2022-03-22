@@ -1,20 +1,26 @@
-import { action, observable, computed, runInAction, makeObservable } from "mobx"
+/* eslint-disable no-shadow */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable consistent-return */
+/* eslint-disable class-methods-use-this */
+import { action, makeObservable } from "mobx"
 import { enableStaticRendering } from "mobx-react"
 import { useMemo } from "react"
 import Router from "next/router"
 
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 
-import UIStore from "./ui/uiStore";
-import HomeStore from "./home/homeStore";
-import KnowledgeStore from "./knowledge/knowledgeStore";
-import ManagmentStore from "./managment/managmentStore";
-import SettingsStore from "./settings/settingsStore";
-import ContentStore from "./content/contentStore";
-import AuthorizationStore from "./authorization/authorizationStore";
-import MessageStore from "./message/messageStore";
-import ProfileStore from "./profile/profileStore";
-import CommunityStore from "./community/communityStore";
+import UIStore from "./ui/uiSt";
+import HomeStore from "./home/homeSt";
+import KnowledgeStore from "./knowledge/knowledgeSt";
+import ManagmentStore from "./managment/managmentSt";
+import SettingsStore from "./settings/settingsSt";
+import ContentStore from "./content/contentSt";
+import AuthorizationStore from "./authorization/authorizationSt";
+import MessageStore from "./message/messageSt";
+import ProfileStore from "./profile/profileSt";
+import CommunityStore from "./community/communitySt";
+import ContentEditorSt from "./contentEditor/contentEditorSt";
 
 
 enableStaticRendering(typeof window === "undefined")
@@ -26,16 +32,17 @@ class RootStore {
   url = process.env.NEXT_PUBLIC_SERVER_URL
 
   constructor() {
-    this.uiStore = new UIStore(this)
-    this.homeStore = new HomeStore(this)
-    this.knowledgeStore = new KnowledgeStore(this)
-    this.managmentStore = new ManagmentStore(this)
-    this.settingsStore = new SettingsStore(this)
-    this.contentStore = new ContentStore(this)
-    this.authorizationStore = new AuthorizationStore(this)
-    this.messageStore = new MessageStore(this)
-    this.profileStore = new ProfileStore(this)
-    this.communityStore = new CommunityStore(this)
+    this.uiSt = new UIStore(this)
+    this.homeSt = new HomeStore(this)
+    this.knowledgeSt = new KnowledgeStore(this)
+    this.managmentSt = new ManagmentStore(this)
+    this.settingsSt = new SettingsStore(this)
+    this.contentSt = new ContentStore(this)
+    this.authorizationSt = new AuthorizationStore(this)
+    this.messageSt = new MessageStore(this)
+    this.profileSt = new ProfileStore(this)
+    this.communitySt = new CommunityStore(this)
+    this.contentEditorSt = new ContentEditorSt(this)
     makeObservable(this)
   }
 
@@ -86,11 +93,11 @@ class RootStore {
         const string = await response.text();
         const json = string === "" ? {} : JSON.parse(string);
         return json; // parses JSON response into native JavaScript objects
-      } 
-        const string = await response.text();
-        const json = string === "" ? {} : JSON.parse(string);
-        return json;
-      
+      }
+      const string = await response.text();
+      const json = string === "" ? {} : JSON.parse(string);
+      return json;
+
     } catch (error) {
       // console.log(error)
       console.log("Возникла проблема с вашим fetch запросом: ", error.message);
@@ -140,11 +147,11 @@ class RootStore {
         const string = await response.text();
         const json = string === "" ? {} : JSON.parse(string);
         return json; // parses JSON response into native JavaScript objects
-      } 
-        const string = await response.text();
-        const json = string === "" ? {} : JSON.parse(string);
-        return json;
-      
+      }
+      const string = await response.text();
+      const json = string === "" ? {} : JSON.parse(string);
+      return json;
+
     } catch (error) {
       // console.log(error)
       console.log("Возникла проблема с вашим fetch запросом: ", error.message);

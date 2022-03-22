@@ -103,9 +103,9 @@ const Root = styled("div")((
     }
 }));
 
-const Header = inject("managmentStore")(observer(({ managmentStore, index }) => {
+const Header = inject("managmentSt")(observer(({ managmentSt, index }) => {
     // Simulated props for the purpose of the example
-    const values = managmentStore.pageCreation.components[index]
+    const values = managmentSt.pageCreation.components[index]
     // Simulated props for the purpose of the example
 
     // console.log("props", props)
@@ -124,7 +124,7 @@ const Header = inject("managmentStore")(observer(({ managmentStore, index }) => 
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                onClick={() => managmentStore.setPageCreationList("selectId", index)}
+                onClick={() => managmentSt.setPageCreationList("selectId", index)}
             >
                 <Grid className={classes.gridTextWrapper}>
                     <Input
@@ -141,7 +141,7 @@ const Header = inject("managmentStore")(observer(({ managmentStore, index }) => 
                         fullWidth
                         value={values.label}
                         onChange={(event) => {
-                            if ("1234567890.,".includes(event.nativeEvent.data) || event.nativeEvent.data === null) managmentStore.setPageCreationComponents(index, "label", event.target.value)
+                            if ("1234567890.,".includes(event.nativeEvent.data) || event.nativeEvent.data === null) managmentSt.setPageCreationComponents(index, "label", event.target.value)
                         }}
                     />
                 </Grid>
@@ -159,7 +159,7 @@ const Header = inject("managmentStore")(observer(({ managmentStore, index }) => 
                         <Tooltip title="Удалить блок">
                             <IconButton
                                 className={classes.leftIconButton}
-                                onClick={() => managmentStore.deleteComponent(index)}
+                                onClick={() => managmentSt.deleteComponent(index)}
                                 size="large">
                                 <DeleteForeverIcon className={classes.icon} />
                             </IconButton>

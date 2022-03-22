@@ -7,10 +7,10 @@ import { Box, Button, Dialog, DialogContent, DialogActions, Stack, Typography } 
 
 const InfoPage = inject(
     "rootStore",
-    "knowledgeStore",
-    "uiStore",
+    "knowledgeSt",
+    "uiSt",
 )(
-    observer(({ knowledgeStore }) => (
+    observer(({ knowledgeSt }) => (
         <Stack
             direction="column"
             justifyContent="flex-start"
@@ -31,7 +31,7 @@ const InfoPage = inject(
                     color: "text.main"
                 }}
             >
-                {knowledgeStore.page.name}
+                {knowledgeSt.page.name}
             </Typography>
             <Typography
                 variant="subtitle1"
@@ -48,7 +48,7 @@ const InfoPage = inject(
                     color: "text.main"
                 }}
             >
-                {knowledgeStore.page.description}
+                {knowledgeSt.page.description}
             </Typography>
             <Typography
                 variant="subtitle1"
@@ -65,7 +65,7 @@ const InfoPage = inject(
                     color: "text.main"
                 }}
             >
-                {knowledgeStore.page.theme}
+                {knowledgeSt.page.theme}
             </Typography>
             <Typography
                 variant="subtitle1"
@@ -82,7 +82,7 @@ const InfoPage = inject(
                     color: "text.main"
                 }}
             >
-                {knowledgeStore.page.kind}
+                {knowledgeSt.page.kind}
             </Typography>
         </Stack>
     ))
@@ -90,92 +90,92 @@ const InfoPage = inject(
 
 const InfoModule = inject(
     "rootStore",
-    "knowledgeStore",
-    "uiStore",
+    "knowledgeSt",
+    "uiSt",
 )(
-    observer(({ knowledgeStore }) => (
-            <Stack
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                spacing={2}
+    observer(({ knowledgeSt }) => (
+        <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            spacing={2}
+        >
+            <Typography
+                variant="subtitle1"
+                sx={{
+                    color: "text.secondary"
+                }}
             >
-                <Typography
-                    variant="subtitle1"
-                    sx={{
-                        color: "text.secondary"
-                    }}
-                >
-                    Страница
-                </Typography>
-                <Typography
-                    variant="body1"
-                    sx={{
-                        color: "text.main"
-                    }}
-                >
-                    {knowledgeStore.module.name}
-                </Typography>
-                <Typography
-                    variant="subtitle1"
-                    sx={{
-                        mt: 1,
-                        color: "text.secondary"
-                    }}
-                >
-                    Описание
-                </Typography>
-                <Typography
-                    variant="body1"
-                    sx={{
-                        color: "text.main"
-                    }}
-                >
-                    {knowledgeStore.module.description}
-                </Typography>
-                <Typography
-                    variant="subtitle1"
-                    sx={{
-                        mt: 1,
-                        color: "text.secondary"
-                    }}
-                >
-                    Тема
-                </Typography>
-                <Typography
-                    variant="body1"
-                    sx={{
-                        color: "text.main"
-                    }}
-                >
-                    {knowledgeStore.module.theme}
-                </Typography>
-                <Typography
-                    variant="subtitle1"
-                    sx={{
-                        mt: 1,
-                        color: "text.secondary"
-                    }}
-                >
-                    Тип
-                </Typography>
-                <Typography
-                    variant="body1"
-                    sx={{
-                        color: "text.main"
-                    }}
-                >
-                    {knowledgeStore.module.type}
-                </Typography>
-            </Stack>
-        ))
+                Страница
+            </Typography>
+            <Typography
+                variant="body1"
+                sx={{
+                    color: "text.main"
+                }}
+            >
+                {knowledgeSt.module.name}
+            </Typography>
+            <Typography
+                variant="subtitle1"
+                sx={{
+                    mt: 1,
+                    color: "text.secondary"
+                }}
+            >
+                Описание
+            </Typography>
+            <Typography
+                variant="body1"
+                sx={{
+                    color: "text.main"
+                }}
+            >
+                {knowledgeSt.module.description}
+            </Typography>
+            <Typography
+                variant="subtitle1"
+                sx={{
+                    mt: 1,
+                    color: "text.secondary"
+                }}
+            >
+                Тема
+            </Typography>
+            <Typography
+                variant="body1"
+                sx={{
+                    color: "text.main"
+                }}
+            >
+                {knowledgeSt.module.theme}
+            </Typography>
+            <Typography
+                variant="subtitle1"
+                sx={{
+                    mt: 1,
+                    color: "text.secondary"
+                }}
+            >
+                Тип
+            </Typography>
+            <Typography
+                variant="body1"
+                sx={{
+                    color: "text.main"
+                }}
+            >
+                {knowledgeSt.module.type}
+            </Typography>
+        </Stack>
+    ))
 );
 
 
 const InfoDialog = inject(
     "rootStore",
-    "knowledgeStore",
-    "uiStore",
+    "knowledgeSt",
+    "uiSt",
 )(
     observer(({ openDialog, setOpenDialog }) => {
         const router = useRouter();
