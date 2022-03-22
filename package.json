@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
-    "start": "next start",
+    "start": "NODE_ENV=production next start",
     "lint": "eslint ./components/** ./pages/** -c .eslintrc.json --ext js,jsx",
     "lint-fix": "eslint ./components/** ./pages/** -c .eslintrc.json --fix --ext js,jsx"
   },
