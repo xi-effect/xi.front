@@ -37,7 +37,6 @@ const NavigationAll = inject(
             settingsSt.setSettings("id", data.id);
             settingsSt.setSettings("username", data.username);
             uiSt.setLoading("loading", false)
-            uiSt.setLoading("app", false)
           }
         });
       rootStore
@@ -52,7 +51,6 @@ const NavigationAll = inject(
             settingsSt.setSettings("avatar", data.avatar)
             settingsSt.setSettings("invite", data.code)
             uiSt.setLoading("loading", false)
-            uiSt.setLoading("app", false)
           }
         });
     }, []);
@@ -98,8 +96,8 @@ const NavigationAll = inject(
             width: "100%",
           }}
         >
-          {!uiSt.load.loading && <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />}
-          {!uiSt.load.loading && <SidebarSecond hoverLeftName={hoverLeftName} />}
+          <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+          <SidebarSecond hoverLeftName={hoverLeftName} />
           <RightMenu />
           <Box
             sx={{
@@ -201,8 +199,8 @@ const NavigationAll = inject(
                   duration: 0.5,
                 }}
               >
-                {!uiSt.load.loading && <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />}
-                {!uiSt.load.loading && <SidebarSecond hoverLeftName={hoverLeftName} />}
+                <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+                <SidebarSecond hoverLeftName={hoverLeftName} />
               </Box>
             </Box>}
           </AnimatePresence>

@@ -19,6 +19,7 @@ import "moment/locale/ru";
 
 import { SnackbarProvider } from "notistack";
 
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import "../styles/globals.css"
 import 'draft-js/dist/Draft.css';
 
