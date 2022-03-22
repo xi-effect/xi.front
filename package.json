@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
-    "start": "NODE_ENV=production node server.js",
+    "start": "next start",
     "lint": "eslint ./components/** ./pages/** -c .eslintrc.json --ext js,jsx",
     "lint-fix": "eslint ./components/** ./pages/** -c .eslintrc.json --fix --ext js,jsx"
   },
@@ -71,14 +71,15 @@
     "use-long-press": "^1.1.2",
     "webpack": "^5.70.0",
     "worker-loader": "^3.0.8",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "@babel/plugin-proposal-decorators": "^7.15.4",
+    "babel-plugin-inline-react-svg": "^2.0.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-methods": "^7.14.5",
     "@babel/plugin-proposal-private-property-in-object": "^7.15.4",
     "@babel/core": "^7.15.5",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
-    "@babel/plugin-proposal-decorators": "^7.15.4",
     "@types/crypto-js": "^4.1.1",
     "@types/react-beautiful-dnd": "^13.1.2",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
@@ -92,7 +93,6 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "babel-eslint": "^10.1.0",
-    "babel-plugin-inline-react-svg": "^2.0.1"
+    "babel-eslint": "^10.1.0"
   }
 }
