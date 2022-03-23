@@ -21,7 +21,7 @@ class UIStore {
 
     // Loading Screen
     @observable load = {
-        loading: false,
+        loading: null,
     }
 
     @action setLoading = (name, value) => {

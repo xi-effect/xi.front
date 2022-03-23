@@ -12,6 +12,43 @@ import SidebarSecond from "./SidebarSecond";
 import RightMenu from "./RightMenu";
 import Upbar from "./Upbar";
 
+const dragVariants = {
+  left: {
+    x: -256,
+    y: 0,
+  },
+  center: {
+    x: 0,
+    y: 0,
+  },
+  right: {
+    x: 336,
+    y: 0,
+  },
+  bottom: {
+    x: 0,
+    y: 200,
+  }
+}
+
+const SidebarVariantsLeft = {
+  visible: {
+    x: 0,
+  },
+  hidden: {
+    x: 200
+  }
+}
+
+const SidebarVariantsRight = {
+  visible: {
+    x: 0,
+  },
+  hidden: {
+    x: -200
+  }
+}
+
 const NavigationAll = inject(
   "rootStore",
   "settingsSt",
@@ -20,8 +57,16 @@ const NavigationAll = inject(
 )(
   observer(({ rootStore, settingsSt, uiSt, messageSt, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
     const router = useRouter();
-
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
+
+    React.useEffect(() => {
+      if (uiSt.load.loading === null) {
+        uiSt.setLoading("loading", true)
+        setTimeout(() => {
+          uiSt.setLoading("loading", false)
+        }, 1500);
+      }
+    }, [])
 
     React.useEffect(() => {
       // Каждый раз запрашиваются настройки, чтобы понимать,
@@ -36,23 +81,23 @@ const NavigationAll = inject(
             settingsSt.setSettings("darkTheme", data["dark-theme"]);
             settingsSt.setSettings("id", data.id);
             settingsSt.setSettings("username", data.username);
-            uiSt.setLoading("loading", false)
           }
         });
-      rootStore
-        .fetchDataScr(`${rootStore.url}/settings/`, "GET")
-        .then((data) => {
-          if (data) {
-            console.log("settings", data);
-            const emailArr = data.email.split("@", 2)
-            settingsSt.setSettings("emailBefore", emailArr[0])
-            settingsSt.setSettings("emailAfter", `@${emailArr[1]}`)
-            settingsSt.setSettings("emailConfirmed", data["email-confirmed"])
-            settingsSt.setSettings("avatar", data.avatar)
-            settingsSt.setSettings("invite", data.code)
-            uiSt.setLoading("loading", false)
-          }
-        });
+      if (uiSt.load.loading === null) {
+        rootStore
+          .fetchDataScr(`${rootStore.url}/settings/`, "GET")
+          .then((data) => {
+            if (data) {
+              console.log("settings", data);
+              const emailArr = data.email.split("@", 2)
+              settingsSt.setSettings("emailBefore", emailArr[0])
+              settingsSt.setSettings("emailAfter", `@${emailArr[1]}`)
+              settingsSt.setSettings("emailConfirmed", data["email-confirmed"])
+              settingsSt.setSettings("avatar", data.avatar)
+              settingsSt.setSettings("invite", data.code)
+            }
+          });
+      };
     }, []);
 
     const [hoverLeftName, setHoverLeftName] = React.useState("")
@@ -122,49 +167,10 @@ const NavigationAll = inject(
             >
               {children}
             </Scrollbars>}
-            {/* || router.pathname.includes("/page/") */}
             {router.pathname.includes("message") || router.pathname.includes("chat") && children}
-            {/* <ChatDialog /> */}
           </Box>
         </Box>
       );
-    }
-
-    const dragVariants = {
-      left: {
-        x: -256,
-        y: 0,
-      },
-      center: {
-        x: 0,
-        y: 0,
-      },
-      right: {
-        x: 336,
-        y: 0,
-      },
-      bottom: {
-        x: 0,
-        y: 200,
-      }
-    }
-
-    const SidebarVariantsLeft = {
-      visible: {
-        x: 0,
-      },
-      hidden: {
-        x: 200
-      }
-    }
-
-    const SidebarVariantsRight = {
-      visible: {
-        x: 0,
-      },
-      hidden: {
-        x: -200
-      }
     }
 
     if (mobile) {
@@ -269,7 +275,6 @@ const NavigationAll = inject(
               {children}
             </Scrollbars>}
             {router.pathname.includes("/message") && children}
-            {/* <ChatDialog /> */}
           </Box>
         </Box>
       );

@@ -40,10 +40,9 @@ const schema = yup
 
 
 const Login = inject(
-  "uiSt",
   "authorizationSt"
 )(
-  observer(({ authorizationSt, uiSt }) => {
+  observer(({ authorizationSt }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("dl"));
 
     const router = useRouter();
@@ -57,14 +56,6 @@ const Login = inject(
     });
     console.log("errors", errors);
     const onSubmit = (data) => authorizationSt.clickEnterButton(data);
-
-    React.useEffect(() => {
-      if (uiSt.load.login) uiSt.setLoading("loading", true)
-      setTimeout(() => {
-        uiSt.setLoading("loading", false)
-        uiSt.setLoading("login", false)
-      }, 1500);
-    }, [])
 
     return (
       <>

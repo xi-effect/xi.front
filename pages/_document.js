@@ -49,7 +49,7 @@ export default class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#5d74a6" />
           <meta name='msapplication-tap-highlight' content='no' />
           <meta name="theme-color" content="#5d74a6" />
-          {/* <script defer data-domain="xieffect.ru" src="https://xieffect.ru:5000/static/plausible.js"></script> */}
+          <script defer data-domain="xieffect.ru" src="https://xieffect.ru:8000/js/plausible.js" />
         </Head>
         <body>
           <Main />

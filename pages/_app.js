@@ -19,7 +19,8 @@ import "moment/locale/ru";
 
 import { SnackbarProvider } from "notistack";
 
-import '@fortawesome/fontawesome-svg-core/styles.css';
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
 import "../styles/globals.css"
 import 'draft-js/dist/Draft.css';
 
@@ -29,6 +30,8 @@ import { useStore } from "../store/rootStore"
 import { getDesignTokens } from "../theme"
 import "nprogress/nprogress.css"; // styles of nprogress
 import Loading from "../components/OtherComponents/Loading/Loading";
+
+config.autoAddCss = false
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
