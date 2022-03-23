@@ -27,6 +27,9 @@ import * as yup from "yup";
 
 import { motion } from "framer-motion";
 
+import XiLogo from "../../components/OtherComponents/XiLogo/XiLogo.tsx";
+
+
 const schema = yup
   .object({
     email: yup.string().email().required(),
@@ -81,55 +84,7 @@ const PassResetEmail = inject(
               width: "100%",
             }}
           >
-            <Stack
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="baseline"
-            >
-              <Typography
-                component="h1"
-                onClick={() => {
-                  router.push({
-                    pathname: "/",
-                  });
-                }}
-                variant="Roboto500XiLabel"
-                sx={{
-                  mt: "1px",
-                  cursor: "pointer",
-                  color: "secondary.main",
-                  fontSize: {
-                    sm: "28px",
-                    md: "34px",
-                    lg: "40px",
-                  },
-                }}
-              >
-                Ξ
-              </Typography>
-              <Typography
-                component="h1"
-                onClick={() => {
-                  router.push({
-                    pathname: "/",
-                  });
-                }}
-                variant="IBMPlexMono500XiLabelEnd"
-                sx={{
-                  "&.MuiTypography-root": {
-                    cursor: "pointer",
-                    color: "secondary.main",
-                  },
-                  fontSize: {
-                    sm: "28px",
-                    md: "34px",
-                    lg: "40px",
-                  },
-                }}
-              >
-                ffect
-              </Typography>
-            </Stack>
+            <XiLogo />
           </Stack>
           <Box
             sx={{

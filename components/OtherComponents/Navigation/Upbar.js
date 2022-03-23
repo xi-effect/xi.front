@@ -8,6 +8,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import MenuIcon from "@mui/icons-material/Menu";
 import InfoIcon from "@mui/icons-material/Info";
 import ReportDialog from "./RightMenu/ReportDialog";
+import XiLogo from "../XiLogo/XiLogo.tsx";
 
 const KnowledgePagesTools = inject(
   "knowledgeSt"
@@ -185,61 +186,7 @@ const Upbar = inject()(
           }} sx={{ ml: 0.4, mr: 0.4, cursor: "pointer" }}>
             <MenuIcon sx={{ fontSize: 32 }} />
           </IconButton>}
-          <Stack
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="baseline"
-            sx={{
-              ml: mobile ? 1 : 4,
-              mr: 1,
-            }}
-          >
-            <Typography
-              component="h1"
-              onClick={() => {
-                router.push({
-                  pathname: "/",
-                })
-              }}
-
-              variant="Roboto500XiLabel"
-              sx={{
-                mt: "1px",
-                cursor: "pointer",
-                color: "secondary.main",
-                fontSize: {
-                  sm: "22px",
-                  md: "26px",
-                  lg: "30px",
-                },
-              }}
-            >
-              Ξ
-            </Typography>
-            <Typography
-              component="h1"
-              onClick={() => {
-                router.push({
-                  pathname: "/",
-                })
-              }}
-
-              variant="IBMPlexMono500XiLabelEnd"
-              sx={{
-                "&.MuiTypography-root": {
-                  cursor: "pointer",
-                  color: "secondary.main",
-                },
-                fontSize: {
-                  sm: "22px",
-                  md: "26px",
-                  lg: "30px",
-                },
-              }}
-            >
-              ffect
-            </Typography>
-          </Stack>
+          <XiLogo />
         </Stack>
         <Stack
           direction="row"

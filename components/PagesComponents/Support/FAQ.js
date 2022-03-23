@@ -7,7 +7,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { Box, Paper,Stack } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
 import questions from "../../../texts/support/FAQ";
 
 function FAQ() {

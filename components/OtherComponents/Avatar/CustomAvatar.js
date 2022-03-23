@@ -200,4 +200,4 @@ const CustomAvatar = inject()(observer(({ avatar, viewBox, reverse = false }) =>
         </Box>
     )))
 
-export default CustomAvatar
+export default CustomAvatar;
