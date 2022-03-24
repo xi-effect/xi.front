@@ -47,18 +47,26 @@ const Form: React.FC<Props> = inject('authorizationSt')(
     const mobile: boolean = useMediaQuery((theme) => theme.breakpoints.down('dl'));
     const router: NextRouter = useRouter();
 
+    // React.useEffect(() => {
+    //   console.log('authorizationSt');
+    // }, [authorizationSt]);
+
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
 
     const {
       control,
       handleSubmit,
+      trigger,
       formState: { errors },
     } = useForm({
       resolver: yupResolver(schema),
     });
 
     console.log('errors', errors);
-    const onSubmit = (data) => authorizationSt.clickEnterButton(data);
+    const onSubmit = (data) => {
+      trigger();
+      authorizationSt.clickEnterButton(data, trigger);
+    };
 
     return (
       <Stack
@@ -145,8 +153,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                     <TextField
                       variant="filled"
                       error={
-                        errors?.email?.type === 'required' ||
-                        authorizationSt.login.error === "User doesn't exist"
+                        errors?.email?.type === 'email' || authorizationSt.login.error === "User doesn't exist"
                       }
                       type="text"
                       fullWidth
@@ -163,11 +170,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                         },
                       }}
                       helperText={
-                        authorizationSt.login.error === "User doesn't exist" && (
-                          <Typography color="error" variant="subtitle2">
-                            Пользователь не найден
-                          </Typography>
-                        )
+                        authorizationSt.login.error === "User doesn't exist" &&
+                        'Пользователь не найден'
                       }
                       {...field}
                     />
@@ -199,20 +203,9 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                           bgcolor: 'rgba(0, 0, 0, 0.09)',
                         },
                       }}
-                      helperText={() => {
-                        if (authorizationSt.login.error === 'Wrong password')
-                          return (
-                            <Typography color="error" variant="subtitle2">
-                              Неверный Пароль
-                            </Typography>
-                          );
-                        if (authorizationSt.login.error === 'Server error')
-                          return (
-                            <Typography color="error" variant="subtitle2">
-                              Ошибка сервера
-                            </Typography>
-                          );
-                      }}
+                      helperText={`${
+                        authorizationSt.login.error === 'Wrong password' ? 'Неверный Пароль' : ''
+                      }${authorizationSt.login.error === 'Server error' ? 'Ошибка сервера' : ''}`}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment sx={{ mr: 0.5 }} position="end">

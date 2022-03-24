@@ -101,7 +101,7 @@ class AuthorizationStore {
         this.login[name] = value
     }
 
-    @action clickEnterButton = (data) => {
+    @action clickEnterButton = (data, trigger) => {
         console.log("clickEnterButton")
         this.setLogin("error", null)
         this.rootStore.fetchData(`${this.rootStore.url}/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
@@ -131,12 +131,14 @@ class AuthorizationStore {
                             });
                     } else if (data.a === "User doesn't exist") {
                         this.setLogin("error", "User doesn't exist")
+                        trigger()
                     } else if (data.a === "Wrong password") {
                         this.setLogin("error", "Wrong password")
+                        trigger()
                     }
                 } else {
                     this.setLogin("error", "Server error")
-
+                    trigger()
                 }
             })
     }
