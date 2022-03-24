@@ -215,7 +215,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                       }}
                       InputProps={{
                         endAdornment: (
-                          <InputAdornment sx={{ mr: 2 }} position="end">
+                          <InputAdornment sx={{ mr: 0.5 }} position="end">
                             <IconButton
                               aria-label="toggle password visibility"
                               onClick={() => setShowPassword(!showPassword)}
