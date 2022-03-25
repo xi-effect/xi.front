@@ -1,8 +1,8 @@
 // @ts-nocheck
 import React from 'react';
-import { BustPose, BustPoseType } from './bust/z_options';
-import { SittingPose, SittingPoseType } from './sitting/z_options';
-import { StandingPose, StandingPoseType } from './standing/z_options';
+import { BustPose, BustPoseType } from './bust/z_options.tsx';
+import { SittingPose, SittingPoseType } from './sitting/z_options.tsx';
+import { StandingPose, StandingPoseType } from './standing/z_options.tsx';
 
 interface PoseProps {
 	piece: BustPoseType | SittingPoseType | StandingPoseType;
