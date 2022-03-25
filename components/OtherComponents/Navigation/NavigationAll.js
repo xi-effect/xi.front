@@ -7,6 +7,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { motion, AnimatePresence } from "framer-motion"
 import { useSwipeable } from "react-swipeable";
+import { useSessionStorage } from 'react-use';
 import Sidebar from "./Sidebar";
 import SidebarSecond from "./SidebarSecond";
 import RightMenu from "./RightMenu";
@@ -58,6 +59,13 @@ const NavigationAll = inject(
   observer(({ rootStore, settingsSt, uiSt, messageSt, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
+
+    // eslint-disable-next-line no-unused-vars
+    const [prevPathname, setPrevPathname] = useSessionStorage('prevPathname');
+
+    React.useEffect(() => {
+      setPrevPathname(router.pathname);
+    }, [router.pathname])
 
     React.useEffect(() => {
       if (uiSt.load.loading === null) {

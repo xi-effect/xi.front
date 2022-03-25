@@ -110,8 +110,7 @@ class AuthorizationStore {
                 if (data !== undefined) {
                     if (data.a === "Success") {
                         this.rootStore.uiSt.setLoading("loading", true)
-                        const router = Router
-                        router.push("/home")
+                        Router.push("/home")
                         this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/`, "GET")
                             .then((data) => {
                                 console.log(data)
@@ -142,6 +141,21 @@ class AuthorizationStore {
                 }
             })
     }
+
+    @action isAuthUser = () => {
+        this.rootStore.uiSt.setLoading("loading", true);
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/main/`, "GET")
+            .then((data) => {
+                console.log("isAuthUser", data);
+                if (data === null) {
+                    this.rootStore.uiSt.setLoading("loading", false)
+                } else {
+                    this.rootStore.uiSt.setLoading("loading", false)
+                    Router.push("/home");
+                }
+            });
+    }
+
 }
 
 export default AuthorizationStore;

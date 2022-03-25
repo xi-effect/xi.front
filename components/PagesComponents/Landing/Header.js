@@ -24,7 +24,7 @@ function Header() {
             <Button
                 onClick={() => {
                     router.push({
-                        pathname: "/home",
+                        pathname: "/login",
                     })
                 }}
                 sx={{
