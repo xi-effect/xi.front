@@ -19,11 +19,7 @@ type NewItemMenuProps = {
 
 const ITEM_HEIGHT = 80;
 
-const NewItemMenu: React.FC<NewItemMenuProps> = ({
-  contextMenu,
-  selectItemMenu,
-  closeMenu,
-}) => (
+const NewItemMenu: React.FC<NewItemMenuProps> = ({ contextMenu, selectItemMenu, closeMenu }) => (
   <Menu
     open={contextMenu !== null}
     onClose={closeMenu}
@@ -60,4 +56,4 @@ const NewItemMenu: React.FC<NewItemMenuProps> = ({
   </Menu>
 );
 
-export default NewItemMenu;
+export default React.memo<NewItemMenuProps>(NewItemMenu);

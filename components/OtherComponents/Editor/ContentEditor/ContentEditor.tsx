@@ -14,14 +14,11 @@
 /* eslint-disable react/display-name */
 // @flow
 import React from 'react';
-import {
-  // ContentState,
-  Editor,
-  EditorProps,
-} from 'draft-js';
+import { ContentState, Editor, EditorProps, EditorState } from 'draft-js';
 import 'react-virtualized/styles.css';
 import { Box } from '@mui/material';
 import { inject, observer } from 'mobx-react';
+import { DragDropContext } from 'react-beautiful-dnd';
 import TextEditor from '../TextEditor/TextEditor';
 import InlineToolPanel from '../InlineToolPanel/InlineToolPanel';
 
@@ -32,11 +29,39 @@ export interface ContentEditorProps extends EditorProps {
 
 const ContentEditor: React.FC<ContentEditorProps> = inject('contentEditorSt')(
   observer((props) => {
-    const { editorRef } = props;
+    const { editorRef, contentEditorSt } = props;
+
+    const onDragEnd = (result) => {
+      if (!result.destination) {
+        return;
+      }
+
+      if (result.destination.index === result.source.index) {
+        return;
+      }
+
+      const blockArray = contentEditorSt.editorState.getCurrentContent().getBlocksAsArray();
+      const [removedBlock] = blockArray.splice(result.source.index, 1);
+      blockArray.splice(result.destination.index, 0, removedBlock);
+      contentEditorSt.setEditorState(
+        EditorState.createWithContent(ContentState.createFromBlockArray(blockArray)),
+      );
+    };
 
     return (
       <Box sx={{ width: '100%', height: '100%', p: 2, mt: 4 }}>
-        <TextEditor {...props} editorRef={editorRef} readOnly={false} />
+        <DragDropContext onDragEnd={onDragEnd}>
+          <TextEditor
+            {...props}
+            editorRef={editorRef}
+            readOnly={false}
+            editorState={contentEditorSt.editorState}
+            onChange={contentEditorSt.onChangeFn}
+            keyBindingFn={contentEditorSt.keyBindingFn}
+            handlePastedText={contentEditorSt.handlePastedText}
+            handleBeforeInput={contentEditorSt.handleBeforeInput}
+          />
+        </DragDropContext>
         <InlineToolPanel editorRef={editorRef} />
       </Box>
     );

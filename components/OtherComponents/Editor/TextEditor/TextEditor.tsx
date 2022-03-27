@@ -14,9 +14,11 @@
 import React from 'react';
 import { Editor, EditorProps } from 'draft-js';
 import 'react-virtualized/styles.css';
-import { inject, observer } from 'mobx-react';
+// import { inject, observer } from 'mobx-react';
 // import { Box } from '@mui/material';
 
+import { Box } from '@mui/material';
+import { Droppable } from 'react-beautiful-dnd';
 import { styleMap } from '../config';
 import SelectionFn from './SelectionFn';
 
@@ -27,33 +29,46 @@ export type EditorMode = 'editor' | 'chat';
 export interface TextEditorProps extends EditorProps {
   editorRef?: React.RefObject<Editor>;
   readOnly?: boolean;
-  contentEditorSt: any;
+  editorState: any;
+  onChange: any;
+  keyBindingFn: any;
+  handlePastedText: any;
+  handleBeforeInput: any;
 }
 
-const TextEditor: React.FC<TextEditorProps> = inject('contentEditorSt')(
-  observer((props) => {
-    const {
-      // editorMode,
-      editorRef,
-      readOnly = false,
-      contentEditorSt,
-    } = props;
+const TextEditor: React.FC<TextEditorProps> = (props) => {
+  const {
+    // editorMode,
+    editorRef,
+    readOnly = false,
+    editorState,
+    onChange,
+    keyBindingFn,
+    handlePastedText,
+    handleBeforeInput,
+  } = props;
 
-    return (
-      <Editor
-        {...props}
-        ref={editorRef}
-        readOnly={readOnly}
-        customStyleMap={styleMap}
-        blockRendererFn={SelectionFn}
-        editorState={contentEditorSt.editorState}
-        onChange={contentEditorSt.onChangeFn}
-        keyBindingFn={contentEditorSt.handleKeyBinding}
-        handlePastedText={contentEditorSt.handlePastedText}
-        handleBeforeInput={contentEditorSt.handleBeforeInput}
-      />
-    );
-  }),
-);
+  return (
+    <Droppable droppableId="list">
+      {(provided) => (
+        <Box ref={provided.innerRef} {...provided.droppableProps}>
+          <Editor
+            {...props}
+            ref={editorRef}
+            readOnly={readOnly}
+            customStyleMap={styleMap}
+            blockRendererFn={SelectionFn}
+            editorState={editorState}
+            onChange={onChange}
+            keyBindingFn={keyBindingFn}
+            handlePastedText={handlePastedText}
+            handleBeforeInput={handleBeforeInput}
+          />
+          {provided.placeholder}
+        </Box>
+      )}
+    </Droppable>
+  );
+};
 
 export default TextEditor;

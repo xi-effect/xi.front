@@ -243,4 +243,4 @@ function MobileContextMenu(props: Props) {
   );
 }
 
-export default MobileContextMenu;
+export default React.memo<Props>(MobileContextMenu);

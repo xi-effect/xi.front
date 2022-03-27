@@ -23,12 +23,12 @@ const SelectionHOC: React.FC<SelectionHOCProps> = ({ props }) => {
 };
 
 const WrapperHOC: React.FC<SelectionHOCProps> = (props) => (
-  <Block>
+  <Block propsBlock={props}>
     <SelectionHOC props={props} />
   </Block>
 );
 
-const SelectionFn = (contentBlock: { getType: () => any; }) => {
+const SelectionFn = (contentBlock: { getType: () => any }) => {
   const type = contentBlock.getType();
   console.log('contentBlock', contentBlock);
   return {

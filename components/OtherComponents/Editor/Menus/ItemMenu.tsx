@@ -111,4 +111,4 @@ const ItemMenu: React.FC<ItemMenuProps> = ({ contextMenu, selectItemMenu, setCon
   );
 };
 
-export default ItemMenu;
+export default React.memo<ItemMenuProps>(ItemMenu);
