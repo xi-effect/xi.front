@@ -158,4 +158,4 @@ const InlineToolPanel: React.FC<InlineToolPanelProps> = inject('contentEditorSt'
   }),
 );
 
-export default InlineToolPanel;
+export default React.memo<InlineToolPanelProps>(InlineToolPanel);

@@ -14,11 +14,12 @@
 /* eslint-disable react/display-name */
 // @flow
 import React from 'react';
-import { ContentState, Editor, EditorProps, EditorState } from 'draft-js';
+import { Editor, ContentState, EditorProps, EditorState } from 'draft-js'; // ContentBlock
 import 'react-virtualized/styles.css';
 import { Box } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import { DragDropContext } from 'react-beautiful-dnd';
+// import { OrderedMap } from 'immutable';
 import TextEditor from '../TextEditor/TextEditor';
 import InlineToolPanel from '../InlineToolPanel/InlineToolPanel';
 
@@ -40,11 +41,29 @@ const ContentEditor: React.FC<ContentEditorProps> = inject('contentEditorSt')(
         return;
       }
 
-      const blockArray = contentEditorSt.editorState.getCurrentContent().getBlocksAsArray();
-      const [removedBlock] = blockArray.splice(result.source.index, 1);
+      // const blockArray = contentEditorSt.editorState.getCurrentContent().getBlocksAsArray();
+      // const [removedBlock] = blockArray.splice(result.source.index, 1);
+      // blockArray.splice(result.destination.index, 0, removedBlock);
+      // contentEditorSt.setEditorState(
+      //   EditorState.createWithContent(ContentState.createFromBlockArray(blockArray)),
+      // );
+      const contentState = contentEditorSt.editorState.getCurrentContent();
+      const blockArray = contentState.getBlocksAsArray();
+      const removedBlock = blockArray.splice(result.source.index, 1)[0];
       blockArray.splice(result.destination.index, 0, removedBlock);
+
+      // const newBlocks = OrderedMap(
+      //   blockArray.map((block: ContentBlock) => [block.getKey(), block]),
+      // );
+
+      console.log('contentState', contentState);
+
       contentEditorSt.setEditorState(
-        EditorState.createWithContent(ContentState.createFromBlockArray(blockArray)),
+        EditorState.push(
+          contentEditorSt.editorState,
+          ContentState.createFromBlockArray(blockArray),
+          'move-block',
+        ),
       );
     };
 

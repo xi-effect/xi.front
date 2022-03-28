@@ -16,14 +16,6 @@ import ItemMenu from '../Menus/ItemMenu';
 import MobileContextMenu from '../Menus/MobileContextMenu';
 import { BlockProps } from '../types';
 
-// Previously this extended React.Component
-// That was a good thing, because using React.PureComponent can hide
-// issues with the selectors. However, moving it over does can considerable
-// performance improvements when reordering big lists (400ms => 200ms)
-// Need to be super sure we are not relying on PureComponent here for
-// things we should be doing in the selector as we do not know if consumers
-// will be using PureComponent
-
 function Block(props: BlockProps) {
   const { children, propsBlock } = props;
   // console.log('propsBlock', propsBlock, propsBlock.block.key);
@@ -82,11 +74,12 @@ function Block(props: BlockProps) {
     },
   );
 
-  console.log('propsBlock', propsBlock.contentState.getBlocksAsArray().indexOf(propsBlock.block));
+  // console.log('propsBlock', propsBlock.contentState.getBlocksAsArray().indexOf(propsBlock.block));
   const index = propsBlock.contentState.getBlocksAsArray().indexOf(propsBlock.block);
+  // const index = Math.floor(Math.random() * (1000000 - 100 + 1)) + 1000000;
 
   return (
-    <Draggable draggableId={`list-components-id-${index}`} index={index}>
+    <Draggable draggableId={`list-components-id-${propsBlock.block.getKey()}`} index={index}>
       {(provided) => (
         <Stack
           onMouseEnter={() => setHover(true)}
