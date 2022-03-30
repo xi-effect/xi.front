@@ -14,7 +14,7 @@
 /* eslint-disable react/display-name */
 // @flow
 import React from 'react';
-import { Editor, ContentState, EditorProps, EditorState } from 'draft-js'; // ContentBlock
+import { Editor, EditorProps } from 'draft-js'; // ContentBlock
 import 'react-virtualized/styles.css';
 import { Box } from '@mui/material';
 import { inject, observer } from 'mobx-react';
@@ -32,48 +32,14 @@ const ContentEditor: React.FC<ContentEditorProps> = inject('contentEditorSt')(
   observer((props) => {
     const { editorRef, contentEditorSt } = props;
 
-    const onDragEnd = (result) => {
-      if (!result.destination) {
-        return;
-      }
-
-      if (result.destination.index === result.source.index) {
-        return;
-      }
-
-      // const blockArray = contentEditorSt.editorState.getCurrentContent().getBlocksAsArray();
-      // const [removedBlock] = blockArray.splice(result.source.index, 1);
-      // blockArray.splice(result.destination.index, 0, removedBlock);
-      // contentEditorSt.setEditorState(
-      //   EditorState.createWithContent(ContentState.createFromBlockArray(blockArray)),
-      // );
-      const contentState = contentEditorSt.editorState.getCurrentContent();
-      const blockArray = contentState.getBlocksAsArray();
-      const removedBlock = blockArray.splice(result.source.index, 1)[0];
-      blockArray.splice(result.destination.index, 0, removedBlock);
-
-      // const newBlocks = OrderedMap(
-      //   blockArray.map((block: ContentBlock) => [block.getKey(), block]),
-      // );
-
-      console.log('contentState', contentState);
-
-      contentEditorSt.setEditorState(
-        EditorState.push(
-          contentEditorSt.editorState,
-          ContentState.createFromBlockArray(blockArray),
-          'move-block',
-        ),
-      );
-    };
-
     return (
       <Box sx={{ width: '100%', height: '100%', p: 2, mt: 4 }}>
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={contentEditorSt.onDragEnd}>
           <TextEditor
             {...props}
             editorRef={editorRef}
             readOnly={false}
+            contentEditorSt={contentEditorSt}
             editorState={contentEditorSt.editorState}
             onChange={contentEditorSt.onChangeFn}
             keyBindingFn={contentEditorSt.keyBindingFn}

@@ -17,7 +17,7 @@ type TextProps = {
 };
 
 const Text: React.FC<TextProps> = ({ props }) => {
-  console.log('props', props);
+  console.log('props', 'Text');
 
   return (
     <Box

@@ -10,14 +10,15 @@ import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { useLongPress } from 'use-long-press';
 import { grey } from '@mui/material/colors';
 import { Draggable } from 'react-beautiful-dnd';
+import { inject } from 'mobx-react';
 import NewItemMenu from '../Menus/NewItemMenu';
 import ItemMenu from '../Menus/ItemMenu';
 // import SelectionHOC from './SelectionHOC';
 import MobileContextMenu from '../Menus/MobileContextMenu';
 import { BlockProps } from '../types';
 
-function Block(props: BlockProps) {
-  const { children, propsBlock } = props;
+const Block = inject('contentEditorSt')((props: BlockProps) => {
+  const { children, propsBlock, contentEditorSt } = props;
   // console.log('propsBlock', propsBlock, propsBlock.block.key);
   // @ts-ignore
   const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
@@ -82,8 +83,14 @@ function Block(props: BlockProps) {
     <Draggable draggableId={`list-components-id-${propsBlock.block.getKey()}`} index={index}>
       {(provided) => (
         <Stack
-          onMouseEnter={() => setHover(true)}
+          onMouseEnter={() => {
+            setHover(true);
+            contentEditorSt.setEditorMeta('focusedBlockKey', propsBlock.block.getKey());
+          }}
           onMouseLeave={() => setHover(false)}
+          onClick={() => {
+            contentEditorSt.setEditorMeta('focusedBlockKey', propsBlock.block.getKey());
+          }}
           direction="row"
           justifyContent="flex-start"
           alignItems="flex-start"
@@ -125,6 +132,7 @@ function Block(props: BlockProps) {
           )}
           {!mobile && (
             <NewItemMenu
+              contentEditorSt={contentEditorSt}
               contextMenu={contextNewMenu}
               selectItemMenu={() => setContextNewMenu(null)}
               closeMenu={() => setContextNewMenu(null)}
@@ -160,6 +168,7 @@ function Block(props: BlockProps) {
           )}
           {!mobile && (
             <ItemMenu
+              contentEditorSt={contentEditorSt}
               contextMenu={contextMenu}
               selectItemMenu={() => setContextMenu(null)}
               setContextMenu={setContextMenu}
@@ -182,6 +191,6 @@ function Block(props: BlockProps) {
       )}
     </Draggable>
   );
-}
+});
 
 export default Block;

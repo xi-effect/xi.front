@@ -34,6 +34,7 @@ export interface TextEditorProps extends EditorProps {
   keyBindingFn: any;
   handlePastedText: any;
   handleBeforeInput: any;
+  contentEditorSt: any;
 }
 
 const TextEditor: React.FC<TextEditorProps> = (props) => {

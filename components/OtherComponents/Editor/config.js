@@ -49,7 +49,7 @@ export const BlockStyles = [
 ];
 
 export const NewBlocks = [
-  { type: 'text', label: 'Текст', description: 'просто начните писать здесь' },
+  { type: 'unstyled', label: 'Текст', description: 'просто начните писать здесь' },
   { type: 'h1', label: 'Заголовок 1', description: 'большой заголовок' },
   { type: 'h2', label: 'Заголовок 2', description: 'средний заголовок' },
   { type: 'h3', label: 'Заголовок 3', description: 'маленький заголовок' },

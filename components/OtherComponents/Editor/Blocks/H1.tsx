@@ -18,7 +18,7 @@ type H1Props = {
 };
 
 const H1: React.FC<H1Props> = ({ props }) => {
-  console.log('props', props);
+  console.log('props', 'H1');
 
   return (
     <Box

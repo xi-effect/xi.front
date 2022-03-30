@@ -18,11 +18,17 @@ type ItemMenuProps = {
   contextMenu: any;
   selectItemMenu: () => void;
   setContextMenu: (value: null) => void;
+  contentEditorSt: any;
 };
 
 const ITEM_HEIGHT = 80;
 
-const ItemMenu: React.FC<ItemMenuProps> = ({ contextMenu, selectItemMenu, setContextMenu }) => {
+const ItemMenu: React.FC<ItemMenuProps> = ({
+  contextMenu,
+  selectItemMenu,
+  setContextMenu,
+  contentEditorSt,
+}) => {
   const [openItemsMenu, setOpenItemsMenu] = React.useState<null | string>(null);
 
   return (
@@ -57,7 +63,7 @@ const ItemMenu: React.FC<ItemMenuProps> = ({ contextMenu, selectItemMenu, setCon
           </MenuItem>
           <MenuItem
             onClick={() => {
-              // deleteItem(index);
+              contentEditorSt.deleteBlock();
               selectItemMenu();
             }}>
             <ListItemIcon>
@@ -67,7 +73,7 @@ const ItemMenu: React.FC<ItemMenuProps> = ({ contextMenu, selectItemMenu, setCon
           </MenuItem>
           <MenuItem
             onClick={() => {
-              // duplicateItem(index);
+              contentEditorSt.duplicateBlock();
               selectItemMenu();
             }}>
             <ListItemIcon>

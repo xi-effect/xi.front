@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 
 import dynamic from "next/dynamic";
 import { Stack, useMediaQuery } from "@mui/material";
-import { EditorState } from 'draft-js';
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
 
 
@@ -34,9 +33,6 @@ const PagePage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
         }
     }, [router.query.id]);
     // console.log("router.query", router.query)
-
-    const initialContent = EditorState.createEmpty();
-    console.log("initialContent", initialContent);
     const editorRef = React.useRef(null);
 
     return (

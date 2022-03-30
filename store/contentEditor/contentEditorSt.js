@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 import { observable, makeObservable, action } from 'mobx';
@@ -39,7 +40,8 @@ class ContentEditorSt {
     anchorPoint: {
       x: 0,
       y: 0,
-    }
+    },
+    focusedBlockKey: null,
   }
 
   @action setEditorMeta = (name, value) => {
@@ -97,52 +99,78 @@ class ContentEditorSt {
     this.onChangeFn(EditorState.moveFocusToEnd(newEditorState));
   };
 
-  @action newBlockAdd = (direction, editorState) => {
-    const selection = editorState.getSelection();
-    const contentState = editorState.getCurrentContent();
-    const currentBlock = contentState.getBlockForKey(selection.getEndKey());
+  @action newBlockAdd = (type = 'unstyled') => {
+    const selection = this.editorState.getSelection();
+    const contentState = this.editorState.getCurrentContent();
+    console.log("key", this.editorMeta.focusedBlockKey);
+    const currentBlock = contentState.getBlockForKey(this.editorMeta.focusedBlockKey);
 
-    const blockMap = contentState.getBlockMap();
+    const blockMap = contentState.getBlockMap()
     // Split the blocks
-    const blocksBefore = blockMap.toSeq().takeUntil((v) => v === currentBlock);
-    const blocksAfter = blockMap
-      .toSeq()
-      .skipUntil((v) => v === currentBlock)
-      .rest();
-    const newBlockKey = genKey();
-    const newBlocks =
-      direction === 'before'
-        ? [
-          [
-            newBlockKey,
-            new ContentBlock({
-              key: newBlockKey,
-              type: '',
-              text: '',
-              characterList: List(),
-            }),
-          ],
-          [currentBlock.getKey(), currentBlock],
-        ]
-        : [
-          [currentBlock.getKey(), currentBlock],
-          [
-            newBlockKey,
-            new ContentBlock({
-              key: newBlockKey,
-              type: '',
-              text: '',
-              characterList: List(),
-            }),
-          ],
-        ];
-    const newBlockMap = blocksBefore.concat(newBlocks, blocksAfter).toOrderedMap();
+    const blocksBefore = blockMap.toSeq().takeUntil((v) => v === currentBlock)
+    const blocksAfter = blockMap.toSeq().skipUntil((v) => v === currentBlock).rest()
+    const newBlockKey = genKey()
+    console.log("currentBlock", currentBlock);
+    const newBlocks = [
+      [currentBlock.getKey(), currentBlock],
+      [newBlockKey, new ContentBlock({
+        key: newBlockKey,
+        type,
+        text: '',
+        characterList: List(),
+      })],
+    ];
+    const newBlockMap = blocksBefore.concat(newBlocks, blocksAfter).toOrderedMap()
     const newContentState = contentState.merge({
       blockMap: newBlockMap,
       selectionBefore: selection,
       selectionAfter: selection,
-    });
-    return EditorState.push(editorState, newContentState, 'insert-fragment');
+    })
+    this.setEditorState(EditorState.push(this.editorState, newContentState, 'insert-fragment'));
+  };
+
+  @action duplicateBlock = () => {
+    const selection = this.editorState.getSelection();
+    const contentState = this.editorState.getCurrentContent();
+    const currentBlock = contentState.getBlockForKey(this.editorMeta.focusedBlockKey);
+
+    const blockMap = contentState.getBlockMap()
+    // Split the blocks
+    const blocksBefore = blockMap.toSeq().takeUntil((v) => v === currentBlock)
+    const blocksAfter = blockMap.toSeq().skipUntil((v) => v === currentBlock).rest()
+    const newBlockKey = genKey()
+    const newBlocks = [
+      [currentBlock.getKey(), currentBlock],
+      [newBlockKey, new ContentBlock({
+        key: newBlockKey,
+        type: currentBlock.getType(),
+        text: currentBlock.getText(),
+        characterList: currentBlock.getCharacterList(),
+      })],
+    ];
+    const newBlockMap = blocksBefore.concat(newBlocks, blocksAfter).toOrderedMap()
+    const newContentState = contentState.merge({
+      blockMap: newBlockMap,
+      selectionBefore: selection,
+      selectionAfter: selection,
+    })
+    this.setEditorState(EditorState.push(this.editorState, newContentState, 'insert-fragment'));
+  };
+
+  @action deleteBlock = () => {
+    const contentState = this.editorState.getCurrentContent();
+    const currentBlock = contentState.getBlockForKey(this.editorMeta.focusedBlockKey);
+    const blockArray = contentState.getBlocksAsArray();
+    const currentBlockIndex = blockArray.indexOf(currentBlock);
+
+    blockArray.splice(currentBlockIndex, 1);
+    this.setEditorState(
+      EditorState.push(
+        this.editorState,
+        ContentState.createFromBlockArray(blockArray),
+        'move-block',
+      ),
+    );
   };
 
   @action smartKeyCommand = (type, style, editorState) => {
@@ -178,7 +206,7 @@ class ContentEditorSt {
     }
   };
 
-  handleBeforeInput = (chars, editorState) => { // eventTimeStamp
+  @action handleBeforeInput = (chars, editorState) => { // eventTimeStamp
     // if (chars === '@') _mentionShortcut(editorState);
     if (chars === ' ' || chars === '`') {
       return this.markdownShortcut(editorState);
@@ -187,7 +215,7 @@ class ContentEditorSt {
     return 'not-handled'; // onHandleBeforeInput ? this.onHandleBeforeInput(chars, editorState, eventTimeStamp) :
   };
 
-  handleKeyBinding = (e) => {
+  @action handleKeyBinding = (e) => {
     if (e.metaKey && e.key === 'z') {
       return 'editor-undo';
     }
@@ -195,7 +223,7 @@ class ContentEditorSt {
     return getDefaultKeyBinding(e);
   };
 
-  handlePastedText = (text, html, editorState) => {
+  @action handlePastedText = (text, html, editorState) => {
     if (html) {
       const blocksFromHTML = convertFromHTML(html);
       const pastedBlocks = ContentState.createFromBlockArray(
@@ -230,6 +258,28 @@ class ContentEditorSt {
     }
 
     return 'not-handled'; // onHandlePastedText ? onHandlePastedText(text, html, editorState) :
+  };
+
+  @action onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    if (result.destination.index === result.source.index) {
+      return;
+    }
+
+    const contentState = this.editorState.getCurrentContent();
+    const blockArray = contentState.getBlocksAsArray();
+    const removedBlock = blockArray.splice(result.source.index, 1)[0];
+    blockArray.splice(result.destination.index, 0, removedBlock);
+    this.setEditorState(
+      EditorState.push(
+        this.editorState,
+        ContentState.createFromBlockArray(blockArray),
+        'move-block',
+      ),
+    );
   };
 }
 

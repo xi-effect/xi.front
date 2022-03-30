@@ -27,7 +27,7 @@ class AuthorizationStore {
 
     @action saveNewPassword = (id, data) => {
         this.setNewPasswordReset("emailResetOk", false)
-        this.rootStore.fetchData(`${this.rootStore.url}/password-reset/confirm/`, "POST", { "code": id, "password": Crypto.SHA384(data.password).toString() },)
+        this.rootStore.fetchData(`${this.rootStore.url}/password-reset/confirm/`, "POST", { "code": id, "password": Crypto.SHA384(data.password.trim()).toString() },)
             .then((data) => {
                 if (data !== undefined) {
                     if (data.a === "Success") { // "Success"
@@ -49,7 +49,7 @@ class AuthorizationStore {
     @action clickPasswordResetButton = (data) => {
         this.setPasswordReset("errorEmailNotFounedReset", false)
         this.setPasswordReset("emailResetOk", false)
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/password-reset/`, "POST", { email: data.email },)
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/password-reset/`, "POST", { email: data.email.toLowerCase() },)
             .then((data) => {
                 console.log(data)
                 if (data !== undefined) {
@@ -73,7 +73,7 @@ class AuthorizationStore {
 
     @action clickRegistrationButton = (data) => {
         this.setSignup("error", null)
-        this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString(), "username": data.username, "code": data.invite })
+        this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email.toLowerCase(), "password": Crypto.SHA384(data.password.trim()).toString(), "username": data.username, "code": data.invite })
             .then((data) => {
                 console.log(data)
                 if (data !== undefined) {
@@ -104,7 +104,7 @@ class AuthorizationStore {
     @action clickEnterButton = (data, trigger) => {
         console.log("clickEnterButton")
         this.setLogin("error", null)
-        this.rootStore.fetchData(`${this.rootStore.url}/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
+        this.rootStore.fetchData(`${this.rootStore.url}/auth/`, "POST", { "email": data.email.toLowerCase(), "password": Crypto.SHA384(data.password.trim()).toString() })
             .then((data) => {
                 console.log("/auth/", data)
                 if (data !== undefined) {

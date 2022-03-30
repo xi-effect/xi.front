@@ -65,7 +65,7 @@ function MobileContextMenu(props: Props) {
   // @ts-ignore
   // const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
   const [openItemsMenu, setOpenItemsMenu] = React.useState<null | string>(null);
-  console.log('openSwipeableDrawer', open);
+  // console.log('openSwipeableDrawer', open);
 
   return (
     <Root>

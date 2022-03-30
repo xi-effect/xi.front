@@ -11,7 +11,7 @@ import Block from '../ContentEditor/Block';
 // eslint-disable-next-line react/function-component-definition
 const SelectionHOC: React.FC<SelectionHOCProps> = ({ props }) => {
   const { blockProps } = props;
-  console.log('SelectionHOC', props);
+  // console.log('SelectionHOC', props);
   switch (blockProps?.type) {
     case 'unstyled':
       return <Text props={props} />;
@@ -30,7 +30,7 @@ const WrapperHOC: React.FC<SelectionHOCProps> = (props) => (
 
 const SelectionFn = (contentBlock: { getType: () => any }) => {
   const type = contentBlock.getType();
-  console.log('contentBlock', contentBlock);
+  // console.log('contentBlock', contentBlock);
   return {
     // @ts-ignore
     component: WrapperHOC,

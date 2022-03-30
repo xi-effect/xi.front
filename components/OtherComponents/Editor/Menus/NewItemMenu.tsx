@@ -15,11 +15,17 @@ type NewItemMenuProps = {
   contextMenu: any;
   selectItemMenu: (type: string) => void;
   closeMenu: () => void;
+  contentEditorSt: any;
 };
 
 const ITEM_HEIGHT = 80;
 
-const NewItemMenu: React.FC<NewItemMenuProps> = ({ contextMenu, selectItemMenu, closeMenu }) => (
+const NewItemMenu: React.FC<NewItemMenuProps> = ({
+  contextMenu,
+  selectItemMenu,
+  closeMenu,
+  contentEditorSt,
+}) => (
   <Menu
     open={contextMenu !== null}
     onClose={closeMenu}
@@ -42,7 +48,7 @@ const NewItemMenu: React.FC<NewItemMenuProps> = ({ contextMenu, selectItemMenu, 
       <MenuItem
         key={indx.toString()}
         onClick={() => {
-          // addNewItem(index, item.type);
+          contentEditorSt.newBlockAdd(item.type);
           selectItemMenu(item.type);
         }}>
         <Stack direction="column" justifyContent="center" alignItems="flex-start">

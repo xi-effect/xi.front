@@ -32,6 +32,7 @@ export type BlockProps = {
   // changeItemType: (index: number, newType: string) => void;
   children: any;
   propsBlock: any;
+  contentEditorSt?: any;
 };
 
 export type ContentEditorProps = {
