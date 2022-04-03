@@ -14,7 +14,7 @@ import * as yup from "yup";
 import XiLogo from "../../components/OtherComponents/XiLogo/XiLogo.tsx";
 
 const schema = yup.object({
-    password: yup.string().required(),
+    password: yup.string().min(6).max(100).required(),
 }).required();
 
 

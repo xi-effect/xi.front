@@ -54,9 +54,9 @@ class AuthorizationStore {
                 console.log(data)
                 if (data !== undefined) {
                     if (data.a === true) {
-                        this.setPasswordReset("errorEmailNotFounedReset", true)
-                    } else if (data.a === false) {
                         this.setPasswordReset("emailResetOk", true)
+                    } else if (data.a === false) {
+                        this.setPasswordReset("errorEmailNotFounedReset", true)
                     }
 
                 }

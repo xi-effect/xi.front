@@ -31,7 +31,7 @@ import * as yup from 'yup';
 
 const schema = yup
   .object({
-    email: yup.string().email().required(),
+    email: yup.string().email().max(100).required(),
     password: yup.string().min(6).max(100).required(),
   })
   .required();
