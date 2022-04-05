@@ -22,7 +22,6 @@ import { SnackbarProvider } from "notistack";
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import "../styles/globals.css"
-import 'draft-js/dist/Draft.css';
 
 import NProgress from "nprogress"; // nprogress module
 import createEmotionCache from "../store/createEmotionCache";

@@ -7,24 +7,26 @@
 /* eslint-disable import/extensions */
 import * as React from 'react';
 import { Menu, MenuItem, Stack, Typography } from '@mui/material';
+import { Transforms } from 'slate';
 import { NewBlocks } from '../config';
-// import "./TextEditor.scss";
 
 type NewItemMenuProps = {
   className?: string;
+  editor: any;
+  index: number;
   contextMenu: any;
   selectItemMenu: (type: string) => void;
   closeMenu: () => void;
-  contentEditorSt: any;
 };
 
 const ITEM_HEIGHT = 80;
 
 const NewItemMenu: React.FC<NewItemMenuProps> = ({
+  editor,
+  index,
   contextMenu,
   selectItemMenu,
   closeMenu,
-  contentEditorSt,
 }) => (
   <Menu
     open={contextMenu !== null}
@@ -48,7 +50,12 @@ const NewItemMenu: React.FC<NewItemMenuProps> = ({
       <MenuItem
         key={indx.toString()}
         onClick={() => {
-          contentEditorSt.newBlockAdd(item.type);
+          Transforms.insertNodes(
+            editor,
+            // @ts-ignore
+            { type: item.type, id: new Date().getUTCMilliseconds(), children: [{ text: '' }] },
+            { at: [index + 1] },
+          );
           selectItemMenu(item.type);
         }}>
         <Stack direction="column" justifyContent="center" alignItems="flex-start">

@@ -1,3 +1,6 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/display-name */
 /* eslint-disable react/prefer-exact-props */
 /* eslint-disable no-undef */
 /* eslint-disable react/jsx-no-bind */
@@ -5,157 +8,175 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import * as React from 'react';
-import styled from '@emotion/styled';
-import { menuSelector } from '@szhsin/react-menu/style-utils';
-// import { EmojiData } from 'emoji-mart';
-import { ControlledMenu as ControlledMenuInner, useMenuState } from '@szhsin/react-menu';
-import { Paper, Stack, Button, Tooltip, Menu } from '@mui/material';
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
-import '@szhsin/react-menu/dist/index.css';
-import { inject, observer } from 'mobx-react';
-import { INLINE_STYLES } from '../config';
-import EmojiPicker from '../Menus/EmojiPicker';
+import React, { useRef, useEffect, Ref, PropsWithChildren } from 'react';
+import { useSlate, useFocused } from 'slate-react';
+import { Editor, Range, Transforms } from 'slate';
+import ReactDOM from 'react-dom';
+import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import FormatItalicIcon from '@mui/icons-material/FormatItalic';
+import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
+// @ts-ignore
+import { cx, css } from '@emotion/css';
 
-const ControlledMenu = styled(ControlledMenuInner)`
-  ${menuSelector.name} {
-    background-color: transparent;
-  }
-`;
+interface BaseProps {
+  className: string;
+  [key: string]: unknown;
+}
+type OrNull<T> = T | null;
 
-const StyleButton = ({
-  label,
-  active,
-  style,
-  component,
-  onToggle,
-}: {
-  label: string;
-  active: boolean;
-  style: string;
-  component: JSX.Element;
-  onToggle: (type: string) => void;
-}) => {
-  const handleToggle = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    onToggle(style);
-  };
+const Button = React.forwardRef(
+  (
+    {
+      className,
+      active,
+      reversed,
+      ...props
+    }: PropsWithChildren<
+      {
+        active: boolean;
+        reversed: boolean;
+      } & BaseProps
+    >,
+    ref: Ref<OrNull<HTMLSpanElement>>,
+  ) => (
+    <span
+      {...props}
+      // @ts-ignore
+      ref={ref}
+      className={cx(
+        className,
+        css`
+          cursor: pointer;
+          color: ${reversed ? (active ? 'white' : '#aaa') : active ? 'black' : '#ccc'};
+        `,
+      )}
+    />
+  ),
+);
+
+const Menu = React.forwardRef(
+  ({ className, ...props }: PropsWithChildren<BaseProps>, ref: Ref<OrNull<HTMLDivElement>>) => (
+    <div
+      {...props}
+      // @ts-ignore
+      ref={ref}
+      className={cx(
+        className,
+        css`
+          & > * {
+            display: inline-block;
+          }
+          & > * + * {
+            margin-left: 8px;
+          }
+        `,
+      )}
+    />
+  ),
+);
+
+const Portal = ({ children }) =>
+  typeof document === 'object' ? ReactDOM.createPortal(children, document.body) : null;
+
+const HoveringToolbar = () => {
+  const ref = useRef<HTMLDivElement | null>();
+  const editor = useSlate();
+  const inFocus = useFocused();
+
+  useEffect(() => {
+    const el = ref.current;
+    const { selection } = editor;
+
+    if (!el) {
+      return;
+    }
+
+    if (
+      !selection ||
+      !inFocus ||
+      Range.isCollapsed(selection) ||
+      Editor.string(editor, selection) === ''
+    ) {
+      el.removeAttribute('style');
+      return;
+    }
+
+    const domSelection = window.getSelection();
+    if (domSelection) {
+      const domRange = domSelection.getRangeAt(0);
+      const rect = domRange.getBoundingClientRect();
+      el.style.opacity = '1';
+      el.style.top = `${rect.top + window.pageYOffset - el.offsetHeight}px`;
+      el.style.left = `${rect.left + window.pageXOffset - el.offsetWidth / 2 + rect.width / 2}px`;
+    }
+  });
 
   return (
-    <Tooltip title={label} placement="top">
-      <Button
-        sx={{
-          color: active ? 'text.primary' : 'text.secondary',
-          minWidth: 16,
-          bgcolor: active ? 'primary.light' : 'primary.dark',
-          borderRadius: 0,
-        }}
-        size="large"
-        onMouseDown={handleToggle}>
-        {component}
-      </Button>
-    </Tooltip>
+    <Portal>
+      <Menu
+        // @ts-ignore
+        ref={ref}
+        className={css`
+          padding: 8px 7px 2px;
+          position: absolute;
+          z-index: 1;
+          top: -10000px;
+          left: -10000px;
+          margin-top: 0px;
+          opacity: 0;
+          background-color: #757575;
+          border-radius: 4px;
+          transition: opacity 0.75s;
+        `}
+        onMouseDown={(e) => {
+          // prevent toolbar from taking focus away from editor
+          e.preventDefault();
+        }}>
+        <FormatButton format="bold" icon="format_bold" />
+        <FormatButton format="italic" icon="format_italic" />
+        <FormatButton format="underlined" icon="format_underlined" />
+      </Menu>
+    </Portal>
   );
 };
 
-export type InlineToolPanelProps = {
-  contentEditorSt?: any;
-  editorRef?: any;
+const isFormatActive = (editor, format) => {
+  const [match] = Editor.nodes(editor, {
+    match: (n) => n[format] === true,
+    mode: 'all',
+  });
+  return !!match;
 };
 
-const InlineToolPanel: React.FC<InlineToolPanelProps> = inject('contentEditorSt')(
-  observer((props) => {
-    const { contentEditorSt } = props;
+export const toggleFormat = (editor, format) => {
+  const isActive = isFormatActive(editor, format);
+  Transforms.setNodes(
+    editor,
+    { [format]: isActive ? null : true },
+    // @ts-ignore
+    { match: Text.isText, split: false },
+  );
+};
 
-    const currentStyle = contentEditorSt.editorState.getCurrentInlineStyle();
+const FormatButton = ({ format, icon }) => {
+  const editor = useSlate();
+  const active = isFormatActive(editor, format);
+  return (
+    <Button
+      reversed
+      active={isFormatActive(editor, format)}
+      onClick={() => toggleFormat(editor, format)}>
+      {icon === 'format_bold' && (
+        <FormatBoldIcon sx={{ color: active ? 'secondary.main' : 'text.main' }} />
+      )}
+      {icon === 'format_italic' && (
+        <FormatItalicIcon sx={{ color: active ? 'secondary.main' : 'text.main' }} />
+      )}
+      {icon === 'format_underlined' && (
+        <FormatUnderlinedIcon sx={{ color: active ? 'secondary.main' : 'text.main' }} />
+      )}
+    </Button>
+  );
+};
 
-    const [emojiPickerEl, setEmojiPickerEl] = React.useState<HTMLButtonElement | null>(null);
-
-    const handleEmojiPickerClose = () => {
-      setEmojiPickerEl(null);
-    };
-
-    const openEmojiPicker = Boolean(emojiPickerEl);
-
-    const handleClickEmojiPicker = (event: React.MouseEvent) => {
-      event.preventDefault();
-      setEmojiPickerEl(
-        emojiPickerEl === null
-          ? {
-              // @ts-ignore
-              mouseX: event.clientX - 2,
-              mouseY: event.clientY - 4,
-            }
-          : // repeated contextmenu when it is already open closes it with Chrome 84 on Ubuntu
-            // Other native context menus might behave different.
-            // With this behavior we prevent contextmenu from the backdrop to re-locale existing context menus.
-            null,
-      );
-    };
-
-    const [menuProps] = useMenuState();
-
-    return (
-      <ControlledMenu
-        {...menuProps}
-        state={contentEditorSt.editorMeta.anchorPoint.x !== 0 ? 'open' : 'closed'}
-        anchorPoint={contentEditorSt.editorMeta.anchorPoint}
-        onClose={() => contentEditorSt.setEditorMeta('anchorPoint', { x: 0, y: 0 })}>
-        <Paper
-          sx={{
-            bgcolor: 'primary.main',
-            borderRadius: 0,
-            // width: 300,
-            // height: 36,
-          }}>
-          <Stack direction="row" justifyContent="flex-start" alignItems="center">
-            {INLINE_STYLES.map((type) => (
-              <StyleButton
-                key={type.label}
-                active={currentStyle.has(type.style)}
-                label={type.label}
-                component={type.component}
-                onToggle={contentEditorSt.handleToggleInlineStyleType}
-                style={type.style}
-              />
-            ))}
-            <Tooltip title="Emoji">
-              <Button
-                sx={{
-                  color: 'text.primary',
-                  minWidth: 16,
-                  bgcolor: 'primary.dark',
-                  borderRadius: 0,
-                }}
-                size="large"
-                onClick={handleClickEmojiPicker}>
-                <EmojiEmotionsIcon />
-              </Button>
-            </Tooltip>
-            <Menu
-              open={openEmojiPicker}
-              onClose={handleEmojiPickerClose}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-              anchorReference="anchorPosition"
-              anchorPosition={
-                emojiPickerEl !== null
-                  ? // @ts-ignore
-                    { top: emojiPickerEl.mouseY - 40, left: emojiPickerEl.mouseX + 8 }
-                  : undefined
-              }
-              MenuListProps={{
-                style: {
-                  paddingBottom: 0,
-                  paddingTop: 0,
-                },
-              }}>
-              <EmojiPicker onSelect={contentEditorSt.handleAddEmoji} />
-            </Menu>
-          </Stack>
-        </Paper>
-      </ControlledMenu>
-    );
-  }),
-);
-
-export default React.memo<InlineToolPanelProps>(InlineToolPanel);
+export default HoveringToolbar;

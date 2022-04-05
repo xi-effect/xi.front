@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable default-case */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable consistent-return */
@@ -14,43 +16,130 @@
 /* eslint-disable react/display-name */
 // @flow
 import React from 'react';
-import { Editor, EditorProps } from 'draft-js'; // ContentBlock
-import 'react-virtualized/styles.css';
 import { Box } from '@mui/material';
-import { inject, observer } from 'mobx-react';
-import { DragDropContext } from 'react-beautiful-dnd';
-// import { OrderedMap } from 'immutable';
-import TextEditor from '../TextEditor/TextEditor';
-import InlineToolPanel from '../InlineToolPanel/InlineToolPanel';
+import { Slate, Editable, withReact } from 'slate-react';
+import { createEditor, Descendant, Transforms } from 'slate';
+import { withHistory } from 'slate-history';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import InlineToolPanel, { toggleFormat } from '../InlineToolPanel/InlineToolPanel';
+import Block from './Block';
+// type LeafProps = {
+//   bold: boolean;
+//   italic: boolean;
+//   underlined: boolean;
+// };
 
-export interface ContentEditorProps extends EditorProps {
-  editorRef?: React.RefObject<Editor>;
-  contentEditorSt: any;
-}
+// eslint-disable-next-line react/prop-types
+const Leaf = ({ attributes, children, leaf }) => {
+  // eslint-disable-next-line react/prop-types
+  if (leaf.bold) {
+    children = <strong>{children}</strong>;
+  }
+  // eslint-disable-next-line react/prop-types
+  if (leaf.italic) {
+    children = <em>{children}</em>;
+  }
+  // eslint-disable-next-line react/prop-types
+  if (leaf.underlined) {
+    children = <u>{children}</u>;
+  }
 
-const ContentEditor: React.FC<ContentEditorProps> = inject('contentEditorSt')(
-  observer((props) => {
-    const { editorRef, contentEditorSt } = props;
+  console.log('attributes', attributes, 'leaf', leaf);
+  return <span {...attributes}>{children}</span>;
+};
 
-    return (
-      <Box sx={{ width: '100%', height: '100%', p: 2, mt: 4 }}>
-        <DragDropContext onDragEnd={contentEditorSt.onDragEnd}>
-          <TextEditor
-            {...props}
-            editorRef={editorRef}
-            readOnly={false}
-            contentEditorSt={contentEditorSt}
-            editorState={contentEditorSt.editorState}
-            onChange={contentEditorSt.onChangeFn}
-            keyBindingFn={contentEditorSt.keyBindingFn}
-            handlePastedText={contentEditorSt.handlePastedText}
-            handleBeforeInput={contentEditorSt.handleBeforeInput}
-          />
-        </DragDropContext>
-        <InlineToolPanel editorRef={editorRef} />
-      </Box>
-    );
-  }),
-);
+const initialValue: Descendant[] = [
+  {
+    type: 'paragraph',
+    id: 1,
+    children: [
+      {
+        text:
+          'This example shows how you can make a hovering menu appear above your content, which you can use to make text ',
+      },
+      // @ts-ignore
+      { text: 'bold', bold: true },
+      { text: ', ' },
+      // @ts-ignore
+      { text: 'italic', italic: true },
+      { text: ', or anything else you might want to do!' },
+    ],
+  },
+  {
+    type: 'paragraph',
+    id: 2,
+    children: [
+      { text: 'Try it out yourself! Just ' },
+      // @ts-ignore
+      { text: 'select any piece of text and the menu will appear', bold: true },
+      { text: '.' },
+    ],
+  },
+];
+
+type Props = {
+  contentEditorSt?: any;
+};
+
+const ContentEditor: React.FC<Props> = (props) => {
+  // eslint-disable-next-line no-unused-vars
+  const { contentEditorSt } = props;
+
+  const [value, setValue] = React.useState<Descendant[]>(initialValue);
+  // @ts-ignore
+  const editor = React.useMemo(() => withHistory(withReact(createEditor())), []);
+
+  const handleChange = (value) => {
+    setValue(value);
+  };
+
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    if (result.destination.index === result.source.index) {
+      return;
+    }
+
+    Transforms.moveNodes(editor, {
+      at: [result.source.index],
+      to: [result.destination.index],
+    });
+  };
+
+  return (
+    <Box sx={{ width: 'calc(100% - 88px)', height: '100%', mt: 4, ml: 2, mr: 9 }}>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="list">
+          {(provided) => (
+            <Box ref={provided.innerRef} {...provided.droppableProps}>
+              <Slate editor={editor} value={value} onChange={handleChange}>
+                <InlineToolPanel />
+                <Editable
+                  renderElement={(props) => <Block {...props} editor={editor} value={value} />}
+                  renderLeaf={(props) => <Leaf {...props} />}
+                  placeholder="Enter some text..."
+                  onDOMBeforeInput={(event: InputEvent) => {
+                    // event.preventDefault();
+                    switch (event.inputType) {
+                      case 'formatBold':
+                        return toggleFormat(editor, 'bold');
+                      case 'formatItalic':
+                        return toggleFormat(editor, 'italic');
+                      case 'formatUnderline':
+                        return toggleFormat(editor, 'underlined');
+                    }
+                  }}
+                />
+              </Slate>
+              {provided.placeholder}
+            </Box>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </Box>
+  );
+};
 
 export default ContentEditor;
