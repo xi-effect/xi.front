@@ -36,6 +36,10 @@ const Leaf = ({ attributes, children, leaf }) => {
     children = <strong>{children}</strong>;
   }
   // eslint-disable-next-line react/prop-types
+  if (leaf.code) {
+    children = <code>{children}</code>;
+  }
+  // eslint-disable-next-line react/prop-types
   if (leaf.italic) {
     children = <em>{children}</em>;
   }
@@ -44,7 +48,6 @@ const Leaf = ({ attributes, children, leaf }) => {
     children = <u>{children}</u>;
   }
 
-  console.log('attributes', attributes, 'leaf', leaf);
   return <span {...attributes}>{children}</span>;
 };
 

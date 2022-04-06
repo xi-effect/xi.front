@@ -6,7 +6,6 @@ import React from 'react';
 import H1 from '../Blocks/H1';
 import H2 from '../Blocks/H2';
 import Text from '../Blocks/Text';
-// import Block from './Block';
 
 type Props = {
   attributes: any;

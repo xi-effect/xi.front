@@ -169,7 +169,12 @@ const Block = (props: BlockProps) => {
               setContextMenu={setContextMenu}
             />
           )}
-          <MobileContextMenu open={mobileContext} setOpen={setMobileContext} />
+          <MobileContextMenu
+            editor={editor}
+            index={index}
+            open={mobileContext}
+            setOpen={setMobileContext}
+          />
           <Stack
             {...bind}
             direction="row"

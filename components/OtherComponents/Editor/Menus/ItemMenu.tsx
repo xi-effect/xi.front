@@ -7,7 +7,6 @@
 /* eslint-disable import/extensions */
 import * as React from 'react';
 import { Menu, MenuItem, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material';
-// import "./TextEditor.scss";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
@@ -114,7 +113,6 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
             <MenuItem
               key={indx.toString()}
               onClick={() => {
-                // changeItemType(index, item.type);
                 selectItemMenu();
                 setOpenItemsMenu(null);
               }}>

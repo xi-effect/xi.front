@@ -10,7 +10,7 @@
 /* eslint-disable import/extensions */
 import React, { useRef, useEffect, Ref, PropsWithChildren } from 'react';
 import { useSlate, useFocused } from 'slate-react';
-import { Editor, Range, Transforms } from 'slate';
+import { Editor, Range } from 'slate';
 import ReactDOM from 'react-dom';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
@@ -150,12 +150,11 @@ const isFormatActive = (editor, format) => {
 
 export const toggleFormat = (editor, format) => {
   const isActive = isFormatActive(editor, format);
-  Transforms.setNodes(
-    editor,
-    { [format]: isActive ? null : true },
-    // @ts-ignore
-    { match: Text.isText, split: false },
-  );
+  if (isActive) {
+    Editor.removeMark(editor, format);
+  } else {
+    Editor.addMark(editor, format, true);
+  }
 };
 
 const FormatButton = ({ format, icon }) => {
