@@ -55,7 +55,6 @@ const Description = inject(
                         component={motion.svg}
                         variants={arrowVariants}
                         animate={description ? "open" : "closed"}
-                        // animate={"closed"}
                         transition={{ type: "ease", duration: 0.2 }}
                         sx={{ fontSize: 8 }}
                     />

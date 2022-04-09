@@ -54,7 +54,6 @@ const ChatDialog = inject("messageSt")(observer(({ messageSt }) => (
                             direction="column"
                             justifyContent="center"
                             alignItems="flex-start"
-                            // spacing={1}
                             sx={{
                                 width: "100%",
                             }}
@@ -133,7 +132,6 @@ const ChatDialog = inject("messageSt")(observer(({ messageSt }) => (
                             direction="column"
                             justifyContent="center"
                             alignItems="flex-start"
-                            // spacing={1}
                             sx={{
                                 width: "100%",
                             }}

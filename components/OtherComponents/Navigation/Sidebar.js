@@ -15,7 +15,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-
+import { Scrollbars } from "react-custom-scrollbars-2";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic"
 
@@ -24,14 +24,11 @@ const DialogCreateCommunity = dynamic(
   { ssr: false }
 )
 
-
-
 const Sidebar = inject()(
   observer(() => {
     const { enqueueSnackbar } = useSnackbar();
     const [openDialogCC, setOpenDialogCC] = React.useState(false)
     const router = useRouter();
-    // console.log("rerenderSidebar")
     const menuList = [
       {
         id: 0,
@@ -45,28 +42,105 @@ const Sidebar = inject()(
         label: "Знания",
         href: "/knowledge",
       },
-      // {
-      //   id: 2,
-      //   icon: <MessageIcon sx={{ fontSize: 28 }} />,
-      //   label: "Общение",
-      //   href: "/messages",
-      // },
       {
         id: 3,
         icon: <AddBoxIcon />,
         label: "Создать сообщество",
         href: "createcommunity",
       },
-      // {
-      //   id: 4,
-      //   icon: <SettingsIcon sx={{ fontSize: 28 }} />,
-      //   label: "Настройки",
-      //   href: "/settings",
-      // },
-
     ];
 
     const communityList = [
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
+      {
+        id: 0,
+        label: "Тестовое сообщество",
+        cId: 1,
+      },
       {
         id: 0,
         label: "Тестовое сообщество",
@@ -85,7 +159,7 @@ const Sidebar = inject()(
           pt: 2,
           width: 80,
           height: "100vh",
-          // bgcolor: "grey.800",
+          overflow: "hidden",
         }}
       >
         {menuList.map((item, index) => (
@@ -118,32 +192,42 @@ const Sidebar = inject()(
             </IconButton>
           </Tooltip>
         ))}
-        {communityList.map((item, index) => (
-          <Tooltip key={index.toString()} placement="right" title={item.label}>
-            <IconButton
-              component={motion.li}
-              whileHover={{ scale: 1.15 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => {
-                router.push(`/community/${item.cId}`);
-              }}
-              sx={{
-                bgcolor: router.pathname.includes(`/community/${item.cId}`) ? "primary.main" : "primary.dark",
-                borderRadius: router.pathname.includes(`/community/${item.cId}`) ? "8px" : "21px",
-                height: "42px",
-                width: "42px",
-                "&:hover": {
+        <Scrollbars
+          renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
+          renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
+          universal
+          style={{ height: "100%", overflowY: "hidden !important", }}
+          autoHide
+          autoHideTimeout={1000}
+          autoHideDuration={200}
+        >
+          {communityList.map((item, index) => (
+            <Tooltip key={index.toString()} placement="right" title={item.label}>
+              <IconButton
+                component={motion.li}
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => {
+                  router.push(`/community/${item.cId}`);
+                }}
+                sx={{
                   bgcolor: router.pathname.includes(`/community/${item.cId}`) ? "primary.main" : "primary.dark",
-                },
-              }}
-            >
-              {item.label[0].toUpperCase()}
-            </IconButton>
-          </Tooltip>
-        ))}
-        <Box sx={{
-          height: "100%",
-        }} />
+                  borderRadius: router.pathname.includes(`/community/${item.cId}`) ? "8px" : "21px",
+                  height: "42px",
+                  width: "42px",
+                  mt: 1.5,
+                  ml: 2.4,
+                  "&:hover": {
+                    bgcolor: router.pathname.includes(`/community/${item.cId}`) ? "primary.main" : "primary.dark",
+                  },
+                }}
+              >
+                {item.label[0].toUpperCase()}
+              </IconButton>
+            </Tooltip>
+          ))}
+          <Box sx={{ height: 12 }} />
+        </Scrollbars>
         <Tooltip placement="right" title="Настройки">
           <IconButton
             component={motion.li}

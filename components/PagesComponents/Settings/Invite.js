@@ -50,7 +50,6 @@ const Invite = inject(
             id="invite-code"
             label="Код-приглашение"
             defaultValue={settingsSt.settings.invite}
-            // value={settingsSt.settings.invite}
             onClick={() => {
               copyToClipboard(`https://xieffect.ru/registration?invite=${settingsSt.settings.invite}`)
               setStatusCopy(true)

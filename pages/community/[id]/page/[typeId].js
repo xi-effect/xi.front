@@ -6,7 +6,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import dynamic from "next/dynamic";
-import { Box, } from "@mui/material"; // useMediaQuery
+import { Box, } from "@mui/material";
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
 
 const ContentEditor = dynamic(() => import("../../../../components/OtherComponents/Editor/ContentEditor/ContentEditor.tsx"), {
@@ -14,7 +14,6 @@ const ContentEditor = dynamic(() => import("../../../../components/OtherComponen
 })
 
 const PagePage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
-    // const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
     const router = useRouter()
 
     React.useEffect(() => {
@@ -35,6 +34,7 @@ const PagePage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
                 <Box
                 >
                     <ContentEditor
+                        initialState={null}
                     />
                 </Box>
             </NavigationAll>

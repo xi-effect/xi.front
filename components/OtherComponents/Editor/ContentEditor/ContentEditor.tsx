@@ -18,16 +18,12 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { Slate, Editable, withReact } from 'slate-react';
+import { useLocalStorage } from 'react-use';
 import { createEditor, Descendant, Transforms } from 'slate';
 import { withHistory } from 'slate-history';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import InlineToolPanel, { toggleFormat } from '../InlineToolPanel/InlineToolPanel';
 import Block from './Block';
-// type LeafProps = {
-//   bold: boolean;
-//   italic: boolean;
-//   underlined: boolean;
-// };
 
 // eslint-disable-next-line react/prop-types
 const Leaf = ({ attributes, children, leaf }) => {
@@ -51,49 +47,37 @@ const Leaf = ({ attributes, children, leaf }) => {
   return <span {...attributes}>{children}</span>;
 };
 
-const initialValue: Descendant[] = [
+const initialValueDefault = [
   {
     type: 'paragraph',
     id: 1,
     children: [
       {
-        text:
-          'This example shows how you can make a hovering menu appear above your content, which you can use to make text ',
+        text: '',
       },
-      // @ts-ignore
-      { text: 'bold', bold: true },
-      { text: ', ' },
-      // @ts-ignore
-      { text: 'italic', italic: true },
-      { text: ', or anything else you might want to do!' },
-    ],
-  },
-  {
-    type: 'paragraph',
-    id: 2,
-    children: [
-      { text: 'Try it out yourself! Just ' },
-      // @ts-ignore
-      { text: 'select any piece of text and the menu will appear', bold: true },
-      { text: '.' },
     ],
   },
 ];
 
 type Props = {
-  contentEditorSt?: any;
+  initialState?: any;
+  pageId?: any;
 };
 
 const ContentEditor: React.FC<Props> = (props) => {
   // eslint-disable-next-line no-unused-vars
-  const { contentEditorSt } = props;
+  const { initialState, pageId } = props;
 
-  const [value, setValue] = React.useState<Descendant[]>(initialValue);
+  const [value, setValue] = React.useState<Descendant[]>(initialState || initialValueDefault);
   // @ts-ignore
   const editor = React.useMemo(() => withHistory(withReact(createEditor())), []);
 
+  // eslint-disable-next-line no-unused-vars
+  const [storage, setStorage, remove] = useLocalStorage(`page-${pageId}`);
+
   const handleChange = (value) => {
     setValue(value);
+    setStorage(value)
   };
 
   const onDragEnd = (result) => {

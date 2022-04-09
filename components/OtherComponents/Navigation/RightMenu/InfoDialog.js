@@ -15,7 +15,6 @@ const InfoPage = inject(
             direction="column"
             justifyContent="flex-start"
             alignItems="flex-start"
-        // spacing={2}
         >
             <Typography
                 variant="subtitle1"

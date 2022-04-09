@@ -27,8 +27,6 @@ function FAQ() {
           variant="IBMPlexSans700WhyLabel"
           sx={{
             cursor: "default",
-            // textAlign: "center",
-            // maxWidth: "912px",
             fontSize: {
               xs: "28px",
               sm: "30px",

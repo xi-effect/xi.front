@@ -8,8 +8,6 @@ import NavigationAll from "../../../../components/OtherComponents/Navigation/Nav
 
 
 const LessonPage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
-    // console.log("router.query", router.query.id);
-
     const router = useRouter()
 
     React.useEffect(() => {
@@ -17,7 +15,6 @@ const LessonPage = inject("rootStore", "settingsSt", "profileSt")(observer(() =>
             // do smth 
         }
     }, [router.query.id]);
-    // console.log("router.query", router.query)
 
     return (
         <>

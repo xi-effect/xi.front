@@ -29,20 +29,19 @@ const schema = yup.object({
 
 const Registration = inject("authorizationSt")(observer(({ authorizationSt }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
-
     const router = useRouter();
+
     const [showPassword, setShowPassword] = React.useState(false);
+    
     const { control, setValue, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
-    // console.log("errors", errors);
+
     const onSubmit = data => authorizationSt.clickRegistrationButton(data);
 
     React.useEffect(() => {
-        console.log("query", router.query)
         if (router.query.invite) setValue("invite", router.query.invite)
     }, [router.query, setValue]);
-    // console.log("query1", router.query)
 
     return (
         <>

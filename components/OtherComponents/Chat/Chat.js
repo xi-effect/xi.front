@@ -39,8 +39,6 @@ function LoadingSkeleton() {
                             pr: 2,
                             mt: 1,
                             borderRadius: 1,
-                            // width: "100%",
-                            // maxWidth: 1200,
                             width: "100%",
                         }}
                     >
@@ -116,10 +114,9 @@ const Chat = inject(
                     dataLength={messageSt.chat.messages.length}
                     next={() => messageSt.uploadMoreMessages(messageSt.chat.id)}
                     style={{ display: "flex", flexDirection: "column-reverse" }} // To put endMessage and loader to the top.
-                    inverse //
+                    inverse
                     scrollThreshold={0.6}
                     hasMore={messageSt.chat.hasNext}
-                    // endMessage={<Typography align="center" sx={{ color: "text.main", width: "100%", m: 4 }} variant="subtitle2"> Это всё </Typography>}
                     loader={<LoadingSkeleton />}
                     scrollableTarget="scrollableDiv"
                 >
@@ -131,12 +128,9 @@ const Chat = inject(
                             direction="row"
                             justifyContent="center"
                             alignItems="center"
-                            // spacing={4}
                             sx={{
                                 width: "calc(100% - 16px)",
                                 pl: "8px",
-                                // mt: 2,
-                                // marginRight: 2,
                             }}
                         >
                             <ChatItem

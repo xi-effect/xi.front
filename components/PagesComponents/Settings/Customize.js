@@ -5,10 +5,6 @@ import { inject, observer } from "mobx-react"
 import DarkModeToggle from "react-dark-mode-toggle"
 
 const Customize = inject("rootStore", "settingsSt")(observer(({ rootStore, settingsSt }) => {
-
-    // const [isDarkMode, setIsDarkMode] = useState(() => false);
-    // const { enqueueSnackbar } = useSnackbar();
-
     const saveNewTheme = () => {
         rootStore.fetchDataScr(`${rootStore.url}/settings/`, "POST", {
             "changed": { "dark-theme": !settingsSt.settings.darkTheme }

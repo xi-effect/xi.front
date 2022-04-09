@@ -51,17 +51,11 @@ const DialogInvite = inject()(
           aria-describedby="alert-dialog-description"
           fullWidth
           maxWidth="md"
-          sx={
-            {
-              // height: "100%"
-            }
-          }
         >
           <Stack
             direction="row"
             justifyContent="center"
             alignItems="center"
-            // spacing={2}
             sx={{
               height: 64,
               width: "100%",
@@ -135,16 +129,7 @@ const DialogInvite = inject()(
                       key={index.toString()}
                       onClick={null}
                       variant="filled"
-                      // color="inherit"
                       label={item}
-                      sx={
-                        {
-                          // height: 30,
-                          // width: 30,
-                          // borderRadius: 2,
-                          // border: "4px solid"
-                        }
-                      }
                     />
                   ))}
                 </Stack>
@@ -184,16 +169,7 @@ const DialogInvite = inject()(
                         key={index.toString()}
                         onClick={null}
                         variant="filled"
-                        // color="inherit"
                         label={item}
-                        sx={
-                          {
-                            // height: 30,
-                            // width: 30,
-                            // borderRadius: 2,
-                            // border: "4px solid"
-                          }
-                        }
                       />
                     )
                   )}
@@ -224,16 +200,7 @@ const DialogInvite = inject()(
                         key={index.toString()}
                         onClick={null}
                         variant="filled"
-                        // color="inherit"
                         label={item}
-                        sx={
-                          {
-                            // height: 30,
-                            // width: 30,
-                            // borderRadius: 2,
-                            // border: "4px solid"
-                          }
-                        }
                       />
                     )
                   )}

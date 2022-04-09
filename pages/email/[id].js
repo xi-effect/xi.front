@@ -53,7 +53,6 @@ const Email = inject("rootStore")(observer(({ rootStore }) => {
                         zIndex: 10,
                         width: "calc(100% - 32px)",
                         maxWidth: 512,
-                        // mt: mobile ? "2px" : -32,
                         mt: 0,
                         bgcolor: "grey.800",
                         borderRadius: "20px",

@@ -16,7 +16,6 @@ const Settings = inject()(observer(() => (
                 variant="Roboto500XiLabel"
                 sx={{
                     fontSize: 18,
-                    // p: 1
                 }}
             >
                 Настройки

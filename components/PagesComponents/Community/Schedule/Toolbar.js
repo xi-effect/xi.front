@@ -38,7 +38,6 @@ const Toolbar = inject()(observer(() => (
         direction="row"
         justifyContent="flex-start"
         alignItems="center"
-        // spacing={1}
         sx={{
             width: "100%",
             height: 64,

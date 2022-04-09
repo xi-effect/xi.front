@@ -17,15 +17,11 @@ const DialogCategoryCreation = inject()(observer(({ openDialogCategoryCreation, 
             aria-describedby="alert-dialog-description"
             fullWidth
             maxWidth="md"
-            sx={{
-                // height: "100%"
-            }}
         >
             <Stack
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                // spacing={2}
                 sx={{
                     height: 64,
                     width: "100%",
@@ -41,7 +37,6 @@ const DialogCategoryCreation = inject()(observer(({ openDialogCategoryCreation, 
                     direction="column"
                     justifyContent="flex-start"
                     alignItems="flex-start"
-                    // spacing={2}
                     sx={{
                         height: 100,
                         width: "100%",

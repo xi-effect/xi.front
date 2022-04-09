@@ -26,12 +26,13 @@ const arrowVariants = {
 
 const Channel = inject("communitySt")(observer(({ communitySt, index }) => {
     const channel = communitySt.channels[index]
-    const [hoverCategory, setHoverCategory] = React.useState(null)
+
+    const [hoverCategory, setHoverCategory] = React.useState(null);
+
     const router = useRouter();
     const splitPathname = router.pathname.split("/")
     const lastType = splitPathname[splitPathname.length - 2]
     const typeId = router.query.typeId ?? null
-    // console.log("splitPathname", splitPathname, lastType, typeId, router.query)
 
     const iconSelect = (type) => {
         if (type === "schedule") return <TodayIcon fontSize="small" />
@@ -251,9 +252,6 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communitySt")(ob
                 }}
             >
                 <Stack
-                    // onClick={() => communitySt.setChannel(index, "open", !channel.open)}
-                    // onMouseEnter={() => setHoverCategory(index)}
-                    // onMouseLeave={() => setHoverCategory(null)}
                     direction="row"
                     justifyContent="flex-start"
                     alignItems="center"
@@ -272,7 +270,6 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communitySt")(ob
                     <ArrowForwardIosIcon
                         component={motion.svg}
                         variants={arrowVariants}
-                        // animate={channel.open ? "open" : "closed"}
                         animate="closed"
                         transition={{ type: "ease", duration: 0.2 }}
                         sx={{ fontSize: 8 }}
@@ -301,9 +298,6 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communitySt")(ob
                 }}
             >
                 <Stack
-                    // onClick={() => communitySt.setChannel(index, "open", !channel.open)}
-                    // onMouseEnter={() => setHoverCategory(index)}
-                    // onMouseLeave={() => setHoverCategory(null)}
                     direction="row"
                     justifyContent="flex-start"
                     alignItems="center"
@@ -322,7 +316,6 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communitySt")(ob
                     <ArrowForwardIosIcon
                         component={motion.svg}
                         variants={arrowVariants}
-                        // animate={channel.open ? "open" : "closed"}
                         animate="closed"
                         transition={{ type: "ease", duration: 0.2 }}
                         sx={{ fontSize: 8 }}
