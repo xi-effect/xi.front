@@ -10,16 +10,14 @@ import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { useLongPress } from 'use-long-press';
 import { grey } from '@mui/material/colors';
 import { Draggable } from 'react-beautiful-dnd';
-import { inject } from 'mobx-react';
 import NewItemMenu from '../Menus/NewItemMenu';
 import ItemMenu from '../Menus/ItemMenu';
-// import SelectionHOC from './SelectionHOC';
 import MobileContextMenu from '../Menus/MobileContextMenu';
 import { BlockProps } from '../types';
+import Element from './Element';
 
-const Block = inject('contentEditorSt')((props: BlockProps) => {
-  const { children, propsBlock, contentEditorSt } = props;
-  // console.log('propsBlock', propsBlock, propsBlock.block.key);
+const Block = (props: BlockProps) => {
+  const { editor, children, attributes, element, value } = props;
   // @ts-ignore
   const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
 
@@ -61,8 +59,6 @@ const Block = inject('contentEditorSt')((props: BlockProps) => {
     );
   };
 
-  // console.log('provided', provided);
-
   const bind = useLongPress(
     (event) => {
       event?.preventDefault();
@@ -75,33 +71,26 @@ const Block = inject('contentEditorSt')((props: BlockProps) => {
     },
   );
 
-  // console.log('propsBlock', propsBlock.contentState.getBlocksAsArray().indexOf(propsBlock.block));
-  const index = propsBlock.contentState.getBlocksAsArray().indexOf(propsBlock.block);
-  // const index = Math.floor(Math.random() * (1000000 - 100 + 1)) + 1000000;
+  const index = value.findIndex((item) => item.id === element.id);
 
   return (
-    <Draggable draggableId={`list-components-id-${propsBlock.block.getKey()}`} index={index}>
+    <Draggable draggableId={`list-components-id-${element.id}`} index={index}>
       {(provided) => (
         <Stack
           onMouseEnter={() => {
             setHover(true);
-            contentEditorSt.setEditorMeta('focusedBlockKey', propsBlock.block.getKey());
           }}
           onMouseLeave={() => setHover(false)}
-          onClick={() => {
-            contentEditorSt.setEditorMeta('focusedBlockKey', propsBlock.block.getKey());
-          }}
           direction="row"
           justifyContent="flex-start"
           alignItems="flex-start"
           sx={{
-            // p: 1,
+            position: 'relative',
             width: '100%',
             height: '100%',
             cursor: 'default !important',
           }}
           ref={provided.innerRef}
-          // draggable={isDragging}
           {...provided.draggableProps}>
           {!mobile && (
             <Tooltip title="Добавить элемент">
@@ -110,10 +99,12 @@ const Block = inject('contentEditorSt')((props: BlockProps) => {
                 alignItems="center"
                 onClick={(event) => handleContextNewMenu(event)}
                 sx={{
+                  position: 'absolute',
+                  top: 2,
+                  left: 4,
                   cursor: 'pointer !important',
                   visibility: hover ? 'visible' : 'hidden',
                   transition: '0.2s',
-                  mt: '4px',
                   userSelect: 'none',
                   width: '36px',
                   height: '36px',
@@ -132,7 +123,8 @@ const Block = inject('contentEditorSt')((props: BlockProps) => {
           )}
           {!mobile && (
             <NewItemMenu
-              contentEditorSt={contentEditorSt}
+              editor={editor}
+              index={index}
               contextMenu={contextNewMenu}
               selectItemMenu={() => setContextNewMenu(null)}
               closeMenu={() => setContextNewMenu(null)}
@@ -146,10 +138,12 @@ const Block = inject('contentEditorSt')((props: BlockProps) => {
                 onClick={(e) => handleContextMenu(e)}
                 {...provided.dragHandleProps}
                 sx={{
+                  position: 'absolute',
+                  top: 2,
+                  left: 42,
                   cursor: 'grab !important',
                   visibility: hover ? 'visible' : 'hidden',
                   transition: '0.2s',
-                  mt: '4px',
                   userSelect: 'none',
                   width: '36px',
                   height: '36px',
@@ -168,13 +162,19 @@ const Block = inject('contentEditorSt')((props: BlockProps) => {
           )}
           {!mobile && (
             <ItemMenu
-              contentEditorSt={contentEditorSt}
+              editor={editor}
+              index={index}
               contextMenu={contextMenu}
               selectItemMenu={() => setContextMenu(null)}
               setContextMenu={setContextMenu}
             />
           )}
-          <MobileContextMenu open={mobileContext} setOpen={setMobileContext} />
+          <MobileContextMenu
+            editor={editor}
+            index={index}
+            open={mobileContext}
+            setOpen={setMobileContext}
+          />
           <Stack
             {...bind}
             direction="row"
@@ -183,14 +183,17 @@ const Block = inject('contentEditorSt')((props: BlockProps) => {
             sx={{
               width: '100%',
               height: '100%',
-              p: 1,
+              p: 0.5,
+              pl: 10,
             }}>
-            {children}
+            <Element attributes={attributes} element={element}>
+              {children}
+            </Element>
           </Stack>
         </Stack>
       )}
     </Draggable>
   );
-});
+};
 
 export default Block;

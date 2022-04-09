@@ -123,7 +123,6 @@ const Community = inject()(observer(() => {
             <Popper
                 open={open}
                 anchorEl={anchorRef.current}
-                // role={undefined}
                 placement="bottom-end"
                 transition
                 disablePortal

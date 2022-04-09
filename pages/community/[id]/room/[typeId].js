@@ -7,8 +7,6 @@ import NavigationAll from "../../../../components/OtherComponents/Navigation/Nav
 
 
 const RoomPage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
-    // console.log("router.query", router.query.id);
-
     const router = useRouter()
 
     React.useEffect(() => {
@@ -16,7 +14,6 @@ const RoomPage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
             // do smth 
         }
     }, [router.query.id]);
-    // console.log("router.query", router.query)
 
     return (
         <>

@@ -19,7 +19,6 @@ const DateLine = inject()(
                         width: "100%",
                         height: "100%",
                         bgcolor: "primary.main",
-                        // borderTopLeftRadius: 16,
                         pl: "82px",
                     }}
                 >

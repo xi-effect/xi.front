@@ -9,27 +9,14 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ReportIcon from "@mui/icons-material/Report";
 import { motion } from "framer-motion"
 import CustomAvatar from "../Avatar/CustomAvatar"
-
-import KnowledgeСreatePage from "./RightMenu/KnowledgeСreatePage";
-import KnowledgeСreateModule from "./RightMenu/KnowledgeСreateModule";
-import KnowledgeСreatePageMap from "./RightMenu/KnowledgeСreatePageMap";
-import KnowledgeСreateModuleMap from "./RightMenu/KnowledgeСreateModuleMap";
-import KnowledgeModuleTools from "./RightMenu/KnowledgeModuleTools";
-import KnowledgePageTools from "./RightMenu/KnowledgePageTools";
-import KnowledgePagesTools from "./RightMenu/KnowledgePagesTools";
-import KnowledgeModulesTools from "./RightMenu/KnowledgeModulesTools";
-import KnowledgeModuleMap from "./RightMenu/KnowledgeModuleMap";
-import KnowledgeModulesFilters from "./RightMenu/KnowledgeModulesFilters";
 import HomeNotifications from "./RightMenu/HomeNotifications";
 
 import ReportDialog from "./RightMenu/ReportDialog";
-import InfoDialog from "./RightMenu/InfoDialog";
 
 const RightMenu = inject(
-  "knowledgeSt",
   "settingsSt",
 )(
-  observer(({ knowledgeSt, settingsSt }) => {
+  observer(({ settingsSt }) => {
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
 
@@ -82,32 +69,8 @@ const RightMenu = inject(
       }
     };
 
-    const goNext = () => {
-      if (!router.pathname.includes("/knowledge/module/results")) {
-        knowledgeSt.loadPageInModule(
-          knowledgeSt.module.activeIdInMap + 1
-        )
-      }
-      if (router.pathname.includes("/knowledge/module/results")) {
-        console.log("r", knowledgeSt.moduleCompleted.results)
-        let indx = knowledgeSt.moduleCompleted.results.findIndex((item) => {
-          console.log(item, knowledgeSt.page.id)
-          if (item["page-id"] === knowledgeSt.page.id) return true
-          return null
-        })
-        console.log("indx", indx)
-        if (indx + 1 === knowledgeSt.moduleCompleted.results.length) return knowledgeSt.uploadPageForResults(knowledgeSt.moduleCompleted.results[0]["page-id"], 0)
-        indx += 1
-        return knowledgeSt.uploadPageForResults(knowledgeSt.moduleCompleted.results[indx]["page-id"], indx)
-      }
-      return null
-    }
-
-
     const [open, setOpen] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
-    const [openDialogInfo, setOpenDialogInfo] = React.useState(false);
-
 
     return (
       <Paper
@@ -179,7 +142,6 @@ const RightMenu = inject(
                 >
                   <Typography variant="h6" sx={{ mt: 0, ml: 0, mr: 0, width: "calc(100% - 0px)" }} noWrap>
                     {settingsSt.settings.username}
-                    {/* asfbdvasbfdafbdafbdab */}
                   </Typography>
                   <Typography variant="subtitle1" sx={{ mt: 0, ml: 0, mr: 0, width: "calc(100% - 0px)" }}>
                     {`${settingsSt.settings.username} ${settingsSt.settings.username}`}
@@ -246,37 +208,13 @@ const RightMenu = inject(
             direction="column"
             justifyContent="space-between"
             alignItems="center"
-            // spacing={12}
             sx={{ height: "100%", width: "100%", zIndex: 100, }}
           >
             <Stack sx={{ height: "100%", width: "100%", mt: 1, mb: "auto" }}>
               {router.pathname.includes("/home") && <HomeNotifications />}
-              {router.pathname.includes("/knowledge/createpage") && <KnowledgeСreatePageMap />}
-              {router.pathname.includes("/knowledge/createmodule") && <KnowledgeСreateModuleMap />}
-              {router.pathname.includes("/knowledge/modules") && <KnowledgeModulesFilters />}
-              {!knowledgeSt.moduleCompleted.isFinished && knowledgeSt.module.map !== undefined && knowledgeSt.module.map.length !== 0 && router.pathname.includes("/knowledge/module/") && <KnowledgeModuleMap goNext={goNext} />}
-            </Stack>
-            <Stack
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              spacing={1}
-              sx={{ mt: "auto", pb: 2 }}
-            >
-              {router.pathname.includes("/knowledge/module/") && <KnowledgeModuleTools goNext={goNext} setOpenDialog={setOpenDialogInfo} />}
-              {router.pathname.includes("/knowledge/page/") && <KnowledgePageTools setOpenDialog={setOpenDialogInfo} />}
-              {router.pathname === "/knowledge/pages" && <KnowledgePagesTools />}
-              {router.pathname === "/knowledge/modules" && <KnowledgeModulesTools />}
-              {router.pathname.includes("/knowledge/createpage") && <KnowledgeСreatePage />}
-              {router.pathname.includes("/knowledge/createmodule") && <KnowledgeСreateModule />}
-
             </Stack>
           </Stack>
-          {/* {router.pathname.includes("/knowledge/createmodule") && <KnowledgeСreateModule />} */}
-
           <ReportDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
-          <InfoDialog openDialog={openDialogInfo} setOpenDialog={setOpenDialogInfo} />
-
         </Stack >
       </Paper >
     );

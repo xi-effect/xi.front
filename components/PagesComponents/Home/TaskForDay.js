@@ -250,7 +250,6 @@ const Days = inject()(observer(() => (
                         direction="column"
                         justifyContent="center"
                         alignItems="center"
-                    // spacing={2}
                     >
                         <Typography
                             variant="subtitle1"

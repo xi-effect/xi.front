@@ -14,10 +14,6 @@ function TabPanel(props) {
             direction="row"
             justifyContent="center"
             alignItems="flex-start"
-            // sx={{
-            //     width: "100%",
-            //     heght: "100%",
-            // }}
             role="tabpanel"
             hidden={value !== index}
             id={`vertical-tabpanel-${index}`}
@@ -68,9 +64,6 @@ const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSet
             onClose={() => setOpenDialogSettings(false)}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
-            sx={{
-                // height: "100%"
-            }}
         >
             <DialogContent>
                 <Stack

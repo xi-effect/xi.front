@@ -14,8 +14,6 @@ const ChatBar = inject("rootStore", "uiSt", "messageSt")(observer(({ messageSt }
         spacing={1}
         sx={{
             minHeight: 72,
-            // width: "100%",
-            // m: 0,
             pb: 1,
             position: "fixed",
             left: "336px",

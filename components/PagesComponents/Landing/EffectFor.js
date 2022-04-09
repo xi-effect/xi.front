@@ -244,7 +244,6 @@ function EffectFor() {
                             justifyContent="center"
                             alignItems="flex-start"
                             sx={{
-                                // mt: mobile ? "30px" : "80px",
                                 width: "100%",
                                 zIndex: 10,
                             }}
@@ -279,7 +278,6 @@ function EffectFor() {
                                                 variant="IBMPlexSans700WhyLabel"
                                                 sx={{
                                                     cursor: "default",
-                                                    // color: "#272731",
                                                     pt: mobile ? "20px" : "40px",
                                                     pl: mobile ? "16px" : "32px",
                                                     pr: mobile ? "16px" : "32px",

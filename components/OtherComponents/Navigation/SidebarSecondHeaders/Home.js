@@ -21,14 +21,12 @@ const Home = inject()(observer(() => {
                 variant="Roboto500XiLabel"
                 sx={{
                     fontSize: 18,
-                    // p: 1
                 }}
             >
                 Главная
             </Typography>
             <Tooltip arrow title="Создать профиль">
                 <IconButton
-                    // disableRipple
                     sx={{
                         height: 36,
                         width: 36,

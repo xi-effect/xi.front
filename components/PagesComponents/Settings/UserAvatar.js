@@ -151,14 +151,11 @@ const UserAvatar = inject("settingsSt")(observer(({ settingsSt }) => (
                         direction="column"
                         justifyContent="center"
                         alignItems="center"
-                    // spacing={2}
                     >
                         <Box onClick={() => settingsSt.setSettingsSecond("avatar", "bgcolor", index)} sx={{ height: 64, width: 64, m: 1, cursor: "pointer" }}>
                             <CustomAvatar avatar={{ ...settingsSt.settings.avatar, bgcolor: index }} viewBox={{ x: "50", y: "-100", width: "732", height: "732" }} />
                         </Box>
-                        {/* <Box sx={{ height: 32, width: 64, m: 1, }}> */}
                         {settingsSt.settings.avatar.bgcolor === index && <CheckIcon />}
-                        {/* </Box> */}
                     </Stack>
                 ))}
             </Grid>

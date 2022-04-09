@@ -59,7 +59,6 @@ const PassResetEmail = inject(
         <Head>
           <title>Ξ Смена пароля</title>
         </Head>
-        {/* {uiSt.loading["/login"] && <Loading />} */}
         <Stack
           direction="column"
           justifyContent="space-between"
@@ -92,10 +91,6 @@ const PassResetEmail = inject(
               width: "calc(100% - 32px)",
               maxWidth: 512,
               zIndex: 0,
-              // mt: mobile ? "2px" : -32,
-              // mt: 10,
-              // ml: mobile ? "16px" : "100px",
-              // mr: mobile ? "16px" : "100px",
               bgcolor: "grey.800",
               borderRadius: "20px",
             }}
@@ -136,10 +131,6 @@ const PassResetEmail = inject(
               elevation={24}
               sx={{
                 zIndex: 500,
-                // mt: mobile ? "2px" : -32,
-                // mt: 10,
-                // ml: mobile ? "16px" : "100px",
-                // mr: mobile ? "16px" : "100px",
                 bgcolor: "grey.800",
                 borderRadius: "20px",
               }}

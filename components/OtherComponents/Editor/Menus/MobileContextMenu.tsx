@@ -24,6 +24,8 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import UndoIcon from '@mui/icons-material/Undo';
+import { Transforms, Node } from 'slate';
+import { useCopyToClipboard } from 'react-use';
 import { NewBlocks } from '../config';
 
 const drawerBleeding = 0;
@@ -50,22 +52,16 @@ const Puller = styled(Box)(({ theme }) => ({
 type Props = {
   open: boolean;
   setOpen: (state: boolean) => void;
+  editor: any;
+  index: any;
 };
 
-// Previously this extended React.Component
-// That was a good thing, because using React.PureComponent can hide
-// issues with the selectors. However, moving it over does can considerable
-// performance improvements when reordering big lists (400ms => 200ms)
-// Need to be super sure we are not relying on PureComponent here for
-// things we should be doing in the selector as we do not know if consumers
-// will be using PureComponent
-
 function MobileContextMenu(props: Props) {
-  const { open, setOpen } = props;
+  const { editor, index, open, setOpen } = props;
   // @ts-ignore
-  // const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
   const [openItemsMenu, setOpenItemsMenu] = React.useState<null | string>(null);
-  // console.log('openSwipeableDrawer', open);
+  // eslint-disable-next-line no-unused-vars
+  const [state, copyToClipboard] = useCopyToClipboard();
 
   return (
     <Root>
@@ -83,18 +79,13 @@ function MobileContextMenu(props: Props) {
         open={open}
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
-        // swipeAreaWidth={drawerBleeding}
         PaperProps={{
           sx: {
             borderTopLeftRadius: '32px',
             borderTopRightRadius: '32px',
           },
         }}
-        disableSwipeToOpen
-        // ModalProps={{
-        //   keepMounted: true,
-        // }}
-      >
+        disableSwipeToOpen>
         <StyledBox
           sx={{
             position: 'absolute',
@@ -159,7 +150,7 @@ function MobileContextMenu(props: Props) {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  // deleteItem(index);
+                  if (editor.children.length !== 1) Transforms.removeNodes(editor, { at: [index] });
                   setOpen(false);
                 }}>
                 <ListItemIcon>
@@ -173,7 +164,12 @@ function MobileContextMenu(props: Props) {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  // duplicateItem(index);
+                  Transforms.insertNodes(
+                    editor,
+                    // @ts-ignore
+                    { ...editor.children[index], id: new Date().getUTCMilliseconds() },
+                    { at: [index + 1] },
+                  );
                   setOpen(false);
                 }}>
                 <ListItemIcon>
@@ -187,7 +183,7 @@ function MobileContextMenu(props: Props) {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  // duplicateItem(index);
+                  copyToClipboard(Node.string(editor.children[index]));
                   setOpen(false);
                 }}>
                 <ListItemIcon>

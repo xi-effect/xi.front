@@ -29,7 +29,6 @@ const MenuKnowledgeComp = inject()(observer(() => {
                     width: "100%",
                     borderRadius: 1,
                     cursor: "pointer",
-                    // bgcolor: router.pathname.includes("/knowledge/pages") ? "" : "",
                 }}
             >
                 cтраницы

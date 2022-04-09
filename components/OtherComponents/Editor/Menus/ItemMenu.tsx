@@ -7,29 +7,36 @@
 /* eslint-disable import/extensions */
 import * as React from 'react';
 import { Menu, MenuItem, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material';
-// import "./TextEditor.scss";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
+import { Transforms, Node } from 'slate';
+import { useCopyToClipboard } from 'react-use';
 import { NewBlocks } from '../config';
 
 type ItemMenuProps = {
+  editor: any;
+  index: number;
   contextMenu: any;
   selectItemMenu: () => void;
   setContextMenu: (value: null) => void;
-  contentEditorSt: any;
 };
 
 const ITEM_HEIGHT = 80;
 
 const ItemMenu: React.FC<ItemMenuProps> = ({
+  editor,
+  index,
   contextMenu,
   selectItemMenu,
   setContextMenu,
-  contentEditorSt,
 }) => {
   const [openItemsMenu, setOpenItemsMenu] = React.useState<null | string>(null);
+  // eslint-disable-next-line no-unused-vars
+  const [state, copyToClipboard] = useCopyToClipboard();
+
+  console.log('editor', editor);
 
   return (
     <Menu
@@ -62,8 +69,9 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
             <ListItemText>Сменить тип</ListItemText>
           </MenuItem>
           <MenuItem
+            disabled={editor.children.length === 1}
             onClick={() => {
-              contentEditorSt.deleteBlock();
+              if (editor.children.length !== 1) Transforms.removeNodes(editor, { at: [index] });
               selectItemMenu();
             }}>
             <ListItemIcon>
@@ -73,7 +81,12 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
           </MenuItem>
           <MenuItem
             onClick={() => {
-              contentEditorSt.duplicateBlock();
+              Transforms.insertNodes(
+                editor,
+                // @ts-ignore
+                { ...editor.children[index], id: new Date().getUTCMilliseconds() },
+                { at: [index + 1] },
+              );
               selectItemMenu();
             }}>
             <ListItemIcon>
@@ -83,7 +96,8 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
           </MenuItem>
           <MenuItem
             onClick={() => {
-              // duplicateItem(index);
+              // @ts-ignore
+              copyToClipboard(Node.string(editor.children[index]));
               selectItemMenu();
             }}>
             <ListItemIcon>
@@ -99,7 +113,6 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
             <MenuItem
               key={indx.toString()}
               onClick={() => {
-                // changeItemType(index, item.type);
                 selectItemMenu();
                 setOpenItemsMenu(null);
               }}>

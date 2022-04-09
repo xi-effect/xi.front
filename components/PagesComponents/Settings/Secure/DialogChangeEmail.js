@@ -17,7 +17,6 @@ const DialogChangeEmail = inject("rootStore", "settingsSt")(observer(({ rootStor
     const [emailError, setEmailError] = React.useState(false)
     const [passwordError, setPasswordError] = React.useState(false)
     const [symError, setSymError] = React.useState(false)
-    // const [password, setPassword] = React.useState("")
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();

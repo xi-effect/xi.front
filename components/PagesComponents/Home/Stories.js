@@ -48,7 +48,6 @@ const Story = inject()(observer(({ item }) => (
         sx={{
             height: 300,
             minWidth: 300,
-            // bgcolor: "primary.main",
             borderRadius: 2,
         }}
     >

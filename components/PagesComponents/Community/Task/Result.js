@@ -29,8 +29,6 @@ const Result = inject()(
             <>
                 <Stack
                     onClick={() => setResult(!result)}
-                    // onMouseEnter={() => setHoverCategory(index)}
-                    // onMouseLeave={() => setHoverCategory(null)}
                     direction="row"
                     justifyContent="flex-start"
                     alignItems="center"
@@ -50,7 +48,6 @@ const Result = inject()(
                         component={motion.svg}
                         variants={arrowVariants}
                         animate={result ? "open" : "closed"}
-                        // animate={"closed"}
                         transition={{ type: "ease", duration: 0.2 }}
                         sx={{ fontSize: 8 }}
                     />
