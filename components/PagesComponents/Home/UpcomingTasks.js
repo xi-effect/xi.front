@@ -110,17 +110,11 @@ const Task = inject()(observer(({ task }) => (
 
         <Paper
             elevation={12}
-            // direction="row"
-            // justifyContent="flex-start"
-            // alignItems="center"
             sx={{
-                // position: 'absolute',
-                // top: 60 * (dateStart.getHours() - 6) + dateStart.getMinutes(),
+
                 height: 95,
                 minHeight: "64px",
                 width: 'calc(100% - 88px)',
-                // minWidth: 300,
-                // bgcolor: 'primary.main',
                 borderRadius: 2,
                 ml: 0.5,
                 "&:before": {
@@ -132,17 +126,13 @@ const Task = inject()(observer(({ task }) => (
                     width: "10px",
                     height: "100%",
                     borderRadius: 2,
-                    // background: getTaskColor(task.type),
                 },
-                // mt: 1.5,
-                // ml: 1,
             }}>
 
             <Stack
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-            // spacing={1}
             >
                 <Typography
                     variant="subtitle1"

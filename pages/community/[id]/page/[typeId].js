@@ -6,25 +6,14 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import dynamic from "next/dynamic";
-import { Stack, useMediaQuery } from "@mui/material";
+import { Box, } from "@mui/material";
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
-
-
-// const TextEditor = dynamic(() => import("../../../../components/OtherComponents/Editor/TextEditor/TextEditor.tsx"), {
-//     ssr: false,
-// })
-
-// const InlineToolPanel = dynamic(() => import("../../../../components/OtherComponents/Editor/InlineToolPanel/InlineToolPanel.tsx"), {
-//     ssr: false,
-// })
 
 const ContentEditor = dynamic(() => import("../../../../components/OtherComponents/Editor/ContentEditor/ContentEditor.tsx"), {
     ssr: false,
 })
 
 const PagePage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
-    // console.log("router.query", router.query.id);
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
     const router = useRouter()
 
     React.useEffect(() => {
@@ -32,8 +21,6 @@ const PagePage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
             // do smth 
         }
     }, [router.query.id]);
-    // console.log("router.query", router.query)
-    const editorRef = React.useRef(null);
 
     return (
         <>
@@ -44,20 +31,12 @@ const PagePage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
                 <meta name="robots" content="noindex" />
             </Head>
             <NavigationAll>
-                <Stack
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="flex-start"
-                    spacing={6}
-                    sx={{
-                        pl: mobile ? 1 : 2,
-                        pr: mobile ? 1 : 8,
-                    }}
+                <Box
                 >
                     <ContentEditor
-                        editorRef={editorRef}
+                        initialState={null}
                     />
-                </Stack>
+                </Box>
             </NavigationAll>
         </>
     );

@@ -45,8 +45,6 @@ function a11yProps(index) {
 
 
 const Profile = inject("settingsSt", "profileSt")(observer(({ settingsSt, profileSt }) => {
-    // console.log("router.query", router.query.id);
-
     const router = useRouter()
 
     React.useEffect(() => {

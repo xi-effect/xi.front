@@ -19,6 +19,6 @@
     "incremental": true,
     "experimentalDecorators": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "store/rootStore.js", "components/OtherComponents/Editor/config.js", "store/contentEditor/contentEditorSt.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "store/rootStore.js", "components/OtherComponents/Editor/config.js", "store/contentEditor/contentEditorSt.js", "components/OtherComponents/Avatar/const.js"],
   "exclude": ["node_modules"]
 }

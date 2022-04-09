@@ -42,7 +42,6 @@ const PasswordReset = inject("authorizationSt")(observer(({ authorizationSt }) =
             <Head>
                 <title>Ξ Авторизация</title>
             </Head>
-            {/* {uiSt.loading["/login"] && <Loading />} */}
             <Stack
                 direction="column"
                 justifyContent="space-between"
@@ -68,10 +67,6 @@ const PasswordReset = inject("authorizationSt")(observer(({ authorizationSt }) =
                         width: "calc(100% - 32px)",
                         maxWidth: 512,
                         zIndex: 0,
-                        // mt: mobile ? "2px" : -32,
-                        // mt: 10,
-                        // ml: mobile ? "16px" : "100px",
-                        // mr: mobile ? "16px" : "100px",
                         bgcolor: "grey.800",
                         borderRadius: "20px",
                     }}

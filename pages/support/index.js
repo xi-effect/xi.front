@@ -27,7 +27,6 @@ const Support = inject()(
             overflow: "auto",
             height: "100vh",
             bgcolor: "background.main",
-            // position: "relative",
           }}
         >
           <Stack

@@ -5,16 +5,12 @@ import { inject, observer } from "mobx-react"
 
 import { Stack, Paper, Box } from "@mui/material";
 
-
-
 import MenuHomeComp from "./SidebarSecond/Home";
 import MenuCommunity from "./SidebarSecond/Community";
-import MenuKnowledgeComp from "./SidebarSecond/KnowledgeComp";
 import MenuSettingsComp from "./SidebarSecond/SettingsComp";
 
 import Home from "./SidebarSecondHeaders/Home";
 import Community from "./SidebarSecondHeaders/Community";
-import Knowledge from "./SidebarSecondHeaders/Knowledge";
 import Settings from "./SidebarSecondHeaders/Settings";
 
 const SidebarSecond = inject()(observer(() => {
@@ -47,7 +43,6 @@ const SidebarSecond = inject()(observer(() => {
                     sx={{
                         width: "100%",
                         height: "48px",
-                        // mt: "16px",
                         fontSize: 32,
                         zIndex: 100,
                         p: 1
@@ -56,12 +51,10 @@ const SidebarSecond = inject()(observer(() => {
 
                     {router.pathname.includes("/home") && <Home />}
                     {router.pathname.includes("/community") && <Community />}
-                    {router.pathname.includes("/knowledge") && <Knowledge />}
                     {router.pathname.includes("/settings") && <Settings />}
                 </Box>
                 {router.pathname.includes("/home") && <MenuHomeComp />}
                 {router.pathname.includes("/community") && <MenuCommunity />}
-                {router.pathname.includes("/knowledge") && <MenuKnowledgeComp />}
                 {router.pathname.includes("/settings") && <MenuSettingsComp />}
             </Stack >
         </Paper >

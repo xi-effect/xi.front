@@ -22,10 +22,7 @@ function Footer() {
             sx={{
                 width: "calc(100vw - 8px)",
                 minHeight: mobile ? "325px" : "128px",
-                // height: "100%",
                 bgcolor: "primary.main",
-                // position: "absolute",
-                // bottom: "-210px",
                 mt: "100px",
                 zIndex: 0,
             }}

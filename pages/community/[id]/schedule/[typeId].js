@@ -10,8 +10,6 @@ import DateLine from "../../../../components/PagesComponents/Community/Schedule/
 import LessonsList from "../../../../components/PagesComponents/Community/Schedule/LessonsList";
 
 const SchedulePage = inject()(observer(() => {
-    // console.log("router.query", router.query.id);
-
     const router = useRouter()
 
     React.useEffect(() => {
@@ -19,7 +17,6 @@ const SchedulePage = inject()(observer(() => {
             // do smth 
         }
     }, [router.query.id]);
-    // console.log("router.query", router.query)
 
     return (
         <>

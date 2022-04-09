@@ -17,7 +17,6 @@ const LessonsList = inject()(
             alignItems="flex-start"
             sx={{
                 width: "100%",
-                // maxHeight: "calc(100vh - 120px)",
                 height: "100%",
             }}
         >
@@ -27,8 +26,6 @@ const LessonsList = inject()(
                 alignItems="center"
                 sx={{
                     bgcolor: "grey.800",
-                    // borderTopLeftRadius: 16,
-                    // borderBottomLeftRadius: 16,
                     width: "82px",
                     height: "100%",
                 }}
@@ -85,22 +82,11 @@ const LessonsList = inject()(
                         >
                             <Paper
                                 elevation={24}
-                                // direction="row"
-                                // justifyContent="flex-start"
-                                // alignItems="center"
                                 sx={{
-                                    // position: "absolute",
-                                    // top: 60 * (dateStart.getHours() - 6) + dateStart.getMinutes(),
-                                    // height: 60 * index,
                                     minHeight: "32px",
                                     height: "32px",
                                     width: "calc(100% - 8px)",
-                                    // minWidth: 300,
-                                    // bgcolor: "primary.main",
                                     borderRadius: "8px",
-                                    // ml: 0.5,
-                                    // mt: 1.5,
-                                    // ml: 1,
                                 }}
                             >
                                 <Stack

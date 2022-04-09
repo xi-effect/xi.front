@@ -14,40 +14,12 @@ const ChatPage = inject(
     observer(({ messageSt }) => {
         const router = useRouter();
 
-        // console.log("router.query", router.query.id);
-        // if (socket !== null) {
-        //     socket.on("send-message", (arg) => {
-        //         if (messageSt.chat.hasNext) {
-        //             let newArray = messageSt.chat.messages;
-        //             newArray.pop();
-        //             messageSt.setChat("messages", newArray);
-        //         }
-        //     });
-        // }
-
-        // if (socket !== null) {
-        //     socket.on("edit-message", (arg) => {
-        //         messageSt.editMessageInChat(arg["message-id"], arg["content"]);
-        //     });
-        // }
-
-        // if (socket !== null) {
-        //     socket.on("delete-message", (arg) => {
-
-        //     });
-        // }
-
         React.useEffect(() => {
             const id = window.location.href.split("/").pop();
-            // socket.emit("open", { "chat-id": id });
-            // console.log("open socket");
-            // console.log("id", id);
             messageSt.loadMetaForChat(id);
             messageSt.loadUsersForChat(id);
             messageSt.uploadFirstMessages(id);
             return () => {
-                // socket.emit("close", { "chat-id": id });
-                console.log("close socket");
                 messageSt.clearChat();
             };
         }, [router.query.typeId]);
