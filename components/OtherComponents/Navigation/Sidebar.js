@@ -12,7 +12,6 @@ import {
 import { useSnackbar } from "notistack";
 
 import HomeIcon from "@mui/icons-material/Home";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { Scrollbars } from "react-custom-scrollbars-2";
@@ -38,12 +37,6 @@ const Sidebar = inject()(
       },
       {
         id: 1,
-        icon: <MenuBookIcon />,
-        label: "Знания",
-        href: "/knowledge",
-      },
-      {
-        id: 3,
         icon: <AddBoxIcon />,
         label: "Создать сообщество",
         href: "createcommunity",
