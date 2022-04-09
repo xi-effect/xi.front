@@ -11,10 +11,11 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-const schema = yup.object({
-    password: yup.string().required(),
-}).required();
+import XiLogo from "../../components/OtherComponents/XiLogo/XiLogo.tsx";
 
+const schema = yup.object({
+    password: yup.string().min(6).max(100).required(),
+}).required();
 
 
 const PasswordReset = inject("authorizationSt")(observer(({ authorizationSt }) => {
@@ -41,7 +42,6 @@ const PasswordReset = inject("authorizationSt")(observer(({ authorizationSt }) =
             <Head>
                 <title>Ξ Авторизация</title>
             </Head>
-            {/* {uiSt.loading["/login"] && <Loading />} */}
             <Stack
                 direction="column"
                 justifyContent="space-between"
@@ -59,61 +59,7 @@ const PasswordReset = inject("authorizationSt")(observer(({ authorizationSt }) =
                     alignItems="center"
                     sx={{ height: mobile ? "100px" : "140px", p: mobile ? "20px" : "40px", width: "100%", }}
                 >
-
-                    <Stack
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="baseline"
-                        spacing={0}
-                        sx={{ width: "100%" }}
-                    >
-
-                        <Typography
-                            component="h1"
-                            onClick={() => {
-                                router.push({
-                                    pathname: "/",
-                                })
-                            }}
-
-                            variant="Roboto500XiLabel"
-                            sx={{
-                                mt: "1px",
-                                cursor: "pointer",
-                                color: "secondary.main",
-                                fontSize: {
-                                    sm: "28px",
-                                    md: "34px",
-                                    lg: "40px",
-                                },
-                            }}
-                        >
-                            Ξ
-                        </Typography>
-                        <Typography
-                            component="h1"
-                            onClick={() => {
-                                router.push({
-                                    pathname: "/",
-                                })
-                            }}
-
-                            variant="IBMPlexMono500XiLabelEnd"
-                            sx={{
-                                "&.MuiTypography-root": {
-                                    cursor: "pointer",
-                                    color: "secondary.main",
-                                },
-                                fontSize: {
-                                    sm: "28px",
-                                    md: "34px",
-                                    lg: "40px",
-                                },
-                            }}
-                        >
-                            ffect
-                        </Typography>
-                    </Stack>
+                    <XiLogo />
                 </Stack>
                 <Box
                     sx={{
@@ -121,10 +67,6 @@ const PasswordReset = inject("authorizationSt")(observer(({ authorizationSt }) =
                         width: "calc(100% - 32px)",
                         maxWidth: 512,
                         zIndex: 0,
-                        // mt: mobile ? "2px" : -32,
-                        // mt: 10,
-                        // ml: mobile ? "16px" : "100px",
-                        // mr: mobile ? "16px" : "100px",
                         bgcolor: "grey.800",
                         borderRadius: "20px",
                     }}

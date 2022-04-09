@@ -18,6 +18,8 @@ import * as yup from "yup";
 
 import { motion } from "framer-motion"
 
+import XiLogo from "../../components/OtherComponents/XiLogo/XiLogo.tsx";
+
 const schema = yup.object({
     username: yup.string().max(100).required(),
     email: yup.string().email().required(),
@@ -27,20 +29,19 @@ const schema = yup.object({
 
 const Registration = inject("authorizationSt")(observer(({ authorizationSt }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
-
     const router = useRouter();
+
     const [showPassword, setShowPassword] = React.useState(false);
+    
     const { control, setValue, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
-    // console.log("errors", errors);
+
     const onSubmit = data => authorizationSt.clickRegistrationButton(data);
 
     React.useEffect(() => {
-        console.log("query", router.query)
         if (router.query.invite) setValue("invite", router.query.invite)
     }, [router.query, setValue]);
-    // console.log("query1", router.query)
 
     return (
         <>
@@ -68,57 +69,7 @@ const Registration = inject("authorizationSt")(observer(({ authorizationSt }) =>
                     alignItems="center"
                     sx={{ height: mobile ? "100px" : "140px", p: mobile ? "20px" : "40px", width: "100%", }}
                 >
-                    <Stack
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="baseline"
-                    >
-                        <Typography
-                            component="h1"
-                            onClick={() => {
-                                router.push({
-                                    pathname: "/",
-                                })
-                            }}
-
-                            variant="Roboto500XiLabel"
-                            sx={{
-                                mt: "1px",
-                                cursor: "pointer",
-                                color: "secondary.main",
-                                fontSize: {
-                                    sm: "28px",
-                                    md: "34px",
-                                    lg: "40px",
-                                },
-                            }}
-                        >
-                            Ξ
-                        </Typography>
-                        <Typography
-                            component="h1"
-                            onClick={() => {
-                                router.push({
-                                    pathname: "/",
-                                })
-                            }}
-
-                            variant="IBMPlexMono500XiLabelEnd"
-                            sx={{
-                                "&.MuiTypography-root": {
-                                    cursor: "pointer",
-                                    color: "secondary.main",
-                                },
-                                fontSize: {
-                                    sm: "28px",
-                                    md: "34px",
-                                    lg: "40px",
-                                },
-                            }}
-                        >
-                            ffect
-                        </Typography>
-                    </Stack>
+                    <XiLogo />
                 </Stack>
                 <Box
                     sx={{

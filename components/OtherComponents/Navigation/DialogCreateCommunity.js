@@ -347,7 +347,6 @@ const CommunityType = inject()(
 
 const CommunityName = inject(
     "rootStore",
-    "knowledgeSt",
     "uiSt",
 )(
     observer(() => {
@@ -412,23 +411,6 @@ const CommunityName = inject(
                         sx={{ width: "100%", }}
                         label="Название сообщества"
                         type="text"
-                    // endAdornment={
-                    //     <InputAdornment sx={{ mr: 2 }} position="end">
-                    //         <IconButton
-                    //             aria-label="toggle password visibility"
-                    //             onClick={() => setShowPassword(!showPassword)}
-                    //             // onMouseDown={handleMouseDownPassword}
-                    //             edge="end"
-                    //             size="large"
-                    //         >
-                    //             {showPassword ? (
-                    //                 <Visibility sx={{ color: "text.secondary" }} />
-                    //             ) : (
-                    //                 <VisibilityOff sx={{ color: "text.secondary" }} />
-                    //             )}
-                    //         </IconButton>
-                    //     </InputAdornment>
-                    // }
                     />
                 </FormControl>
                 <Button
@@ -478,9 +460,6 @@ const CommunityEnter = inject()(
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="center"
-                sx={{
-                    // height: "100%"
-                }}
                 spacing={1}
             >
                 <Typography
@@ -546,15 +525,11 @@ const DialogCreateCommunity = inject()(
                 fullWidth
                 fullScreen={!!mobile}
                 maxWidth="md"
-                sx={{
-                    // height: "100%"
-                }}
             >
                 <Stack
                     direction="row"
                     justifyContent="center"
                     alignItems="center"
-                    // spacing={2}
                     sx={{
                         height: 64,
                         width: "100%",
@@ -595,7 +570,6 @@ const DialogCreateCommunity = inject()(
                                 sx={{
                                     width: "100%",
                                     height: "100%",
-                                    // position: "absolute",
                                 }}
                             >
                                 <CommunityType setActiveStep={setActiveStep} handleNext={handleNext} />
@@ -610,7 +584,6 @@ const DialogCreateCommunity = inject()(
                                 sx={{
                                     width: "100%",
                                     height: "100%",
-                                    // position: "absolute",
                                 }}
                             >
                                 <CommunityName handleNext={handleNext} />
@@ -625,7 +598,6 @@ const DialogCreateCommunity = inject()(
                                 sx={{
                                     width: "100%",
                                     height: "100%",
-                                    // position: "absolute",
                                 }}
                             >
                                 <CommunityEnter handleNext={handleNext} />

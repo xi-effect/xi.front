@@ -28,7 +28,6 @@ function MainLabel() {
                     mr: mobile ? "0px" : "100px",
                     bgcolor: "grey.400",
                     borderRadius: "20px",
-                    // minHeight: "500px",
                     position: "relative",
                 }}
             >
@@ -41,7 +40,6 @@ function MainLabel() {
                     }}
                 >
                     <Typography
-                        // component={"h1"}
                         variant="OpenSans700MainLabel"
                         sx={{
                             "&.MuiTypography-root": {
@@ -69,7 +67,6 @@ function MainLabel() {
                         {labels.title}
                     </Typography>
                     <Typography
-                        // component={"h2"}
                         variant="OpenSans500MainLabel"
                         sx={{
                             cursor: "default",
@@ -194,92 +191,6 @@ function MainLabel() {
                             />
                         </Grid>
                     </Grid>
-                    {/* {mobile && <Stack
-                        direction="row"
-                        justifyContent="flex-end"
-                        alignItems="center"
-                        sx={{
-                            width: "100%"
-                        }}
-                    >
-                        <Image
-                            alt="alt"
-                            src={"/assets/landing/Knowledge.svg"}
-                            quality={100}
-                            width={256}
-                            height={256}
-                        />
-                    </Stack >} */}
-                    {/* {<Button
-                        onClick={() => {
-                            router.push({
-                                pathname: "/registration",
-                            })
-                        }}
-                        sx={{
-                            "&.MuiButton-root": {
-                                width: "272px",
-                                height: "60px",
-                                color: "text.main",
-                                bgcolor: "primary.main",
-                                borderRadius: "88px",
-                                boxShadow: 24,
-                                "&:hover": {
-                                    bgcolor: "primary.main",
-                                },
-                            },
-                            mt: mobile ? "20px" : "90px",
-                            mb: "20px",
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                "&.MuiTypography-root": {
-                                    fontFamily: "Open Sans, sans-serif",
-                                    fontStyle: "normal",
-                                    fontWeight: 600,
-                                    fontSize: "18px",
-                                    lineHeight: "25px",
-                                },
-                                ml: "32px",
-                                color: "text.primary",
-                            }}
-                        >
-                            {labels.enterButton}
-                        </Typography>
-                        <Stack
-                            direction="column"
-                            justifyContent="center"
-                            alignItems="center"
-                            sx={{
-                                color: "text.primary",
-                                bgcolor: "secondary.main",
-                                height: "46px",
-                                width: "46px",
-                                borderRadius: "50%",
-                                ml: "auto",
-                                mr: "0px",
-                            }}
-                        >
-                            <ArrowForwardIcon />
-                        </Stack>
-                    </Button>}
-                    {mobile && <Stack
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                        sx={{
-                            width: "100%"
-                        }}
-                    >
-                        <Image
-                            alt="alt"
-                            src={"/assets/landing/OnlineLearning.svg"}
-                            quality={100}
-                            width={256}
-                            height={256}
-                        />
-                    </Stack >} */}
                 </Stack >
             </Paper>
 

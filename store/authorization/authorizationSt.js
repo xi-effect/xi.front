@@ -27,7 +27,7 @@ class AuthorizationStore {
 
     @action saveNewPassword = (id, data) => {
         this.setNewPasswordReset("emailResetOk", false)
-        this.rootStore.fetchData(`${this.rootStore.url}/password-reset/confirm/`, "POST", { "code": id, "password": Crypto.SHA384(data.password).toString() },)
+        this.rootStore.fetchData(`${this.rootStore.url}/password-reset/confirm/`, "POST", { "code": id, "password": Crypto.SHA384(data.password.trim()).toString() },)
             .then((data) => {
                 if (data !== undefined) {
                     if (data.a === "Success") { // "Success"
@@ -49,14 +49,14 @@ class AuthorizationStore {
     @action clickPasswordResetButton = (data) => {
         this.setPasswordReset("errorEmailNotFounedReset", false)
         this.setPasswordReset("emailResetOk", false)
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/password-reset/`, "POST", { email: data.email },)
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/password-reset/`, "POST", { email: data.email.toLowerCase() },)
             .then((data) => {
                 console.log(data)
                 if (data !== undefined) {
                     if (data.a === true) {
-                        this.setPasswordReset("errorEmailNotFounedReset", true)
-                    } else if (data.a === false) {
                         this.setPasswordReset("emailResetOk", true)
+                    } else if (data.a === false) {
+                        this.setPasswordReset("errorEmailNotFounedReset", true)
                     }
 
                 }
@@ -73,7 +73,7 @@ class AuthorizationStore {
 
     @action clickRegistrationButton = (data) => {
         this.setSignup("error", null)
-        this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString(), "username": data.username, "code": data.invite })
+        this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email.toLowerCase(), "password": Crypto.SHA384(data.password.trim()).toString(), "username": data.username, "code": data.invite })
             .then((data) => {
                 console.log(data)
                 if (data !== undefined) {
@@ -101,17 +101,16 @@ class AuthorizationStore {
         this.login[name] = value
     }
 
-    @action clickEnterButton = (data) => {
+    @action clickEnterButton = (data, trigger) => {
         console.log("clickEnterButton")
         this.setLogin("error", null)
-        this.rootStore.fetchData(`${this.rootStore.url}/auth/`, "POST", { "email": data.email, "password": Crypto.SHA384(data.password).toString() })
+        this.rootStore.fetchData(`${this.rootStore.url}/auth/`, "POST", { "email": data.email.toLowerCase(), "password": Crypto.SHA384(data.password.trim()).toString() })
             .then((data) => {
                 console.log("/auth/", data)
                 if (data !== undefined) {
                     if (data.a === "Success") {
                         this.rootStore.uiSt.setLoading("loading", true)
-                        const router = Router
-                        router.push("/home")
+                        Router.push("/home")
                         this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/`, "GET")
                             .then((data) => {
                                 console.log(data)
@@ -131,15 +130,32 @@ class AuthorizationStore {
                             });
                     } else if (data.a === "User doesn't exist") {
                         this.setLogin("error", "User doesn't exist")
+                        trigger()
                     } else if (data.a === "Wrong password") {
                         this.setLogin("error", "Wrong password")
+                        trigger()
                     }
                 } else {
                     this.setLogin("error", "Server error")
-
+                    trigger()
                 }
             })
     }
+
+    @action isAuthUser = () => {
+        this.rootStore.uiSt.setLoading("loading", true);
+        this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/main/`, "GET")
+            .then((data) => {
+                console.log("isAuthUser", data);
+                if (data === null) {
+                    this.rootStore.uiSt.setLoading("loading", false)
+                } else {
+                    this.rootStore.uiSt.setLoading("loading", false)
+                    Router.push("/home");
+                }
+            });
+    }
+
 }
 
 export default AuthorizationStore;

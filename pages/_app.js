@@ -19,8 +19,9 @@ import "moment/locale/ru";
 
 import { SnackbarProvider } from "notistack";
 
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
 import "../styles/globals.css"
-import 'draft-js/dist/Draft.css';
 
 import NProgress from "nprogress"; // nprogress module
 import createEmotionCache from "../store/createEmotionCache";
@@ -28,6 +29,8 @@ import { useStore } from "../store/rootStore"
 import { getDesignTokens } from "../theme"
 import "nprogress/nprogress.css"; // styles of nprogress
 import Loading from "../components/OtherComponents/Loading/Loading";
+
+config.autoAddCss = false
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -59,15 +62,11 @@ const MyApp = (observer((props) => {
         rootStore={rootStore}
         uiSt={rootStore.uiSt}
         homeSt={rootStore.homeSt}
-        knowledgeSt={rootStore.knowledgeSt}
-        managmentSt={rootStore.managmentSt}
         settingsSt={rootStore.settingsSt}
-        contentSt={rootStore.contentSt}
         authorizationSt={rootStore.authorizationSt}
         profileSt={rootStore.profileSt}
         messageSt={rootStore.messageSt}
         communitySt={rootStore.communitySt}
-        contentEditorSt={rootStore.contentEditorSt}
       >
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>

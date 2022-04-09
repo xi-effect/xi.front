@@ -7,13 +7,28 @@
 /* eslint-disable import/extensions */
 import { Typography } from '@mui/material';
 import * as React from 'react';
-// import { Menu, MenuItem, Stack, ListItemIcon, ListItemText, Typography } from '@mui/material';
-// import "./TextEditor.scss";
 
 type H2Props = {
-  // item: string;
-  children: React.ReactElement | string;
+  children: any;
+  attributes: any;
+  style: any;
 };
 
-const H2: React.FC<H2Props> = ({ children }) => <Typography variant='h5'>{children}</Typography>;
+const H2: React.FC<H2Props> = ({ children, attributes, style }) => {
+  console.log('props', 'H2');
+
+  return (
+    <Typography
+      variant="h4"
+      {...attributes}
+      sx={{
+        textAlign: style.textAlign,
+        minHeight: '32px',
+        width: '100%',
+      }}>
+      {children}
+    </Typography>
+  );
+};
+
 export default H2;

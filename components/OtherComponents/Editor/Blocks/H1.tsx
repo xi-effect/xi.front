@@ -7,27 +7,29 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 // import { Input } from '@mui/material';
-import { Box } from '@mui/material';
-import { EditorBlock } from 'draft-js';
+import { Typography } from '@mui/material';
 import * as React from 'react';
-// import { Menu, MenuItem, Stack, ListItemIcon, ListItemText, Typography } from '@mui/material';
-// import "./TextEditor.scss";
 
 type H1Props = {
-  props: any;
+  children: any;
+  attributes: any;
+  style: any;
 };
 
-const H1: React.FC<H1Props> = ({ props }) => {
-  console.log('props', props);
+const H1: React.FC<H1Props> = ({ children, attributes, style }) => {
+  console.log('props', 'H1');
 
   return (
-    <Box
+    <Typography
+      variant="h3"
+      {...attributes}
       sx={{
+        textAlign: style.textAlign,
         minHeight: '32px',
         width: '100%',
       }}>
-      <EditorBlock {...props} />
-    </Box>
+      {children}
+    </Typography>
   );
 };
 

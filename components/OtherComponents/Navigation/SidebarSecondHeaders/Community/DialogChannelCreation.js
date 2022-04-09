@@ -19,15 +19,12 @@ const DialogChannelCreation = inject()(observer(({openDialogChannelCreation, set
             aria-describedby="alert-dialog-description"
             fullWidth
             maxWidth="md"
-            sx={{
-                // height: "100%"
-            }}
+
         >
             <Stack
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                // spacing={2}
                 sx={{
                     height: 64,
                     width: "100%",
@@ -43,7 +40,6 @@ const DialogChannelCreation = inject()(observer(({openDialogChannelCreation, set
                     direction="column"
                     justifyContent="flex-start"
                     alignItems="flex-start"
-                    // spacing={2}
                     sx={{
                         height: 360,
                         width: "100%",

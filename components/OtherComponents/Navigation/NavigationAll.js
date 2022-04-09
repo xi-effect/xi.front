@@ -7,10 +7,48 @@ import { Box, useMediaQuery } from "@mui/material";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { motion, AnimatePresence } from "framer-motion"
 import { useSwipeable } from "react-swipeable";
+import { useSessionStorage } from 'react-use';
 import Sidebar from "./Sidebar";
 import SidebarSecond from "./SidebarSecond";
 import RightMenu from "./RightMenu";
 import Upbar from "./Upbar";
+
+const dragVariants = {
+  left: {
+    x: -256,
+    y: 0,
+  },
+  center: {
+    x: 0,
+    y: 0,
+  },
+  right: {
+    x: 336,
+    y: 0,
+  },
+  bottom: {
+    x: 0,
+    y: 200,
+  }
+}
+
+const SidebarVariantsLeft = {
+  visible: {
+    x: 0,
+  },
+  hidden: {
+    x: 200
+  }
+}
+
+const SidebarVariantsRight = {
+  visible: {
+    x: 0,
+  },
+  hidden: {
+    x: -200
+  }
+}
 
 const NavigationAll = inject(
   "rootStore",
@@ -20,8 +58,23 @@ const NavigationAll = inject(
 )(
   observer(({ rootStore, settingsSt, uiSt, messageSt, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
     const router = useRouter();
-
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
+
+    // eslint-disable-next-line no-unused-vars
+    const [prevPathname, setPrevPathname] = useSessionStorage('prevPathname');
+
+    React.useEffect(() => {
+      setPrevPathname(router.pathname);
+    }, [router.pathname])
+
+    React.useEffect(() => {
+      if (uiSt.load.loading === null) {
+        uiSt.setLoading("loading", true)
+        setTimeout(() => {
+          uiSt.setLoading("loading", false)
+        }, 1500);
+      }
+    }, [])
 
     React.useEffect(() => {
       // Каждый раз запрашиваются настройки, чтобы понимать,
@@ -36,25 +89,23 @@ const NavigationAll = inject(
             settingsSt.setSettings("darkTheme", data["dark-theme"]);
             settingsSt.setSettings("id", data.id);
             settingsSt.setSettings("username", data.username);
-            uiSt.setLoading("loading", false)
-            uiSt.setLoading("app", false)
           }
         });
-      rootStore
-        .fetchDataScr(`${rootStore.url}/settings/`, "GET")
-        .then((data) => {
-          if (data) {
-            console.log("settings", data);
-            const emailArr = data.email.split("@", 2)
-            settingsSt.setSettings("emailBefore", emailArr[0])
-            settingsSt.setSettings("emailAfter", `@${emailArr[1]}`)
-            settingsSt.setSettings("emailConfirmed", data["email-confirmed"])
-            settingsSt.setSettings("avatar", data.avatar)
-            settingsSt.setSettings("invite", data.code)
-            uiSt.setLoading("loading", false)
-            uiSt.setLoading("app", false)
-          }
-        });
+      if (uiSt.load.loading === null) {
+        rootStore
+          .fetchDataScr(`${rootStore.url}/settings/`, "GET")
+          .then((data) => {
+            if (data) {
+              console.log("settings", data);
+              const emailArr = data.email.split("@", 2)
+              settingsSt.setSettings("emailBefore", emailArr[0])
+              settingsSt.setSettings("emailAfter", `@${emailArr[1]}`)
+              settingsSt.setSettings("emailConfirmed", data["email-confirmed"])
+              settingsSt.setSettings("avatar", data.avatar)
+              settingsSt.setSettings("invite", data.code)
+            }
+          });
+      };
     }, []);
 
     const [hoverLeftName, setHoverLeftName] = React.useState("")
@@ -98,8 +149,8 @@ const NavigationAll = inject(
             width: "100%",
           }}
         >
-          {!uiSt.load.loading && <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />}
-          {!uiSt.load.loading && <SidebarSecond hoverLeftName={hoverLeftName} />}
+          <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+          <SidebarSecond hoverLeftName={hoverLeftName} />
           <RightMenu />
           <Box
             sx={{
@@ -124,49 +175,10 @@ const NavigationAll = inject(
             >
               {children}
             </Scrollbars>}
-            {/* || router.pathname.includes("/page/") */}
             {router.pathname.includes("message") || router.pathname.includes("chat") && children}
-            {/* <ChatDialog /> */}
           </Box>
         </Box>
       );
-    }
-
-    const dragVariants = {
-      left: {
-        x: -256,
-        y: 0,
-      },
-      center: {
-        x: 0,
-        y: 0,
-      },
-      right: {
-        x: 336,
-        y: 0,
-      },
-      bottom: {
-        x: 0,
-        y: 200,
-      }
-    }
-
-    const SidebarVariantsLeft = {
-      visible: {
-        x: 0,
-      },
-      hidden: {
-        x: 200
-      }
-    }
-
-    const SidebarVariantsRight = {
-      visible: {
-        x: 0,
-      },
-      hidden: {
-        x: -200
-      }
     }
 
     if (mobile) {
@@ -201,8 +213,8 @@ const NavigationAll = inject(
                   duration: 0.5,
                 }}
               >
-                {!uiSt.load.loading && <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />}
-                {!uiSt.load.loading && <SidebarSecond hoverLeftName={hoverLeftName} />}
+                <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+                <SidebarSecond hoverLeftName={hoverLeftName} />
               </Box>
             </Box>}
           </AnimatePresence>
@@ -271,7 +283,6 @@ const NavigationAll = inject(
               {children}
             </Scrollbars>}
             {router.pathname.includes("/message") && children}
-            {/* <ChatDialog /> */}
           </Box>
         </Box>
       );

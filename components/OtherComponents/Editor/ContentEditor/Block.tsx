@@ -9,22 +9,15 @@ import AddIcon from '@mui/icons-material/Add';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { useLongPress } from 'use-long-press';
 import { grey } from '@mui/material/colors';
+import { Draggable } from 'react-beautiful-dnd';
 import NewItemMenu from '../Menus/NewItemMenu';
 import ItemMenu from '../Menus/ItemMenu';
-// import SelectionHOC from './SelectionHOC';
 import MobileContextMenu from '../Menus/MobileContextMenu';
 import { BlockProps } from '../types';
+import Element from './Element';
 
-// Previously this extended React.Component
-// That was a good thing, because using React.PureComponent can hide
-// issues with the selectors. However, moving it over does can considerable
-// performance improvements when reordering big lists (400ms => 200ms)
-// Need to be super sure we are not relying on PureComponent here for
-// things we should be doing in the selector as we do not know if consumers
-// will be using PureComponent
-
-function Block(props: BlockProps) {
-  const { children } = props;
+const Block = (props: BlockProps) => {
+  const { editor, children, attributes, element, value } = props;
   // @ts-ignore
   const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
 
@@ -66,8 +59,6 @@ function Block(props: BlockProps) {
     );
   };
 
-  // console.log('provided', provided);
-
   const bind = useLongPress(
     (event) => {
       event?.preventDefault();
@@ -80,107 +71,129 @@ function Block(props: BlockProps) {
     },
   );
 
-  return (
-    <Stack
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      direction="row"
-      justifyContent="flex-start"
-      alignItems="flex-start"
-      sx={{
-        // p: 1,
-        width: '100%',
-        height: '100%',
-        cursor: 'default !important',
-      }}
-      // ref={provided.innerRef}
-      // draggable={isDragging}
-      // {...provided.draggableProps}
-    >
-      {!mobile && (
-        <Tooltip title="Добавить элемент">
-          <Stack
-            justifyContent="center"
-            alignItems="center"
-            onClick={(event) => handleContextNewMenu(event)}
-            sx={{
-              cursor: 'pointer !important',
-              visibility: hover ? 'visible' : 'hidden',
-              transition: '0.2s',
-              mt: '4px',
-              userSelect: 'none',
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              '&:hover': {
-                bgcolor: grey[800],
-              },
-            }}>
-            <AddIcon
-              sx={{
-                color: 'text.secondary',
-              }}
-            />
-          </Stack>
-        </Tooltip>
-      )}
-      {!mobile && (
-        <NewItemMenu
-          contextMenu={contextNewMenu}
-          selectItemMenu={() => setContextNewMenu(null)}
-          closeMenu={() => setContextNewMenu(null)}
-        />
-      )}
-      {!mobile && (
-        <Tooltip title="Перетащить элемент">
-          <Stack
-            justifyContent="center"
-            alignItems="center"
-            onClick={(e) => handleContextMenu(e)}
-            // {...provided.dragHandleProps}
-            sx={{
-              cursor: 'grab !important',
-              visibility: hover ? 'visible' : 'hidden',
-              transition: '0.2s',
-              mt: '4px',
-              userSelect: 'none',
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              '&:hover': {
-                bgcolor: grey[800],
-              },
-            }}>
-            <DragIndicatorIcon
-              sx={{
-                color: 'text.secondary',
-              }}
-            />
-          </Stack>
-        </Tooltip>
-      )}
-      {!mobile && (
-        <ItemMenu
-          contextMenu={contextMenu}
-          selectItemMenu={() => setContextMenu(null)}
-          setContextMenu={setContextMenu}
-        />
-      )}
-      <MobileContextMenu open={mobileContext} setOpen={setMobileContext} />
-      <Stack
-        {...bind}
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="center"
-        sx={{
-          width: '100%',
-          height: '100%',
-          p: 1,
-        }}>
-        {children}
-      </Stack>
-    </Stack>
-  );
-}
+  const index = value.findIndex((item) => item.id === element.id);
 
-export default React.memo<BlockProps>(Block);
+  return (
+    <Draggable draggableId={`list-components-id-${element.id}`} index={index}>
+      {(provided) => (
+        <Stack
+          onMouseEnter={() => {
+            setHover(true);
+          }}
+          onMouseLeave={() => setHover(false)}
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          sx={{
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+            cursor: 'default !important',
+          }}
+          ref={provided.innerRef}
+          {...provided.draggableProps}>
+          {!mobile && (
+            <Tooltip title="Добавить элемент">
+              <Stack
+                justifyContent="center"
+                alignItems="center"
+                onClick={(event) => handleContextNewMenu(event)}
+                sx={{
+                  position: 'absolute',
+                  top: 2,
+                  left: 4,
+                  cursor: 'pointer !important',
+                  visibility: hover ? 'visible' : 'hidden',
+                  transition: '0.2s',
+                  userSelect: 'none',
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  '&:hover': {
+                    bgcolor: grey[800],
+                  },
+                }}>
+                <AddIcon
+                  sx={{
+                    color: 'text.secondary',
+                  }}
+                />
+              </Stack>
+            </Tooltip>
+          )}
+          {!mobile && (
+            <NewItemMenu
+              editor={editor}
+              index={index}
+              contextMenu={contextNewMenu}
+              selectItemMenu={() => setContextNewMenu(null)}
+              closeMenu={() => setContextNewMenu(null)}
+            />
+          )}
+          {!mobile && (
+            <Tooltip title="Перетащить элемент">
+              <Stack
+                justifyContent="center"
+                alignItems="center"
+                onClick={(e) => handleContextMenu(e)}
+                {...provided.dragHandleProps}
+                sx={{
+                  position: 'absolute',
+                  top: 2,
+                  left: 42,
+                  cursor: 'grab !important',
+                  visibility: hover ? 'visible' : 'hidden',
+                  transition: '0.2s',
+                  userSelect: 'none',
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  '&:hover': {
+                    bgcolor: grey[800],
+                  },
+                }}>
+                <DragIndicatorIcon
+                  sx={{
+                    color: 'text.secondary',
+                  }}
+                />
+              </Stack>
+            </Tooltip>
+          )}
+          {!mobile && (
+            <ItemMenu
+              editor={editor}
+              index={index}
+              contextMenu={contextMenu}
+              selectItemMenu={() => setContextMenu(null)}
+              setContextMenu={setContextMenu}
+            />
+          )}
+          <MobileContextMenu
+            editor={editor}
+            index={index}
+            open={mobileContext}
+            setOpen={setMobileContext}
+          />
+          <Stack
+            {...bind}
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            sx={{
+              width: '100%',
+              height: '100%',
+              p: 0.5,
+              pl: 10,
+            }}>
+            <Element attributes={attributes} element={element}>
+              {children}
+            </Element>
+          </Stack>
+        </Stack>
+      )}
+    </Draggable>
+  );
+};
+
+export default Block;

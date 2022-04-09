@@ -18,6 +18,7 @@ COPY ./ ./
 
 # Build app
 RUN npm run build
+RUN mkdir /usr/app/.next/cache/images
 
 # Expose the listening port
 EXPOSE 3000

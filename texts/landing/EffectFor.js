@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 export const features = {
     label: "Effect помогает эффективно получать знания и делиться ими в доступном формате",
     content: [

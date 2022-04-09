@@ -5,28 +5,31 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import { EditorBlock } from 'draft-js';
-import { Box } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import * as React from 'react';
 // import { Menu, MenuItem, Stack, ListItemIcon, ListItemText, Typography } from '@mui/material';
 // import "./TextEditor.scss";
 
 type TextProps = {
-  props: any;
+  children: any;
+  attributes: any;
+  style: any;
 };
 
-const Text: React.FC<TextProps> = ({ props }) => {
-  console.log('props', props);
+const Text: React.FC<TextProps> = ({ children, attributes, style }) => {
+  console.log('props', 'Text');
 
   return (
-    <Box
+    <Typography
+      {...attributes}
       sx={{
+        textAlign: style.textAlign,
         minHeight: '32px',
         width: '100%',
       }}>
-      <EditorBlock {...props} />
-    </Box>
+      {children}
+    </Typography>
   );
 };
 

@@ -7,8 +7,6 @@ import NavigationAll from "../../../../components/OtherComponents/Navigation/Nav
 import Task from "../../../../components/PagesComponents/Community/Task/Task";
 
 const TaskPage = inject()(observer(() => {
-    // console.log("router.query", router.query.id);
-
     const router = useRouter()
 
     React.useEffect(() => {
@@ -16,7 +14,6 @@ const TaskPage = inject()(observer(() => {
             // do smth 
         }
     }, [router.query.id]);
-    // console.log("router.query", router.query)
 
     return (
         <>

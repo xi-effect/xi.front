@@ -7,7 +7,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { Box, Paper,Stack } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
 import questions from "../../../texts/support/FAQ";
 
 function FAQ() {
@@ -27,8 +27,6 @@ function FAQ() {
           variant="IBMPlexSans700WhyLabel"
           sx={{
             cursor: "default",
-            // textAlign: "center",
-            // maxWidth: "912px",
             fontSize: {
               xs: "28px",
               sm: "30px",

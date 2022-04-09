@@ -11,7 +11,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CustomAvatar from "../Avatar/CustomAvatar";
 
-
 moment.locale("ru", {
     calendar: {
         lastDay: "[Yesterday, at] HH:mm",
@@ -22,7 +21,6 @@ moment.locale("ru", {
         sameElse: "L"
     }
 })
-
 
 const ChatItem = inject("rootStore", "uiSt", "messageSt", "settingsSt")(observer(({ messageSt, settingsSt, item, nextItem }) => {
     const [contextMenu, setContextMenu] = React.useState(null);
@@ -55,9 +53,6 @@ const ChatItem = inject("rootStore", "uiSt", "messageSt", "settingsSt")(observer
                 alignItems="flex-start"
                 sx={{
                     position: "relative",
-                    // pl: mobile ? 0 : 2,
-                    // pt: nextItem["sender-name"] === item["sender-name"] ? 0 : 1,
-                    // pr: 2,
                     mt: nextItem["sender-name"] === item["sender-name"] ? 0 : 3,
                     borderRadius: 1,
                     width: "100%",
@@ -86,7 +81,6 @@ const ChatItem = inject("rootStore", "uiSt", "messageSt", "settingsSt")(observer
                         position: "relative",
                         pl: 1,
                         pr: 6,
-                        // ml: mobile ? 8 : 9,
                         ml: 8,
                         width: "calc(100% - 56px)",
                         "&:hover": {
@@ -131,7 +125,6 @@ const ChatItem = inject("rootStore", "uiSt", "messageSt", "settingsSt")(observer
                         {item["sender-id"] !== settingsSt.settings.id && <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>}
                         {item["sender-id"] === settingsSt.settings.id && <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>}
                         {(item["sender-id"] === settingsSt.settings.id || messageSt.chat.role === "moder" || messageSt.chat.role === "admin" || messageSt.chat.role === "owner") && <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>}
-                        {/* {item["sender-id"] === settingsSt.settings.id && <MenuItem onClick={handleClose}> <VolumeMuteIcon sx={{ mr: 1 }} /> Заглушить</MenuItem>} */}
                     </Menu>}
                 </Stack >
             </Stack >
@@ -145,9 +138,6 @@ const ChatItem = inject("rootStore", "uiSt", "messageSt", "settingsSt")(observer
             alignItems="flex-start"
             sx={{
                 position: "relative",
-                // pl: mobile ? 0 : 2,
-                // pt: 1,
-                // pr: 2,
                 mt: 2,
                 borderRadius: 1,
                 width: "100%",
@@ -219,7 +209,6 @@ const ChatItem = inject("rootStore", "uiSt", "messageSt", "settingsSt")(observer
                     {item["sender-id"] !== settingsSt.settings.id && <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>}
                     {item["sender-id"] === settingsSt.settings.id && <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>}
                     {(item["sender-id"] === settingsSt.settings.id || messageSt.chat.role === "moder" || messageSt.chat.role === "admin" || messageSt.chat.role === "owner") && <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>}
-                    {/* {item["sender-id"] === settingsSt.settings.id && <MenuItem onClick={handleClose}> <VolumeMuteIcon sx={{ mr: 1 }} /> Заглушить</MenuItem>} */}
                 </Menu>}
             </Stack >
         </Stack >

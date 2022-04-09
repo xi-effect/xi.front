@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Stack, Paper, Typography, Button, useMediaQuery } from "@mui/material";
 import { inject, observer } from "mobx-react"
 
+import XiLogo from "../../components/OtherComponents/XiLogo/XiLogo.tsx";
 
 const Email = inject("rootStore")(observer(({ rootStore }) => {
     const router = useRouter()
@@ -44,59 +45,7 @@ const Email = inject("rootStore")(observer(({ rootStore }) => {
                     alignItems="center"
                     sx={{ height: mobile ? "100px" : "140px", p: mobile ? "20px" : "40px", width: "100%", }}
                 >
-                    <Stack
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="baseline"
-                        spacing={0}
-                        sx={{ width: "100%" }}
-                    >
-                        <Typography
-                            component="h1"
-                            onClick={() => {
-                                router.push({
-                                    pathname: "/",
-                                })
-                            }}
-
-                            variant="Roboto500XiLabel"
-                            sx={{
-                                mt: "1px",
-                                cursor: "pointer",
-                                color: "secondary.main",
-                                fontSize: {
-                                    sm: "28px",
-                                    md: "34px",
-                                    lg: "40px",
-                                },
-                            }}
-                        >
-                            Ξ
-                        </Typography>
-                        <Typography
-                            component="h1"
-                            onClick={() => {
-                                router.push({
-                                    pathname: "/",
-                                })
-                            }}
-
-                            variant="IBMPlexMono500XiLabelEnd"
-                            sx={{
-                                "&.MuiTypography-root": {
-                                    cursor: "pointer",
-                                    color: "secondary.main",
-                                },
-                                fontSize: {
-                                    sm: "28px",
-                                    md: "34px",
-                                    lg: "40px",
-                                },
-                            }}
-                        >
-                            ffect
-                        </Typography>
-                    </Stack>
+                    <XiLogo />
                 </Stack>
                 <Paper
                     elevation={24}
@@ -104,7 +53,6 @@ const Email = inject("rootStore")(observer(({ rootStore }) => {
                         zIndex: 10,
                         width: "calc(100% - 32px)",
                         maxWidth: 512,
-                        // mt: mobile ? "2px" : -32,
                         mt: 0,
                         bgcolor: "grey.800",
                         borderRadius: "20px",

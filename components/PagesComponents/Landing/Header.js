@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router"
-import { Stack, useMediaQuery, Button, Typography } from "@mui/material";
-
+import { Stack, useMediaQuery, Button } from "@mui/material";
+import XiLogo from "../../OtherComponents/XiLogo/XiLogo.tsx";
 
 function Header() {
     const router = useRouter()
@@ -19,56 +19,12 @@ function Header() {
                 justifyContent="flex-start"
                 alignItems="baseline"
             >
-                <Typography
-                    component="h1"
-                    onClick={() => {
-                        router.push({
-                            pathname: "/",
-                        })
-                    }}
-
-                    variant="Roboto500XiLabel"
-                    sx={{
-                        mt: "1px",
-                        cursor: "pointer",
-                        color: "secondary.main",
-                        fontSize: {
-                            sm: "28px",
-                            md: "34px",
-                            lg: "40px",
-                        },
-                    }}
-                >
-                    Ξ
-                </Typography>
-                <Typography
-                    component="h1"
-                    onClick={() => {
-                        router.push({
-                            pathname: "/",
-                        })
-                    }}
-
-                    variant="IBMPlexMono500XiLabelEnd"
-                    sx={{
-                        "&.MuiTypography-root": {
-                            cursor: "pointer",
-                            color: "secondary.main",
-                        },
-                        fontSize: {
-                            sm: "28px",
-                            md: "34px",
-                            lg: "40px",
-                        },
-                    }}
-                >
-                    ffect
-                </Typography>
+                <XiLogo />
             </Stack>
             <Button
                 onClick={() => {
                     router.push({
-                        pathname: "/home",
+                        pathname: "/login",
                     })
                 }}
                 sx={{
