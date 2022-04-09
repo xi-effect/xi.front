@@ -347,7 +347,6 @@ const CommunityType = inject()(
 
 const CommunityName = inject(
     "rootStore",
-    "knowledgeSt",
     "uiSt",
 )(
     observer(() => {

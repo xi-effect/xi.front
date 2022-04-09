@@ -6,7 +6,6 @@ import { Box, Button, Dialog, FormControl, InputLabel, Input, MenuItem, Select, 
 
 const ReportGeneral = inject(
     "rootStore",
-    "knowledgeSt",
     "uiSt",
 )(
     observer(({ uiSt }) => (
@@ -49,7 +48,6 @@ const ReportDetailed = inject()(
 
 const ReportBug = inject(
     "rootStore",
-    "knowledgeSt",
     "uiSt",
 )(
     observer(({ uiSt }) => (
@@ -141,7 +139,6 @@ const ReportContent = inject(
 
 const ReportDialog = inject(
     "rootStore",
-    "knowledgeSt",
     "uiSt",
 )(
     observer(({ rootStore, uiSt, openDialog, setOpenDialog }) => {

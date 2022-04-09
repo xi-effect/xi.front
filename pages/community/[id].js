@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import Head from "next/head";
 import React from "react";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
 
 
