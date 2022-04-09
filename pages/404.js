@@ -1,8 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { Grid, Divider, useMediaQuery, Typography, Link } from "@mui/material"
-
+import Image from "next/image";
+import { Stack, Typography, Button, useMediaQuery } from "@mui/material";
+import { motion } from "framer-motion";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useRouter } from "next/router"
+import Header from "../components/PagesComponents/Landing/Header";
+
 
 // eslint-disable-next-line no-underscore-dangle
 export default function _404() {
@@ -10,68 +14,115 @@ export default function _404() {
     const router = useRouter()
 
     return (
-        <Grid
-            container
+        <Stack
+            component={motion.div}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 2 }}
             direction="column"
-            justifyContent="space-between"
+            justifyContent="flex-start"
             alignItems="center"
             sx={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                margin: "0",
-                padding: "0",
-                backgroundImage: "url(https://cdna.artstation.com/p/assets/images/images/012/086/010/large/mikael-gustafsson-amongtrees-2-8.jpg?1532971442)",
-                height: "100%",
-                width: "100%",
-                backgroundPosition: "center center",
-                backgroundRepeat: "no-repeat",
-                backgroundAttachment: "fixed",
-                backgroundSize: "cover",
-                backgroundColor: "#659DBD",
+                zIndex: 1,
+                margin: 0,
+                overflow: "auto",
+                height: "100vh",
+                bgcolor: "background.main",
             }}
         >
-            <Grid sx={{ margin: 2, }} />
-            <Grid
-                item
-                container
-                direction="column"
+            <Header />
+            <Stack
+                direction={mobile ? "column-reverse" : "row"}
                 justifyContent="center"
                 alignItems="center"
+                sx={{
+                    height: '100%',
+                }}
             >
-                <Typography variant="h1" sx={{
-                    margin: 2,
-                    cursor: "default",
-                    color: "text.primary",
-                }}> 404 </Typography>
-                <Divider sx={{
-                    height: 3,
-                    width: 100,
-                    backgroundColor: "text.primary",
-                }} />
-                <Typography variant="h5" sx={{
-                    margin: 2,
-                    cursor: "default",
-                    color: "text.primary",
-                }}> Упс, вы заблудились... </Typography>
-                <Link
+                <Stack
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={4}
                     sx={{
-                        fontSize: mobile ? 34 : 28,
-                        margin: 1,
-                        cursor: "pointer",
-                        color: "text.primary",
+                        mr: mobile ? '0px' : '32px',
                     }}
-                    onClick={() => {
-                        router.push({
-                            pathname: "/",
-                        })
-                    }}
-                    underline="hover"
                 >
-                    Вернуться в Ξffect
-                </Link>
-            </Grid>
-            <Grid item />
-        </Grid>
+                    <Typography
+                        sx={{
+                            fontSize: mobile ?  "50px !important" : "60px !important",
+                            fontWeight: 500,
+                            maxWidth: "323px",
+                            lineHeight: "65px",
+                            letterSpacing: "-0.5px",
+                            textAlign: mobile ? "center" : "left",
+
+                        }}
+                    >
+                        {`Страница
+                        не\xa0найдена`}
+                    </Typography>
+                    <Button
+                        onClick={() => {
+                            router.push({
+                                pathname: "/",
+                            })
+                        }}
+                        sx={{
+                            "&.MuiButton-root": {
+                                width: "289px",
+                                height: "60px",
+                                color: "text.main",
+                                bgcolor: "primary.main",
+                                borderRadius: "88px",
+                                boxShadow: 24,
+                                "&:hover": {
+                                    bgcolor: "primary.main",
+                                },
+                            },
+                            mt: "20px",
+                            mb: "20px",
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                "&.MuiTypography-root": {
+                                    fontWeight: 500,
+                                    fontSize: "18px",
+                                    lineHeight: "25px",
+                                },
+                                ml: "24px",
+                                color: "text.primary",
+                            }}
+                        >
+                            Вернуться на главную
+                        </Typography>
+                        <Stack
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="center"
+                            sx={{
+                                color: "text.primary",
+                                bgcolor: "secondary.main",
+                                height: "46px",
+                                width: "46px",
+                                borderRadius: "50%",
+                                ml: "auto",
+                                mr: "0px",
+                            }}
+                        >
+                            <ArrowForwardIcon />
+                        </Stack>
+                    </Button>
+                </Stack>
+                <Image
+                    alt="alt"
+                    src="/assets/404/404Error.svg"
+                    quality={100}
+                    width={512}
+                    height={364}
+                />
+            </Stack>
+        </Stack>
     );
 }
