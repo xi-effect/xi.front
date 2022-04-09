@@ -8,25 +8,18 @@ import { enableStaticRendering } from "mobx-react"
 import { useMemo } from "react"
 import Router from "next/router"
 
-// import { io } from "socket.io-client";
-
 import UIStore from "./ui/uiSt";
 import HomeStore from "./home/homeSt";
-import KnowledgeStore from "./knowledge/knowledgeSt";
-import ManagmentStore from "./managment/managmentSt";
 import SettingsStore from "./settings/settingsSt";
-import ContentStore from "./content/contentSt";
 import AuthorizationStore from "./authorization/authorizationSt";
 import MessageStore from "./message/messageSt";
 import ProfileStore from "./profile/profileSt";
 import CommunityStore from "./community/communitySt";
-import ContentEditorSt from "./contentEditor/contentEditorSt";
 
 
 enableStaticRendering(typeof window === "undefined")
 
 let store
-// console.log(process.env)
 
 class RootStore {
   url = process.env.NEXT_PUBLIC_SERVER_URL
@@ -34,22 +27,13 @@ class RootStore {
   constructor() {
     this.uiSt = new UIStore(this)
     this.homeSt = new HomeStore(this)
-    this.knowledgeSt = new KnowledgeStore(this)
-    this.managmentSt = new ManagmentStore(this)
     this.settingsSt = new SettingsStore(this)
-    this.contentSt = new ContentStore(this)
     this.authorizationSt = new AuthorizationStore(this)
     this.messageSt = new MessageStore(this)
     this.profileSt = new ProfileStore(this)
     this.communitySt = new CommunityStore(this)
-    this.contentEditorSt = new ContentEditorSt(this)
     makeObservable(this)
   }
-
-
-  // socket = io("http://f877-188-242-138-193.ngrok.io/", {
-  //   withCredentials: true,
-  // });
 
   @action getCookie(name) {
     const value = `; ${document.cookie}`;
