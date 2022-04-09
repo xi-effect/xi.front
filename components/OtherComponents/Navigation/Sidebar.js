@@ -186,8 +186,8 @@ const Sidebar = inject()(
           </Tooltip>
         ))}
         <Scrollbars
-          renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
-          renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
+          renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 2, }} />}
+          renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 2, }} />}
           universal
           style={{ height: "100%", overflowY: "hidden !important", }}
           autoHide
@@ -195,7 +195,7 @@ const Sidebar = inject()(
           autoHideDuration={200}
         >
           {communityList.map((item, index) => (
-            <Tooltip key={index.toString()} placement="right" title={item.label}>
+            <Tooltip enterDelay={500} leaveDelay={0} key={index.toString()} placement="right" title={item.label}>
               <IconButton
                 component={motion.li}
                 whileHover={{ scale: 1.15 }}
