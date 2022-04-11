@@ -12,7 +12,6 @@ import {
 import { useSnackbar } from "notistack";
 
 import HomeIcon from "@mui/icons-material/Home";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { Scrollbars } from "react-custom-scrollbars-2";
@@ -38,12 +37,6 @@ const Sidebar = inject()(
       },
       {
         id: 1,
-        icon: <MenuBookIcon />,
-        label: "Знания",
-        href: "/knowledge",
-      },
-      {
-        id: 3,
         icon: <AddBoxIcon />,
         label: "Создать сообщество",
         href: "createcommunity",
@@ -193,8 +186,8 @@ const Sidebar = inject()(
           </Tooltip>
         ))}
         <Scrollbars
-          renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
-          renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
+          renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 2, }} />}
+          renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 2, }} />}
           universal
           style={{ height: "100%", overflowY: "hidden !important", }}
           autoHide
@@ -202,7 +195,7 @@ const Sidebar = inject()(
           autoHideDuration={200}
         >
           {communityList.map((item, index) => (
-            <Tooltip key={index.toString()} placement="right" title={item.label}>
+            <Tooltip enterDelay={500} leaveDelay={0} key={index.toString()} placement="right" title={item.label}>
               <IconButton
                 component={motion.li}
                 whileHover={{ scale: 1.15 }}

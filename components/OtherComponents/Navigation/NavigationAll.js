@@ -72,7 +72,7 @@ const NavigationAll = inject(
         uiSt.setLoading("loading", true)
         setTimeout(() => {
           uiSt.setLoading("loading", false)
-        }, 1500);
+        }, 1000);
       }
     }, [])
 

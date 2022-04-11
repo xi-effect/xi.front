@@ -83,7 +83,7 @@ class AuthorizationStore {
                         router.push("/home")
                         setTimeout(() => {
                             this.rootStore.uiSt.setLoading("loading", false)
-                        }, 3000);
+                        }, 2000);
                     } else {
                         this.setSignup("error", "emailAlreadyUsed")
                     }
@@ -126,7 +126,7 @@ class AuthorizationStore {
                                 }
                                 setTimeout(() => {
                                     this.rootStore.uiSt.setLoading("loading", false)
-                                }, 3000);
+                                }, 2000);
                             });
                     } else if (data.a === "User doesn't exist") {
                         this.setLogin("error", "User doesn't exist")

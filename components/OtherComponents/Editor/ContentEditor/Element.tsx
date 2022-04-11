@@ -6,6 +6,7 @@ import React from 'react';
 import H1 from '../Blocks/H1';
 import H2 from '../Blocks/H2';
 import Text from '../Blocks/Text';
+import DividerComp from "../Blocks/DividerComp";
 
 type Props = {
   attributes: any;
@@ -16,6 +17,7 @@ type Props = {
 const Element: React.FC<Props> = (props) => {
   const { attributes, children, element } = props;
   const style = { textAlign: element.align };
+  const dividerStyle: object = {userSelect: 'none', width: '100%'};
   switch (element.type) {
     // case 'block-quote':
     //   return (
@@ -41,6 +43,12 @@ const Element: React.FC<Props> = (props) => {
           {children}
         </H2>
       );
+    case 'divider':
+      return (
+        <div style={dividerStyle} contentEditable={false}>
+          <DividerComp/>
+        </div>
+      )
     // case 'list-item':
     //   return (
     //     <li style={style} {...attributes}>
