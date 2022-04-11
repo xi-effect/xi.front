@@ -7,7 +7,7 @@ import { useRouter } from "next/router"
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
 
 
-const LessonPage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
+const LessonPage = inject("rootStore", "userSt", "profileSt")(observer(() => {
     const router = useRouter()
 
     React.useEffect(() => {

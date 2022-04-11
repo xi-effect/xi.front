@@ -9,7 +9,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 const Crypto = require("crypto-js")
 
 
-const DialogChangeEmail = inject("rootStore", "settingsSt")(observer(({ rootStore, openEmailChangeDialog, setOpenEmailChangeDialog }) => {
+const DialogChangeEmail = inject("rootStore", "userSt")(observer(({ rootStore, openEmailChangeDialog, setOpenEmailChangeDialog }) => {
     const [newEmail, setNewEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
     const [showPassword, setShowPassword] = React.useState(false)
@@ -31,7 +31,7 @@ const DialogChangeEmail = inject("rootStore", "settingsSt")(observer(({ rootStor
             setSymError(true)
         }
         if (!symError) {
-            rootStore.fetchDataScr(`${rootStore.url}/email-change/`, "POST", { "password": Crypto.SHA384(password).toString(), "new-email": newEmail }) // postData /auth //Crypto.SHA384(store.settingsNew.passwordOldChange).toString() //Crypto.SHA384(store.settingsNew.passwordNewChange).toString()
+            rootStore.fetchData(`${rootStore.url}/email-change/`, "POST", { "password": Crypto.SHA384(password).toString(), "new-email": newEmail }) // postData /auth //Crypto.SHA384(store.settingsNew.passwordOldChange).toString() //Crypto.SHA384(store.settingsNew.passwordNewChange).toString()
                 .then((data) => {
                     console.log(data)
                     if (data !== undefined) {

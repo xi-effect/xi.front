@@ -44,7 +44,7 @@ function a11yProps(index) {
 }
 
 
-const Profile = inject("settingsSt", "profileSt")(observer(({ settingsSt, profileSt }) => {
+const Profile = inject("userSt", "profileSt")(observer(({ userSt, profileSt }) => {
     const router = useRouter()
 
     React.useEffect(() => {
@@ -88,7 +88,7 @@ const Profile = inject("settingsSt", "profileSt")(observer(({ settingsSt, profil
                         }}
                     >
                         <Box sx={{ height: 290, width: 290, }}>
-                            <CustomAvatar avatar={{ ...settingsSt.settings.avatar, bgcolor: null }} viewBox={{ x: "-175", y: "-100", width: "1256", height: "1256" }} />
+                            <CustomAvatar avatar={{ ...userSt.settings.avatar, bgcolor: null }} viewBox={{ x: "-175", y: "-100", width: "1256", height: "1256" }} />
                         </Box>
                         <Stack
                             direction="column"

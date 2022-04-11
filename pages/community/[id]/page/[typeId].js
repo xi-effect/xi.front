@@ -13,7 +13,7 @@ const ContentEditor = dynamic(() => import("../../../../components/OtherComponen
     ssr: false,
 })
 
-const PagePage = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
+const PagePage = inject("rootStore", "userSt", "profileSt")(observer(() => {
     const router = useRouter()
 
     React.useEffect(() => {

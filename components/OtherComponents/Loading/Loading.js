@@ -16,7 +16,7 @@ const Loading = inject("uiSt")(observer(({ uiSt }) => {
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                sx={{ position: "absolute", height: "100vh", width: "100vw", zIndex: 99999, bgcolor: isDarkTheme ? "#26282B" : "#fafafa", }}
+                sx={{ position: "absolute", mihHeight: "100vh", height: '100%', width: "100vw", zIndex: 99999, bgcolor: isDarkTheme ? "#26282B" : "#fafafa", }}
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}

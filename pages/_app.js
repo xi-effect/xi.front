@@ -48,8 +48,8 @@ const MyApp = (observer((props) => {
 
   const rootStore = useStore(pageProps.initialState)
   const theme = React.useMemo(() =>
-    responsiveFontSizes(createTheme(getDesignTokens(rootStore.settingsSt.settings.darkTheme))),
-    [rootStore.settingsSt.settings.darkTheme])
+    responsiveFontSizes(createTheme(getDesignTokens(rootStore.userSt.settings.darkTheme))),
+    [rootStore.userSt.settings.darkTheme])
 
 
   return (
@@ -58,13 +58,11 @@ const MyApp = (observer((props) => {
         <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
       </Head>
       <Provider
-        store={rootStore}
         rootStore={rootStore}
         uiSt={rootStore.uiSt}
+        userSt={rootStore.userSt}
         homeSt={rootStore.homeSt}
-        settingsSt={rootStore.settingsSt}
         authorizationSt={rootStore.authorizationSt}
-        profileSt={rootStore.profileSt}
         messageSt={rootStore.messageSt}
         communitySt={rootStore.communitySt}
       >

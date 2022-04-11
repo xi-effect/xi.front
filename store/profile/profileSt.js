@@ -23,7 +23,7 @@ class ProfileStore {
     }
 
     @action loadUserInfo = (id) => {
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/users/${id}/profile/`, "GET").then(
+        this.rootStore.fetchData(`${this.rootStore.url}/users/${id}/profile/`, "GET").then(
             (data) => {
                 console.log("data", data)
                 this.setUserAll(data)
