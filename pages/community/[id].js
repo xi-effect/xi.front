@@ -2,18 +2,13 @@ import { Stack } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import Head from "next/head";
 import React from "react";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
 
 
 const Community = inject("userSt")(observer(({ userSt }) => {
-    const router = useRouter()
-    React.useEffect(() => {
-        if (router.query.id !== undefined) {
-            userSt.loadUserInfo(router.query.id)
-        }
-    }, [userSt, router.query.id]);
-
+    // const router = useRouter()
+    console.log(userSt);
     return (
         <>
             <Head>
