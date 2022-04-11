@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
 
 
-const Dashboard = inject("rootStore", "settingsSt", "profileSt")(observer(() => {
+const Dashboard = inject("rootStore", "userSt", "userSt")(observer(() => {
     const router = useRouter()
 
     React.useEffect(() => {

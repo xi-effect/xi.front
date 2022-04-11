@@ -17,15 +17,20 @@ import Header from '../../components/PagesComponents/Login/Header.tsx';
 // @ts-ignore
 import Form from '../../components/PagesComponents/Login/Form.tsx';
 
-const Login = inject('authorizationSt')(
+const Login = inject(
+  'uiSt',
+  'userSt',
+)(
   observer((props) => {
-    const { authorizationSt } = props;
+    const { uiSt, userSt } = props;
 
     const [prevPathname, setPrevPathname] = useSessionStorage('prevPathname');
 
     React.useEffect(() => {
-      console.log(prevPathname, 'prevPathname');
-      if (prevPathname !== '/home') authorizationSt.isAuthUser();
+      if (prevPathname !== '/home') {
+        uiSt.setLoading('loading', true);
+        userSt.getMainSettings('login');
+      }
     }, []);
 
     return (

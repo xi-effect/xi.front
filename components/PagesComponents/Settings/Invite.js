@@ -19,9 +19,9 @@ import QRCode from "react-qr-code";
 
 const Invite = inject(
   "rootStore",
-  "settingsSt"
+  "userSt"
 )(
-  observer(({ rootStore, settingsSt }) => {
+  observer(({ rootStore, userSt }) => {
 
     // Используется тестовый код, нужно заменить значение из API
     const [statusCopy, setStatusCopy] = useState(false);
@@ -49,9 +49,9 @@ const Invite = inject(
           <TextField
             id="invite-code"
             label="Код-приглашение"
-            defaultValue={settingsSt.settings.invite}
+            defaultValue={userSt.settings.invite}
             onClick={() => {
-              copyToClipboard(`https://xieffect.ru/registration?invite=${settingsSt.settings.invite}`)
+              copyToClipboard(`https://xieffect.ru/registration?invite=${userSt.settings.invite}`)
               setStatusCopy(true)
             }}
             InputProps={{
@@ -81,7 +81,7 @@ const Invite = inject(
               height: 256,
             }}
           >
-            <QRCode value={`https://xieffect.netlify.app/registration?invite=${settingsSt.settings.invite}`} />
+            <QRCode value={`https://xieffect.netlify.app/registration?invite=${userSt.settings.invite}`} />
           </Box>}
       </Grid >
     );

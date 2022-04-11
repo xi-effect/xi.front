@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 import Image from "next/image";
 import Head from "next/head";
 import React from "react";
-import { useRouter } from "next/router"
+// import { useRouter } from "next/router"
 
-import CustomAvatar from "../../components/OtherComponents/Avatar/CustomAvatar";
+// import CustomAvatar from "../../components/OtherComponents/Avatar/CustomAvatar";
 import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
 
 function TabPanel(props) {
@@ -44,14 +44,14 @@ function a11yProps(index) {
 }
 
 
-const Profile = inject("settingsSt", "profileSt")(observer(({ settingsSt, profileSt }) => {
-    const router = useRouter()
-
-    React.useEffect(() => {
-        if (router.query.id !== undefined) {
-            profileSt.loadUserInfo(router.query.id)
-        }
-    }, [profileSt, router.query.id]);
+const Profile = inject("userSt")(observer(({ userSt }) => {
+    // const router = useRouter()
+    console.log(userSt);
+    // React.useEffect(() => {
+    //     if (router.query.id !== undefined) {
+    //         userSt.loadUserInfo(router.query.id)
+    //     }
+    // }, [userSt, router.query.id]);
 
     const [value, setValue] = React.useState(0);
 
@@ -87,9 +87,9 @@ const Profile = inject("settingsSt", "profileSt")(observer(({ settingsSt, profil
                             width: "100%",
                         }}
                     >
-                        <Box sx={{ height: 290, width: 290, }}>
-                            <CustomAvatar avatar={{ ...settingsSt.settings.avatar, bgcolor: null }} viewBox={{ x: "-175", y: "-100", width: "1256", height: "1256" }} />
-                        </Box>
+                        {/* <Box sx={{ height: 290, width: 290, }}>
+                            <CustomAvatar avatar={{ ...userSt.settings.avatar, bgcolor: null }} viewBox={{ x: "-175", y: "-100", width: "1256", height: "1256" }} />
+                        </Box> */}
                         <Stack
                             direction="column"
                             justifyContent="flex-start"
@@ -97,15 +97,15 @@ const Profile = inject("settingsSt", "profileSt")(observer(({ settingsSt, profil
                             spacing={2}
                             sx={{ pt: 4 }}
                         >
-                            {profileSt?.user?.name && <Typography sx={{ cursor: "default" }} variant="h5">
-                                {profileSt.user.name}
+                            {/* {userSt?.user?.name && <Typography sx={{ cursor: "default" }} variant="h5">
+                                {userSt.user.name}
                             </Typography>}
-                            {profileSt?.user?.surname && <Typography sx={{ cursor: "default" }} variant="h5">
-                                {profileSt.user.surname}
+                            {userSt?.user?.surname && <Typography sx={{ cursor: "default" }} variant="h5">
+                                {userSt.user.surname}
                             </Typography>}
-                            {profileSt?.user?.username && <Typography sx={{ cursor: "default" }} variant="h5">
-                                {profileSt.user.username}
-                            </Typography>}
+                            {userSt?.user?.username && <Typography sx={{ cursor: "default" }} variant="h5">
+                                {userSt.user.username}
+                            </Typography>} */}
                         </Stack>
                     </Stack>
                     <Stack

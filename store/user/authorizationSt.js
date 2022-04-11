@@ -49,7 +49,7 @@ class AuthorizationStore {
     @action clickPasswordResetButton = (data) => {
         this.setPasswordReset("errorEmailNotFounedReset", false)
         this.setPasswordReset("emailResetOk", false)
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/password-reset/`, "POST", { email: data.email.toLowerCase() },)
+        this.rootStore.fetchData(`${this.rootStore.url}/password-reset/`, "POST", { email: data.email.toLowerCase() },)
             .then((data) => {
                 console.log(data)
                 if (data !== undefined) {
@@ -102,7 +102,6 @@ class AuthorizationStore {
     }
 
     @action clickEnterButton = (data, trigger) => {
-        console.log("clickEnterButton")
         this.setLogin("error", null)
         this.rootStore.fetchData(`${this.rootStore.url}/auth/`, "POST", { "email": data.email.toLowerCase(), "password": Crypto.SHA384(data.password.trim()).toString() })
             .then((data) => {
@@ -111,16 +110,16 @@ class AuthorizationStore {
                     if (data.a === "Success") {
                         this.rootStore.uiSt.setLoading("loading", true)
                         Router.push("/home")
-                        this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/`, "GET")
+                        this.rootStore.fetchData(`${this.rootStore.url}/settings/`, "GET")
                             .then((data) => {
                                 console.log(data)
                                 if (data !== undefined) {
                                     const emailArr = data.email.split("@", 2)
-                                    this.rootStore.settingsSt.setSettings("username", data.username)
-                                    this.rootStore.settingsSt.setSettings("emailBefore", emailArr[0])
-                                    this.rootStore.settingsSt.setSettings("emailAfter", `@${emailArr[1]}`)
-                                    this.rootStore.settingsSt.setSettings("darkTheme", data["dark-theme"])
-                                    this.rootStore.settingsSt.setSettings("emailConfirmed", data["email-confirmed"])
+                                    this.rootStore.userSt.setSettings("username", data.username)
+                                    this.rootStore.userSt.setSettings("emailBefore", emailArr[0])
+                                    this.rootStore.userSt.setSettings("emailAfter", `@${emailArr[1]}`)
+                                    this.rootStore.userSt.setSettings("darkTheme", data["dark-theme"])
+                                    this.rootStore.userSt.setSettings("emailConfirmed", data["email-confirmed"])
                                 } else {
                                     console.log("Проблемы с сервером")
                                 }
@@ -144,9 +143,8 @@ class AuthorizationStore {
 
     @action isAuthUser = () => {
         this.rootStore.uiSt.setLoading("loading", true);
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/settings/main/`, "GET")
+        this.rootStore.fetchData(`${this.rootStore.url}/settings/main/`, "GET")
             .then((data) => {
-                console.log("isAuthUser", data);
                 if (data === null) {
                     this.rootStore.uiSt.setLoading("loading", false)
                 } else {

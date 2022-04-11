@@ -14,9 +14,9 @@ import HomeNotifications from "./RightMenu/HomeNotifications";
 import ReportDialog from "./RightMenu/ReportDialog";
 
 const RightMenu = inject(
-  "settingsSt",
+  "userSt",
 )(
-  observer(({ settingsSt }) => {
+  observer(({ userSt }) => {
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
 
@@ -129,7 +129,7 @@ const RightMenu = inject(
                 <Box
                   sx={{ height: 64, width: 64, m: 1, mt: "-2px", mr: 0, cursor: "pointer" }}
                 >
-                  <CustomAvatar avatar={{ ...settingsSt.settings.avatar, bgcolor: "rgba(0,0,0,0)" }} viewBox={{ x: "50", y: "-110", width: "690", height: "790" }} reverse />
+                  <CustomAvatar avatar={{ ...userSt.settings.avatar, bgcolor: "rgba(0,0,0,0)" }} viewBox={{ x: "50", y: "-110", width: "690", height: "790" }} reverse />
                 </Box>
                 <Stack
                   direction="column"
@@ -141,10 +141,10 @@ const RightMenu = inject(
                   }}
                 >
                   <Typography variant="h6" sx={{ mt: 0, ml: 0, mr: 0, width: "calc(100% - 0px)" }} noWrap>
-                    {settingsSt.settings.username}
+                    {userSt.settings.username}
                   </Typography>
                   <Typography variant="subtitle1" sx={{ mt: 0, ml: 0, mr: 0, width: "calc(100% - 0px)" }}>
-                    {`${settingsSt.settings.username} ${settingsSt.settings.username}`}
+                    {`${userSt.settings.username} ${userSt.settings.username}`}
                   </Typography>
                 </Stack>
               </Stack>
@@ -172,7 +172,7 @@ const RightMenu = inject(
                 }}
               >
                 <MenuItem disabled={!open} component={motion.li} variants={variantsChild} sx={{ cursor: "pointer" }} onClick={() => {
-                  router.push(`/profile/${settingsSt.settings.id}/`)
+                  router.push(`/profile/${userSt.settings.id}/`)
                 }}>
                   <ListItemIcon>
                     <AccountCircleIcon fontSize="small" />
@@ -192,7 +192,7 @@ const RightMenu = inject(
                   </ListItemText>
                 </MenuItem>
                 <MenuItem disabled={!open} component={motion.li} variants={variantsChild} sx={{ "& .MuiMenuItem-root": { cursor: "pointer" } }} onClick={() => {
-                  settingsSt.logout()
+                  userSt.logout()
                 }}>
                   <ListItemIcon>
                     <LogoutIcon sx={{ color: "error.main" }} fontSize="small" />

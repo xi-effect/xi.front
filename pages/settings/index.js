@@ -37,34 +37,34 @@ const UserAvatar = dynamic(() =>
 
 const Settings = inject(
   "rootStore",
-  "settingsSt",
+  "userSt",
 )(
-  observer(({ rootStore, settingsSt }) => {
+  observer(({ rootStore, userSt }) => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"))
     const router = useRouter()
 
     React.useEffect(() => {
       rootStore
-        .fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
+        .fetchData(`${rootStore.url}/settings/main/`, "GET")
         .then((data) => {
           if (data) {
             console.log("settings/main", data)
-            settingsSt.setSettings("darkTheme", data["dark-theme"])
-            settingsSt.setSettings("id", data.id)
-            settingsSt.setSettings("username", data.username)
+            userSt.setSettings("darkTheme", data["dark-theme"])
+            userSt.setSettings("id", data.id)
+            userSt.setSettings("username", data.username)
           }
         });
       rootStore
-        .fetchDataScr(`${rootStore.url}/settings/`, "GET")
+        .fetchData(`${rootStore.url}/settings/`, "GET")
         .then((data) => {
           if (data) {
             console.log("settings", data);
             const emailArr = data.email.split("@", 2)
-            settingsSt.setSettings("emailBefore", emailArr[0])
-            settingsSt.setSettings("emailAfter", `@${emailArr[1]}`)
-            settingsSt.setSettings("emailConfirmed", data["email-confirmed"])
-            settingsSt.setSettings("avatar", data.avatar)
-            settingsSt.setSettings("invite", data.code)
+            userSt.setSettings("emailBefore", emailArr[0])
+            userSt.setSettings("emailAfter", `@${emailArr[1]}`)
+            userSt.setSettings("emailConfirmed", data["email-confirmed"])
+            userSt.setSettings("avatar", data.avatar)
+            userSt.setSettings("invite", data.code)
           }
         });
     }, []);
@@ -111,7 +111,7 @@ const Settings = inject(
               >
                 <Box sx={{ height: 290, width: 290 }}>
                   <CustomAvatar
-                    avatar={{ ...settingsSt.settings.avatar, bgcolor: null }}
+                    avatar={{ ...userSt.settings.avatar, bgcolor: null }}
                     viewBox={{
                       x: "-175",
                       y: "-100",
@@ -123,7 +123,7 @@ const Settings = inject(
                 {!mobile && (
                   <Button
                     sx={{ ml: "auto", mr: 1, mb: 1.2 }}
-                    onClick={() => settingsSt.saveNewSettimgs()}
+                    onClick={() => userSt.saveNewSettimgs()}
                     color="inherit"
                   >
                     Сохранить изменения
@@ -133,7 +133,7 @@ const Settings = inject(
                   <Tooltip title="Сохранить изменения">
                     <IconButton
                       sx={{ ml: "auto", mr: 1, mb: 1 }}
-                      onClick={() => settingsSt.saveNewSettimgs()}
+                      onClick={() => userSt.saveNewSettimgs()}
                       color="inherit"
                     >
                       <SaveIcon />
@@ -143,7 +143,7 @@ const Settings = inject(
                 <Tooltip title="Выйти">
                   <IconButton
                     sx={{ m: 1 }}
-                    onClick={() => settingsSt.logout()}
+                    onClick={() => userSt.logout()}
                     color="error"
                   >
                     <LogoutIcon />

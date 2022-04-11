@@ -52,11 +52,11 @@ const SidebarVariantsRight = {
 
 const NavigationAll = inject(
   "rootStore",
-  "settingsSt",
+  "userSt",
   "uiSt",
   "messageSt"
 )(
-  observer(({ rootStore, settingsSt, uiSt, messageSt, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
+  observer(({ userSt, uiSt, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
@@ -68,43 +68,12 @@ const NavigationAll = inject(
     }, [router.pathname])
 
     React.useEffect(() => {
-      if (uiSt.load.loading === null) {
-        uiSt.setLoading("loading", true)
-        setTimeout(() => {
-          uiSt.setLoading("loading", false)
-        }, 1000);
-      }
-    }, [])
-
-    React.useEffect(() => {
       // Каждый раз запрашиваются настройки, чтобы понимать,
       // актуален ли токен авторизации
-      rootStore
-        .fetchDataScr(`${rootStore.url}/settings/main/`, "GET")
-        .then((data) => {
-          console.log("data1", data)
-          if (data) {
-            console.log("settings/main", data);
-            messageSt.loadChatsInMenu();
-            settingsSt.setSettings("darkTheme", data["dark-theme"]);
-            settingsSt.setSettings("id", data.id);
-            settingsSt.setSettings("username", data.username);
-          }
-        });
-      if (uiSt.load.loading === null) {
-        rootStore
-          .fetchDataScr(`${rootStore.url}/settings/`, "GET")
-          .then((data) => {
-            if (data) {
-              console.log("settings", data);
-              const emailArr = data.email.split("@", 2)
-              settingsSt.setSettings("emailBefore", emailArr[0])
-              settingsSt.setSettings("emailAfter", `@${emailArr[1]}`)
-              settingsSt.setSettings("emailConfirmed", data["email-confirmed"])
-              settingsSt.setSettings("avatar", data.avatar)
-              settingsSt.setSettings("invite", data.code)
-            }
-          });
+      if (userSt.settings.id === null) {
+        uiSt.setLoading('loading', true);
+        userSt.getMainSettings('login');
+        userSt.getAllSettings();
       };
     }, []);
 

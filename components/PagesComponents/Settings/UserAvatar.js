@@ -23,7 +23,7 @@ const bgcolor = [
     "#ff9800",
 ]
 
-const UserAvatar = inject("settingsSt")(observer(({ settingsSt }) => (
+const UserAvatar = inject("userSt")(observer(({ userSt }) => (
     <Grid
         container
         direction="row"
@@ -46,13 +46,13 @@ const UserAvatar = inject("settingsSt")(observer(({ settingsSt }) => (
                 spacing={2}
                 sx={{ maxWidth: 200, m: 1, }}
             >
-                <IconButton onClick={() => settingsSt.setSettingsSecond("avatar", "body", settingsSt.settings.avatar.body === 0 ? 27 : settingsSt.settings.avatar.body - 1)}>
+                <IconButton onClick={() => userSt.setSettingsSecond("avatar", "body", userSt.settings.avatar.body === 0 ? 27 : userSt.settings.avatar.body - 1)}>
                     <NavigateBeforeIcon />
                 </IconButton>
                 <Typography>
-                    {`Тело № ${settingsSt.settings.avatar.body + 1}`}
+                    {`Тело № ${userSt.settings.avatar.body + 1}`}
                 </Typography>
-                <IconButton onClick={() => settingsSt.setSettingsSecond("avatar", "body", settingsSt.settings.avatar.body === 27 ? 0 : settingsSt.settings.avatar.body + 1)}>
+                <IconButton onClick={() => userSt.setSettingsSecond("avatar", "body", userSt.settings.avatar.body === 27 ? 0 : userSt.settings.avatar.body + 1)}>
                     <NavigateNextIcon />
                 </IconButton>
             </Grid>
@@ -64,13 +64,13 @@ const UserAvatar = inject("settingsSt")(observer(({ settingsSt }) => (
                 spacing={2}
                 sx={{ maxWidth: 200, m: 1, }}
             >
-                <IconButton onClick={() => settingsSt.setSettingsSecond("avatar", "hair", settingsSt.settings.avatar.hair === 0 ? 46 : settingsSt.settings.avatar.hair - 1)}>
+                <IconButton onClick={() => userSt.setSettingsSecond("avatar", "hair", userSt.settings.avatar.hair === 0 ? 46 : userSt.settings.avatar.hair - 1)}>
                     <NavigateBeforeIcon />
                 </IconButton>
                 <Typography>
-                    {`Волосы № ${settingsSt.settings.avatar.hair + 1}`}
+                    {`Волосы № ${userSt.settings.avatar.hair + 1}`}
                 </Typography>
-                <IconButton onClick={() => settingsSt.setSettingsSecond("avatar", "hair", settingsSt.settings.avatar.hair === 46 ? 0 : settingsSt.settings.avatar.hair + 1)}>
+                <IconButton onClick={() => userSt.setSettingsSecond("avatar", "hair", userSt.settings.avatar.hair === 46 ? 0 : userSt.settings.avatar.hair + 1)}>
                     <NavigateNextIcon />
                 </IconButton>
             </Grid>
@@ -82,13 +82,13 @@ const UserAvatar = inject("settingsSt")(observer(({ settingsSt }) => (
                 spacing={2}
                 sx={{ maxWidth: 200, m: 1, }}
             >
-                <IconButton onClick={() => settingsSt.setSettingsSecond("avatar", "face", settingsSt.settings.avatar.face === 0 ? 32 : settingsSt.settings.avatar.face - 1)}>
+                <IconButton onClick={() => userSt.setSettingsSecond("avatar", "face", userSt.settings.avatar.face === 0 ? 32 : userSt.settings.avatar.face - 1)}>
                     <NavigateBeforeIcon />
                 </IconButton>
                 <Typography>
-                    {`Лицо № ${settingsSt.settings.avatar.face + 1}`}
+                    {`Лицо № ${userSt.settings.avatar.face + 1}`}
                 </Typography>
-                <IconButton onClick={() => settingsSt.setSettingsSecond("avatar", "face", settingsSt.settings.avatar.face === 32 ? 0 : settingsSt.settings.avatar.face + 1)}>
+                <IconButton onClick={() => userSt.setSettingsSecond("avatar", "face", userSt.settings.avatar.face === 32 ? 0 : userSt.settings.avatar.face + 1)}>
                     <NavigateNextIcon />
                 </IconButton>
             </Grid>
@@ -100,13 +100,13 @@ const UserAvatar = inject("settingsSt")(observer(({ settingsSt }) => (
                 spacing={2}
                 sx={{ maxWidth: 200, m: 1, }}
             >
-                <IconButton onClick={() => settingsSt.setSettingsSecond("avatar", "accessory", settingsSt.settings.avatar.accessory === 0 ? 8 : settingsSt.settings.avatar.accessory - 1)}>
+                <IconButton onClick={() => userSt.setSettingsSecond("avatar", "accessory", userSt.settings.avatar.accessory === 0 ? 8 : userSt.settings.avatar.accessory - 1)}>
                     <NavigateBeforeIcon />
                 </IconButton>
                 <Typography>
-                    {`Очки № ${settingsSt.settings.avatar.accessory + 1}`}
+                    {`Очки № ${userSt.settings.avatar.accessory + 1}`}
                 </Typography>
-                <IconButton onClick={() => settingsSt.setSettingsSecond("avatar", "accessory", settingsSt.settings.avatar.accessory === 8 ? 0 : settingsSt.settings.avatar.accessory + 1)}>
+                <IconButton onClick={() => userSt.setSettingsSecond("avatar", "accessory", userSt.settings.avatar.accessory === 8 ? 0 : userSt.settings.avatar.accessory + 1)}>
                     <NavigateNextIcon />
                 </IconButton>
             </Grid>
@@ -118,13 +118,13 @@ const UserAvatar = inject("settingsSt")(observer(({ settingsSt }) => (
                 spacing={2}
                 sx={{ maxWidth: 200, m: 1, }}
             >
-                <IconButton onClick={() => settingsSt.setSettingsSecond("avatar", "facialHair", settingsSt.settings.avatar.facialHair === 0 ? 16 : settingsSt.settings.avatar.facialHair - 1)}>
+                <IconButton onClick={() => userSt.setSettingsSecond("avatar", "facialHair", userSt.settings.avatar.facialHair === 0 ? 16 : userSt.settings.avatar.facialHair - 1)}>
                     <NavigateBeforeIcon />
                 </IconButton>
                 <Typography>
-                    {`Борода № ${settingsSt.settings.avatar.facialHair + 1}`}
+                    {`Борода № ${userSt.settings.avatar.facialHair + 1}`}
                 </Typography>
-                <IconButton onClick={() => settingsSt.setSettingsSecond("avatar", "facialHair", settingsSt.settings.avatar.facialHair === 16 ? 0 : settingsSt.settings.avatar.facialHair + 1)}>
+                <IconButton onClick={() => userSt.setSettingsSecond("avatar", "facialHair", userSt.settings.avatar.facialHair === 16 ? 0 : userSt.settings.avatar.facialHair + 1)}>
                     <NavigateNextIcon />
                 </IconButton>
             </Grid>
@@ -152,10 +152,10 @@ const UserAvatar = inject("settingsSt")(observer(({ settingsSt }) => (
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <Box onClick={() => settingsSt.setSettingsSecond("avatar", "bgcolor", index)} sx={{ height: 64, width: 64, m: 1, cursor: "pointer" }}>
-                            <CustomAvatar avatar={{ ...settingsSt.settings.avatar, bgcolor: index }} viewBox={{ x: "50", y: "-100", width: "732", height: "732" }} />
+                        <Box onClick={() => userSt.setSettingsSecond("avatar", "bgcolor", index)} sx={{ height: 64, width: 64, m: 1, cursor: "pointer" }}>
+                            <CustomAvatar avatar={{ ...userSt.settings.avatar, bgcolor: index }} viewBox={{ x: "50", y: "-100", width: "732", height: "732" }} />
                         </Box>
-                        {settingsSt.settings.avatar.bgcolor === index && <CheckIcon />}
+                        {userSt.settings.avatar.bgcolor === index && <CheckIcon />}
                     </Stack>
                 ))}
             </Grid>

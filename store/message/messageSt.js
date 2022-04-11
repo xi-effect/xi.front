@@ -22,7 +22,7 @@ class MessageStore {
     }
 
     @action loadChatsInMenu = () => {
-        // this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/index/`, "POST", { "counter": 0 }).then(
+        // this.rootStore.fetchData(`${this.rootStore.url}/chats/index/`, "POST", { "counter": 0 }).then(
         //     (data) => {
         //         console.log("chats", data.results)
         //         this.setMenu("chats", data.results)
@@ -54,7 +54,7 @@ class MessageStore {
     }
 
     @action searchUsers = () => {
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/users/`, "POST", { "search": this.dialogChatCreation.search, "counter": 0 }).then(
+        this.rootStore.fetchData(`${this.rootStore.url}/users/`, "POST", { "search": this.dialogChatCreation.search, "counter": 0 }).then(
             (data) => {
                 this.setDialogChatCreation("searchResults", data.results)
             })
@@ -87,10 +87,10 @@ class MessageStore {
         for (let i = 0; i < this.dialogChatCreation.usersForChat.length; i += 1) {
             users.push(this.dialogChatCreation.usersForChat[i].id)
         }
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/`, "POST", { "name": this.dialogChatCreation.chatName }).then(
+        this.rootStore.fetchData(`${this.rootStore.url}/chats/`, "POST", { "name": this.dialogChatCreation.chatName }).then(
             (data) => {
                 this.setChat("id", data.id)
-                this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${this.chat.id}/users/add-all/`, "POST", { "ids": users }).then(
+                this.rootStore.fetchData(`${this.rootStore.url}/chats/${this.chat.id}/users/add-all/`, "POST", { "ids": users }).then(
                     () => {
                         this.clearDialogChatCreation()
                     })
@@ -145,7 +145,7 @@ class MessageStore {
 
     @action loadMetaForChat = (id) => {
         this.setChat("id", id)
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${id}/`, "GET").then(
+        this.rootStore.fetchData(`${this.rootStore.url}/chats/${id}/`, "GET").then(
             (data) => {
                 console.log("metachat", data)
                 this.setChat("name", data.name)
@@ -156,7 +156,7 @@ class MessageStore {
     }
 
     @action loadUsersForChat = (id) => {
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${id}/users/`, "POST", { "counter": 0 }).then(
+        this.rootStore.fetchData(`${this.rootStore.url}/chats/${id}/users/`, "POST", { "counter": 0 }).then(
             (data) => {
                 console.log("users", data.results)
                 this.setChat("usersInChat", data.results)
@@ -165,7 +165,7 @@ class MessageStore {
 
     @action uploadFirstMessages = (id) => {
         // this.setChat("uploading", true)
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${id}/message-history/`, "POST", { "counter": 0 }).then(
+        this.rootStore.fetchData(`${this.rootStore.url}/chats/${id}/message-history/`, "POST", { "counter": 0 }).then(
             (data) => {
                 // console.log("messageCounter", this.chat.messageCounter)
                 console.log("messagesChat", data)
@@ -177,7 +177,7 @@ class MessageStore {
 
     @action uploadMoreMessages = () => {
         // this.setChat("uploading", true)
-        this.rootStore.fetchDataScr(`${this.rootStore.url}/chats/${this.chat.id}/message-history/`, "POST", { "counter": this.chat.messageCounter }).then(
+        this.rootStore.fetchData(`${this.rootStore.url}/chats/${this.chat.id}/message-history/`, "POST", { "counter": this.chat.messageCounter }).then(
             (data) => {
                 this.setChat("messageCounter", this.chat.messageCounter + 1)
                 // console.log("messageCounter", this.chat.messageCounter)

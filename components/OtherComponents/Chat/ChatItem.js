@@ -22,7 +22,7 @@ moment.locale("ru", {
     }
 })
 
-const ChatItem = inject("rootStore", "uiSt", "messageSt", "settingsSt")(observer(({ messageSt, settingsSt, item, nextItem }) => {
+const ChatItem = inject("rootStore", "uiSt", "messageSt", "userSt")(observer(({ messageSt, userSt, item, nextItem }) => {
     const [contextMenu, setContextMenu] = React.useState(null);
 
     const handleContextMenu = (event) => {
@@ -122,9 +122,9 @@ const ChatItem = inject("rootStore", "uiSt", "messageSt", "settingsSt")(observer
                         }
                     >
                         <Typography align="center" sx={{ color: "text.dark", width: "100%", }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
-                        {item["sender-id"] !== settingsSt.settings.id && <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>}
-                        {item["sender-id"] === settingsSt.settings.id && <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>}
-                        {(item["sender-id"] === settingsSt.settings.id || messageSt.chat.role === "moder" || messageSt.chat.role === "admin" || messageSt.chat.role === "owner") && <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>}
+                        {item["sender-id"] !== userSt.settings.id && <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>}
+                        {item["sender-id"] === userSt.settings.id && <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>}
+                        {(item["sender-id"] === userSt.settings.id || messageSt.chat.role === "moder" || messageSt.chat.role === "admin" || messageSt.chat.role === "owner") && <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>}
                     </Menu>}
                 </Stack >
             </Stack >
@@ -206,9 +206,9 @@ const ChatItem = inject("rootStore", "uiSt", "messageSt", "settingsSt")(observer
                     }
                 >
                     <Typography align="center" sx={{ color: "text.dark", width: "100%", }} variant="subtitle2"> {moment(item.sent).calendar()} </Typography>
-                    {item["sender-id"] !== settingsSt.settings.id && <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>}
-                    {item["sender-id"] === settingsSt.settings.id && <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>}
-                    {(item["sender-id"] === settingsSt.settings.id || messageSt.chat.role === "moder" || messageSt.chat.role === "admin" || messageSt.chat.role === "owner") && <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>}
+                    {item["sender-id"] !== userSt.settings.id && <MenuItem onClick={handleClose}> <ReplyIcon sx={{ mr: 1 }} /> Ответить </MenuItem>}
+                    {item["sender-id"] === userSt.settings.id && <MenuItem onClick={handleClose}> <EditIcon sx={{ mr: 1 }} /> Редактировать</MenuItem>}
+                    {(item["sender-id"] === userSt.settings.id || messageSt.chat.role === "moder" || messageSt.chat.role === "admin" || messageSt.chat.role === "owner") && <MenuItem onClick={handleClose}> <DeleteForeverIcon sx={{ mr: 1 }} />Удалить</MenuItem>}
                 </Menu>}
             </Stack >
         </Stack >

@@ -174,7 +174,7 @@ const ReportDialog = inject(
                     errorDescription: uiSt.reportData.errorDescription,
                 }
             }
-            rootStore.fetchDataScr(`${rootStore.url}/feedback/`, "POST", { type, data: dataReport }).then(
+            rootStore.fetchData(`${rootStore.url}/feedback/`, "POST", { type, data: dataReport }).then(
                 () => {
                     uiSt.clearReportData()
                 })
