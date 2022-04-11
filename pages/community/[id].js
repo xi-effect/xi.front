@@ -6,13 +6,13 @@ import { useRouter } from "next/router";
 import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
 
 
-const Community = inject("profileSt")(observer(({ profileSt }) => {
+const Community = inject("userSt")(observer(({ userSt }) => {
     const router = useRouter()
     React.useEffect(() => {
         if (router.query.id !== undefined) {
-            profileSt.loadUserInfo(router.query.id)
+            userSt.loadUserInfo(router.query.id)
         }
-    }, [profileSt, router.query.id]);
+    }, [userSt, router.query.id]);
 
     return (
         <>
