@@ -22,9 +22,9 @@ import { useLocalStorage } from 'react-use';
 import { createEditor, Descendant, Transforms } from 'slate';
 import { withHistory } from 'slate-history';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { css } from '@emotion/css';
 import InlineToolPanel, { toggleFormat } from '../InlineToolPanel/InlineToolPanel';
 import Block from './Block';
-import { css } from '@emotion/css';
 
 // eslint-disable-next-line react/prop-types
 const Leaf = ({ attributes, children, leaf }) => {
