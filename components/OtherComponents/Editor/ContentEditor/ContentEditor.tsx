@@ -22,6 +22,7 @@ import { useLocalStorage } from 'react-use';
 import { createEditor, Descendant, Transforms } from 'slate';
 import { withHistory } from 'slate-history';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { css } from '@emotion/css';
 import InlineToolPanel, { toggleFormat } from '../InlineToolPanel/InlineToolPanel';
 import Block from './Block';
 
@@ -33,7 +34,15 @@ const Leaf = ({ attributes, children, leaf }) => {
   }
   // eslint-disable-next-line react/prop-types
   if (leaf.code) {
-    children = <code>{children}</code>;
+    children = <code
+      className={css`
+        background-color: #333;
+        padding: 0.25em 0.5em;
+        border-radius: 0.25em;
+      `}
+    >
+      {children}
+    </code>;
   }
   // eslint-disable-next-line react/prop-types
   if (leaf.italic) {
@@ -116,6 +125,8 @@ const ContentEditor: React.FC<Props> = (props) => {
                         return toggleFormat(editor, 'italic');
                       case 'formatUnderline':
                         return toggleFormat(editor, 'underlined');
+                      case 'formatCode':
+                        return toggleFormat(editor, 'code');
                     }
                   }}
                 />
