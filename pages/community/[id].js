@@ -8,12 +8,6 @@ import NavigationAll from "../../components/OtherComponents/Navigation/Navigatio
 
 const Community = inject("userSt")(observer(({ userSt }) => {
     const router = useRouter()
-    React.useEffect(() => {
-        if (router.query.id !== undefined) {
-            userSt.loadUserInfo(router.query.id)
-        }
-    }, [userSt, router.query.id]);
-
     return (
         <>
             <Head>

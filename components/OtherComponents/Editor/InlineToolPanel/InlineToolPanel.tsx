@@ -15,6 +15,7 @@ import ReactDOM from 'react-dom';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
+import CodeIcon from '@mui/icons-material/Code';
 // @ts-ignore
 import { cx, css } from '@emotion/css';
 
@@ -135,6 +136,7 @@ const HoveringToolbar = () => {
         <FormatButton format="bold" icon="format_bold" />
         <FormatButton format="italic" icon="format_italic" />
         <FormatButton format="underlined" icon="format_underlined" />
+        <FormatButton format="code" icon="format_code" />
       </Menu>
     </Portal>
   );
@@ -173,6 +175,9 @@ const FormatButton = ({ format, icon }) => {
       )}
       {icon === 'format_underlined' && (
         <FormatUnderlinedIcon sx={{ color: active ? 'secondary.main' : 'text.main' }} />
+      )}
+      {icon === 'format_code' && (
+        <CodeIcon sx={{ color: active ? 'secondary.main' : 'text.main' }} />
       )}
     </Button>
   );
