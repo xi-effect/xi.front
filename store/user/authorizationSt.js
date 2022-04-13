@@ -7,7 +7,7 @@ import Router from "next/router"
 
 const Crypto = require("crypto-js")
 
-class AuthorizationStore {
+class AuthorizationSt {
     // `this` from rootstore passed to the constructor and we can 
     // assign it to a variable accessible in this class called 
     // `rootStore`. Therefore, we can access other store like 
@@ -156,4 +156,4 @@ class AuthorizationStore {
 
 }
 
-export default AuthorizationStore;
+export default AuthorizationSt;

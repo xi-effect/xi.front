@@ -1,7 +1,7 @@
 import { observable, makeObservable } from "mobx"
 
 
-class HomeStore {
+class HomeSt {
     // `this` from rootstore passed to the constructor and we can 
     // assign it to a variable accessible in this class called 
     // `rootStore`. Therefore, we can access other store like 
@@ -16,4 +16,4 @@ class HomeStore {
     }
 }
 
-export default HomeStore;
+export default HomeSt;

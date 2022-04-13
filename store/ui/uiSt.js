@@ -1,7 +1,7 @@
 import { action, observable, makeObservable } from "mobx"
 
 
-class UIStore {
+class UISt {
     // `this` from rootstore passed to the constructor and we can 
     // assign it to a variable accessible in this class called 
     // `rootStore`. Therefore, we can access other store like 
@@ -50,4 +50,4 @@ class UIStore {
     }
 }
 
-export default UIStore;
+export default UISt;

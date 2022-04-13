@@ -1,7 +1,7 @@
 import { action, observable, makeObservable } from "mobx"
 import Router from "next/router";
 
-class UserStore {
+class UserSt {
     // `this` from rootstore passed to the constructor and we can 
     // assign it to a variable accessible in this class called 
     // `rootStore`. Therefore, we can access other store like 
@@ -100,4 +100,4 @@ class UserStore {
     };
 }
 
-export default UserStore;
+export default UserSt;

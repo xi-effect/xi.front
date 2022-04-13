@@ -23,8 +23,8 @@ const DialogCreateCommunity = dynamic(
   { ssr: false }
 )
 
-const Sidebar = inject()(
-  observer(() => {
+const Sidebar = inject("communitiesMenuSt")(
+  observer(({ communitiesMenuSt }) => {
     const { enqueueSnackbar } = useSnackbar();
     const [openDialogCC, setOpenDialogCC] = React.useState(false)
     const router = useRouter();
@@ -40,104 +40,6 @@ const Sidebar = inject()(
         icon: <AddBoxIcon />,
         label: "Создать сообщество",
         href: "createcommunity",
-      },
-    ];
-
-    const communityList = [
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
       },
     ];
 
@@ -194,7 +96,7 @@ const Sidebar = inject()(
           autoHideTimeout={1000}
           autoHideDuration={200}
         >
-          {communityList.map((item, index) => (
+          {communitiesMenuSt.userCommunities.map((item, index) => (
             <Tooltip enterDelay={500} leaveDelay={0} key={index.toString()} placement="right" title={item.label}>
               <IconButton
                 component={motion.li}
