@@ -38,8 +38,6 @@ const CommunityName = inject(
             communityCreationSt.createCommunity(data, trigger);
         };
 
-        console.log("errors", errors);
-
         return (
             <Stack
                 direction="column"
