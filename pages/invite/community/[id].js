@@ -18,7 +18,7 @@ const InviteCommunity = inject()(
     return (
       <>
         <Head>
-          <title>Ξ Авторизация</title>
+          <title>Ξffect</title>
         </Head>
         <Stack
           direction="column"

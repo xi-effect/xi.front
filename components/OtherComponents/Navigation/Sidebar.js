@@ -9,7 +9,6 @@ import {
   IconButton,
   Box,
 } from "@mui/material";
-import { useSnackbar } from "notistack";
 
 import HomeIcon from "@mui/icons-material/Home";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -25,7 +24,6 @@ const DialogCreateCommunity = dynamic(
 
 const Sidebar = inject("communitiesMenuSt")(
   observer(({ communitiesMenuSt }) => {
-    const { enqueueSnackbar } = useSnackbar();
     const [openDialogCC, setOpenDialogCC] = React.useState(false)
     const router = useRouter();
     const menuList = [
@@ -64,14 +62,8 @@ const Sidebar = inject("communitiesMenuSt")(
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => {
-                if (item.href === "/knowledge") {
-                  router.push(`${item.href}/pages`);
-                }
-                else if (item.href === "createcommunity") {
+                if (item.href === "createcommunity") {
                   setOpenDialogCC(true)
-                  enqueueSnackbar("Эту функцию мы ещё только разрабатываем", {
-                    variant: "info",
-                  })
                 }
                 else router.push(item.href);
               }}
