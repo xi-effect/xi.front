@@ -2,13 +2,15 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
 import { motion, AnimatePresence } from "framer-motion"
-import { Box, Button, Dialog, useMediaQuery, TextField, DialogContent, IconButton, Tooltip, Stack, Typography } from "@mui/material";
+import { Box, Button, Dialog, useMediaQuery, DialogContent, IconButton, Tooltip, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+
+import TextFieldCustom from '../../../kit/TextFieldCustom';
 
 const schema = yup
     .object({
@@ -86,23 +88,12 @@ const CommunityName = inject(
                     control={control}
                     defaultValue=""
                     render={({ field }) => (
-                        <TextField
+                        <TextFieldCustom
                             variant="filled"
                             error={errors?.name?.type}
                             type="text"
                             fullWidth
                             label="Название сообщества"
-                            sx={{
-                                '& .MuiInputLabel-root': {
-                                    color: 'common.white',
-                                },
-                                '& .MuiInputLabel-root.Mui-focused': {
-                                    color: 'common.white',
-                                },
-                                '& .MuiFilledInput-root': {
-                                    bgcolor: 'rgba(0, 0, 0, 0.09)',
-                                },
-                            }}
                             helperText={errors?.name?.type === "max" && "Максимальная длина названия сообщества - 100 символов"}
                             {...field}
                         />

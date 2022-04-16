@@ -11,7 +11,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import XiLogo from "../../components/OtherComponents/XiLogo/XiLogo.tsx";
+import XiLogo from "../../kit/XiLogo.tsx";
 
 const schema = yup.object({
     password: yup.string().min(6).max(100).required(),

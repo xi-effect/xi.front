@@ -12,7 +12,6 @@ import {
   useMediaQuery,
   InputAdornment,
   IconButton,
-  TextField,
   Typography,
   Box,
   Button,
@@ -28,6 +27,7 @@ import { inject, observer } from 'mobx-react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import TextFieldCustom from '../../../kit/TextFieldCustom';
 
 const schema = yup
   .object({
@@ -149,25 +149,15 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
-                    <TextField
+                    <TextFieldCustom
                       variant="filled"
                       error={
-                        errors?.email?.type === 'email' || authorizationSt.login.error === "User doesn't exist"
+                        errors?.email?.type === 'email' ||
+                        authorizationSt.login.error === "User doesn't exist"
                       }
                       type="text"
                       fullWidth
                       label="Адрес почты"
-                      sx={{
-                        '& .MuiInputLabel-root': {
-                          color: 'common.white',
-                        },
-                        '& .MuiInputLabel-root.Mui-focused': {
-                          color: 'common.white',
-                        },
-                        '& .MuiFilledInput-root': {
-                          bgcolor: 'rgba(0, 0, 0, 0.09)',
-                        },
-                      }}
                       helperText={
                         authorizationSt.login.error === "User doesn't exist" &&
                         'Пользователь не найден'
@@ -181,7 +171,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
-                    <TextField
+                    <TextFieldCustom
                       variant="filled"
                       error={
                         errors?.password?.type === 'min' ||
@@ -191,17 +181,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                       fullWidth
                       label="Пароль"
                       type={showPassword ? 'text' : 'password'}
-                      sx={{
-                        '& .MuiInputLabel-root': {
-                          color: 'common.white',
-                        },
-                        '& .MuiInputLabel-root.Mui-focused': {
-                          color: 'common.white',
-                        },
-                        '& .MuiFilledInput-root': {
-                          bgcolor: 'rgba(0, 0, 0, 0.09)',
-                        },
-                      }}
                       helperText={`${
                         authorizationSt.login.error === 'Wrong password' ? 'Неверный Пароль' : ''
                       }${authorizationSt.login.error === 'Server error' ? 'Ошибка сервера' : ''}`}

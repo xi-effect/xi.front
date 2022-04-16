@@ -17,6 +17,8 @@ import CommunitySt from "./community/communitySt";
 import CommunityCreationSt from "./community/communityCreationSt";
 import CommunitiesMenuSt from "./community/communitiesMenuSt";
 import CommunityChannelsSt from "./community/communityChannelsSt";
+import CommunitiesInvitesSt from "./community/communitiesInvitesSt";
+import CommunitySettingsSt from "./community/communitySettingsSt";
 
 enableStaticRendering(typeof window === "undefined")
 
@@ -32,11 +34,15 @@ class RootStore {
     this.authorizationSt = new AuthorizationSt(this)
     this.messageSt = new MessageSt(this)
 
-    // Stores for communities
+    // Community Stores
     this.communitySt = new CommunitySt(this)
     this.communityCreationSt = new CommunityCreationSt(this)
-    this.communitiesMenuSt = new CommunitiesMenuSt(this)
     this.communityChannelsSt = new CommunityChannelsSt(this)
+    this.communitySettingsSt = new CommunitySettingsSt(this)
+
+    // Communities Stores
+    this.communitiesInvitesSt = new CommunitiesInvitesSt(this)
+    this.communitiesMenuSt = new CommunitiesMenuSt(this)
 
     makeObservable(this)
   }

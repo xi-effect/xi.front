@@ -5,7 +5,7 @@ import { Stack, useMediaQuery } from '@mui/material';
 import { motion } from 'framer-motion';
 
 // @ts-ignore
-import XiLogo from '../../OtherComponents/XiLogo/XiLogo.tsx';
+import XiLogo from '../../../kit/XiLogo.tsx';
 
 const Header: React.FC = () => {
   // @ts-ignore

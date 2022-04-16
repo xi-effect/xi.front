@@ -2,60 +2,20 @@
 import React from "react";
 import { inject, observer } from "mobx-react"
 
-import { Typography, Tab, Tabs, Dialog, DialogContent, Stack, Box, IconButton } from "@mui/material";
-import PropTypes from "prop-types";
+import { Dialog, Button, Stack, IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import Review from "./DialogSettings/Review";
+import Invites from "./DialogSettings/Invites";
 
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="flex-start"
-            role="tabpanel"
-            hidden={value !== index}
-            id={`vertical-tabpanel-${index}`}
-            aria-labelledby={`vertical-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box
-                    sx={{
-                        p: 3,
-                        width: "100%",
-                        heght: "100%",
-                        minWidth: 200,
-                    }}
-                >
-                    {children}
-                </Box>
-            )}
-        </Stack>
-    );
-}
-
-TabPanel.propTypes = {
-    children: PropTypes.node.isRequired,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-    return {
-        id: `vertical-tab-${index}`,
-        "aria-controls": `vertical-tabpanel-${index}`,
-    };
-}
+const items = [
+    "Обзор",
+    "Приглашения",
+    "Участники",
+    "Роли",
+]
 
 const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSettings }) => {
-
     const [value, setValue] = React.useState(0);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
 
     return (
         <Dialog
@@ -65,82 +25,92 @@ const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSet
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <DialogContent>
+            <Stack
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                sx={{
+                    height: "100vh",
+                    width: "100%",
+                }}
+            >
                 <Stack
                     direction="column"
-                    justifyContent="center"
-                    alignItems="center"
+                    justifyContent="flex-start"
+                    alignItems="flex-end"
                     sx={{
-                        height: "calc(100vh - 64px)",
-                        width: "100%",
+                        width: '34%',
+                        height: "100vh",
+                        bgcolor: '#222',
                     }}
                 >
-                    <Stack
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
+                    <Typography
+                        variant='subtitle2'
+                        component="span" // внутри button не может быть div, вёрстка тогда будет не валидной
                         sx={{
-                            width: "100%",
-                            maxWidth: 1200,
-                            pl: 24,
+                            p: 2,
+                            pl: 1,
+                            width: 178,
+                            fontSize: 12,
+                            textAlign: 'left',
+                            color: 'text.secondary',
                         }}
                     >
-                        <Typography variant="h6">
-                            Настройки сообщества
-                        </Typography>
-                        <IconButton
-                            aria-label="закрыть"
+                        Настройки сообщества
+                    </Typography>
+                    {items.map((item, index) =>
+                        <Button
+                            color="inherit"
                             sx={{
-                                ml: "auto"
+                                width: 178,
+                                borderRight: value === index ? `4px solid #fff` : "none",
+                                borderRadius: 0,
                             }}
-                            onClick={() => setOpenDialogSettings(false)}
+                            onClick={() => setValue(index)}
+                            key={index}
                         >
-                            <CloseIcon fontSize="large" />
-                        </IconButton>
-                    </Stack>
-                    <Stack
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="flex-start"
-                        sx={{
-                            height: "100%",
-                            width: "100%",
-                            maxWidth: 1200,
-                        }}
-                    >
-                        <Tabs
-                            orientation="vertical"
-                            variant="scrollable"
-                            value={value}
-                            onChange={handleChange}
-                            aria-label="Vertical tabs example"
-                            textColor="inherit"
-                            sx={{ borderRight: 2, height: "100%", borderColor: "divider" }}
-                        >
-                            <Tab label="Основные" {...a11yProps(0)} />
-                            <Tab label="Приглашения" {...a11yProps(1)} />
-                            <Tab label="Участники" {...a11yProps(2)} />
-                            <Tab label="Роли" {...a11yProps(3)} />
-                            <Tab label="Дополнительные" {...a11yProps(4)} />
-                        </Tabs>
-                        <TabPanel value={value} index={0}>
-                            Основные
-                        </TabPanel>
-                        <TabPanel value={value} index={1}>
-                            Приглашения
-                        </TabPanel>
-                        <TabPanel value={value} index={2}>
-                            Участники
-                        </TabPanel>
-                        <TabPanel value={value} index={3}>
-                            Роли
-                        </TabPanel>
-                        <TabPanel value={value} index={4}>
-                            Дополнительные
-                        </TabPanel>
-                    </Stack>
+                            <Typography
+                                variant='h6'
+                                component="span" // внутри button не может быть div, вёрстка тогда будет не валидной
+                                sx={{
+                                    fontSize: 22,
+                                    width: '100%',
+                                    textAlign: 'left',
+                                    color: value === index ? 'text.main' : 'text.secondary',
+                                }}
+                            >
+                                {item}
+                            </Typography>
+                        </Button>
+                    )}
                 </Stack>
-            </DialogContent>
+                <Stack
+                    direction="column"
+                    justifyContent="flex-start"
+                    alignItems="flex-start"
+                    sx={{
+                        p: 2,
+                        width: '66%',
+                        maxWidth: 600,
+                        height: "100vh",
+                        position: 'relative',
+                    }}
+                >
+                    <IconButton
+                        aria-label="закрыть"
+                        sx={{
+                            position: 'absolute',
+                            top: 8,
+                            right: 16,
+                        }}
+                        onClick={() => setOpenDialogSettings(false)}
+                    >
+                        <CloseIcon fontSize="large" />
+                    </IconButton>
+                    {value === 0 && <Review />}
+                    {value === 1 && <Invites />}
+                </Stack>
+            </Stack>
         </Dialog >
     )
 }));

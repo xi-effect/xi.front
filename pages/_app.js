@@ -68,8 +68,12 @@ const MyApp = (observer((props) => {
         // Community Stores
         communitySt={rootStore.communitySt}
         communityCreationSt={rootStore.communityCreationSt}
-        communitiesMenuSt={rootStore.communitiesMenuSt}
         communityChannelsSt={rootStore.communityChannelsSt}
+        communitySettingsSt={rootStore.communitiesInvitesSt}
+
+         // Communities Stores
+        communitiesMenuSt={rootStore.communitiesMenuSt}
+        communitiesInvitesSt={rootStore.communitiesInvitesSt}
       >
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>

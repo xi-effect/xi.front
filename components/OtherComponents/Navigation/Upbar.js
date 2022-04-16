@@ -5,7 +5,7 @@ import { Box, useMediaQuery, IconButton, Stack } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import InfoIcon from "@mui/icons-material/Info";
 import ReportDialog from "./RightMenu/ReportDialog";
-import XiLogo from "../XiLogo/XiLogo.tsx";
+import XiLogo from "../../../kit/XiLogo.tsx";
 
 const Upbar = inject()(
   observer(({ swipe, setSwipe }) => {
