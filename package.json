@@ -14,7 +14,6 @@
     "lint-fix": "eslint ./components/** ./pages/** -c .eslintrc.json --fix --ext js,jsx,ts,tsx"
   },
   "dependencies": {
-    "@babel/plugin-proposal-decorators": "^7.15.4",
     "@emotion/css": "^11.7.1",
     "@emotion/react": "^11.7.0",
     "@emotion/server": "^11.4.0",
@@ -32,7 +31,6 @@
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "@types/react-virtualized": "^9.21.16",
-    "babel-plugin-inline-react-svg": "^2.0.1",
     "classnames": "^2.3.1",
     "clsx": "^1.1.1",
     "crypto-js": "^4.1.1",
@@ -73,11 +71,13 @@
     "typescript": "^4.5.5",
     "use-double-click": "^1.0.5",
     "use-long-press": "^1.1.2",
-    "webpack": "^5.70.0",
     "worker-loader": "^3.0.8",
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "babel-plugin-inline-react-svg": "^2.0.1",
+    "webpack": "^5.70.0",
+    "@babel/plugin-proposal-decorators": "^7.15.4",
     "@babel/plugin-proposal-private-methods": "^7.14.5",
     "@babel/plugin-proposal-private-property-in-object": "^7.15.4",
     "@babel/core": "^7.15.5",

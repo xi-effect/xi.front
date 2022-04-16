@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { inject, observer } from "mobx-react"
 
@@ -91,7 +90,7 @@ const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSet
                     sx={{
                         p: 2,
                         width: '66%',
-                        maxWidth: 600,
+                        maxWidth: 800,
                         height: "100vh",
                         position: 'relative',
                     }}

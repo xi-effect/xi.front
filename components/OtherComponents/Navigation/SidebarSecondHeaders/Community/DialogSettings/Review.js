@@ -1,8 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { inject, observer } from "mobx-react"
 
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, Divider } from "@mui/material";
 
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -21,17 +20,16 @@ const Review = inject()(observer(() => {
 
     const {
         control,
-        handleSubmit,
-        trigger,
+        // trigger,
         // formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
     });
 
-    const onSubmit = () => {
-        trigger();
-        // authorizationSt.clickEnterButton(data, trigger);
-    };
+    // const onSubmit = () => {
+    //     trigger();
+    //     // authorizationSt.clickEnterButton(data, trigger);
+    // };
 
     return (
         <Stack
@@ -40,7 +38,6 @@ const Review = inject()(observer(() => {
             alignItems="flex-start"
             spacing={2}
             component="form"
-            onSubmit={handleSubmit(onSubmit)}
             sx={{
                 width: "100%"
             }}
@@ -48,35 +45,48 @@ const Review = inject()(observer(() => {
             <Typography variant='h5'>
                 Обзор Сообщества
             </Typography>
-            <Controller
-                name="name"
-                control={control}
-                defaultValue="ывпрыпр"
-                render={({ field }) => (
-                    <TextFieldCustom
-                        variant="filled"
-                        type="text"
-                        fullWidth
-                        label="Название сообщества"
-                        {...field}
-                    />
-                )}
-            />
-            <Controller
-                name="description"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                    <TextFieldCustom
-                        variant="filled"
-                        fullWidth
-                        label="Описание сообщества"
-                        minRows={5}
-                        multiline
-                        {...field}
-                    />
-                )}
-            />
+            <Divider flexItem />
+            <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                spacing={2}
+                sx={{
+                    p: 2,
+                    width: "100%"
+                }}
+            >
+                <Controller
+                    name="name"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                        <TextFieldCustom
+                            variant="filled"
+                            type="text"
+                            fullWidth
+                            label="Название сообщества"
+                            {...field}
+                        />
+                    )}
+                />
+                <Controller
+                    name="description"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                        <TextFieldCustom
+                            variant="filled"
+                            fullWidth
+                            label="Описание сообщества"
+                            minRows={5}
+                            multiline
+                            {...field}
+                        />
+                    )}
+                />
+            </Stack>
+
         </Stack>
     )
 }));

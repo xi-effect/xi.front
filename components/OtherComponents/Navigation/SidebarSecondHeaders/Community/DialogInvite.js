@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { inject, observer } from "mobx-react";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -34,6 +32,7 @@ const DialogInvite = inject()(
       const fullScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
       const [step, setStep] = React.useState(0);
       const [statusCopy, setStatusCopy] = React.useState(false);
+      // eslint-disable-next-line no-unused-vars
       const [state, copyToClipboard] = useCopyToClipboard();
       const urlInvite = `https://xieffect.ru/invite/community/${123}`;
 
@@ -281,37 +280,37 @@ const DialogInvite = inject()(
 
                   {value === 0 ? (
                     <Tooltip
-                        sx={{ ml: "10px", mr: "10px", width: "100%" }}
-                        title={
-                          statusCopy
-                            ? "Ссылка успешно скопирована в буфер обмена!"
-                            : "Кликните чтобы скопировать ссылку"
-                        }
-                      >
-                        <TextField
-                          id="invite-code"
-                          label="Код-приглашения"
-                          defaultValue={urlInvite}
-                          onClick={() => {
-                            copyToClipboard(urlInvite);
-                            setStatusCopy(true);
-                          }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <Button sx={{ color: "text.primary" }}>
-                                  <ContentCopyIcon />
-                                </Button>
-                              </InputAdornment>
-                            ),
-                            readOnly: true,
-                            style: {
-                              cursor: "pointer",
-                              width: "100%",
-                            },
-                          }}
-                        />
-                      </Tooltip>
+                      sx={{ ml: "10px", mr: "10px", width: "100%" }}
+                      title={
+                        statusCopy
+                          ? "Ссылка успешно скопирована в буфер обмена!"
+                          : "Кликните чтобы скопировать ссылку"
+                      }
+                    >
+                      <TextField
+                        id="invite-code"
+                        label="Код-приглашения"
+                        defaultValue={urlInvite}
+                        onClick={() => {
+                          copyToClipboard(urlInvite);
+                          setStatusCopy(true);
+                        }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <Button sx={{ color: "text.primary" }}>
+                                <ContentCopyIcon />
+                              </Button>
+                            </InputAdornment>
+                          ),
+                          readOnly: true,
+                          style: {
+                            cursor: "pointer",
+                            width: "100%",
+                          },
+                        }}
+                      />
+                    </Tooltip>
                   ) : (
                     <QRCode size={512} value={urlInvite} />
                   )}
