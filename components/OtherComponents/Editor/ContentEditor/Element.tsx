@@ -17,7 +17,7 @@ type Props = {
 const Element: React.FC<Props> = (props) => {
   const { attributes, children, element } = props;
   const style = { textAlign: element.align };
-  const dividerStyle: object = {userSelect: 'none', width: '100%'};
+  const dividerStyle: Object = {userSelect: 'none', width: '100%'};
   switch (element.type) {
     // case 'block-quote':
     //   return (
