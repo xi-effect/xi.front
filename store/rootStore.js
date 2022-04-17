@@ -8,13 +8,17 @@ import { enableStaticRendering } from "mobx-react"
 import { useMemo } from "react"
 import Router from "next/router"
 
-import UIStore from "./ui/uiSt";
-import HomeStore from "./home/homeSt";
-import UserStore from "./user/userSt";
-import AuthorizationStore from "./user/authorizationSt";
-import MessageStore from "./message/messageSt";
-import CommunityStore from "./community/communitySt";
-
+import UISt from "./ui/uiSt";
+import HomeSt from "./home/homeSt";
+import UserSt from "./user/userSt";
+import AuthorizationSt from "./user/authorizationSt";
+import MessageSt from "./message/messageSt";
+import CommunitySt from "./community/communitySt";
+import CommunityCreationSt from "./community/communityCreationSt";
+import CommunitiesMenuSt from "./community/communitiesMenuSt";
+import CommunityChannelsSt from "./community/communityChannelsSt";
+import CommunitiesInvitesSt from "./community/communitiesInvitesSt";
+import CommunitySettingsSt from "./community/communitySettingsSt";
 
 enableStaticRendering(typeof window === "undefined")
 
@@ -24,12 +28,22 @@ class RootStore {
   url = process.env.NEXT_PUBLIC_SERVER_URL
 
   constructor() {
-    this.uiSt = new UIStore(this)
-    this.homeSt = new HomeStore(this)
-    this.userSt = new UserStore(this)
-    this.authorizationSt = new AuthorizationStore(this)
-    this.messageSt = new MessageStore(this)
-    this.communitySt = new CommunityStore(this)
+    this.uiSt = new UISt(this)
+    this.homeSt = new HomeSt(this)
+    this.userSt = new UserSt(this)
+    this.authorizationSt = new AuthorizationSt(this)
+    this.messageSt = new MessageSt(this)
+
+    // Community Stores
+    this.communitySt = new CommunitySt(this)
+    this.communityCreationSt = new CommunityCreationSt(this)
+    this.communityChannelsSt = new CommunityChannelsSt(this)
+    this.communitySettingsSt = new CommunitySettingsSt(this)
+
+    // Communities Stores
+    this.communitiesInvitesSt = new CommunitiesInvitesSt(this)
+    this.communitiesMenuSt = new CommunitiesMenuSt(this)
+
     makeObservable(this)
   }
 

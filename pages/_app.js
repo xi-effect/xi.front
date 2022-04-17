@@ -45,7 +45,6 @@ Router.events.on("routeChangeError", () => NProgress.done());
 const MyApp = (observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
-
   const rootStore = useStore(pageProps.initialState)
   const theme = React.useMemo(() =>
     responsiveFontSizes(createTheme(getDesignTokens(rootStore.userSt.settings.darkTheme))),
@@ -64,27 +63,37 @@ const MyApp = (observer((props) => {
         homeSt={rootStore.homeSt}
         authorizationSt={rootStore.authorizationSt}
         messageSt={rootStore.messageSt}
+
+        // Community Stores
         communitySt={rootStore.communitySt}
+        communityCreationSt={rootStore.communityCreationSt}
+        communityChannelsSt={rootStore.communityChannelsSt}
+        communitySettingsSt={rootStore.communitiesInvitesSt}
+
+        // Communities Stores
+        communitiesMenuSt={rootStore.communitiesMenuSt}
+        communitiesInvitesSt={rootStore.communitiesInvitesSt}
       >
         <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Loading />
-            <SnackbarProvider
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-              maxSnack={3}
-              preventDuplicate
-              dense
-            >
+          <SnackbarProvider
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            maxSnack={3}
+            preventDuplicate
+            dense
+          >
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Loading />
+
               <Component {...pageProps} />
-            </SnackbarProvider>
-          </ThemeProvider>
+            </ThemeProvider>
+          </SnackbarProvider>
         </StyledEngineProvider>
       </Provider>
-    </CacheProvider>
+    </CacheProvider >
   );
 }))
 

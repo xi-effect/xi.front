@@ -4,8 +4,7 @@ import { Stack, useMediaQuery, Paper, Typography, Button } from "@mui/material";
 import React from "react";
 import { inject, observer } from "mobx-react";
 
-import XiLogo from "../../../components/OtherComponents/XiLogo/XiLogo.tsx";
-
+import XiLogo from "../../../kit/XiLogo";
 
 const InviteCommunity = inject()(
   observer(() => {
@@ -18,7 +17,7 @@ const InviteCommunity = inject()(
     return (
       <>
         <Head>
-          <title>Ξ Авторизация</title>
+          <title>Ξffect</title>
         </Head>
         <Stack
           direction="column"

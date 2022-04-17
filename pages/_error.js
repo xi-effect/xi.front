@@ -1,21 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { Stack } from "@mui/material"
-// import { useRouter } from "next/router"
-import Header from "../components/PagesComponents/Landing/Header";
+import ErrorPage from '../components/PagesComponents/Error/ErrorPage';
+import {errorMessages} from '../texts/errorMessages/errorMessages';
 
-export default function ComponentDidCatch() {
-    // const mobile = useMediaQuery(theme => theme.breakpoints.down("lg"));
-    // const router = useRouter()
+// eslint-disable-next-line no-underscore-dangle
+export default function _500() {
 
-    return (
-        <Stack
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="center"
-            spacing={2}
-        >
-            <Header />
-        </Stack>
-    );
+  return (
+    <ErrorPage
+      imageSrc="/assets/404/500Error.svg"
+      textMessage={errorMessages[500]}
+    />
+  );
 }

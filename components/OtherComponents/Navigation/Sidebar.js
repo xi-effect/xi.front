@@ -9,7 +9,6 @@ import {
   IconButton,
   Box,
 } from "@mui/material";
-import { useSnackbar } from "notistack";
 
 import HomeIcon from "@mui/icons-material/Home";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -23,9 +22,8 @@ const DialogCreateCommunity = dynamic(
   { ssr: false }
 )
 
-const Sidebar = inject()(
-  observer(() => {
-    const { enqueueSnackbar } = useSnackbar();
+const Sidebar = inject("communitiesMenuSt")(
+  observer(({ communitiesMenuSt }) => {
     const [openDialogCC, setOpenDialogCC] = React.useState(false)
     const router = useRouter();
     const menuList = [
@@ -40,104 +38,6 @@ const Sidebar = inject()(
         icon: <AddBoxIcon />,
         label: "Создать сообщество",
         href: "createcommunity",
-      },
-    ];
-
-    const communityList = [
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
-      },
-      {
-        id: 0,
-        label: "Тестовое сообщество",
-        cId: 1,
       },
     ];
 
@@ -162,14 +62,8 @@ const Sidebar = inject()(
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => {
-                if (item.href === "/knowledge") {
-                  router.push(`${item.href}/pages`);
-                }
-                else if (item.href === "createcommunity") {
+                if (item.href === "createcommunity") {
                   setOpenDialogCC(true)
-                  enqueueSnackbar("Эту функцию мы ещё только разрабатываем", {
-                    variant: "info",
-                  })
                 }
                 else router.push(item.href);
               }}
@@ -194,7 +88,7 @@ const Sidebar = inject()(
           autoHideTimeout={1000}
           autoHideDuration={200}
         >
-          {communityList.map((item, index) => (
+          {communitiesMenuSt.userCommunities.map((item, index) => (
             <Tooltip enterDelay={500} leaveDelay={0} key={index.toString()} placement="right" title={item.label}>
               <IconButton
                 component={motion.li}

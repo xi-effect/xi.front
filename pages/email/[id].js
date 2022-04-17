@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Stack, Paper, Typography, Button, useMediaQuery } from "@mui/material";
 import { inject, observer } from "mobx-react"
 
-import XiLogo from "../../components/OtherComponents/XiLogo/XiLogo.tsx";
+import XiLogo from "../../kit/XiLogo";
 
 const Email = inject("rootStore")(observer(({ rootStore }) => {
     const router = useRouter()

@@ -1,7 +1,7 @@
 import { action, observable, makeObservable } from "mobx"
 import socket from "../../utils/socket"
 
-class MessageStore {
+class MessageSt {
     // `this` from rootstore passed to the constructor and we can 
     // assign it to a variable accessible in this class called 
     // `rootStore`. Therefore, we can access other store like 
@@ -202,4 +202,4 @@ class MessageStore {
 
 }
 
-export default MessageStore;
+export default MessageSt;

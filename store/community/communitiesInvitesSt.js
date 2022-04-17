@@ -1,7 +1,6 @@
-import { observable, makeObservable } from "mobx"
+import { action, observable, makeObservable } from "mobx";
 
-
-class HomeSt {
+class CommunitiesInvitesSt {
     // `this` from rootstore passed to the constructor and we can 
     // assign it to a variable accessible in this class called 
     // `rootStore`. Therefore, we can access other store like 
@@ -11,9 +10,13 @@ class HomeSt {
         makeObservable(this)
     }
 
-    @observable homeSt = {
+    @observable channels = null;
 
-    }
+    @action createCommunity = () => {
+
+    };
+
+
 }
 
-export default HomeSt;
+export default CommunitiesInvitesSt;

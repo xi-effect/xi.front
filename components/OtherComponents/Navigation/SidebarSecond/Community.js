@@ -24,8 +24,8 @@ const arrowVariants = {
     }
 }
 
-const Channel = inject("communitySt")(observer(({ communitySt, index }) => {
-    const channel = communitySt.channels[index]
+const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, index }) => {
+    const channel = communityChannelsSt.channels[index]
 
     const [hoverCategory, setHoverCategory] = React.useState(null);
 
@@ -57,7 +57,7 @@ const Channel = inject("communitySt")(observer(({ communitySt, index }) => {
                 }}
             >
                 <Stack
-                    onClick={() => communitySt.setChannel(index, "open", !channel.open)}
+                    onClick={() => communityChannelsSt.setChannel(index, "open", !channel.open)}
                     onMouseEnter={() => setHoverCategory(index)}
                     onMouseLeave={() => setHoverCategory(null)}
                     direction="row"
@@ -168,7 +168,7 @@ const Channel = inject("communitySt")(observer(({ communitySt, index }) => {
     return null
 }));
 
-const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communitySt")(observer(({ communitySt }) => {
+const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannelsSt")(observer(({ communityChannelsSt }) => {
     const router = useRouter()
     return (
         <MenuList
@@ -348,7 +348,7 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communitySt")(ob
                 autoHideTimeout={1000}
                 autoHideDuration={200}
             >
-                {communitySt.channels.map((channel, index) => (
+                {communityChannelsSt.channels.map((channel, index) => (
                     <Channel index={index} key={index.toString()} />
                 ))}
             </Scrollbars>

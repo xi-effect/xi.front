@@ -1,11 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { inject, observer } from "mobx-react"
 
 import { Typography, Radio, Button, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Paper, useMediaQuery, DialogActions } from "@mui/material";
 
 
-const DialogChannelCreation = inject()(observer(({openDialogChannelCreation, setOpenDialogChannelCreation }) => {
+const DialogChannelCreation = inject()(observer(({ openDialogChannelCreation, setOpenDialogChannelCreation }) => {
     const fullScreen = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const [channelSelect, setChannelSelect] = React.useState(null)
