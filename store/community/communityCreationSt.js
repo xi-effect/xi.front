@@ -1,4 +1,5 @@
 import { action, observable, makeObservable } from "mobx";
+import { Router } from "next/router";
 
 class CommunityCreationSt {
     // `this` from rootstore passed to the constructor and we can 
@@ -12,8 +13,13 @@ class CommunityCreationSt {
 
     @observable channels = null;
 
-    @action createCommunity = () => {
-        
+    @action createCommunity = ({ name }) => {
+        this.rootStore.fetchData(`${this.rootStore.url}/communities/`, "POST", { "name": name, },)
+            .then((data) => {
+                if (data && data.id) {
+                    Router.push(`/community/${data.id}`)
+                }
+            })
     };
 
 

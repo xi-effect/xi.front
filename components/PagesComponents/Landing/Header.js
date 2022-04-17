@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router"
 import { Stack, useMediaQuery, Button } from "@mui/material";
-import XiLogo from "../../../kit/XiLogo.tsx";
+import XiLogo from "../../../kit/XiLogo";
 
 function Header() {
     const router = useRouter()
