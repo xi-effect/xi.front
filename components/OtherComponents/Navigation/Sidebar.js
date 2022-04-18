@@ -15,7 +15,9 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { motion } from "framer-motion";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import dynamic from "next/dynamic"
+import SidebarCommunityIcon from "./SidebarCommunityIcon";
 
 const DialogCreateCommunity = dynamic(
   () => import("./DialogCreateCommunity"),
@@ -40,6 +42,32 @@ const Sidebar = inject("communitiesMenuSt")(
         href: "createcommunity",
       },
     ];
+
+    const reorder = (list, startIndex, endIndex) => {
+      const result = Array.from(list);
+      const [removed] = result.splice(startIndex, 1);
+      result.splice(endIndex, 0, removed);
+
+      return result;
+    };
+
+    const onDragEnd = (result) => {
+      if (!result.destination) {
+        return;
+      }
+
+      if (result.destination.index === result.source.index) {
+        return;
+      }
+
+      const communities = reorder(
+        communitiesMenuSt.userCommunities,
+        result.source.index,
+        result.destination.index
+      );
+
+      communitiesMenuSt.setUserCommunities(communities);
+    }
 
     return (
       <Stack
@@ -79,42 +107,29 @@ const Sidebar = inject("communitiesMenuSt")(
             </IconButton>
           </Tooltip>
         ))}
-        <Scrollbars
-          renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 2, }} />}
-          renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 2, }} />}
-          universal
-          style={{ height: "100%", overflowY: "hidden !important", }}
-          autoHide
-          autoHideTimeout={1000}
-          autoHideDuration={200}
-        >
-          {communitiesMenuSt.userCommunities.map((item, index) => (
-            <Tooltip enterDelay={500} leaveDelay={0} key={index.toString()} placement="right" title={item.label}>
-              <IconButton
-                component={motion.li}
-                whileHover={{ scale: 1.15 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => {
-                  router.push(`/community/${item.cId}`);
-                }}
-                sx={{
-                  bgcolor: router.pathname.includes(`/community/${item.cId}`) ? "primary.main" : "primary.dark",
-                  borderRadius: router.pathname.includes(`/community/${item.cId}`) ? "8px" : "21px",
-                  height: "42px",
-                  width: "42px",
-                  mt: 1.5,
-                  ml: 2.4,
-                  "&:hover": {
-                    bgcolor: router.pathname.includes(`/community/${item.cId}`) ? "primary.main" : "primary.dark",
-                  },
-                }}
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId={"communitiesList"}>
+            {(provided) => (
+              <Scrollbars
+                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 2, }} />}
+                renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 2, }} />}
+                universal
+                style={{ height: "100%", overflowY: "hidden !important", }}
+                autoHide
+                autoHideTimeout={1000}
+                autoHideDuration={200}
               >
-                {item.label[0].toUpperCase()}
-              </IconButton>
-            </Tooltip>
-          ))}
+                <Box ref={provided.innerRef} {...provided.droppableProps}>
+                  {communitiesMenuSt.userCommunities.map((item, index) => (
+                    <SidebarCommunityIcon item={item} index={index} key={item.id}/>
+                  ))}
+                  {provided.placeholder}
+                </Box>
+              </Scrollbars>
+            )}
+          </Droppable>
           <Box sx={{ height: 12 }} />
-        </Scrollbars>
+        </DragDropContext>
         <Tooltip placement="right" title="Настройки">
           <IconButton
             component={motion.li}
