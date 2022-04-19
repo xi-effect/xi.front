@@ -1,10 +1,10 @@
 import React from "react";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import { Stack, useMediaQuery, Button } from "@mui/material";
 import XiLogo from "../../../kit/XiLogo";
 
 function Header() {
-    const router = useRouter()
+    const router = useRouter();
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     return (
@@ -25,7 +25,7 @@ function Header() {
                 onClick={() => {
                     router.push({
                         pathname: "/login",
-                    })
+                    });
                 }}
                 sx={{
                     "&.MuiButton-root": {
@@ -51,4 +51,4 @@ function Header() {
     );
 }
 
-export default Header
+export default Header;

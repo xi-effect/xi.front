@@ -25,7 +25,7 @@ const Invite = inject(
 
     // Используется тестовый код, нужно заменить значение из API
     const [statusCopy, setStatusCopy] = useState(false);
-    const [openQR, setOpenQR] = React.useState(false)
+    const [openQR, setOpenQR] = React.useState(false);
 
     const [state, copyToClipboard] = useCopyToClipboard();
 
@@ -51,8 +51,8 @@ const Invite = inject(
             label="Код-приглашение"
             defaultValue={userSt.settings.invite}
             onClick={() => {
-              copyToClipboard(`https://xieffect.ru/registration?invite=${userSt.settings.invite}`)
-              setStatusCopy(true)
+              copyToClipboard(`https://xieffect.ru/registration?invite=${userSt.settings.invite}`);
+              setStatusCopy(true);
             }}
             InputProps={{
               endAdornment: (

@@ -1,5 +1,5 @@
 import React from "react";
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 
 import { Typography, Switch, Button, Dialog, DialogContent, Stack, useMediaQuery, DialogActions } from "@mui/material";
 
@@ -62,7 +62,7 @@ const DialogPrivacy = inject()(observer(({ openDialogPrivacy, setOpenDialogPriva
                 </Button>
             </DialogActions>
         </Dialog >
-    )
+    );
 }));
 
 export default DialogPrivacy;

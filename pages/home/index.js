@@ -1,7 +1,7 @@
-import Head from "next/head"
+import Head from "next/head";
 import React from "react";
 import { Stack, Grid } from "@mui/material";
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
 import Stories from "../../components/PagesComponents/Home/Stories";
 import TaskForDay from "../../components/PagesComponents/Home/TaskForDay";
@@ -72,6 +72,6 @@ const Home = inject()(observer(() => (
       </NavigationAll>
     </>
   )
-)))
+)));
 
-export default Home
+export default Home;

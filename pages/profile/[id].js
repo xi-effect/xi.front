@@ -189,6 +189,6 @@ const Profile = inject("userSt")(observer(({ userSt }) => {
             </NavigationAll>
         </>
     );
-}))
+}));
 
-export default Profile
+export default Profile;

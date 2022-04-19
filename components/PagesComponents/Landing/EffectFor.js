@@ -16,7 +16,7 @@ const menu = [
     "Родителям",
     "Авторам",
     "Организациям"
-]
+];
 
 const cardsList = [
     "firstCard",
@@ -24,20 +24,20 @@ const cardsList = [
     "thirdCard",
     "fourthCard",
     "fifthCard",
-]
+];
 
 function EffectFor() {
 
     const mobile = useMediaQuery(theme => theme.breakpoints.down("gx"));
 
-    const [tab, setTab] = React.useState(0)
+    const [tab, setTab] = React.useState(0);
 
     const handlers = useSwipeable({
         onSwipedLeft: () => {
-            setTab(prev => prev === features.content.length - 1 ? prev = 0 : prev + 1)
+            setTab(prev => prev === features.content.length - 1 ? prev = 0 : prev + 1);
         },
         onSwipedRight: () => {
-            setTab(prev => prev === 0 ? prev = features.content.length - 1 : prev - 1)
+            setTab(prev => prev === 0 ? prev = features.content.length - 1 : prev - 1);
         },
     });
 
@@ -138,8 +138,8 @@ function EffectFor() {
                             mr: 2,
                         }}
                         onClick={() => {
-                            if (tab === 0) setTab(4)
-                            if (tab !== 0) setTab(tab - 1)
+                            if (tab === 0) setTab(4);
+                            if (tab !== 0) setTab(tab - 1);
                         }}>
                         <ArrowBackIosNewIcon fontSize="large" />
                     </IconButton>
@@ -178,8 +178,8 @@ function EffectFor() {
                             ml: 2,
                         }}
                         onClick={() => {
-                            if (tab === 4) setTab(0)
-                            if (tab !== 4) setTab(tab + 1)
+                            if (tab === 4) setTab(0);
+                            if (tab !== 4) setTab(tab + 1);
                         }}>
                         <ArrowForwardIosIcon fontSize="large" />
                     </IconButton>

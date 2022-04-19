@@ -28,6 +28,6 @@ const Community = inject("userSt")(observer(() =>
             </NavigationAll>
         </>
     )
-))
+));
 
-export default Community
+export default Community;

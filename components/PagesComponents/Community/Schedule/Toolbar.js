@@ -30,7 +30,7 @@ function GetTime() {
 
     return (
         <Moment format="ddd, D MMMM HH:mm" interval={0}>{time}</Moment>
-    )
+    );
 }
 
 const Toolbar = inject()(observer(() => (

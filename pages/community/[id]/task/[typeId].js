@@ -1,13 +1,13 @@
 import { inject, observer } from "mobx-react";
 import Head from "next/head";
 import React from "react";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
 import Task from "../../../../components/PagesComponents/Community/Task/Task";
 
 const TaskPage = inject()(observer(() => {
-    const router = useRouter()
+    const router = useRouter();
 
     React.useEffect(() => {
         if (router.query.id !== undefined) {
@@ -28,6 +28,6 @@ const TaskPage = inject()(observer(() => {
             </NavigationAll>
         </>
     );
-}))
+}));
 
-export default TaskPage
+export default TaskPage;

@@ -19,11 +19,11 @@ const arrowVariants = {
     closed: {
         rotate: 0,
     }
-}
+};
 
 const Result = inject()(
     observer(() => {
-        const [result, setResult] = React.useState(false)
+        const [result, setResult] = React.useState(false);
 
         return (
             <>

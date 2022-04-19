@@ -1,5 +1,5 @@
 import React from "react";
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 
 import { Stack, Box, Typography, FormControl, Select, InputLabel, MenuItem, Divider, IconButton } from "@mui/material";
 
@@ -16,18 +16,18 @@ const getColor = () => {
     const color = Math.floor(Math.random() * (7 - 0) + 0);
     const colorIndex = Math.floor(Math.random() * (9 - 0) + 0);
     switch (color) {
-        case 1: return blue[Number(`${colorIndex + 1}00`)]
-        case 2: return teal[Number(`${colorIndex + 1}00`)]
-        case 3: return green[Number(`${colorIndex + 1}00`)]
-        case 4: return orange[Number(`${colorIndex + 1}00`)]
-        case 5: return red[Number(`${colorIndex + 1}00`)]
-        case 6: return blueGrey[Number(`${colorIndex + 1}00`)]
-        case 7: return indigo[Number(`${colorIndex + 1}00`)]
-        default: return green[`${colorIndex + 1}00`]
+        case 1: return blue[Number(`${colorIndex + 1}00`)];
+        case 2: return teal[Number(`${colorIndex + 1}00`)];
+        case 3: return green[Number(`${colorIndex + 1}00`)];
+        case 4: return orange[Number(`${colorIndex + 1}00`)];
+        case 5: return red[Number(`${colorIndex + 1}00`)];
+        case 6: return blueGrey[Number(`${colorIndex + 1}00`)];
+        case 7: return indigo[Number(`${colorIndex + 1}00`)];
+        default: return green[`${colorIndex + 1}00`];
     }
 };
 
-const getNewColorsArray = (colors) => colors.map(() => getColor())
+const getNewColorsArray = (colors) => colors.map(() => getColor());
 
 const schema = yup
     .object({
@@ -63,7 +63,7 @@ const Review = inject()(observer(() => {
     const generateNewColors = () => {
         const newColors = getNewColorsArray(colors);
         setColors(newColors);
-    }
+    };
 
     return (
         <Stack
@@ -177,7 +177,7 @@ const Review = inject()(observer(() => {
             </Stack>
 
         </Stack>
-    )
+    );
 }));
 
 export default Review;

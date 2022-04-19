@@ -1,28 +1,28 @@
 import * as React from "react";
-import Head from "next/head"
-import { useRouter } from "next/router"
+import Head from "next/head";
+import { useRouter } from "next/router";
 import Image from "next/image";
 
 import { Stack, Paper, Typography, Button, useMediaQuery } from "@mui/material";
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 
 import XiLogo from "../../kit/XiLogo";
 
 const Email = inject("rootStore")(observer(({ rootStore }) => {
-    const router = useRouter()
-    const { id } = router.query
+    const router = useRouter();
+    const { id } = router.query;
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
-    const [ok, setOk] = React.useState(false)
+    const [ok, setOk] = React.useState(false);
 
     const acceptButtonClicked = () => {
         rootStore.fetchData(`${rootStore.url}/email-confirm/`, "POST", { "code": id })
             .then((data) => {
                 if (data.a) { // "Success"
-                    setOk(true)
+                    setOk(true);
                 }
-            })
-    }
+            });
+    };
 
     return (
         <>
@@ -111,6 +111,6 @@ const Email = inject("rootStore")(observer(({ rootStore }) => {
             </Stack>
         </>
     );
-}))
+}));
 
-export default Email
+export default Email;

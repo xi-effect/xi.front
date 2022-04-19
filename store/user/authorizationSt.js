@@ -2,8 +2,6 @@
 /* eslint-disable no-shadow */
 import { action, observable, makeObservable } from "mobx"
 import Router from "next/router"
-// import socket from "../../utils/socket"
-// import { io } from "socket.io-client";
 
 const Crypto = require("crypto-js")
 

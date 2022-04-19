@@ -1,9 +1,9 @@
-import Head from "next/head"
+import Head from "next/head";
 
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import { Stack, useMediaQuery, Paper, InputLabel, InputAdornment, IconButton, FormControl, Typography, Box, Button, Input } from "@mui/material";
-import React from "react"
-import { inject, observer } from "mobx-react"
+import React from "react";
+import { inject, observer } from "mobx-react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Image from "next/image";
@@ -21,21 +21,21 @@ const schema = yup.object({
 const PasswordReset = inject("authorizationSt")(observer(({ authorizationSt }) => {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
-    const router = useRouter()
+    const router = useRouter();
 
-    const { id } = router.query
+    const { id } = router.query;
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
 
-    const [showPassword, setShowPassword] = React.useState(false)
+    const [showPassword, setShowPassword] = React.useState(false);
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
     const onSubmit = (data) => {
-        authorizationSt.saveNewPassword(id, data)
-    }
+        authorizationSt.saveNewPassword(id, data);
+    };
 
     return (
         <>
@@ -200,6 +200,6 @@ const PasswordReset = inject("authorizationSt")(observer(({ authorizationSt }) =
             </Stack>
         </>
     );
-}))
+}));
 
-export default PasswordReset
+export default PasswordReset;

@@ -1,5 +1,5 @@
 import React from "react";
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 
 import { Dialog, Button, Stack, IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -11,7 +11,7 @@ const items = [
     "Приглашения",
     "Участники",
     "Роли",
-]
+];
 
 const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSettings }) => {
     const [value, setValue] = React.useState(0);
@@ -111,7 +111,7 @@ const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSet
                 </Stack>
             </Stack>
         </Dialog >
-    )
+    );
 }));
 
 export default DialogSettings;

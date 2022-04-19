@@ -2,7 +2,7 @@ import { Stack, Box, } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import Head from "next/head";
 import React from "react";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 
 import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
 import Toolbar from "../../../../components/PagesComponents/Community/Schedule/Toolbar";
@@ -10,7 +10,7 @@ import DateLine from "../../../../components/PagesComponents/Community/Schedule/
 import LessonsList from "../../../../components/PagesComponents/Community/Schedule/LessonsList";
 
 const SchedulePage = inject()(observer(() => {
-    const router = useRouter()
+    const router = useRouter();
 
     React.useEffect(() => {
         if (router.query.id !== undefined) {
@@ -69,6 +69,6 @@ const SchedulePage = inject()(observer(() => {
             </NavigationAll>
         </>
     );
-}))
+}));
 
-export default SchedulePage
+export default SchedulePage;

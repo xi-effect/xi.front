@@ -1,5 +1,5 @@
 import React from "react";
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 
 import { Stack, Typography, Divider } from "@mui/material";
 
@@ -7,7 +7,7 @@ import { useForm, } from 'react-hook-form'; // Controller
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import CreateInvite from '../../../../../../kit/CreateInvite'
+import CreateInvite from '../../../../../../kit/CreateInvite';
 
 const schema = yup
     .object({
@@ -58,7 +58,7 @@ const Invites = inject()(observer(() => {
                 Ранее созданные приглашения
             </Typography>
         </Stack>
-    )
+    );
 }));
 
 export default Invites;

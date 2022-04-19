@@ -21,17 +21,17 @@ export { Face, FaceType } from './face/z_options.tsx';
 export { FacialHair, FacialHairType } from './facialHair/z_options.tsx';
 
 interface PeepProps {
-  style?: CSSProperties;
-  accessory?: AccessoryType;
-  body?: BustPoseType | SittingPoseType | StandingPoseType;
-  face?: FaceType;
-  facialHair?: FacialHairType;
-  hair?: HairType;
-  viewBox?: { x: string; y: string; width: string; height: string };
-  circleStyle?: CSSProperties;
-  strokeColor?: string | GradientType;
-  backgroundColor?: string | GradientType;
-  wrapperBackground?: string | GradientType;
+  style: CSSProperties;
+  accessory: AccessoryType;
+  body: BustPoseType | SittingPoseType | StandingPoseType;
+  face: FaceType;
+  facialHair: FacialHairType;
+  hair: HairType;
+  viewBox: { x: string; y: string; width: string; height: string };
+  circleStyle: CSSProperties;
+  strokeColor: string | GradientType;
+  backgroundColor: string | GradientType;
+  wrapperBackground: string | GradientType;
 }
 
 const Peep: React.FC<PeepProps> = ({

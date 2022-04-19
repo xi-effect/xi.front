@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import Image from "next/image";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import { useMediaQuery, Link, Grid, Box, Typography, Container, IconButton } from "@mui/material";
 import TermsOfUse from "./TermsOfUse";
 
 function Footer() {
-    const router = useRouter()
+    const router = useRouter();
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const [open, setOpen] = React.useState(false);
@@ -85,16 +85,16 @@ function Footer() {
                             <Link
                                 sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}
                                 onClick={() => {
-                                    setType(0)
-                                    setOpen(true)
+                                    setType(0);
+                                    setOpen(true);
                                 }}>
                                 Пользовательское соглашение
                             </Link>
                             <Link
                                 sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}
                                 onClick={() => {
-                                    setType(1)
-                                    setOpen(true)
+                                    setType(1);
+                                    setOpen(true);
                                 }}>
                                 Лицензионное соглашение
                             </Link>

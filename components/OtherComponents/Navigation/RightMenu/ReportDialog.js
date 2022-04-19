@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { inject, observer } from "mobx-react";
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion";
 import { Box, Button, Dialog, FormControl, InputLabel, Input, MenuItem, Select, DialogContent, DialogActions, Stack, Typography } from "@mui/material";
 
 const ReportGeneral = inject(
@@ -149,16 +149,16 @@ const ReportDialog = inject(
         };
 
         const sendReport = () => {
-            let dataReport
+            let dataReport;
             if (type === "general") {
                 dataReport = {
                     reportText: uiSt.reportData.reportText,
-                }
+                };
             }
             if (type === "detailed") {
                 dataReport = {
 
-                }
+                };
             }
             if (type === "bug-report") {
                 dataReport = {
@@ -166,19 +166,19 @@ const ReportDialog = inject(
                     sitePart: uiSt.reportData.sitePart,
                     errorRepeat: uiSt.reportData.errorRepeat,
                     deviceInfo: uiSt.reportData.deviceInfo,
-                }
+                };
             }
             if (type === "content-report") {
                 dataReport = {
                     contentName: uiSt.reportData.contentName,
                     errorDescription: uiSt.reportData.errorDescription,
-                }
+                };
             }
             rootStore.fetchData(`${rootStore.url}/feedback/`, "POST", { type, data: dataReport }).then(
                 () => {
-                    uiSt.clearReportData()
-                })
-        }
+                    uiSt.clearReportData();
+                });
+        };
 
         return (
             <Dialog

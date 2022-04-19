@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 
 import { Typography, Stack, Tooltip, IconButton } from "@mui/material";
 import PlusOneIcon from "@mui/icons-material/PlusOne";
@@ -39,7 +39,7 @@ const Home = inject()(observer(() => {
                 </IconButton>
             </Tooltip>
         </Stack>
-    )
+    );
 }));
 
 export default Home;

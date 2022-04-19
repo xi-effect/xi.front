@@ -1,14 +1,14 @@
 /* eslint-disable react/display-name */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { Grid, Divider, useMediaQuery, Typography, Link } from "@mui/material"
+import { Grid, Divider, useMediaQuery, Typography, Link } from "@mui/material";
 
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 
 // eslint-disable-next-line no-underscore-dangle
 export default function () {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("lg"));
-    const router = useRouter()
+    const router = useRouter();
 
     return (
         <Grid
@@ -65,7 +65,7 @@ export default function () {
                     onClick={() => {
                         router.push({
                             pathname: "/",
-                        })
+                        });
                     }}
                     underline="hover"
                 >

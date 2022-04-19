@@ -15,16 +15,16 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic"
+import dynamic from "next/dynamic";
 
 const DialogCreateCommunity = dynamic(
   () => import("./DialogCreateCommunity"),
   { ssr: false }
-)
+);
 
 const Sidebar = inject("communitiesMenuSt")(
   observer(({ communitiesMenuSt }) => {
-    const [openDialogCC, setOpenDialogCC] = React.useState(false)
+    const [openDialogCC, setOpenDialogCC] = React.useState(false);
     const router = useRouter();
     const menuList = [
       {
@@ -63,7 +63,7 @@ const Sidebar = inject("communitiesMenuSt")(
               whileTap={{ scale: 0.9 }}
               onClick={() => {
                 if (item.href === "createcommunity") {
-                  setOpenDialogCC(true)
+                  setOpenDialogCC(true);
                 }
                 else router.push(item.href);
               }}

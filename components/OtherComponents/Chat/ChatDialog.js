@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Stack, Input, Grid, Link, InputAdornment, Tooltip, IconButton, Checkbox, FormControl, Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, } from "@mui/material";
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
@@ -164,6 +164,6 @@ const ChatDialog = inject("messageSt")(observer(({ messageSt }) => (
             <Button sx={{ color: "text.main" }} onClick={() => messageSt.createChat()}>Готово</Button>
         </DialogActions>
     </Dialog>
-)))
+)));
 
-export default ChatDialog
+export default ChatDialog;

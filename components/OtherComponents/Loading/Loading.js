@@ -48,7 +48,7 @@ const Loading = inject("uiSt")(observer(({ uiSt }) => {
                 </Box>
             </Grid>}
         </AnimatePresence>
-    )
+    );
 }));
 
 export default Loading;

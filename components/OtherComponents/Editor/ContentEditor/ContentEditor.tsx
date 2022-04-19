@@ -34,15 +34,16 @@ const Leaf = ({ attributes, children, leaf }) => {
   }
   // eslint-disable-next-line react/prop-types
   if (leaf.code) {
-    children = <code
-      className={css`
-        background-color: #333;
-        padding: 0.25em 0.5em;
-        border-radius: 0.25em;
-      `}
-    >
-      {children}
-    </code>;
+    children = (
+      <code
+        className={css`
+          background-color: #333;
+          padding: 0.25em 0.5em;
+          border-radius: 0.25em;
+        `}>
+        {children}
+      </code>
+    );
   }
   // eslint-disable-next-line react/prop-types
   if (leaf.italic) {
@@ -86,7 +87,7 @@ const ContentEditor: React.FC<Props> = (props) => {
 
   const handleChange = (value) => {
     setValue(value);
-    setStorage(value)
+    setStorage(value);
   };
 
   const onDragEnd = (result) => {

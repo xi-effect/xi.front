@@ -10,8 +10,8 @@ import {
   StyledEngineProvider,
   responsiveFontSizes,
 } from "@mui/material/styles";
-import Router from "next/router"
-import { Provider, observer } from "mobx-react"
+import Router from "next/router";
+import { Provider, observer } from "mobx-react";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
@@ -19,23 +19,23 @@ import "moment/locale/ru";
 
 import { SnackbarProvider } from "notistack";
 
-import { config } from '@fortawesome/fontawesome-svg-core'
-import '@fortawesome/fontawesome-svg-core/styles.css'
-import "../styles/globals.css"
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import "../styles/globals.css";
 
 import NProgress from "nprogress"; // nprogress module
 import createEmotionCache from "../store/createEmotionCache";
-import { useStore } from "../store/rootStore"
-import { getDesignTokens } from "../theme"
+import { useStore } from "../store/rootStore";
+import { getDesignTokens } from "../theme";
 import "nprogress/nprogress.css"; // styles of nprogress
 import Loading from "../components/OtherComponents/Loading/Loading";
 
-config.autoAddCss = false
+config.autoAddCss = false;
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 // Binding events. 
-NProgress.configure({ showSpinner: false })
+NProgress.configure({ showSpinner: false });
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
@@ -45,10 +45,10 @@ Router.events.on("routeChangeError", () => NProgress.done());
 const MyApp = (observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
-  const rootStore = useStore(pageProps.initialState)
+  const rootStore = useStore(pageProps.initialState);
   const theme = React.useMemo(() =>
     responsiveFontSizes(createTheme(getDesignTokens(rootStore.userSt.settings.darkTheme))),
-    [rootStore.userSt.settings.darkTheme])
+    [rootStore.userSt.settings.darkTheme]);
 
 
   return (
@@ -95,9 +95,9 @@ const MyApp = (observer((props) => {
       </Provider>
     </CacheProvider >
   );
-}))
+}));
 
-export default MyApp
+export default MyApp;
 
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,

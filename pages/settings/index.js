@@ -40,18 +40,18 @@ const Settings = inject(
   "userSt",
 )(
   observer(({ rootStore, userSt }) => {
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"))
-    const router = useRouter()
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
+    const router = useRouter();
 
     React.useEffect(() => {
       rootStore
         .fetchData(`${rootStore.url}/settings/main/`, "GET")
         .then((data) => {
           if (data) {
-            console.log("settings/main", data)
-            userSt.setSettings("darkTheme", data["dark-theme"])
-            userSt.setSettings("id", data.id)
-            userSt.setSettings("username", data.username)
+            console.log("settings/main", data);
+            userSt.setSettings("darkTheme", data["dark-theme"]);
+            userSt.setSettings("id", data.id);
+            userSt.setSettings("username", data.username);
           }
         });
       rootStore
@@ -59,12 +59,12 @@ const Settings = inject(
         .then((data) => {
           if (data) {
             console.log("settings", data);
-            const emailArr = data.email.split("@", 2)
-            userSt.setSettings("emailBefore", emailArr[0])
-            userSt.setSettings("emailAfter", `@${emailArr[1]}`)
-            userSt.setSettings("emailConfirmed", data["email-confirmed"])
-            userSt.setSettings("avatar", data.avatar)
-            userSt.setSettings("invite", data.code)
+            const emailArr = data.email.split("@", 2);
+            userSt.setSettings("emailBefore", emailArr[0]);
+            userSt.setSettings("emailAfter", `@${emailArr[1]}`);
+            userSt.setSettings("emailConfirmed", data["email-confirmed"]);
+            userSt.setSettings("avatar", data.avatar);
+            userSt.setSettings("invite", data.code);
           }
         });
     }, []);
@@ -76,8 +76,8 @@ const Settings = inject(
     };
 
     React.useEffect(() => {
-      if (router.query.option && (router.query.option === "secure" || router.query.option === "useravatar" || router.query.option === "customize" || router.query.option === "invite")) setExpanded(router.query.option)
-    }, [router.query])
+      if (router.query.option && (router.query.option === "secure" || router.query.option === "useravatar" || router.query.option === "customize" || router.query.option === "invite")) setExpanded(router.query.option);
+    }, [router.query]);
 
     return (
       <>

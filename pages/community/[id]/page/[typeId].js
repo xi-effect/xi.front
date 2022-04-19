@@ -11,10 +11,10 @@ import NavigationAll from "../../../../components/OtherComponents/Navigation/Nav
 
 const ContentEditor = dynamic(() => import("../../../../components/OtherComponents/Editor/ContentEditor/ContentEditor.tsx"), {
     ssr: false,
-})
+});
 
 const PagePage = inject("rootStore", "userSt", "userSt")(observer(() => {
-    const router = useRouter()
+    const router = useRouter();
 
     React.useEffect(() => {
         if (router.query.id !== undefined) {
@@ -40,6 +40,6 @@ const PagePage = inject("rootStore", "userSt", "userSt")(observer(() => {
             </NavigationAll>
         </>
     );
-}))
+}));
 
 export default PagePage;

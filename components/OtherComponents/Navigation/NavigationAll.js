@@ -5,7 +5,7 @@ import { inject, observer } from "mobx-react";
 
 import { Box, useMediaQuery } from "@mui/material";
 import { Scrollbars } from "react-custom-scrollbars-2";
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import { useSessionStorage } from 'react-use';
 import Sidebar from "./Sidebar";
@@ -30,7 +30,7 @@ const dragVariants = {
     x: 0,
     y: 200,
   }
-}
+};
 
 const SidebarVariantsLeft = {
   visible: {
@@ -39,7 +39,7 @@ const SidebarVariantsLeft = {
   hidden: {
     x: 200
   }
-}
+};
 
 const SidebarVariantsRight = {
   visible: {
@@ -48,7 +48,7 @@ const SidebarVariantsRight = {
   hidden: {
     x: -200
   }
-}
+};
 
 const NavigationAll = inject(
   "rootStore",
@@ -65,7 +65,7 @@ const NavigationAll = inject(
 
     React.useEffect(() => {
       setPrevPathname(router.pathname);
-    }, [router.pathname])
+    }, [router.pathname]);
 
     React.useEffect(() => {
       // Каждый раз запрашиваются настройки, чтобы понимать,
@@ -77,13 +77,13 @@ const NavigationAll = inject(
       };
     }, []);
 
-    const [hoverLeftName, setHoverLeftName] = React.useState("")
+    const [hoverLeftName, setHoverLeftName] = React.useState("");
 
     React.useEffect(() => {
-      if (router.pathname.includes("/home")) setHoverLeftName("/home")
-      if (router.pathname.includes("/knowledge")) setHoverLeftName("/knowledge")
-      if (router.pathname.includes("/messages")) setHoverLeftName("/messages")
-      if (router.pathname.includes("/settings")) setHoverLeftName("/settings")
+      if (router.pathname.includes("/home")) setHoverLeftName("/home");
+      if (router.pathname.includes("/knowledge")) setHoverLeftName("/knowledge");
+      if (router.pathname.includes("/messages")) setHoverLeftName("/messages");
+      if (router.pathname.includes("/settings")) setHoverLeftName("/settings");
     }, [router.pathname]);
 
     const config = {
@@ -92,17 +92,17 @@ const NavigationAll = inject(
       trackTouch: true,                     // track touch input
       trackMouse: false,                    // track mouse input
       rotationAngle: 0,                     // set a rotation angle
-    }
+    };
 
     const handlers = useSwipeable({
       onSwiped: (eventData) => console.log("User Swiped!", eventData),
       onSwipedLeft: () => {
-        if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "left")
-        if (uiSt.navigation.swipe === "right") uiSt.setNavigation("swipe", "center")
+        if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "left");
+        if (uiSt.navigation.swipe === "right") uiSt.setNavigation("swipe", "center");
       },
       onSwipedRight: () => {
-        if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "right")
-        if (uiSt.navigation.swipe === "left") uiSt.setNavigation("swipe", "center")
+        if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "right");
+        if (uiSt.navigation.swipe === "left") uiSt.setNavigation("swipe", "center");
       },
       ...config,
     });
@@ -227,12 +227,12 @@ const NavigationAll = inject(
             variants={dragVariants}
             initial={{ x: uiSt.navigation.swipe === "right" ? 200 : 0 }}
             animate={() => {
-              console.log("animate", uiSt.navigation.swipe)
-              if (uiSt.navigation.swipe === "left") return "left"
-              if (uiSt.navigation.swipe === "center") return "center"
-              if (uiSt.navigation.swipe === "right") return "right"
-              if (uiSt.navigation.swipe === "bottom") return "bottom"
-              return null
+              console.log("animate", uiSt.navigation.swipe);
+              if (uiSt.navigation.swipe === "left") return "left";
+              if (uiSt.navigation.swipe === "center") return "center";
+              if (uiSt.navigation.swipe === "right") return "right";
+              if (uiSt.navigation.swipe === "bottom") return "bottom";
+              return null;
             }}
             transition={{
               delay: 0,
@@ -256,7 +256,7 @@ const NavigationAll = inject(
         </Box>
       );
     }
-    return null
+    return null;
   })
 );
 
