@@ -13,17 +13,17 @@ import TextFieldCustom from "../../../../../../kit/TextFieldCustom";
 
 
 const getColor = () => {
-    const color = Math.floor(Math.random() * (7 - 1) + 1);
-    const colorIndex = Math.floor(Math.random() * (9 - 1) + 1);
+    const color = Math.floor(Math.random() * (7 - 0) + 0);
+    const colorIndex = Math.floor(Math.random() * (9 - 0) + 0);
     switch (color) {
-        case 1: return blue[Number(`${colorIndex}00`)]
-        case 2: return teal[Number(`${colorIndex}00`)]
-        case 3: return green[Number(`${colorIndex}00`)]
-        case 4: return orange[Number(`${colorIndex}00`)]
-        case 5: return red[Number(`${colorIndex}00`)]
-        case 6: return blueGrey[Number(`${colorIndex}00`)]
-        case 7: return indigo[Number(`${colorIndex}00`)]
-        default: return green[`${colorIndex}00`]
+        case 1: return blue[Number(`${colorIndex + 1}00`)]
+        case 2: return teal[Number(`${colorIndex + 1}00`)]
+        case 3: return green[Number(`${colorIndex + 1}00`)]
+        case 4: return orange[Number(`${colorIndex + 1}00`)]
+        case 5: return red[Number(`${colorIndex + 1}00`)]
+        case 6: return blueGrey[Number(`${colorIndex + 1}00`)]
+        case 7: return indigo[Number(`${colorIndex + 1}00`)]
+        default: return green[`${colorIndex + 1}00`]
     }
 };
 
