@@ -4,8 +4,8 @@ import { inject, observer } from "mobx-react";
 import { Box, useMediaQuery, IconButton, Stack } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import InfoIcon from "@mui/icons-material/Info";
-import ReportDialog from "./RightMenu/ReportDialog";
 import XiLogo from "kit/XiLogo";
+import ReportDialog from "./RightMenu/ReportDialog";
 
 const Upbar = inject()(
   observer(({ swipe, setSwipe }) => {
