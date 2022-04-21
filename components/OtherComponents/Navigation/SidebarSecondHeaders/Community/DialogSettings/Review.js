@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import Avatar from "boring-avatars";
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { blue, teal, green, orange, red, blueGrey, indigo } from '@mui/material/colors';
-import TextFieldCustom from "../../../../../../kit/TextFieldCustom";
+import TextFieldCustom from "kit/TextFieldCustom";
 
 
 const getColor = () => {

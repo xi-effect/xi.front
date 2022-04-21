@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useRouter } from "next/router";
@@ -12,6 +13,14 @@ import Sidebar from "./Sidebar";
 import SidebarSecond from "./SidebarSecond";
 import RightMenu from "./RightMenu";
 import Upbar from "./Upbar";
+
+const config = {
+  delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
+  preventDefaultTouchmoveEvent: false,  // call e.preventDefault *See Details*
+  trackTouch: true,                     // track touch input
+  trackMouse: false,                    // track mouse input
+  rotationAngle: 0,                     // set a rotation angle
+};
 
 const dragVariants = {
   left: {
@@ -60,7 +69,6 @@ const NavigationAll = inject(
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
-    // eslint-disable-next-line no-unused-vars
     const [prevPathname, setPrevPathname] = useSessionStorage('prevPathname');
 
     React.useEffect(() => {
@@ -68,8 +76,6 @@ const NavigationAll = inject(
     }, [router.pathname]);
 
     React.useEffect(() => {
-      // Каждый раз запрашиваются настройки, чтобы понимать,
-      // актуален ли токен авторизации
       if (userSt.settings.id === null) {
         uiSt.setLoading('loading', true);
         userSt.getMainSettings('login');
@@ -85,14 +91,6 @@ const NavigationAll = inject(
       if (router.pathname.includes("/messages")) setHoverLeftName("/messages");
       if (router.pathname.includes("/settings")) setHoverLeftName("/settings");
     }, [router.pathname]);
-
-    const config = {
-      delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
-      preventDefaultTouchmoveEvent: false,  // call e.preventDefault *See Details*
-      trackTouch: true,                     // track touch input
-      trackMouse: false,                    // track mouse input
-      rotationAngle: 0,                     // set a rotation angle
-    };
 
     const handlers = useSwipeable({
       onSwiped: (eventData) => console.log("User Swiped!", eventData),

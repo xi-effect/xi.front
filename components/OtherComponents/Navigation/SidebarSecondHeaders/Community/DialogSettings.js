@@ -3,8 +3,11 @@ import { inject, observer } from "mobx-react";
 
 import { Dialog, Button, Stack, IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { useSnackbar } from "notistack";
+import Slide from '@mui/material/Slide';
 import Review from "./DialogSettings/Review";
 import Invites from "./DialogSettings/Invites";
+
 
 const items = [
     "Обзор",
@@ -15,6 +18,38 @@ const items = [
 
 const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSettings }) => {
     const [value, setValue] = React.useState(0);
+
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+    const action = key => (
+        <>
+            <Button onClick={() => {
+                closeSnackbar(key);
+                setOpenDialogSettings(false);
+            }}>
+                Да
+            </Button>
+            <Button onClick={() => {
+                closeSnackbar(key);
+                setOpenDialogSettings(false);
+            }}>
+                Нет
+            </Button>
+        </>
+    );
+
+    const handleClose = () => {
+        enqueueSnackbar("Сохранить новые настройки перед выходом?", {
+            persist: true,
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'center',
+            },
+            TransitionComponent: Slide,
+            action,
+        });
+        // 
+    };
 
     return (
         <Dialog
@@ -29,7 +64,8 @@ const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSet
                 justifyContent="flex-start"
                 alignItems="center"
                 sx={{
-                    height: "100vh",
+                    minHeight: "100vh",
+                    height: "100%",
                     width: "100%",
                 }}
             >
@@ -38,6 +74,7 @@ const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSet
                     justifyContent="flex-start"
                     alignItems="flex-end"
                     sx={{
+                        position: 'fixed',
                         width: '34%',
                         height: "100vh",
                         bgcolor: '#222',
@@ -89,9 +126,11 @@ const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSet
                     alignItems="flex-start"
                     sx={{
                         p: 2,
+                        ml: '34%',
                         width: '66%',
                         maxWidth: 800,
-                        height: "100vh",
+                        minHeight: "100vh",
+                        height: "100%",
                         position: 'relative',
                     }}
                 >
@@ -102,7 +141,7 @@ const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSet
                             top: 8,
                             right: 16,
                         }}
-                        onClick={() => setOpenDialogSettings(false)}
+                        onClick={handleClose}
                     >
                         <CloseIcon fontSize="large" />
                     </IconButton>

@@ -24,11 +24,13 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import "../styles/globals.css";
 
 import NProgress from "nprogress"; // nprogress module
+import SocketContext from "utils/socketIo";
 import createEmotionCache from "../store/createEmotionCache";
 import { useStore } from "../store/rootStore";
 import { getDesignTokens } from "../theme";
 import "nprogress/nprogress.css"; // styles of nprogress
 import Loading from "../components/OtherComponents/Loading/Loading";
+
 
 config.autoAddCss = false;
 
@@ -56,6 +58,7 @@ const MyApp = (observer((props) => {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
       </Head>
+      {/* MobX Provider */}
       <Provider
         rootStore={rootStore}
         uiSt={rootStore.uiSt}
@@ -75,22 +78,24 @@ const MyApp = (observer((props) => {
         communitiesInvitesSt={rootStore.communitiesInvitesSt}
       >
         <StyledEngineProvider injectFirst>
-          <SnackbarProvider
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
-            }}
-            maxSnack={3}
-            preventDuplicate
-            dense
-          >
+          <SocketContext.Provider>
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <Loading />
+              <SnackbarProvider
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                maxSnack={3}
+                preventDuplicate
+                dense
+              >
+                <Component {...pageProps} />
+              </SnackbarProvider>
 
-              <Component {...pageProps} />
             </ThemeProvider>
-          </SnackbarProvider>
+          </SocketContext.Provider>
         </StyledEngineProvider>
       </Provider>
     </CacheProvider >

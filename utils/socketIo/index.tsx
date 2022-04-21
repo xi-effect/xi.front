@@ -1,6 +1,6 @@
-import IoProvider from './IoProvider';
-import IoContext from './IoContext';
-import useSocket from './useSocket';
-import useSocketEvent from './useSocketEvent';
+import React from 'react';
+import socket from 'socket.io-client';
 
-export { IoProvider, IoContext, useSocket, useSocketEvent };
+const SocketContext = React.createContext(socket);
+
+export default SocketContext;
