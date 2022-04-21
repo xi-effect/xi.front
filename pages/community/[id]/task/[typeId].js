@@ -3,8 +3,8 @@ import Head from "next/head";
 import React from "react";
 import { useRouter } from "next/router";
 
-import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
-import Task from "../../../../components/PagesComponents/Community/Task/Task";
+import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
+import Task from "components/PagesComponents/Community/Task/Task";
 
 const TaskPage = inject()(observer(() => {
     const router = useRouter();

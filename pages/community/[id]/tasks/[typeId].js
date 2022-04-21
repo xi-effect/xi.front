@@ -3,7 +3,7 @@ import Head from "next/head";
 import React from "react";
 import { useRouter } from "next/router";
 
-import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
+import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
 
 
 const TasksPage = inject()(observer(() => {
