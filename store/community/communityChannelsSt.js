@@ -7,7 +7,7 @@ class CommunityChannelsSt {
     // useStore for e.g (this.rootStore.userStore)
     constructor(rootStore) {
         this.rootStore = rootStore;
-        makeObservable(this)
+        makeObservable(this);
     }
 
     @observable channels = [
@@ -144,11 +144,11 @@ class CommunityChannelsSt {
             type: "room",
             name: "Комната",
         },
-    ]
+    ];
 
     @action setChannel = (index, name, value) => {
-        this.channels[index][name] = value
-    }
+        this.channels[index][name] = value;
+    };
 }
 
 export default CommunityChannelsSt;

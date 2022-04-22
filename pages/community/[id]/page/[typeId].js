@@ -7,14 +7,14 @@ import { useRouter } from "next/router";
 
 import dynamic from "next/dynamic";
 import { Box, } from "@mui/material";
-import NavigationAll from "../../../../components/OtherComponents/Navigation/NavigationAll";
+import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
 
-const ContentEditor = dynamic(() => import("../../../../components/OtherComponents/Editor/ContentEditor/ContentEditor.tsx"), {
+const ContentEditor = dynamic(() => import("components/OtherComponents/Editor/ContentEditor/ContentEditor.tsx"), {
     ssr: false,
-})
+});
 
 const PagePage = inject("rootStore", "userSt", "userSt")(observer(() => {
-    const router = useRouter()
+    const router = useRouter();
 
     React.useEffect(() => {
         if (router.query.id !== undefined) {
@@ -40,6 +40,6 @@ const PagePage = inject("rootStore", "userSt", "userSt")(observer(() => {
             </NavigationAll>
         </>
     );
-}))
+}));
 
 export default PagePage;

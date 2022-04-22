@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { Stepper, Paper, Button, Box, Step, Select, InputLabel, MenuItem, FormControl, StepLabel, StepContent, Typography } from "@mui/material";
 
@@ -146,6 +145,6 @@ const CreateInvite = () => {
       )}
     </>
   );
-}
+};
 
 export default CreateInvite;

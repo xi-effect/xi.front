@@ -4,7 +4,7 @@ import { Stack, useMediaQuery, Paper, Typography, Button } from "@mui/material";
 import React from "react";
 import { inject, observer } from "mobx-react";
 
-import XiLogo from "../../../kit/XiLogo";
+import XiLogo from "kit/XiLogo";
 
 const InviteCommunity = inject()(
   observer(() => {

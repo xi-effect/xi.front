@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prefer-exact-props */
 /* eslint-disable no-undef */
 /* eslint-disable react/jsx-no-bind */
@@ -11,7 +12,6 @@ import { Transforms } from 'slate';
 import { NewBlocks } from '../config';
 
 type NewItemMenuProps = {
-  className?: string;
   editor: any;
   index: number;
   contextMenu: any;

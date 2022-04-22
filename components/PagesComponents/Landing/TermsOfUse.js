@@ -20,20 +20,19 @@ function TermsOfUse({ open, setOpen, type }) {
     const textTermsOfUse = "Cras mattis consectetur purus sit amet fermentum.\n" +
         "Cras justo odio, dapibus ac facilisis in, egestas eget quam.\n" +
         "Morbi leo risus, porta ac consectetur ac, vestibulum at eros.\n" +
-        "Praesent commodo cursus magna, vel scelerisque nisl consectetur et."
+        "Praesent commodo cursus magna, vel scelerisque nisl consectetur et.";
 
     const textLicense = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
         "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
         "Scelerisque eleifend donec pretium vulputate sapien nec sagittis. " +
         "Pellentesque massa placerat duis ultricies lacus sed. Congue quisque " +
-        "Vel eros donec ac odio."
+        "Vel eros donec ac odio.";
 
 
 
     return (
         <Dialog
             open={open}
-        // onClose={handleClose}
         >
             <DialogTitle id="dialog-title">
                 {type === 0 ? "Пользовательское соглашение" : "Лицензионное соглашение"}
@@ -58,4 +57,4 @@ function TermsOfUse({ open, setOpen, type }) {
     );
 }
 
-export default TermsOfUse
+export default TermsOfUse;

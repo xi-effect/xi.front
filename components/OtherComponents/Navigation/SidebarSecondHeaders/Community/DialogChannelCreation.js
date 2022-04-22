@@ -1,5 +1,5 @@
 import React from "react";
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 
 import { Typography, Radio, Button, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Paper, useMediaQuery, DialogActions } from "@mui/material";
 
@@ -7,7 +7,7 @@ import { Typography, Radio, Button, FormControl, InputLabel, Input, Dialog, Dial
 const DialogChannelCreation = inject()(observer(({ openDialogChannelCreation, setOpenDialogChannelCreation }) => {
     const fullScreen = useMediaQuery(theme => theme.breakpoints.down("md"));
 
-    const [channelSelect, setChannelSelect] = React.useState(null)
+    const [channelSelect, setChannelSelect] = React.useState(null);
 
     return (
         <Dialog
@@ -49,8 +49,8 @@ const DialogChannelCreation = inject()(observer(({ openDialogChannelCreation, se
                             key={index.toString()}
                             elevation={6}
                             onClick={() => {
-                                if (channelSelect === index) return setChannelSelect(null)
-                                return setChannelSelect(index)
+                                if (channelSelect === index) return setChannelSelect(null);
+                                return setChannelSelect(index);
                             }}
                             sx={{
                                 mb: 2,
@@ -108,7 +108,7 @@ const DialogChannelCreation = inject()(observer(({ openDialogChannelCreation, se
                 </Button>
             </DialogActions>
         </Dialog >
-    )
+    );
 }));
 
 

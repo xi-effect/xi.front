@@ -1,4 +1,4 @@
-import { observable, makeObservable } from "mobx"
+import { observable, makeObservable } from "mobx";
 
 
 class HomeSt {
@@ -8,12 +8,12 @@ class HomeSt {
     // useStore for e.g (this.rootStore.userStore)
     constructor(rootStore) {
         this.rootStore = rootStore;
-        makeObservable(this)
+        makeObservable(this);
     }
 
     @observable homeSt = {
 
-    }
+    };
 }
 
 export default HomeSt;

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { inject, observer } from "mobx-react";
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion";
 import { Box, Button, Dialog, useMediaQuery, DialogContent, IconButton, Tooltip, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
@@ -10,7 +10,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import TextFieldCustom from '../../../kit/TextFieldCustom';
+import TextFieldCustom from 'kit/TextFieldCustom';
 
 const schema = yup
     .object({

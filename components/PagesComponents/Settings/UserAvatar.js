@@ -1,6 +1,6 @@
-import React from "react"
-import { Stack, Grid, Divider, Typography, Box, IconButton } from "@mui/material"
-import { inject, observer } from "mobx-react"
+import React from "react";
+import { Stack, Grid, Divider, Typography, Box, IconButton } from "@mui/material";
+import { inject, observer } from "mobx-react";
 
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
@@ -21,7 +21,7 @@ const bgcolor = [
     "#ffeb3b",
     "#ffc107",
     "#ff9800",
-]
+];
 
 const UserAvatar = inject("userSt")(observer(({ userSt }) => (
     <Grid
@@ -162,6 +162,6 @@ const UserAvatar = inject("userSt")(observer(({ userSt }) => (
         </Grid>
     </Grid>
 
-)))
+)));
 
-export default UserAvatar
+export default UserAvatar;

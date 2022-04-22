@@ -4,8 +4,8 @@ import { inject, observer } from "mobx-react";
 import { Box, useMediaQuery, IconButton, Stack } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import InfoIcon from "@mui/icons-material/Info";
+import XiLogo from "kit/XiLogo";
 import ReportDialog from "./RightMenu/ReportDialog";
-import XiLogo from "../../../kit/XiLogo";
 
 const Upbar = inject()(
   observer(({ swipe, setSwipe }) => {
@@ -29,8 +29,8 @@ const Upbar = inject()(
           alignItems="center"
         >
           {mobile && <IconButton onClick={() => {
-            if (swipe === "right") setSwipe("swipe", "center")
-            if (swipe === "center") setSwipe("swipe", "right")
+            if (swipe === "right") setSwipe("swipe", "center");
+            if (swipe === "center") setSwipe("swipe", "right");
           }} sx={{ ml: 0.4, mr: 0.4, cursor: "pointer" }}>
             <MenuIcon sx={{ fontSize: 32 }} />
           </IconButton>}
@@ -38,8 +38,8 @@ const Upbar = inject()(
         </Stack>
         <Box>
           {mobile && <IconButton onClick={() => {
-            if (swipe === "left") setSwipe("swipe", "center")
-            if (swipe === "center") setSwipe("swipe", "left")
+            if (swipe === "left") setSwipe("swipe", "center");
+            if (swipe === "center") setSwipe("swipe", "left");
           }} sx={{ ml: "auto", mr: 0.4, cursor: "pointer" }}>
             <InfoIcon sx={{ fontSize: 32 }} />
           </IconButton>}

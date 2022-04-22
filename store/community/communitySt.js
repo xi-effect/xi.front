@@ -1,4 +1,4 @@
-import { action, observable, makeObservable } from "mobx"
+import { action, observable, makeObservable } from "mobx";
 
 class CommunitySt {
     // `this` from rootstore passed to the constructor and we can 
@@ -7,14 +7,14 @@ class CommunitySt {
     // useStore for e.g (this.rootStore.userStore)
     constructor(rootStore) {
         this.rootStore = rootStore;
-        makeObservable(this)
+        makeObservable(this);
     }
 
-    @observable something = null
+    @observable something = null;
 
     @action setSomething = (value) => {
-        this.something = value
-    }
+        this.something = value;
+    };
 
 }
 

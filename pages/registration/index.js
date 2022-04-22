@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import Head from "next/head"
-import { useRouter } from "next/router"
+import Head from "next/head";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { Stack, Input, Link, useMediaQuery, InputLabel, InputAdornment, Tooltip, IconButton, FormControl, Typography, Box, Button, Paper } from "@mui/material";
 
-import React from "react"
-import { inject, observer } from "mobx-react"
+import React from "react";
+import { inject, observer } from "mobx-react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import EmailIcon from "@mui/icons-material/Email";
@@ -16,9 +16,9 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
-import XiLogo from "../../kit/XiLogo";
+import XiLogo from "kit/XiLogo";
 
 const schema = yup.object({
     username: yup.string().max(100).required(),
@@ -32,7 +32,7 @@ const Registration = inject("authorizationSt")(observer(({ authorizationSt }) =>
     const router = useRouter();
 
     const [showPassword, setShowPassword] = React.useState(false);
-    
+
     const { control, setValue, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
@@ -40,7 +40,7 @@ const Registration = inject("authorizationSt")(observer(({ authorizationSt }) =>
     const onSubmit = data => authorizationSt.clickRegistrationButton(data);
 
     React.useEffect(() => {
-        if (router.query.invite) setValue("invite", router.query.invite)
+        if (router.query.invite) setValue("invite", router.query.invite);
     }, [router.query, setValue]);
 
     return (
@@ -381,6 +381,6 @@ const Registration = inject("authorizationSt")(observer(({ authorizationSt }) =>
             </Stack>
         </>
     );
-}))
+}));
 
 export default Registration;

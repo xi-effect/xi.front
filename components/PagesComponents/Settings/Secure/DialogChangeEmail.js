@@ -1,22 +1,22 @@
-import React from "react"
-import { Stack, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, InputAdornment, Tooltip, IconButton, FormControl, InputLabel, OutlinedInput, Typography, Button } from "@mui/material"
-import { inject, observer } from "mobx-react"
+import React from "react";
+import { Stack, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, InputAdornment, Tooltip, IconButton, FormControl, InputLabel, OutlinedInput, Typography, Button } from "@mui/material";
+import { inject, observer } from "mobx-react";
 
 import SaveIcon from "@mui/icons-material/Save";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const Crypto = require("crypto-js")
+const Crypto = require("crypto-js");
 
 
 const DialogChangeEmail = inject("rootStore", "userSt")(observer(({ rootStore, openEmailChangeDialog, setOpenEmailChangeDialog }) => {
-    const [newEmail, setNewEmail] = React.useState("")
-    const [password, setPassword] = React.useState("")
-    const [showPassword, setShowPassword] = React.useState(false)
+    const [newEmail, setNewEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [showPassword, setShowPassword] = React.useState(false);
 
-    const [emailError, setEmailError] = React.useState(false)
-    const [passwordError, setPasswordError] = React.useState(false)
-    const [symError, setSymError] = React.useState(false)
+    const [emailError, setEmailError] = React.useState(false);
+    const [passwordError, setPasswordError] = React.useState(false);
+    const [symError, setSymError] = React.useState(false);
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
@@ -24,28 +24,28 @@ const DialogChangeEmail = inject("rootStore", "userSt")(observer(({ rootStore, o
 
 
     const clickReadyEmail = () => {
-        setEmailError(false)
-        setPasswordError(false)
-        setSymError(false)
+        setEmailError(false);
+        setPasswordError(false);
+        setSymError(false);
         if (!newEmail.includes("@") || !newEmail.includes(".") || newEmail.length < 5) {
-            setSymError(true)
+            setSymError(true);
         }
         if (!symError) {
             rootStore.fetchData(`${rootStore.url}/email-change/`, "POST", { "password": Crypto.SHA384(password).toString(), "new-email": newEmail }) // postData /auth //Crypto.SHA384(store.settingsNew.passwordOldChange).toString() //Crypto.SHA384(store.settingsNew.passwordNewChange).toString()
                 .then((data) => {
-                    console.log(data)
+                    console.log(data);
                     if (data !== undefined) {
                         if (data.a === "Success") { // userId //"Success"
-                            setOpenEmailChangeDialog(false)
+                            setOpenEmailChangeDialog(false);
                         } else if (data.a === "Email in use") {
-                            setEmailError(true)
+                            setEmailError(true);
                         } else if (data.a === "Wrong password") {
-                            setPasswordError(true)
+                            setPasswordError(true);
                         }
                     }
                 });
         }
-    }
+    };
 
     return (
         <Dialog open={openEmailChangeDialog} onClose={() => setOpenEmailChangeDialog(false)} aria-labelledby="form-dialog-title">
@@ -112,6 +112,6 @@ const DialogChangeEmail = inject("rootStore", "userSt")(observer(({ rootStore, o
             </DialogActions>
         </Dialog>
     );
-}))
+}));
 
-export default DialogChangeEmail
+export default DialogChangeEmail;

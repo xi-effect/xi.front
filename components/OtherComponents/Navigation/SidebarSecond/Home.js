@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router"
-import { inject, observer } from "mobx-react"
+import { useRouter } from "next/router";
+import { inject, observer } from "mobx-react";
 
 import { MenuItem, Box, MenuList, useMediaQuery } from "@mui/material";
 import Image from "next/image";
@@ -12,11 +12,11 @@ const menuHome = [
         label: "Профиль 1",
         href: "/home?profile=1",
     },
-]
+];
 
 const MenuHomeComp = inject()(observer(() => {
-    const router = useRouter()
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
+    const router = useRouter();
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
         <>
@@ -62,7 +62,7 @@ const MenuHomeComp = inject()(observer(() => {
             </Box>
         </>
 
-    )
+    );
 }));
 
 export default MenuHomeComp;

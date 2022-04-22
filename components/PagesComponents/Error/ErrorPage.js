@@ -9,7 +9,7 @@ import Header from '../Landing/Header';
 // eslint-disable-next-line react/prop-types
 export default function ErrorPage({ imageSrc, textMessage }) {
   const mobile = useMediaQuery(theme => theme.breakpoints.down("lg"));
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <Stack
@@ -63,7 +63,7 @@ export default function ErrorPage({ imageSrc, textMessage }) {
             onClick={() => {
               router.push({
                 pathname: "/",
-              })
+              });
             }}
             sx={{
               "&.MuiButton-root": {

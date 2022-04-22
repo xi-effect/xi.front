@@ -19,13 +19,13 @@ const arrowVariants = {
     closed: {
         rotate: 0,
     }
-}
+};
 
 const Description = inject(
     "rootStore",
 )(
     observer(() => {
-        const [description, setDescription] = React.useState(false)
+        const [description, setDescription] = React.useState(false);
 
         return (
             <>

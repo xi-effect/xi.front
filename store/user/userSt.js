@@ -1,4 +1,4 @@
-import { action, observable, makeObservable } from "mobx"
+import { action, observable, makeObservable } from "mobx";
 import Router from "next/router";
 
 class UserSt {
@@ -8,7 +8,7 @@ class UserSt {
     // useStore for e.g (this.rootStore.userStore)
     constructor(rootStore) {
         this.rootStore = rootStore;
-        makeObservable(this)
+        makeObservable(this);
     }
 
     @observable settings = {
@@ -25,14 +25,14 @@ class UserSt {
         darkTheme: true,
         emailConfirmed: null,
         invite: null,
-    }
+    };
 
     @action setSettings = (item, value) => {
-        this.settings[item] = value
+        this.settings[item] = value;
     };
 
     @action setSettingsSecond = (item, secondItem, value) => {
-        this.settings[item][secondItem] = value
+        this.settings[item][secondItem] = value;
     };
 
     @action getMainSettings = (type = null) => {
@@ -42,7 +42,7 @@ class UserSt {
                 this.setSettings("id", data.id);
                 this.setSettings("username", data.username);
                 if (type === "login") {
-                    Router.push('/home')
+                    Router.push('/home');
                 }
             }
             if (type === "login") {
@@ -56,12 +56,12 @@ class UserSt {
     @action getAllSettings = () => {
         this.rootStore.fetchData(`${this.rootStore.url}/settings/`, "GET").then((data) => {
             if (data) {
-                const emailArr = data.email.split("@", 2)
-                this.setSettings("emailBefore", emailArr[0])
-                this.setSettings("emailAfter", `@${emailArr[1]}`)
-                this.setSettings("emailConfirmed", data["email-confirmed"])
-                this.setSettings("avatar", data.avatar)
-                this.setSettings("invite", data.code)
+                const emailArr = data.email.split("@", 2);
+                this.setSettings("emailBefore", emailArr[0]);
+                this.setSettings("emailAfter", `@${emailArr[1]}`);
+                this.setSettings("emailConfirmed", data["email-confirmed"]);
+                this.setSettings("avatar", data.avatar);
+                this.setSettings("invite", data.code);
             }
         });
     };
@@ -70,16 +70,16 @@ class UserSt {
         this.rootStore.fetchData(`${this.rootStore.url}/settings/`, "POST", {
             "changed": { ...this.settings, "dark-theme": this.settings.darkTheme }
         }).then((data) => {
-            console.log(data)
-        })
+            console.log(data);
+        });
     };
 
     @action logout = () => {
         this.rootStore.fetchData(`${this.rootStore.url}/logout/`, "POST", { "lol": "kek" }).then(
             (data) => {
                 if (data?.a) {
-                    const router = Router
-                    router.push("/login")
+                    const router = Router;
+                    router.push("/login");
                     this.settings = {
                         id: null,
                         avatar: {
@@ -94,9 +94,9 @@ class UserSt {
                         darkTheme: true,
                         emailConfirmed: null,
                         invite: null,
-                    }
+                    };
                 }
-            })
+            });
     };
 }
 

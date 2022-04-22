@@ -8,8 +8,8 @@ import Head from "next/head";
 import React from "react";
 // import { useRouter } from "next/router"
 
-// import CustomAvatar from "../../components/OtherComponents/Avatar/CustomAvatar";
-import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
+// import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
+import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -189,6 +189,6 @@ const Profile = inject("userSt")(observer(({ userSt }) => {
             </NavigationAll>
         </>
     );
-}))
+}));
 
-export default Profile
+export default Profile;

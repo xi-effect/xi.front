@@ -4,14 +4,14 @@ import React from "react";
 
 import { Paper, Stack, Box, Divider, Chip, Tooltip, Typography, IconButton } from "@mui/material";
 
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import PlusOneIcon from "@mui/icons-material/PlusOne";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion";
 import moment from "moment";
 import { useSnackbar } from "notistack";
 
@@ -71,7 +71,7 @@ const tasks = [
         label: "Домашнее задание. Информатика",
         type: "homework",
     },
-]
+];
 
 const days = [
     {
@@ -109,7 +109,7 @@ const days = [
         month: "дек",
         weekday: "сб",
     },
-]
+];
 
 const filters = [
     "all",
@@ -117,7 +117,7 @@ const filters = [
     "school",
     "homework",
     "club",
-]
+];
 
 const taskStackVariants = {
     openDays: {
@@ -129,19 +129,19 @@ const taskStackVariants = {
     closed: {
         y: 0,
     }
-}
+};
 
 const Filters = inject()(observer(() => {
-    const [filterId, setFilterId] = React.useState(0)
+    const [filterId, setFilterId] = React.useState(0);
 
     const getTaskLabel = (t) => {
-        if (t === "all") return "все"
-        if (t === "live") return "жизнь"
-        if (t === "school") return "школа"
-        if (t === "club") return "дополнительные занятия"
-        if (t === "homework") return "домашняя работа"
-        return null
-    }
+        if (t === "all") return "все";
+        if (t === "live") return "жизнь";
+        if (t === "school") return "школа";
+        if (t === "club") return "дополнительные занятия";
+        if (t === "homework") return "домашняя работа";
+        return null;
+    };
 
     return (
         <Stack
@@ -201,7 +201,7 @@ const Filters = inject()(observer(() => {
                 <ArrowForwardIosIcon />
             </IconButton>
         </Stack >
-    )
+    );
 }));
 
 const Days = inject()(observer(() => (
@@ -295,48 +295,48 @@ const Days = inject()(observer(() => (
 const Task = inject()(observer(({ task, nextTask }) => {
     // console.log(task.startTime)
     // console.log(task.endTime)
-    const dateStart = moment(task.startTime)
-    let dateStartNext = null
-    if (nextTask) dateStartNext = moment(nextTask.startTime)
-    const dateEnd = moment(task.endTime)
+    const dateStart = moment(task.startTime);
+    let dateStartNext = null;
+    if (nextTask) dateStartNext = moment(nextTask.startTime);
+    const dateEnd = moment(task.endTime);
 
     const gM = (m) => {
-        if (m < 10) return `0${m}`
-        return m
-    }
+        if (m < 10) return `0${m}`;
+        return m;
+    };
 
     const getHourEndStr = (hours) => {
-        const h = hours % 100
-        if (Math.floor(h / 10) === 1) return "ов"
-        if (h % 10 === 1) return ""
-        if (h % 10 > 1 && h % 10 < 5) return "а"
-        return "ов"
-    }
+        const h = hours % 100;
+        if (Math.floor(h / 10) === 1) return "ов";
+        if (h % 10 === 1) return "";
+        if (h % 10 > 1 && h % 10 < 5) return "а";
+        return "ов";
+    };
 
     const getTaskColor = (t) => {
-        if (t === "live") return "#ff9800"
-        if (t === "school") return "#cddc39"
-        if (t === "club") return "#2196f3"
-        if (t === "homework") return "#e91e63"
-        return null
-    }
+        if (t === "live") return "#ff9800";
+        if (t === "school") return "#cddc39";
+        if (t === "club") return "#2196f3";
+        if (t === "homework") return "#e91e63";
+        return null;
+    };
 
     const getTaskLabel = (t) => {
-        if (t === "live") return "жизнь"
-        if (t === "school") return "школа"
-        if (t === "club") return "дополнительные занятия"
-        if (t === "homework") return "домашняя работа"
-        return null
-    }
+        if (t === "live") return "жизнь";
+        if (t === "school") return "школа";
+        if (t === "club") return "дополнительные занятия";
+        if (t === "homework") return "домашняя работа";
+        return null;
+    };
 
     const getBreak = () => {
-        const diff = dateStartNext.diff(dateEnd, "minutes")
-        if (diff < 60 && diff !== 0) return `${diff} минут`
-        if (diff % 60 === 0) return `${diff / 60} час${getHourEndStr(diff / 60)}`
-        return `${Math.floor(diff / 60)} час${getHourEndStr(Math.floor(diff / 60))} ${diff % 60} минут`
+        const diff = dateStartNext.diff(dateEnd, "minutes");
+        if (diff < 60 && diff !== 0) return `${diff} минут`;
+        if (diff % 60 === 0) return `${diff / 60} час${getHourEndStr(diff / 60)}`;
+        return `${Math.floor(diff / 60)} час${getHourEndStr(Math.floor(diff / 60))} ${diff % 60} минут`;
         // if (hoursB == 1 && minutesB == 0) return `${hoursB} часов`
 
-    }
+    };
 
     // console.log("isBetween", moment().isBetween(dateStart, dateEnd))
 
@@ -440,14 +440,14 @@ const Task = inject()(observer(({ task, nextTask }) => {
             </Box>
             {nextTask != null && <Divider sx={{ color: "text.secondary", fontSize: 14, mt: 2 }}> {`перерыв ${getBreak()}`}</Divider>}
         </>
-    )
+    );
 }));
 
 
 const TaskForDay = inject()(observer(() => {
     const { enqueueSnackbar } = useSnackbar();
 
-    const [menu, setMenu] = React.useState(null)
+    const [menu, setMenu] = React.useState(null);
 
     return (
         <>
@@ -482,9 +482,9 @@ const TaskForDay = inject()(observer(() => {
                         onClick={() => {
                             enqueueSnackbar("Эту функцию мы ещё только разрабатываем", {
                                 variant: "info",
-                            })
-                            if (menu === "day") return setMenu(null)
-                            return setMenu("day")
+                            });
+                            if (menu === "day") return setMenu(null);
+                            return setMenu("day");
                         }}
                     >
                         <CalendarTodayIcon />
@@ -503,9 +503,9 @@ const TaskForDay = inject()(observer(() => {
                         onClick={() => {
                             enqueueSnackbar("Эту функцию мы ещё только разрабатываем", {
                                 variant: "info",
-                            })
-                            if (menu === "filter") return setMenu(null)
-                            return setMenu("filter")
+                            });
+                            if (menu === "filter") return setMenu(null);
+                            return setMenu("filter");
                         }}
                     >
                         <FilterListIcon />
@@ -589,7 +589,7 @@ const TaskForDay = inject()(observer(() => {
                 ))}
             </Stack>
         </>
-    )
+    );
 }));
 
 

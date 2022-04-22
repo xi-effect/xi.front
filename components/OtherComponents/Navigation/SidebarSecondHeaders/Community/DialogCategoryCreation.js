@@ -1,5 +1,5 @@
 import React from "react";
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 
 import { Typography, Button, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, useMediaQuery, DialogActions } from "@mui/material";
 
@@ -71,7 +71,7 @@ const DialogCategoryCreation = inject()(observer(({ openDialogCategoryCreation, 
                 </Button>
             </DialogActions>
         </Dialog >
-    )
+    );
 }));
 
 

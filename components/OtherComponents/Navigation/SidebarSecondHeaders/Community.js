@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 
 import { Typography, MenuItem, Stack, Tooltip, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider } from "@mui/material";
 
@@ -145,8 +145,8 @@ const Community = inject()(observer(() => {
                                     sx={{ width: "100%" }}
                                 >
                                     <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        setOpenDialogInvite(true)
-                                        setOpen(false)
+                                        setOpenDialogInvite(true);
+                                        setOpen(false);
                                     }}>
                                         <Stack
                                             direction="row"
@@ -159,8 +159,8 @@ const Community = inject()(observer(() => {
                                         </Stack>
                                     </MenuItem>
                                     <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        setOpenDialogSettings(true)
-                                        setOpen(false)
+                                        setOpenDialogSettings(true);
+                                        setOpen(false);
                                     }}>
                                         <Stack
                                             direction="row"
@@ -174,8 +174,8 @@ const Community = inject()(observer(() => {
                                     </MenuItem>
                                     <Divider flexItem />
                                     <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        setOpenDialogChannelCreation(true)
-                                        setOpen(false)
+                                        setOpenDialogChannelCreation(true);
+                                        setOpen(false);
                                     }}>
                                         <Stack
                                             direction="row"
@@ -188,8 +188,8 @@ const Community = inject()(observer(() => {
                                         </Stack>
                                     </MenuItem>
                                     <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        setOpenDialogCategoryCreation(true)
-                                        setOpen(false)
+                                        setOpenDialogCategoryCreation(true);
+                                        setOpen(false);
                                     }}>
                                         <Stack
                                             direction="row"
@@ -214,8 +214,8 @@ const Community = inject()(observer(() => {
                                         </Stack>
                                     </MenuItem>
                                     <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        setOpenDialogPrivacy(true)
-                                        setOpen(false)
+                                        setOpenDialogPrivacy(true);
+                                        setOpen(false);
                                     }}>
                                         <Stack
                                             direction="row"
@@ -246,7 +246,7 @@ const Community = inject()(observer(() => {
                 )}
             </Popper>
         </Stack>
-    )
+    );
 }));
 
 export default Community;

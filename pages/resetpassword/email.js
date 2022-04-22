@@ -27,7 +27,7 @@ import * as yup from "yup";
 
 import { motion } from "framer-motion";
 
-import XiLogo from "../../kit/XiLogo";
+import XiLogo from "kit/XiLogo";
 
 
 const schema = yup

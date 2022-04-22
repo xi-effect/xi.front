@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import Image from "next/image";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Stack, useMediaQuery, Button, Grid, Box, Paper, Typography } from "@mui/material";
@@ -7,7 +7,7 @@ import { Stack, useMediaQuery, Button, Grid, Box, Paper, Typography } from "@mui
 import { labels } from "../../../texts/landing/MainLabel";
 
 function MainLabel() {
-    const router = useRouter()
+    const router = useRouter();
     const mobile = useMediaQuery(theme => theme.breakpoints.down("dl"));
 
 
@@ -122,7 +122,7 @@ function MainLabel() {
                                 onClick={() => {
                                     router.push({
                                         pathname: "/registration",
-                                    })
+                                    });
                                 }}
                                 sx={{
                                     "&.MuiButton-root": {
@@ -199,4 +199,4 @@ function MainLabel() {
     );
 }
 
-export default MainLabel
+export default MainLabel;

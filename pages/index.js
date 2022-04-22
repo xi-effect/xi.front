@@ -8,12 +8,12 @@ import {
 } from "@mui/material";
 
 import { inject, observer } from "mobx-react";
-import { motion } from "framer-motion"
-import Header from "../components/PagesComponents/Landing/Header";
-import MainLabel from "../components/PagesComponents/Landing/MainLabel";
-import WhyLabel from "../components/PagesComponents/Landing/WhyLabel";
-import EffectFor from "../components/PagesComponents/Landing/EffectFor";
-import Footer from "../components/PagesComponents/Landing/Footer";
+import { motion } from "framer-motion";
+import Header from "components/PagesComponents/Landing/Header";
+import MainLabel from "components/PagesComponents/Landing/MainLabel";
+import WhyLabel from "components/PagesComponents/Landing/WhyLabel";
+import EffectFor from "components/PagesComponents/Landing/EffectFor";
+import Footer from "components/PagesComponents/Landing/Footer";
 
 
 const Main = inject(

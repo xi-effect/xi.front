@@ -2,7 +2,7 @@ import React from "react";
 
 import { Input, Stack, Tooltip, IconButton } from "@mui/material";
 
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 
 import SendIcon from "@mui/icons-material/Send";
 
@@ -64,6 +64,6 @@ const ChatBar = inject("rootStore", "uiSt", "messageSt")(observer(({ messageSt }
             </IconButton>
         </Tooltip>
     </Stack>
-)))
+)));
 
-export default ChatBar
+export default ChatBar;
