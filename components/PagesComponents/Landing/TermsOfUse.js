@@ -33,7 +33,6 @@ function TermsOfUse({ open, setOpen, type }) {
     return (
         <Dialog
             open={open}
-        // onClose={handleClose}
         >
             <DialogTitle id="dialog-title">
                 {type === 0 ? "Пользовательское соглашение" : "Лицензионное соглашение"}

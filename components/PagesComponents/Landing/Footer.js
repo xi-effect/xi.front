@@ -5,13 +5,20 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useMediaQuery, Link, Grid, Box, Typography, Container, IconButton } from "@mui/material";
 import TermsOfUse from "./TermsOfUse";
+import GratitudeDialog from "./GratitudeDialog";
 
 function Footer() {
     const router = useRouter();
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
-    const [open, setOpen] = React.useState(false);
+    const [openTermsOfUse, setOpenTermsOfUse] = React.useState(false);
     const [type, setType] = React.useState(0);
+
+    const [openGratitudeDialog, setOpenGratitudeDialog] = React.useState(false);
+
+    React.useEffect(() => {
+        if (router.query.dialog && router.query.dialog === "gratitude") setOpenGratitudeDialog(true);
+    }, [router.query]);
 
     return (
         <Box
@@ -21,7 +28,7 @@ function Footer() {
             transition={{ delay: 0.4, duration: 2 }}
             sx={{
                 width: "calc(100vw - 8px)",
-                minHeight: mobile ? "325px" : "128px",
+                minHeight: mobile ? "425px" : "128px",
                 bgcolor: "primary.main",
                 mt: "100px",
                 zIndex: 0,
@@ -54,6 +61,10 @@ function Footer() {
                             <Link sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Справочник </Link>
                             <Link onClick={() => router.push(`/support`)} sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Поддержка </Link>
                             <Link sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Приложение </Link>
+                            <Link onClick={() => {
+                                router.push(`/?dialog=gratitude`);
+                                setOpenGratitudeDialog(true);
+                            }} sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Благодарности </Link>
                         </Grid>
                         <Grid item
                             sx={{
@@ -86,7 +97,7 @@ function Footer() {
                                 sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}
                                 onClick={() => {
                                     setType(0);
-                                    setOpen(true);
+                                    setOpenTermsOfUse(true);
                                 }}>
                                 Пользовательское соглашение
                             </Link>
@@ -94,14 +105,12 @@ function Footer() {
                                 sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}
                                 onClick={() => {
                                     setType(1);
-                                    setOpen(true);
+                                    setOpenTermsOfUse(true);
                                 }}>
                                 Лицензионное соглашение
                             </Link>
 
                         </Grid>
-                        <TermsOfUse open={open} setOpen={setOpen} type={type} />
-
                         <Grid item
                             sx={{
                                 ml: "auto", mr: 1
@@ -134,6 +143,10 @@ function Footer() {
                     <Link sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Справочник </Link>
                     <Link sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Поддержка </Link>
                     <Link sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Приложение </Link>
+                    <Link onClick={() => {
+                        router.push(`/?dialog=gratitude`);
+                        setOpenGratitudeDialog(true);
+                    }} sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Благодарности </Link>
                     <Typography sx={{ mt: 2, cursor: "default", }}> Социальные сети  </Typography>
                     <IconButton sx={{ mt: 1 }} onClick={() => window.open("https://discord.gg/aNQfXXb")}>
                         <Image
@@ -149,6 +162,8 @@ function Footer() {
                     <Typography sx={{ mt: 3 }}> © 2022 xieffect.ru  </Typography>
                 </Grid>}
             </Container>
+            <GratitudeDialog open={openGratitudeDialog} setOpen={setOpenGratitudeDialog} />
+            <TermsOfUse open={openTermsOfUse} setOpen={setOpenTermsOfUse} type={type} />
         </Box>
 
     );
