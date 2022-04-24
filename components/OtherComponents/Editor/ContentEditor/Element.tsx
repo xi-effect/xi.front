@@ -7,7 +7,7 @@ import H1 from '../Blocks/H1';
 import H2 from '../Blocks/H2';
 import Text from '../Blocks/Text';
 import DividerComp from '../Blocks/DividerComp';
-import Quote from '../Blocks/Quote'
+import Quote from '../Blocks/Quote';
 
 type Props = {
   attributes: any;

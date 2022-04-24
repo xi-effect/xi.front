@@ -15,7 +15,7 @@ type QuoteProps = {
 
 const Quote: React.FC<QuoteProps> = ({ children }) => (
   <Typography
-  component={'blockquote'}
+    component='blockquote'
     sx={{
       p: 2,
       borderLeft: 1,
