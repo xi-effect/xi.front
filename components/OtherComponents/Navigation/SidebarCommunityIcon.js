@@ -1,10 +1,10 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import {Box, IconButton, Tooltip} from "@mui/material";
-import {motion} from "framer-motion";
-import {useRouter} from "next/router";
+import { Box, IconButton, Tooltip } from "@mui/material";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
-const SidebarCommunityIcon = ({item, index}) => {
+const SidebarCommunityIcon = ({ item, index }) => {
   const router = useRouter();
   return (
     <Draggable draggableId={`community-id-${item.id}`} index={index}>

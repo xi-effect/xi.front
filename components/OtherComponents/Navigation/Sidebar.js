@@ -108,7 +108,7 @@ const Sidebar = inject("communitiesMenuSt")(
           </Tooltip>
         ))}
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId={"communitiesList"}>
+          <Droppable droppableId="communitiesList">
             {(provided) => (
               <Scrollbars
                 renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 2, }} />}
