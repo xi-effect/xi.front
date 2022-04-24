@@ -24,7 +24,6 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import "../styles/globals.css";
 
 import NProgress from "nprogress"; // nprogress module
-import SocketContext from "utils/socketIo";
 import createEmotionCache from "../store/createEmotionCache";
 import { useStore } from "../store/rootStore";
 import { getDesignTokens } from "../theme";
@@ -52,7 +51,6 @@ const MyApp = (observer((props) => {
     responsiveFontSizes(createTheme(getDesignTokens(rootStore.userSt.settings.darkTheme))),
     [rootStore.userSt.settings.darkTheme]);
 
-
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -78,24 +76,22 @@ const MyApp = (observer((props) => {
         communitiesInvitesSt={rootStore.communitiesInvitesSt}
       >
         <StyledEngineProvider injectFirst>
-          <SocketContext.Provider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <Loading />
-              <SnackbarProvider
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center",
-                }}
-                maxSnack={3}
-                preventDuplicate
-                dense
-              >
-                <Component {...pageProps} />
-              </SnackbarProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Loading />
+            <SnackbarProvider
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              maxSnack={3}
+              preventDuplicate
+              dense
+            >
+              <Component {...pageProps} />
+            </SnackbarProvider>
 
-            </ThemeProvider>
-          </SocketContext.Provider>
+          </ThemeProvider>
         </StyledEngineProvider>
       </Provider>
     </CacheProvider >
