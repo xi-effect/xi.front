@@ -10,7 +10,7 @@ import * as React from 'react';
 
 type QuoteProps = {
   // item: string;
-   children: React.ReactElement;
+  children: any;
 };
 
 const Quote: React.FC<QuoteProps> = ({ children }) => (
