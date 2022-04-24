@@ -7,6 +7,7 @@ import H1 from '../Blocks/H1';
 import H2 from '../Blocks/H2';
 import Text from '../Blocks/Text';
 import DividerComp from '../Blocks/DividerComp';
+import Quote from '../Blocks/Quote'
 
 type Props = {
   attributes: any;
@@ -19,12 +20,12 @@ const Element: React.FC<Props> = (props) => {
   const style = { textAlign: element.align };
   const dividerStyle: Object = { userSelect: 'none', width: '100%' };
   switch (element.type) {
-    // case 'block-quote':
-    //   return (
-    //     <blockquote style={style} {...attributes}>
-    //       {children}
-    //     </blockquote>
-    //   );
+    case 'quote':
+      return (
+        <Quote style={style} {...attributes}>
+          {children}
+        </Quote>
+      );
     // case 'bulleted-list':
     //   return (
     //     <ul style={style} {...attributes}>

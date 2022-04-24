@@ -10,13 +10,19 @@ import * as React from 'react';
 
 type QuoteProps = {
   // item: string;
-  // children: React.ReactElement;
+   children: React.ReactElement;
 };
 
 const Quote: React.FC<QuoteProps> = ({ children }) => (
   <Typography
+  component={'blockquote'}
     sx={{
       p: 2,
+      borderLeft: 1,
+      borderColor: 'white',
+      maxHeight: 10,
+      display: 'flex',
+      alignItems: 'center'
     }}>
     {children}
   </Typography>
