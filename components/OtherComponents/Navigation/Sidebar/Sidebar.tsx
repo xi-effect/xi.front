@@ -1,31 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
-import { useRouter } from "next/router";
-import { inject, observer } from "mobx-react";
+import React from 'react';
+import { useRouter } from 'next/router';
+import { inject, observer } from 'mobx-react';
 
-import {
-  Stack,
-  Tooltip,
-  IconButton,
-  Box,
-} from "@mui/material";
+import { Stack, Tooltip, IconButton, Box } from '@mui/material';
 
-import HomeIcon from "@mui/icons-material/Home";
-import SettingsIcon from "@mui/icons-material/Settings";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-import { Scrollbars } from "react-custom-scrollbars-2";
-import { motion } from "framer-motion";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import dynamic from "next/dynamic"
-import SidebarCommunityIcon from "./SidebarCommunityIcon";
+import HomeIcon from '@mui/icons-material/Home';
+import SettingsIcon from '@mui/icons-material/Settings';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import { Scrollbars } from 'react-custom-scrollbars-2';
+import { motion } from 'framer-motion';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import dynamic from 'next/dynamic';
+import CommunityItem from './CommunityItem';
 
+const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), { ssr: false });
 
-const DialogCreateCommunity = dynamic(
-  () => import("./DialogCreateCommunity"),
-  { ssr: false }
-);
+type SidebarType = {
+  communitiesMenuSt?: any;
+};
 
-const Sidebar = inject("communitiesMenuSt")(
+const Sidebar: React.FC<SidebarType> = inject('communitiesMenuSt')(
   observer(({ communitiesMenuSt }) => {
     const [openDialogCC, setOpenDialogCC] = React.useState(false);
     const router = useRouter();
@@ -33,14 +28,14 @@ const Sidebar = inject("communitiesMenuSt")(
       {
         id: 0,
         icon: <HomeIcon />,
-        label: "Главная",
-        href: "/home",
+        label: 'Главная',
+        href: '/home',
       },
       {
         id: 1,
         icon: <AddBoxIcon />,
-        label: "Создать сообщество",
-        href: "createcommunity",
+        label: 'Создать сообщество',
+        href: 'createcommunity',
       },
     ];
 
@@ -64,11 +59,11 @@ const Sidebar = inject("communitiesMenuSt")(
       const communities = reorder(
         communitiesMenuSt.userCommunities,
         result.source.index,
-        result.destination.index
+        result.destination.index,
       );
 
       communitiesMenuSt.setUserCommunities(communities);
-    }
+    };
 
     return (
       <Stack
@@ -77,13 +72,12 @@ const Sidebar = inject("communitiesMenuSt")(
         alignItems="center"
         spacing={2}
         sx={{
-          position: "absolute",
+          position: 'absolute',
           pt: 2,
           width: 80,
-          height: "100vh",
-          overflow: "hidden",
-        }}
-      >
+          height: '100vh',
+          overflow: 'hidden',
+        }}>
         {menuList.map((item, index) => (
           <Tooltip key={index.toString()} placement="right" title={item.label}>
             <IconButton
@@ -91,38 +85,46 @@ const Sidebar = inject("communitiesMenuSt")(
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => {
-                if (item.href === "createcommunity") {
+                if (item.href === 'createcommunity') {
                   setOpenDialogCC(true);
-                }
-                else router.push(item.href);
+                } else router.push(item.href);
               }}
               sx={{
-                bgcolor: router.pathname.includes(item.href) ? "primary.main" : "",
+                bgcolor: router.pathname.includes(item.href) ? 'primary.main' : '',
                 borderRadius: 2,
-                "&:hover": {
-                  bgcolor: router.pathname.includes(item.href) ? "primary.main" : "",
+                '&:hover': {
+                  bgcolor: router.pathname.includes(item.href) ? 'primary.main' : '',
                 },
-              }}
-            >
+              }}>
               {item.icon}
             </IconButton>
           </Tooltip>
         ))}
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="communitiesList">
+          <Droppable droppableId="sidebar-communities-list">
             {(provided) => (
               <Scrollbars
-                renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 2, }} />}
-                renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 2, }} />}
+                renderThumbHorizontal={(props) => (
+                  <div
+                    {...props}
+                    style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 2 }}
+                  />
+                )}
+                renderThumbVertical={(props) => (
+                  <div
+                    {...props}
+                    style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 2 }}
+                  />
+                )}
                 universal
-                style={{ height: "100%", overflowY: "hidden !important", }}
+                // @ts-ignore
+                style={{ height: '100%', overflowY: 'hidden !important' }}
                 autoHide
                 autoHideTimeout={1000}
-                autoHideDuration={200}
-              >
+                autoHideDuration={200}>
                 <Box ref={provided.innerRef} {...provided.droppableProps}>
                   {communitiesMenuSt.userCommunities.map((item, index) => (
-                    <SidebarCommunityIcon item={item} index={index} key={item.id} />
+                    <CommunityItem item={item} index={index} key={item.id} />
                   ))}
                   {provided.placeholder}
                 </Box>
@@ -137,27 +139,27 @@ const Sidebar = inject("communitiesMenuSt")(
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => {
-              router.push("/settings");
+              router.push('/settings');
             }}
             sx={{
-              bgcolor: router.pathname.includes("/settings") ? "primary.main" : "",
+              bgcolor: router.pathname.includes('/settings') ? 'primary.main' : '',
               borderRadius: 2,
-              "&:hover": {
-                bgcolor: router.pathname.includes("/settings") ? "primary.main" : "",
+              '&:hover': {
+                bgcolor: router.pathname.includes('/settings') ? 'primary.main' : '',
               },
-            }}
-          >
+            }}>
             <SettingsIcon sx={{ fontSize: 28 }} />
           </IconButton>
         </Tooltip>
-        <Box sx={{
-          height: "4px",
-        }} />
+        <Box
+          sx={{
+            height: '4px',
+          }}
+        />
         <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC} />
-      </Stack >
+      </Stack>
     );
-  }
-  )
+  }),
 );
 
 export default Sidebar;

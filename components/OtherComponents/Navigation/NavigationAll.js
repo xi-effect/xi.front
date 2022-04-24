@@ -9,12 +9,12 @@ import { Scrollbars } from "react-custom-scrollbars-2";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import { useSessionStorage, useBeforeUnload } from 'react-use';
-import Sidebar from "./Sidebar";
-import SidebarSecond from "./SidebarSecond";
-import RightMenu from "./RightMenu";
+import dynamic from 'next/dynamic';
+import { SidebarSecond } from "./SidebarSecond";
+import { RightMenu } from "./RightMenu";
 import Upbar from "./Upbar";
 
-
+const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 
 const config = {
   delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
