@@ -8,10 +8,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ReportIcon from "@mui/icons-material/Report";
 import { motion } from "framer-motion";
-import CustomAvatar from "../Avatar/CustomAvatar";
-import HomeNotifications from "./RightMenu/HomeNotifications";
-
-import ReportDialog from "./RightMenu/ReportDialog";
+import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
+import HomeNotifications from "./HomeNotifications";
+import ReportDialog from "./ReportDialog";
 
 const RightMenu = inject(
   "userSt",

@@ -5,13 +5,13 @@ import { inject, observer } from "mobx-react";
 
 import { Stack, Paper, Box } from "@mui/material";
 
-import MenuHomeComp from "./SidebarSecond/Home";
-import MenuCommunity from "./SidebarSecond/Community";
-import MenuSettingsComp from "./SidebarSecond/SettingsComp";
+import MenuHomeComp from "./Home";
+import MenuCommunity from "./Community";
+import MenuSettingsComp from "./SettingsComp";
 
-import Home from "./SidebarSecondHeaders/Home";
-import Community from "./SidebarSecondHeaders/Community";
-import Settings from "./SidebarSecondHeaders/Settings";
+import Home from "../SidebarSecondHeaders/Home";
+import Community from "../SidebarSecondHeaders/Community";
+import Settings from "../SidebarSecondHeaders/Settings";
 
 const SidebarSecond = inject()(observer(() => {
     const router = useRouter();
