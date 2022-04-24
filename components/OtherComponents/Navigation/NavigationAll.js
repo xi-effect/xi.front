@@ -4,15 +4,17 @@ import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Box, useMediaQuery } from "@mui/material";
+import { Slide, Button, Box, useMediaQuery } from "@mui/material";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import { useSessionStorage, useBeforeUnload } from 'react-use';
 import dynamic from 'next/dynamic';
+import { useSnackbar } from "notistack";
 import { SidebarSecond } from "./SidebarSecond";
 import { RightMenu } from "./RightMenu";
 import Upbar from "./Upbar";
+
 
 const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 
@@ -79,6 +81,16 @@ const NavigationAll = inject(
       setPrevPathname(router.pathname);
     }, [router.pathname]);
 
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+    const action = key => (
+      <Button onClick={() => {
+        closeSnackbar(key);
+        router.reload();
+      }}>
+        Перезагрузить страницу
+      </Button>
+    );
 
     React.useEffect(() => {
       if (!rootStore.socket.connected) {
@@ -90,6 +102,17 @@ const NavigationAll = inject(
       rootStore.socket.on("disconnect", () => {
         console.log("SIO disconnect", rootStore.socket.id);
         rootStore.socket.connect();
+      });
+      rootStore.socket.on("error", (error) => {
+        enqueueSnackbar("Ошибка соединения", {
+          persist: true,
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'center',
+          },
+          TransitionComponent: Slide,
+          action,
+        });
       });
     }, []);
 

@@ -6,11 +6,13 @@ import { Box, Button, Dialog, useMediaQuery, DialogContent, IconButton, Tooltip,
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
 
+import { useRouter } from "next/router";
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import TextFieldCustom from 'kit/TextFieldCustom';
+
 
 const schema = yup
     .object({
@@ -22,7 +24,7 @@ const CommunityName = inject(
     "rootStore",
     "communityCreationSt",
 )(
-    observer(({ rootStore, communityCreationSt }) => {
+    observer(({ rootStore, setOpenDialogCC }) => {
         const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
         const {
@@ -36,9 +38,19 @@ const CommunityName = inject(
 
         const onSubmit = (data) => {
             trigger();
-            communityCreationSt.createCommunity(data, trigger);
-            rootStore.socket.emit();
+            console.log("dateS", data);
+            rootStore.socket.emit("create-community", { name: data.name });
         };
+
+        const router = useRouter();
+
+        React.useEffect(() => {
+            rootStore.socket.on("create-community", (data) => {
+                console.log("date", data);
+                router.push(`/community/${data.id}`);
+                setOpenDialogCC(false);
+            });
+        }, []);
 
         return (
             <Stack
@@ -181,7 +193,7 @@ const DialogCreateCommunity = inject()(
                                     height: "100%",
                                 }}
                             >
-                                <CommunityName />
+                                <CommunityName setOpenDialogCC={setOpenDialogCC}/>
                             </Box>
                         </AnimatePresence>
                     </Box>
