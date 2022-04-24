@@ -20,10 +20,9 @@ const schema = yup
 
 const CommunityName = inject(
     "rootStore",
-    "uiSt",
     "communityCreationSt",
 )(
-    observer(({ communityCreationSt }) => {
+    observer(({ rootStore, communityCreationSt }) => {
         const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
         const {
@@ -38,6 +37,7 @@ const CommunityName = inject(
         const onSubmit = (data) => {
             trigger();
             communityCreationSt.createCommunity(data, trigger);
+            rootStore.socket.emit();
         };
 
         return (

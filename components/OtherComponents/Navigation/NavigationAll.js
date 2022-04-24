@@ -8,11 +8,13 @@ import { Box, useMediaQuery } from "@mui/material";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
-import { useSessionStorage } from 'react-use';
-import Sidebar from "./Sidebar";
-import SidebarSecond from "./SidebarSecond";
-import RightMenu from "./RightMenu";
+import { useSessionStorage, useBeforeUnload } from 'react-use';
+import dynamic from 'next/dynamic';
+import { SidebarSecond } from "./SidebarSecond";
+import { RightMenu } from "./RightMenu";
 import Upbar from "./Upbar";
+
+const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 
 const config = {
   delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
@@ -65,15 +67,35 @@ const NavigationAll = inject(
   "uiSt",
   "messageSt"
 )(
-  observer(({ userSt, uiSt, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
+  observer(({ rootStore, userSt, uiSt, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     const [prevPathname, setPrevPathname] = useSessionStorage('prevPathname');
 
+    console.log("socket", rootStore.socket);
+
     React.useEffect(() => {
       setPrevPathname(router.pathname);
     }, [router.pathname]);
+
+
+    React.useEffect(() => {
+      if (!rootStore.socket.connected) {
+        rootStore.socket.connect();
+      };
+      rootStore.socket.on("connect", () => {
+        console.log("SIO connect", rootStore.socket.id);
+      });
+      rootStore.socket.on("disconnect", () => {
+        console.log("SIO disconnect", rootStore.socket.id);
+        rootStore.socket.connect();
+      });
+    }, []);
+
+    useBeforeUnload(() => {
+      rootStore.socket.disconnect();
+    });
 
     React.useEffect(() => {
       if (userSt.settings.id === null) {
