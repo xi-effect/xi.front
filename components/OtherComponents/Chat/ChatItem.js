@@ -3,7 +3,7 @@ import React from "react";
 
 import { Menu, MenuItem, Stack, Link, Grid, Box, Typography } from "@mui/material";
 
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 import moment from "moment";
 
 import ReplyIcon from "@mui/icons-material/Reply";
@@ -20,7 +20,7 @@ moment.locale("ru", {
         nextWeek: "dddd [at] LT",
         sameElse: "L"
     }
-})
+});
 
 const ChatItem = inject("rootStore", "uiSt", "messageSt", "userSt")(observer(({ messageSt, userSt, item, nextItem }) => {
     const [contextMenu, setContextMenu] = React.useState(null);
@@ -212,8 +212,8 @@ const ChatItem = inject("rootStore", "uiSt", "messageSt", "userSt")(observer(({ 
                 </Menu>}
             </Stack >
         </Stack >
-    )
+    );
 
-}))
+}));
 
-export default ChatItem
+export default ChatItem;

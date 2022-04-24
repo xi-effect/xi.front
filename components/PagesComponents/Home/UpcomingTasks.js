@@ -63,23 +63,23 @@ const tasks = [
 ];
 
 const getTaskLabel = (t) => {
-    if (t === 'all') return 'Все'
-    if (t === 'live') return 'Жизнь'
-    if (t === 'school') return 'Школа'
-    if (t === 'club') return 'Дополнительные занятия'
-    if (t === 'homework') return 'Домашняя работа'
-    return null
-}
+    if (t === 'all') return 'Все';
+    if (t === 'live') return 'Жизнь';
+    if (t === 'school') return 'Школа';
+    if (t === 'club') return 'Дополнительные занятия';
+    if (t === 'homework') return 'Домашняя работа';
+    return null;
+};
 
 const getTaskColor = (t) => {
-    if (t === 'live') return '#ff9800'
-    if (t === 'school') return '#cddc39'
-    if (t === 'club') return '#2196f3'
-    if (t === 'homework') return '#e91e63'
-    return null
-}
+    if (t === 'live') return '#ff9800';
+    if (t === 'school') return '#cddc39';
+    if (t === 'club') return '#2196f3';
+    if (t === 'homework') return '#e91e63';
+    return null;
+};
 
-const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 
 const Task = inject()(observer(({ task }) => (
     <Box
@@ -205,7 +205,7 @@ const UpcomingTasks = inject()(observer(() => {
         <div style={{ width: "30%" }}>
             <h2>Ближайшие задачи: </h2>
             {upTasks}
-        </div>)
+        </div>);
 
 }));
 

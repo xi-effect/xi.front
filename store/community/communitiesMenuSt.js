@@ -7,7 +7,7 @@ class CommunitiesMenuSt {
     // useStore for e.g (this.rootStore.userStore)
     constructor(rootStore) {
         this.rootStore = rootStore;
-        makeObservable(this)
+        makeObservable(this);
     }
 
     @observable userCommunities = [

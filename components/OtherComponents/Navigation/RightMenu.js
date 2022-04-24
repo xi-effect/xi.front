@@ -7,8 +7,8 @@ import { Box, useMediaQuery, Divider, MenuList, MenuItem, ListItemText, ListItem
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ReportIcon from "@mui/icons-material/Report";
-import { motion } from "framer-motion"
-import CustomAvatar from "../Avatar/CustomAvatar"
+import { motion } from "framer-motion";
+import CustomAvatar from "../Avatar/CustomAvatar";
 import HomeNotifications from "./RightMenu/HomeNotifications";
 
 import ReportDialog from "./RightMenu/ReportDialog";
@@ -18,7 +18,7 @@ const RightMenu = inject(
 )(
   observer(({ userSt }) => {
     const router = useRouter();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     const sidebar = {
       open: {
@@ -172,7 +172,7 @@ const RightMenu = inject(
                 }}
               >
                 <MenuItem disabled={!open} component={motion.li} variants={variantsChild} sx={{ cursor: "pointer" }} onClick={() => {
-                  router.push(`/profile/${userSt.settings.id}/`)
+                  router.push(`/profile/${userSt.settings.id}/`);
                 }}>
                   <ListItemIcon>
                     <AccountCircleIcon fontSize="small" />
@@ -182,7 +182,7 @@ const RightMenu = inject(
                   </ListItemText>
                 </MenuItem>
                 <MenuItem disabled={!open} component={motion.li} variants={variantsChild} sx={{ cursor: "pointer" }} onClick={() => {
-                  setOpenDialog(true)
+                  setOpenDialog(true);
                 }}>
                   <ListItemIcon>
                     <ReportIcon fontSize="small" />
@@ -192,7 +192,7 @@ const RightMenu = inject(
                   </ListItemText>
                 </MenuItem>
                 <MenuItem disabled={!open} component={motion.li} variants={variantsChild} sx={{ "& .MuiMenuItem-root": { cursor: "pointer" } }} onClick={() => {
-                  userSt.logout()
+                  userSt.logout();
                 }}>
                   <ListItemIcon>
                     <LogoutIcon sx={{ color: "error.main" }} fontSize="small" />

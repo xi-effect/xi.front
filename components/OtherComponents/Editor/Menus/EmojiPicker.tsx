@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { Picker, PickerProps, EmojiData } from 'emoji-mart';

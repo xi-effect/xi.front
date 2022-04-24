@@ -3,7 +3,7 @@ import { Grid, useMediaQuery, Box } from "@mui/material";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { inject, observer } from "mobx-react";
-import XiLogo from "../../../kit/XiLogo";
+import XiLogo from "kit/XiLogo";
 
 const Loading = inject("uiSt")(observer(({ uiSt }) => {
     const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)");
@@ -48,7 +48,7 @@ const Loading = inject("uiSt")(observer(({ uiSt }) => {
                 </Box>
             </Grid>}
         </AnimatePresence>
-    )
+    );
 }));
 
 export default Loading;

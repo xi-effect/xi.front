@@ -19,14 +19,15 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import dynamic from "next/dynamic"
 import SidebarCommunityIcon from "./SidebarCommunityIcon";
 
+
 const DialogCreateCommunity = dynamic(
   () => import("./DialogCreateCommunity"),
   { ssr: false }
-)
+);
 
 const Sidebar = inject("communitiesMenuSt")(
   observer(({ communitiesMenuSt }) => {
-    const [openDialogCC, setOpenDialogCC] = React.useState(false)
+    const [openDialogCC, setOpenDialogCC] = React.useState(false);
     const router = useRouter();
     const menuList = [
       {
@@ -91,7 +92,7 @@ const Sidebar = inject("communitiesMenuSt")(
               whileTap={{ scale: 0.9 }}
               onClick={() => {
                 if (item.href === "createcommunity") {
-                  setOpenDialogCC(true)
+                  setOpenDialogCC(true);
                 }
                 else router.push(item.href);
               }}
@@ -121,7 +122,7 @@ const Sidebar = inject("communitiesMenuSt")(
               >
                 <Box ref={provided.innerRef} {...provided.droppableProps}>
                   {communitiesMenuSt.userCommunities.map((item, index) => (
-                    <SidebarCommunityIcon item={item} index={index} key={item.id}/>
+                    <SidebarCommunityIcon item={item} index={index} key={item.id} />
                   ))}
                   {provided.placeholder}
                 </Box>

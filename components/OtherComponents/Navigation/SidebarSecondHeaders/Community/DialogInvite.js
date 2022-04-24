@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
-import CreateInvite from "../../../../../kit/CreateInvite";
+import CreateInvite from "kit/CreateInvite";
 
 const DialogInvite = inject()(
   observer(

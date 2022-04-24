@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useRouter } from "next/router";
@@ -5,13 +6,23 @@ import { inject, observer } from "mobx-react";
 
 import { Box, useMediaQuery } from "@mui/material";
 import { Scrollbars } from "react-custom-scrollbars-2";
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
-import { useSessionStorage } from 'react-use';
+import { useSessionStorage, useBeforeUnload } from 'react-use';
 import Sidebar from "./Sidebar";
 import SidebarSecond from "./SidebarSecond";
 import RightMenu from "./RightMenu";
 import Upbar from "./Upbar";
+
+
+
+const config = {
+  delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
+  preventDefaultTouchmoveEvent: false,  // call e.preventDefault *See Details*
+  trackTouch: true,                     // track touch input
+  trackMouse: false,                    // track mouse input
+  rotationAngle: 0,                     // set a rotation angle
+};
 
 const dragVariants = {
   left: {
@@ -30,7 +41,7 @@ const dragVariants = {
     x: 0,
     y: 200,
   }
-}
+};
 
 const SidebarVariantsLeft = {
   visible: {
@@ -39,7 +50,7 @@ const SidebarVariantsLeft = {
   hidden: {
     x: 200
   }
-}
+};
 
 const SidebarVariantsRight = {
   visible: {
@@ -48,7 +59,7 @@ const SidebarVariantsRight = {
   hidden: {
     x: -200
   }
-}
+};
 
 const NavigationAll = inject(
   "rootStore",
@@ -56,20 +67,37 @@ const NavigationAll = inject(
   "uiSt",
   "messageSt"
 )(
-  observer(({ userSt, uiSt, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
+  observer(({ rootStore, userSt, uiSt, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
-    // eslint-disable-next-line no-unused-vars
     const [prevPathname, setPrevPathname] = useSessionStorage('prevPathname');
+
+    console.log("socket", rootStore.socket);
 
     React.useEffect(() => {
       setPrevPathname(router.pathname);
-    }, [router.pathname])
+    }, [router.pathname]);
+
 
     React.useEffect(() => {
-      // Каждый раз запрашиваются настройки, чтобы понимать,
-      // актуален ли токен авторизации
+      if (!rootStore.socket.connected) {
+        rootStore.socket.connect();
+      };
+      rootStore.socket.on("connect", () => {
+        console.log("SIO connect", rootStore.socket.id);
+      });
+      rootStore.socket.on("disconnect", () => {
+        console.log("SIO disconnect", rootStore.socket.id);
+        rootStore.socket.connect();
+      });
+    }, []);
+
+    useBeforeUnload(() => {
+      rootStore.socket.disconnect();
+    });
+
+    React.useEffect(() => {
       if (userSt.settings.id === null) {
         uiSt.setLoading('loading', true);
         userSt.getMainSettings('login');
@@ -77,32 +105,24 @@ const NavigationAll = inject(
       };
     }, []);
 
-    const [hoverLeftName, setHoverLeftName] = React.useState("")
+    const [hoverLeftName, setHoverLeftName] = React.useState("");
 
     React.useEffect(() => {
-      if (router.pathname.includes("/home")) setHoverLeftName("/home")
-      if (router.pathname.includes("/knowledge")) setHoverLeftName("/knowledge")
-      if (router.pathname.includes("/messages")) setHoverLeftName("/messages")
-      if (router.pathname.includes("/settings")) setHoverLeftName("/settings")
+      if (router.pathname.includes("/home")) setHoverLeftName("/home");
+      if (router.pathname.includes("/knowledge")) setHoverLeftName("/knowledge");
+      if (router.pathname.includes("/messages")) setHoverLeftName("/messages");
+      if (router.pathname.includes("/settings")) setHoverLeftName("/settings");
     }, [router.pathname]);
-
-    const config = {
-      delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
-      preventDefaultTouchmoveEvent: false,  // call e.preventDefault *See Details*
-      trackTouch: true,                     // track touch input
-      trackMouse: false,                    // track mouse input
-      rotationAngle: 0,                     // set a rotation angle
-    }
 
     const handlers = useSwipeable({
       onSwiped: (eventData) => console.log("User Swiped!", eventData),
       onSwipedLeft: () => {
-        if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "left")
-        if (uiSt.navigation.swipe === "right") uiSt.setNavigation("swipe", "center")
+        if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "left");
+        if (uiSt.navigation.swipe === "right") uiSt.setNavigation("swipe", "center");
       },
       onSwipedRight: () => {
-        if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "right")
-        if (uiSt.navigation.swipe === "left") uiSt.setNavigation("swipe", "center")
+        if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "right");
+        if (uiSt.navigation.swipe === "left") uiSt.setNavigation("swipe", "center");
       },
       ...config,
     });
@@ -227,12 +247,12 @@ const NavigationAll = inject(
             variants={dragVariants}
             initial={{ x: uiSt.navigation.swipe === "right" ? 200 : 0 }}
             animate={() => {
-              console.log("animate", uiSt.navigation.swipe)
-              if (uiSt.navigation.swipe === "left") return "left"
-              if (uiSt.navigation.swipe === "center") return "center"
-              if (uiSt.navigation.swipe === "right") return "right"
-              if (uiSt.navigation.swipe === "bottom") return "bottom"
-              return null
+              console.log("animate", uiSt.navigation.swipe);
+              if (uiSt.navigation.swipe === "left") return "left";
+              if (uiSt.navigation.swipe === "center") return "center";
+              if (uiSt.navigation.swipe === "right") return "right";
+              if (uiSt.navigation.swipe === "bottom") return "bottom";
+              return null;
             }}
             transition={{
               delay: 0,
@@ -256,7 +276,7 @@ const NavigationAll = inject(
         </Box>
       );
     }
-    return null
+    return null;
   })
 );
 

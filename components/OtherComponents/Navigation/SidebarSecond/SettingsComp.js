@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router"
-import { inject, observer } from "mobx-react"
+import { useRouter } from "next/router";
+import { inject, observer } from "mobx-react";
 
 import { MenuItem, useMediaQuery, MenuList } from "@mui/material";
 
@@ -26,11 +26,11 @@ const menuSettings = [
         label: "#Приглашения",
         href: "invite",
     },
-]
+];
 
 const MenuSettingsComp = inject()(observer(() => {
-    const router = useRouter()
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"))
+    const router = useRouter();
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
         <MenuList sx={{ width: "100%", }}>
@@ -57,7 +57,7 @@ const MenuSettingsComp = inject()(observer(() => {
                 </MenuItem>
             ))}
         </MenuList>
-    )
+    );
 }));
 
 export default MenuSettingsComp;

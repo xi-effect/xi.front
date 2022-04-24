@@ -8,7 +8,7 @@ class CommunityCreationSt {
     // useStore for e.g (this.rootStore.userStore)
     constructor(rootStore) {
         this.rootStore = rootStore;
-        makeObservable(this)
+        makeObservable(this);
     }
 
     @observable channels = null;
@@ -17,9 +17,9 @@ class CommunityCreationSt {
         this.rootStore.fetchData(`${this.rootStore.url}/communities/`, "POST", { "name": name, },)
             .then((data) => {
                 if (data && data.id) {
-                    Router.push(`/community/${data.id}`)
+                    Router.push(`/community/${data.id}`);
                 }
-            })
+            });
     };
 
 

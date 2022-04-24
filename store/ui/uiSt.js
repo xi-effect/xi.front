@@ -1,4 +1,4 @@
-import { action, observable, makeObservable } from "mobx"
+import { action, observable, makeObservable } from "mobx";
 
 
 class UISt {
@@ -8,46 +8,46 @@ class UISt {
     // useStore for e.g (this.rootStore.userStore)
     constructor(rootStore) {
         this.rootStore = rootStore;
-        makeObservable(this)
+        makeObservable(this);
     }
 
     @observable navigation = {
         swipe: "center",
-    }
+    };
 
     @action setNavigation = (name, value) => {
-        this.navigation[name] = value
-    }
+        this.navigation[name] = value;
+    };
 
     // Loading Screen
     @observable load = {
         loading: null,
-    }
+    };
 
     @action setLoading = (name, value) => {
-        this.load[name] = value
-    }
+        this.load[name] = value;
+    };
 
     @observable knowledge = {
         activeStep: 0,
         activeStepModuleCreate: 0,
-    }
+    };
 
     @action setKnowledge = (name, value) => {
-        this.knowledge[name] = value
-    }
+        this.knowledge[name] = value;
+    };
 
     @observable reportData = {
 
-    }
+    };
 
     @action setReportData = (name, value) => {
-        this.reportData[name] = value
-    }
+        this.reportData[name] = value;
+    };
 
     @action clearReportData = () => {
-        this.reportData = {}
-    }
+        this.reportData = {};
+    };
 }
 
 export default UISt;

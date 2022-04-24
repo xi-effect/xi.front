@@ -1,5 +1,5 @@
 // const { withPlausibleProxy } = require("next-plausible")
-const withPWA = require('next-pwa')
+const withPWA = require("next-pwa");
 const runtimeCaching = require("next-pwa/cache");
 
 module.exports = withPWA({
@@ -21,5 +21,5 @@ module.exports = withPWA({
       /middleware-runtime\.js$/,
       /server\/pages\/_middleware\.js$/,
     ]
-  }
-})
+  },
+});

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router"
-import { inject, observer } from "mobx-react"
+import { useRouter } from "next/router";
+import { inject, observer } from "mobx-react";
 
 import { Typography, MenuItem, Stack, Divider, MenuList, ListItemIcon, ListItemText } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -22,24 +22,24 @@ const arrowVariants = {
     closed: {
         rotate: 0,
     }
-}
+};
 
 const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, index }) => {
-    const channel = communityChannelsSt.channels[index]
+    const channel = communityChannelsSt.channels[index];
 
     const [hoverCategory, setHoverCategory] = React.useState(null);
 
     const router = useRouter();
-    const splitPathname = router.pathname.split("/")
-    const lastType = splitPathname[splitPathname.length - 2]
-    const typeId = router.query.typeId ?? null
+    const splitPathname = router.pathname.split("/");
+    const lastType = splitPathname[splitPathname.length - 2];
+    const typeId = router.query.typeId ?? null;
 
     const iconSelect = (type) => {
-        if (type === "schedule") return <TodayIcon fontSize="small" />
-        if (type === "chat") return <ForumIcon fontSize="small" />
-        if (type === "room") return <RecordVoiceOverIcon fontSize="small" />
-        return null
-    }
+        if (type === "schedule") return <TodayIcon fontSize="small" />;
+        if (type === "chat") return <ForumIcon fontSize="small" />;
+        if (type === "room") return <RecordVoiceOverIcon fontSize="small" />;
+        return null;
+    };
 
     if (channel.type === "category") {
         return (
@@ -130,7 +130,7 @@ const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, i
                 </MenuList>
                 }
             </Stack>
-        )
+        );
     }
     if (channel.type !== "category") {
         return (
@@ -163,13 +163,13 @@ const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, i
                     {channel.name}
                 </ListItemText>
             </MenuItem>
-        )
+        );
     }
-    return null
+    return null;
 }));
 
 const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannelsSt")(observer(({ communityChannelsSt }) => {
-    const router = useRouter()
+    const router = useRouter();
     return (
         <MenuList
             sx={{
@@ -353,7 +353,7 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
                 ))}
             </Scrollbars>
         </MenuList>
-    )
+    );
 }));
 
 export default MenuCommunity;

@@ -1,11 +1,11 @@
-import Head from "next/head"
+import Head from "next/head";
 import React from "react";
 import { Stack, Grid } from "@mui/material";
-import { inject, observer } from "mobx-react"
-import NavigationAll from "../../components/OtherComponents/Navigation/NavigationAll";
-import Stories from "../../components/PagesComponents/Home/Stories";
-import TaskForDay from "../../components/PagesComponents/Home/TaskForDay";
-import UpcomingTasks from '../../components/PagesComponents/Home/UpcomingTasks';
+import { inject, observer } from "mobx-react";
+import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
+import Stories from "components/PagesComponents/Home/Stories";
+import TaskForDay from "components/PagesComponents/Home/TaskForDay";
+import UpcomingTasks from 'components/PagesComponents/Home/UpcomingTasks';
 
 const Home = inject()(observer(() => (
   (
@@ -66,12 +66,12 @@ const Home = inject()(observer(() => (
             >
               <TaskForDay />
             </Grid>
-           <UpcomingTasks />
+            <UpcomingTasks />
           </Grid>
         </Stack>
       </NavigationAll>
     </>
   )
-)))
+)));
 
-export default Home
+export default Home;

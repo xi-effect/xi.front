@@ -19,4 +19,4 @@ export const questions = [
         question: "Вопрос?",
         answer: "Ответ!"
     },
-]
+];

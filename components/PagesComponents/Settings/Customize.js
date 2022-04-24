@@ -1,8 +1,8 @@
-import React from "react"
+import React from "react";
 
-import { Grid, Typography, } from "@mui/material"
-import { inject, observer } from "mobx-react"
-import DarkModeToggle from "react-dark-mode-toggle"
+import { Grid, Typography, } from "@mui/material";
+import { inject, observer } from "mobx-react";
+import DarkModeToggle from "react-dark-mode-toggle";
 
 const Customize = inject("rootStore", "userSt")(observer(({ rootStore, userSt }) => {
     const saveNewTheme = () => {
@@ -10,9 +10,9 @@ const Customize = inject("rootStore", "userSt")(observer(({ rootStore, userSt })
             "changed": { "dark-theme": !userSt.settings.darkTheme }
         })
             .then((data) => {
-                console.log(data)
+                console.log(data);
                 if (data.a) {
-                    userSt.setSettings("darkTheme", !userSt.settings.darkTheme)
+                    userSt.setSettings("darkTheme", !userSt.settings.darkTheme);
                     // enqueueSnackbar("Успешно", {
                     //     variant: "success",
 
@@ -22,8 +22,8 @@ const Customize = inject("rootStore", "userSt")(observer(({ rootStore, userSt })
                     //     variant: "error",
                     // });
                 }
-            })
-    }
+            });
+    };
 
     return (
         <Grid spacing={1} container sx={{
@@ -44,6 +44,6 @@ const Customize = inject("rootStore", "userSt")(observer(({ rootStore, userSt })
             </Grid>
         </Grid>
     );
-}))
+}));
 
-export default Customize
+export default Customize;

@@ -3,11 +3,12 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable consistent-return */
 /* eslint-disable class-methods-use-this */
-import { action, makeObservable } from "mobx"
-import { enableStaticRendering } from "mobx-react"
-import { useMemo } from "react"
-import Router from "next/router"
+import { action, makeObservable } from "mobx";
+import { enableStaticRendering } from "mobx-react";
+import { useMemo } from "react";
+import Router from "next/router";
 
+import { io } from 'socket.io-client';
 import UISt from "./ui/uiSt";
 import HomeSt from "./home/homeSt";
 import UserSt from "./user/userSt";
@@ -20,36 +21,43 @@ import CommunityChannelsSt from "./community/communityChannelsSt";
 import CommunitiesInvitesSt from "./community/communitiesInvitesSt";
 import CommunitySettingsSt from "./community/communitySettingsSt";
 
-enableStaticRendering(typeof window === "undefined")
 
-let store
+
+enableStaticRendering(typeof window === "undefined");
+
+let store;
 
 class RootStore {
-  url = process.env.NEXT_PUBLIC_SERVER_URL
+  url = process.env.NEXT_PUBLIC_SERVER_URL;
 
   constructor() {
-    this.uiSt = new UISt(this)
-    this.homeSt = new HomeSt(this)
-    this.userSt = new UserSt(this)
-    this.authorizationSt = new AuthorizationSt(this)
-    this.messageSt = new MessageSt(this)
+    this.uiSt = new UISt(this);
+    this.homeSt = new HomeSt(this);
+    this.userSt = new UserSt(this);
+    this.authorizationSt = new AuthorizationSt(this);
+    this.messageSt = new MessageSt(this);
 
     // Community Stores
-    this.communitySt = new CommunitySt(this)
-    this.communityCreationSt = new CommunityCreationSt(this)
-    this.communityChannelsSt = new CommunityChannelsSt(this)
-    this.communitySettingsSt = new CommunitySettingsSt(this)
+    this.communitySt = new CommunitySt(this);
+    this.communityCreationSt = new CommunityCreationSt(this);
+    this.communityChannelsSt = new CommunityChannelsSt(this);
+    this.communitySettingsSt = new CommunitySettingsSt(this);
 
     // Communities Stores
-    this.communitiesInvitesSt = new CommunitiesInvitesSt(this)
-    this.communitiesMenuSt = new CommunitiesMenuSt(this)
+    this.communitiesInvitesSt = new CommunitiesInvitesSt(this);
+    this.communitiesMenuSt = new CommunitiesMenuSt(this);
 
-    makeObservable(this)
+    this.socket = io('https://xieffect.ru:5000/', {
+      autoConnect: false,
+      withCredentials: true,
+    });
+
+    makeObservable(this);
   }
 
   @action async fetchData(url, method, data = null) {
     try {
-      let response = null
+      let response = null;
       if (data != null) {
         response = await fetch(url, {
           method,
@@ -72,9 +80,9 @@ class RootStore {
         });
       }
       if (response.status === 422 || response.status === 401) {
-        const router = Router
-        router.push("/login")
-        return null
+        const router = Router;
+        router.push("/login");
+        return null;
       }
       if (response.ok) {
         const string = await response.text();
@@ -93,22 +101,22 @@ class RootStore {
 }
 
 function initializeStore(initialData = null) {
-  const _store = store ?? new RootStore()
+  const _store = store ?? new RootStore();
 
   // If your page has Next.js data fetching methods that use a Mobx store, it will
   // get hydrated here
   if (initialData) {
-    _store.hydrate(initialData)
+    _store.hydrate(initialData);
   }
   // For SSG and SSR always create a new store
-  if (typeof window === "undefined") return _store
+  if (typeof window === "undefined") return _store;
   // Create the store once in the client
-  if (!store) store = _store
+  if (!store) store = _store;
 
-  return _store
+  return _store;
 }
 
 export function useStore(initialState) {
-  const store = useMemo(() => initializeStore(initialState), [initialState])
-  return store
+  const store = useMemo(() => initializeStore(initialState), [initialState]);
+  return store;
 }

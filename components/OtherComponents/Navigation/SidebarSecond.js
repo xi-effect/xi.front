@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router"
-import { inject, observer } from "mobx-react"
+import { useRouter } from "next/router";
+import { inject, observer } from "mobx-react";
 
 import { Stack, Paper, Box } from "@mui/material";
 
@@ -14,7 +14,7 @@ import Community from "./SidebarSecondHeaders/Community";
 import Settings from "./SidebarSecondHeaders/Settings";
 
 const SidebarSecond = inject()(observer(() => {
-    const router = useRouter()
+    const router = useRouter();
 
     return (
         <Paper
@@ -59,7 +59,7 @@ const SidebarSecond = inject()(observer(() => {
             </Stack >
         </Paper >
 
-    )
+    );
 }));
 
-export default SidebarSecond
+export default SidebarSecond;

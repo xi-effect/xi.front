@@ -16,17 +16,17 @@ const Secure = inject(
     "userSt"
 )(
     observer(({ userSt }) => {
-        const [hiddenEmail, setHiddenEmail] = React.useState(true)
+        const [hiddenEmail, setHiddenEmail] = React.useState(true);
 
-        const [openEmailChangeDialog, setOpenEmailChangeDialog] = React.useState(false)
-        const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = React.useState(false)
+        const [openEmailChangeDialog, setOpenEmailChangeDialog] = React.useState(false);
+        const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = React.useState(false);
 
         const getStars = () => {
             if (userSt.settings.emailBefore) {
-                return "*".repeat(userSt.settings.emailBefore.length)
+                return "*".repeat(userSt.settings.emailBefore.length);
             }
-            return "****"
-        }
+            return "****";
+        };
 
         return (
             <Stack

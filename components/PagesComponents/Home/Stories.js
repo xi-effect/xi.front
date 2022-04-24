@@ -3,13 +3,13 @@ import React from "react";
 
 import { Button, Paper, Stack, Box, Typography, IconButton } from "@mui/material";
 
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
 
-import Image from "next/image"
+import Image from "next/image";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 const stories = [
     {
@@ -40,7 +40,7 @@ const stories = [
         label: "Текст заголовка, название штуки, я не смог в название",
         image: "/assets/app/AdvancedCustomization.svg",
     },
-]
+];
 
 const Story = inject()(observer(({ item }) => (
     <Paper
@@ -105,7 +105,7 @@ const Story = inject()(observer(({ item }) => (
 
 
 const Stories = inject()(observer(() => {
-    const [cardIndex, setCardIndex] = React.useState(0)
+    const [cardIndex, setCardIndex] = React.useState(0);
 
     return (
         <>
@@ -191,7 +191,7 @@ const Stories = inject()(observer(() => {
                 ))}
             </Stack>
         </>
-    )
+    );
 }));
 
 

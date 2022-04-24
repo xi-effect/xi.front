@@ -1,7 +1,7 @@
-import React from "react"
-import { Box } from "@mui/material"
-import { inject, observer } from "mobx-react"
-import Peep from '../Peeps/index.tsx'
+import React from "react";
+import { Box } from "@mui/material";
+import { inject, observer } from "mobx-react";
+import Peep from '../Peeps/index.tsx';
 import { bgcolor, styles, accessory, bustPose, face, hair, facialHair } from './const';
 
 const CustomAvatar = inject()(observer(({ avatar, viewBox, reverse = false }) => (
@@ -24,6 +24,6 @@ const CustomAvatar = inject()(observer(({ avatar, viewBox, reverse = false }) =>
             viewBox={viewBox}
         />
     </Box>
-)))
+)));
 
 export default CustomAvatar;

@@ -19,11 +19,11 @@ const arrowVariants = {
     closed: {
         rotate: 0,
     }
-}
+};
 
 const Materials = inject()(
     observer(() => {
-        const [materials, setMaterials] = React.useState(false)
+        const [materials, setMaterials] = React.useState(false);
 
         return (
             <>
