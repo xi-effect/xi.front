@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 import { inject, observer } from "mobx-react";
 
-import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
+import Navigation from "components/OtherComponents/Navigation/Navigation";
 import Chat from "components/OtherComponents/Chat/Chat";
 
 const ChatPage = inject(

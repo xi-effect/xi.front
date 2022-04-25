@@ -22,7 +22,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
+import Navigation from "components/OtherComponents/Navigation/Navigation";
 import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
 
 import Secure from "components/PagesComponents/Settings/Secure";

@@ -10,8 +10,8 @@
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "NODE_ENV=production next start",
-    "lint": "eslint ./utils/** ./kit/** ./components/** ./pages/** -c .eslintrc.json --ext js,jsx,ts,tsx",
-    "lint-fix": "eslint ./utils/** ./kit/** ./components/** ./pages/** -c .eslintrc.json --fix --ext js,jsx,ts,tsx"
+    "lint": "eslint ./kit/** ./components/** ./pages/** -c .eslintrc.json --ext js,jsx,ts,tsx",
+    "lint-fix": "eslint ./kit/** ./components/** ./pages/** -c .eslintrc.json --fix --ext js,jsx,ts,tsx"
   },
   "dependencies": {
     "@emotion/css": "^11.7.1",
