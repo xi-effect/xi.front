@@ -13,9 +13,9 @@ const DiscussionPage = inject(
             <title>Ξffect</title>
             <meta name="robots" content="noindex" />
         </Head>
-        <NavigationAll>
+        <Navigation>
             <Discussion />
-        </NavigationAll>
+        </Navigation>
     </>
 ))
 );

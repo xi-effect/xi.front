@@ -30,14 +30,14 @@ const PagePage = inject("rootStore", "userSt", "userSt")(observer(() => {
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>
-            <NavigationAll>
+            <Navigation>
                 <Box
                 >
                     <ContentEditor
                         initialState={null}
                     />
                 </Box>
-            </NavigationAll>
+            </Navigation>
         </>
     );
 }));

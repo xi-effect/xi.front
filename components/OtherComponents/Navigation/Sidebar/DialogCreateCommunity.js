@@ -38,7 +38,6 @@ const CommunityName = inject(
 
         const onSubmit = (data) => {
             trigger();
-            console.log("dateS", data);
             rootStore.socket.emit("create-community", { name: data.name });
         };
 
@@ -46,10 +45,12 @@ const CommunityName = inject(
 
         React.useEffect(() => {
             rootStore.socket.on("create-community", (data) => {
-                console.log("date", data);
                 router.push(`/community/${data.id}`);
                 setOpenDialogCC(false);
             });
+            return () => {
+                rootStore.socket.off("create-community");
+            };
         }, []);
 
         return (
@@ -193,7 +194,7 @@ const DialogCreateCommunity = inject()(
                                     height: "100%",
                                 }}
                             >
-                                <CommunityName setOpenDialogCC={setOpenDialogCC}/>
+                                <CommunityName setOpenDialogCC={setOpenDialogCC} />
                             </Box>
                         </AnimatePresence>
                     </Box>

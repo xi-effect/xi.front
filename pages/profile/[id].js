@@ -67,7 +67,7 @@ const Profile = inject("userSt")(observer(({ userSt }) => {
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>
-            <NavigationAll>
+            <Navigation>
                 <Stack
                     direction="column"
                     justifyContent="flex-start"
@@ -186,7 +186,7 @@ const Profile = inject("userSt")(observer(({ userSt }) => {
                         </TabPanel>
                     </Stack>
                 </Stack>
-            </NavigationAll>
+            </Navigation>
         </>
     );
 }));

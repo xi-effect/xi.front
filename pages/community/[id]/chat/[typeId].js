@@ -30,9 +30,9 @@ const ChatPage = inject(
                     <title>Ξffect</title>
                     <meta name="robots" content="noindex" />
                 </Head>
-                <NavigationAll>
+                <Navigation>
                     <Chat />
-                </NavigationAll>
+                </Navigation>
             </>
         );
     })

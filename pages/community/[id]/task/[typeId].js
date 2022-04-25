@@ -23,9 +23,9 @@ const TaskPage = inject()(observer(() => {
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>
-            <NavigationAll>
+            <Navigation>
                 <Task />
-            </NavigationAll>
+            </Navigation>
         </>
     );
 }));

@@ -15,7 +15,7 @@ const Community = inject("userSt")(observer(() =>
             </title>
             <meta name="robots" content="noindex" />
         </Head>
-        <NavigationAll>
+        <Navigation>
             <Stack
                 direction="column"
                 justifyContent="flex-start"
@@ -25,7 +25,7 @@ const Community = inject("userSt")(observer(() =>
                     p: 2,
                 }}
             />
-        </NavigationAll>
+        </Navigation>
     </>
 )
 ));

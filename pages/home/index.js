@@ -16,7 +16,7 @@ const Home = inject()(observer(() => (
         </title>
         <meta name="robots" content="noindex" />
       </Head>
-      <NavigationAll>
+      <Navigation>
         <Stack
           direction="column"
           justifyContent="flex-start"
@@ -69,7 +69,7 @@ const Home = inject()(observer(() => (
             <UpcomingTasks />
           </Grid>
         </Stack>
-      </NavigationAll>
+      </Navigation>
     </>
   )
 )));

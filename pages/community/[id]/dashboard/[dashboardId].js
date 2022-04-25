@@ -23,7 +23,7 @@ const Dashboard = inject("rootStore", "userSt", "userSt")(observer(() => {
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>
-            <NavigationAll />
+            <Navigation />
         </>
     );
 }));

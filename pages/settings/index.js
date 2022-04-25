@@ -85,7 +85,7 @@ const Settings = inject(
           <title>Ξffect | Настройки</title>
           <meta name="robots" content="noindex" />
         </Head>
-        <NavigationAll>
+        <Navigation>
           <Box sx={{ width: "100%" }}>
             <Grid
               container
@@ -223,7 +223,7 @@ const Settings = inject(
               </Grid>
             </Grid>
           </Box>
-        </NavigationAll>
+        </Navigation>
       </>
     );
   })

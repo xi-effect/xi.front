@@ -26,7 +26,7 @@ const SchedulePage = inject()(observer(() => {
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>
-            <NavigationAll>
+            <Navigation>
                 <Stack
                     direction="column"
                     justifyContent="flex-start"
@@ -66,7 +66,7 @@ const SchedulePage = inject()(observer(() => {
                         <LessonsList />
                     </Stack>
                 </Stack>
-            </NavigationAll>
+            </Navigation>
         </>
     );
 }));
