@@ -9,7 +9,7 @@ import React from "react";
 // import { useRouter } from "next/router"
 
 // import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
-import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
+import Navigation from "components/OtherComponents/Navigation/Navigation";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -67,7 +67,7 @@ const Profile = inject("userSt")(observer(({ userSt }) => {
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>
-            <NavigationAll>
+            <Navigation>
                 <Stack
                     direction="column"
                     justifyContent="flex-start"
@@ -186,7 +186,7 @@ const Profile = inject("userSt")(observer(({ userSt }) => {
                         </TabPanel>
                     </Stack>
                 </Stack>
-            </NavigationAll>
+            </Navigation>
         </>
     );
 }));

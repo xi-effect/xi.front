@@ -4,68 +4,28 @@ import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Box, useMediaQuery } from "@mui/material";
+import { Slide, Button, Box, useMediaQuery } from "@mui/material";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
-import { useSessionStorage } from 'react-use';
-import Sidebar from "./Sidebar";
-import SidebarSecond from "./SidebarSecond";
-import RightMenu from "./RightMenu";
+import { useSessionStorage, useBeforeUnload } from 'react-use';
+import dynamic from 'next/dynamic';
+import { useSnackbar } from "notistack";
+import { SidebarSecond } from "./SidebarSecond";
+import { RightMenu } from "./RightMenu";
 import Upbar from "./Upbar";
 
-const config = {
-  delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
-  preventDefaultTouchmoveEvent: false,  // call e.preventDefault *See Details*
-  trackTouch: true,                     // track touch input
-  trackMouse: false,                    // track mouse input
-  rotationAngle: 0,                     // set a rotation angle
-};
+import { configSwipe, sidebarVariantsRight, sidebarVariantsLeft, dragVariants } from "./consts";
 
-const dragVariants = {
-  left: {
-    x: -256,
-    y: 0,
-  },
-  center: {
-    x: 0,
-    y: 0,
-  },
-  right: {
-    x: 336,
-    y: 0,
-  },
-  bottom: {
-    x: 0,
-    y: 200,
-  }
-};
+const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 
-const SidebarVariantsLeft = {
-  visible: {
-    x: 0,
-  },
-  hidden: {
-    x: 200
-  }
-};
-
-const SidebarVariantsRight = {
-  visible: {
-    x: 0,
-  },
-  hidden: {
-    x: -200
-  }
-};
-
-const NavigationAll = inject(
+const Navigation = inject(
   "rootStore",
   "userSt",
   "uiSt",
   "messageSt"
 )(
-  observer(({ userSt, uiSt, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
+  observer(({ rootStore, userSt, uiSt, haveRightToolbar = false, haveRightMenu = false, haveRightMenuMore = false, children }) => {
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
@@ -74,6 +34,49 @@ const NavigationAll = inject(
     React.useEffect(() => {
       setPrevPathname(router.pathname);
     }, [router.pathname]);
+
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+    const action = key => (
+      <Button onClick={() => {
+        closeSnackbar(key);
+        router.reload();
+      }}>
+        Перезагрузить страницу
+      </Button>
+    );
+
+    React.useEffect(() => {
+      if (!rootStore.socket.connected) {
+        rootStore.socket.connect();
+      };
+      rootStore.socket.on("connect", () => {
+        console.log("SIO connect", rootStore.socket.id);
+      });
+      rootStore.socket.on("disconnect", () => {
+        console.log("SIO disconnect", rootStore.socket.id);
+        rootStore.socket.connect();
+      });
+      rootStore.socket.on("error", (error) => {
+        enqueueSnackbar("Ошибка соединения", {
+          persist: true,
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'center',
+          },
+          TransitionComponent: Slide,
+          action,
+        });
+      });
+      return () => {
+        rootStore.socket.off();
+      };
+    }, []);
+
+    useBeforeUnload(() => {
+      rootStore.socket.disconnect();
+      rootStore.socket.off();
+    });
 
     React.useEffect(() => {
       if (userSt.settings.id === null) {
@@ -87,13 +90,11 @@ const NavigationAll = inject(
 
     React.useEffect(() => {
       if (router.pathname.includes("/home")) setHoverLeftName("/home");
-      if (router.pathname.includes("/knowledge")) setHoverLeftName("/knowledge");
-      if (router.pathname.includes("/messages")) setHoverLeftName("/messages");
+      if (router.pathname.includes("/community")) setHoverLeftName("/community");
       if (router.pathname.includes("/settings")) setHoverLeftName("/settings");
     }, [router.pathname]);
 
     const handlers = useSwipeable({
-      onSwiped: (eventData) => console.log("User Swiped!", eventData),
       onSwipedLeft: () => {
         if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "left");
         if (uiSt.navigation.swipe === "right") uiSt.setNavigation("swipe", "center");
@@ -102,7 +103,7 @@ const NavigationAll = inject(
         if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "right");
         if (uiSt.navigation.swipe === "left") uiSt.setNavigation("swipe", "center");
       },
-      ...config,
+      ...configSwipe,
     });
 
     if (!mobile) {
@@ -162,7 +163,7 @@ const NavigationAll = inject(
           <AnimatePresence initial={false}>
             {uiSt.navigation.swipe === "right" && <Box
               component={motion.div}
-              variants={SidebarVariantsRight}
+              variants={sidebarVariantsRight}
               animate="visible"
               transition={{
                 delay: 0,
@@ -188,7 +189,7 @@ const NavigationAll = inject(
           <AnimatePresence initial={false}>
             {uiSt.navigation.swipe === "left" && <Box
               component={motion.div}
-              variants={SidebarVariantsLeft}
+              variants={sidebarVariantsLeft}
               animate="visible"
               transition={{
                 delay: 0,
@@ -225,7 +226,6 @@ const NavigationAll = inject(
             variants={dragVariants}
             initial={{ x: uiSt.navigation.swipe === "right" ? 200 : 0 }}
             animate={() => {
-              console.log("animate", uiSt.navigation.swipe);
               if (uiSt.navigation.swipe === "left") return "left";
               if (uiSt.navigation.swipe === "center") return "center";
               if (uiSt.navigation.swipe === "right") return "right";
@@ -258,4 +258,4 @@ const NavigationAll = inject(
   })
 );
 
-export default NavigationAll;
+export default Navigation;

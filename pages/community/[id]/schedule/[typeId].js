@@ -4,7 +4,7 @@ import Head from "next/head";
 import React from "react";
 import { useRouter } from "next/router";
 
-import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
+import Navigation from "components/OtherComponents/Navigation/Navigation";
 import Toolbar from "components/PagesComponents/Community/Schedule/Toolbar";
 import DateLine from "components/PagesComponents/Community/Schedule/DateLine";
 import LessonsList from "components/PagesComponents/Community/Schedule/LessonsList";
@@ -26,7 +26,7 @@ const SchedulePage = inject()(observer(() => {
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>
-            <NavigationAll>
+            <Navigation>
                 <Stack
                     direction="column"
                     justifyContent="flex-start"
@@ -66,7 +66,7 @@ const SchedulePage = inject()(observer(() => {
                         <LessonsList />
                     </Stack>
                 </Stack>
-            </NavigationAll>
+            </Navigation>
         </>
     );
 }));

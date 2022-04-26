@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import Head from "next/head";
 import React from "react";
-import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
+import Navigation from "components/OtherComponents/Navigation/Navigation";
 
 
 const Community = inject("userSt")(observer(() =>
@@ -15,7 +15,7 @@ const Community = inject("userSt")(observer(() =>
             </title>
             <meta name="robots" content="noindex" />
         </Head>
-        <NavigationAll>
+        <Navigation>
             <Stack
                 direction="column"
                 justifyContent="flex-start"
@@ -25,7 +25,7 @@ const Community = inject("userSt")(observer(() =>
                     p: 2,
                 }}
             />
-        </NavigationAll>
+        </Navigation>
     </>
 )
 ));

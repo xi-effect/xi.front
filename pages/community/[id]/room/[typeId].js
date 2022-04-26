@@ -3,7 +3,7 @@ import Head from "next/head";
 import React from "react";
 import { useRouter } from "next/router";
 
-import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
+import Navigation from "components/OtherComponents/Navigation/Navigation";
 
 
 const RoomPage = inject("rootStore", "userSt", "userSt")(observer(() => {
@@ -23,9 +23,9 @@ const RoomPage = inject("rootStore", "userSt", "userSt")(observer(() => {
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>
-            <NavigationAll>
+            <Navigation>
                 rjvgjytyns nen
-            </NavigationAll>
+            </Navigation>
         </>
     );
 }));

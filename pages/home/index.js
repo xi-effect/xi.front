@@ -2,7 +2,7 @@ import Head from "next/head";
 import React from "react";
 import { Stack, Grid } from "@mui/material";
 import { inject, observer } from "mobx-react";
-import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
+import Navigation from "components/OtherComponents/Navigation/Navigation";
 import Stories from "components/PagesComponents/Home/Stories";
 import TaskForDay from "components/PagesComponents/Home/TaskForDay";
 import UpcomingTasks from 'components/PagesComponents/Home/UpcomingTasks';
@@ -16,7 +16,7 @@ const Home = inject()(observer(() => (
         </title>
         <meta name="robots" content="noindex" />
       </Head>
-      <NavigationAll>
+      <Navigation>
         <Stack
           direction="column"
           justifyContent="flex-start"
@@ -69,7 +69,7 @@ const Home = inject()(observer(() => (
             <UpcomingTasks />
           </Grid>
         </Stack>
-      </NavigationAll>
+      </Navigation>
     </>
   )
 )));

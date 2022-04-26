@@ -8,6 +8,7 @@ import { enableStaticRendering } from "mobx-react";
 import { useMemo } from "react";
 import Router from "next/router";
 
+import { io } from 'socket.io-client';
 import UISt from "./ui/uiSt";
 import HomeSt from "./home/homeSt";
 import UserSt from "./user/userSt";
@@ -19,6 +20,8 @@ import CommunitiesMenuSt from "./community/communitiesMenuSt";
 import CommunityChannelsSt from "./community/communityChannelsSt";
 import CommunitiesInvitesSt from "./community/communitiesInvitesSt";
 import CommunitySettingsSt from "./community/communitySettingsSt";
+
+
 
 enableStaticRendering(typeof window === "undefined");
 
@@ -43,6 +46,11 @@ class RootStore {
     // Communities Stores
     this.communitiesInvitesSt = new CommunitiesInvitesSt(this);
     this.communitiesMenuSt = new CommunitiesMenuSt(this);
+
+    this.socket = io('https://xieffect.ru:5000/', {
+      autoConnect: false,
+      withCredentials: true,
+    });
 
     makeObservable(this);
   }

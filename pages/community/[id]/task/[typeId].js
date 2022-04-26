@@ -3,7 +3,7 @@ import Head from "next/head";
 import React from "react";
 import { useRouter } from "next/router";
 
-import NavigationAll from "components/OtherComponents/Navigation/NavigationAll";
+import Navigation from "components/OtherComponents/Navigation/Navigation";
 import Task from "components/PagesComponents/Community/Task/Task";
 
 const TaskPage = inject()(observer(() => {
@@ -23,9 +23,9 @@ const TaskPage = inject()(observer(() => {
                 </title>
                 <meta name="robots" content="noindex" />
             </Head>
-            <NavigationAll>
+            <Navigation>
                 <Task />
-            </NavigationAll>
+            </Navigation>
         </>
     );
 }));
