@@ -20,7 +20,6 @@ const Quote: React.FC<QuoteProps> = ({ children }) => (
       p: 2,
       borderLeft: 1,
       borderColor: 'white',
-      maxHeight: 10,
       display: 'flex',
       alignItems: 'center'
     }}>
