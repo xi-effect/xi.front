@@ -96,7 +96,7 @@ function GratitudeDialog({ open, setOpen, type }) {
                                 <TableRow
                                     hover
                                     tabIndex={-1}
-                                    key={row.deadline}
+                                    key={row.user}
                                 >
                                     <TableCell
                                         component="th"
