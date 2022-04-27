@@ -122,12 +122,18 @@ const Sidebar: React.FC<SidebarType> = inject('communitiesMenuSt')(
                 autoHide
                 autoHideTimeout={1000}
                 autoHideDuration={200}>
-                <Box ref={provided.innerRef} {...provided.droppableProps}>
+                <Stack
+                  direction="column"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={2}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}>
                   {communitiesMenuSt.userCommunities.map((item, index) => (
                     <CommunityItem item={item} index={index} key={item.id} />
                   ))}
                   {provided.placeholder}
-                </Box>
+                </Stack>
               </Scrollbars>
             )}
           </Droppable>

@@ -58,7 +58,7 @@ const Review = inject()(observer(() => {
         setAvatarType(event.target.value);
     };
 
-    const [colors, setColors] = React.useState(["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]);
+    const [colors, setColors] = React.useState([blue[100], green[600], indigo[300], orange[400], red[700]]);
 
     const generateNewColors = () => {
         const newColors = getNewColorsArray(colors);

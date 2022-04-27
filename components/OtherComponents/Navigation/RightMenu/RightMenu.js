@@ -12,6 +12,8 @@ import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
 import HomeNotifications from "./HomeNotifications";
 import ReportDialog from "./ReportDialog";
 
+import { variantsCont, variantsChild } from "./consts";
+
 const RightMenu = inject(
   "userSt",
 )(
@@ -19,57 +21,28 @@ const RightMenu = inject(
     const router = useRouter();
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
-    const sidebar = {
-      open: {
-        height: mobile ? "300px" : "200px",
-        transition: {
-          type: "tween",
-          stiffness: 20,
-          restDelta: 2
-        }
-      },
-      closed: {
-        height: "72px",
-        transition: {
-          delay: 0.5,
-          type: "tween",
-          stiffness: 400,
-          damping: 40
-        }
-      }
-    };
-
-    const variantsCont = {
-      open: {
-        transition: {
-          staggerChildren: 0.07, delayChildren: 0.2
-        }
-      },
-      closed: {
-        transition: { staggerChildren: 0.05, staggerDirection: -1 }
-      }
-    };
-
-    const variantsChild = {
-      open: {
-        y: 0,
-        opacity: 1,
-        transition: {
-
-        }
-      },
-      closed: {
-        y: -10,
-        opacity: 0,
-        transition: {
-          duration: 0.2,
-          y: { stiffness: 1000 }
-        }
-      }
-    };
-
     const [open, setOpen] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
+
+    const sidebar = {
+      open: {
+        height: mobile ? '300px' : '200px',
+        transition: {
+          type: 'tween',
+          stiffness: 20,
+          restDelta: 2,
+        },
+      },
+      closed: {
+        height: '72px',
+        transition: {
+          delay: 0.5,
+          type: 'tween',
+          stiffness: 400,
+          damping: 40,
+        },
+      },
+    };
 
     return (
       <Paper
@@ -100,7 +73,7 @@ const RightMenu = inject(
             sx={{
               width: "232px",
               mt: 1.5,
-              bgcolor: "secondary.dark",
+              bgcolor: "transparent",
               borderRadius: 2,
             }}
             component={motion.div}
