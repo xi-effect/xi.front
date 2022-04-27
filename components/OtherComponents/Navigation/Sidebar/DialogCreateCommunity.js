@@ -30,14 +30,14 @@ const CommunityName = inject(
         const {
             control,
             handleSubmit,
-            trigger,
+            // trigger,
             formState: { errors },
         } = useForm({
             resolver: yupResolver(schema),
         });
 
         const onSubmit = (data) => {
-            trigger();
+            console.log("emit create-community");
             rootStore.socket.emit("create-community", { name: data.name });
         };
 
@@ -45,6 +45,7 @@ const CommunityName = inject(
 
         React.useEffect(() => {
             rootStore.socket.on("create-community", (data) => {
+                console.log("on create-community");
                 router.push(`/community/${data.id}`);
                 setOpenDialogCC(false);
             });
@@ -103,7 +104,7 @@ const CommunityName = inject(
                     render={({ field }) => (
                         <TextFieldCustom
                             variant="filled"
-                            error={errors?.name?.type}
+                            error={!!errors?.name?.type}
                             type="text"
                             fullWidth
                             label="Название сообщества"
