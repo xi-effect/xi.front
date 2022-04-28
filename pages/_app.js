@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import {
   createTheme,
   ThemeProvider,
-  StyledEngineProvider,
   responsiveFontSizes,
 } from "@mui/material/styles";
 import Router from "next/router";
@@ -75,7 +74,6 @@ const MyApp = (observer((props) => {
         communitiesMenuSt={rootStore.communitiesMenuSt}
         communitiesInvitesSt={rootStore.communitiesInvitesSt}
       >
-        <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <Loading />
@@ -92,7 +90,6 @@ const MyApp = (observer((props) => {
             </SnackbarProvider>
 
           </ThemeProvider>
-        </StyledEngineProvider>
       </Provider>
     </CacheProvider >
   );

@@ -1,17 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
 import { Typography, MenuItem, Stack, Divider, MenuList, ListItemIcon, ListItemText } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import AppsIcon from '@mui/icons-material/Apps';
 import AddIcon from "@mui/icons-material/Add";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 import ForumIcon from "@mui/icons-material/Forum";
 import TodayIcon from "@mui/icons-material/Today";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
 import { Scrollbars } from "react-custom-scrollbars-2";
-
+import { useLocalStorage } from 'react-use';
 import { motion } from "framer-motion";
 
 const arrowVariants = {
@@ -170,6 +172,29 @@ const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, i
 
 const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannelsSt")(observer(({ communityChannelsSt }) => {
     const router = useRouter();
+    const [valueLS, setValueLS] = useLocalStorage('second-menu-c-upper-items-position-is-vert');
+    console.log(valueLS);
+    useEffect(() => {
+        if (valueLS === undefined) {
+            setValueLS(true);
+        }
+    }, []);
+
+    const upperMenu = [
+        { icon: <AppsIcon fontSize={valueLS ? "large" : "small"} />, label: "обзор", href: '' },
+        { icon: <TodayIcon fontSize={valueLS ? "large" : "small"} />, label: "расписание", href: 'schedule' },
+        { icon: <AccessTimeIcon fontSize={valueLS ? "large" : "small"} />, label: "занятия", href: 'lessons' },
+        { icon: <AssignmentTurnedInRoundedIcon fontSize={valueLS ? "large" : "small"} />, label: "задания", href: 'tasks' },
+    ];
+
+    const getBgcolor = (value) => {
+        if (router.pathname === `/community/[id]` && value === '') return "action.hover";
+        if (router.pathname === `/community/[id]/schedule` && value === 'schedule') return "action.hover";
+        if (router.pathname === `/community/[id]/lessons` && value === 'lessons') return "action.hover";
+        if (router.pathname === `/community/[id]/tasks` && value === 'tasks') return "action.hover";
+        return null;
+    };
+
     return (
         <MenuList
             sx={{
@@ -181,155 +206,48 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
                 overflow: "hidden",
             }}
         >
-            <MenuItem
-                onClick={() => router.push(`/community/${router.query.id}/schedule/${router.query.id}`)}
-                sx={{
-                    width: "calc(100% - 16px)",
-                    borderRadius: 1,
-                    height: 36,
-                    ml: 1,
-                    mr: 1,
-                    bgcolor: (router.pathname.includes("schedule")) ? "action.hover" : null,
-                }}
-            >
-                <ListItemIcon
-                    sx={{
-                        "&.MuiListItemIcon-root": {
-                            minWidth: "2px !important",
-                            fontSize: 26,
-                        }
-                    }}
-                >
-                    <TodayIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText
-                    sx={{
-                        pl: 1
-                    }}
-                >
-                    Расписание
-                </ListItemText>
-            </MenuItem>
-            <MenuItem
-                onClick={() => router.push(`/community/${router.query.id}/tasks/${router.query.id}`)}
-                sx={{
-                    width: "calc(100% - 16px)",
-                    borderRadius: 1,
-                    height: 36,
-                    ml: 1,
-                    mr: 1,
-                    bgcolor: (router.pathname.includes("tasks")) ? "action.hover" : null,
-                }}
-            >
-                <ListItemIcon
-                    sx={{
-                        "&.MuiListItemIcon-root": {
-                            minWidth: "2px !important",
-                            fontSize: 26,
-                        }
-                    }}
-                >
-                    <AssignmentTurnedInRoundedIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText
-                    sx={{
-                        pl: 1
-                    }}
-                >
-                    Задания
-                </ListItemText>
-            </MenuItem>
             <Stack
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                sx={{
-                    mt: "2px",
-                    mb: "2px",
-                    pl: 1,
-                    pr: 1,
-                    width: "100%"
-                }}
+                direction={valueLS ? "row" : "column"}
+                justifyContent="center"
+                alignItems="center"
+                spacing={valueLS ? 1 : 0}
             >
-                <Stack
-                    direction="row"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    sx={{
-                        width: "100%",
-                        pl: 0,
-                        pr: 1,
-                        cursor: "pointer",
-                        color: "text.secondary",
-                        "&:hover": {
-                            color: "text.primary",
-                        },
-                        zIndex: 1
-                    }}
-                >
-                    <ArrowForwardIosIcon
-                        component={motion.svg}
-                        variants={arrowVariants}
-                        animate="closed"
-                        transition={{ type: "ease", duration: 0.2 }}
-                        sx={{ fontSize: 8 }}
-                    />
-                    <Typography
-                        variant="subtitle2"
+                {upperMenu.map((item, index) => (
+                    <MenuItem
+                        key={index.toString()}
+                        onClick={() => {
+                            if (item.href === '') router.push(`/community/${router.query.id}`);
+                            if (item.href !== '') router.push(`/community/${router.query.id}/${item.href}`);
+                        }}
                         sx={{
-                            ml: 1,
-                            fontSize: 14,
+                            width: valueLS ? "36px" : "calc(100% - 16px)",
+                            borderRadius: 1,
+                            height: 36,
+                            ml: valueLS ? 0 : 1,
+                            mr: valueLS ? 0 : 1,
+                            p: 0,
+                            bgcolor: getBgcolor(item.href),
                         }}
                     >
-                        ближайшие занятия
-                    </Typography>
-                </Stack>
-            </Stack>
-            <Stack
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                sx={{
-                    mt: "2px",
-                    mb: "2px",
-                    pl: 1,
-                    pr: 1,
-                    width: "100%"
-                }}
-            >
-                <Stack
-                    direction="row"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    sx={{
-                        width: "100%",
-                        pl: 0,
-                        pr: 1,
-                        cursor: "pointer",
-                        color: "text.secondary",
-                        "&:hover": {
-                            color: "text.primary",
-                        },
-                        zIndex: 1
-                    }}
-                >
-                    <ArrowForwardIosIcon
-                        component={motion.svg}
-                        variants={arrowVariants}
-                        animate="closed"
-                        transition={{ type: "ease", duration: 0.2 }}
-                        sx={{ fontSize: 8 }}
-                    />
-                    <Typography
-                        variant="subtitle2"
-                        sx={{
-                            ml: 1,
-                            fontSize: 14,
-                        }}
-                    >
-                        ближайшие задания
-                    </Typography>
-                </Stack>
+                        <ListItemIcon
+                            sx={{
+                                "&.MuiListItemIcon-root": {
+                                    minWidth: "2px !important",
+                                    fontSize: 26,
+                                }
+                            }}
+                        >
+                            {item.icon}
+                        </ListItemIcon>
+                        {!valueLS && <ListItemText
+                            sx={{
+                                pl: 1
+                            }}
+                        >
+                            {item.label}
+                        </ListItemText>}
+                    </MenuItem>
+                ))}
             </Stack>
             <Divider flexItem
                 sx={{
@@ -352,7 +270,7 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
                     <Channel index={index} key={index.toString()} />
                 ))}
             </Scrollbars>
-        </MenuList>
+        </MenuList >
     );
 }));
 

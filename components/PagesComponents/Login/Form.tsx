@@ -45,6 +45,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
     const { authorizationSt } = props;
     // @ts-ignore
     const mobile: boolean = useMediaQuery((theme) => theme.breakpoints.down('dl'));
+    // @ts-ignore
+    const mobileImage: boolean = useMediaQuery((theme) => theme.breakpoints.down('md'));
     const router: NextRouter = useRouter();
 
     // React.useEffect(() => {
@@ -135,15 +137,21 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                 alt="alt"
                 src="/assets/auth/Login.svg"
                 quality={100}
-                width={512}
-                height={512}
+                width={mobileImage ? 312 : 456}
+                height={mobileImage ? 312 : 456}
               />
               <Stack
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
                 spacing={1}
-                sx={{ width: '100%', maxWidth: '386px', mt: '-32px', pr: 1, pl: 1 }}>
+                sx={{
+                  width: '100%',
+                  maxWidth: '386px',
+                  mt: mobileImage ? '-16px' : '-32px',
+                  pr: 1,
+                  pl: 1,
+                }}>
                 <Controller
                   name="email"
                   control={control}
