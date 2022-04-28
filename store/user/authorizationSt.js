@@ -139,19 +139,6 @@ class AuthorizationSt {
             });
     };
 
-    @action isAuthUser = () => {
-        this.rootStore.uiSt.setLoading("loading", true);
-        this.rootStore.fetchData(`${this.rootStore.url}/settings/main/`, "GET")
-            .then((data) => {
-                if (data === null) {
-                    this.rootStore.uiSt.setLoading("loading", false);
-                } else {
-                    this.rootStore.uiSt.setLoading("loading", false);
-                    Router.push("/home");
-                }
-            });
-    };
-
 }
 
 export default AuthorizationSt;
