@@ -53,6 +53,5 @@
   "background_color": "#26282B",
   "display": "standalone",
   "orientation": "portrait",
-  "description": "\u039effect - платформа построения образовательных процессов",
-  "start_url": "./home"
+  "description": "\u039effect - платформа построения образовательных процессов"
 }
