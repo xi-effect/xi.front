@@ -40,7 +40,7 @@ const CommunityItem: React.FC<CommunityItemType> = (props) => {
                   bgcolor: 'primary.dark',
                 },
               }}>
-              <Avatar size={64} name={item.label} variant="beam" colors={colors} />
+              <Avatar size={64} name={`${item.label}${item.cId}`} variant="beam" colors={colors} />
             </IconButton>
           </Tooltip>
         </Stack>

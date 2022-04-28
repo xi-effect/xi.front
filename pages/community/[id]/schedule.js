@@ -24,9 +24,7 @@ const Community = inject("userSt")(observer(() =>
                 sx={{
                     p: 2,
                 }}
-            >
-                adfbadsnbsdzgn
-            </Stack>
+            />
         </Navigation>
     </>
 )

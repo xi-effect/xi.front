@@ -127,6 +127,9 @@ const Sidebar: React.FC<SidebarType> = inject('communitiesMenuSt')(
                   justifyContent="flex-start"
                   alignItems="center"
                   spacing={2}
+                  sx={{
+                    pt: 2,
+                  }}
                   ref={provided.innerRef}
                   {...provided.droppableProps}>
                   {communitiesMenuSt.userCommunities.map((item, index) => (
