@@ -67,7 +67,6 @@ const DialogChangePassword = inject("rootStore", "userSt")(observer(({ rootStore
                     Чтобы изменить пароль, введите сначала текущий пароль, а затем введите новый.
                 </DialogContentText>
                 <Stack
-                    container
                     direction="column"
                     justifyContent="center"
                     alignItems="flex-start"

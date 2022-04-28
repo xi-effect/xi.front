@@ -41,16 +41,9 @@ const Review = inject()(observer(() => {
 
     const {
         control,
-        // trigger,
-        // formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
     });
-
-    // const onSubmit = () => {
-    //     trigger();
-    //     // authorizationSt.clickEnterButton(data, trigger);
-    // };
 
     const [avatarType, setAvatarType] = React.useState('marble');
 

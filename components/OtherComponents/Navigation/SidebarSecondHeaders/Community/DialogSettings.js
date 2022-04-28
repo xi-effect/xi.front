@@ -48,7 +48,6 @@ const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSet
             TransitionComponent: Slide,
             action,
         });
-        // 
     };
 
     return (
