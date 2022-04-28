@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
@@ -13,7 +13,7 @@ import TodayIcon from "@mui/icons-material/Today";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
 import { Scrollbars } from "react-custom-scrollbars-2";
-
+import { useLocalStorage } from 'react-use';
 import { motion } from "framer-motion";
 
 const arrowVariants = {
@@ -25,13 +25,6 @@ const arrowVariants = {
         rotate: 0,
     }
 };
-
-const upperMenu = [
-    { icon: <AppsIcon fontSize="small" />, label: "обзор", href: '' },
-    { icon: <TodayIcon fontSize="small" />, label: "расписание", href: 'schedule' },
-    { icon: <AccessTimeIcon fontSize="small" />, label: "занятия", href: 'lessons' },
-    { icon: <AssignmentTurnedInRoundedIcon fontSize="small" />, label: "задания", href: 'tasks' },
-];
 
 const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, index }) => {
     const channel = communityChannelsSt.channels[index];
@@ -179,7 +172,20 @@ const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, i
 
 const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannelsSt")(observer(({ communityChannelsSt }) => {
     const router = useRouter();
-    console.log(`${router.pathname}`);
+    const [valueLS, setValueLS] = useLocalStorage('second-menu-c-upper-items-position-is-vert');
+    console.log(valueLS);
+    useEffect(() => {
+        if (valueLS === undefined) {
+            setValueLS(true);
+        }
+    }, []);
+
+    const upperMenu = [
+        { icon: <AppsIcon fontSize={valueLS ? "large" : "small"} />, label: "обзор", href: '' },
+        { icon: <TodayIcon fontSize={valueLS ? "large" : "small"} />, label: "расписание", href: 'schedule' },
+        { icon: <AccessTimeIcon fontSize={valueLS ? "large" : "small"} />, label: "занятия", href: 'lessons' },
+        { icon: <AssignmentTurnedInRoundedIcon fontSize={valueLS ? "large" : "small"} />, label: "задания", href: 'tasks' },
+    ];
 
     const getBgcolor = (value) => {
         if (router.pathname === `/community/[id]` && value === '') return "action.hover";
@@ -200,9 +206,13 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
                 overflow: "hidden",
             }}
         >
-            {upperMenu.map((item, index) => {
-                console.log("item", `/community/[id]/${item.href}`);
-                return (
+            <Stack
+                direction={valueLS ? "row" : "column"}
+                justifyContent="center"
+                alignItems="center"
+                spacing={valueLS ? 1 : 0}
+            >
+                {upperMenu.map((item, index) => (
                     <MenuItem
                         key={index.toString()}
                         onClick={() => {
@@ -210,11 +220,12 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
                             if (item.href !== '') router.push(`/community/${router.query.id}/${item.href}`);
                         }}
                         sx={{
-                            width: "calc(100% - 16px)",
+                            width: valueLS ? "36px" : "calc(100% - 16px)",
                             borderRadius: 1,
                             height: 36,
-                            ml: 1,
-                            mr: 1,
+                            ml: valueLS ? 0 : 1,
+                            mr: valueLS ? 0 : 1,
+                            p: 0,
                             bgcolor: getBgcolor(item.href),
                         }}
                     >
@@ -228,16 +239,16 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
                         >
                             {item.icon}
                         </ListItemIcon>
-                        <ListItemText
+                        {!valueLS && <ListItemText
                             sx={{
                                 pl: 1
                             }}
                         >
                             {item.label}
-                        </ListItemText>
+                        </ListItemText>}
                     </MenuItem>
-                );
-            })}
+                ))}
+            </Stack>
             <Divider flexItem
                 sx={{
                     mt: 1,
