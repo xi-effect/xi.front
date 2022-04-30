@@ -23,6 +23,11 @@ const menuSettings = [
     },
     {
         id: 3,
+        label: "#Интерфейс",
+        href: "interface",
+    },
+    {
+        id: 4,
         label: "#Приглашения",
         href: "invite",
     },
