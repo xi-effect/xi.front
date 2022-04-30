@@ -26,6 +26,7 @@ import Navigation from "components/OtherComponents/Navigation/Navigation";
 import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
 
 import Secure from "components/PagesComponents/Settings/Secure";
+import Interface from "components/PagesComponents/Settings/Interface";
 
 const Invite = dynamic(() =>
   import("components/PagesComponents/Settings/Invite")
@@ -76,7 +77,7 @@ const Settings = inject(
     };
 
     React.useEffect(() => {
-      if (router.query.option && (router.query.option === "secure" || router.query.option === "useravatar" || router.query.option === "customize" || router.query.option === "invite")) setExpanded(router.query.option);
+      if (router.query.option && (router.query.option === "secure" || router.query.option === "useravatar"|| router.query.option === "interface" || router.query.option === "customize" || router.query.option === "invite")) setExpanded(router.query.option);
     }, [router.query]);
 
     return (
@@ -202,6 +203,22 @@ const Settings = inject(
                   </AccordionSummary>
                   <AccordionDetails>
                     {/* <Customize /> */}
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion
+                  sx={{ width: "100%", backgroundColor: "primary.dark" }}
+                  expanded={expanded === "interface"}
+                  onChange={handleChange("interface")}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel3a-content"
+                    id="panel3a-header"
+                  >
+                    <Typography>Интерфейс</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Interface />
                   </AccordionDetails>
                 </Accordion>
                 <Accordion
