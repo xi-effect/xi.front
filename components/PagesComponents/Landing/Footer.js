@@ -123,7 +123,7 @@ const Footer = () => {
                                 ml: "auto", mr: 1
                             }}
                         >
-                            <IconButton onClick={() => window.open("https://discord.gg/aNQfXXb")}>
+                            <IconButton aria-label="go to our discord" onClick={() => window.open("https://discord.gg/aNQfXXb")}>
                                 <Image
                                     alt="alt"
                                     src="/assets/landing/DiscordLogoWhite.svg"
@@ -154,7 +154,7 @@ const Footer = () => {
                         setOpenGratitudeDialog(true);
                     }} sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Благодарности </Link>
                     <Typography sx={{ mt: 2, cursor: "default", }}> Социальные сети  </Typography>
-                    <IconButton sx={{ mt: 1 }} onClick={() => window.open("https://discord.gg/aNQfXXb")}>
+                    <IconButton aria-label="go to our discord" sx={{ mt: 1 }} onClick={() => window.open("https://discord.gg/aNQfXXb")}>
                         <Image
                             alt="alt"
                             src="/assets/landing/DiscordLogoWhite.svg"
