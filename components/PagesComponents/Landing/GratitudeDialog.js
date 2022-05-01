@@ -102,6 +102,9 @@ function GratitudeDialog({ open, setOpen, type }) {
                                         component="th"
                                         id={labelId}
                                         scope="row"
+                                        sx={{
+                                            cursor: "default"
+                                        }}
                                     >
                                         {row.user}
                                     </TableCell>

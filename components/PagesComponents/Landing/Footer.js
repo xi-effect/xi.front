@@ -4,10 +4,12 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useMediaQuery, Link, Grid, Box, Typography, Container, IconButton } from "@mui/material";
+import { useSnackbar } from "notistack";
 import TermsOfUse from "./TermsOfUse";
 import GratitudeDialog from "./GratitudeDialog";
 
-function Footer() {
+const Footer = () => {
+    const { enqueueSnackbar } = useSnackbar();
     const router = useRouter();
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));
 
@@ -19,6 +21,10 @@ function Footer() {
     React.useEffect(() => {
         if (router.query.dialog && router.query.dialog === "gratitude") setOpenGratitudeDialog(true);
     }, [router.query]);
+
+    const thisFnWIP = () => enqueueSnackbar("Эту функцию мы ещё только разрабатываем", {
+        variant: "info",
+    });
 
     return (
         <Box
@@ -57,11 +63,10 @@ function Footer() {
                         }}
                     >
                         <Grid item>
-                            <Link sx={{ color: "text.primary", cursor: "pointer" }}> Наш блог </Link>
-                            <Link sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Справочник </Link>
-                            <Link onClick={() => router.push(`/support`)} sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Поддержка </Link>
-                            <Link sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Приложение </Link>
-                            <Link onClick={() => {
+                            <Link component="span" onClick={thisFnWIP} sx={{ color: "text.primary", cursor: "pointer" }}> Справочник </Link>
+                            <Link component="span" onClick={() => router.push(`/support`)} sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Поддержка </Link>
+                            <Link component="span" onClick={thisFnWIP} sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Приложение </Link>
+                            <Link component="span" onClick={() => {
                                 router.push(`/?dialog=gratitude`);
                                 setOpenGratitudeDialog(true);
                             }} sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}> Благодарности </Link>
@@ -94,6 +99,7 @@ function Footer() {
                         >
                             <Typography> © 2022 xieffect.ru  </Typography>
                             <Link
+                                component="span"
                                 sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}
                                 onClick={() => {
                                     setType(0);
@@ -102,6 +108,7 @@ function Footer() {
                                 Пользовательское соглашение
                             </Link>
                             <Link
+                                component="span"
                                 sx={{ color: "text.primary", ml: 1.5, cursor: "pointer" }}
                                 onClick={() => {
                                     setType(1);
@@ -139,11 +146,10 @@ function Footer() {
                         width: "100%",
                     }}
                 >
-                    <Link sx={{ color: "text.primary", cursor: "pointer" }}> Наш блог </Link>
-                    <Link sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Справочник </Link>
-                    <Link sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Поддержка </Link>
-                    <Link sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Приложение </Link>
-                    <Link onClick={() => {
+                    <Link component="span" onClick={thisFnWIP} sx={{ color: "text.primary", cursor: "pointer" }}> Справочник </Link>
+                    <Link component="span" onClick={thisFnWIP} sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Поддержка </Link>
+                    <Link component="span" onClick={thisFnWIP} sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Приложение </Link>
+                    <Link component="span" onClick={() => {
                         router.push(`/?dialog=gratitude`);
                         setOpenGratitudeDialog(true);
                     }} sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Благодарности </Link>
@@ -157,17 +163,15 @@ function Footer() {
                             height={32}
                         />
                     </IconButton>
-                    <Link sx={{ color: "text.primary", mt: 2, cursor: "pointer" }}>  Пользовательское соглашение </Link>
-                    <Link sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Лицензионное соглашение</Link>
+                    <Link component="span" sx={{ color: "text.primary", mt: 2, cursor: "pointer" }}> Пользовательское соглашение </Link>
+                    <Link component="span" sx={{ color: "text.primary", mt: 1, cursor: "pointer" }}> Лицензионное соглашение</Link>
                     <Typography sx={{ mt: 3 }}> © 2022 xieffect.ru  </Typography>
                 </Grid>}
             </Container>
             <GratitudeDialog open={openGratitudeDialog} setOpen={setOpenGratitudeDialog} />
             <TermsOfUse open={openTermsOfUse} setOpen={setOpenTermsOfUse} type={type} />
         </Box>
-
     );
-
-}
+};
 
 export default Footer;
