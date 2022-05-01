@@ -1,4 +1,4 @@
-// const { withPlausibleProxy } = require("next-plausible")
+// Не поддавайтесь соблазну использовать здесь import
 const withPWA = require("next-pwa");
 const runtimeCaching = require("next-pwa/cache");
 
