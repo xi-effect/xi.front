@@ -59,7 +59,7 @@ function EffectFor() {
             >
                 <Typography
                     component="h3"
-                    variant="IBMPlexSans700WhyLabel"
+                    variant="h3"
                     sx={{
                         cursor: "default",
                         textAlign: "center",
@@ -105,7 +105,6 @@ function EffectFor() {
                             width: "232px",
                             height: "64px",
                             borderRadius: "88px",
-                            fontFamily: "Open Sans",
                             fontWeight: 600,
                             fontSize: "20px",
                             lineHeight: "27px",
@@ -157,7 +156,6 @@ function EffectFor() {
                         width: "200px",
                         height: "64px",
                         borderRadius: "88px",
-                        fontFamily: "Open Sans",
                         fontWeight: 600,
                         fontSize: "20px",
                         lineHeight: "27px",
@@ -275,7 +273,7 @@ function EffectFor() {
                                         <Grid item>
                                             <Typography
                                                 component="h4"
-                                                variant="IBMPlexSans700WhyLabel"
+                                                variant="h4"
                                                 sx={{
                                                     cursor: "default",
                                                     pt: mobile ? "20px" : "40px",
@@ -296,7 +294,6 @@ function EffectFor() {
                                         <Grid item>
                                             <Typography
                                                 component="p"
-                                                variant="OpenSans400WhyLabel"
                                                 sx={{
                                                     cursor: "default",
                                                     color: "text.secondary",

@@ -14,15 +14,6 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
-          <link
-            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap"
-            rel="stylesheet"
-          />
-          <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,600&display=swap"
-            rel="stylesheet"
-          />
-          <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&display=swap" rel="stylesheet" />
-
           <meta charSet="utf-8" />
           <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
           <meta name="yandex-verification" content="42187efe6d19061b" />
