@@ -9,18 +9,20 @@ import {
 
 import { inject, observer } from "mobx-react";
 import { motion } from "framer-motion";
-import Header from "components/PagesComponents/Landing/Header";
-import MainLabel from "components/PagesComponents/Landing/MainLabel";
-import WhyLabel from "components/PagesComponents/Landing/WhyLabel";
-import EffectFor from "components/PagesComponents/Landing/EffectFor";
-import Footer from "components/PagesComponents/Landing/Footer";
+import dynamic from 'next/dynamic';
 
+const Header = dynamic(() => import('components/PagesComponents/Landing/Header'));
+const MainLabel = dynamic(() => import('components/PagesComponents/Landing/MainLabel'));
+const WhyLabel = dynamic(() => import('components/PagesComponents/Landing/WhyLabel'));
+const EffectFor = dynamic(() => import('components/PagesComponents/Landing/EffectFor'));
+const Footer = dynamic(() => import('components/PagesComponents/Landing/Footer'));
 
 const Main = inject(
   "rootStore",
   "uiSt"
 )(
   observer(() => {
+
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
@@ -95,6 +97,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
+
                 src="/assets/landing/blob4.svg"
                 quality={100}
                 width={256}
