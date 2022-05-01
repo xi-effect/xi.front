@@ -1,7 +1,8 @@
-import withPWA from "next-pwa";
-import runtimeCaching from "next-pwa/cache";
+// const { withPlausibleProxy } = require("next-plausible")
+const withPWA = require("next-pwa");
+const runtimeCaching = require("next-pwa/cache");
 
-export default withPWA({
+module.exports = withPWA({
   experimental: { esmExternals: false },
   reactStrictMode: false,
   images: {
