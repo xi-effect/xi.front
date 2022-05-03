@@ -79,7 +79,7 @@ class RootStore {
           },
         });
       }
-      if (response.status === 422 || response.status === 401) {
+      if (response.status === 401 || response.status === 403 || response.status === 422) {
         const router = Router;
         router.push("/signin");
         return null;
