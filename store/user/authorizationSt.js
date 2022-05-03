@@ -71,17 +71,21 @@ class AuthorizationSt {
 
     @action clickRegistrationButton = (data) => {
         this.setSignup("error", null);
-        this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email.toLowerCase(), "password": Crypto.SHA384(data.password.trim()).toString(), "username": data.username, "code": data.invite })
+        this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email.toLowerCase(), "password": Crypto.SHA384(data.password.trim()).toString(), "username": data.username, "code": data.code })
             .then((data) => {
-                console.log(data);
                 if (data !== undefined) {
-                    if (data.a) { // true
+                    if (data.user) {
                         this.rootStore.uiSt.setLoading("loading", true);
-                        const router = Router;
-                        router.push("/home");
+                        const { id, username, language } = data.user;
+                        this.rootStore.uiSt.setLoading("loading", true);
+                        this.rootStore.userSt.setSettings("id", id);
+                        this.rootStore.userSt.setSettings("username", username);
+                        this.rootStore.userSt.setSettings("darkTheme", data.user["dark-theme"]);
+                        this.rootStore.userSt.setSettings("language", language);
+                        Router.push("/home");
                         setTimeout(() => {
                             this.rootStore.uiSt.setLoading("loading", false);
-                        }, 2000);
+                        }, 1500);
                     } else {
                         this.setSignup("error", "emailAlreadyUsed");
                     }
@@ -105,6 +109,7 @@ class AuthorizationSt {
             .then((data) => {
                 if (data !== undefined) {
                     if (data.user) {
+                        this.rootStore.uiSt.setLoading("loading", true);
                         const { id, username, language } = data.user;
                         this.rootStore.uiSt.setLoading("loading", true);
                         this.rootStore.userSt.setSettings("id", id);
@@ -112,6 +117,9 @@ class AuthorizationSt {
                         this.rootStore.userSt.setSettings("darkTheme", data.user["dark-theme"]);
                         this.rootStore.userSt.setSettings("language", language);
                         Router.push("/home");
+                        setTimeout(() => {
+                            this.rootStore.uiSt.setLoading("loading", false);
+                        }, 1500);
                     } else if (data.a === "User doesn't exist") {
                         this.setLogin("error", "User doesn't exist");
                         trigger();
