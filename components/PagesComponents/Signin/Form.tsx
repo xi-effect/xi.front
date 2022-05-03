@@ -114,7 +114,9 @@ const Form: React.FC<Props> = inject('authorizationSt')(
             />
           </Box>
         )}
-        <Typography variant="h3">Вход</Typography>
+        <Typography component="h1" variant="h4">
+          Вход
+        </Typography>
         <Paper
           elevation={24}
           sx={{
@@ -239,7 +241,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                     size="large"
                     onClick={() => {
                       router.push({
-                        pathname: '/registration',
+                        pathname: '/signup',
                       });
                     }}
                     sx={{

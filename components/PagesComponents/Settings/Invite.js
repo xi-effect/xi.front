@@ -49,9 +49,9 @@ const Invite = inject(
             fullWidth
             id="invite-code"
             label="Код-приглашение"
-            defaultValue={`https://xieffect.ru/registration?invite=${userSt.settings.invite}`}
+            defaultValue={`https://xieffect.ru/signup?invite=${userSt.settings.invite}`}
             onClick={() => {
-              copyToClipboard(`https://xieffect.ru/registration?invite=${userSt.settings.invite}`);
+              copyToClipboard(`https://xieffect.ru/signup?invite=${userSt.settings.invite}`);
               setStatusCopy(true);
             }}
             InputProps={{
@@ -70,19 +70,6 @@ const Invite = inject(
             }}
           />
         </Tooltip>
-        <Button sx={{ mt: 1 }} onClick={() => setOpenQR(true)} variant="contained">
-          Сгенерировать QR-код для ссылки-приглашения
-        </Button>
-        {openQR &&
-          <Box
-            sx={{
-              m: 2,
-              width: 256,
-              height: 256,
-            }}
-          >
-            <QRCode value={`https://xieffect.netlify.app/registration?invite=${userSt.settings.invite}`} />
-          </Box>}
       </Grid >
     );
   })

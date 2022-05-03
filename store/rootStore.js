@@ -81,7 +81,7 @@ class RootStore {
       }
       if (response.status === 422 || response.status === 401) {
         const router = Router;
-        router.push("/login");
+        router.push("/signin");
         return null;
       }
       if (response.ok) {
