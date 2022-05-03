@@ -16,7 +16,7 @@
 /* eslint-disable react/display-name */
 // @flow
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, /* Typography */ } from '@mui/material';
 import { Slate, Editable, withReact } from 'slate-react';
 import { useLocalStorage } from 'react-use';
 import { createEditor, Descendant, Transforms } from 'slate';
