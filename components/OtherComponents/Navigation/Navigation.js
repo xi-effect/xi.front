@@ -47,8 +47,8 @@ const Navigation = inject(
     );
 
     React.useEffect(() => {
-      if (!rootStore.socket.connected) {
-        rootStore.socket.connect();
+      if (!rootStore.socket?.connected) {
+        rootStore.initSocket();
       };
       rootStore.socket.on("connect", () => {
         console.log("SIO connect", rootStore.socket.id);

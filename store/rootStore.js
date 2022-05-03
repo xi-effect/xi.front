@@ -47,13 +47,18 @@ class RootStore {
     this.communitiesInvitesSt = new CommunitiesInvitesSt(this);
     this.communitiesMenuSt = new CommunitiesMenuSt(this);
 
-    this.socket = io('https://xieffect.ru:5000/', {
-      autoConnect: false,
-      withCredentials: true,
-    });
+
 
     makeObservable(this);
   }
+
+  socket = null;
+
+  @action initSocket = () => {
+    this.socket = io('https://xieffect.ru:5000/', {
+      withCredentials: true,
+    });
+  };
 
   @action async fetchData(url, method, data = null) {
     try {

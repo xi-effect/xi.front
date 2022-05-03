@@ -116,6 +116,7 @@ class AuthorizationSt {
                         this.rootStore.userSt.setSettings("username", username);
                         this.rootStore.userSt.setSettings("darkTheme", data.user["dark-theme"]);
                         this.rootStore.userSt.setSettings("language", language);
+                        this.rootStore.communitiesMenuSt.setUserCommunities(data.communities);
                         Router.push("/home");
                         setTimeout(() => {
                             this.rootStore.uiSt.setLoading("loading", false);

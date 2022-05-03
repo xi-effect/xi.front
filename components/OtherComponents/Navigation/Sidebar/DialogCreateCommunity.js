@@ -22,15 +22,14 @@ const schema = yup
 
 const CommunityName = inject(
     "rootStore",
-    "communityCreationSt",
+    "communitiesMenuSt",
 )(
-    observer(({ rootStore, setOpenDialogCC }) => {
+    observer(({ rootStore, communitiesMenuSt, setOpenDialogCC }) => {
         const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
         const {
             control,
             handleSubmit,
-            // trigger,
             formState: { errors },
         } = useForm({
             resolver: yupResolver(schema),
@@ -46,6 +45,13 @@ const CommunityName = inject(
         React.useEffect(() => {
             rootStore.socket.on("create-community", (data) => {
                 console.log("on create-community");
+                communitiesMenuSt.setUserCommunities([
+                    {
+                        name: data?.name || "exe",
+                        id: data.id,
+                    },
+                    ...communitiesMenuSt.userCommunities,
+                ]);
                 router.push(`/community/${data.id}`);
                 setOpenDialogCC(false);
             });

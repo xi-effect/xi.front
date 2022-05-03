@@ -25,6 +25,7 @@ class UserSt {
         darkTheme: true,
         emailConfirmed: null,
         invite: null,
+        communities: [],
     };
 
     @action setSettings = (item, value) => {
@@ -38,18 +39,20 @@ class UserSt {
     @action getMainSettings = (type = null) => {
         this.rootStore.fetchData(`${this.rootStore.url}/home/`, "GET").then((data) => {
             if (data) {
-                this.setSettings("darkTheme", data["dark-theme"]);
-                this.setSettings("id", data.id);
-                this.setSettings("username", data.username);
+                const {id, username } = data.user;
+                this.setSettings("darkTheme", data.user["dark-theme"]);
+                this.setSettings("id", id);
+                this.setSettings("username", username);
+                this.rootStore.communitiesMenuSt.setUserCommunities(data.communities);
                 if (type === "login") {
                     Router.push('/home');
-                }
+                };
             }
             if (type === "login") {
                 setTimeout(() => {
                     this.rootStore.uiSt.setLoading("loading", false);
                 }, 500);
-            }
+            };
         });
     };
 
@@ -62,7 +65,7 @@ class UserSt {
                 this.setSettings("emailConfirmed", data["email-confirmed"]);
                 this.setSettings("avatar", data.avatar);
                 this.setSettings("invite", data.code);
-            }
+            };
         });
     };
 

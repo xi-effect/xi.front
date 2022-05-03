@@ -18,29 +18,27 @@ const CommunityItem: React.FC<CommunityItemType> = (props) => {
 
   const router = useRouter();
   return (
-    <Draggable draggableId={`sidebar-communities-list-id-${item.cId}`} index={index}>
+    <Draggable draggableId={`sidebar-communities-list-id-${item.id}`} index={index}>
       {(provided) => (
         <Stack ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-          <Tooltip enterDelay={500} leaveDelay={0} placement="right" title={item.label}>
+          <Tooltip enterDelay={500} leaveDelay={0} placement="right" title={item.name}>
             <IconButton
               component={motion.li}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                router.push(`/community/${item.cId}`);
+                router.push(`/community/${item.id}`);
               }}
               sx={{
                 borderRadius: '21px',
                 height: '50px',
                 width: '50px',
                 p: 0,
-                // mt: 2,
-                // ml: 2.4,
                 '&:hover': {
                   bgcolor: 'primary.dark',
                 },
               }}>
-              <Avatar size={64} name={`${item.label}${item.cId}`} variant="beam" colors={colors} />
+              <Avatar size={64} name={`${item.label}${item.id}`} variant="beam" colors={colors} />
             </IconButton>
           </Tooltip>
         </Stack>
