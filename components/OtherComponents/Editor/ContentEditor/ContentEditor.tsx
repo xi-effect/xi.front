@@ -16,7 +16,7 @@
 /* eslint-disable react/display-name */
 // @flow
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Slate, Editable, withReact } from 'slate-react';
 import { useLocalStorage } from 'react-use';
 import { createEditor, Descendant, Transforms } from 'slate';
@@ -28,32 +28,30 @@ import Block from './Block';
 
 // eslint-disable-next-line react/prop-types
 const Leaf = ({ attributes, children, leaf }) => {
-  // eslint-disable-next-line react/prop-types
-  if (leaf.bold) {
-    children = <strong>{children}</strong>;
-  }
-  // eslint-disable-next-line react/prop-types
-  if (leaf.code) {
-    children = (
-      <code
-        className={css`
+  Object.keys(leaf).forEach(key => {
+    switch (key) {
+      case 'bold': children = <strong>{children}</strong>;
+        break;
+      case 'italic': children = <em>{children}</em>;
+        break;
+      case 'underlined': children = <u>{children}</u>;
+        break;
+      case 'strike': children = <s>{children}</s>;
+        /* children = <Typography sx={{ textDecoration: "line-through" }} component="span" >{children}</Typography>; */
+        break;
+      case 'code': children = (
+          <code
+              className={css`
           background-color: #333;
           padding: 0.25em 0.5em;
           border-radius: 0.25em;
         `}>
-        {children}
-      </code>
-    );
-  }
-  // eslint-disable-next-line react/prop-types
-  if (leaf.italic) {
-    children = <em>{children}</em>;
-  }
-  // eslint-disable-next-line react/prop-types
-  if (leaf.underlined) {
-    children = <u>{children}</u>;
-  }
-
+            {children}
+          </code>
+      );
+        break;
+    }
+  });
   return <span {...attributes}>{children}</span>;
 };
 
@@ -126,6 +124,8 @@ const ContentEditor: React.FC<Props> = (props) => {
                         return toggleFormat(editor, 'italic');
                       case 'formatUnderline':
                         return toggleFormat(editor, 'underlined');
+                      case 'formatStrike':
+                        return toggleFormat(editor, 'strike');
                       case 'formatCode':
                         return toggleFormat(editor, 'code');
                     }
