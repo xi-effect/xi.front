@@ -68,7 +68,7 @@ const Settings = inject(
             userSt.setSettings("invite", data.code);
           }
         });
-    }, []);
+    }, [userSt]);
 
     const [expanded, setExpanded] = React.useState(false);
 

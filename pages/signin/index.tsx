@@ -13,11 +13,11 @@ import { inject, observer } from 'mobx-react';
 
 import { useSessionStorage } from 'react-use';
 // @ts-ignore
-import Header from 'components/PagesComponents/Login/Header.tsx';
+import Header from 'components/PagesComponents/Signin/Header.tsx';
 // @ts-ignore
-import Form from 'components/PagesComponents/Login/Form.tsx';
+import Form from 'components/PagesComponents/Signin/Form.tsx';
 
-const Login = inject(
+const Signin = inject(
   'uiSt',
   'userSt',
 )(
@@ -56,4 +56,4 @@ const Login = inject(
   }),
 );
 
-export default Login;
+export default Signin;

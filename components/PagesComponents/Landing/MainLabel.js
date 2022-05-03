@@ -115,10 +115,10 @@ function MainLabel() {
                             alignItems="center"
                         >
                             <Button
-                                aria-label="registration"
+                                aria-label="signup"
                                 onClick={() => {
                                     router.push({
-                                        pathname: "/registration",
+                                        pathname: "/signup",
                                     });
                                 }}
                                 sx={{

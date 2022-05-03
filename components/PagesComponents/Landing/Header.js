@@ -22,10 +22,10 @@ function Header() {
                 <XiLogo />
             </Stack>
             <Button
-                aria-label="login"
+                aria-label="signin"
                 onClick={() => {
                     router.push({
-                        pathname: "/login",
+                        pathname: "/signin",
                     });
                 }}
                 sx={{
