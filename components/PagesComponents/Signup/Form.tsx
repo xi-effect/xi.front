@@ -7,6 +7,7 @@
 import React from 'react';
 import Image from 'next/image';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import { styled } from '@mui/material/styles';
 import {
   Stack,
@@ -145,11 +146,13 @@ const Form: React.FC<Props> = inject('authorizationSt')(
     const mobile: boolean = useMediaQuery((theme) => theme.breakpoints.down('md'));
     // @ts-ignore
     const mobileBob: boolean = useMediaQuery((theme) => theme.breakpoints.down('dl'));
+    const router = useRouter();
 
     const {
       control,
       handleSubmit,
       trigger,
+      setValue,
       formState: { errors },
     } = useForm({
       resolver: yupResolver(schema),
@@ -166,8 +169,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
       }
     };
 
-    console.log(errors);
-
     const [activeStep, setActiveStep] = React.useState<number>(0);
     const [showCode, setShowCode] = React.useState<boolean>(true);
 
@@ -176,12 +177,14 @@ const Form: React.FC<Props> = inject('authorizationSt')(
       setActiveStep(activeStep + 1);
     };
 
-    console.log(activeStep);
-
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
     const [showPasswordAgain, setShowPasswordAgain] = React.useState<boolean>(false);
 
     const [passwordError, setPasswordError] = React.useState<boolean>(false);
+
+    React.useEffect(() => {
+      if (router.query.invite) setValue('code', router.query.invite);
+    }, [router.query, setValue]);
 
     return (
       <Stack
@@ -273,8 +276,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                       <StepLabel
                         StepIconComponent={ColorlibStepIcon}
                         error={
-                          item.type.some((key) => key in errors) ||
-                          (passwordError && index === 2)
+                          item.type.some((key) => key in errors) || (passwordError && index === 2)
                         }
                         sx={{
                           minWidth: mobile ? 90 : 140,
@@ -380,7 +382,9 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                           fullWidth
                           label="Адрес почты"
                           helperText={`${
-                            errors?.email?.type === 'required' || errors?.email?.type === 'email' ? 'Невалидно маске почты' : ''
+                            errors?.email?.type === 'required' || errors?.email?.type === 'email'
+                              ? 'Невалидно маске почты'
+                              : ''
                           }
                           ${
                             errors?.email?.type === 'max' ? 'Максимальная длина - 100 символов' : ''
