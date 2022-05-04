@@ -17,11 +17,15 @@ import CommunityItem from './CommunityItem';
 const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), { ssr: false });
 
 type SidebarType = {
+  rootStore?: any;
   communitiesMenuSt?: any;
 };
 
-const Sidebar: React.FC<SidebarType> = inject('communitiesMenuSt')(
-  observer(({ communitiesMenuSt }) => {
+const Sidebar: React.FC<SidebarType> = inject(
+  'rootStore',
+  'communitiesMenuSt',
+)(
+  observer(({ rootStore, communitiesMenuSt }) => {
     const [openDialogCC, setOpenDialogCC] = React.useState(false);
     const router = useRouter();
     const menuList = [
@@ -64,6 +68,22 @@ const Sidebar: React.FC<SidebarType> = inject('communitiesMenuSt')(
 
       communitiesMenuSt.setUserCommunities(communities);
     };
+
+    React.useEffect(() => {
+      rootStore.socket.on('new-community', (data) => {
+        console.log('on new-community');
+        communitiesMenuSt.setUserCommunities([
+          {
+            name: data.name,
+            id: data.id,
+          },
+          ...communitiesMenuSt.userCommunities,
+        ]);
+      });
+      return () => {
+        rootStore.socket.off('new-community');
+      };
+    }, []);
 
     return (
       <Stack

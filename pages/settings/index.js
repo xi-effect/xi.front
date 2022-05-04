@@ -46,7 +46,7 @@ const Settings = inject(
 
     React.useEffect(() => {
       rootStore
-        .fetchData(`${rootStore.url}/settings/main/`, "GET")
+        .fetchData(`${rootStore.url}/home/`, "GET")
         .then((data) => {
           if (data) {
             console.log("settings/main", data);
