@@ -42,21 +42,23 @@ const CommunityName = inject(
 
         const router = useRouter();
 
+        const addCtoMenu = (data) => {
+            console.log("on create-community");
+            communitiesMenuSt.setUserCommunities([
+                {
+                    name: data?.name || "exe",
+                    id: data.id,
+                },
+                ...communitiesMenuSt.userCommunities,
+            ]);
+            router.push(`/community/${data.id}`);
+            setOpenDialogCC(false);
+        };
+
         React.useEffect(() => {
-            rootStore.socket.on("create-community", (data) => {
-                console.log("on create-community");
-                communitiesMenuSt.setUserCommunities([
-                    {
-                        name: data?.name || "exe",
-                        id: data.id,
-                    },
-                    ...communitiesMenuSt.userCommunities,
-                ]);
-                router.push(`/community/${data.id}`);
-                setOpenDialogCC(false);
-            });
+            rootStore.socket.on("create-community", addCtoMenu);
             return () => {
-                rootStore.socket.off("create-community");
+                rootStore.socket.off("create-community", addCtoMenu);
             };
         }, []);
 

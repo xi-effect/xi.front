@@ -9,6 +9,7 @@ function Header() {
 
     return (
         <Stack
+            component="header"
             direction="row"
             justifyContent="space-between"
             alignItems="center"

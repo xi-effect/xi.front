@@ -1,17 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { inject, observer } from "mobx-react";
-import { Box, useMediaQuery, IconButton, Stack } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import InfoIcon from "@mui/icons-material/Info";
+import { useMediaQuery, IconButton, Stack, Typography } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
 import XiLogo from "kit/XiLogo";
-import ReportDialog from "./RightMenu/ReportDialog";
+import Menu from "./Menu";
 
-const Upbar = inject()(
-  observer(({ swipe, setSwipe }) => {
+const Upbar = inject("userSt")(
+  observer(({ userSt, swipe, setSwipe }) => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
-
-    const [openDialog, setOpenDialog] = React.useState(false);
 
     return (
       <Stack
@@ -21,6 +18,7 @@ const Upbar = inject()(
         sx={{
           height: "48px",
           width: "100%",
+          boxShadow: 12,
         }}
       >
         <Stack
@@ -36,15 +34,15 @@ const Upbar = inject()(
           </IconButton>}
           <XiLogo size='s' />
         </Stack>
-        <Box>
-          {mobile && <IconButton onClick={() => {
-            if (swipe === "left") setSwipe("swipe", "center");
-            if (swipe === "center") setSwipe("swipe", "left");
-          }} sx={{ ml: "auto", mr: 0.4, cursor: "pointer" }}>
-            <InfoIcon sx={{ fontSize: 32 }} />
-          </IconButton>}
-          <ReportDialog open={openDialog} setOpen={setOpenDialog} />
-        </Box>
+        <Stack
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
+          sx={{ pr: 2 }}
+        >
+          {!mobile && <Typography sx={{ p: 1 }}> {userSt.settings.username} </Typography>}
+          <Menu />
+        </Stack>
       </Stack >
     );
   })

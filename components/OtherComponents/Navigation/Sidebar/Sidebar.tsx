@@ -69,19 +69,33 @@ const Sidebar: React.FC<SidebarType> = inject(
       communitiesMenuSt.setUserCommunities(communities);
     };
 
+    const addItemtoMenu = (data) => {
+      console.log('on new-community');
+      communitiesMenuSt.setUserCommunities([
+        {
+          name: data.name,
+          id: data.id,
+        },
+        ...communitiesMenuSt.userCommunities,
+      ]);
+    };
+
     React.useEffect(() => {
-      rootStore.socket.on('new-community', (data) => {
-        console.log('on new-community');
-        communitiesMenuSt.setUserCommunities([
-          {
-            name: data.name,
-            id: data.id,
-          },
-          ...communitiesMenuSt.userCommunities,
-        ]);
-      });
+      rootStore.socket.on('new-community', addItemtoMenu);
       return () => {
-        rootStore.socket.off('new-community');
+        rootStore.socket.off('new-community', addItemtoMenu);
+      };
+    }, []);
+
+    const removeItem = (data) => {
+      console.log('on leave-community');
+      communitiesMenuSt.removeCommunity(data.id);
+    };
+
+    React.useEffect(() => {
+      rootStore.socket.on('leave-community', removeItem);
+      return () => {
+        rootStore.socket.off('leave-community', removeItem);
       };
     }, []);
 
