@@ -47,7 +47,7 @@ const MyApp = (observer((props) => {
 
   const rootStore = useStore(pageProps.initialState);
   const theme = React.useMemo(() =>
-    responsiveFontSizes(createTheme(getDesignTokens(rootStore.userSt.settings.darkTheme))),
+    responsiveFontSizes(createTheme(getDesignTokens("dark" || rootStore.userSt.settings.darkTheme))), // Только тёмная тема
     [rootStore.userSt.settings.darkTheme]);
 
   return (

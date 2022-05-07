@@ -13,7 +13,7 @@ const Header: React.FC = () => {
 
   return (
     <Stack
-      component={motion.div}
+      component={motion.header}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 1, duration: 1 }}

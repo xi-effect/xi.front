@@ -7,10 +7,10 @@ export const configSwipe = {
 };
 
 export const dragVariants = {
-  left: {
-    x: -256,
-    y: 0,
-  },
+  // left: {
+  //   x: -256,
+  //   y: 0,
+  // },
   center: {
     x: 0,
     y: 0,

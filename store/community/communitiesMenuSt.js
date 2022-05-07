@@ -16,6 +16,11 @@ class CommunitiesMenuSt {
         this.userCommunities = value;
     };
 
+    @action removeCommunity = (lid) => {
+        const newArray = this.userCommunities;
+        this.userCommunities = newArray.filter(item => item.id !== lid);
+    };
+
 
 }
 

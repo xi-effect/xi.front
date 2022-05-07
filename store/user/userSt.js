@@ -82,7 +82,7 @@ class UserSt {
             (data) => {
                 if (data?.a) {
                     const router = Router;
-                    router.push("/login");
+                    router.push("/signin");
                     this.settings = {
                         id: null,
                         avatar: {

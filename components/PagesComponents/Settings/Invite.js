@@ -6,6 +6,7 @@ import {
   Tooltip,
   Button,
   Box,
+  Typography,
 } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
@@ -38,6 +39,11 @@ const Invite = inject(
           width: "100%"
         }}
       >
+        <Typography sx={{ pl: 2, pr: 2, pb: 4 }}>
+          Скопируйте ссылку и отправьте человеку, которого хотели бы пригласить на платформу.
+          Приглашённый пользователь, получив от вас ссылку, может сразу её открыть.
+          Он попадёт на страницу регистрации, а код-приглашение будет уже заполнен
+        </Typography>
         <Tooltip
           title={
             statusCopy
@@ -48,8 +54,8 @@ const Invite = inject(
           <TextFieldCustom
             fullWidth
             id="invite-code"
-            label="Код-приглашение"
-            defaultValue={`https://xieffect.ru/signup?invite=${userSt.settings.invite}`}
+            label="Ссылка-приглашение"
+            value={`https://xieffect.ru/signup?invite=${userSt.settings.invite}`}
             onClick={() => {
               copyToClipboard(`https://xieffect.ru/signup?invite=${userSt.settings.invite}`);
               setStatusCopy(true);

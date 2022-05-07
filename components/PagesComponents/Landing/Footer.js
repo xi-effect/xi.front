@@ -28,7 +28,7 @@ const Footer = () => {
 
     return (
         <Box
-            component={motion.div}
+            component={motion.footer}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 2 }}
