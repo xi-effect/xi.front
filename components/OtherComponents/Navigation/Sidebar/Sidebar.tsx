@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
 import { Stack, Tooltip, IconButton, Box } from '@mui/material';
+import { grey } from '@mui/material/colors';
 
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -21,6 +22,8 @@ type SidebarType = {
   communitiesMenuSt?: any;
 };
 
+const menuListDividers = ['home', 'none'];
+
 const Sidebar: React.FC<SidebarType> = inject(
   'rootStore',
   'communitiesMenuSt',
@@ -28,6 +31,9 @@ const Sidebar: React.FC<SidebarType> = inject(
   observer(({ rootStore, communitiesMenuSt }) => {
     const [openDialogCC, setOpenDialogCC] = React.useState(false);
     const router = useRouter();
+
+    console.log('router', router);
+
     const menuList = [
       {
         id: 0,
@@ -112,28 +118,62 @@ const Sidebar: React.FC<SidebarType> = inject(
           height: '100vh',
           overflow: 'hidden',
         }}>
-        {menuList.map((item, index) => (
-          <Tooltip key={index.toString()} placement="right" title={item.label}>
-            <IconButton
-              component={motion.li}
-              whileHover={{ scale: 1.15 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => {
-                if (item.href === 'createcommunity') {
-                  setOpenDialogCC(true);
-                } else router.push(item.href);
-              }}
-              sx={{
-                bgcolor: router.pathname.includes(item.href) ? 'primary.main' : '',
-                borderRadius: 2,
-                '&:hover': {
-                  bgcolor: router.pathname.includes(item.href) ? 'primary.main' : '',
-                },
-              }}>
-              {item.icon}
-            </IconButton>
-          </Tooltip>
-        ))}
+        <Stack
+          direction="row"
+          justifyContent="flex-start"
+          sx={{ position: 'relative' }}
+          alignItems="flex-start">
+          <Stack
+            sx={{ width: 4, position: 'absolute' }}
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={2}>
+            {menuListDividers.map((item, index) => (
+              <Box
+                key={index.toString()}
+                sx={{
+                  display: router.pathname.includes(item) ? 'flex' : 'none',
+                  height: 40,
+                  width: 4,
+                  bgcolor: grey[200],
+                  borderTopRightRadius: 8,
+                  borderBottomRightRadius: 8,
+                }}
+              />
+            ))}
+          </Stack>
+          <Stack
+            sx={{ width: 80 }}
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}>
+            {menuList.map((item, index) => (
+              <Tooltip key={index.toString()} placement="right" title={item.label}>
+                <IconButton
+                  component={motion.li}
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => {
+                    if (item.href === 'createcommunity') {
+                      setOpenDialogCC(true);
+                    } else router.push(item.href);
+                  }}
+                  sx={{
+                    bgcolor: router.pathname.includes(item.href) ? 'primary.main' : '',
+                    borderRadius: 2,
+                    '&:hover': {
+                      bgcolor: router.pathname.includes(item.href) ? 'primary.main' : '',
+                    },
+                  }}>
+                  {item.icon}
+                </IconButton>
+              </Tooltip>
+            ))}
+          </Stack>
+        </Stack>
+
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="sidebar-communities-list">
             {(provided) => (
@@ -157,43 +197,99 @@ const Sidebar: React.FC<SidebarType> = inject(
                 autoHideTimeout={1000}
                 autoHideDuration={200}>
                 <Stack
-                  direction="column"
+                  direction="row"
                   justifyContent="flex-start"
-                  alignItems="center"
-                  spacing={2}
-                  sx={{
-                    pt: 2,
-                  }}
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}>
-                  {communitiesMenuSt.userCommunities.map((item, index) => (
-                    <CommunityItem item={item} index={index} key={item.id} />
-                  ))}
-                  {provided.placeholder}
+                  sx={{ position: 'relative', pt: 2 }}
+                  alignItems="flex-start">
+                  <Stack
+                    sx={{ width: 4, position: 'absolute', height: '100%' }}
+                    direction="column"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    spacing={2}>
+                    {communitiesMenuSt.userCommunities.map((item, index) => (
+                      <Box
+                        key={index.toString()}
+                        sx={{
+                          height: 50,
+                          width: 4,
+                          bgcolor: Number(router.query.id) === item.id ? grey[200] : 'transparent',
+                          borderTopRightRadius: 8,
+                          borderBottomRightRadius: 8,
+                        }}
+                      />
+                    ))}
+                  </Stack>
+                  <Stack
+                    direction="column"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    spacing={2}
+                    sx={{
+                      width: 80,
+                    }}
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}>
+                    {communitiesMenuSt.userCommunities.map((item, index) => (
+                      <CommunityItem item={item} index={index} key={item.id} />
+                    ))}
+                    {provided.placeholder}
+                  </Stack>
                 </Stack>
               </Scrollbars>
             )}
           </Droppable>
           <Box sx={{ height: 12 }} />
         </DragDropContext>
-        <Tooltip placement="right" title="Настройки">
-          <IconButton
-            component={motion.li}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => {
-              router.push('/settings');
-            }}
-            sx={{
-              bgcolor: router.pathname.includes('/settings') ? 'primary.main' : '',
-              borderRadius: 2,
-              '&:hover': {
-                bgcolor: router.pathname.includes('/settings') ? 'primary.main' : '',
-              },
-            }}>
-            <SettingsIcon sx={{ fontSize: 28 }} />
-          </IconButton>
-        </Tooltip>
+        <Stack
+          direction="row"
+          justifyContent="flex-start"
+          sx={{ position: 'relative' }}
+          alignItems="flex-start">
+          <Stack
+            sx={{ width: 4, position: 'absolute' }}
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={2}>
+            {router.pathname.includes('settings') && (
+              <Box
+                sx={{
+                  height: 40,
+                  width: 4,
+                  bgcolor: grey[200],
+                  borderTopRightRadius: 8,
+                  borderBottomRightRadius: 8,
+                }}
+              />
+            )}
+          </Stack>
+          <Stack
+            sx={{ width: 80 }}
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}>
+            <Tooltip placement="right" title="Настройки">
+              <IconButton
+                component={motion.li}
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => {
+                  router.push('/settings');
+                }}
+                sx={{
+                  bgcolor: router.pathname.includes('/settings') ? 'primary.main' : '',
+                  borderRadius: 2,
+                  '&:hover': {
+                    bgcolor: router.pathname.includes('/settings') ? 'primary.main' : '',
+                  },
+                }}>
+                <SettingsIcon sx={{ fontSize: 28 }} />
+              </IconButton>
+            </Tooltip>
+          </Stack>
+        </Stack>
         <Box
           sx={{
             height: '4px',
