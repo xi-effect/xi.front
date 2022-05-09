@@ -1,21 +1,18 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
+import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { MenuItem, Stack, Popper, Grow, Tooltip, IconButton, MenuList, Paper, ClickAwayListener, Divider } from "@mui/material";
+import { MenuItem, Stack, Popper, Grow, Tooltip, IconButton, MenuList, Paper, ClickAwayListener, Divider, Typography } from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
 import CloseIcon from "@mui/icons-material/Close";
-import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { AnimatePresence, motion } from "framer-motion";
 
-const Menu = inject()(observer(() => {
+const Menu = inject("userSt")(observer(({ userSt }) => {
+    const router = useRouter();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
 
@@ -108,8 +105,9 @@ const Menu = inject()(observer(() => {
                         }}
                     >
                         <Paper sx={{
-                            position: "absolute", zIndex: 10000, left: -238, width: 248,
-                            backgroundColor: "primary.dark",
+                            position: "absolute", zIndex: 10000, left: -248, top: 10, width: 248,
+                            border: "1px solid",
+                            // backgroundColor: "primary.dark",
                         }}>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList
@@ -120,98 +118,34 @@ const Menu = inject()(observer(() => {
                                     sx={{ width: "100%" }}
                                 >
                                     <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        // setOpenDialogInvite(true);
+                                        router.push(`/profile/${userSt.settings.id}/`);
                                         setOpen(false);
                                     }}>
                                         <Stack
                                             direction="row"
-                                            justifyContent="space-between"
+                                            justifyContent="flex-start"
                                             alignItems="center"
+                                            spacing={1}
                                             sx={{ width: "100%" }}
                                         >
-                                            Пригласить людей
-                                            <PersonAddAlt1Icon fontSize="small" />
-                                        </Stack>
-                                    </MenuItem>
-                                    <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        // setOpenDialogSettings(true);
-                                        setOpen(false);
-                                    }}>
-                                        <Stack
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            sx={{ width: "100%" }}
-                                        >
-                                            Настройки сообщества
-                                            <SettingsIcon fontSize="small" />
+                                            <AccountBoxIcon />
+                                            <Typography sx={{ fontWeight: 800 }}> Профиль </Typography>
                                         </Stack>
                                     </MenuItem>
                                     <Divider flexItem />
                                     <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        // setOpenDialogChannelCreation(true);
                                         setOpen(false);
+                                        userSt.logout();
                                     }}>
                                         <Stack
                                             direction="row"
-                                            justifyContent="space-between"
+                                            justifyContent="flex-start"
                                             alignItems="center"
-                                            sx={{ width: "100%" }}
-                                        >
-                                            Создать канал
-                                            <AddCircleIcon fontSize="small" />
-                                        </Stack>
-                                    </MenuItem>
-                                    <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        // setOpenDialogCategoryCreation(true);
-                                        setOpen(false);
-                                    }}>
-                                        <Stack
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            sx={{ width: "100%" }}
-                                        >
-                                            Создать категорию
-                                            <CreateNewFolderIcon fontSize="small" />
-                                        </Stack>
-                                    </MenuItem>
-                                    <Divider flexItem />
-                                    <MenuItem onClick={handleClose}>
-                                        <Stack
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            sx={{ width: "100%" }}
-                                        >
-                                            Уведомления
-                                            <NotificationsIcon fontSize="small" />
-                                        </Stack>
-                                    </MenuItem>
-                                    <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        // setOpenDialogPrivacy(true);
-                                        setOpen(false);
-                                    }}>
-                                        <Stack
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            sx={{ width: "100%" }}
-                                        >
-                                            Конфиденсальность
-                                            <LocalPoliceIcon fontSize="small" />
-                                        </Stack>
-                                    </MenuItem>
-                                    <Divider flexItem />
-                                    <MenuItem sx={{ width: "100%" }} onClick={handleClose}>
-                                        <Stack
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
+                                            spacing={1}
                                             sx={{ width: "100%", color: "error.main" }}
                                         >
-                                            Покинуть сообщество
-                                            <LogoutIcon sx={{ color: "error.main" }} fontSize="small" />
+                                            <LogoutIcon sx={{ color: "error.main" }} />
+                                            <Typography sx={{ fontWeight: 800 }}> Выйти </Typography>
                                         </Stack>
                                     </MenuItem>
                                 </MenuList>
