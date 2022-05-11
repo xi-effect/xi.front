@@ -10,6 +10,7 @@ export const getDesignTokens = (mode) => ({
             5: "lg",
             6: "gx",
             7: "xl",
+            8: "lp",
         },
         values: {
             ax: 0,
@@ -20,6 +21,7 @@ export const getDesignTokens = (mode) => ({
             lg: 1200,
             gx: 1536,
             xl: 1980,
+            lp: 2200,
         },
     },
     typography: {
