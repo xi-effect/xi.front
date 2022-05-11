@@ -4,7 +4,7 @@ import { inject, observer } from "mobx-react";
 import { Typography, Radio, Button, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, Paper, useMediaQuery, DialogActions } from "@mui/material";
 
 
-const DialogChannelCreation = inject()(observer(({ openDialogChannelCreation, setOpenDialogChannelCreation }) => {
+const DialogChannelCreation = inject("uiSt")(observer(({ uiSt }) => {
     const fullScreen = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     const [channelSelect, setChannelSelect] = React.useState(null);
@@ -12,8 +12,8 @@ const DialogChannelCreation = inject()(observer(({ openDialogChannelCreation, se
     return (
         <Dialog
             fullScreen={fullScreen}
-            open={openDialogChannelCreation ?? false}
-            onClose={() => setOpenDialogChannelCreation(false)}
+            open={uiSt.dialogs.channelCreation}
+            onClose={() => uiSt.setDialogs("channelCreation", false)}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             fullWidth
@@ -101,7 +101,7 @@ const DialogChannelCreation = inject()(observer(({ openDialogChannelCreation, se
             </DialogContent>
             <DialogActions>
                 <Button
-                    onClick={() => setOpenDialogChannelCreation(false)}
+                    onClick={() => uiSt.setDialogs("channelCreation", false)}
                     variant="contained"
                 >
                     Готово

@@ -3,14 +3,14 @@ import { inject, observer } from "mobx-react";
 
 import { Typography, Switch, Button, Dialog, DialogContent, Stack, useMediaQuery, DialogActions } from "@mui/material";
 
-const DialogPrivacy = inject()(observer(({ openDialogPrivacy, setOpenDialogPrivacy }) => {
+const DialogPrivacy = inject("uiSt")(observer(({ uiSt }) => {
     const fullScreen = useMediaQuery(theme => theme.breakpoints.down("md"));
 
     return (
         <Dialog
             fullScreen={fullScreen}
-            open={openDialogPrivacy ?? false}
-            onClose={() => setOpenDialogPrivacy(false)}
+            open={uiSt.dialogs.privacy}
+            onClose={() => uiSt.setDialogs("privacy", false)}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             fullWidth
@@ -55,7 +55,7 @@ const DialogPrivacy = inject()(observer(({ openDialogPrivacy, setOpenDialogPriva
             </DialogContent>
             <DialogActions>
                 <Button
-                    onClick={() => setOpenDialogPrivacy(false)}
+                    onClick={() => uiSt.setDialogs("privacy", false)}
                     variant="contained"
                 >
                     Готово

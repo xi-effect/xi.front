@@ -13,16 +13,16 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import CreateInvite from "kit/CreateInvite";
 
-const DialogInvite = inject()(
+const DialogInvite = inject("uiSt")(
   observer(
-    ({ openDialogInvite, setOpenDialogInvite }) => {
+    ({ uiSt }) => {
       const fullScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
       return (
         <Dialog
           fullScreen={fullScreen}
-          open={openDialogInvite ?? false}
-          onClose={() => setOpenDialogInvite(false)}
+          open={uiSt.dialogs.invite}
+          onClose={() => uiSt.setDialogs("invite", false)}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           fullWidth
@@ -44,7 +44,7 @@ const DialogInvite = inject()(
             <Tooltip title="Закрыть">
               <IconButton
                 sx={{ color: "text.secondary", ml: "auto", mt: 2, mr: 1 }}
-                onClick={() => setOpenDialogInvite(false)}
+                onClick={() => uiSt.setDialogs("invite", false)}
               >
                 <CloseIcon />
               </IconButton>

@@ -16,7 +16,7 @@ const items = [
     "Роли",
 ];
 
-const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSettings }) => {
+const DialogSettings = inject("uiSt")(observer(({ uiSt }) => {
     const [value, setValue] = React.useState(0);
 
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -25,13 +25,13 @@ const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSet
         <>
             <Button onClick={() => {
                 closeSnackbar(key);
-                setOpenDialogSettings(false);
+                uiSt.setDialogs("settings", false);
             }}>
                 Да
             </Button>
             <Button onClick={() => {
                 closeSnackbar(key);
-                setOpenDialogSettings(false);
+                uiSt.setDialogs("settings", false);
             }}>
                 Нет
             </Button>
@@ -53,8 +53,8 @@ const DialogSettings = inject()(observer(({ openDialogSettings, setOpenDialogSet
     return (
         <Dialog
             fullScreen
-            open={openDialogSettings ?? false}
-            onClose={() => setOpenDialogSettings(false)}
+            open={uiSt.dialogs.settings}
+            onClose={() => uiSt.setDialogs("settings", false)}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
