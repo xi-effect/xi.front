@@ -10,11 +10,14 @@ import AddIcon from "@mui/icons-material/Add";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 import ForumIcon from "@mui/icons-material/Forum";
 import TodayIcon from "@mui/icons-material/Today";
+import ArticleIcon from '@mui/icons-material/Article';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { useLocalStorage } from 'react-use';
 import { motion } from "framer-motion";
+
+
 
 const arrowVariants = {
     open: {
@@ -40,6 +43,7 @@ const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, i
         if (type === "schedule") return <TodayIcon fontSize="small" />;
         if (type === "chat") return <ForumIcon fontSize="small" />;
         if (type === "room") return <RecordVoiceOverIcon fontSize="small" />;
+        if (type === "page") return <ArticleIcon fontSize="small" />;
         return null;
     };
 
@@ -121,8 +125,10 @@ const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, i
                                 {iconSelect(child.type)}
                             </ListItemIcon>
                             <ListItemText
+                                disableTypography
                                 sx={{
-                                    pl: 1
+                                    pl: 1,
+                                    fontSize: 16,
                                 }}
                             >
                                 {child.name}
@@ -158,8 +164,10 @@ const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, i
                     {iconSelect(channel.type)}
                 </ListItemIcon>
                 <ListItemText
+                    disableTypography
                     sx={{
-                        pl: 1
+                        pl: 1,
+                        fontSize: 16,
                     }}
                 >
                     {channel.name}
@@ -220,12 +228,12 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
                             if (item.href !== '') router.push(`/community/${router.query.id}/${item.href}`);
                         }}
                         sx={{
-                            width: valueLS ? "36px" : "calc(100% - 16px)",
+                            width: valueLS ? "42px" : "calc(100% - 16px)",
                             borderRadius: 1,
                             height: 36,
                             ml: valueLS ? 0 : 1,
                             mr: valueLS ? 0 : 1,
-                            p: 0,
+                            p: valueLS ? 0.5 : 2,
                             bgcolor: getBgcolor(item.href),
                         }}
                     >
@@ -234,14 +242,16 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
                                 "&.MuiListItemIcon-root": {
                                     minWidth: "2px !important",
                                     fontSize: 26,
-                                }
+                                },
                             }}
                         >
                             {item.icon}
                         </ListItemIcon>
                         {!valueLS && <ListItemText
+                            disableTypography
                             sx={{
-                                pl: 1
+                                pl: 1,
+                                fontSize: 20,
                             }}
                         >
                             {item.label}

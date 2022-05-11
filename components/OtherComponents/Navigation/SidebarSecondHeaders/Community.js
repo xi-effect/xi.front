@@ -3,7 +3,7 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
 
-import { Typography, Stack, Tooltip, IconButton, Popper, Grow, Paper, ClickAwayListener } from "@mui/material";
+import { Box, Typography, Stack, Tooltip, IconButton, Popper, Grow, Paper, ClickAwayListener } from "@mui/material";
 
 import { AnimatePresence, motion } from "framer-motion";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -116,7 +116,9 @@ const Community = inject()(observer(() => {
                     >
                         <Paper sx={{ position: "absolute", left: -244, width: 248 }}>
                             <ClickAwayListener onClickAway={handleClose}>
-                                <CommunityMenu open={open} setOpen={setOpen} handleListKeyDown={handleListKeyDown} handleClose={handleClose} />
+                                <Box>
+                                    <CommunityMenu open={open} setOpen={setOpen} handleListKeyDown={handleListKeyDown} handleClose={handleClose} />
+                                </Box>
                             </ClickAwayListener>
                         </Paper>
                     </Grow>

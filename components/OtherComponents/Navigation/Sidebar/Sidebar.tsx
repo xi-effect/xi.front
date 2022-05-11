@@ -57,6 +57,16 @@ const Sidebar: React.FC<SidebarType> = inject(
       return result;
     };
 
+    const reorderFn = (source, destination) => {
+      const communities = reorder(communitiesMenuSt.userCommunities, source, destination);
+      rootStore.socket.emit('create-community', {
+        // @ts-ignore
+        'source-id': communities[destination].id,
+        'target-index': destination,
+      });
+      communitiesMenuSt.setUserCommunities(communities);
+    };
+
     const onDragEnd = (result) => {
       if (!result.destination) {
         return;
@@ -66,14 +76,23 @@ const Sidebar: React.FC<SidebarType> = inject(
         return;
       }
 
-      const communities = reorder(
-        communitiesMenuSt.userCommunities,
-        result.source.index,
-        result.destination.index,
-      );
-
-      communitiesMenuSt.setUserCommunities(communities);
+      reorderFn(result.source.index, result.destination.index);
     };
+
+    const subReorder = (data) => {
+      const newArray = communitiesMenuSt.userCommunities;
+      const item = newArray.find((i) => i.id === data['source-id']);
+      const itemIndex = newArray.findIndex((i) => i.id === data['source-id']);
+      newArray.splice(itemIndex, 1);
+      newArray.splice(data['target-index'], 0, item);
+    };
+
+    React.useEffect(() => {
+      rootStore.socket.on('reorder-community', subReorder);
+      return () => {
+        rootStore.socket.off('reorder-community', subReorder);
+      };
+    }, []);
 
     const addItemtoMenu = (data) => {
       console.log('on new-community');
@@ -85,6 +104,13 @@ const Sidebar: React.FC<SidebarType> = inject(
         ...communitiesMenuSt.userCommunities,
       ]);
     };
+
+    React.useEffect(() => {
+      rootStore.socket.on('new-community', addItemtoMenu);
+      return () => {
+        rootStore.socket.off('new-community', addItemtoMenu);
+      };
+    }, []);
 
     React.useEffect(() => {
       rootStore.socket.on('new-community', addItemtoMenu);

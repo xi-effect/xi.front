@@ -48,6 +48,19 @@ class UISt {
     @action clearReportData = () => {
         this.reportData = {};
     };
+
+    @observable dialogs = {
+        categoryCreation: false,
+        channelCreation: false,
+        invite: false,
+        privacy: false,
+        settings: false,
+    };
+
+    @action setDialogs = (name, value) => {
+        this.dialogs[name] = value;
+        console.log("this.dialogs", this.dialogs);
+    };
 }
 
 export default UISt;

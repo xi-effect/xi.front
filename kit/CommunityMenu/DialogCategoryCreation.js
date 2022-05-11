@@ -3,15 +3,15 @@ import { inject, observer } from "mobx-react";
 
 import { Typography, Button, FormControl, InputLabel, Input, Dialog, DialogContent, Stack, useMediaQuery, DialogActions } from "@mui/material";
 
-const DialogCategoryCreation = inject()(observer(({ openDialogCategoryCreation, setOpenDialogCategoryCreation }) => {
+const DialogCategoryCreation = inject("uiSt")(observer(({ uiSt }) => {
     const fullScreen = useMediaQuery(theme => theme.breakpoints.down("md"));
 
 
     return (
         <Dialog
             fullScreen={fullScreen}
-            open={openDialogCategoryCreation ?? false}
-            onClose={() => setOpenDialogCategoryCreation(false)}
+            open={uiSt.dialogs.categoryCreation}
+            onClose={() => uiSt.setDialogs("categoryCreation", false)}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             fullWidth
@@ -64,7 +64,7 @@ const DialogCategoryCreation = inject()(observer(({ openDialogCategoryCreation, 
             </DialogContent>
             <DialogActions>
                 <Button
-                    onClick={() => setOpenDialogCategoryCreation(false)}
+                    onClick={() => uiSt.setDialogs("categoryCreation", false)}
                     variant="contained"
                 >
                     Готово
