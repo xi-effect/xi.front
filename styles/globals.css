@@ -24,7 +24,6 @@ a {
   box-sizing: border-box;
 }
 
-
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -40,4 +39,17 @@ a {
   background-color: #cccccc;
 }
 
-svg { pointer-events: none; }
+svg {
+  pointer-events: none;
+}
+
+/* rgba(79, 79, 79, 1) */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 60px #266798 inset !important;
+  background-color: #266798 !important;
+  background-clip: content-box !important;
+}

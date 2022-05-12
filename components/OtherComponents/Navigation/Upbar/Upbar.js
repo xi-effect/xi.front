@@ -4,7 +4,14 @@ import { inject, observer } from "mobx-react";
 import { useMediaQuery, IconButton, Stack, Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import XiLogo from "kit/XiLogo";
+import DialogCategoryCreation from "kit/CommunityMenu/DialogCategoryCreation";
+import DialogChannelCreation from "kit/CommunityMenu/DialogChannelCreation";
+import DialogInvite from "kit/CommunityMenu/DialogInvite";
+import DialogPrivacy from "kit/CommunityMenu/DialogPrivacy";
+import DialogSettings from "kit/CommunityMenu/DialogSettings";
+
 import Menu from "./Menu";
+
 
 const Upbar = inject("userSt")(
   observer(({ userSt, swipe, setSwipe }) => {
@@ -21,6 +28,11 @@ const Upbar = inject("userSt")(
           boxShadow: 12,
         }}
       >
+        <DialogCategoryCreation />
+        <DialogChannelCreation />
+        <DialogInvite />
+        <DialogPrivacy />
+        <DialogSettings />
         <Stack
           direction="row"
           justifyContent="flex-start"

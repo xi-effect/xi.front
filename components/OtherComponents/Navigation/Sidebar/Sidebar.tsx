@@ -59,7 +59,8 @@ const Sidebar: React.FC<SidebarType> = inject(
 
     const reorderFn = (source, destination) => {
       const communities = reorder(communitiesMenuSt.userCommunities, source, destination);
-      rootStore.socket.emit('create-community', {
+      console.log('emit reorder-community');
+      rootStore.socket.emit('reorder-community', {
         // @ts-ignore
         'source-id': communities[destination].id,
         'target-index': destination,
@@ -85,6 +86,7 @@ const Sidebar: React.FC<SidebarType> = inject(
       const itemIndex = newArray.findIndex((i) => i.id === data['source-id']);
       newArray.splice(itemIndex, 1);
       newArray.splice(data['target-index'], 0, item);
+      console.log('on reorder-community');
     };
 
     React.useEffect(() => {
