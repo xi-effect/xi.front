@@ -66,9 +66,6 @@ const Navigation = inject(
           action,
         });
       });
-      return () => {
-        rootStore.socket.disconnect();
-      };
     }, []);
 
     useBeforeUnload(() => {
