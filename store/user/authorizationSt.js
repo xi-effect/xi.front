@@ -2,7 +2,6 @@
 /* eslint-disable no-shadow */
 import { action, observable, makeObservable } from "mobx";
 import Router from "next/router";
-import LogRocket from 'logrocket';
 
 const Crypto = require("crypto-js");
 
@@ -84,9 +83,6 @@ class AuthorizationSt {
                         this.rootStore.userSt.setSettings("darkTheme", data.user["dark-theme"]);
                         this.rootStore.userSt.setSettings("language", language);
                         Router.push("/home");
-                        LogRocket.identify(id, {
-                            username,
-                        });
                         setTimeout(() => {
                             this.rootStore.uiSt.setLoading("loading", false);
                         }, 1500);
@@ -122,9 +118,6 @@ class AuthorizationSt {
                         this.rootStore.userSt.setSettings("language", language);
                         this.rootStore.communitiesMenuSt.setUserCommunities(data.communities);
                         Router.push("/home");
-                        LogRocket.identify(id, {
-                            username,
-                        });
                         setTimeout(() => {
                             this.rootStore.uiSt.setLoading("loading", false);
                         }, 1500);
