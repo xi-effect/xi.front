@@ -22,6 +22,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import "../styles/globals.css";
 
+import LogRocket from 'logrocket';
 import NProgress from "nprogress"; // nprogress module
 import createEmotionCache from "../store/createEmotionCache";
 import { useStore } from "../store/rootStore";
@@ -29,6 +30,7 @@ import { getDesignTokens } from "../theme";
 import "nprogress/nprogress.css"; // styles of nprogress
 import Loading from "../components/OtherComponents/Loading/Loading";
 
+LogRocket.init('d06aa1/ffect');
 
 config.autoAddCss = false;
 
@@ -74,22 +76,22 @@ const MyApp = (observer((props) => {
         communitiesMenuSt={rootStore.communitiesMenuSt}
         communitiesInvitesSt={rootStore.communitiesInvitesSt}
       >
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Loading />
-            <SnackbarProvider
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-              maxSnack={3}
-              preventDuplicate
-              dense
-            >
-              <Component {...pageProps} />
-            </SnackbarProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Loading />
+          <SnackbarProvider
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            maxSnack={3}
+            preventDuplicate
+            dense
+          >
+            <Component {...pageProps} />
+          </SnackbarProvider>
 
-          </ThemeProvider>
+        </ThemeProvider>
       </Provider>
     </CacheProvider >
   );
