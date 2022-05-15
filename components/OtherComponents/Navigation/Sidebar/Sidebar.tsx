@@ -59,7 +59,8 @@ const Sidebar: React.FC<SidebarType> = inject(
 
     const reorderFn = (source, destination) => {
       const communities = reorder(communitiesMenuSt.userCommunities, source, destination);
-      console.log('emit reorder-community');
+      // @ts-ignore
+      console.log('emit reorder-community', communities[destination].id, destination);
       rootStore.socket.emit('reorder-community', {
         // @ts-ignore
         'source-id': communities[destination].id,
