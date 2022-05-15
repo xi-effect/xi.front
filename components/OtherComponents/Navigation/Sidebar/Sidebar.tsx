@@ -13,7 +13,9 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 import { motion } from 'framer-motion';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
+import useListen from 'utils/useListen';
 import CommunityItem from './CommunityItem';
+
 
 const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), { ssr: false });
 
@@ -31,8 +33,6 @@ const Sidebar: React.FC<SidebarType> = inject(
   observer(({ rootStore, communitiesMenuSt }) => {
     const [openDialogCC, setOpenDialogCC] = React.useState(false);
     const router = useRouter();
-
-    console.log('router', router);
 
     const menuList = [
       {
@@ -90,12 +90,7 @@ const Sidebar: React.FC<SidebarType> = inject(
       console.log('on reorder-community');
     };
 
-    React.useEffect(() => {
-      rootStore.socket.on('reorder-community', subReorder);
-      return () => {
-        rootStore.socket.off('reorder-community', subReorder);
-      };
-    }, []);
+    useListen(rootStore.socket, 'reorder-community', subReorder);
 
     const addItemtoMenu = (data) => {
       console.log('on new-community');
@@ -108,31 +103,14 @@ const Sidebar: React.FC<SidebarType> = inject(
       ]);
     };
 
-    React.useEffect(() => {
-      rootStore.socket.on('new-community', addItemtoMenu);
-      return () => {
-        rootStore.socket.off('new-community', addItemtoMenu);
-      };
-    }, []);
-
-    React.useEffect(() => {
-      rootStore.socket.on('new-community', addItemtoMenu);
-      return () => {
-        rootStore.socket.off('new-community', addItemtoMenu);
-      };
-    }, []);
+    useListen(rootStore.socket, 'new-community', addItemtoMenu);
 
     const removeItem = (data) => {
       console.log('on leave-community');
       communitiesMenuSt.removeCommunity(data.id);
     };
 
-    React.useEffect(() => {
-      rootStore.socket.on('leave-community', removeItem);
-      return () => {
-        rootStore.socket.off('leave-community', removeItem);
-      };
-    }, []);
+    useListen(rootStore.socket, 'leave-community', removeItem);
 
     return (
       <Stack

@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import useListen from 'utils/useListen';
 
 import TextFieldCustom from 'kit/TextFieldCustom';
 
@@ -55,12 +56,7 @@ const CommunityName = inject(
             setOpenDialogCC(false);
         };
 
-        React.useEffect(() => {
-            rootStore.socket.on("create-community", addCtoMenu);
-            return () => {
-                rootStore.socket.off("create-community", addCtoMenu);
-            };
-        }, []);
+        useListen(rootStore.socket, 'create-community', addCtoMenu);
 
         return (
             <Stack
