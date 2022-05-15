@@ -39,7 +39,7 @@ class UserSt {
     @action getMainSettings = (type = null) => {
         this.rootStore.fetchData(`${this.rootStore.url}/home/`, "GET").then((data) => {
             if (data) {
-                const {id, username } = data.user;
+                const { id, username } = data.user;
                 this.setSettings("darkTheme", data.user["dark-theme"]);
                 this.setSettings("id", id);
                 this.setSettings("username", username);
