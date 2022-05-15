@@ -90,7 +90,7 @@ const Sidebar: React.FC<SidebarType> = inject(
       console.log('on reorder-community');
     };
 
-    useListen(rootStore.socket, 'reorder-community', subReorder);
+    useListen(rootStore.socket, 'reorder-community', subReorder, communitiesMenuSt);
 
     const addItemtoMenu = (data) => {
       console.log('on new-community');
@@ -103,14 +103,14 @@ const Sidebar: React.FC<SidebarType> = inject(
       ]);
     };
 
-    useListen(rootStore.socket, 'new-community', addItemtoMenu);
+    useListen(rootStore.socket, 'new-community', addItemtoMenu, communitiesMenuSt);
 
     const removeItem = (data) => {
       console.log('on leave-community');
       communitiesMenuSt.removeCommunity(data.id);
     };
 
-    useListen(rootStore.socket, 'leave-community', removeItem);
+    useListen(rootStore.socket, 'leave-community', removeItem, communitiesMenuSt);
 
     return (
       <Stack
