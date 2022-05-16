@@ -98,6 +98,7 @@ interface ExtendableMessageEvent extends ExtendableEvent {
 // ServiceWorkerGlobalScope
 
 interface ServiceWorkerGlobalScope {
+  [x: string]: any;
   caches: CacheStorage;
   clients: Clients;
   registration: ServiceWorkerRegistration;
