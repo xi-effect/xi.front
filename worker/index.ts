@@ -1,7 +1,43 @@
 /* eslint-disable no-undef */
+
+import { ExpirationPlugin } from 'workbox-expiration';
+import { registerRoute } from 'workbox-routing';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { util } from './util';
 
 declare let self: ServiceWorkerGlobalScope;
+
+// Кэшируем таблицу стилей с помощью стратегии `stale-while-revalidate`
+registerRoute(
+  ({ url }) => url.origin === 'https://fonts.googleapis.com',
+  new StaleWhileRevalidate({
+    cacheName: 'google-fonts-stylesheets',
+  }),
+);
+
+// Кэшируем файлы со шрифтами с помощью стратегии `cache-first` на 1 год
+registerRoute(
+  ({ url }) => url.origin === 'https://fonts.gstatic.com',
+  new CacheFirst({
+    cacheName: 'google-fonts-webfonts',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxAgeSeconds: 60 * 60 * 24 * 365,
+        maxEntries: 30,
+      }),
+    ],
+  }),
+);
+
+// Кешируем изображения из директории /assets/
+registerRoute(
+  ({ url }) => url.origin === self.location.origin && url.pathname.startsWith('/assets/'),
+  new StaleWhileRevalidate(),
+);
 
 // To disable all workbox logging during development, you can set self.__WB_DISABLE_DEV_LOGS to true
 // https://developers.google.com/web/tools/workbox/guides/configure-workbox#disable_logging

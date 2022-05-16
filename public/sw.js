@@ -67,7 +67,7 @@ if (!self.define) {
     });
   };
 }
-define(['./workbox-d1b0e804'], (function (workbox) { 'use strict';
+define(['./workbox-7be7b269'], (function (workbox) { 'use strict';
 
   /**
   * Welcome to your Workbox-powered service worker!
@@ -81,7 +81,7 @@ define(['./workbox-d1b0e804'], (function (workbox) { 'use strict';
   * See https://goo.gl/2aRDsh
   */
 
-  importScripts("fallback-development.js");
+  importScripts("worker-development.js", "fallback-development.js");
   self.skipWaiting();
   workbox.clientsClaim();
   workbox.registerRoute("/", new workbox.NetworkFirst({
