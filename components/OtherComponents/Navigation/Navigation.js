@@ -88,6 +88,8 @@ const Navigation = inject(
 
     const [hoverLeftName, setHoverLeftName] = React.useState("");
 
+    console.log("navigator.serviceWorker", navigator.serviceWorker);
+
     React.useEffect(() => {
       if (router.pathname.includes("/home")) setHoverLeftName("/home");
       if (router.pathname.includes("/community")) setHoverLeftName("/community");
