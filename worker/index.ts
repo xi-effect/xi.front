@@ -3,8 +3,8 @@
 import { ExpirationPlugin } from 'workbox-expiration';
 import { registerRoute } from 'workbox-routing';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
-import { util } from './util';
+import { CacheFirst, StaleWhileRevalidate, NetworkFirst } from 'workbox-strategies';
+import { helloSW } from './util';
 
 declare let self: ServiceWorkerGlobalScope;
 
@@ -33,9 +33,30 @@ registerRoute(
   }),
 );
 
+// Кешируем scripts и styles
+registerRoute(
+  ({ request }) => request.destination === 'script' || request.destination === 'style',
+  new StaleWhileRevalidate(),
+);
+
 // Кешируем изображения из директории /assets/
 registerRoute(
   ({ url }) => url.origin === self.location.origin && url.pathname.startsWith('/assets/'),
+  new StaleWhileRevalidate(),
+);
+
+// Кешируем Next JS
+registerRoute(
+  ({ url }) => url.pathname.includes('/_next/static/'),
+  new NetworkFirst(),
+);
+
+// Кешируем manifest, favicon и logo
+registerRoute(
+  ({ url }) =>
+    url.pathname.includes('/manifest.json') ||
+    url.pathname.includes('/favicon.svg') ||
+    url.pathname.includes('/logo.svg'),
   new StaleWhileRevalidate(),
 );
 
@@ -44,16 +65,28 @@ registerRoute(
 //
 // self.__WB_DISABLE_DEV_LOGS = true
 
-util();
+helloSW();
 
-// listen to message event from window
+// // listen to message event from window
+// self.addEventListener('message', (event) => {
+//   // HOW TO TEST THIS?
+//   // Run this in your browser console:
+//   //     window.navigator.serviceWorker.controller.postMessage({command: 'log', message: 'hello world'})
+//   // OR use next-pwa injected workbox object
+//   //     window.workbox.messageSW({command: 'log', message: 'hello world'})
+//   console.log(event?.data);
+// });
+
 self.addEventListener('message', (event) => {
-  // HOW TO TEST THIS?
-  // Run this in your browser console:
-  //     window.navigator.serviceWorker.controller.postMessage({command: 'log', message: 'hello world'})
-  // OR use next-pwa injected workbox object
-  //     window.workbox.messageSW({command: 'log', message: 'hello world'})
-  console.log(event?.data);
+  // @ts-ignore
+  clients.matchAll().then((clients) => {
+    clients.forEach((client) => {
+      client.postMessage({
+        // @ts-ignore
+        value: event?.data,
+      });
+    });
+  });
 });
 
 self.addEventListener('push', (event) => {

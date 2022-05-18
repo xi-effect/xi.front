@@ -14,8 +14,9 @@ import { motion } from 'framer-motion';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
 import useListen from 'utils/useListen';
+import sendMsgToSW from 'utils/sendMsgToSW';
+import listenMsgFromSW from 'utils/listenMsgFromSW';
 import CommunityItem from './CommunityItem';
-
 
 const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), { ssr: false });
 
@@ -66,6 +67,11 @@ const Sidebar: React.FC<SidebarType> = inject(
         'source-id': communities[destination].id,
         'target-index': destination,
       });
+      sendMsgToSW({
+        type: 'reorder-community',
+        // @ts-ignore
+        data: { 'source-id': communities[destination].id, 'target-index': destination },
+      });
       communitiesMenuSt.setUserCommunities(communities);
     };
 
@@ -111,6 +117,12 @@ const Sidebar: React.FC<SidebarType> = inject(
     };
 
     useListen(rootStore.socket, 'leave-community', removeItem, communitiesMenuSt);
+
+    React.useEffect(() => {
+      listenMsgFromSW((event) => {
+        console.log('eventSW', event);
+      });
+    }, []);
 
     return (
       <Stack
