@@ -191,9 +191,14 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                       fullWidth
                       label="Пароль"
                       type={showPassword ? 'text' : 'password'}
-                      helperText={`${
-                        authorizationSt.login.error === 'Wrong password' ? 'Неверный Пароль' : ''
-                      }${authorizationSt.login.error === 'Server error' ? 'Ошибка сервера' : ''}`}
+                      helperText={`
+                      ${errors?.password?.type === 'min' ? 'Минимальное число символов - 6' : ''}
+                      ${errors?.password?.type === 'max' ? 'Максимальное число символов - 100' : ''} 
+                      ${(authorizationSt.login.error === 'Wrong password' && !errors?.password?.type) 
+                        ? 'Неверный Пароль' : ''} 
+                      ${(authorizationSt.login.error === 'Server error' && !errors?.password?.type) 
+                        ? 'Ошибка сервера' : ''}
+                      `}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment sx={{ mr: 0.5 }} position="end">
