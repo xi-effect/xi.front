@@ -1,7 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import {
+  Button,
+  Slide,
   Box,
   useMediaQuery,
   Stack,
@@ -15,14 +18,37 @@ import MainLabel from 'components/PagesComponents/Landing/MainLabel';
 import WhyLabel from 'components/PagesComponents/Landing/WhyLabel';
 import EffectFor from 'components/PagesComponents/Landing/EffectFor';
 import Footer from 'components/PagesComponents/Landing/Footer';
+import CustomCookieShackbar from 'components/PagesComponents/Landing/CustomCookieShackbar';
+
+import { useSnackbar } from "notistack";
+
+import { useLocalStorage } from 'react-use';
 
 const Main = inject(
   "rootStore",
   "uiSt"
 )(
   observer(() => {
-
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
+
+    const { enqueueSnackbar } = useSnackbar();
+    const [valueLS] = useLocalStorage('cookies-agree');
+    React.useEffect(() => {
+      if (!valueLS) {
+        setTimeout(() => {
+          enqueueSnackbar("", {
+            content: <CustomCookieShackbar />,
+            autoHideDuration: 20000,
+            persist: true,
+            anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center',
+            },
+            TransitionComponent: Slide,
+          });
+        }, 2000);
+      }
+    }, []);
 
     return (
       <>
