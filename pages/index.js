@@ -3,7 +3,6 @@ import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import {
-  Button,
   Slide,
   Box,
   useMediaQuery,
