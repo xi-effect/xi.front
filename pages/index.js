@@ -18,6 +18,7 @@ import WhyLabel from 'components/PagesComponents/Landing/WhyLabel';
 import EffectFor from 'components/PagesComponents/Landing/EffectFor';
 import Footer from 'components/PagesComponents/Landing/Footer';
 import CustomCookieShackbar from 'components/PagesComponents/Landing/CustomCookieShackbar';
+import EasyToBegin from 'components/PagesComponents/Landing/EasyToBegin';
 
 import { useSnackbar } from "notistack";
 
@@ -160,6 +161,7 @@ const Main = inject(
           >
             <Header />
             <MainLabel />
+            <EasyToBegin />
             <WhyLabel />
             <EffectFor />
             <Footer />
