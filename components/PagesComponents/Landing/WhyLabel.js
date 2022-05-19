@@ -18,7 +18,7 @@ function WhyLabel() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 2 }}
             sx={{
-                mt: mobile ? "90px" : "180px",
+                mt: mobile ? "70px" : "140px",
                 width: "100%",
                 position: "relative",
             }}

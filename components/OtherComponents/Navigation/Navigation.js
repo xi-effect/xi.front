@@ -156,30 +156,32 @@ const Navigation = inject(
           }}
           {...handlers}
         >
-          {uiSt.navigation.swipe === "right" && <Box
-            component={motion.div}
-            variants={sidebarVariantsRight}
-            animate="visible"
-            transition={{
-              delay: 0,
-              duration: 0.5,
-            }}
-            exit={{ x: -200, opacity: 0 }}
-            sx={{ zIndex: 100 }}
-          >
-            <Box
+          <AnimatePresence exitBeforeEnter initial={false}>
+            {uiSt.navigation.swipe === "right" && <Box
               component={motion.div}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              variants={sidebarVariantsRight}
+              animate="visible"
               transition={{
                 delay: 0,
                 duration: 0.5,
               }}
+              exit={{ x: -200, opacity: 0 }}
+              sx={{ zIndex: 100 }}
             >
-              <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
-              <SidebarSecond hoverLeftName={hoverLeftName} />
-            </Box>
-          </Box>}
+              <Box
+                component={motion.div}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  delay: 0,
+                  duration: 0.5,
+                }}
+              >
+                <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+                <SidebarSecond hoverLeftName={hoverLeftName} />
+              </Box>
+            </Box>}
+          </AnimatePresence>
           <Box
             sx={{
               zIndex: 0,

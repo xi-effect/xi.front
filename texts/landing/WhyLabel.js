@@ -17,4 +17,4 @@ export const whys = {
             image: "/assets/landing/Preferences.svg",
         },
     ]
-}
+};
