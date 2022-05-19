@@ -104,6 +104,7 @@ const EasyToBegin: React.FC = () => {
         orientation="vertical">
         {steps.map((step, index) => (
           <Step
+            onClick={() => setActiveStep(index)}
             sx={{
               width: 396,
               borderRadius: 4,
@@ -154,14 +155,18 @@ const EasyToBegin: React.FC = () => {
         <GreenButton
           disabled={activeStep === 0}
           variant="contained"
-          onClick={() => setActiveStep((prev) => prev - 1)}
+          onClick={() => {
+            if (activeStep !== 0) setActiveStep((prev) => prev - 1);
+          }}
           sx={{ mt: 1, mr: 1, width: 96, height: 42, borderRadius: 2 }}>
           Назад
         </GreenButton>
         <GreenButton
-          disabled={activeStep === steps.length}
+          disabled={activeStep === steps.length - 1}
           variant="contained"
-          onClick={() => setActiveStep((prev) => prev + 1)}
+          onClick={() => {
+            if (activeStep !== steps.length - 1) setActiveStep((prev) => prev + 1);
+          }}
           sx={{ mt: 1, mr: 1, width: 96, height: 42, borderRadius: 2 }}>
           Вперёд
         </GreenButton>
