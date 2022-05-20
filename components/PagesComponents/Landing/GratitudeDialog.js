@@ -62,13 +62,14 @@ function GratitudeDialog({ open, setOpen, type }) {
 
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
+    const handleCloseDialog = () => {
+        router.replace(`/`);
+        setOpen(false);
+    };
     return (
         <Dialog
             open={open}
-            onClose={() => {
-                router.push(`/`);
-                setOpen(false);
-            }}
+            onClose={handleCloseDialog}
             fullWidth
             fullScreen={!!mobile}
             maxWidth='md'
@@ -116,7 +117,7 @@ function GratitudeDialog({ open, setOpen, type }) {
                 </Table>
             </TableContainer>
             <DialogActions>
-                <Button variant="contained" onClick={() => setOpen(false)}>Закрыть</Button>
+                <Button variant="contained" onClick={handleCloseDialog}>Закрыть</Button>
             </DialogActions>
         </Dialog >
     );
