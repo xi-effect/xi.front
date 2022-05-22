@@ -81,10 +81,15 @@ const Sidebar: React.FC<SidebarType> = inject(
       reorderFn(result.source.index, result.destination.index);
     };
 
+    type Communty = {
+      id: number;
+      name: string;
+    };
+
     const subReorder = (data) => {
       const newArray = Array.from(communitiesMenuSt.userCommunities);
-      const item = newArray.find((i) => i.id === data['source-id']);
-      const itemIndex = newArray.findIndex((i) => i.id === data['source-id']);
+      const item = newArray.find((i: Communty) => i.id === data['source-id']);
+      const itemIndex = newArray.findIndex((i: Communty) => i.id === data['source-id']);
       newArray.splice(itemIndex, 1);
       newArray.splice(data['target-index'], 0, item);
       console.log('on reorder-community', newArray);
