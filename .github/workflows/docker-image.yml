@@ -48,9 +48,9 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/xieffect:nextjs-${{ github.event.pull_request.head.ref }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/xieffect:buildcache-front-${{ github.event.pull_request.head.ref }}
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/xieffect:buildcache-front-${{ github.event.pull_request.head.ref }},mode=max
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/xieffect:nextjs-${{ github.run_id }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/xieffect:buildcache-front-${{ github.run_id }}
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/xieffect:buildcache-front-${{ github.run_id }},mode=max
 
   deploy:
       needs: build
