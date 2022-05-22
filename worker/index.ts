@@ -3,7 +3,7 @@
 import { ExpirationPlugin } from 'workbox-expiration';
 import { registerRoute } from 'workbox-routing';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-import { CacheFirst, StaleWhileRevalidate, NetworkFirst } from 'workbox-strategies';
+import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { helloSW } from './util';
 
 declare let self: ServiceWorkerGlobalScope;
@@ -45,11 +45,11 @@ registerRoute(
   new StaleWhileRevalidate(),
 );
 
-// Кешируем Next JS
-registerRoute(
-  ({ url }) => url.pathname.includes('/_next/static/'),
-  new NetworkFirst(),
-);
+// // Кешируем Next JS
+// registerRoute(
+//   ({ url }) => url.pathname.includes('/_next/static/'),
+//   new NetworkFirst(),
+// );
 
 // Кешируем manifest, favicon и logo
 registerRoute(
