@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
 import { Stack, Tooltip, IconButton, Box } from '@mui/material';
-import { grey } from '@mui/material/colors';
 
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -14,8 +13,7 @@ import { motion } from 'framer-motion';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
 import useListen from 'utils/useListen';
-import sendMsgToSW from 'utils/sendMsgToSW';
-import listenMsgFromSW from 'utils/listenMsgFromSW';
+import { grey } from '@mui/material/colors';
 import CommunityItem from './CommunityItem';
 
 const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), { ssr: false });
@@ -67,11 +65,7 @@ const Sidebar: React.FC<SidebarType> = inject(
         'source-id': communities[destination].id,
         'target-index': destination,
       });
-      sendMsgToSW({
-        type: 'reorder-community',
-        // @ts-ignore
-        data: { 'source-id': communities[destination].id, 'target-index': destination },
-      });
+      console.log('communities', communities);
       communitiesMenuSt.setUserCommunities(communities);
     };
 
@@ -88,28 +82,30 @@ const Sidebar: React.FC<SidebarType> = inject(
     };
 
     const subReorder = (data) => {
-      const newArray = communitiesMenuSt.userCommunities;
+      const newArray = Array.from(communitiesMenuSt.userCommunities);
       const item = newArray.find((i) => i.id === data['source-id']);
       const itemIndex = newArray.findIndex((i) => i.id === data['source-id']);
       newArray.splice(itemIndex, 1);
       newArray.splice(data['target-index'], 0, item);
-      console.log('on reorder-community');
+      console.log('on reorder-community', newArray);
+      communitiesMenuSt.setUserCommunities(newArray);
     };
 
-    useListen(rootStore.socket, 'reorder-community', subReorder, communitiesMenuSt);
+    useListen(rootStore.socket, 'reorder-community', subReorder, communitiesMenuSt.userCommunities);
 
     const addItemtoMenu = (data) => {
-      console.log('on new-community');
+      console.log('on new-community', data);
+      const array = communitiesMenuSt.userCommunities;
       communitiesMenuSt.setUserCommunities([
         {
           name: data.name,
           id: data.id,
         },
-        ...communitiesMenuSt.userCommunities,
+        ...array,
       ]);
     };
 
-    useListen(rootStore.socket, 'new-community', addItemtoMenu, communitiesMenuSt);
+    useListen(rootStore.socket, 'new-community', addItemtoMenu, communitiesMenuSt.userCommunities);
 
     const removeItem = (data) => {
       console.log('on leave-community');
@@ -117,12 +113,6 @@ const Sidebar: React.FC<SidebarType> = inject(
     };
 
     useListen(rootStore.socket, 'leave-community', removeItem, communitiesMenuSt);
-
-    React.useEffect(() => {
-      listenMsgFromSW((event) => {
-        console.log('eventSW', event);
-      });
-    }, []);
 
     return (
       <Stack
