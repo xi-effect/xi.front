@@ -117,7 +117,12 @@ function GratitudeDialog({ open, setOpen, type }) {
                 </Table>
             </TableContainer>
             <DialogActions>
-                <Button variant="contained" onClick={handleCloseDialog}>Закрыть</Button>
+                <Button
+                  variant="contained"
+                  onClick={handleCloseDialog}
+                >
+                    Закрыть
+                </Button>
             </DialogActions>
         </Dialog >
     );
