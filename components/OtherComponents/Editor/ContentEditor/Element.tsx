@@ -8,6 +8,7 @@ import H2 from '../Blocks/H2';
 import Text from '../Blocks/Text';
 import DividerComp from '../Blocks/DividerComp';
 import Quote from '../Blocks/Quote';
+import Ol from '../Blocks/Ol';
 
 type Props = {
   attributes: any;
@@ -26,12 +27,6 @@ const Element: React.FC<Props> = (props) => {
           {children}
         </Quote>
       );
-    // case 'bulleted-list':
-    //   return (
-    //     <ul style={style} {...attributes}>
-    //       {children}
-    //     </ul>
-    //   );
     case 'h1':
       return (
         <H1 style={style} attributes={attributes}>
@@ -56,12 +51,12 @@ const Element: React.FC<Props> = (props) => {
     //       {children}
     //     </li>
     //   );
-    // case 'numbered-list':
-    //   return (
-    //     <ol style={style} {...attributes}>
-    //       {children}
-    //     </ol>
-    //   );
+    case 'ol':
+      return (
+        <div contentEditable={false} >
+          <Ol />
+        </div>
+      );
     default:
       return (
         <Text style={style} attributes={attributes}>
