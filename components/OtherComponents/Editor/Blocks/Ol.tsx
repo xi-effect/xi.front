@@ -50,12 +50,17 @@ const Ol: React.FC<OlProps> = () => {
   };
 
   return (
-    <div onClick={openEditHanlder} role="button" aria-hidden>
+    <div
+      onClick={openEditHanlder}
+      role="button"
+      aria-hidden
+      style={{ marginTop: -5 }}
+    >
       <List>
         {lineNumber.map((text, index) => (
           <div
             key={index}
-            style={{ display: "flex", flexDirection: "row" }}
+            style={{ display: "flex", flexDirection: "row", marginTop: -5 }}
             onMouseEnter={() => setOnHover(index + 1)}
             onMouseLeave={() => setOnHover(0)}
           >
