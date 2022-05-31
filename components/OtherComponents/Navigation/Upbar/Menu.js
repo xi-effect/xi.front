@@ -49,7 +49,7 @@ const Menu = inject("userSt")(observer(({ userSt }) => {
 
     return (
         <>
-            <Tooltip arrow title="Меню сообщества">
+            <Tooltip arrow title="Меню сообщества" disableHoverListener={open}>
                 <IconButton
                     ref={anchorRef}
                     id="composition-button"

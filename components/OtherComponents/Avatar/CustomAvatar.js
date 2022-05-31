@@ -1,10 +1,10 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { inject, observer } from "mobx-react";
-import Peep from '../Peeps/index.tsx';
-import { bgcolor, styles, accessory, bustPose, face, hair, facialHair } from './const';
+import Avatar from "avataaars";
+import { bgcolor, topType, accessoriesType, hairColor, facialHairType, clotheType, eyeType, eyebrowType, mouthType, skinColor } from './const';
 
-const CustomAvatar = inject()(observer(({ avatar, viewBox, reverse = false }) => (
+const CustomAvatar = inject()(observer(({ avatar, reverse = false, height, width }) => (
     <Box sx={{
         height: "100%",
         width: "100%",
@@ -12,16 +12,18 @@ const CustomAvatar = inject()(observer(({ avatar, viewBox, reverse = false }) =>
         borderRadius: 2,
         transform: reverse ? "scale(-1, 1)" : "none",
     }}>
-        <Peep
-            style={styles.peepStyle}
-            accessory={accessory[avatar?.accessory ?? 0]}
-            body={bustPose[avatar?.body ?? 0]}
-            face={face[avatar?.face ?? 0]}
-            hair={hair[avatar?.hair ?? 0]}
-            facialHair={facialHair[avatar?.facialHair ?? 0]}
-            strokeColor="#000000"
-            backgroundColor="rgba(255, 255, 255, 1)"
-            viewBox={viewBox}
+        <Avatar
+            style={{ width, height }}
+            avatarStyle='Transparent'
+            topType={topType[avatar?.topType ?? 0]}
+            accessoriesType={accessoriesType[avatar?.accessoriesType ?? 0]}
+            hairColor={hairColor[avatar?.hairColor ?? 0]}
+            facialHairType={facialHairType[avatar?.facialHairType ?? 0]}
+            clotheType={clotheType[avatar?.clotheType ?? 0]}
+            eyeType={eyeType[avatar?.eyeType ?? 0]}
+            mouthType={mouthType[avatar?.mouthType ?? 0]}
+            eyebrowType={eyebrowType[avatar?.eyebrowType ?? 0]}
+            skinColor={skinColor[avatar?.skinColor ?? 0]}
         />
     </Box>
 )));
