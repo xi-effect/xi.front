@@ -5,11 +5,12 @@ import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
 import { MenuItem, Stack, Popper, Grow, Tooltip, IconButton, MenuList, Paper, ClickAwayListener, Divider, Typography } from "@mui/material";
-import PersonIcon from '@mui/icons-material/Person';
-import CloseIcon from "@mui/icons-material/Close";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { AnimatePresence, motion } from "framer-motion";
+
+import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
+
 
 const Menu = inject("userSt")(observer(({ userSt }) => {
     const router = useRouter();
@@ -63,7 +64,7 @@ const Menu = inject("userSt")(observer(({ userSt }) => {
                     }}
                 >
                     <AnimatePresence initial={false} exitBeforeEnter>
-                        {!open && <Stack
+                        <Stack
                             key="arrow"
                             component={motion.div}
                             initial={{ opacity: 0, y: -20 }}
@@ -71,18 +72,8 @@ const Menu = inject("userSt")(observer(({ userSt }) => {
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
                         >
-                            <PersonIcon />
-                        </Stack>}
-                        {open && <Stack
-                            key="close"
-                            component={motion.div}
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <CloseIcon />
-                        </Stack>}
+                            <CustomAvatar avatar={{ ...userSt.settings.avatar }} height="48px" width="48px" />
+                        </Stack>
                     </AnimatePresence>
                 </IconButton>
             </Tooltip>

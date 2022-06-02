@@ -6,8 +6,8 @@ import { bgcolor, topType, accessoriesType, hairColor, facialHairType, clotheTyp
 
 const CustomAvatar = inject()(observer(({ avatar, reverse = false, height, width }) => (
     <Box sx={{
-        height: "100%",
-        width: "100%",
+        height,
+        width,
         bgcolor: bgcolor[avatar.bgcolor] ?? "none",
         borderRadius: 2,
         transform: reverse ? "scale(-1, 1)" : "none",

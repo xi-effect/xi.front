@@ -23,7 +23,7 @@ const Upbar = inject("userSt")(
         justifyContent="space-between"
         alignItems="center"
         sx={{
-          height: "48px",
+          height: "64px",
           width: "100%",
           boxShadow: 12,
         }}
@@ -44,7 +44,7 @@ const Upbar = inject("userSt")(
           }} sx={{ ml: 0.4, mr: 0.4, cursor: "pointer" }}>
             <MenuIcon sx={{ fontSize: 32 }} />
           </IconButton>}
-          <XiLogo size='s' />
+          <XiLogo />
         </Stack>
         <Stack
           direction="row"
@@ -52,7 +52,7 @@ const Upbar = inject("userSt")(
           alignItems="center"
           sx={{ pr: 2 }}
         >
-          {!mobile && <Typography sx={{ p: 1 }}> {userSt.settings.username} </Typography>}
+          {!mobile && <Typography sx={{ p: 3 }}> {userSt.settings.username} </Typography>}
           <Menu />
         </Stack>
       </Stack >
