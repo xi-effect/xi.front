@@ -21,9 +21,6 @@ const DayPicker: React.FC<DayPickerProps> = () => {
     <LocalizationProvider dateAdapter={AdapterDateFns} locale={localeMap[locale]}>
       <Box>
         <CalendarPicker
-        // componentsProps={
-          
-        // }
         date={date} onChange={(newDate: Date) => setDate(newDate)} />
       </Box>
     </LocalizationProvider>

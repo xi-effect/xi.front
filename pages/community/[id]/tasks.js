@@ -5,7 +5,7 @@ import React from "react";
 import Navigation from "components/OtherComponents/Navigation/Navigation";
 
 
-const Community = inject("userSt")(observer(() =>
+const Tasks = inject("userSt")(observer(() =>
 // const router = useRouter()
 (
     <>
@@ -30,4 +30,4 @@ const Community = inject("userSt")(observer(() =>
 )
 ));
 
-export default Community;
+export default Tasks;

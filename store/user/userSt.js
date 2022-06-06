@@ -52,11 +52,9 @@ class UserSt {
                     Router.push('/home');
                 };
             }
-            if (type === "login") {
-                setTimeout(() => {
-                    this.rootStore.uiSt.setLoading("loading", false);
-                }, 500);
-            };
+            setTimeout(() => {
+                this.rootStore.uiSt.setLoading("loading", false);
+            }, 500);
         });
     };
 
