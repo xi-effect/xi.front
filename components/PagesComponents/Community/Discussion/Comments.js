@@ -27,7 +27,7 @@ const Comment = inject()(
                     height: 52,
                     width: 52,
                 }}>
-                <CustomAvatar avatar={{ bgcolor: "none" }} viewBox={{ x: "50", y: "-100", width: "732", height: "732" }} />
+                <CustomAvatar avatar={{ bgcolor: "none" }} />
             </Box>
             <Stack
                 direction="column"

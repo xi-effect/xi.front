@@ -38,6 +38,7 @@ function MainLabel() {
                 >
                     <Typography
                         variant="h1"
+                        component="h1"
                         sx={{
                             cursor: "default",
                             color: "#272731",
@@ -63,6 +64,7 @@ function MainLabel() {
                     </Typography>
                     <Typography
                         variant="h2"
+                        component="h1"
                         sx={{
                             cursor: "default",
                             color: "#555569",

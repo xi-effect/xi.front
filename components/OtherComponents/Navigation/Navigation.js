@@ -76,7 +76,7 @@ const Navigation = inject(
     React.useEffect(() => {
       if (userSt.settings.id === null) {
         uiSt.setLoading('loading', true);
-        userSt.getMainSettings('login');
+        userSt.getMainSettings();
       };
     }, []);
 

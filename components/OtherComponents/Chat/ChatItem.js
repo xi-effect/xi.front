@@ -154,7 +154,7 @@ const ChatItem = inject("rootStore", "uiSt", "messageSt", "userSt")(observer(({ 
                     height: 52,
                     width: 52,
                 }}>
-                <CustomAvatar avatar={item["sender-avatar"]} viewBox={{ x: "50", y: "-100", width: "732", height: "732" }} />
+                <CustomAvatar avatar={item["sender-avatar"]} />
             </Box>
             <Stack
                 onContextMenu={handleContextMenu}

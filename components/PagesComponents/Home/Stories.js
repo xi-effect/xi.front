@@ -168,7 +168,6 @@ const Stories = inject()(observer(() => {
                         <ArrowForwardIosIcon />
                     </Button>
                 </Stack>
-
             </Stack>
             <Stack
                 direction="row"
