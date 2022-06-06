@@ -9,6 +9,7 @@ function Header() {
 
     return (
         <Stack
+            component="header"
             direction="row"
             justifyContent="space-between"
             alignItems="center"
@@ -22,9 +23,10 @@ function Header() {
                 <XiLogo />
             </Stack>
             <Button
+                aria-label="signin"
                 onClick={() => {
                     router.push({
-                        pathname: "/login",
+                        pathname: "/signin",
                     });
                 }}
                 sx={{

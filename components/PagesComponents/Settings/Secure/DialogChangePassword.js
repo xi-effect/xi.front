@@ -1,68 +1,89 @@
 /* eslint-disable no-continue */
 import React from "react";
-import { Dialog, DialogTitle, Stack, DialogContent, DialogContentText, DialogActions, InputAdornment, IconButton, FormControl, InputLabel, OutlinedInput, Typography, Button } from "@mui/material";
-
+import { Dialog, DialogTitle, Stack, DialogContentText, InputAdornment, IconButton, Button } from "@mui/material";
+import Slide from '@mui/material/Slide';
 
 import { inject, observer } from "mobx-react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import TextFieldCustom from 'kit/TextFieldCustom';
+import { useSnackbar } from "notistack";
+
 const Crypto = require("crypto-js");
+
+const schema = yup
+    .object({
+        password: yup.string().min(6).max(100).required(),
+        newPassword: yup.string().min(6).max(100).required(),
+    })
+    .required();
+
 
 
 const DialogChangePassword = inject("rootStore", "userSt")(observer(({ rootStore, openPasswordChangeDialog, setOpenPasswordChangeDialog }) => {
-    const [password, setPassword] = React.useState("");
-    const [newPassword, setNewPassword] = React.useState("");
+    const { enqueueSnackbar } = useSnackbar();
+
     const [showPassword, setShowPassword] = React.useState(false);
     const [showPasswordNew, setShowPasswordNew] = React.useState(false);
 
 
     const [passwordError, setPasswordError] = React.useState(false);
-    const [symError, setSymError] = React.useState(false);
-    const [lengthError, setLengthError] = React.useState(false);
-    const [errorServer, setErrorServer] = React.useState(false);
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
 
-    const clickReadyPassword = () => {
-        setLengthError(false);
-        setSymError(false);
+    const {
+        control,
+        handleSubmit,
+        trigger,
+        reset,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(schema),
+    });
+
+    const onSubmit = (newData) => {
         setPasswordError(false);
-        setErrorServer(false);
-        const sym = "1234567890qwertyuiopasdfghjklzxcvbnm_QWERTYUIOPASDFGHJKLZXCVBNM";
-        if (newPassword.length < 6) {
-            setLengthError(true);
-        }
-        for (let i = 0; i < newPassword.length; i += 1) {
-            if (sym.includes(newPassword[i])) continue;
-            else {
-                setSymError(true);
-                break;
-            }
-        }
-        if (!symError && !lengthError) {
-            rootStore.fetchData(`${rootStore.url}/password-change/`, "POST", { "password": Crypto.SHA384(password).toString(), "new-password": Crypto.SHA384(newPassword).toString() },)
-                .then((data) => {
-                    console.log(data);
-                    if (data !== undefined) {
-                        if (data.a === "Success") { // userId //"Success"
-                            setOpenPasswordChangeDialog(false);
-                        } else {
-                            setPasswordError(true);
-                        }
+        rootStore.fetchData(`${rootStore.url}/password-change/`, "POST", { "password": Crypto.SHA384(newData.password).toString(), "new-password": Crypto.SHA384(newData.newPassword).toString() },)
+            .then((data) => {
+                if (data !== undefined) {
+                    if (data.a === "Success") { // userId //"Success"
+                        setOpenPasswordChangeDialog(false);
+                        enqueueSnackbar("Пароль успешно изменён", {
+                            variant: 'info',
+                            autoHideDuration: 5000,
+                            anchorOrigin: {
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            },
+                            TransitionComponent: Slide,
+                        });
                     } else {
-                        setErrorServer(true);
+                        setPasswordError(true);
                     }
-                });
-        }
+                }
+                trigger();
+            });
     };
 
     return (
-        <Dialog open={openPasswordChangeDialog} onClose={() => setOpenPasswordChangeDialog(false)} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Изменение пароля</DialogTitle>
-            <DialogContent>
+        <Dialog open={openPasswordChangeDialog} onClose={() => {
+            setOpenPasswordChangeDialog(false);
+            reset();
+        }} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">Изменение пароля </DialogTitle>
+            <Stack
+                component="form"
+                onSubmit={handleSubmit(onSubmit)}
+                sx={{
+                    p: 2,
+                }}
+            >
                 <DialogContentText>
                     Чтобы изменить пароль, введите сначала текущий пароль, а затем введите новый.
                 </DialogContentText>
@@ -73,58 +94,80 @@ const DialogChangePassword = inject("rootStore", "userSt")(observer(({ rootStore
                     spacing={2}
                     sx={{ pt: 2 }}
                 >
-                    <FormControl fullWidth variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password"> <Typography>Текущий пароль</Typography> </InputLabel>
-                        <OutlinedInput
-                            label="Текущий пароль"
-                            type={showPassword ? "text" : "password"}
-                            value={password}
-                            onChange={(event) => setPassword(event.target.value)}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                        size="large">
-                                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </FormControl>
-                    {passwordError && <Typography> Не сработало! Проверьте правильность текущего пароля </Typography>}
-                    <FormControl fullWidth variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password"> <Typography>Новый пароль</Typography> </InputLabel>
-                        <OutlinedInput
-                            label="Новый пароль"
-                            type={showPasswordNew ? "text" : "password"}
-                            value={newPassword}
-                            onChange={(event) => setNewPassword(event.target.value)}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={() => setShowPasswordNew(!showPasswordNew)}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                        size="large">
-                                        {showPasswordNew ? <Visibility /> : <VisibilityOff />}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </FormControl>
-                    {lengthError && <Typography> Недопустим пароль менее 6 символов </Typography>}
-                    {symError && <Typography > Недопустимые символы в пароле </Typography>}
-                    {errorServer && <Typography> Ошибка сервера :( </Typography>}
+                    <Controller
+                        name="password"
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) => (
+                            <TextFieldCustom
+                                variant="filled"
+                                error={errors?.email?.password || passwordError}
+                                type={showPassword ? "text" : "password"}
+                                fullWidth
+                                label="Пароль"
+                                helperText={passwordError && 'Неверный пароль!'}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                                size="large">
+                                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                {...field}
+                            />
+                        )}
+                    />
+                    <Controller
+                        name="newPassword"
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) => (
+                            <TextFieldCustom
+                                variant="filled"
+                                error={errors?.newPassword}
+                                type={showPasswordNew ? "text" : "password"}
+                                fullWidth
+                                label="Новый пароль"
+                                helperText={errors?.newPassword && 'Пароль должен иметь минимальную длинну в 6 символв'}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={() => setShowPasswordNew(!showPasswordNew)}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                                size="large">
+                                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                {...field}
+                            />
+                        )}
+                    />
                 </Stack>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={() => setOpenPasswordChangeDialog(false)}>отмена</Button>
-                <Button color="primary" variant="contained" onClick={clickReadyPassword}>Готово</Button>
-            </DialogActions>
+                <Stack
+                    direction="row"
+                    justifyContent="flex-end"
+                    alignItems="center"
+                    spacing={2}
+                    sx={{
+                        pt: 2
+                    }}
+                >
+                    <Button color="inherit" onClick={() => setOpenPasswordChangeDialog(false)}>отмена</Button>
+                    <Button color="primary" variant="contained" type="submit">Готово</Button>
+                </Stack>
+            </Stack>
         </Dialog>
     );
 }));

@@ -18,15 +18,15 @@ function WhyLabel() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 2 }}
             sx={{
-                mt: mobile ? "90px" : "180px",
+                mt: mobile ? "70px" : "140px",
                 width: "100%",
                 position: "relative",
             }}
         >
             <Typography
-                component="h3"
+                component="h1"
                 textAlign="center"
-                variant="IBMPlexSans700WhyLabel"
+                variant="h1"
                 sx={{
                     cursor: "default",
                     fontSize: {
@@ -81,10 +81,11 @@ function WhyLabel() {
                             <Grid item>
                                 <Typography
                                     component="h4"
-                                    variant="OpenSans600WhyLabel"
+                                    variant="h4"
                                     sx={{
                                         cursor: "default",
                                         color: "#272731",
+                                        fontWeight: 800,
                                         pt: "40px",
                                         pl: "32px",
                                         pr: "32px",

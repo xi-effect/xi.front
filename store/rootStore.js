@@ -47,13 +47,18 @@ class RootStore {
     this.communitiesInvitesSt = new CommunitiesInvitesSt(this);
     this.communitiesMenuSt = new CommunitiesMenuSt(this);
 
-    this.socket = io('https://xieffect.ru:5000/', {
-      autoConnect: false,
-      withCredentials: true,
-    });
+
 
     makeObservable(this);
   }
+
+  socket = null;
+
+  @action initSocket = () => {
+    this.socket = io('https://xieffect.ru:5000/', {
+      withCredentials: true,
+    });
+  };
 
   @action async fetchData(url, method, data = null) {
     try {
@@ -79,9 +84,9 @@ class RootStore {
           },
         });
       }
-      if (response.status === 422 || response.status === 401) {
+      if (response.status === 401 || response.status === 403 || response.status === 422) {
         const router = Router;
-        router.push("/login");
+        router.push("/signin");
         return null;
       }
       if (response.ok) {

@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import useListen from 'utils/useListen';
 
 import TextFieldCustom from 'kit/TextFieldCustom';
 
@@ -22,15 +23,14 @@ const schema = yup
 
 const CommunityName = inject(
     "rootStore",
-    "communityCreationSt",
+    "communitiesMenuSt",
 )(
-    observer(({ rootStore, setOpenDialogCC }) => {
+    observer(({ rootStore, communitiesMenuSt, setOpenDialogCC }) => {
         const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
         const {
             control,
             handleSubmit,
-            // trigger,
             formState: { errors },
         } = useForm({
             resolver: yupResolver(schema),
@@ -43,16 +43,20 @@ const CommunityName = inject(
 
         const router = useRouter();
 
-        React.useEffect(() => {
-            rootStore.socket.on("create-community", (data) => {
-                console.log("on create-community");
-                router.push(`/community/${data.id}`);
-                setOpenDialogCC(false);
-            });
-            return () => {
-                rootStore.socket.off("create-community");
-            };
-        }, []);
+        const addCtoMenu = (data) => {
+            console.log("on create-community");
+            communitiesMenuSt.setUserCommunities([
+                {
+                    name: data?.name || "exe",
+                    id: data.id,
+                },
+                ...communitiesMenuSt.userCommunities,
+            ]);
+            router.push(`/community/${data.id}`);
+            setOpenDialogCC(false);
+        };
+
+        useListen(rootStore.socket, 'create-community', addCtoMenu);
 
         return (
             <Stack

@@ -35,20 +35,16 @@ function MainLabel() {
                     direction="column"
                     justifyContent="center"
                     alignItems="center"
-                    sx={{
-
-                    }}
                 >
                     <Typography
-                        variant="OpenSans700MainLabel"
+                        variant="h1"
+                        component="h1"
                         sx={{
-                            "&.MuiTypography-root": {
-                                cursor: "default",
-                                color: "#272731",
-                                textAlign: "center",
-                                p: 2,
-
-                            },
+                            cursor: "default",
+                            color: "#272731",
+                            fontWeight: 800,
+                            textAlign: "center",
+                            p: 2,
                             fontSize: {
                                 xs: "28px",
                                 sm: "36px",
@@ -67,17 +63,19 @@ function MainLabel() {
                         {labels.title}
                     </Typography>
                     <Typography
-                        variant="OpenSans500MainLabel"
+                        variant="h2"
+                        component="h1"
                         sx={{
                             cursor: "default",
                             color: "#555569",
                             textAlign: "center",
+                            fontWeight: 600,
                             p: 2,
                             fontSize: {
-                                xs: "16px",
-                                sm: "18px",
-                                md: "20px",
-                                lg: "22px",
+                                xs: "20px",
+                                sm: "22px",
+                                md: "24px",
+                                lg: "26px",
                             },
                         }}
                     >
@@ -119,14 +117,15 @@ function MainLabel() {
                             alignItems="center"
                         >
                             <Button
+                                aria-label="signup"
                                 onClick={() => {
                                     router.push({
-                                        pathname: "/registration",
+                                        pathname: "/signup",
                                     });
                                 }}
                                 sx={{
                                     "&.MuiButton-root": {
-                                        width: "272px",
+                                        width: "256px",
                                         height: "60px",
                                         color: "text.main",
                                         bgcolor: "primary.main",
@@ -143,7 +142,6 @@ function MainLabel() {
                                 <Typography
                                     sx={{
                                         "&.MuiTypography-root": {
-                                            fontFamily: "Open Sans, sans-serif",
                                             fontStyle: "normal",
                                             fontWeight: 600,
                                             fontSize: "18px",

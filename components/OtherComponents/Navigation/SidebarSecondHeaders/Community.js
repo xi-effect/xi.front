@@ -3,32 +3,16 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
 
-import { Typography, MenuItem, Stack, Tooltip, IconButton, Popper, Grow, MenuList, Paper, ClickAwayListener, Divider } from "@mui/material";
+import { Box, Typography, Stack, Tooltip, IconButton, Popper, Grow, Paper, ClickAwayListener } from "@mui/material";
 
 import { AnimatePresence, motion } from "framer-motion";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import SettingsIcon from "@mui/icons-material/Settings";
-import LogoutIcon from "@mui/icons-material/Logout";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import CloseIcon from "@mui/icons-material/Close";
-import DialogInvite from "./Community/DialogInvite";
-import DialogSettings from "./Community/DialogSettings";
-import DialogPrivacy from "./Community/DialogPrivacy";
-import DialogChannelCreation from "./Community/DialogChannelCreation";
-import DialogCategoryCreation from "./Community/DialogCategoryCreation";
 
+import CloseIcon from "@mui/icons-material/Close";
+
+import CommunityMenu from "kit/CommunityMenu";
 
 const Community = inject()(observer(() => {
-    const [openDialogInvite, setOpenDialogInvite] = React.useState(false);
-    const [openDialogSettings, setOpenDialogSettings] = React.useState(false);
-    const [openDialogChannelCreation, setOpenDialogChannelCreation] = React.useState(false);
-    const [openDialogCategoryCreation, setOpenDialogCategoryCreation] = React.useState(false);
-    const [openDialogPrivacy, setOpenDialogPrivacy] = React.useState(false);
-
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
 
@@ -115,11 +99,6 @@ const Community = inject()(observer(() => {
                     </AnimatePresence>
                 </IconButton>
             </Tooltip>
-            <DialogInvite openDialogInvite={openDialogInvite} setOpenDialogInvite={setOpenDialogInvite} />
-            <DialogSettings openDialogSettings={openDialogSettings} setOpenDialogSettings={setOpenDialogSettings} />
-            <DialogPrivacy openDialogPrivacy={openDialogPrivacy} setOpenDialogPrivacy={setOpenDialogPrivacy} />
-            <DialogChannelCreation openDialogChannelCreation={openDialogChannelCreation} setOpenDialogChannelCreation={setOpenDialogChannelCreation} />
-            <DialogCategoryCreation openDialogCategoryCreation={openDialogCategoryCreation} setOpenDialogCategoryCreation={setOpenDialogCategoryCreation} />
             <Popper
                 open={open}
                 anchorEl={anchorRef.current}
@@ -137,109 +116,9 @@ const Community = inject()(observer(() => {
                     >
                         <Paper sx={{ position: "absolute", left: -244, width: 248 }}>
                             <ClickAwayListener onClickAway={handleClose}>
-                                <MenuList
-                                    autoFocusItem={open}
-                                    id="composition-menu"
-                                    aria-labelledby="composition-button"
-                                    onKeyDown={handleListKeyDown}
-                                    sx={{ width: "100%" }}
-                                >
-                                    <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        setOpenDialogInvite(true);
-                                        setOpen(false);
-                                    }}>
-                                        <Stack
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            sx={{ width: "100%" }}
-                                        >
-                                            Пригласить людей
-                                            <PersonAddAlt1Icon fontSize="small" />
-                                        </Stack>
-                                    </MenuItem>
-                                    <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        setOpenDialogSettings(true);
-                                        setOpen(false);
-                                    }}>
-                                        <Stack
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            sx={{ width: "100%" }}
-                                        >
-                                            Настройки сообщества
-                                            <SettingsIcon fontSize="small" />
-                                        </Stack>
-                                    </MenuItem>
-                                    <Divider flexItem />
-                                    <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        setOpenDialogChannelCreation(true);
-                                        setOpen(false);
-                                    }}>
-                                        <Stack
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            sx={{ width: "100%" }}
-                                        >
-                                            Создать канал
-                                            <AddCircleIcon fontSize="small" />
-                                        </Stack>
-                                    </MenuItem>
-                                    <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        setOpenDialogCategoryCreation(true);
-                                        setOpen(false);
-                                    }}>
-                                        <Stack
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            sx={{ width: "100%" }}
-                                        >
-                                            Создать категорию
-                                            <CreateNewFolderIcon fontSize="small" />
-                                        </Stack>
-                                    </MenuItem>
-                                    <Divider flexItem />
-                                    <MenuItem onClick={handleClose}>
-                                        <Stack
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            sx={{ width: "100%" }}
-                                        >
-                                            Уведомления
-                                            <NotificationsIcon fontSize="small" />
-                                        </Stack>
-                                    </MenuItem>
-                                    <MenuItem sx={{ width: "100%" }} onClick={() => {
-                                        setOpenDialogPrivacy(true);
-                                        setOpen(false);
-                                    }}>
-                                        <Stack
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            sx={{ width: "100%" }}
-                                        >
-                                            Конфиденсальность
-                                            <LocalPoliceIcon fontSize="small" />
-                                        </Stack>
-                                    </MenuItem>
-                                    <Divider flexItem />
-                                    <MenuItem sx={{ width: "100%" }} onClick={handleClose}>
-                                        <Stack
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            sx={{ width: "100%", color: "error.main" }}
-                                        >
-                                            Покинуть сообщество
-                                            <LogoutIcon sx={{ color: "error.main" }} fontSize="small" />
-                                        </Stack>
-                                    </MenuItem>
-                                </MenuList>
+                                <Box>
+                                    <CommunityMenu open={open} setOpen={setOpen} handleListKeyDown={handleListKeyDown} handleClose={handleClose} />
+                                </Box>
                             </ClickAwayListener>
                         </Paper>
                     </Grow>

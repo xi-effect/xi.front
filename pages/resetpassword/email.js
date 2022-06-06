@@ -222,7 +222,7 @@ const PassResetEmail = inject(
                           }}
                           onClick={() => {
                             router.push({
-                              pathname: "/login",
+                              pathname: "/signin",
                             });
                           }}
                           underline="hover"

@@ -26,6 +26,7 @@ import Navigation from "components/OtherComponents/Navigation/Navigation";
 import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
 
 import Secure from "components/PagesComponents/Settings/Secure";
+import Interface from "components/PagesComponents/Settings/Interface";
 
 const Invite = dynamic(() =>
   import("components/PagesComponents/Settings/Invite")
@@ -45,7 +46,7 @@ const Settings = inject(
 
     React.useEffect(() => {
       rootStore
-        .fetchData(`${rootStore.url}/settings/main/`, "GET")
+        .fetchData(`${rootStore.url}/home/`, "GET")
         .then((data) => {
           if (data) {
             console.log("settings/main", data);
@@ -67,16 +68,16 @@ const Settings = inject(
             userSt.setSettings("invite", data.code);
           }
         });
-    }, []);
+    }, [userSt]);
 
     const [expanded, setExpanded] = React.useState(false);
 
-    const handleChange = (panel) => (event, isExpanded) => {
+    const handleChange = (panel) => (isExpanded) => {
       setExpanded(isExpanded ? panel : false);
     };
 
     React.useEffect(() => {
-      if (router.query.option && (router.query.option === "secure" || router.query.option === "useravatar" || router.query.option === "customize" || router.query.option === "invite")) setExpanded(router.query.option);
+      if (router.query.option && (router.query.option === "secure" || router.query.option === "useravatar" || router.query.option === "interface" || router.query.option === "customize" || router.query.option === "invite")) setExpanded(router.query.option);
     }, [router.query]);
 
     return (
@@ -109,21 +110,17 @@ const Settings = inject(
                   maxWidth: 1200,
                 }}
               >
-                <Box sx={{ height: 290, width: 290 }}>
+                <Box sx={{ height: 196, width: 196 }}>
                   <CustomAvatar
                     avatar={{ ...userSt.settings.avatar, bgcolor: null }}
-                    viewBox={{
-                      x: "-175",
-                      y: "-100",
-                      width: "1256",
-                      height: "1256",
-                    }}
+                    height={196}
+                    width={196}
                   />
                 </Box>
                 {!mobile && (
                   <Button
                     sx={{ ml: "auto", mr: 1, mb: 1.2 }}
-                    onClick={() => userSt.saveNewSettimgs()}
+                    onClick={() => userSt.saveNewSettings()}
                     color="inherit"
                   >
                     Сохранить изменения
@@ -133,7 +130,7 @@ const Settings = inject(
                   <Tooltip title="Сохранить изменения">
                     <IconButton
                       sx={{ ml: "auto", mr: 1, mb: 1 }}
-                      onClick={() => userSt.saveNewSettimgs()}
+                      onClick={() => userSt.saveNewSettings()}
                       color="inherit"
                     >
                       <SaveIcon />
@@ -202,6 +199,22 @@ const Settings = inject(
                   </AccordionSummary>
                   <AccordionDetails>
                     {/* <Customize /> */}
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion
+                  sx={{ width: "100%", backgroundColor: "primary.dark" }}
+                  expanded={expanded === "interface"}
+                  onChange={handleChange("interface")}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel3a-content"
+                    id="panel3a-header"
+                  >
+                    <Typography>Интерфейс</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Interface />
                   </AccordionDetails>
                 </Accordion>
                 <Accordion

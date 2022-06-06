@@ -12,8 +12,7 @@ import { useSessionStorage, useBeforeUnload } from 'react-use';
 import dynamic from 'next/dynamic';
 import { useSnackbar } from "notistack";
 import { SidebarSecond } from "./SidebarSecond";
-import { RightMenu } from "./RightMenu";
-import Upbar from "./Upbar";
+import { Upbar } from "./Upbar";
 
 import { configSwipe, sidebarVariantsRight, sidebarVariantsLeft, dragVariants } from "./consts";
 
@@ -47,15 +46,14 @@ const Navigation = inject(
     );
 
     React.useEffect(() => {
-      if (!rootStore.socket.connected) {
-        rootStore.socket.connect();
+      if (!rootStore.socket?.connected) {
+        rootStore.initSocket();
       };
       rootStore.socket.on("connect", () => {
         console.log("SIO connect", rootStore.socket.id);
       });
       rootStore.socket.on("disconnect", () => {
         console.log("SIO disconnect", rootStore.socket.id);
-        rootStore.socket.connect();
       });
       rootStore.socket.on("error", (error) => {
         enqueueSnackbar("Ошибка соединения", {
@@ -68,9 +66,6 @@ const Navigation = inject(
           action,
         });
       });
-      return () => {
-        rootStore.socket.off();
-      };
     }, []);
 
     useBeforeUnload(() => {
@@ -82,6 +77,11 @@ const Navigation = inject(
       if (userSt.settings.id === null) {
         uiSt.setLoading('loading', true);
         userSt.getMainSettings('login');
+      };
+    }, []);
+
+    React.useEffect(() => {
+      if (userSt.settings.code === null) {
         userSt.getAllSettings();
       };
     }, []);
@@ -96,12 +96,10 @@ const Navigation = inject(
 
     const handlers = useSwipeable({
       onSwipedLeft: () => {
-        if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "left");
         if (uiSt.navigation.swipe === "right") uiSt.setNavigation("swipe", "center");
       },
       onSwipedRight: () => {
         if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "right");
-        if (uiSt.navigation.swipe === "left") uiSt.setNavigation("swipe", "center");
       },
       ...configSwipe,
     });
@@ -119,16 +117,14 @@ const Navigation = inject(
         >
           <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
           <SidebarSecond hoverLeftName={hoverLeftName} />
-          <RightMenu />
           <Box
             sx={{
               zIndex: 0,
               backgroundColor: "background.main",
               height: "100vh",
               overflow: "hidden",
-              width: `calc(100% - 592px)`,
+              width: `calc(100% - 336px)`,
               ml: "336px",
-              mr: "256px",
             }}
           >
             <Upbar swipe={uiSt.navigation.swipe} setSwipe={uiSt.setNavigation} haveRightMenu={haveRightMenu} haveRightToolbar={haveRightToolbar} haveRightMenuMore={haveRightMenuMore} />
@@ -160,7 +156,7 @@ const Navigation = inject(
           }}
           {...handlers}
         >
-          <AnimatePresence initial={false}>
+          <AnimatePresence exitBeforeEnter initial={false}>
             {uiSt.navigation.swipe === "right" && <Box
               component={motion.div}
               variants={sidebarVariantsRight}
@@ -186,31 +182,6 @@ const Navigation = inject(
               </Box>
             </Box>}
           </AnimatePresence>
-          <AnimatePresence initial={false}>
-            {uiSt.navigation.swipe === "left" && <Box
-              component={motion.div}
-              variants={sidebarVariantsLeft}
-              animate="visible"
-              transition={{
-                delay: 0,
-                duration: 0.5,
-              }}
-              exit={{ x: 200, opacity: 0 }}
-              sx={{ zIndex: 100 }}
-            >
-              <Box
-                component={motion.div}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  delay: 0,
-                  duration: 0.5,
-                }}
-              >
-                <RightMenu />
-              </Box>
-            </Box>}
-          </AnimatePresence>
           <Box
             sx={{
               zIndex: 0,
@@ -226,7 +197,6 @@ const Navigation = inject(
             variants={dragVariants}
             initial={{ x: uiSt.navigation.swipe === "right" ? 200 : 0 }}
             animate={() => {
-              if (uiSt.navigation.swipe === "left") return "left";
               if (uiSt.navigation.swipe === "center") return "center";
               if (uiSt.navigation.swipe === "right") return "right";
               if (uiSt.navigation.swipe === "bottom") return "bottom";

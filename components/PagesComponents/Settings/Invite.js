@@ -6,6 +6,7 @@ import {
   Tooltip,
   Button,
   Box,
+  Typography,
 } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
@@ -38,6 +39,11 @@ const Invite = inject(
           width: "100%"
         }}
       >
+        <Typography sx={{ pl: 2, pr: 2, pb: 4 }}>
+          Скопируйте ссылку и отправьте человеку, которого хотели бы пригласить на платформу.
+          Приглашённый пользователь, получив от вас ссылку, может сразу её открыть.
+          Он попадёт на страницу регистрации, а код-приглашение будет уже заполнен
+        </Typography>
         <Tooltip
           title={
             statusCopy
@@ -48,10 +54,10 @@ const Invite = inject(
           <TextFieldCustom
             fullWidth
             id="invite-code"
-            label="Код-приглашение"
-            defaultValue={`https://xieffect.ru/registration?invite=${userSt.settings.invite}`}
+            label="Ссылка-приглашение"
+            value={`https://xieffect.ru/signup?invite=${userSt.settings.invite}`}
             onClick={() => {
-              copyToClipboard(`https://xieffect.ru/registration?invite=${userSt.settings.invite}`);
+              copyToClipboard(`https://xieffect.ru/signup?invite=${userSt.settings.invite}`);
               setStatusCopy(true);
             }}
             InputProps={{
@@ -70,19 +76,6 @@ const Invite = inject(
             }}
           />
         </Tooltip>
-        <Button sx={{ mt: 1 }} onClick={() => setOpenQR(true)} variant="contained">
-          Сгенерировать QR-код для ссылки-приглашения
-        </Button>
-        {openQR &&
-          <Box
-            sx={{
-              m: 2,
-              width: 256,
-              height: 256,
-            }}
-          >
-            <QRCode value={`https://xieffect.netlify.app/registration?invite=${userSt.settings.invite}`} />
-          </Box>}
       </Grid >
     );
   })

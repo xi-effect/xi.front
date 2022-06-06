@@ -14,17 +14,22 @@ class UserSt {
     @observable settings = {
         id: null,
         avatar: {
-            accessory: 0,
-            body: 0,
-            face: 0,
-            hair: 0,
-            facialHair: 0,
+            topType: 0,
+            accessoriesType: 0,
+            hairColor: 0,
+            facialHairType: 0,
+            clotheType: 0,
+            eyeType: 0,
+            eyebrowType: 0,
+            mouthType: 0,
+            skinColor: 0,
             bgcolor: 0,
         },
         username: "",
         darkTheme: true,
         emailConfirmed: null,
         invite: null,
+        communities: [],
     };
 
     @action setSettings = (item, value) => {
@@ -36,20 +41,22 @@ class UserSt {
     };
 
     @action getMainSettings = (type = null) => {
-        this.rootStore.fetchData(`${this.rootStore.url}/settings/main/`, "GET").then((data) => {
+        this.rootStore.fetchData(`${this.rootStore.url}/home/`, "GET").then((data) => {
             if (data) {
-                this.setSettings("darkTheme", data["dark-theme"]);
-                this.setSettings("id", data.id);
-                this.setSettings("username", data.username);
+                const { id, username } = data.user;
+                this.setSettings("darkTheme", data.user["dark-theme"]);
+                this.setSettings("id", id);
+                this.setSettings("username", username);
+                this.rootStore.communitiesMenuSt.setUserCommunities(data.communities);
                 if (type === "login") {
                     Router.push('/home');
-                }
+                };
             }
             if (type === "login") {
                 setTimeout(() => {
                     this.rootStore.uiSt.setLoading("loading", false);
                 }, 500);
-            }
+            };
         });
     };
 
@@ -62,7 +69,7 @@ class UserSt {
                 this.setSettings("emailConfirmed", data["email-confirmed"]);
                 this.setSettings("avatar", data.avatar);
                 this.setSettings("invite", data.code);
-            }
+            };
         });
     };
 
@@ -79,15 +86,19 @@ class UserSt {
             (data) => {
                 if (data?.a) {
                     const router = Router;
-                    router.push("/login");
+                    router.push("/signin");
                     this.settings = {
                         id: null,
                         avatar: {
-                            accessory: 0,
-                            body: 0,
-                            face: 0,
-                            hair: 0,
-                            facialHair: 0,
+                            topType: 0,
+                            accessoriesType: 0,
+                            hairColor: 0,
+                            facialHairType: 0,
+                            clotheType: 0,
+                            eyeType: 0,
+                            eyebrowType: 0,
+                            mouthType: 0,
+                            skinColor: 0,
                             bgcolor: 0,
                         },
                         username: "",

@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import {
+  Slide,
   Box,
   useMediaQuery,
   Stack,
@@ -9,12 +11,18 @@ import {
 
 import { inject, observer } from "mobx-react";
 import { motion } from "framer-motion";
-import Header from "components/PagesComponents/Landing/Header";
-import MainLabel from "components/PagesComponents/Landing/MainLabel";
-import WhyLabel from "components/PagesComponents/Landing/WhyLabel";
-import EffectFor from "components/PagesComponents/Landing/EffectFor";
-import Footer from "components/PagesComponents/Landing/Footer";
 
+import Header from 'components/PagesComponents/Landing/Header';
+import MainLabel from 'components/PagesComponents/Landing/MainLabel';
+import WhyLabel from 'components/PagesComponents/Landing/WhyLabel';
+import EffectFor from 'components/PagesComponents/Landing/EffectFor';
+import Footer from 'components/PagesComponents/Landing/Footer';
+import CustomCookieShackbar from 'components/PagesComponents/Landing/CustomCookieShackbar';
+import EasyToBegin from 'components/PagesComponents/Landing/EasyToBegin';
+
+import { useSnackbar } from "notistack";
+
+import { useLocalStorage } from 'react-use';
 
 const Main = inject(
   "rootStore",
@@ -22,6 +30,25 @@ const Main = inject(
 )(
   observer(() => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
+
+    const { enqueueSnackbar } = useSnackbar();
+    const [valueLS] = useLocalStorage('cookies-agree');
+    React.useEffect(() => {
+      if (!valueLS) {
+        setTimeout(() => {
+          enqueueSnackbar("", {
+            content: <CustomCookieShackbar />,
+            autoHideDuration: 20000,
+            persist: true,
+            anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center',
+            },
+            TransitionComponent: Slide,
+          });
+        }, 2000);
+      }
+    }, []);
 
     return (
       <>
@@ -95,6 +122,7 @@ const Main = inject(
             >
               <Image
                 alt="alt"
+
                 src="/assets/landing/blob4.svg"
                 quality={100}
                 width={256}
@@ -133,6 +161,7 @@ const Main = inject(
           >
             <Header />
             <MainLabel />
+            <EasyToBegin />
             <WhyLabel />
             <EffectFor />
             <Footer />

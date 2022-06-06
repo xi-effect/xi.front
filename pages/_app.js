@@ -29,7 +29,6 @@ import { getDesignTokens } from "../theme";
 import "nprogress/nprogress.css"; // styles of nprogress
 import Loading from "../components/OtherComponents/Loading/Loading";
 
-
 config.autoAddCss = false;
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -47,7 +46,7 @@ const MyApp = (observer((props) => {
 
   const rootStore = useStore(pageProps.initialState);
   const theme = React.useMemo(() =>
-    responsiveFontSizes(createTheme(getDesignTokens(rootStore.userSt.settings.darkTheme))),
+    responsiveFontSizes(createTheme(getDesignTokens("dark" || rootStore.userSt.settings.darkTheme))), // Только тёмная тема
     [rootStore.userSt.settings.darkTheme]);
 
   return (
@@ -74,22 +73,22 @@ const MyApp = (observer((props) => {
         communitiesMenuSt={rootStore.communitiesMenuSt}
         communitiesInvitesSt={rootStore.communitiesInvitesSt}
       >
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Loading />
-            <SnackbarProvider
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-              maxSnack={3}
-              preventDuplicate
-              dense
-            >
-              <Component {...pageProps} />
-            </SnackbarProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Loading />
+          <SnackbarProvider
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            maxSnack={3}
+            preventDuplicate
+            dense
+          >
+            <Component {...pageProps} />
+          </SnackbarProvider>
 
-          </ThemeProvider>
+        </ThemeProvider>
       </Provider>
     </CacheProvider >
   );

@@ -18,7 +18,7 @@ const SidebarSecond = inject()(observer(() => {
 
     return (
         <Paper
-            elevation={12}
+            elevation={24}
             sx={{
                 zIndex: 20,
                 position: "absolute",
@@ -27,7 +27,7 @@ const SidebarSecond = inject()(observer(() => {
                 p: 0,
                 width: 256,
                 height: "100vh",
-                bgcolor: "primary.dark"
+                background: "linear-gradient(0deg, rgba(95,133,216,1) 0%, rgba(66,93,151,1) 100%)",
             }}
         >
             <Stack
