@@ -26,19 +26,19 @@ import { useCopyToClipboard } from "react-use";
 import TextFieldCustom from "./TextFieldCustom";
 
 const steps = [
-  {
-    label: 'Выберите роль',
-    description: `Выбранная вами роль будет автоматически добавлена пользователю, который присоединиться по этому приглашению`,
-  },
-  {
-    label: 'Задайте время действия',
-    description:
-      'Вы можете дополнительно задать время действия приглашения с момента его создания',
-  },
-  {
-    label: 'Добавьте ограничение на использование',
-    description: `Вы можете дополнительно задать количество новых участников, которые могут воспользоваться этим приглашением`,
-  },
+    {
+        label: 'Выберите роль',
+        description: `Выбранная вами роль будет автоматически добавлена пользователю, который присоединиться по этому приглашению`,
+    },
+    {
+        label: 'Задайте время действия',
+        description:
+            'Вы можете дополнительно задать время действия приглашения с момента его создания',
+    },
+    {
+        label: 'Добавьте ограничение на использование',
+        description: `Вы можете дополнительно задать количество новых участников, которые могут воспользоваться этим приглашением`,
+    },
 ];
 
 const schema = yup
@@ -69,8 +69,8 @@ const schema = yup
 const CreateInvite = inject(
     "rootStore"
 )(
-    observer(({rootStore}) => {
-        const {enqueueSnackbar} = useSnackbar();
+    observer(({ rootStore }) => {
+        const { enqueueSnackbar } = useSnackbar();
 
         const [statusCopy, setStatusCopy] = React.useState(false);
         const [, copyToClipboard] = useCopyToClipboard();
@@ -108,7 +108,7 @@ const CreateInvite = inject(
 
         const {
             control,
-            formState: {errors},
+            formState: { errors },
             handleSubmit,
             reset,
         } = useForm({
@@ -141,16 +141,16 @@ const CreateInvite = inject(
         const [trackedRole, setTrackedRole] = React.useState('base');
 
         const roleStep = (
-            <FormControl variant="filled" sx={{mt: 2, mb: 2, minWidth: 296}}>
+            <FormControl variant="filled" sx={{ mt: 2, mb: 2, minWidth: 296 }}>
                 <InputLabel>Роль пользователя</InputLabel>
                 <Controller
                     name="role"
                     control={control}
                     defaultValue='base'
-                    render={({field}) => (
+                    render={({ field }) => (
                         <Select {...field} error={errors?.role?.type === 'string'}
-                                value={trackedRole}
-                                onChange={(e) => setTrackedRole(e.target.value)}
+                            value={trackedRole}
+                            onChange={(e) => setTrackedRole(e.target.value)}
                         >
                             <MenuItem value="base">Без роли</MenuItem>
                             <MenuItem value="owner">Владелец</MenuItem>
@@ -175,11 +175,11 @@ const CreateInvite = inject(
         };
 
         const timeStep = (
-            <FormControl variant="filled" sx={{mt: 2, mb: 2, minWidth: 296}}>
+            <FormControl variant="filled" sx={{ mt: 2, mb: 2, minWidth: 296 }}>
                 <Controller
                     name="time"
                     control={control}
-                    render={({field}) => (
+                    render={({ field }) => (
                         <TextFieldCustom
                             {...field}
                             onInput={(e) => setTrackedDays(e.target.value.toString()
@@ -200,19 +200,19 @@ const CreateInvite = inject(
                             fullWidth
                             label="Время действия"
                             helperText={(errors?.time?.type === 'number' ||
-                                    errors?.time?.type === 'integer' ||
-                                    errors?.time?.type === 'max' ||
-                                    errors?.time?.type === 'positive') &&
+                                errors?.time?.type === 'integer' ||
+                                errors?.time?.type === 'max' ||
+                                errors?.time?.type === 'positive') &&
                                 errors?.time?.message
                             }
                         />
                     )}
                 />
-                <Stack direction="row" spacing={1} sx={{mt: 2}}>
-                    <Chip label="1 день" size="small" onClick={handleClickDayChip}/>
-                    <Chip label="7 дней" size="small" onClick={handleClickDayChip}/>
-                    <Chip label="14 дней" size="small" onClick={handleClickDayChip}/>
-                    <Chip label="30 дней" size="small" onClick={handleClickDayChip}/>
+                <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+                    <Chip label="1 день" size="small" onClick={handleClickDayChip} />
+                    <Chip label="7 дней" size="small" onClick={handleClickDayChip} />
+                    <Chip label="14 дней" size="small" onClick={handleClickDayChip} />
+                    <Chip label="30 дней" size="small" onClick={handleClickDayChip} />
                 </Stack>
             </FormControl>
         );
@@ -229,11 +229,11 @@ const CreateInvite = inject(
         };
 
         const countStep = (
-            <FormControl variant="filled" sx={{mt: 2, mb: 2, minWidth: 296}}>
+            <FormControl variant="filled" sx={{ mt: 2, mb: 2, minWidth: 296 }}>
                 <Controller
                     name="count"
                     control={control}
-                    render={({field}) => (
+                    render={({ field }) => (
                         <TextFieldCustom
                             {...field}
                             onInput={(e) => setTrackedCount(e.target.value.toString()
@@ -253,25 +253,25 @@ const CreateInvite = inject(
                             fullWidth
                             label="Количество использований"
                             helperText={(errors?.count?.type === 'number' ||
-                                    errors?.count?.type === 'integer' ||
-                                    errors?.count?.type === 'max' ||
-                                    errors?.count?.type === 'positive') &&
+                                errors?.count?.type === 'integer' ||
+                                errors?.count?.type === 'max' ||
+                                errors?.count?.type === 'positive') &&
                                 errors?.count?.message
                             }
                         />
                     )}
                 />
-                <Stack direction="row" spacing={1} sx={{mt: 2}}>
-                    <Chip label="1 участник" size="small" onClick={handleClickCountChip}/>
-                    <Chip label="5 участников" size="small" onClick={handleClickCountChip}/>
-                    <Chip label="10 участников" size="small" onClick={handleClickCountChip}/>
-                    <Chip label="100 участников" size="small" onClick={handleClickCountChip}/>
+                <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+                    <Chip label="1 участник" size="small" onClick={handleClickCountChip} />
+                    <Chip label="5 участников" size="small" onClick={handleClickCountChip} />
+                    <Chip label="10 участников" size="small" onClick={handleClickCountChip} />
+                    <Chip label="100 участников" size="small" onClick={handleClickCountChip} />
                 </Stack>
             </FormControl>
         );
 
         const generatedLinkBlock = (
-            <Paper square elevation={0} sx={{p: 3, borderRadius: 4}}>
+            <Paper square elevation={0} sx={{ p: 3, borderRadius: 4 }}>
                 <Typography>{inviteLink ? "Новое приглашение только что создано!" : "Ваша ссылка генерируется..."}</Typography>
                 <Typography variant="subtitle2">
                     {inviteLink ? "Скопируйте ссылку ниже и отправьте её пользователю, которого хотите пригласить" :
@@ -301,8 +301,8 @@ const CreateInvite = inject(
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <Button sx={{color: "text.primary"}} disabled={!inviteLink}>
-                                        <ContentCopyIcon/>
+                                    <Button sx={{ color: "text.primary" }} disabled={!inviteLink}>
+                                        <ContentCopyIcon />
                                     </Button>
                                 </InputAdornment>
                             ),
@@ -315,14 +315,14 @@ const CreateInvite = inject(
                     />
                 </Tooltip>
                 <Button color="inherit"
-                        onClick={() => {
-                            setTrackedRole("base");
-                            setTrackedDays("");
-                            setTrackedCount("");
-                            handleReset();
-                        }}
-                        sx={{mt: 1, mr: 1}}
-                        disabled={!inviteLink}
+                    onClick={() => {
+                        setTrackedRole("base");
+                        setTrackedDays("");
+                        setTrackedCount("");
+                        handleReset();
+                    }}
+                    sx={{ mt: 1, mr: 1 }}
+                    disabled={!inviteLink}
                 >
                     Создать ещё одно приглашение
                 </Button>
@@ -353,12 +353,12 @@ const CreateInvite = inject(
                                 {index === 0 && roleStep}
                                 {index === 1 && timeStep}
                                 {index === 2 && countStep}
-                                <Box sx={{mb: 2}}>
+                                <Box sx={{ mb: 2 }}>
                                     <div>
                                         <Button
                                             variant="contained"
                                             onClick={handleNext}
-                                            sx={{mt: 1, mr: 1}}
+                                            sx={{ mt: 1, mr: 1 }}
                                             type={index === steps.length - 1 ? 'submit' : 'button'}
                                         >
                                             {index === steps.length - 1 ? 'Завершить' : 'Вперёд'}
@@ -366,7 +366,7 @@ const CreateInvite = inject(
                                         <Button
                                             disabled={index === 0}
                                             onClick={handleBack}
-                                            sx={{mt: 1, mr: 1}}
+                                            sx={{ mt: 1, mr: 1 }}
                                         >
                                             Назад
                                         </Button>
@@ -378,8 +378,8 @@ const CreateInvite = inject(
                 </Stepper>
                 {activeStep === steps.length && (
                     <Grow in
-                          style={{transformOrigin: '0 0 0'}}
-                          {...({timeout: 1500})}
+                        style={{ transformOrigin: '0 0 0' }}
+                        {...({ timeout: 1500 })}
                     >
                         {generatedLinkBlock}
                     </Grow>

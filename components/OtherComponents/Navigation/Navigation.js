@@ -95,11 +95,11 @@ const Navigation = inject(
     }, [router.pathname]);
 
     const handlers = useSwipeable({
-      onSwipedLeft: () => {
-        if (uiSt.navigation.swipe === "right") uiSt.setNavigation("swipe", "center");
+      onSwipedLeft: (swipeEvent) => {
+        if (uiSt.navigation.swipe === "right" && !swipeEvent.event.target.closest("#scroll-container-stories")) uiSt.setNavigation("swipe", "center");
       },
-      onSwipedRight: () => {
-        if (uiSt.navigation.swipe === "center") uiSt.setNavigation("swipe", "right");
+      onSwipedRight: (swipeEvent) => {
+        if (uiSt.navigation.swipe === "center" && !swipeEvent.event.target.closest("#scroll-container-stories")) uiSt.setNavigation("swipe", "right");
       },
       ...configSwipe,
     });

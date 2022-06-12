@@ -27,7 +27,6 @@ const SidebarSecond = inject()(observer(() => {
                 p: 0,
                 width: 256,
                 height: "100vh",
-                background: "linear-gradient(0deg, rgba(95,133,216,1) 0%, rgba(66,93,151,1) 100%)",
             }}
         >
             <Stack

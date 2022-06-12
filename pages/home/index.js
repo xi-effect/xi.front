@@ -3,7 +3,7 @@ import React from "react";
 import { Stack, Grid } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import Navigation from "components/OtherComponents/Navigation/Navigation";
-import Stories from "components/PagesComponents/Home/Stories";
+import { Stories } from "components/PagesComponents/Home/Stories";
 import TaskForDay from "components/PagesComponents/Home/TaskForDay";
 
 const Home = inject()(observer(() => (
@@ -22,7 +22,7 @@ const Home = inject()(observer(() => (
           alignItems="center"
           spacing={0}
           sx={{
-            maxWidth: "100%",
+            width: "100%",
             pt: 1,
             ml: 0,
             mr: 0,
