@@ -28,9 +28,9 @@ const MenuHomeComp = inject()(observer(() => {
                         key={index.toString()}
                         sx={{
                             "&.Mui-selected": {
-                                bgcolor: "primary.light",
+                                bgcolor: "primary.dark",
                                 "&:hover": {
-                                    bgcolor: "primary.light",
+                                    bgcolor: "primary.dark",
                                 }
                             },
                             pl: 1,
