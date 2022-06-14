@@ -3,23 +3,28 @@ import React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Image from 'next/image';
 
-import { Stack, Typography, Dialog, Box, useMediaQuery, IconButton } from '@mui/material';
+import {
+  Stack,
+  Typography,
+  Dialog,
+  Box,
+  useMediaQuery,
+  IconButton,
+  LinearProgress,
+} from '@mui/material';
 
 import { inject, observer } from 'mobx-react';
 import { Item } from './types';
 
 type Props = {
-  item: Item;
+  progress: number;
+  item: Item | null;
   open: number | null;
-  setOpen: (open: number | null) => void;
+  handleCloseDialog: () => void;
 };
 
 const DialogStory: React.FC<Props> = inject()(
-  observer(({ item, open, setOpen }) => {
-    const handleClose = () => {
-      setOpen(null);
-    };
-
+  observer(({ progress, item, open, handleCloseDialog }) => {
     // @ts-ignore
     const mobile = useMediaQuery((theme) => theme.breakpoints.down('lg'));
 
@@ -63,7 +68,7 @@ const DialogStory: React.FC<Props> = inject()(
     };
 
     return (
-      <Dialog fullScreen={mobile} onClose={handleClose} open={open !== null}>
+      <Dialog fullScreen={mobile} onClose={handleCloseDialog} open={open !== null}>
         <Box
           sx={{
             height: '100vh',
@@ -83,11 +88,28 @@ const DialogStory: React.FC<Props> = inject()(
               width: '100%',
               height: '100%',
             }}>
-            <IconButton
-              onClick={handleClose}
+            <Stack
               sx={{
                 position: 'absolute',
                 top: 24,
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%',
+                height: 16,
+              }}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={2}>
+              <Box sx={{ width: '100%', ml: 1, mr: 1 }}>
+                <LinearProgress color="inherit" variant="determinate" value={progress} />
+              </Box>
+            </Stack>
+            <IconButton
+              onClick={handleCloseDialog}
+              sx={{
+                position: 'absolute',
+                top: 48,
                 right: 8,
               }}>
               <CloseIcon sx={{ fontSize: 48 }} />
@@ -95,40 +117,40 @@ const DialogStory: React.FC<Props> = inject()(
             <Box
               sx={{
                 position: 'absolute',
-                top: getTop(item.top),
-                left: getLeft(item.left),
-                width: getImageSize(item.size),
-                height: getImageSize(item.size),
+                top: getTop(item?.top),
+                left: getLeft(item?.left),
+                width: getImageSize(item?.size),
+                height: getImageSize(item?.size),
               }}>
               <Image
                 alt="alt"
-                src={item.image}
+                src={item?.image}
                 quality={100}
-                width={getImageSize(item.size)}
-                height={getImageSize(item.size)}
+                width={getImageSize(item?.size)}
+                height={getImageSize(item?.size)}
               />
             </Box>
-            {item.label && (
+            {item?.label && (
               <Typography
                 variant="h5"
                 sx={{
                   pl: 1.5,
                   pr: 1,
                 }}>
-                {item.label}
+                {item?.label}
               </Typography>
             )}
-            {item.sublabel && (
+            {item?.sublabel && (
               <Typography
                 variant="h6"
                 sx={{
                   pl: 1.5,
                   pr: 1,
                 }}>
-                {item.sublabel}
+                {item?.sublabel}
               </Typography>
             )}
-            {item.body && (
+            {item?.body && (
               <Typography
                 variant="subtitle1"
                 sx={{
@@ -136,7 +158,7 @@ const DialogStory: React.FC<Props> = inject()(
                   pr: 1,
                   color: 'text.secondary',
                 }}>
-                {item.body}
+                {item?.body}
               </Typography>
             )}
           </Stack>

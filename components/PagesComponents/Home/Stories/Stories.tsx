@@ -89,6 +89,27 @@ const Stories: React.FC = inject()(
       }
     };
 
+    const [progress, setProgress] = React.useState(1);
+
+    let timer;
+
+    const handleCloseDialog = () => {
+      setOpen(null);
+      clearInterval(timer);
+    };
+
+    const handleOpenDialog = (v: number) => {
+      setOpen(v);
+      timer = setInterval(() => {
+        if (progress !== 90) {
+          setProgress((prevProgress) => prevProgress + 2);
+        } else {
+          handleCloseDialog();
+          setProgress(1);
+        }
+      }, 100);
+    };
+
     return (
       <>
         <Stack
@@ -153,16 +174,26 @@ const Stories: React.FC = inject()(
           sx={{
             p: 2,
             width: '100%',
-            overflowX: 'hidden',
+            // overflowX: 'hidden',
             scrollSnapType: 'x-mandatory',
             transition: '0.4s',
             scrollBehavior: 'smooth',
           }}>
           {stories.map((item, index) => (
-            <StoryItem index={index} item={item} setOpen={setOpen} key={index.toString()} />
+            <StoryItem
+              index={index}
+              item={item}
+              handleOpenDialog={handleOpenDialog}
+              key={index.toString()}
+            />
           ))}
         </Stack>
-        <DialogStory item={stories[open ?? 0]} open={open} setOpen={setOpen} />
+        <DialogStory
+          progress={progress}
+          item={open ? stories[open] : null}
+          open={open}
+          handleCloseDialog={handleCloseDialog}
+        />
       </>
     );
   }),

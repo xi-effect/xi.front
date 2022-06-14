@@ -10,7 +10,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { StoryItemProps } from './types';
 
 const StoryItem: React.FC<StoryItemProps> = inject()(
-  observer(({ index, item, setOpen }) => {
+  observer(({ index, item, handleOpenDialog }) => {
     // @ts-ignore
     const mobile = useMediaQuery((theme) => theme.breakpoints.down('lg'));
 
@@ -55,7 +55,7 @@ const StoryItem: React.FC<StoryItemProps> = inject()(
 
     return (
       <Paper
-        onClick={() => setOpen(index)}
+        onClick={() => handleOpenDialog(index)}
         elevation={24}
         sx={{
           height: mobile ? 240 : 300,
