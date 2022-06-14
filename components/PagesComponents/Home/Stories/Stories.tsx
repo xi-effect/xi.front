@@ -95,6 +95,7 @@ const Stories: React.FC = inject()(
 
     const handleCloseDialog = () => {
       setOpen(null);
+      setProgress(1);
       clearInterval(timer);
     };
 
@@ -108,6 +109,11 @@ const Stories: React.FC = inject()(
           setProgress(1);
         }
       }, 100);
+      setTimeout(() => {
+        setOpen(null);
+        setProgress(1);
+        clearInterval(timer);
+      }, 5000);
     };
 
     return (
