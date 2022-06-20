@@ -18,44 +18,50 @@ const Upbar = inject("userSt")(
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        sx={{
-          height: "64px",
-          width: "100%",
-          boxShadow: 12,
-        }}
-      >
+      <>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          sx={{
+            height: "64px",
+            width: "100%",
+            boxShadow: 12,
+          }}
+        >
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            sx={{
+              pl: 1
+            }}
+          >
+            {mobile && <IconButton onClick={() => {
+              if (swipe === "right") setSwipe("swipe", "center");
+              if (swipe === "center") setSwipe("swipe", "right");
+            }} sx={{ ml: 0.4, mr: 0.4, cursor: "pointer" }}>
+              <MenuIcon sx={{ fontSize: 32 }} />
+            </IconButton>}
+            <XiLogo />
+          </Stack>
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            sx={{ pr: 2 }}
+          >
+            {!mobile && <Typography sx={{ p: 3 }}> {userSt.settings.username} </Typography>}
+            <Menu />
+          </Stack>
+        </Stack >
         <DialogCategoryCreation />
         <DialogChannelCreation />
         <DialogInvite />
         <DialogPrivacy />
         <DialogSettings />
-        <Stack
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
-        >
-          {mobile && <IconButton onClick={() => {
-            if (swipe === "right") setSwipe("swipe", "center");
-            if (swipe === "center") setSwipe("swipe", "right");
-          }} sx={{ ml: 0.4, mr: 0.4, cursor: "pointer" }}>
-            <MenuIcon sx={{ fontSize: 32 }} />
-          </IconButton>}
-          <XiLogo />
-        </Stack>
-        <Stack
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
-          sx={{ pr: 2 }}
-        >
-          {!mobile && <Typography sx={{ p: 3 }}> {userSt.settings.username} </Typography>}
-          <Menu />
-        </Stack>
-      </Stack >
+      </>
+
     );
   })
 );

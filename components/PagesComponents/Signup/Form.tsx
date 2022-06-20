@@ -297,7 +297,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                   <>
                     <Typography textAlign="center">
                       {' '}
-                      Введите код-приглашение или удостовертесь, что он введён, если вы перешли по
+                      Введите код-приглашение или удостоверьтесь, что он введён, если вы перешли по
                       ссылке-приглашению{' '}
                     </Typography>
                     <Controller
@@ -335,7 +335,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                     />
                     <Typography textAlign="center">
                       {' '}
-                      Получить код-приглашение можно у уже зарегистрированого пользователя{' '}
+                      Получить код-приглашение можно у уже зарегистрированного пользователя{' '}
                     </Typography>
                   </>
                 )}

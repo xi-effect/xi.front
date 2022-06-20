@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
-import { Typography, MenuItem, Stack, Divider, MenuList, ListItemIcon, ListItemText } from "@mui/material";
+import { Typography, MenuItem, Stack, Divider, MenuList, ListItemIcon, ListItemText, Button } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AppsIcon from '@mui/icons-material/Apps';
 import AddIcon from "@mui/icons-material/Add";
@@ -118,7 +118,6 @@ const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, i
                                     "&.MuiListItemIcon-root": {
                                         minWidth: "2px !important",
                                         fontSize: 26,
-
                                     }
                                 }}
                             >
@@ -178,7 +177,7 @@ const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, i
     return null;
 }));
 
-const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannelsSt")(observer(({ communityChannelsSt }) => {
+const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannelsSt")(observer(({ uiSt, communityChannelsSt }) => {
     const router = useRouter();
     const [valueLS, setValueLS] = useLocalStorage('second-menu-c-upper-items-position-is-vert');
     console.log(valueLS);
@@ -189,17 +188,17 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
     }, []);
 
     const upperMenu = [
-        { icon: <AppsIcon fontSize={valueLS ? "large" : "small"} />, label: "обзор", href: '' },
-        { icon: <TodayIcon fontSize={valueLS ? "large" : "small"} />, label: "расписание", href: 'schedule' },
-        { icon: <AccessTimeIcon fontSize={valueLS ? "large" : "small"} />, label: "занятия", href: 'lessons' },
-        { icon: <AssignmentTurnedInRoundedIcon fontSize={valueLS ? "large" : "small"} />, label: "задания", href: 'tasks' },
+        { icon: <AppsIcon fontSize={valueLS ? "medium" : "small"} />, label: "обзор", href: '' },
+        { icon: <TodayIcon fontSize={valueLS ? "medium" : "small"} />, label: "расписание", href: 'schedule' },
+        { icon: <AccessTimeIcon fontSize={valueLS ? "medium" : "small"} />, label: "занятия", href: 'lessons' },
+        { icon: <AssignmentTurnedInRoundedIcon fontSize={valueLS ? "medium" : "small"} />, label: "задания", href: 'tasks' },
     ];
 
     const getBgcolor = (value) => {
-        if (router.pathname === `/community/[id]` && value === '') return "action.hover";
-        if (router.pathname === `/community/[id]/schedule` && value === 'schedule') return "action.hover";
-        if (router.pathname === `/community/[id]/lessons` && value === 'lessons') return "action.hover";
-        if (router.pathname === `/community/[id]/tasks` && value === 'tasks') return "action.hover";
+        if (router.pathname === `/community/[id]` && value === '') return "primary.main";
+        if (router.pathname === `/community/[id]/schedule` && value === 'schedule') return "primary.main";
+        if (router.pathname === `/community/[id]/lessons` && value === 'lessons') return "primary.main";
+        if (router.pathname === `/community/[id]/tasks` && value === 'tasks') return "primary.main";
         return null;
     };
 
@@ -230,19 +229,22 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
                         sx={{
                             width: valueLS ? "42px" : "calc(100% - 16px)",
                             borderRadius: 1,
-                            height: 36,
+                            height: 42,
                             ml: valueLS ? 0 : 1,
                             mr: valueLS ? 0 : 1,
                             p: valueLS ? 0.5 : 2,
                             bgcolor: getBgcolor(item.href),
+                            '&:hover': {
+                                bgcolor: getBgcolor(item.href),
+                            },
                         }}
                     >
                         <ListItemIcon
                             sx={{
                                 "&.MuiListItemIcon-root": {
                                     minWidth: "2px !important",
-                                    fontSize: 26,
                                 },
+                                ml: valueLS ? 0.6 : 0,
                             }}
                         >
                             {item.icon}
@@ -279,6 +281,20 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
                 {communityChannelsSt.channels.map((channel, index) => (
                     <Channel index={index} key={index.toString()} />
                 ))}
+                <Stack
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                        pt: 4,
+                        pb: 12,
+                    }}
+                >
+                    <Button onClick={() => uiSt.setDialogs('channelCreation', true)} variant="contained">
+                        Создать канал
+                    </Button>
+                </Stack>
+
             </Scrollbars>
         </MenuList >
     );

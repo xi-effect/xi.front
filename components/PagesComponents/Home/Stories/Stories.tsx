@@ -196,7 +196,7 @@ const Stories: React.FC = inject()(
         </Stack>
         <DialogStory
           progress={progress}
-          item={open ? stories[open] : null}
+          item={stories[open ?? 0]}
           open={open}
           handleCloseDialog={handleCloseDialog}
         />
