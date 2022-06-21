@@ -13,5 +13,5 @@ export type StoryItemProps = {
   index: number;
   item: Item;
   // eslint-disable-next-line no-unused-vars
-  setOpen: (open: number | null) => void;
+  handleOpenDialog: (open: number | null) => void;
 };

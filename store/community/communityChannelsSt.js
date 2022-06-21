@@ -13,8 +13,8 @@ class CommunityChannelsSt {
     @observable channels = [
         {
             id: 0,
-            type: "chat",
-            name: "Канал 2",
+            type: "page",
+            name: "Страница",
             unread: 0, // Для чатов
         },
         {
@@ -29,21 +29,11 @@ class CommunityChannelsSt {
                     name: "Комната",
                 },
                 {
-                    id: 4,
-                    type: "chat",
-                    name: "Чат",
-                },
-                {
                     id: 5,
                     type: "page",
                     name: "Страница",
                 },
             ]
-        },
-        {
-            id: 2,
-            type: "chat",
-            name: "Чат",
         },
         {
             id: 4,
@@ -62,9 +52,14 @@ class CommunityChannelsSt {
                     name: "Комната",
                 },
                 {
-                    id: 4,
-                    type: "chat",
-                    name: "Чат",
+                    id: 2,
+                    type: "room",
+                    name: "Комната",
+                },
+                {
+                    id: 2,
+                    type: "room",
+                    name: "Комната",
                 },
             ]
         },
@@ -79,11 +74,6 @@ class CommunityChannelsSt {
             name: "Страница",
         },
         {
-            id: 2,
-            type: "chat",
-            name: "Чат",
-        },
-        {
             id: 4,
             type: "room",
             name: "Комната",
@@ -100,9 +90,14 @@ class CommunityChannelsSt {
                     name: "Комната",
                 },
                 {
-                    id: 4,
-                    type: "chat",
-                    name: "Чат",
+                    id: 2,
+                    type: "room",
+                    name: "Комната",
+                },
+                {
+                    id: 2,
+                    type: "room",
+                    name: "Комната",
                 },
             ]
         },
@@ -112,11 +107,6 @@ class CommunityChannelsSt {
             name: "Комната",
         },
         {
-            id: 2,
-            type: "chat",
-            name: "Чат",
-        },
-        {
             id: 4,
             type: "room",
             name: "Комната",
@@ -131,11 +121,6 @@ class CommunityChannelsSt {
                     id: 2,
                     type: "room",
                     name: "Комната",
-                },
-                {
-                    id: 4,
-                    type: "chat",
-                    name: "Чат",
                 },
             ]
         },
