@@ -18,7 +18,7 @@ interface Props {
 }
 
 const Root = styled('div')(({ theme }) => ({
-    height: '100%',
+    // height: '100%',
     backgroundColor:
         theme.palette.mode === 'light' ? grey[100] : theme.palette.background.default,
 }));
