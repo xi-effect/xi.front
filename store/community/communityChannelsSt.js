@@ -134,6 +134,24 @@ class CommunityChannelsSt {
     @action setChannel = (index, name, value) => {
         this.channels[index][name] = value;
     };
+
+    @action pushNewChannel = (data) => {
+        console.log(data);
+        this.channels.push({
+            id: new Date().getTime(),
+            type: data.type,
+            name: data.name,
+        });
+        console.log(data);
+    };
+
+    @action pushNewChannelToCategory = (data, id) => {
+        this.channels[id].children.push({
+            id: new Date().getTime(),
+            type: data.type,
+            name: data.name,
+        });
+    };
 }
 
 export default CommunityChannelsSt;

@@ -6,7 +6,6 @@ import { inject, observer } from 'mobx-react';
 import { Stack, Tooltip, IconButton, Box } from '@mui/material';
 
 import HomeIcon from '@mui/icons-material/Home';
-import SettingsIcon from '@mui/icons-material/Settings';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { motion } from 'framer-motion';
@@ -255,55 +254,6 @@ const Sidebar: React.FC<SidebarType> = inject(
           </Droppable>
           <Box sx={{ height: 12 }} />
         </DragDropContext>
-        <Stack
-          direction="row"
-          justifyContent="flex-start"
-          sx={{ position: 'relative' }}
-          alignItems="flex-start">
-          <Stack
-            sx={{ width: 4, position: 'absolute' }}
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="center"
-            spacing={2}>
-            {router.pathname.includes('settings') && (
-              <Box
-                sx={{
-                  height: 40,
-                  width: 4,
-                  bgcolor: grey[200],
-                  borderTopRightRadius: 8,
-                  borderBottomRightRadius: 8,
-                }}
-              />
-            )}
-          </Stack>
-          <Stack
-            sx={{ width: 80 }}
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={2}>
-            <Tooltip placement="right" title="Настройки">
-              <IconButton
-                component={motion.li}
-                whileHover={{ scale: 1.15 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => {
-                  router.push('/settings');
-                }}
-                sx={{
-                  bgcolor: router.pathname.includes('/settings') ? 'primary.main' : '',
-                  borderRadius: 2,
-                  '&:hover': {
-                    bgcolor: router.pathname.includes('/settings') ? 'primary.main' : '',
-                  },
-                }}>
-                <SettingsIcon sx={{ fontSize: 28 }} />
-              </IconButton>
-            </Tooltip>
-          </Stack>
-        </Stack>
         <Box
           sx={{
             height: '4px',

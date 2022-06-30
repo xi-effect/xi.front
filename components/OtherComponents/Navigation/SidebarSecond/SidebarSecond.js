@@ -13,6 +13,8 @@ import Home from "../SidebarSecondHeaders/Home";
 import Community from "../SidebarSecondHeaders/Community";
 import Settings from "../SidebarSecondHeaders/Settings";
 
+import UserBar from "./UserBar";
+
 const SidebarSecond = inject()(observer(() => {
     const router = useRouter();
 
@@ -47,7 +49,6 @@ const SidebarSecond = inject()(observer(() => {
                         p: 1
                     }}
                 >
-
                     {router.pathname.includes("/home") && <Home />}
                     {router.pathname.includes("/community") && <Community />}
                     {router.pathname.includes("/settings") && <Settings />}
@@ -55,9 +56,19 @@ const SidebarSecond = inject()(observer(() => {
                 {router.pathname.includes("/home") && <MenuHomeComp />}
                 {router.pathname.includes("/community") && <MenuCommunity />}
                 {router.pathname.includes("/settings") && <MenuSettingsComp />}
-            </Stack >
-        </Paper >
+                <Box
+                    sx={{
+                        width: "100%",
+                        height: "80px",
+                        fontSize: 32,
+                        zIndex: 100,
+                    }}
+                >
+                    {router.pathname.includes("/community") && <UserBar />}
+                </Box>
 
+            </Stack>
+        </Paper>
     );
 }));
 
