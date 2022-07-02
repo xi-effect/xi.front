@@ -55,7 +55,7 @@ const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, i
                 justifyContent="flex-start"
                 alignItems="flex-start"
                 sx={{
-                    mt: "2px",
+                    mt: "10px",
                     mb: "2px",
                     pl: 1,
                     pr: 1,
@@ -294,9 +294,8 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
                         Создать канал
                     </Button>
                 </Stack>
-
             </Scrollbars>
-        </MenuList >
+        </MenuList>
     );
 }));
 

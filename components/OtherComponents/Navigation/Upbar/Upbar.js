@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { inject, observer } from "mobx-react";
-import { useMediaQuery, IconButton, Stack, Typography } from "@mui/material";
+import { useMediaQuery, IconButton, Stack } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import XiLogo from "kit/XiLogo";
 import DialogCategoryCreation from "kit/CommunityMenu/DialogCategoryCreation";
@@ -10,11 +10,8 @@ import DialogInvite from "kit/CommunityMenu/DialogInvite";
 import DialogPrivacy from "kit/CommunityMenu/DialogPrivacy";
 import DialogSettings from "kit/CommunityMenu/DialogSettings";
 
-import Menu from "./Menu";
-
-
-const Upbar = inject("userSt")(
-  observer(({ userSt, swipe, setSwipe }) => {
+const Upbar = inject()(
+  observer(({ swipe, setSwipe }) => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
 
     return (
@@ -24,7 +21,7 @@ const Upbar = inject("userSt")(
           justifyContent="space-between"
           alignItems="center"
           sx={{
-            height: "64px",
+            height: "32px",
             width: "100%",
             boxShadow: 12,
           }}
@@ -43,16 +40,7 @@ const Upbar = inject("userSt")(
             }} sx={{ ml: 0.4, mr: 0.4, cursor: "pointer" }}>
               <MenuIcon sx={{ fontSize: 32 }} />
             </IconButton>}
-            <XiLogo />
-          </Stack>
-          <Stack
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
-            sx={{ pr: 2 }}
-          >
-            {!mobile && <Typography sx={{ p: 3 }}> {userSt.settings.username} </Typography>}
-            <Menu />
+            <XiLogo size='s' />
           </Stack>
         </Stack >
         <DialogCategoryCreation />

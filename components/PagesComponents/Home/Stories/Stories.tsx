@@ -180,7 +180,6 @@ const Stories: React.FC = inject()(
           sx={{
             p: 2,
             width: '100%',
-            // overflowX: 'hidden',
             scrollSnapType: 'x-mandatory',
             transition: '0.4s',
             scrollBehavior: 'smooth',

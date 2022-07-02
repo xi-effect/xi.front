@@ -2,82 +2,204 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
 
-import { Stack, Typography, Radio, Button, FormControl, InputLabel, Input, Dialog, DialogContent, useMediaQuery, DialogActions } from "@mui/material";
+import { Button, Box, Stack, Typography, Radio, IconButton, Dialog, DialogContent, useMediaQuery } from "@mui/material";
 
 import MobileDialog from 'kit/MobileDialog';
+import CloseIcon from '@mui/icons-material/Close';
+import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
+import ForumIcon from "@mui/icons-material/Forum";
+import ArticleIcon from '@mui/icons-material/Article';
+import { grey } from '@mui/material/colors';
 
-const Content = (props) => {
-    const { channelSelect, setChannelSelect } = props;
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import TextFieldCustom from 'kit/TextFieldCustom';
+
+const schema = yup
+    .object({
+        name: yup.string().min(0).max(100).required(),
+    })
+    .required();
+
+const content = [
+    {
+        label: 'Текстовый канал',
+        description: 'Отправляйте сообщения, изображения, эмодзи',
+        icon: <ForumIcon sx={{ fontSize: 30 }} />,
+    },
+    {
+        label: 'Голосовой канал',
+        description: 'Совершайте групповые звонки с возможностью использовать видеосвязь и демонстрацию экрана',
+        icon: <RecordVoiceOverIcon sx={{ fontSize: 30 }} />,
+    },
+    {
+        label: 'Страница',
+        description: 'Создавайте и делитесь контентом. Например, это может быть конспект к уроку',
+        icon: <ArticleIcon sx={{ fontSize: 30 }} />,
+    },
+];
+
+const getType = (num) => {
+    if (num === 0) return "chat";
+    if (num === 1) return "room";
+    if (num === 2) return "page";
+    return "room";
+};
+
+const Content = inject()(observer((props) => {
+    const { communityChannelsSt, uiSt } = props;
+
+    // @ts-ignore
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
+    const [channelSelect, setChannelSelect] = React.useState(0);
+    const {
+        control,
+        handleSubmit,
+        trigger,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(schema),
+    });
+
+    const onSubmit = (data) => {
+        console.log("onSubmit");
+        trigger();
+        const type = getType(channelSelect);
+        communityChannelsSt.pushNewChannel({ ...data, type });
+        uiSt.setDialogs("channelCreation", false);
+    };
+
     return (
         <Stack
             direction="column"
             justifyContent="flex-start"
             alignItems="flex-start"
             sx={{
-                height: 360,
+                height: 500,
                 width: "100%",
             }}
+            spacing={1}
         >
-            {["Чат", "Расписание", "Комната", "Доска", "Задание",].map((item, index) => (
+            {content.map((item, index) => (
                 <Stack
                     key={index.toString()}
-                    onClick={() => {
-                        if (channelSelect === index) return setChannelSelect(null);
-                        return setChannelSelect(index);
-                    }}
+                    onClick={() => setChannelSelect(index)}
                     direction="row"
-                    justifyContent="flex-start"
+                    justifyContent="center"
                     alignItems="center"
                     sx={{
-                        height: 48,
+                        p: 1,
+                        minHeight: 96,
                         width: "100%",
+                        boxShadow: 12,
+                        bgcolor: channelSelect === index ? grey[700] : grey[800],
+                        borderRadius: 2,
+                        cursor: "pointer",
                     }}
+                    spacing={1}
                 >
+                    <Box sx={{ p: 1 }}>
+                        {item.icon}
+                    </Box>
+                    <Stack
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        spacing={0.5}
+                        sx={{
+                            width: '100%'
+                        }}
+                    >
+                        <Typography sx={{ fontSize: 22, fontWeight: 700 }}>
+                            {item.label}
+                        </Typography>
+                        <Typography sx={{ fontSize: 18 }}>
+                            {item.description}
+                        </Typography>
+                    </Stack>
+
                     <Radio
                         checked={channelSelect === index}
+                        color="default"
                     />
-                    <Typography sx={{ fontSize: 22 }}>
-                        {item}
-                    </Typography>
                 </Stack>
             ))}
-            <FormControl
-                fullWidth
-                sx={{
-                    mt: 2,
-                    pl: 1,
-                    pr: 1,
-                }}
+            <Typography variant="subtitle2" sx={{ color: "text.secondary", pt: 2, pb: 1 }}> НАЗВАНИЕ </Typography>
+            <Box
+                sx={{ width: '100%' }}
             >
-                <InputLabel htmlFor="outlined-adornment-password">
-                    <Typography sx={{ color: "text.primary" }}>
-                        Название нового канала
-                    </Typography>
-                </InputLabel>
-                <Input
-                    sx={{ width: "100%", }}
-                    label="Название нового канала"
-                    type="text"
+                <Controller
+                    name="name"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                        <TextFieldCustom
+                            variant="filled"
+                            error={
+                                errors?.email?.type === 'email'
+                            }
+                            type="text"
+                            fullWidth
+                            label="Название канала"
+                            {...field}
+                        />
+                    )}
                 />
-            </FormControl>
+                <Stack
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{ width: '100%', pt: 2, pb: 4 }}
+                    spacing={2}
+                >
+                    <Button
+                        size="large"
+                        onClick={() => uiSt.setDialogs("channelCreation", false)}
+                        sx={{
+                            '&.MuiButton-root': {
+                                fontFamily: 'Roboto',
+                                fontSize: '15px',
+                                lineHeight: '26px',
+                                letterSpacing: '0.46000000834465027px',
+                                width: mobile ? '140px' : '140px',
+                                height: mobile ? '42px' : '42px',
+                                color: 'text.primary',
+                                borderRadius: mobile ? '62px' : '88px',
+                            },
+                        }}>
+                        Отмена
+                    </Button>
+                    <Button
+                        variant="contained"
+                        size="large"
+                        onClick={handleSubmit(onSubmit)}
+                        sx={{
+                            '&.MuiButton-root': {
+                                fontFamily: 'Roboto',
+                                fontSize: '15px',
+                                lineHeight: '26px',
+                                letterSpacing: '0.46000000834465027px',
+                                width: mobile ? '196px' : '196px',
+                                height: mobile ? '42px' : '42px',
+                                color: 'text.primary',
+                                bgcolor: 'secondary.main',
+                                borderRadius: mobile ? '62px' : '88px',
+                                '&:hover': {
+                                    bgcolor: 'secondary.dark',
+                                },
+                                boxShadow: 2,
+                            },
+                        }}>
+                        Готово
+                    </Button>
+                </Stack>
+            </Box>
         </Stack>);
-};
+}));
 
-const Action = (props) => {
-    const { uiSt } = props;
-    return (
-        <Button
-            onClick={() => uiSt.setDialogs("channelCreation", false)}
-            variant="contained"
-        >
-            Готово
-        </Button>);
-};
-
-const DialogChannelCreation = inject("uiSt")(observer(({ uiSt }) => {
+const DialogChannelCreation = inject("communityChannelsSt", "uiSt")(observer(({ communityChannelsSt, uiSt }) => {
     const fullScreen = useMediaQuery(theme => theme.breakpoints.down("md"));
-
-    const [channelSelect, setChannelSelect] = React.useState(null);
 
     return (
         <>
@@ -88,6 +210,14 @@ const DialogChannelCreation = inject("uiSt")(observer(({ uiSt }) => {
                 aria-describedby="alert-dialog-description"
                 fullWidth
                 maxWidth="md"
+                sx={{
+                    borderRadius: 8,
+                }}
+                PaperProps={{
+                    sx: {
+                        borderRadius: 8,
+                    }
+                }}
             >
                 <Stack
                     direction="row"
@@ -99,16 +229,16 @@ const DialogChannelCreation = inject("uiSt")(observer(({ uiSt }) => {
                         p: 1,
                     }}
                 >
-                    <Typography sx={{ mt: 2, ml: 2, mr: "auto" }} variant="h5">
-                        Создание канала
+                    <Typography sx={{ mt: 2, ml: 2, mr: "auto" }} variant="h6">
+                        Создать канал
                     </Typography>
+                    <IconButton onClick={() => uiSt.setDialogs("channelCreation", false)} sx={{ mt: 2 }}>
+                        <CloseIcon sx={{ fontSize: 32, color: 'text.secondary' }} />
+                    </IconButton>
                 </Stack>
                 <DialogContent>
-                    <Content channelSelect={channelSelect} setChannelSelect={setChannelSelect} />
+                    <Content communityChannelsSt={communityChannelsSt} uiSt={uiSt} />
                 </DialogContent>
-                <DialogActions>
-                    <Action uiSt={uiSt} />
-                </DialogActions>
             </Dialog>}
             {fullScreen && <MobileDialog
                 open={uiSt.dialogs.channelCreation}
@@ -116,8 +246,7 @@ const DialogChannelCreation = inject("uiSt")(observer(({ uiSt }) => {
                 title="Создание канала"
             >
                 <Stack>
-                    <Content channelSelect={channelSelect} setChannelSelect={setChannelSelect} />
-                    <Action uiSt={uiSt} />
+                    <Content communityChannelsSt={communityChannelsSt} uiSt={uiSt} />
                 </Stack>
             </MobileDialog>}
         </>
