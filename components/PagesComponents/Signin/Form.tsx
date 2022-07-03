@@ -168,10 +168,11 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                       type="text"
                       fullWidth
                       label="Адрес почты"
-                      helperText={
-                        authorizationSt.login.error === "User doesn't exist" &&
-                        'Пользователь не найден'
-                      }
+                      helperText={`
+                      ${authorizationSt.login.error === "User doesn't exist" 
+                        ? 'Пользователь с таким e-mail не найден' : ''}
+                      ${errors?.email?.type === 'email' ? 'Введите корректный e-mail' : ''}
+                      `}
                       {...field}
                     />
                   )}
