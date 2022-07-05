@@ -28,45 +28,45 @@ const SidebarSecond = inject()(observer(() => {
                 m: 0,
                 p: 0,
                 width: 256,
-                height: "100vh",
             }}
         >
             <Stack
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-                sx={{
-                    maxHeight: "calc(100vh - 2px)",
-                    height: "100%",
-                }}
             >
                 <Box
                     sx={{
                         width: "100%",
                         height: "48px",
-                        fontSize: 32,
                         zIndex: 100,
-                        p: 1
+                        p: 1,
                     }}
                 >
                     {router.pathname.includes("/home") && <Home />}
                     {router.pathname.includes("/community") && <Community />}
                     {router.pathname.includes("/settings") && <Settings />}
                 </Box>
-                {router.pathname.includes("/home") && <MenuHomeComp />}
-                {router.pathname.includes("/community") && <MenuCommunity />}
-                {router.pathname.includes("/settings") && <MenuSettingsComp />}
+                <Box
+                    sx={{
+                        width: "100%",
+                        height: "calc(100vh - 128px)",
+                        zIndex: 100,
+                    }}
+                >
+                    {router.pathname.includes("/home") && <MenuHomeComp />}
+                    {router.pathname.includes("/community") && <MenuCommunity />}
+                    {router.pathname.includes("/settings") && <MenuSettingsComp />}
+                </Box>
                 <Box
                     sx={{
                         width: "100%",
                         height: "80px",
-                        fontSize: 32,
                         zIndex: 100,
                     }}
                 >
-                    {router.pathname.includes("/community") && <UserBar />}
+                    <UserBar />
                 </Box>
-
             </Stack>
         </Paper>
     );

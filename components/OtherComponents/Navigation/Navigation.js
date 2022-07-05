@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
@@ -14,7 +15,7 @@ import { useSnackbar } from "notistack";
 import { SidebarSecond } from "./SidebarSecond";
 import { Upbar } from "./Upbar";
 
-import { configSwipe, sidebarVariantsRight, sidebarVariantsLeft, dragVariants } from "./consts";
+import { configSwipe, sidebarVariantsRight, dragVariants } from "./consts";
 
 const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 
@@ -110,7 +111,7 @@ const Navigation = inject(
           sx={{
             zIndex: 0,
             backgroundColor: "background.main",
-            minHeight: "100vh",
+            height: "100vh",
             overflow: "hidden",
             width: "100%",
           }}
@@ -151,7 +152,6 @@ const Navigation = inject(
           sx={{
             zIndex: 0,
             backgroundColor: "background.main",
-            minHeight: "100vh",
             overflow: "hidden",
           }}
           {...handlers}
@@ -187,7 +187,6 @@ const Navigation = inject(
               zIndex: 0,
               backgroundColor: "background.main",
               filter: uiSt.navigation.swipe === "right" || uiSt.navigation.swipe === "left" ? "brightness(40%)" : "none",
-              height: "100vh",
               overflow: "hidden",
               width: `100vw`,
               ml: 0,
@@ -212,19 +211,17 @@ const Navigation = inject(
               renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
               renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
               universal
-              style={{ width: "100vw", height: "100%", overflowY: "hidden !important", }}
+              style={{ width: "100vw", height: "calc(100vh - 64px)", overflowY: "hidden !important", }}
               autoHide
               autoHideTimeout={1000}
               autoHideDuration={200}
             >
               {children}
             </Scrollbars>}
-            {router.pathname.includes("/message") && children}
           </Box>
         </Box>
       );
     }
-    return null;
   })
 );
 

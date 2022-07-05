@@ -61,7 +61,7 @@ export default function MobileDialog(props: Props) {
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
                 swipeAreaWidth={drawerBleeding}
-                disableSwipeToOpen={false}
+                disableSwipeToOpen
                 ModalProps={{
                     keepMounted: true,
                 }}
