@@ -1,7 +1,7 @@
+// @ts-nocheck
 import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import UserAvatar from './MenuItems/UserAvatar';
 import Interface from './MenuItems/Interface';
@@ -19,19 +19,22 @@ function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
 
     return (
-        <div
+        <Box
             role="tabpanel"
             hidden={value !== index}
             id={`vertical-tabpanel-${index}`}
             aria-labelledby={`vertical-tab-${index}`}
             {...other}
+            sx={{
+                width: 'calc(100% - 272px)'
+            }}
         >
             {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
+                <Box sx={{ p: 4 }}>
+                    {children}
                 </Box>
             )}
-        </div>
+        </Box>
     );
 }
 
@@ -59,7 +62,7 @@ export default function Menu() {
                 variant="scrollable"
                 value={value}
                 onChange={handleChange}
-                sx={{ borderRight: 1, borderColor: 'divider', pl: 2 }}
+                sx={{ borderRight: 2, borderColor: 'divider', pl: 2, width: 128 }}
             >
                 <Tab label="Аккаунт" {...a11yProps(0)} />
                 <Tab label="Аватар" {...a11yProps(1)} />
@@ -71,16 +74,16 @@ export default function Menu() {
                 Аккаунт
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <UserAvatar userSt={undefined} />
+                <UserAvatar />
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <Interface />
             </TabPanel>
             <TabPanel value={value} index={3}>
-                <Secure userSt={undefined} />
+                <Secure />
             </TabPanel>
             <TabPanel value={value} index={4}>
-                <Invite rootStore={undefined} userSt={undefined} />
+                <Invite />
             </TabPanel>
         </Box>
     );

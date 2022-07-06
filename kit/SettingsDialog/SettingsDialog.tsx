@@ -11,6 +11,7 @@ import {
     Typography,
     Button,
 } from "@mui/material";
+import { inject, observer } from "mobx-react";
 import CloseIcon from '@mui/icons-material/Close';
 import Menu from './Menu';
 
@@ -26,14 +27,20 @@ interface Props {
     open: boolean;
     // eslint-disable-next-line no-unused-vars
     setOpen: (newOpen: boolean) => void;
+    userSt?: any;
 }
 
-const SettingsDialog = (props: Props) => {
-    const { open, setOpen } = props;
+const SettingsDialog = inject("rootStore", "userSt")(observer((props: Props) => {
+    const { open, setOpen, userSt } = props;
 
     const handleClose = () => {
         setOpen(false);
     };
+
+    React.useEffect(() => {
+        userSt.getAllSettings();
+        userSt.getMainSettings();
+    }, [userSt]);
 
     return (
         <Dialog
@@ -63,6 +70,6 @@ const SettingsDialog = (props: Props) => {
             <Menu />
         </Dialog >
     );
-};
+}));
 
 export default SettingsDialog;
