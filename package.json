@@ -14,11 +14,11 @@
     "lint-fix": "eslint ./kit/** ./components/** ./pages/** -c .eslintrc.json --fix --ext js,jsx,ts,tsx",
     "prettier": "prettier  — write ./components/**/*.{js,jsx,ts,tsx} ./kit/**/*.{js,jsx,ts,tsx} ./pages/**/*.{js,jsx,ts,tsx}"
   },
-  "husky": {    
-    "hooks": {      
-      "pre-commit": "npm run lint-fix  && npm run prettier"  
-    }  
-  }, 
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-fix  && npm run prettier"
+    }
+  },
   "dependencies": {
     "@emotion/css": "^11.7.1",
     "@emotion/react": "^11.7.0",
