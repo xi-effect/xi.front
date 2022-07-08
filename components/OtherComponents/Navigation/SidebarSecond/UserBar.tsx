@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
 
 import { Stack, Paper, Button, Tooltip, Typography } from "@mui/material";
@@ -9,10 +8,12 @@ import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 
 import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
+import { SettingsDialog } from "kit/SettingsDialog";
 
-const UserBar = inject("userSt")(observer(({ userSt }) => {
-    const router = useRouter();
-    console.log("router", router);
+const UserBar = inject("userSt", "uiSt")(observer(({ userSt, uiSt }) => {
+    const handleOpen = (value: boolean) => {
+        uiSt.setDialogs("userSettings", value);
+    };
 
     return (
         <Paper
@@ -22,7 +23,7 @@ const UserBar = inject("userSt")(observer(({ userSt }) => {
                 m: 0,
                 p: 0,
                 width: 256,
-                height: 80,
+                height: "80px",
             }}
         >
             <Stack
@@ -32,7 +33,7 @@ const UserBar = inject("userSt")(observer(({ userSt }) => {
                 sx={{
                     pl: 1.5,
                     width: 256,
-                    height: 80,
+                    height: "80px",
                 }}
             >
                 <CustomAvatar avatar={{ ...userSt.settings.avatar }} height="48px" width="48px" />
@@ -77,17 +78,18 @@ const UserBar = inject("userSt")(observer(({ userSt }) => {
                                 <KeyboardVoiceIcon />
                             </Button>
                         </Tooltip>
-
                         <Tooltip title="Настройки" placement="top">
-                            <Button color="inherit"
-                            onClick={() => router.push('/settings')}
-                            sx={{
-                                width: 36,
-                                minWidth: 36,
-                            }}>
+                            <Button
+                                color="inherit"
+                                onClick={() => handleOpen(true)}
+                                sx={{
+                                    width: 36,
+                                    minWidth: 36,
+                                }}>
                                 <SettingsIcon />
                             </Button>
                         </Tooltip>
+                        <SettingsDialog open={uiSt.dialogs.userSettings} setOpen={handleOpen} />
                     </Stack>
                 </Stack>
             </Stack>

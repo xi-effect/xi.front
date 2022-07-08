@@ -5,6 +5,7 @@ import ErrorPage from 'components/PagesComponents/Error/ErrorPage';
 import { errorMessages } from 'texts/errorMessages/errorMessages';
 
 // eslint-disable-next-line no-underscore-dangle
+// eslint-disable-next-line func-names
 export default function () {
 
     return (

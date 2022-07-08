@@ -55,11 +55,11 @@ class UISt {
         invite: false,
         privacy: false,
         settings: false,
+        userSettings: false,
     };
 
     @action setDialogs = (name, value) => {
         this.dialogs[name] = value;
-        console.log("this.dialogs", this.dialogs);
     };
 }
 

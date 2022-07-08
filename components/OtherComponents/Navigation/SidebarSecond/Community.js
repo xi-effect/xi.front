@@ -206,10 +206,10 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
         <MenuList
             sx={{
                 width: "100%",
+                height: "100%",
                 pl: 0,
                 pr: 0,
                 zIndex: 1,
-                height: "100vh",
                 overflow: "hidden",
             }}
         >
@@ -273,7 +273,7 @@ const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannel
                 renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
                 renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
                 universal
-                style={{ height: "100%", overflowY: "hidden !important", }}
+                style={{ height: 'calc(100% - 64px)', overflowY: "hidden !important", }}
                 autoHide
                 autoHideTimeout={1000}
                 autoHideDuration={200}

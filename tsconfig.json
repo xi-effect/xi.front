@@ -31,6 +31,6 @@
     "components/OtherComponents/Avatar/const.js",
     "kit/CreateInvite.js",
     "kit/XiLogo.js"
-  ],
+, "kit/SettingsDialog/MenuItems/UserAvatar.js"  ],
   "exclude": ["node_modules"]
 }

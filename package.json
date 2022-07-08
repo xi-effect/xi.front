@@ -11,8 +11,14 @@
     "postbuild": "next-sitemap",
     "start": "NODE_ENV=production next start",
     "lint": "eslint ./kit/** ./components/** ./pages/** -c .eslintrc.json --ext js,jsx,ts,tsx",
-    "lint-fix": "eslint ./kit/** ./components/** ./pages/** -c .eslintrc.json --fix --ext js,jsx,ts,tsx"
+    "lint-fix": "eslint ./kit/** ./components/** ./pages/** -c .eslintrc.json --fix --ext js,jsx,ts,tsx",
+    "prettier": "prettier  — write ./components/**/*.{js,jsx,ts,tsx} ./kit/**/*.{js,jsx,ts,tsx} ./pages/**/*.{js,jsx,ts,tsx}"
   },
+  "husky": {    
+    "hooks": {      
+      "pre-commit": "npm run lint-fix  && npm run prettier"  
+    }  
+  }, 
   "dependencies": {
     "@emotion/css": "^11.7.1",
     "@emotion/react": "^11.7.0",
@@ -37,6 +43,7 @@
     "date-fns": "^2.28.0",
     "emoji-mart": "^3.0.1",
     "framer-motion": "^5.3.1",
+    "husky": "^8.0.1",
     "mobx": "^6.3.6",
     "mobx-react": "^7.2.1",
     "moment": "^2.29.2",
@@ -73,13 +80,13 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "^11.9.2",
-    "@emotion/babel-preset-css-prop": "^11.2.0",
     "@babel/core": "^7.15.5",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/plugin-proposal-decorators": "^7.15.4",
     "@babel/plugin-proposal-private-methods": "^7.14.5",
     "@babel/plugin-proposal-private-property-in-object": "^7.15.4",
+    "@emotion/babel-plugin": "^11.9.2",
+    "@emotion/babel-preset-css-prop": "^11.2.0",
     "@types/crypto-js": "^4.1.1",
     "@types/react-beautiful-dnd": "^13.1.2",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
