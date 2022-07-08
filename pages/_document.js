@@ -40,6 +40,7 @@ export default class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#5d74a6" />
           <meta name='msapplication-tap-highlight' content='no' />
           <meta name="theme-color" content="#5d74a6" />
+          <script async defer data-website-id="e9570b38-1176-44ac-854c-5b7ad4380a47" src="https://analytics.xieffect.ru/umami.js" />
           {this.props.emotionStyleTags}
         </Head>
         <body>
