@@ -104,7 +104,12 @@ const Community = inject()(observer(() => {
                 anchorEl={anchorRef.current}
                 placement="bottom-end"
                 transition
-                disablePortal
+                sx={{
+                    height: 356,
+                    width: 248,
+                    left: 0,
+                    zIndex: 10000,
+                }}
             >
                 {({ TransitionProps, placement }) => (
                     <Grow
@@ -114,7 +119,7 @@ const Community = inject()(observer(() => {
                                 placement === "bottom-start" ? "left top" : "left bottom",
                         }}
                     >
-                        <Paper sx={{ position: "absolute", left: -244, width: 248 }}>
+                        <Paper sx={{ position: "absolute", left: 4, top: 4, width: 248 }}>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <Box>
                                     <CommunityMenu open={open} setOpen={setOpen} handleListKeyDown={handleListKeyDown} handleClose={handleClose} />
