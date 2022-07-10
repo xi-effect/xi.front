@@ -211,7 +211,7 @@ const Navigation = inject(
               renderThumbHorizontal={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
               renderThumbVertical={props => <div {...props} style={{ backgroundColor: "#cccccc", borderRadius: 8, width: 4, }} />}
               universal
-              style={{ width: "100vw", height: "calc(100vh - 64px)", overflowY: "hidden !important", }}
+              style={{ width: "100vw", height: "calc(100vh - 48px)", overflowY: "hidden !important", }}
               autoHide
               autoHideTimeout={1000}
               autoHideDuration={200}

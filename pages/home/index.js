@@ -2,9 +2,9 @@ import Head from "next/head";
 import React from "react";
 import { Stack, Grid } from "@mui/material";
 import { inject, observer } from "mobx-react";
-import Navigation from "components/OtherComponents/Navigation/Navigation";
-import { Stories } from "components/PagesComponents/Home/Stories";
-import TaskForDay from "components/PagesComponents/Home/TaskForDay";
+import Navigation from "kit/Navigation/Navigation";
+import { Stories } from "components/Home/Stories";
+import TaskForDay from "components/Home/TaskForDay";
 
 const Home = inject()(observer(() => (
   (

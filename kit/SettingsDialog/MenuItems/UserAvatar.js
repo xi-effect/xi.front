@@ -5,8 +5,8 @@ import { inject, observer } from "mobx-react";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import CheckIcon from "@mui/icons-material/Check";
-import { bgcolor, topType, accessoriesType, hairColor, facialHairType, clotheType, eyeType, eyebrowType, mouthType, skinColor } from 'components/OtherComponents/Avatar/const';
-import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
+import { bgcolor, topType, accessoriesType, hairColor, facialHairType, clotheType, eyeType, eyebrowType, mouthType, skinColor } from 'kit/Avatar/const';
+import CustomAvatar from "kit/Avatar/CustomAvatar";
 
 const items = [
     { length: topType.length, label: "Верх", type: "topType", },

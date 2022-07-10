@@ -6,10 +6,7 @@ import PropTypes from "prop-types";
 import Image from "next/image";
 import Head from "next/head";
 import React from "react";
-// import { useRouter } from "next/router"
-
-// import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
-import Navigation from "components/OtherComponents/Navigation/Navigation";
+import Navigation from "kit/Navigation/Navigation";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -44,15 +41,7 @@ function a11yProps(index) {
 }
 
 
-const Profile = inject("userSt")(observer(({ userSt }) => {
-    // const router = useRouter()
-    console.log(userSt);
-    // React.useEffect(() => {
-    //     if (router.query.id !== undefined) {
-    //         userSt.loadUserInfo(router.query.id)
-    //     }
-    // }, [userSt, router.query.id]);
-
+const Profile = inject("userSt")(observer(() => {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -87,9 +76,6 @@ const Profile = inject("userSt")(observer(({ userSt }) => {
                             width: "100%",
                         }}
                     >
-                        {/* <Box sx={{ height: 290, width: 290, }}>
-                            <CustomAvatar avatar={{ ...userSt.settings.avatar, bgcolor: null }} viewBox={{ x: "-175", y: "-100", width: "1256", height: "1256" }} />
-                        </Box> */}
                         <Stack
                             direction="column"
                             justifyContent="flex-start"

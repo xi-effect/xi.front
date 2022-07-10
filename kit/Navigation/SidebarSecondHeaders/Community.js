@@ -49,15 +49,22 @@ const Community = inject()(observer(() => {
 
     return (
         <Stack
+            onClick={handleToggle}
             direction="row"
             justifyContent="space-between"
             alignItems="center"
+            sx={{
+                p: 1,
+                '&:hover': {
+                    bgcolor: 'action.hover',
+                    cursor: 'pointer',
+                }
+            }}
         >
             <Typography
                 variant="Roboto500XiLabel"
                 sx={{
                     fontSize: 18,
-                    // p: 1
                 }}
             >
                 Тестовое сообщество
@@ -69,7 +76,6 @@ const Community = inject()(observer(() => {
                     aria-controls={open ? "composition-menu" : undefined}
                     aria-expanded={open ? "true" : undefined}
                     aria-haspopup="true"
-                    onClick={handleToggle}
                     sx={{
                         height: 36,
                         width: 36,

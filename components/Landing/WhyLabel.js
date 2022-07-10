@@ -3,7 +3,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Stack, useMediaQuery, Grid, Box, Paper, Typography } from "@mui/material";
 
-import { whys } from "../../../texts/landing/WhyLabel";
+import { whys } from "texts/landing/WhyLabel";
 
 function WhyLabel() {
     const mobile = useMediaQuery(theme => theme.breakpoints.down("md"));

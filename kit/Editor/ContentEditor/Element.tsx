@@ -26,12 +26,6 @@ const Element: React.FC<Props> = (props) => {
           {children}
         </Quote>
       );
-    // case 'bulleted-list':
-    //   return (
-    //     <ul style={style} {...attributes}>
-    //       {children}
-    //     </ul>
-    //   );
     case 'h1':
       return (
         <H1 style={style} attributes={attributes}>
@@ -50,18 +44,6 @@ const Element: React.FC<Props> = (props) => {
           <DividerComp />
         </div>
       );
-    // case 'list-item':
-    //   return (
-    //     <li style={style} {...attributes}>
-    //       {children}
-    //     </li>
-    //   );
-    // case 'numbered-list':
-    //   return (
-    //     <ol style={style} {...attributes}>
-    //       {children}
-    //     </ol>
-    //   );
     default:
       return (
         <Text style={style} attributes={attributes}>

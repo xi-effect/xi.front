@@ -12,13 +12,13 @@ import {
 import { inject, observer } from "mobx-react";
 import { motion } from "framer-motion";
 
-import Header from 'components/PagesComponents/Landing/Header';
-import MainLabel from 'components/PagesComponents/Landing/MainLabel';
-import WhyLabel from 'components/PagesComponents/Landing/WhyLabel';
-import EffectFor from 'components/PagesComponents/Landing/EffectFor';
-import Footer from 'components/PagesComponents/Landing/Footer';
-import CustomCookieShackbar from 'components/PagesComponents/Landing/CustomCookieShackbar';
-import EasyToBegin from 'components/PagesComponents/Landing/EasyToBegin';
+import Header from 'components/Landing/Header';
+import MainLabel from 'components/Landing/MainLabel';
+import WhyLabel from 'components/Landing/WhyLabel';
+import EffectFor from 'components/Landing/EffectFor';
+import Footer from 'components/Landing/Footer';
+import CustomCookieShackbar from 'components/Landing/CustomCookieShackbar';
+import EasyToBegin from 'components/Landing/EasyToBegin';
 
 import { useSnackbar } from "notistack";
 

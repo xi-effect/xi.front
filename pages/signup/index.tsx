@@ -8,9 +8,9 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 
 // @ts-ignore
-import Header from 'components/PagesComponents/Signup/Header.tsx';
+import Header from 'components/Signup/Header.tsx';
 // @ts-ignore
-import Form from 'components/PagesComponents/Signup/Form.tsx';
+import Form from 'components/Signup/Form.tsx';
 
 
 const Signup = inject()(

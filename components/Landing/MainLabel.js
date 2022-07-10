@@ -4,7 +4,7 @@ import Image from "next/image";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Stack, useMediaQuery, Button, Grid, Box, Paper, Typography } from "@mui/material";
 
-import { labels } from "../../../texts/landing/MainLabel";
+import { labels } from "texts/landing/MainLabel";
 
 function MainLabel() {
     const router = useRouter();

@@ -23,11 +23,11 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import "../styles/globals.css";
 
 import NProgress from "nprogress"; // nprogress module
+import Loading from "kit/Loading/Loading";
 import createEmotionCache from "../store/createEmotionCache";
 import { useStore } from "../store/rootStore";
 import { getDesignTokens } from "../theme";
 import "nprogress/nprogress.css"; // styles of nprogress
-import Loading from "../components/OtherComponents/Loading/Loading";
 
 config.autoAddCss = false;
 

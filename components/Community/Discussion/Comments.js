@@ -8,7 +8,7 @@ import {
 
 import { inject, observer } from "mobx-react";
 
-import CustomAvatar from "../../../OtherComponents/Avatar/CustomAvatar";
+import CustomAvatar from "kit/Avatar/CustomAvatar";
 
 
 const Comment = inject()(

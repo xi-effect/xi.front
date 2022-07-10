@@ -3,9 +3,9 @@ import Head from "next/head";
 import { Stack } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import { motion } from "framer-motion";
-import FAQ from "components/PagesComponents/Support/FAQ";
-import Header from "components/PagesComponents/Landing/Header";
-import Footer from "components/PagesComponents/Landing/Footer";
+import FAQ from "components/Support/FAQ";
+import Header from "components/Landing/Header";
+import Footer from "components/Landing/Footer";
 
 const Support = inject()(
   observer(() => (

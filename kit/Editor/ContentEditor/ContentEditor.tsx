@@ -16,7 +16,7 @@
 /* eslint-disable react/display-name */
 // @flow
 import React from 'react';
-import { Box, /* Typography */ } from '@mui/material';
+import { Box } from '@mui/material';
 import { Slate, Editable, withReact } from 'slate-react';
 import { useLocalStorage } from 'react-use';
 import { createEditor, Descendant, Transforms } from 'slate';
@@ -37,7 +37,6 @@ const Leaf = ({ attributes, children, leaf }) => {
       case 'underlined': children = <u>{children}</u>;
         break;
       case 'strike': children = <s>{children}</s>;
-        /* children = <Typography sx={{ textDecoration: "line-through" }} component="span" >{children}</Typography>; */
         break;
       case 'code': children = (
           <code
@@ -114,9 +113,8 @@ const ContentEditor: React.FC<Props> = (props) => {
                 <Editable
                   renderElement={(props) => <Block {...props} editor={editor} value={value} />}
                   renderLeaf={(props) => <Leaf {...props} />}
-                  placeholder="Enter some text..."
+                  placeholder="Введите некоторый текст..."
                   onDOMBeforeInput={(event: InputEvent) => {
-                    // event.preventDefault();
                     switch (event.inputType) {
                       case 'formatBold':
                         return toggleFormat(editor, 'bold');

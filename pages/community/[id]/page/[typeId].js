@@ -7,9 +7,9 @@ import { useRouter } from "next/router";
 
 import dynamic from "next/dynamic";
 import { Box, } from "@mui/material";
-import Navigation from "components/OtherComponents/Navigation/Navigation";
+import Navigation from "kit/Navigation/Navigation";
 
-const ContentEditor = dynamic(() => import("components/OtherComponents/Editor/ContentEditor/ContentEditor.tsx"), {
+const ContentEditor = dynamic(() => import("kit/Editor/ContentEditor/ContentEditor.tsx"), {
     ssr: false,
 });
 

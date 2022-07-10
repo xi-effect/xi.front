@@ -9,7 +9,7 @@ import moment from "moment";
 import ReplyIcon from "@mui/icons-material/Reply";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import CustomAvatar from "../Avatar/CustomAvatar";
+import CustomAvatar from "kit/Avatar/CustomAvatar";
 
 moment.locale("ru", {
     calendar: {
