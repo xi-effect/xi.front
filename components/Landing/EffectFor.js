@@ -8,7 +8,7 @@ import { Stack, useMediaQuery, Grid, Box, Paper, Typography, IconButton } from "
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useSwipeable } from "react-swipeable";
-import { features } from "../../../texts/landing/EffectFor";
+import { features } from "texts/landing/EffectFor";
 
 const menu = [
     "Ученикам",

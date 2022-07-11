@@ -2,9 +2,9 @@ import { Grid, Paper } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import Head from "next/head";
 import React from "react";
-import Navigation from "components/OtherComponents/Navigation/Navigation";
-import Description from "components/PagesComponents/Community/Overview/Description";
-import Administration from "components/PagesComponents/Community/Overview/Administration";
+import Navigation from "kit/Navigation/Navigation";
+import Description from "components/Community/Overview/Description";
+import Administration from "components/Community/Overview/Administration";
 
 const Community = inject("userSt")(observer(() =>
 // const router = useRouter()

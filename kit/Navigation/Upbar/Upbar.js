@@ -21,7 +21,7 @@ const Upbar = inject()(
           justifyContent="space-between"
           alignItems="center"
           sx={{
-            height: "32px",
+            height: "48px",
             width: "100%",
             boxShadow: 12,
           }}

@@ -8,7 +8,6 @@
 import { Divider } from '@mui/material';
 import * as React from 'react';
 // import { Menu, MenuItem, Stack, ListItemIcon, ListItemText, Typography } from '@mui/material';
-// import "./TextEditor.scss";
 
 type DividerProps = {
   // item: string;

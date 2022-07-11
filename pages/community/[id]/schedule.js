@@ -5,11 +5,11 @@ import { Stack, Grid, Paper } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 
-import Navigation from 'components/OtherComponents/Navigation/Navigation';
+import Navigation from 'kit/Navigation/Navigation';
 
-import DayPicker from 'components/PagesComponents/Community/Schedule/DayPicker';
-import Toolbar from 'components/PagesComponents/Community/Schedule/Toolbar';
-import Calendar from 'components/PagesComponents/Community/Schedule/Calendar';
+import DayPicker from 'components/Community/Schedule/DayPicker';
+import Toolbar from 'components/Community/Schedule/Toolbar';
+import Calendar from 'components/Community/Schedule/Calendar';
 
 
 const Schedule = inject('userSt')(

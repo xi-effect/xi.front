@@ -7,7 +7,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 
-import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
+import CustomAvatar from "kit/Avatar/CustomAvatar";
 import { SettingsDialog } from "kit/SettingsDialog";
 
 const UserBar = inject("userSt", "uiSt")(observer(({ userSt, uiSt }) => {

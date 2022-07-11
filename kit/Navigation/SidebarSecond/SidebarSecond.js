@@ -40,7 +40,7 @@ const SidebarSecond = inject()(observer(() => {
                         width: "100%",
                         height: "48px",
                         zIndex: 100,
-                        p: 1,
+                        p: 0,
                     }}
                 >
                     {router.pathname.includes("/home") && <Home />}

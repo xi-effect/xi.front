@@ -13,9 +13,9 @@ import { inject, observer } from 'mobx-react';
 
 import { useSessionStorage } from 'react-use';
 // @ts-ignore
-import Header from 'components/PagesComponents/Signin/Header.tsx';
+import Header from 'components/Signin/Header.tsx';
 // @ts-ignore
-import Form from 'components/PagesComponents/Signin/Form.tsx';
+import Form from 'components/Signin/Form.tsx';
 
 const Signin = inject(
   'uiSt',

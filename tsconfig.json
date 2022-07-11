@@ -26,9 +26,9 @@
     "**/*.ts",
     "**/*.tsx",
     "store/rootStore.js",
-    "components/OtherComponents/Editor/config.js",
+    "kit/Editor/config.js",
     "store/contentEditor/contentEditorSt.js",
-    "components/OtherComponents/Avatar/const.js",
+    "kit/Avatar/const.js",
     "kit/CreateInvite.js",
     "kit/XiLogo.js"
 , "kit/SettingsDialog/MenuItems/UserAvatar.js"  ],

@@ -16,6 +16,9 @@ const Home = inject()(observer(() => {
             justifyContent="space-between"
             alignItems="center"
             spacing={2}
+            sx={{
+                p: 1,
+            }}
         >
             <Typography
                 variant="Roboto500XiLabel"

@@ -22,18 +22,18 @@ import SaveIcon from "@mui/icons-material/Save";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-import Navigation from "components/OtherComponents/Navigation/Navigation";
-import CustomAvatar from "components/OtherComponents/Avatar/CustomAvatar";
+import Navigation from "kit/Navigation/Navigation";
+import CustomAvatar from "kit/Avatar/CustomAvatar";
 
-import Secure from "components/PagesComponents/Settings/Secure";
-import Interface from "components/PagesComponents/Settings/Interface";
+import Secure from "components/Settings/Secure";
+import Interface from "components/Settings/Interface";
 
 const Invite = dynamic(() =>
-  import("components/PagesComponents/Settings/Invite")
+  import("components/Settings/Invite")
 );
 
 const UserAvatar = dynamic(() =>
-  import("components/PagesComponents/Settings/UserAvatar")
+  import("components/Settings/UserAvatar")
 );
 
 const Settings = inject(
