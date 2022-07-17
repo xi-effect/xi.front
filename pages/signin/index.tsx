@@ -12,10 +12,9 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { useSessionStorage } from 'react-use';
-// @ts-ignore
-import Header from 'components/Signin/Header.tsx';
-// @ts-ignore
-import Form from 'components/Signin/Form.tsx';
+
+import Header from 'components/Signin/Header';
+import Form from 'components/Signin/Form';
 
 const Signin = inject(
   'uiSt',

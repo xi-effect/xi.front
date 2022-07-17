@@ -49,10 +49,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
     const mobileImage: boolean = useMediaQuery((theme) => theme.breakpoints.down('md'));
     const router: NextRouter = useRouter();
 
-    // React.useEffect(() => {
-    //   console.log('authorizationSt');
-    // }, [authorizationSt]);
-
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
 
     const {
@@ -243,7 +239,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                   alignItems="center"
                   sx={{ width: '100%', pt: 2, pb: 4 }}>
                   <Button
-                    // variant="outlined"
                     size="large"
                     onClick={() => {
                       router.push({
@@ -260,7 +255,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                         height: mobile ? '42px' : '42px',
                         color: 'text.primary',
                         borderRadius: mobile ? '62px' : '88px',
-                        // border: `2px solid #53BF80`,
                       },
                     }}>
                     РЕГИСТРАЦИЯ
