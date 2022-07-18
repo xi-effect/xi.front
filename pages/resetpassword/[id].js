@@ -107,10 +107,6 @@ const PasswordReset = inject("authorizationSt")(observer(({ authorizationSt }) =
                         elevation={24}
                         sx={{
                             zIndex: 500,
-                            // mt: mobile ? "2px" : -32,
-                            // mt: 10,
-                            // ml: mobile ? "16px" : "100px",
-                            // mr: mobile ? "16px" : "100px",
                             bgcolor: "grey.800",
                             borderRadius: "20px",
                         }}

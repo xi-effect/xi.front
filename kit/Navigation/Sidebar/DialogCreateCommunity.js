@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import useListen from 'utils/useListen';
 
 import TextFieldCustom from 'kit/TextFieldCustom';
 
@@ -36,27 +35,25 @@ const CommunityName = inject(
             resolver: yupResolver(schema),
         });
 
-        const onSubmit = (data) => {
-            console.log("emit create-community");
-            rootStore.socket.emit("create-community", { name: data.name });
-        };
-
         const router = useRouter();
 
-        const addCtoMenu = (data) => {
-            console.log("on create-community");
-            communitiesMenuSt.setUserCommunities([
-                {
-                    name: data?.name || "exe",
-                    id: data.id,
-                },
-                ...communitiesMenuSt.userCommunities,
-            ]);
-            router.push(`/community/${data.id}`);
-            setOpenDialogCC(false);
+        const addCtoMenu = ({ code, message, data }) => {
+            if (code === 200 && message) {
+                communitiesMenuSt.setUserCommunities([
+                    {
+                        name: data?.name || "exe",
+                        id: data.id,
+                    },
+                    ...communitiesMenuSt.userCommunities,
+                ]);
+                router.push(`/community/${data.id}`);
+                setOpenDialogCC(false);
+            };
         };
 
-        useListen(rootStore.socket, 'create-community', addCtoMenu);
+        const onSubmit = (data) => {
+            rootStore.socket.emit("new-community", { name: data.name }, addCtoMenu);
+        };
 
         return (
             <Stack
