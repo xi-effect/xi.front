@@ -12,7 +12,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import CommunityMenu from "kit/CommunityMenu";
 
-const Community = inject()(observer(() => {
+const Community = inject("communitySt")(observer(({ communitySt }) => {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
 
@@ -67,7 +67,7 @@ const Community = inject()(observer(() => {
                     fontSize: 18,
                 }}
             >
-                Тестовое сообщество
+                {communitySt.meta.name || "Тестовое сообщество"}
             </Typography>
             <Tooltip arrow title="Меню сообщества">
                 <IconButton
