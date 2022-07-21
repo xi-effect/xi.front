@@ -53,6 +53,7 @@
     "import/no-unresolved": "off",
     "no-restricted-syntax": "off",
     "no-use-before-define": "off",
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "no-shadow": "off"
   }
 }

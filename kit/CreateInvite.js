@@ -103,7 +103,7 @@ const CreateInvite = inject(
 
         const handleReset = () => {
             setActiveStep(0);
-            setInviteLink(null);
+            setInviteLink("");
         };
 
         const {
@@ -116,7 +116,7 @@ const CreateInvite = inject(
             resolver: yupResolver(schema),
         });
 
-        const [inviteLink, setInviteLink] = React.useState(null);
+        const [inviteLink, setInviteLink] = React.useState("");
 
         const onSubmit = data => {
             const errorsOnFields = errors?.role?.message || errors?.count?.message || errors?.time?.message;
@@ -124,17 +124,20 @@ const CreateInvite = inject(
             const communityId = window.location.href.split("/").pop();
 
             if (!errorsOnFields) {
-                rootStore.fetchData(`${rootStore.url}/communities/${communityId}/invitations/`,
-                    "POST",
+                rootStore.socket.emit("new-invite",
                     {
+                        "community-id": communityId,
                         "role": data.role,
                         "limit": '' || data.count,
                         "days": '' || data.time,
+                    },
+                    ({ code, data, message }) => {
+                        console.log("response", code, data, message);
+                        if (data.code) {
+                            setTimeout(() => setInviteLink(`https://xieffect.ru/invite/community/${data.code}`), 1000);
+                        }
                     }
-                ).then((response) => {
-                    if (response.code)
-                        setTimeout(() => setInviteLink(`https://xieffect.ru/invite/community/${response.code}`), 1000);
-                });
+                );
             }
         };
 

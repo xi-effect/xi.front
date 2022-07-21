@@ -3,6 +3,7 @@ import { Grid, Paper } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import Head from "next/head";
 import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 import Navigation from "kit/Navigation/Navigation";
 import Description from "components/Community/Overview/Description";
 import Administration from "components/Community/Overview/Administration";
@@ -14,11 +15,12 @@ const getLastCodeFromURL = () => {
 };
 
 const Community = inject("communitySt")(observer(({ communitySt }) => {
+    const router = useRouter();
 
     useEffect(() => {
         const code = getLastCodeFromURL();
         communitySt.getMeta(code);
-    }, []);
+    }, [router.query.id]);
 
     return (
         <>

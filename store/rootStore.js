@@ -21,8 +21,6 @@ import CommunityChannelsSt from "./community/communityChannelsSt";
 import CommunitiesInvitesSt from "./community/communitiesInvitesSt";
 import CommunitySettingsSt from "./community/communitySettingsSt";
 
-
-
 enableStaticRendering(typeof window === "undefined");
 
 let store;
@@ -46,8 +44,6 @@ class RootStore {
     // Communities Stores
     this.communitiesInvitesSt = new CommunitiesInvitesSt(this);
     this.communitiesMenuSt = new CommunitiesMenuSt(this);
-
-
 
     makeObservable(this);
   }
