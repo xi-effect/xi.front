@@ -4,25 +4,86 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
+import { useRouter, NextRouter } from 'next/router';
 import Image from 'next/image';
 
 import {
   Stack,
   useMediaQuery,
   Typography,
-  Skeleton,
   Box,
   Paper,
+  Skeleton,
 } from '@mui/material';
-
 
 import { motion } from 'framer-motion';
 import { inject, observer } from 'mobx-react';
 import GreenButton from 'kit/GreenButton';
 
+const getLastCodeFromURL = () => {
+  const url = window.location.href;
+  const codeArray = url.split('/');
+  return codeArray[codeArray.length - 1];
+};
+
+type CommunityInfo = {
+  name: string;
+  description: string;
+  id: number;
+};
+
 type Props = {
   rootStore?: any;
 };
+
+type ContentProps = {
+  join: boolean;
+  auth: boolean;
+  comm: CommunityInfo;
+  rootStore?: any;
+};
+
+const Content: React.FC<ContentProps> = inject('rootStore')(
+  observer(({ join, auth, comm, rootStore }) => {
+    const router: NextRouter = useRouter();
+
+    const acceptInvite = () => {
+      const code = getLastCodeFromURL();
+      rootStore.fetchData(`${rootStore.url}/communities/join/${code}/`, "POST")
+        .then(({ name, description, id }) => {
+          console.log(name, description, id);
+          router.push(`/community/${id}`);
+        });
+    };
+
+    if (!auth) {
+      return (
+        <>
+          <Typography sx={{ mt: 2 }} variant="h5"> {comm.name} </Typography>
+          <Typography sx={{ mt: 1, color: 'text.secondary' }} variant="h6"> Вы не авторизованы </Typography>
+          <Typography textAlign="center" sx={{ color: 'text.secondary' }} variant="subtitle1"> войдите или зарегистрируйтесь, чтобы принять приглашение </Typography>
+          <GreenButton sx={{ mt: 3, borderRadius: 4, width: 146, height: 40, }} onClick={() => router.push('/signin')}> Войти </GreenButton>
+        </>
+      );
+    }
+
+    if (join) {
+      return (
+        <>
+          <Typography sx={{ mt: 2 }} variant="h5"> {comm.name} </Typography>
+          <Typography sx={{ color: 'text.secondary' }} variant="subtitle1"> Вы уже состоите в этом сообществе </Typography>
+          <GreenButton sx={{ mt: 3, borderRadius: 4, width: 200, height: 40, }} onClick={() => router.push(`/community/${comm.id}`)}> Перейти к сообществу </GreenButton>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <Typography sx={{ mt: 2 }} variant="h5"> {comm.name} </Typography>
+        <GreenButton sx={{ mt: 3, borderRadius: 4, width: 220, height: 60, }} onClick={acceptInvite}> Присоединиться к сообществу </GreenButton>
+      </>
+    );
+  }));
 
 const Form: React.FC<Props> = inject('rootStore')(
   observer(({ rootStore }) => {
@@ -31,14 +92,18 @@ const Form: React.FC<Props> = inject('rootStore')(
     // @ts-ignore
     const mobileImage: boolean = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
+    const [join, setJoin] = React.useState<boolean | null>(null);
+    const [auth, setAuth] = React.useState<boolean | null>(null);
+    const [comm, setComm] = React.useState<CommunityInfo | null>(null);
+
     React.useEffect(() => {
-      const url = window.location.href;
-      const codeArray = url.split('/');
-      const code = codeArray[codeArray.length - 1];
-      console.log('code', code);
+      const code = getLastCodeFromURL();
       rootStore.fetchData(`${rootStore.url}/communities/join/${code}/`, "GET")
-        .then((data) => {
-          console.log(data);
+        .then(({ joined, authorized, community }) => {
+          console.log(joined, authorized, community);
+          setAuth(authorized);
+          setJoin(joined);
+          setComm(community);
         });
     }, []);
 
@@ -120,21 +185,11 @@ const Form: React.FC<Props> = inject('rootStore')(
                   width: '100%',
                   maxWidth: '386px',
                   mt: mobileImage ? '-16px' : '-32px',
-                  pr: 1,
-                  pl: 1,
+                  p: 2,
                 }}>
-                <Skeleton sx={{
-                  height: "64px", width: '100%', pl: 2, pr: 2
-                }} />
-                <Skeleton sx={{
-                  height: "64px", width: '70%', pl: 2, pr: 2, borderRadius: 8,
-                }} />
-                <Typography>
-                  1
-                </Typography>
-                <GreenButton>
-                  1
-                </GreenButton>
+                {join !== null && auth !== null && comm !== null ? (<Content join={join} auth={auth} comm={comm} />) : (
+                  <Skeleton sx={{ width: '100%', height: 64, }} />
+                )}
               </Stack>
             </Stack>
           </Box>

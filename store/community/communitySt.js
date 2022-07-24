@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import { action, observable, makeObservable } from "mobx";
 
 class CommunitySt {
@@ -10,10 +11,23 @@ class CommunitySt {
         makeObservable(this);
     }
 
-    @observable something = null;
+    @observable meta = {
+        id: null,
+        name: "",
+        description: "",
+    };
 
-    @action setSomething = (value) => {
-        this.something = value;
+    @action setMeta = (name, value) => {
+        this.meta[name] = value;
+    };
+
+    @action getMeta = (id = null) => {
+        this.rootStore.fetchData(`${this.rootStore.url}/communities/${id || this.meta.id}/`, "GET")
+            .then(({ id, name, description }) => {
+                if (id) this.setMeta("id", id);
+                if (name) this.setMeta("name", name);
+                if (description) this.setMeta("description", description);
+            });
     };
 
 }

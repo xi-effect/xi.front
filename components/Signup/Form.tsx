@@ -158,6 +158,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
       resolver: yupResolver(schema),
     });
 
+    const [passwordError, setPasswordError] = React.useState<boolean>(false);
+
     const onSubmit = (data: any) => {
       console.log('submit');
       setPasswordError(false);
@@ -179,8 +181,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
 
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
     const [showPasswordAgain, setShowPasswordAgain] = React.useState<boolean>(false);
-
-    const [passwordError, setPasswordError] = React.useState<boolean>(false);
 
     React.useEffect(() => {
       if (router.query.invite) setValue('code', router.query.invite);
