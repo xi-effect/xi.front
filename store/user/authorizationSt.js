@@ -71,7 +71,7 @@ class AuthorizationSt {
 
     @action clickRegistrationButton = (data) => {
         this.setSignup("error", null);
-        this.rootStore.fetchData(`${rootStore.url}/reg/`, "POST", { "email": data.email.toLowerCase(), "password": Crypto.SHA384(data.password.trim()).toString(), "username": data.username, "code": data.code })
+        this.rootStore.fetchData(`${this.rootStore.url}/reg/`, "POST", { "email": data.email.toLowerCase(), "password": Crypto.SHA384(data.password.trim()).toString(), "username": data.username, "code": data.code })
             .then((data) => {
                 if (data !== undefined) {
                     if (data.user) {
