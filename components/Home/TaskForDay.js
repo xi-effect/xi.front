@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React from "react";
 
 import { Paper, Stack, Box, Divider, Chip, Tooltip, Typography, IconButton } from "@mui/material";

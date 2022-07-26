@@ -54,6 +54,7 @@
     "no-restricted-syntax": "off",
     "no-use-before-define": "off",
     "react/require-default-props": "off",
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }
