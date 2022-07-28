@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable default-case */
 /* eslint-disable react/function-component-definition */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
 /* eslint-disable prefer-const */

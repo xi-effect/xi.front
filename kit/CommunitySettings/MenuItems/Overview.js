@@ -37,7 +37,7 @@ const schema = yup
     .required();
 
 
-const Review = inject()(observer(() => {
+const Overview = inject()(observer(() => {
 
     const {
         control,
@@ -173,4 +173,4 @@ const Review = inject()(observer(() => {
     );
 }));
 
-export default Review;
+export default Overview;

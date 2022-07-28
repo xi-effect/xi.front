@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useEffect } from "react";
 import { Stack, Typography, Radio } from "@mui/material";
 import { inject, observer } from "mobx-react";

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React from "react";
 import { inject, observer } from "mobx-react";
 

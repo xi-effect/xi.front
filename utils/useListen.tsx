@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable consistent-return */
 import { useEffect } from 'react';
 

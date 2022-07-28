@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/function-component-definition */
@@ -20,11 +20,7 @@ import { motion } from 'framer-motion';
 import { inject, observer } from 'mobx-react';
 import GreenButton from 'kit/GreenButton';
 
-const getLastCodeFromURL = () => {
-  const url = window.location.href;
-  const codeArray = url.split('/');
-  return codeArray[codeArray.length - 1];
-};
+import { getLastCodeFromURL } from "utils/getLastCodeFromURL";
 
 type CommunityInfo = {
   name: string;

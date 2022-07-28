@@ -22,11 +22,6 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
 
     const onInviteClick = () => {
       uiSt.setDialogs('invite', true);
-      // rootStore.socket.emit("open-invites", { "community-id": communitySt.meta.id }, (data) => {
-      //   if (data.code !== 200) {
-      //     console.error("SIO: open-invites");
-      //   };
-      // });
       if (setOpen) setOpen(false);
     };
 
@@ -52,8 +47,8 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
         <MenuItem
           sx={{ width: '100%' }}
           onClick={() => {
-            uiSt.setDialogs('settings', true);
-            if (setOpen) setOpen(false);
+            uiSt.setDialogs('communitySettings', true);
+            uiSt.setDialogs('communityMenu', false);
           }}>
           <Stack
             direction="row"

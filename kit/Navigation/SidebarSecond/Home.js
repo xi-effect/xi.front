@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React from "react";
 import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";

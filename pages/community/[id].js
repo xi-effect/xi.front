@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Grid, Paper } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import Head from "next/head";
@@ -8,11 +8,7 @@ import Navigation from "kit/Navigation/Navigation";
 import Description from "components/Community/Overview/Description";
 import Administration from "components/Community/Overview/Administration";
 
-const getLastCodeFromURL = () => {
-    const url = window.location.href;
-    const codeArray = url.split('/');
-    return codeArray[codeArray.length - 1];
-};
+import { getLastCodeFromURL } from "utils/getLastCodeFromURL";
 
 const Community = inject("communitySt")(observer(({ communitySt }) => {
     const router = useRouter();

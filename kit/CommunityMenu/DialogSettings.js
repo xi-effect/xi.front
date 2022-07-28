@@ -5,8 +5,8 @@ import { Dialog, Button, Stack, IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSnackbar } from "notistack";
 import Slide from '@mui/material/Slide';
-import Review from "./DialogSettings/Review";
-import Invites from "./DialogSettings/Invites";
+import Review from "../CommunitySettings/MenuItems/Overview";
+import Invites from "../CommunitySettings/MenuItems/Invites";
 
 
 const items = [

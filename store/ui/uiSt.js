@@ -56,6 +56,8 @@ class UISt {
         privacy: false,
         settings: false,
         userSettings: false,
+        communitySettings: false,
+        communityMenu: false,
     };
 
     @action setDialogs = (name, value) => {
