@@ -62,7 +62,7 @@ const Sidebar: React.FC<SidebarType> = inject(
         // @ts-ignore
         'source-id': communities[destination].id,
         'target-index': destination,
-      }, ({ code, message, data }) => { console.info(code, message, data);});
+      }, ({ code, message, data }) => { console.info(code, message, data); });
       communitiesMenuSt.setUserCommunities(communities);
     };
 
@@ -250,13 +250,7 @@ const Sidebar: React.FC<SidebarType> = inject(
               </Scrollbars>
             )}
           </Droppable>
-          <Box sx={{ height: 12 }} />
         </DragDropContext>
-        <Box
-          sx={{
-            height: '4px',
-          }}
-        />
         <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC} />
       </Stack>
     );

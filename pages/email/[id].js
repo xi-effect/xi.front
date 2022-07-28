@@ -7,6 +7,8 @@ import { inject, observer } from "mobx-react";
 
 import XiLogo from "kit/XiLogo";
 
+import { getLastCodeFromURL } from "utils/getLastCodeFromURL";
+
 const Email = inject("rootStore")(
   observer(({ rootStore }) => {
     const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -14,8 +16,8 @@ const Email = inject("rootStore")(
     const [ok, setOk] = React.useState(null);
 
     React.useEffect(() => {
-      const id = rootStore
-        .fetchData(`${rootStore.url}/email-confirm/${id}/`, "POST")
+      const id = getLastCodeFromURL();
+      rootStore.fetchData(`${rootStore.url}/email-confirm/${id}/`, "POST")
         .then((data) => {
           if (data.a === "Success") {
             setOk(true);
