@@ -6,6 +6,7 @@ import { inject, observer } from 'mobx-react';
 import { Stack, Tooltip, IconButton, Box } from '@mui/material';
 
 import HomeIcon from '@mui/icons-material/Home';
+import LogoutIcon from '@mui/icons-material/Logout';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { motion } from 'framer-motion';
@@ -20,6 +21,7 @@ const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
 type SidebarType = {
   rootStore?: any;
   communitiesMenuSt?: any;
+  userSt?: any;
 };
 
 const menuListDividers = ['home', 'none'];
@@ -27,8 +29,9 @@ const menuListDividers = ['home', 'none'];
 const Sidebar: React.FC<SidebarType> = inject(
   'rootStore',
   'communitiesMenuSt',
+  'userSt'
 )(
-  observer(({ rootStore, communitiesMenuSt }) => {
+  observer(({ rootStore, communitiesMenuSt, userSt }) => {
     const [openDialogCC, setOpenDialogCC] = React.useState(false);
     const router = useRouter();
 
@@ -46,6 +49,12 @@ const Sidebar: React.FC<SidebarType> = inject(
         href: 'createcommunity',
       },
     ];
+
+    const logoutButton = {
+      id: 0,
+      icon: <LogoutIcon />,
+      label: 'Выход',
+    };
 
     const reorder = (list, startIndex, endIndex) => {
       const result = Array.from(list);
@@ -125,6 +134,7 @@ const Sidebar: React.FC<SidebarType> = inject(
         sx={{
           position: 'absolute',
           pt: 2,
+          pb: 2,
           width: 80,
           height: '100vh',
           overflow: 'hidden',
@@ -257,6 +267,22 @@ const Sidebar: React.FC<SidebarType> = inject(
             height: '4px',
           }}
         />
+        <IconButton
+                  component={motion.button}
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => {
+                   userSt.logout();
+                  }}
+                  sx={{
+                    bgcolor:  'error.main',
+                    borderRadius: 2,
+                    '&:hover': {
+                      bgcolor:  'error.light',
+                    },
+                  }}>
+                  {logoutButton.icon}
+                </IconButton>
         <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC} />
       </Stack>
     );
