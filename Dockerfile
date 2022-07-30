@@ -35,15 +35,9 @@ COPY ./package*.json ./
 RUN npm install --omit=dev
 
 # Get the built application from the first stage
-COPY --from=builder /app/.next .next
-COPY --from=builder /app/public public
-COPY --from=builder /app/styles styles
-
-# Copying sw & etc
-COPY --from=builder /app/.next/sw.js public
-COPY --from=builder /app/.next/worker-*.js public
-COPY --from=builder /app/.next/workbox-*.js public
-COPY --from=builder /app/.next/fallback-*.js public
+COPY --from=builder /app/.next .next/
+COPY --from=builder /app/public/* /app/.next/sw.js* /app/.next/worker-*.js /app/.next/workbox-*.js /app/.next/fallback-*.js ./public/
+COPY --from=builder /app/styles styles/
 
 # Random cache directory, huh?
 RUN mkdir -p .next/cache && chmod -R 777 .next/cache
