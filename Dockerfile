@@ -36,6 +36,7 @@ RUN npm install --omit=dev
 
 # Get the built application from the first stage
 COPY --from=builder /app/.next .next/
+COPY --from=builder /app/public/ public/
 COPY --from=builder /app/public/* /app/.next/sw.js* /app/.next/worker-*.js /app/.next/workbox-*.js /app/.next/fallback-*.js ./public/
 COPY --from=builder /app/styles styles/
 
