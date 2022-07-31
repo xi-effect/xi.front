@@ -75,7 +75,7 @@ function FAQ() {
                 <Box sx={{ width: "100%" }}>
                   <Typography
                     component="p"
-                    variant="OpenSans400WhyLabel"
+                    variant="h5"
                     sx={{
                       cursor: "default",
                       color: "text.secondary",

@@ -31,7 +31,6 @@ function Header() {
                 }}
                 sx={{
                     "&.MuiButton-root": {
-                        fontFamily: "Open Sans, sans-serif",
                         fontStyle: "normal",
                         fontWeight: 600,
                         fontSize: "18px",

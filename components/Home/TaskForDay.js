@@ -461,7 +461,7 @@ const TaskForDay = inject()(observer(() => {
                 }}
             >
                 <Typography
-                    variant="OpenSans600WhyLabel"
+                    variant="h5"
                     sx={{
                         fontSize: 22,
                         ml: 2,

@@ -104,7 +104,7 @@ function WhyLabel() {
                             <Grid item>
                                 <Typography
                                     component="p"
-                                    variant="OpenSans400WhyLabel"
+                                    variant="h5"
                                     sx={{
                                         cursor: "default",
                                         color: "#555569",
