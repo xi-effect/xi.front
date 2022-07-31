@@ -172,7 +172,6 @@ const Content = inject()(
               onClick={() => uiSt.setDialogs("channelCreation", false)}
               sx={{
                 "&.MuiButton-root": {
-                  fontFamily: "Roboto",
                   fontSize: "15px",
                   lineHeight: "26px",
                   letterSpacing: "0.46000000834465027px",
@@ -191,7 +190,6 @@ const Content = inject()(
               onClick={handleSubmit(onSubmit)}
               sx={{
                 "&.MuiButton-root": {
-                  fontFamily: "Roboto",
                   fontSize: "15px",
                   lineHeight: "26px",
                   letterSpacing: "0.46000000834465027px",

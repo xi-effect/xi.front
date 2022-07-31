@@ -262,7 +262,7 @@ const Days = inject()(observer(() => (
                             {day.weekday}
                         </Typography>
                         <Typography
-                            variant="Roboto500XiLabel"
+                            variant="h5"
                             sx={{
                                 fontSize: 24,
                                 pt: 3,

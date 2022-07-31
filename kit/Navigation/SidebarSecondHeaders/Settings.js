@@ -13,7 +13,7 @@ const Settings = inject()(observer(() => (
             spacing={2}
         >
             <Typography
-                variant="Roboto500XiLabel"
+                variant="h5"
                 sx={{
                     fontSize: 18,
                 }}

@@ -63,7 +63,7 @@ const Community = inject("communitySt")(observer(({ communitySt }) => {
         >
             <Typography
                 noWrap
-                variant="Roboto500XiLabel"
+                variant="h5"
                 sx={{
                     fontSize: 18,
                 }}

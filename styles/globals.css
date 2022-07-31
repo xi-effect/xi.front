@@ -2,7 +2,7 @@ html {
   padding: 0;
   margin: 0;
   font-size: 10px;
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+  font-family: Golos, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
     Helvetica Neue, sans-serif;
 }
 
@@ -11,7 +11,7 @@ body {
   margin: 0;
   overflow: visible !important;
   padding-right: 0px !important;
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+  font-family: Golos, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
     Helvetica Neue, sans-serif;
 }
 
