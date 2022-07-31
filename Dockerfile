@@ -1,4 +1,4 @@
-FROM node:14-alpine AS builder
+FROM node:16-alpine AS builder
 
 # Alpine doesn't come with openssh or git, install them
 RUN apk add --no-cache openssh-client git
@@ -20,7 +20,7 @@ RUN npm run build
 
 
 # Base on offical Node.js Alpine image
-FROM node:14-alpine
+FROM node:16-alpine
 
 # Alpine doesn't come with openssh or git, install them
 RUN apk add --no-cache openssh-client git
@@ -32,13 +32,15 @@ WORKDIR /app
 COPY ./package*.json ./
 
 # Install dependencies
-RUN npm install --production
+RUN npm install --omit=dev
 
 # Get the built application from the first stage
-COPY --from=builder /app/.next .next
-COPY --from=builder /app/public public
-COPY --from=builder /app/styles styles
+COPY --from=builder /app/.next .next/
+COPY --from=builder /app/public/ public/
+COPY --from=builder /app/public/* /app/.next/sw.js* /app/.next/worker-*.js /app/.next/workbox-*.js /app/.next/fallback-*.js ./public/
+COPY --from=builder /app/styles styles/
 
+# Random cache directory, huh?
 RUN mkdir -p .next/cache && chmod -R 777 .next/cache
 
 # Expose the listening port
