@@ -1,22 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
-import { useRouter } from "next/router";
-import { inject, observer } from "mobx-react";
+import React from 'react';
+import { useRouter } from 'next/router';
+import { inject, observer } from 'mobx-react';
 
-import { Stack, Tooltip, IconButton, Box } from "@mui/material";
+import { Stack, Tooltip, IconButton, Box } from '@mui/material';
 
-import HomeIcon from "@mui/icons-material/Home";
-import LogoutIcon from "@mui/icons-material/Logout";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-import { Scrollbars } from "react-custom-scrollbars-2";
-import { motion } from "framer-motion";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import dynamic from "next/dynamic";
-import useListen from "utils/useListen";
-import { grey } from "@mui/material/colors";
-import CommunityItem from "./CommunityItem";
+import HomeIcon from '@mui/icons-material/Home';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import { Scrollbars } from 'react-custom-scrollbars-2';
+import { motion } from 'framer-motion';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import dynamic from 'next/dynamic';
+import useListen from 'utils/useListen';
+import { grey } from '@mui/material/colors';
+import CommunityItem from './CommunityItem';
 
-const DialogCreateCommunity = dynamic(() => import("./DialogCreateCommunity"), {
+const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
   ssr: false,
 });
 
@@ -26,12 +26,12 @@ type SidebarType = {
   userSt?: any;
 };
 
-const menuListDividers = ["home", "none"];
+const menuListDividers = ['home', 'none'];
 
 const Sidebar: React.FC<SidebarType> = inject(
-  "rootStore",
-  "communitiesMenuSt",
-  "userSt"
+  'rootStore',
+  'communitiesMenuSt',
+  'userSt'
 )(
   observer(({ rootStore, communitiesMenuSt, userSt }) => {
     const [openDialogCC, setOpenDialogCC] = React.useState(false);
@@ -41,21 +41,21 @@ const Sidebar: React.FC<SidebarType> = inject(
       {
         id: 0,
         icon: <HomeIcon />,
-        label: "Главная",
-        href: "/home",
+        label: 'Главная',
+        href: '/home',
       },
       {
         id: 1,
         icon: <AddBoxIcon />,
-        label: "Создать сообщество",
-        href: "createcommunity",
+        label: 'Создать сообщество',
+        href: 'createcommunity',
       },
     ];
 
     const logoutButton = {
       id: 0,
       icon: <LogoutIcon />,
-      label: "Выход",
+      label: 'Выход',
     };
 
     const reorder = (list, startIndex, endIndex) => {
@@ -74,11 +74,11 @@ const Sidebar: React.FC<SidebarType> = inject(
       );
       // @ts-ignore
       rootStore.socket.emit(
-        "reorder-community",
+        'reorder-community',
         {
           // @ts-ignore
-          "source-id": communities[destination].id,
-          "target-index": destination,
+          'source-id': communities[destination].id,
+          'target-index': destination,
         },
         ({ code, message, data }) => {
           console.info(code, message, data);
@@ -106,25 +106,25 @@ const Sidebar: React.FC<SidebarType> = inject(
 
     const subReorder = (data) => {
       const newArray = Array.from(communitiesMenuSt.userCommunities);
-      const item = newArray.find((i: Communty) => i.id === data["source-id"]);
+      const item = newArray.find((i: Communty) => i.id === data['source-id']);
       const itemIndex = newArray.findIndex(
-        (i: Communty) => i.id === data["source-id"]
+        (i: Communty) => i.id === data['source-id']
       );
       newArray.splice(itemIndex, 1);
-      newArray.splice(data["target-index"], 0, item);
-      console.log("on reorder-community", newArray);
+      newArray.splice(data['target-index'], 0, item);
+      console.log('on reorder-community', newArray);
       communitiesMenuSt.setUserCommunities(newArray);
     };
 
     useListen(
       rootStore.socket,
-      "reorder-community",
+      'reorder-community',
       subReorder,
       communitiesMenuSt.userCommunities
     );
 
     const addItemtoMenu = (data) => {
-      console.log("on new-community", data);
+      console.log('on new-community', data);
       const array = communitiesMenuSt.userCommunities;
       communitiesMenuSt.setUserCommunities([
         {
@@ -137,56 +137,56 @@ const Sidebar: React.FC<SidebarType> = inject(
 
     useListen(
       rootStore.socket,
-      "new-community",
+      'new-community',
       addItemtoMenu,
       communitiesMenuSt.userCommunities
     );
 
     const removeItem = (data) => {
-      console.log("on leave-community");
+      console.log('on leave-community');
       communitiesMenuSt.removeCommunity(data.id);
     };
 
     useListen(
       rootStore.socket,
-      "leave-community",
+      'leave-community',
       removeItem,
       communitiesMenuSt
     );
 
     return (
       <Stack
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="center"
+        direction='column'
+        justifyContent='flex-start'
+        alignItems='center'
         spacing={2}
         sx={{
-          position: "absolute",
+          position: 'absolute',
           pt: 2,
           pb: 2,
           width: 80,
-          height: "100vh",
-          overflow: "hidden",
+          height: '100vh',
+          overflow: 'hidden',
         }}
       >
         <Stack
-          direction="row"
-          justifyContent="flex-start"
-          sx={{ position: "relative" }}
-          alignItems="flex-start"
+          direction='row'
+          justifyContent='flex-start'
+          sx={{ position: 'relative' }}
+          alignItems='flex-start'
         >
           <Stack
-            sx={{ width: 4, position: "absolute" }}
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="center"
+            sx={{ width: 4, position: 'absolute' }}
+            direction='column'
+            justifyContent='flex-start'
+            alignItems='center'
             spacing={2}
           >
             {menuListDividers.map((item, index) => (
               <Box
                 key={index.toString()}
                 sx={{
-                  display: router.pathname.includes(item) ? "flex" : "none",
+                  display: router.pathname.includes(item) ? 'flex' : 'none',
                   height: 40,
                   width: 4,
                   bgcolor: grey[200],
@@ -198,15 +198,15 @@ const Sidebar: React.FC<SidebarType> = inject(
           </Stack>
           <Stack
             sx={{ width: 80 }}
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
+            direction='column'
+            justifyContent='center'
+            alignItems='center'
             spacing={2}
           >
             {menuList.map((item, index) => (
               <Tooltip
                 key={index.toString()}
-                placement="right"
+                placement='right'
                 title={item.label}
               >
                 <IconButton
@@ -214,19 +214,19 @@ const Sidebar: React.FC<SidebarType> = inject(
                   whileHover={{ scale: 1.15 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => {
-                    if (item.href === "createcommunity") {
+                    if (item.href === 'createcommunity') {
                       setOpenDialogCC(true);
                     } else router.push(item.href);
                   }}
                   sx={{
                     bgcolor: router.pathname.includes(item.href)
-                      ? "primary.main"
-                      : "",
+                      ? 'primary.main'
+                      : '',
                     borderRadius: 2,
-                    "&:hover": {
+                    '&:hover': {
                       bgcolor: router.pathname.includes(item.href)
-                        ? "primary.main"
-                        : "",
+                        ? 'primary.main'
+                        : '',
                     },
                   }}
                 >
@@ -238,14 +238,14 @@ const Sidebar: React.FC<SidebarType> = inject(
         </Stack>
 
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="sidebar-communities-list">
+          <Droppable droppableId='sidebar-communities-list'>
             {(provided) => (
               <Scrollbars
                 renderThumbHorizontal={(props) => (
                   <div
                     {...props}
                     style={{
-                      backgroundColor: "#cccccc",
+                      backgroundColor: '#cccccc',
                       borderRadius: 8,
                       width: 2,
                     }}
@@ -255,7 +255,7 @@ const Sidebar: React.FC<SidebarType> = inject(
                   <div
                     {...props}
                     style={{
-                      backgroundColor: "#cccccc",
+                      backgroundColor: '#cccccc',
                       borderRadius: 8,
                       width: 2,
                     }}
@@ -263,22 +263,22 @@ const Sidebar: React.FC<SidebarType> = inject(
                 )}
                 universal
                 // @ts-ignore
-                style={{ height: "100%", overflowY: "hidden !important" }}
+                style={{ height: '100%', overflowY: 'hidden !important' }}
                 autoHide
                 autoHideTimeout={1000}
                 autoHideDuration={200}
               >
                 <Stack
-                  direction="row"
-                  justifyContent="flex-start"
-                  sx={{ position: "relative", pt: 2 }}
-                  alignItems="flex-start"
+                  direction='row'
+                  justifyContent='flex-start'
+                  sx={{ position: 'relative', pt: 2 }}
+                  alignItems='flex-start'
                 >
                   <Stack
-                    sx={{ width: 4, position: "absolute", height: "100%" }}
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="center"
+                    sx={{ width: 4, position: 'absolute', height: '100%' }}
+                    direction='column'
+                    justifyContent='flex-start'
+                    alignItems='center'
                     spacing={2}
                   >
                     {communitiesMenuSt.userCommunities.map((item, index) => (
@@ -290,7 +290,7 @@ const Sidebar: React.FC<SidebarType> = inject(
                           bgcolor:
                             Number(router.query.id) === item.id
                               ? grey[200]
-                              : "transparent",
+                              : 'transparent',
                           borderTopRightRadius: 8,
                           borderBottomRightRadius: 8,
                         }}
@@ -298,9 +298,9 @@ const Sidebar: React.FC<SidebarType> = inject(
                     ))}
                   </Stack>
                   <Stack
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="center"
+                    direction='column'
+                    justifyContent='flex-start'
+                    alignItems='center'
                     spacing={2}
                     sx={{
                       width: 80,
@@ -318,7 +318,7 @@ const Sidebar: React.FC<SidebarType> = inject(
             )}
           </Droppable>
         </DragDropContext>
-        <Tooltip placement="right" title={logoutButton.label}>
+        <Tooltip placement='right' title={logoutButton.label}>
           <IconButton
             component={motion.button}
             whileHover={{ scale: 1.15 }}
@@ -327,10 +327,10 @@ const Sidebar: React.FC<SidebarType> = inject(
               userSt.logout();
             }}
             sx={{
-              bgcolor: "error.main",
+              bgcolor: 'error.main',
               borderRadius: 2,
-              "&:hover": {
-                bgcolor: "error.light",
+              '&:hover': {
+                bgcolor: 'error.light',
               },
             }}
           >
