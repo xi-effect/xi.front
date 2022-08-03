@@ -10,10 +10,6 @@ export default class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           {/* <meta name="theme-color" content={theme.palette.primary.main} /> */}
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
           <meta charSet="utf-8" />
           <meta name="Keywords" content="Образованиие, Эффект, Кси Эффект, Xi Effect, Effect" />
           <meta name="yandex-verification" content="42187efe6d19061b" />

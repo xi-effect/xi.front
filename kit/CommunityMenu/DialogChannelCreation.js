@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React from "react";
-import { inject, observer } from "mobx-react";
+import React from 'react';
+import { inject, observer } from 'mobx-react';
 
 import {
   Button,
@@ -12,19 +12,19 @@ import {
   Dialog,
   DialogContent,
   useMediaQuery,
-} from "@mui/material";
+} from '@mui/material';
 
-import MobileDialog from "kit/MobileDialog";
-import CloseIcon from "@mui/icons-material/Close";
-import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
-import ForumIcon from "@mui/icons-material/Forum";
-import ArticleIcon from "@mui/icons-material/Article";
-import { grey } from "@mui/material/colors";
+import MobileDialog from 'kit/MobileDialog';
+import CloseIcon from '@mui/icons-material/Close';
+import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
+import ForumIcon from '@mui/icons-material/Forum';
+import ArticleIcon from '@mui/icons-material/Article';
+import { grey } from '@mui/material/colors';
 
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import TextFieldCustom from "kit/TextFieldCustom";
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import TextFieldCustom from 'kit/TextFieldCustom';
 
 const schema = yup
   .object({
@@ -34,29 +34,28 @@ const schema = yup
 
 const content = [
   {
-    label: "Текстовый канал",
-    description: "Отправляйте сообщения, изображения, эмодзи",
+    label: 'Текстовый канал',
+    description: 'Отправляйте сообщения, изображения, эмодзи',
     icon: <ForumIcon sx={{ fontSize: 30 }} />,
   },
   {
-    label: "Голосовой канал",
+    label: 'Голосовой канал',
     description:
-      "Совершайте групповые звонки с возможностью использовать видеосвязь и демонстрацию экрана",
+      'Совершайте групповые звонки с возможностью использовать видеосвязь и демонстрацию экрана',
     icon: <RecordVoiceOverIcon sx={{ fontSize: 30 }} />,
   },
   {
-    label: "Страница",
-    description:
-      "Создавайте и делитесь контентом. Например, это может быть конспект к уроку",
+    label: 'Страница',
+    description: 'Создавайте и делитесь контентом. Например, это может быть конспект к уроку',
     icon: <ArticleIcon sx={{ fontSize: 30 }} />,
   },
 ];
 
 const getType = (num) => {
-  if (num === 0) return "chat";
-  if (num === 1) return "room";
-  if (num === 2) return "page";
-  return "room";
+  if (num === 0) return 'chat';
+  if (num === 1) return 'room';
+  if (num === 2) return 'page';
+  return 'room';
 };
 
 const Content = inject()(
@@ -64,7 +63,7 @@ const Content = inject()(
     const { communityChannelsSt, uiSt } = props;
 
     // @ts-ignore
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("dl"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
     const [channelSelect, setChannelSelect] = React.useState(0);
     const {
       control,
@@ -76,11 +75,11 @@ const Content = inject()(
     });
 
     const onSubmit = (data) => {
-      console.log("onSubmit");
+      console.log('onSubmit');
       trigger();
       const type = getType(channelSelect);
       communityChannelsSt.pushNewChannel({ ...data, type });
-      uiSt.setDialogs("channelCreation", false);
+      uiSt.setDialogs('channelCreation', false);
     };
 
     return (
@@ -90,7 +89,7 @@ const Content = inject()(
         alignItems="flex-start"
         sx={{
           height: 500,
-          width: "100%",
+          width: '100%',
         }}
         spacing={1}
       >
@@ -104,11 +103,11 @@ const Content = inject()(
             sx={{
               p: 1,
               minHeight: 96,
-              width: "100%",
+              width: '100%',
               boxShadow: 12,
               bgcolor: channelSelect === index ? grey[700] : grey[800],
               borderRadius: 2,
-              cursor: "pointer",
+              cursor: 'pointer',
             }}
             spacing={1}
           >
@@ -119,17 +118,13 @@ const Content = inject()(
               alignItems="flex-start"
               spacing={0.5}
               sx={{
-                width: "100%",
+                width: '100%',
               }}
             >
-              <Typography variant="h6" component="p" sx={{ fontWeight: "700" }}>
+              <Typography variant="h6" component="p" sx={{ fontWeight: '700' }}>
                 {item.label}
               </Typography>
-              <Typography
-                variant="subtitle1"
-                component="p"
-                sx={{ lineHeight: "1.35" }}
-              >
+              <Typography variant="subtitle1" component="p" sx={{ lineHeight: '1.35' }}>
                 {item.description}
               </Typography>
             </Stack>
@@ -137,14 +132,11 @@ const Content = inject()(
             <Radio checked={channelSelect === index} color="default" />
           </Stack>
         ))}
-        <Typography
-          variant="subtitle2"
-          sx={{ color: "text.secondary", pt: 2, pb: 1 }}
-        >
-          {" "}
-          НАЗВАНИЕ{" "}
+        <Typography variant="subtitle2" sx={{ color: 'text.secondary', pt: 2, pb: 1 }}>
+          {' '}
+          НАЗВАНИЕ{' '}
         </Typography>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: '100%' }}>
           <Controller
             name="name"
             control={control}
@@ -152,7 +144,7 @@ const Content = inject()(
             render={({ field }) => (
               <TextFieldCustom
                 variant="filled"
-                error={errors?.email?.type === "email"}
+                error={errors?.email?.type === 'email'}
                 type="text"
                 fullWidth
                 label="Название канала"
@@ -164,22 +156,21 @@ const Content = inject()(
             direction="row"
             justifyContent="center"
             alignItems="center"
-            sx={{ width: "100%", pt: 2, pb: 4 }}
+            sx={{ width: '100%', pt: 2, pb: 4 }}
             spacing={2}
           >
             <Button
               size="large"
-              onClick={() => uiSt.setDialogs("channelCreation", false)}
+              onClick={() => uiSt.setDialogs('channelCreation', false)}
               sx={{
-                "&.MuiButton-root": {
-                  fontFamily: "Roboto",
-                  fontSize: "15px",
-                  lineHeight: "26px",
-                  letterSpacing: "0.46000000834465027px",
-                  width: mobile ? "140px" : "140px",
-                  height: mobile ? "42px" : "42px",
-                  color: "text.primary",
-                  borderRadius: mobile ? "62px" : "88px",
+                '&.MuiButton-root': {
+                  fontSize: '15px',
+                  lineHeight: '26px',
+                  letterSpacing: '0.46000000834465027px',
+                  width: mobile ? '140px' : '140px',
+                  height: mobile ? '42px' : '42px',
+                  color: 'text.primary',
+                  borderRadius: mobile ? '62px' : '88px',
                 },
               }}
             >
@@ -190,18 +181,17 @@ const Content = inject()(
               size="large"
               onClick={handleSubmit(onSubmit)}
               sx={{
-                "&.MuiButton-root": {
-                  fontFamily: "Roboto",
-                  fontSize: "15px",
-                  lineHeight: "26px",
-                  letterSpacing: "0.46000000834465027px",
-                  width: mobile ? "196px" : "196px",
-                  height: mobile ? "42px" : "42px",
-                  color: "text.primary",
-                  bgcolor: "secondary.main",
-                  borderRadius: mobile ? "62px" : "88px",
-                  "&:hover": {
-                    bgcolor: "secondary.dark",
+                '&.MuiButton-root': {
+                  fontSize: '15px',
+                  lineHeight: '26px',
+                  letterSpacing: '0.46000000834465027px',
+                  width: mobile ? '196px' : '196px',
+                  height: mobile ? '42px' : '42px',
+                  color: 'text.primary',
+                  bgcolor: 'secondary.main',
+                  borderRadius: mobile ? '62px' : '88px',
+                  '&:hover': {
+                    bgcolor: 'secondary.dark',
                   },
                   boxShadow: 2,
                 },
@@ -213,22 +203,22 @@ const Content = inject()(
         </Box>
       </Stack>
     );
-  })
+  }),
 );
 
 const DialogChannelCreation = inject(
-  "communityChannelsSt",
-  "uiSt"
+  'communityChannelsSt',
+  'uiSt',
 )(
   observer(({ communityChannelsSt, uiSt }) => {
-    const fullScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const fullScreen = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
     return (
       <>
         {!fullScreen && (
           <Dialog
             open={uiSt.dialogs.channelCreation}
-            onClose={() => uiSt.setDialogs("channelCreation", false)}
+            onClose={() => uiSt.setDialogs('channelCreation', false)}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             fullWidth
@@ -248,18 +238,15 @@ const DialogChannelCreation = inject(
               alignItems="center"
               sx={{
                 height: 64,
-                width: "100%",
+                width: '100%',
                 p: 1,
               }}
             >
-              <Typography sx={{ mt: 2, ml: 2, mr: "auto" }} variant="h6">
+              <Typography sx={{ mt: 2, ml: 2, mr: 'auto' }} variant="h6">
                 Создать канал
               </Typography>
-              <IconButton
-                onClick={() => uiSt.setDialogs("channelCreation", false)}
-                sx={{ mt: 2 }}
-              >
-                <CloseIcon sx={{ fontSize: 32, color: "text.secondary" }} />
+              <IconButton onClick={() => uiSt.setDialogs('channelCreation', false)} sx={{ mt: 2 }}>
+                <CloseIcon sx={{ fontSize: 32, color: 'text.secondary' }} />
               </IconButton>
             </Stack>
             <DialogContent>
@@ -270,7 +257,7 @@ const DialogChannelCreation = inject(
         {fullScreen && (
           <MobileDialog
             open={uiSt.dialogs.channelCreation}
-            setOpen={() => uiSt.setDialogs("channelCreation", false)}
+            setOpen={() => uiSt.setDialogs('channelCreation', false)}
             title="Создание канала"
           >
             <Stack>
@@ -280,7 +267,7 @@ const DialogChannelCreation = inject(
         )}
       </>
     );
-  })
+  }),
 );
 
 export default DialogChannelCreation;

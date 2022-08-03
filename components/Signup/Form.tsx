@@ -195,7 +195,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
           position: 'relative',
           width: mobile ? '340px' : '512px',
           zIndex: 0,
-        }}>
+        }}
+      >
         {!mobileBob && (
           <Box
             sx={{
@@ -203,7 +204,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
               top: '0px',
               right: '-156px',
               zIndex: -1,
-            }}>
+            }}
+          >
             <Image
               alt="alt"
               src="/assets/landing/blob1.svg"
@@ -220,7 +222,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
               bottom: '0px',
               left: '-156px',
               zIndex: -1,
-            }}>
+            }}
+          >
             <Image
               alt="alt"
               src="/assets/landing/blob3.svg"
@@ -241,11 +244,13 @@ const Form: React.FC<Props> = inject('authorizationSt')(
             width: mobile ? '340px' : '512px',
             bgcolor: 'grey.800',
             borderRadius: '20px',
-          }}>
+          }}
+        >
           <Box
             component="form"
             sx={{ height: mobile ? '570px' : '700px' }}
-            onSubmit={handleSubmit(onSubmit)}>
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <Stack
               component={motion.div}
               initial={{ opacity: 0 }}
@@ -254,13 +259,15 @@ const Form: React.FC<Props> = inject('authorizationSt')(
               direction="column"
               justifyContent="center"
               alignItems="center"
-              sx={{ width: '100%', height: '100%' }}>
+              sx={{ width: '100%', height: '100%' }}
+            >
               <Box
                 sx={{
                   pt: 2,
                   width: mobileBob ? 126 : 256,
                   height: mobileBob ? 126 : 256,
-                }}>
+                }}
+              >
                 <Image
                   alt="alt"
                   src="/assets/auth/MobileLogin.svg"
@@ -280,7 +287,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                         }
                         sx={{
                           minWidth: mobile ? 90 : 140,
-                        }}>
+                        }}
+                      >
                         {item.label}
                       </StepLabel>
                     </Step>
@@ -292,7 +300,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                spacing={2}>
+                spacing={2}
+              >
                 {activeStep === 0 && (
                   <>
                     <Typography textAlign="center">
@@ -319,7 +328,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                                   aria-label="toggle password visibility"
                                   onClick={() => setShowCode((prev) => !prev)}
                                   edge="end"
-                                  size="large">
+                                  size="large"
+                                >
                                   {showCode ? (
                                     <Visibility sx={{ color: 'text.secondary' }} />
                                   ) : (
@@ -426,7 +436,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                                   aria-label="toggle password visibility"
                                   onClick={() => setShowPassword((prev) => !prev)}
                                   edge="end"
-                                  size="large">
+                                  size="large"
+                                >
                                   {showPassword ? (
                                     <Visibility sx={{ color: 'text.secondary' }} />
                                   ) : (
@@ -470,7 +481,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                                   aria-label="toggle password visibility"
                                   onClick={() => setShowPasswordAgain((prev) => !prev)}
                                   edge="end"
-                                  size="large">
+                                  size="large"
+                                >
                                   {showPasswordAgain ? (
                                     <Visibility sx={{ color: 'text.secondary' }} />
                                   ) : (
@@ -495,7 +507,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                spacing={4}>
+                spacing={4}
+              >
                 <Button
                   color="inherit"
                   size="large"
@@ -507,7 +520,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                     width: mobile ? '112px' : '140px',
                     height: mobile ? '42px' : '42px',
                     borderRadius: mobile ? '62px' : '88px',
-                  }}>
+                  }}
+                >
                   Назад
                 </Button>
                 <GreenButton
@@ -522,7 +536,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                     height: mobile ? '42px' : '42px',
                     borderRadius: mobile ? '62px' : '88px',
                     boxShadow: 2,
-                  }}>
+                  }}
+                >
                   {activeStep === 2 ? 'Завершить' : 'Вперёд'}
                 </GreenButton>
               </Stack>

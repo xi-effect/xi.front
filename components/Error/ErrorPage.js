@@ -8,7 +8,7 @@ import Header from '../Landing/Header';
 
 // eslint-disable-next-line react/prop-types
 export default function ErrorPage({ imageSrc, textMessage }) {
-  const mobile = useMediaQuery(theme => theme.breakpoints.down("lg"));
+  const mobile = useMediaQuery((theme) => theme.breakpoints.down('lg'));
   const router = useRouter();
 
   return (
@@ -23,14 +23,14 @@ export default function ErrorPage({ imageSrc, textMessage }) {
       sx={{
         zIndex: 1,
         margin: 0,
-        overflow: "auto",
-        height: "100vh",
-        bgcolor: "background.main",
+        overflow: 'auto',
+        height: '100vh',
+        bgcolor: 'background.main',
       }}
     >
       <Header />
       <Stack
-        direction={mobile ? "column-reverse" : "row"}
+        direction={mobile ? 'column-reverse' : 'row'}
         justifyContent="center"
         alignItems="center"
         sx={{
@@ -48,13 +48,12 @@ export default function ErrorPage({ imageSrc, textMessage }) {
         >
           <Typography
             sx={{
-              fontSize: mobile ?  "50px !important" : "60px !important",
+              fontSize: mobile ? '50px !important' : '60px !important',
               fontWeight: 500,
-              maxWidth: mobile ? "289px" :"323px",
-              lineHeight: "65px",
-              letterSpacing: "-0.5px",
-              textAlign: mobile ? "center" : "left",
-
+              maxWidth: mobile ? '289px' : '323px',
+              lineHeight: '65px',
+              letterSpacing: '-0.5px',
+              textAlign: mobile ? 'center' : 'left',
             }}
           >
             {textMessage}
@@ -62,34 +61,34 @@ export default function ErrorPage({ imageSrc, textMessage }) {
           <Button
             onClick={() => {
               router.push({
-                pathname: "/",
+                pathname: '/',
               });
             }}
             sx={{
-              "&.MuiButton-root": {
-                width: "289px",
-                height: "60px",
-                color: "text.main",
-                bgcolor: "primary.main",
-                borderRadius: "88px",
+              '&.MuiButton-root': {
+                width: '289px',
+                height: '60px',
+                color: 'text.main',
+                bgcolor: 'primary.main',
+                borderRadius: '88px',
                 boxShadow: 24,
-                "&:hover": {
-                  bgcolor: "primary.main",
+                '&:hover': {
+                  bgcolor: 'primary.main',
                 },
               },
-              mt: "20px",
-              mb: "20px",
+              mt: '20px',
+              mb: '20px',
             }}
           >
             <Typography
               sx={{
-                "&.MuiTypography-root": {
+                '&.MuiTypography-root': {
                   fontWeight: 500,
-                  fontSize: "18px",
-                  lineHeight: "25px",
+                  fontSize: '18px',
+                  lineHeight: '25px',
                 },
-                ml: "24px",
-                color: "text.primary",
+                ml: '24px',
+                color: 'text.primary',
               }}
             >
               Вернуться на главную
@@ -99,26 +98,20 @@ export default function ErrorPage({ imageSrc, textMessage }) {
               justifyContent="center"
               alignItems="center"
               sx={{
-                color: "text.primary",
-                bgcolor: "secondary.main",
-                height: "46px",
-                width: "46px",
-                borderRadius: "50%",
-                ml: "auto",
-                mr: "0px",
+                color: 'text.primary',
+                bgcolor: 'secondary.main',
+                height: '46px',
+                width: '46px',
+                borderRadius: '50%',
+                ml: 'auto',
+                mr: '0px',
               }}
             >
               <ArrowForwardIcon />
             </Stack>
           </Button>
         </Stack>
-        <Image
-          alt="alt"
-          src={imageSrc}
-          quality={100}
-          width={512}
-          height={364}
-        />
+        <Image alt="alt" src={imageSrc} quality={100} width={512} height={364} />
       </Stack>
     </Stack>
   );

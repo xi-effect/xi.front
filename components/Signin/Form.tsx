@@ -75,7 +75,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
           width: 'calc(100% - 32px)',
           maxWidth: 512,
           zIndex: 0,
-        }}>
+        }}
+      >
         {!mobile && (
           <Box
             sx={{
@@ -83,7 +84,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
               top: '0px',
               right: '-156px',
               zIndex: -1,
-            }}>
+            }}
+          >
             <Image
               alt="alt"
               src="/assets/landing/blob1.svg"
@@ -100,7 +102,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
               bottom: '0px',
               left: '-156px',
               zIndex: -1,
-            }}>
+            }}
+          >
             <Image
               alt="alt"
               src="/assets/landing/blob3.svg"
@@ -120,7 +123,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
             zIndex: 500,
             bgcolor: 'grey.800',
             borderRadius: '20px',
-          }}>
+          }}
+        >
           <Box component="form" onSubmit={handleSubmit(onSubmit)}>
             <Stack
               component={motion.div}
@@ -130,7 +134,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
               direction="column"
               justifyContent="center"
               alignItems="center"
-              sx={{ width: '100%' }}>
+              sx={{ width: '100%' }}
+            >
               <Image
                 alt="alt"
                 src="/assets/auth/Login.svg"
@@ -149,7 +154,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                   mt: mobileImage ? '-16px' : '-32px',
                   pr: 1,
                   pl: 1,
-                }}>
+                }}
+              >
                 <Controller
                   name="email"
                   control={control}
@@ -165,8 +171,11 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                       fullWidth
                       label="Адрес почты"
                       helperText={`
-                      ${authorizationSt.login.error === "User doesn't exist" 
-                        ? 'Пользователь с таким e-mail не найден' : ''}
+                      ${
+                        authorizationSt.login.error === "User doesn't exist"
+                          ? 'Пользователь с таким e-mail не найден'
+                          : ''
+                      }
                       ${errors?.email?.type === 'email' ? 'Введите корректный e-mail' : ''}
                       `}
                       {...field}
@@ -190,11 +199,19 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                       type={showPassword ? 'text' : 'password'}
                       helperText={`
                       ${errors?.password?.type === 'min' ? 'Минимальное число символов - 6' : ''}
-                      ${errors?.password?.type === 'max' ? 'Максимальное число символов - 100' : ''} 
-                      ${(authorizationSt.login.error === 'Wrong password' && !errors?.password?.type) 
-                        ? 'Неверный Пароль' : ''} 
-                      ${(authorizationSt.login.error === 'Server error' && !errors?.password?.type) 
-                        ? 'Ошибка сервера' : ''}
+                      ${
+                        errors?.password?.type === 'max' ? 'Максимальное число символов - 100' : ''
+                      } 
+                      ${
+                        authorizationSt.login.error === 'Wrong password' && !errors?.password?.type
+                          ? 'Неверный Пароль'
+                          : ''
+                      } 
+                      ${
+                        authorizationSt.login.error === 'Server error' && !errors?.password?.type
+                          ? 'Ошибка сервера'
+                          : ''
+                      }
                       `}
                       InputProps={{
                         endAdornment: (
@@ -203,7 +220,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                               aria-label="toggle password visibility"
                               onClick={() => setShowPassword(!showPassword)}
                               edge="end"
-                              size="large">
+                              size="large"
+                            >
                               {showPassword ? (
                                 <Visibility sx={{ color: 'text.secondary' }} />
                               ) : (
@@ -221,7 +239,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                   direction="row"
                   justifyContent="flex-end"
                   alignItems="center"
-                  sx={{ width: '100%' }}>
+                  sx={{ width: '100%' }}
+                >
                   <Link
                     sx={{ color: 'text.secondary', fontWeight: 500, cursor: 'pointer' }}
                     onClick={() => {
@@ -229,7 +248,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                         pathname: '/resetpassword/email',
                       });
                     }}
-                    underline="hover">
+                    underline="hover"
+                  >
                     восстановить пароль
                   </Link>
                 </Stack>
@@ -237,7 +257,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                   direction="row"
                   justifyContent="space-between"
                   alignItems="center"
-                  sx={{ width: '100%', pt: 2, pb: 4 }}>
+                  sx={{ width: '100%', pt: 2, pb: 4 }}
+                >
                   <Button
                     size="large"
                     onClick={() => {
@@ -247,7 +268,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                     }}
                     sx={{
                       '&.MuiButton-root': {
-                        fontFamily: 'Roboto',
                         fontSize: '15px',
                         lineHeight: '26px',
                         letterSpacing: '0.46000000834465027px',
@@ -256,7 +276,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                         color: 'text.primary',
                         borderRadius: mobile ? '62px' : '88px',
                       },
-                    }}>
+                    }}
+                  >
                     РЕГИСТРАЦИЯ
                   </Button>
                   <Button
@@ -265,7 +286,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                     type="submit"
                     sx={{
                       '&.MuiButton-root': {
-                        fontFamily: 'Roboto',
                         fontSize: '15px',
                         lineHeight: '26px',
                         letterSpacing: '0.46000000834465027px',
@@ -279,7 +299,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                         },
                         boxShadow: 2,
                       },
-                    }}>
+                    }}
+                  >
                     ВОЙТИ
                   </Button>
                 </Stack>

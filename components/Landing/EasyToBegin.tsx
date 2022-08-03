@@ -110,7 +110,8 @@ const EasyToBegin: React.FC = () => {
         width: '100%',
         position: 'relative',
         p: 2,
-      }}>
+      }}
+    >
       <Typography
         component="h1"
         textAlign="center"
@@ -123,7 +124,8 @@ const EasyToBegin: React.FC = () => {
             md: '36px',
             lg: '40px',
           },
-        }}>
+        }}
+      >
         {easy.main}
       </Typography>
       <Stack
@@ -135,7 +137,8 @@ const EasyToBegin: React.FC = () => {
         direction="row"
         justifyContent="center"
         alignItems="center"
-        spacing={2}>
+        spacing={2}
+      >
         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
           <Stepper connector={<ColorlibConnector />} activeStep={activeStep} orientation="vertical">
             {steps.map((step, index) => (
@@ -152,16 +155,19 @@ const EasyToBegin: React.FC = () => {
                   pb: 1,
                   bgcolor: 'primary.dark',
                 }}
-                key={step.stepLabel}>
+                key={step.stepLabel}
+              >
                 <Stack
                   direction="row"
                   justifyContent="space-between"
                   alignItems="center"
-                  spacing={2}>
+                  spacing={2}
+                >
                   <Typography variant="h6">{step.mainLabel}</Typography>
                   <Typography
                     variant="button"
-                    sx={{ color: activeStep === index ? 'text.main' : 'text.secondary' }}>
+                    sx={{ color: activeStep === index ? 'text.main' : 'text.secondary' }}
+                  >
                     {step.stepLabel}
                   </Typography>
                 </Stack>
@@ -172,7 +178,8 @@ const EasyToBegin: React.FC = () => {
                     pt: 1,
                     pb: 0,
                     border: 'none',
-                  }}>
+                  }}
+                >
                   <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
                     {mobileImage && (
                       <Image
@@ -196,7 +203,8 @@ const EasyToBegin: React.FC = () => {
             justifyContent="center"
             alignItems="center"
             spacing={2}
-            sx={{ mt: 1, mb: 2, width: mobileImage ? 364 : 396, p: 2 }}>
+            sx={{ mt: 1, mb: 2, width: mobileImage ? 364 : 396, p: 2 }}
+          >
             <Typography variant="h5" sx={{ color: 'text.secondary', mr: 'auto' }}>
               {' '}
               {`Шаг ${activeStep + 1} из 5`}{' '}
@@ -207,7 +215,8 @@ const EasyToBegin: React.FC = () => {
               onClick={() => {
                 if (activeStep !== 0) setActiveStep((prev) => prev - 1);
               }}
-              sx={{ mt: 1, mr: 1, width: 96, height: 42, borderRadius: 2 }}>
+              sx={{ mt: 1, mr: 1, width: 96, height: 42, borderRadius: 2 }}
+            >
               Назад
             </GreenButton>
             <GreenButton
@@ -216,7 +225,8 @@ const EasyToBegin: React.FC = () => {
               onClick={() => {
                 if (activeStep !== steps.length - 1) setActiveStep((prev) => prev + 1);
               }}
-              sx={{ mt: 1, mr: 1, width: 96, height: 42, borderRadius: 2 }}>
+              sx={{ mt: 1, mr: 1, width: 96, height: 42, borderRadius: 2 }}
+            >
               Вперёд
             </GreenButton>
           </Stack>
@@ -238,7 +248,8 @@ const EasyToBegin: React.FC = () => {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={2}>
+            spacing={2}
+          >
             <Image alt="alt" src={steps[activeStep].image} quality={100} width={624} height={524} />
           </Stack>
         )}

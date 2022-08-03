@@ -46,7 +46,8 @@ const Signin = inject(
             height: '100%',
             minHeight: '100vh',
             backgroundColor: 'background.main',
-          }}>
+          }}
+        >
           <Header />
           <Form />
         </Stack>

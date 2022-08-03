@@ -1,11 +1,11 @@
-import React from "react";
-import Head from "next/head";
-import { Stack } from "@mui/material";
-import { inject, observer } from "mobx-react";
-import { motion } from "framer-motion";
-import FAQ from "components/Support/FAQ";
-import Header from "components/Landing/Header";
-import Footer from "components/Landing/Footer";
+import React from 'react';
+import Head from 'next/head';
+import { Stack } from '@mui/material';
+import { inject, observer } from 'mobx-react';
+import { motion } from 'framer-motion';
+import FAQ from 'components/Support/FAQ';
+import Header from 'components/Landing/Header';
+import Footer from 'components/Landing/Footer';
 
 const Support = inject()(
   observer(() => (
@@ -24,9 +24,9 @@ const Support = inject()(
         sx={{
           zIndex: 1,
           margin: 0,
-          overflow: "auto",
-          height: "100vh",
-          bgcolor: "background.main",
+          overflow: 'auto',
+          height: '100vh',
+          bgcolor: 'background.main',
         }}
       >
         <Stack
@@ -35,8 +35,7 @@ const Support = inject()(
           alignItems="center"
           sx={{
             maxWidth: 1920,
-            height: "100%",
-
+            height: '100%',
           }}
         >
           <Header />
@@ -45,7 +44,7 @@ const Support = inject()(
         </Stack>
       </Stack>
     </>
-  ))
+  )),
 );
 
 export default Support;

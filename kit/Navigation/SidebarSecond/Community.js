@@ -174,7 +174,7 @@ const Channel = inject("communityChannelsSt")(observer(({ communityChannelsSt, i
     return null;
 }));
 
-const MenuCommunity = inject("rootStore", "uiSt", "messageSt", "communityChannelsSt")(observer(({ uiSt, communityChannelsSt }) => {
+const MenuCommunity = inject("rootStore", "uiSt", "communityChannelsSt")(observer(({ uiSt, communityChannelsSt }) => {
     const [valueLS, setValueLS] = useLocalStorage('second-menu-c-upper-items-position-is-vert');
 
     useEffect(() => {

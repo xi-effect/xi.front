@@ -61,7 +61,6 @@ const MyApp = (observer((props) => {
         userSt={rootStore.userSt}
         homeSt={rootStore.homeSt}
         authorizationSt={rootStore.authorizationSt}
-        messageSt={rootStore.messageSt}
 
         // Community Stores
         communitySt={rootStore.communitySt}
@@ -87,7 +86,6 @@ const MyApp = (observer((props) => {
           >
             <Component {...pageProps} />
           </SnackbarProvider>
-
         </ThemeProvider>
       </Provider>
     </CacheProvider >

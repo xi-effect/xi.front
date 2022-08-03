@@ -21,7 +21,7 @@ const Home = inject()(observer(() => {
             }}
         >
             <Typography
-                variant="Roboto500XiLabel"
+                variant="h5"
                 sx={{
                     fontSize: 18,
                 }}

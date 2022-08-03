@@ -25,7 +25,8 @@ const CustomCookieShackbar = forwardRef<HTMLDivElement, { id: string | number }>
           height: 64,
           // width: 456,
           bgcolor: 'secondary.dark',
-        }}>
+        }}
+      >
         <Stack
           sx={{
             p: 2,
@@ -33,7 +34,8 @@ const CustomCookieShackbar = forwardRef<HTMLDivElement, { id: string | number }>
           direction="row"
           justifyContent="center"
           alignItems="center"
-          spacing={2}>
+          spacing={2}
+        >
           <CookieIcon fontSize="large" />
           <Typography>Этот сайт использует Печенье (Cookies) </Typography>
           <Button
@@ -42,7 +44,8 @@ const CustomCookieShackbar = forwardRef<HTMLDivElement, { id: string | number }>
               borderRadius: 8,
             }}
             variant="contained"
-            onClick={handleDismiss}>
+            onClick={handleDismiss}
+          >
             Подробнее
           </Button>
           <Button
@@ -51,7 +54,8 @@ const CustomCookieShackbar = forwardRef<HTMLDivElement, { id: string | number }>
               borderRadius: 8,
             }}
             variant="contained"
-            onClick={handleDismiss}>
+            onClick={handleDismiss}
+          >
             Ок
           </Button>
         </Stack>
