@@ -18,11 +18,20 @@ const DialogInvite = inject("uiSt")(
     ({ uiSt }) => {
       const fullScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
+      const handleClose = () => {
+        uiSt.setDialogs("invite", false);
+        // rootStore.socket.emit("close-invites", { "community-id": communitySt.meta.id }, (data) => {
+        //   if (data.code !== 200) {
+        //     console.error("SIO: close-invites");
+        //   };
+        // });
+      };
+
       return (
         <Dialog
           fullScreen={fullScreen}
           open={uiSt.dialogs.invite}
-          onClose={() => uiSt.setDialogs("invite", false)}
+          onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           fullWidth

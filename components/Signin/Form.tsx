@@ -247,7 +247,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                     }}
                     sx={{
                       '&.MuiButton-root': {
-                        fontFamily: 'Roboto',
                         fontSize: '15px',
                         lineHeight: '26px',
                         letterSpacing: '0.46000000834465027px',
@@ -265,7 +264,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                     type="submit"
                     sx={{
                       '&.MuiButton-root': {
-                        fontFamily: 'Roboto',
                         fontSize: '15px',
                         lineHeight: '26px',
                         letterSpacing: '0.46000000834465027px',

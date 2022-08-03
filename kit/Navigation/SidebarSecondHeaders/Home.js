@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React from "react";
 import { inject, observer } from "mobx-react";
 
@@ -21,7 +21,7 @@ const Home = inject()(observer(() => {
             }}
         >
             <Typography
-                variant="Roboto500XiLabel"
+                variant="h5"
                 sx={{
                     fontSize: 18,
                 }}

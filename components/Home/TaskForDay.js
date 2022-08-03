@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React from "react";
 
 import { Paper, Stack, Box, Divider, Chip, Tooltip, Typography, IconButton } from "@mui/material";
@@ -262,7 +262,7 @@ const Days = inject()(observer(() => (
                             {day.weekday}
                         </Typography>
                         <Typography
-                            variant="Roboto500XiLabel"
+                            variant="h5"
                             sx={{
                                 fontSize: 24,
                                 pt: 3,
@@ -461,7 +461,7 @@ const TaskForDay = inject()(observer(() => {
                 }}
             >
                 <Typography
-                    variant="OpenSans600WhyLabel"
+                    variant="h5"
                     sx={{
                         fontSize: 22,
                         ml: 2,

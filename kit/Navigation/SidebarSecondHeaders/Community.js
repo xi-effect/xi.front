@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React from "react";
 import { inject, observer } from "mobx-react";
 
@@ -62,7 +62,8 @@ const Community = inject("communitySt")(observer(({ communitySt }) => {
             }}
         >
             <Typography
-                variant="Roboto500XiLabel"
+                noWrap
+                variant="h5"
                 sx={{
                     fontSize: 18,
                 }}
