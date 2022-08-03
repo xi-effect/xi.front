@@ -24,7 +24,8 @@ const Header: React.FC = () => {
         height: mobile ? '100px' : '110px',
         p: 4,
         width: '100%',
-      }}>
+      }}
+    >
       <XiLogo />
     </Stack>
   );

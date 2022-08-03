@@ -26,7 +26,8 @@ const Header: React.FC = () => {
         height: mobile ? '100px' : '110px',
         p: 4,
         width: '100%',
-      }}>
+      }}
+    >
       <XiLogo />
       <Button
         aria-label="signin"
@@ -51,7 +52,8 @@ const Header: React.FC = () => {
               bgcolor: 'secondary.main',
             },
           },
-        }}>
+        }}
+      >
         Войти
       </Button>
     </Stack>

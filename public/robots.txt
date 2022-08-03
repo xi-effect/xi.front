@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://xieffect.ru
+
+# Sitemaps
+Sitemap: https://xieffect.ru/sitemap.xml

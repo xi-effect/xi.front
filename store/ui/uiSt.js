@@ -1,68 +1,65 @@
-import { action, observable, makeObservable } from "mobx";
-
+import { action, observable, makeObservable } from 'mobx';
 
 class UISt {
-    // `this` from rootstore passed to the constructor and we can 
-    // assign it to a variable accessible in this class called 
-    // `rootStore`. Therefore, we can access other store like 
-    // useStore for e.g (this.rootStore.userStore)
-    constructor(rootStore) {
-        this.rootStore = rootStore;
-        makeObservable(this);
-    }
+  // `this` from rootstore passed to the constructor and we can
+  // assign it to a variable accessible in this class called
+  // `rootStore`. Therefore, we can access other store like
+  // useStore for e.g (this.rootStore.userStore)
+  constructor(rootStore) {
+    this.rootStore = rootStore;
+    makeObservable(this);
+  }
 
-    @observable navigation = {
-        swipe: "center",
-    };
+  @observable navigation = {
+    swipe: 'center',
+  };
 
-    @action setNavigation = (name, value) => {
-        this.navigation[name] = value;
-    };
+  @action setNavigation = (name, value) => {
+    this.navigation[name] = value;
+  };
 
-    // Loading Screen
-    @observable load = {
-        loading: null,
-    };
+  // Loading Screen
+  @observable load = {
+    loading: null,
+  };
 
-    @action setLoading = (name, value) => {
-        this.load[name] = value;
-    };
+  @action setLoading = (name, value) => {
+    this.load[name] = value;
+  };
 
-    @observable knowledge = {
-        activeStep: 0,
-        activeStepModuleCreate: 0,
-    };
+  @observable knowledge = {
+    activeStep: 0,
+    activeStepModuleCreate: 0,
+  };
 
-    @action setKnowledge = (name, value) => {
-        this.knowledge[name] = value;
-    };
+  @action setKnowledge = (name, value) => {
+    this.knowledge[name] = value;
+  };
 
-    @observable reportData = {
+  @observable reportData = {};
 
-    };
+  @action setReportData = (name, value) => {
+    this.reportData[name] = value;
+  };
 
-    @action setReportData = (name, value) => {
-        this.reportData[name] = value;
-    };
+  @action clearReportData = () => {
+    this.reportData = {};
+  };
 
-    @action clearReportData = () => {
-        this.reportData = {};
-    };
+  @observable dialogs = {
+    categoryCreation: false,
+    channelCreation: false,
+    invite: false,
+    privacy: false,
+    settings: false,
+    userSettings: false,
+    communitySettings: false,
+    communityMenu: false,
+  };
 
-    @observable dialogs = {
-        categoryCreation: false,
-        channelCreation: false,
-        invite: false,
-        privacy: false,
-        settings: false,
-        userSettings: false,
-        communitySettings: false,
-        communityMenu: false,
-    };
-
-    @action setDialogs = (name, value) => {
-        this.dialogs[name] = value;
-    };
+  @action setDialogs = (name, value) => {
+    this.dialogs[name] = value;
+  };
 }
 
 export default UISt;

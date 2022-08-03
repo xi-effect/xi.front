@@ -1,18 +1,16 @@
-import Head from "next/head";
-import React from "react";
-import { Stack, Grid } from "@mui/material";
-import { inject, observer } from "mobx-react";
-import Navigation from "kit/Navigation/Navigation";
-import { Stories } from "components/Home/Stories";
-import TaskForDay from "components/Home/TaskForDay";
+import Head from 'next/head';
+import React from 'react';
+import { Stack, Grid } from '@mui/material';
+import { inject, observer } from 'mobx-react';
+import Navigation from 'kit/Navigation/Navigation';
+import { Stories } from 'components/Home/Stories';
+import TaskForDay from 'components/Home/TaskForDay';
 
-const Home = inject()(observer(() => (
-  (
+const Home = inject()(
+  observer(() => (
     <>
       <Head>
-        <title>
-          Ξffect | Главная
-        </title>
+        <title>Ξffect | Главная</title>
         <meta name="robots" content="noindex" />
       </Head>
       <Navigation>
@@ -22,13 +20,13 @@ const Home = inject()(observer(() => (
           alignItems="center"
           spacing={0}
           sx={{
-            width: "100%",
+            width: '100%',
             pt: 1,
             ml: 0,
             mr: 0,
             pb: 10,
-            position: "relative",
-            overflow: "hidden",
+            position: 'relative',
+            overflow: 'hidden',
           }}
         >
           <Stories />
@@ -39,7 +37,7 @@ const Home = inject()(observer(() => (
             alignItems="flex-start"
             sx={{
               mt: 2,
-              height: "100%",
+              height: '100%',
               pb: 20,
             }}
           >
@@ -55,8 +53,8 @@ const Home = inject()(observer(() => (
               item
               sx={{
                 p: 1,
-                transition: "0.8s",
-                width: "100%",
+                transition: '0.8s',
+                width: '100%',
               }}
               container
               direction="column"
@@ -69,7 +67,7 @@ const Home = inject()(observer(() => (
         </Stack>
       </Navigation>
     </>
-  )
-)));
+  )),
+);
 
 export default Home;

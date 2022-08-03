@@ -1,8 +1,7 @@
-
-import Head from "next/head";
-import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
-import React from "react";
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+import React from 'react';
 import {
   Accordion,
   AccordionSummary,
@@ -15,59 +14,51 @@ import {
   AccordionDetails,
   Grid,
   IconButton,
-} from "@mui/material";
-import { inject, observer } from "mobx-react";
+} from '@mui/material';
+import { inject, observer } from 'mobx-react';
 
-import SaveIcon from "@mui/icons-material/Save";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import LogoutIcon from "@mui/icons-material/Logout";
+import SaveIcon from '@mui/icons-material/Save';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-import Navigation from "kit/Navigation/Navigation";
-import CustomAvatar from "kit/Avatar/CustomAvatar";
+import Navigation from 'kit/Navigation/Navigation';
+import CustomAvatar from 'kit/Avatar/CustomAvatar';
 
-import Secure from "components/Settings/Secure";
-import Interface from "components/Settings/Interface";
+import Secure from 'components/Settings/Secure';
+import Interface from 'components/Settings/Interface';
 
-const Invite = dynamic(() =>
-  import("components/Settings/Invite")
-);
+const Invite = dynamic(() => import('components/Settings/Invite'));
 
-const UserAvatar = dynamic(() =>
-  import("components/Settings/UserAvatar")
-);
+const UserAvatar = dynamic(() => import('components/Settings/UserAvatar'));
 
 const Settings = inject(
-  "rootStore",
-  "userSt",
+  'rootStore',
+  'userSt',
 )(
   observer(({ rootStore, userSt }) => {
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("xl"));
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down('xl'));
     const router = useRouter();
 
     React.useEffect(() => {
-      rootStore
-        .fetchData(`${rootStore.url}/home/`, "GET")
-        .then((data) => {
-          if (data) {
-            console.log("settings/main", data);
-            userSt.setSettings("darkTheme", data["dark-theme"]);
-            userSt.setSettings("id", data.id);
-            userSt.setSettings("username", data.username);
-          }
-        });
-      rootStore
-        .fetchData(`${rootStore.url}/settings/`, "GET")
-        .then((data) => {
-          if (data) {
-            console.log("settings", data);
-            const emailArr = data.email.split("@", 2);
-            userSt.setSettings("emailBefore", emailArr[0]);
-            userSt.setSettings("emailAfter", `@${emailArr[1]}`);
-            userSt.setSettings("emailConfirmed", data["email-confirmed"]);
-            userSt.setSettings("avatar", data.avatar);
-            userSt.setSettings("invite", data.code);
-          }
-        });
+      rootStore.fetchData(`${rootStore.url}/home/`, 'GET').then((data) => {
+        if (data) {
+          console.log('settings/main', data);
+          userSt.setSettings('darkTheme', data['dark-theme']);
+          userSt.setSettings('id', data.id);
+          userSt.setSettings('username', data.username);
+        }
+      });
+      rootStore.fetchData(`${rootStore.url}/settings/`, 'GET').then((data) => {
+        if (data) {
+          console.log('settings', data);
+          const emailArr = data.email.split('@', 2);
+          userSt.setSettings('emailBefore', emailArr[0]);
+          userSt.setSettings('emailAfter', `@${emailArr[1]}`);
+          userSt.setSettings('emailConfirmed', data['email-confirmed']);
+          userSt.setSettings('avatar', data.avatar);
+          userSt.setSettings('invite', data.code);
+        }
+      });
     }, [userSt]);
 
     const [expanded, setExpanded] = React.useState(false);
@@ -77,7 +68,15 @@ const Settings = inject(
     };
 
     React.useEffect(() => {
-      if (router.query.option && (router.query.option === "secure" || router.query.option === "useravatar" || router.query.option === "interface" || router.query.option === "customize" || router.query.option === "invite")) setExpanded(router.query.option);
+      if (
+        router.query.option &&
+        (router.query.option === 'secure' ||
+          router.query.option === 'useravatar' ||
+          router.query.option === 'interface' ||
+          router.query.option === 'customize' ||
+          router.query.option === 'invite')
+      )
+        setExpanded(router.query.option);
     }, [router.query]);
 
     return (
@@ -87,7 +86,7 @@ const Settings = inject(
           <meta name="robots" content="noindex" />
         </Head>
         <Navigation>
-          <Box sx={{ width: "100%" }}>
+          <Box sx={{ width: '100%' }}>
             <Grid
               container
               direction="column"
@@ -96,7 +95,7 @@ const Settings = inject(
               sx={{
                 paddingLeft: 1,
                 paddingRight: 1,
-                width: "100%",
+                width: '100%',
                 pb: 4,
               }}
             >
@@ -105,7 +104,7 @@ const Settings = inject(
                 justifyContent="flex-start"
                 alignItems="flex-end"
                 sx={{
-                  width: "100%",
+                  width: '100%',
                   height: 276,
                   maxWidth: 1200,
                 }}
@@ -119,7 +118,7 @@ const Settings = inject(
                 </Box>
                 {!mobile && (
                   <Button
-                    sx={{ ml: "auto", mr: 1, mb: 1.2 }}
+                    sx={{ ml: 'auto', mr: 1, mb: 1.2 }}
                     onClick={() => userSt.saveNewSettings()}
                     color="inherit"
                   >
@@ -129,7 +128,7 @@ const Settings = inject(
                 {mobile && (
                   <Tooltip title="Сохранить изменения">
                     <IconButton
-                      sx={{ ml: "auto", mr: 1, mb: 1 }}
+                      sx={{ ml: 'auto', mr: 1, mb: 1 }}
                       onClick={() => userSt.saveNewSettings()}
                       color="inherit"
                     >
@@ -138,25 +137,21 @@ const Settings = inject(
                   </Tooltip>
                 )}
                 <Tooltip title="Выйти">
-                  <IconButton
-                    sx={{ m: 1 }}
-                    onClick={() => userSt.logout()}
-                    color="error"
-                  >
+                  <IconButton sx={{ m: 1 }} onClick={() => userSt.logout()} color="error">
                     <LogoutIcon />
                   </IconButton>
                 </Tooltip>
               </Stack>
               <Grid
                 sx={{
-                  width: "100%",
+                  width: '100%',
                   maxWidth: 1200,
                 }}
               >
                 <Accordion
-                  sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === "secure"}
-                  onChange={handleChange("secure")}
+                  sx={{ width: '100%', backgroundColor: 'primary.dark' }}
+                  expanded={expanded === 'secure'}
+                  onChange={handleChange('secure')}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -170,9 +165,9 @@ const Settings = inject(
                   </AccordionDetails>
                 </Accordion>
                 <Accordion
-                  sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === "useravatar"}
-                  onChange={handleChange("useravatar")}
+                  sx={{ width: '100%', backgroundColor: 'primary.dark' }}
+                  expanded={expanded === 'useravatar'}
+                  onChange={handleChange('useravatar')}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -186,9 +181,9 @@ const Settings = inject(
                   </AccordionDetails>
                 </Accordion>
                 <Accordion
-                  sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === "customize"}
-                  onChange={handleChange("customize")}
+                  sx={{ width: '100%', backgroundColor: 'primary.dark' }}
+                  expanded={expanded === 'customize'}
+                  onChange={handleChange('customize')}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -197,14 +192,12 @@ const Settings = inject(
                   >
                     <Typography>Внешний вид приложения</Typography>
                   </AccordionSummary>
-                  <AccordionDetails>
-                    {/* <Customize /> */}
-                  </AccordionDetails>
+                  <AccordionDetails>{/* <Customize /> */}</AccordionDetails>
                 </Accordion>
                 <Accordion
-                  sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === "interface"}
-                  onChange={handleChange("interface")}
+                  sx={{ width: '100%', backgroundColor: 'primary.dark' }}
+                  expanded={expanded === 'interface'}
+                  onChange={handleChange('interface')}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -218,9 +211,9 @@ const Settings = inject(
                   </AccordionDetails>
                 </Accordion>
                 <Accordion
-                  sx={{ width: "100%", backgroundColor: "primary.dark" }}
-                  expanded={expanded === "invite"}
-                  onChange={handleChange("invite")}
+                  sx={{ width: '100%', backgroundColor: 'primary.dark' }}
+                  expanded={expanded === 'invite'}
+                  onChange={handleChange('invite')}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -239,7 +232,7 @@ const Settings = inject(
         </Navigation>
       </>
     );
-  })
+  }),
 );
 
 export default Settings;

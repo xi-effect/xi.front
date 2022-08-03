@@ -12,7 +12,7 @@
     "start": "NODE_ENV=production next start",
     "lint": "eslint ./kit/** ./components/** ./pages/** -c .eslintrc.json --ext js,jsx,ts,tsx",
     "lint-fix": "eslint ./kit/** ./components/** ./pages/** -c .eslintrc.json --fix --ext js,jsx,ts,tsx",
-    "prettier": "prettier  — write ./components/**/*.{js,jsx,ts,tsx} ./kit/**/*.{js,jsx,ts,tsx} ./pages/**/*.{js,jsx,ts,tsx}"
+    "prettier": "prettier  --write components/**/*.{js,jsx,ts,tsx} kit/**/*.{js,jsx,ts,tsx} pages/**/*.{js,jsx,ts,tsx} store/**/*.{js,jsx,ts,tsx} texts/**/*.{js,jsx,ts,tsx} utils/**/*.{js,jsx,ts,tsx} worker/**/*.{js,jsx,ts,tsx}"
   },
   "husky": {
     "hooks": {
