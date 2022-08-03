@@ -13,7 +13,6 @@ import UISt from "./ui/uiSt";
 import HomeSt from "./home/homeSt";
 import UserSt from "./user/userSt";
 import AuthorizationSt from "./user/authorizationSt";
-import MessageSt from "./message/messageSt";
 import CommunitySt from "./community/communitySt";
 import CommunityCreationSt from "./community/communityCreationSt";
 import CommunitiesMenuSt from "./community/communitiesMenuSt";
@@ -33,7 +32,6 @@ class RootStore {
     this.homeSt = new HomeSt(this);
     this.userSt = new UserSt(this);
     this.authorizationSt = new AuthorizationSt(this);
-    this.messageSt = new MessageSt(this);
 
     // Community Stores
     this.communitySt = new CommunitySt(this);

@@ -23,7 +23,6 @@ const Navigation = inject(
   'rootStore',
   'userSt',
   'uiSt',
-  'messageSt',
 )(
   observer(
     ({
