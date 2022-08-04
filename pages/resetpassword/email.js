@@ -1,284 +1,340 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import Head from "next/head";
-import { useRouter } from "next/router";
-import Image from "next/image";
+import {useRouter} from "next/router";
 import {
-  Stack,
-  Input,
-  Link,
-  useMediaQuery,
-  InputLabel,
-  InputAdornment,
-  Tooltip,
-  IconButton,
-  FormControl,
-  Typography,
-  Box,
-  Button,
-  Paper,
+    ImageListItem,
+
+    Stack,
+    Input,
+    useMediaQuery,
+    InputLabel,
+    FormControl,
+    Typography,
+    Box,
+    Button,
+    ImageList,
 } from "@mui/material";
 import React from "react";
-import { inject, observer } from "mobx-react";
-import EmailIcon from "@mui/icons-material/Email";
-
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import {inject, observer} from "mobx-react";
+import {useForm, Controller} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import { motion } from "framer-motion";
-
-import XiLogo from "kit/XiLogo";
+import {motion} from "framer-motion";
 
 
 const schema = yup
-  .object({
-    email: yup.string().email().required(),
-  })
-  .required();
+    .object({
+        email: yup.string().email().required(),
+    })
+    .required();
 
 const PassResetEmail = inject(
-  "authorizationSt"
+    "authorizationSt"
 )(
-  observer(({ authorizationSt }) => {
-    const router = useRouter();
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-    const {
-      control,
-      handleSubmit,
-      formState: { errors },
-    } = useForm({
-      resolver: yupResolver(schema),
-    });
+    observer(({authorizationSt}) => {
+        const router = useRouter();
+        const mobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+        const {
+            control,
+            handleSubmit,
+            formState: {errors},
+        } = useForm({
+            resolver: yupResolver(schema),
+        });
 
-    const onSubmit = (data) => {
-      authorizationSt.clickPasswordResetButton(data);
-    };
+        const onSubmit = (data) => {
+            authorizationSt.clickPasswordResetButton(data);
+        };
 
-    return (
-      <>
-        <Head>
-          <title>Ξ Смена пароля</title>
-        </Head>
-        <Stack
-          direction="column"
-          justifyContent="space-between"
-          alignItems="center"
-          sx={{
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "background.main",
-          }}
-        >
-          <Stack
-            component={motion.div}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 1 }}
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{
-              height: mobile ? "100px" : "140px",
-              p: mobile ? "20px" : "40px",
-              width: "100%",
-            }}
-          >
-            <XiLogo />
-          </Stack>
-          <Box
-            sx={{
-              position: "relative",
-              width: "calc(100% - 32px)",
-              maxWidth: 512,
-              zIndex: 0,
-              bgcolor: "grey.800",
-              borderRadius: "20px",
-            }}
-          >
-            {!mobile && <Box
-              sx={{
-                position: "absolute",
-                top: "0px",
-                right: "-156px",
-                zIndex: -1,
-              }}
-            >
-              <Image
-                alt="alt"
-                src="/assets/landing/blob3.svg"
-                quality={100}
-                width={256}
-                height={256}
-              />
-            </Box>}
-            {!mobile && <Box
-              sx={{
-                position: "absolute",
-                bottom: "0px",
-                left: "-156px",
-                zIndex: -1,
-              }}
-            >
-              <Image
-                alt="alt"
-                src="/assets/landing/blob2.svg"
-                quality={100}
-                width={256}
-                height={256}
-              />
-            </Box>}
-            <Paper
-              elevation={24}
-              sx={{
-                zIndex: 500,
-                bgcolor: "grey.800",
-                borderRadius: "20px",
-              }}
-            >
-              <Box
-                component="form"
-                onSubmit={handleSubmit(onSubmit)}
-              >
+        return (
+            <>
+                <Head>
+                    <title>Ξ Смена пароля</title>
+                </Head>
                 <Stack
-                  component={motion.div}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2, duration: 1 }}
-                  direction="column"
-                  justifyContent="center"
-                  alignItems="center"
-                  spacing={0}
-                  sx={{ width: "100%", pl: 2, pr: 2, pb: 2, mt: 0, }}
+                    direction="column"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    sx={{
+                        width: "100vw",
+                        height: "100vh",
+                        backgroundColor: "white",
+                    }}
                 >
-                  <Image
-                    alt="alt"
-                    src="/assets/auth/ResetPassword.svg"
-                    quality={100}
-                    width={456}
-                    height={256}
-                  />
-                  <Controller
-                    name="email"
-                    control={control}
-                    defaultValue=""
-                    render={({ field }) => (
-                      <FormControl
-                        error={errors?.email?.type === "required"}
-                        fullWidth
-                        sx={{ maxWidth: 512, mt: 1 }}
-                        variant="outlined"
-                      >
-                        <InputLabel>
-                          <Typography sx={{ color: "text.primary" }}>
-                            Адрес почты
-                          </Typography>
-                        </InputLabel>
-                        <Input
-                          sx={{ width: "100%" }}
-                          label="Адрес почты"
-                          type="text"
-                          {...field}
-                          endAdornment={
-                            <InputAdornment position="end">
-                              <IconButton edge="end" size="large">
-                                <Tooltip
-                                  title="Ваш адресс электронной почты"
-                                  arrow
-                                >
-                                  <EmailIcon sx={{ color: "text.secondary" }} />
-                                </Tooltip>
-                              </IconButton>
-                            </InputAdornment>
-                          }
-                        />
-                        {errors?.email?.message ===
-                          "email is a required field" && (
-                            <Typography
-                              varinat="subtitle1"
-                              sx={{ mt: 1, ml: 1 }}
-                              color="error"
-                            >
-                              {" "}
-                              Обязательное поле{" "}
-                            </Typography>
-                          )}
-                        {errors?.email?.message ===
-                          "email must be a valid email" && (
-                            <Typography
-                              varinat="subtitle1"
-                              sx={{ mt: 1, ml: 1 }}
-                              color="error"
-                            >
-                              {" "}
-                              Ошибка валидации{" "}
-                            </Typography>
-                          )}
-                        <Link
-                          sx={{
-                            color: "text.secondary",
-                            m: 1,
-                            fontWeight: 500,
-                            cursor: "pointer",
-                          }}
-                          onClick={() => {
-                            router.push({
-                              pathname: "/signin",
-                            });
-                          }}
-                          underline="hover"
-                        >
-                          на страницу входа
-                        </Link>
-                      </FormControl>
-                    )}
-                  />
-                  {authorizationSt.passwordReset.errorEmailNotFounedReset && (
-                    <Typography variant="subtitle1">
-                      Пользователя с таким адресом электронной почты не существует
-                    </Typography>
-                  )}
-                  {!authorizationSt.passwordReset.emailResetOk && (
-                    <Button
-                      variant="outlined"
-                      size="large"
-                      type="submit"
-                      sx={{
-                        "&.MuiButton-root": {
-                          fontFamily: "Open Sans, sans-serif",
-                          fontStyle: "normal",
-                          fontWeight: 600,
-                          fontSize: "16px",
-                          lineHeight: "25px",
-                          width: mobile ? "220px" : "220px",
-                          height: mobile ? "40px" : "50px",
-                          color: "text.primary",
-                          bgcolor: "secondary.main",
-                          borderRadius: mobile ? "62px" : "88px",
-                          "&:hover": {
-                            bgcolor: "secondary.main",
-                          },
-                          mt: 2,
-                          boxShadow: 12,
-                        },
-                      }}
+
+                    <Box
+                        sx={{
+                            position: "relative",
+                            zIndex: 0,
+                            bgcolor: "#FFF",
+                            boxSizing: "border-box",
+                            border: "1px solid rgba(0, 0, 0, 0.2)",
+                            borderRadius: "24px",
+
+                        }}
                     >
-                      Отправить письмо
-                    </Button>
-                  )}
-                  {authorizationSt.passwordReset.emailResetOk && (
-                    <Typography variant="subtitle1">
-                      Письмо отправлено. С этой страницы можно безопасно уходить
-                    </Typography>
-                  )}
+
+
+                        <Box
+                            component="form"
+                            onSubmit={handleSubmit(onSubmit)}
+                        >
+                            <Stack
+                                bo
+                                component={motion.div}
+                                initial={{opacity: 0}}
+                                animate={{opacity: 1}}
+                                transition={{delay: 0.2, duration: 1}}
+                                direction="column"
+                                justifyContent="space-around"
+                                alignIems="center"
+                                spacing={0}
+                                sx={{
+                                    boxSizing: "border-box",
+                                    height: mobile ? "650px" : "856px",
+                                    width: mobile ? "375px" : "520px",
+                                    pl: 2,
+                                    pr: 2,
+                                    pb: 2,
+                                    pt: 4.2,
+                                    mt: 0,
+                                }}
+                            >
+                                <ImageList cols={1} sx={{ width: 130, height: 32 ,ml:"auto", mr:"auto",}} rowHeight={15} >
+                                    <ImageListItem >
+                                        <img
+                                            src ="/assets/auth/xi.effect.svg"
+                                            alt="alt"
+                                            width={130}
+                                            height={32}
+                                        />
+                                    </ImageListItem>
+                                </ImageList>
+
+                                <Box sx={{
+                                    fontFamily: "Golos Text VF, sans-serif",
+                                    fontStyle: 'normal',
+                                    fontSize: 32,
+                                    fontWeight: 600,
+                                    textAlign: 'center',
+                                    marginTop: 5.6,
+                                    alignItems: "center",
+                                    color: "#000000",
+                                    // lineHeight:40
+
+                                }}>Восстановление</Box>
+
+                                <Box sx={{
+                                    fontFamily: "Golos Text VF, sans-serif",
+                                    fontStyle: 'normal',
+                                    fontSize: 24,
+                                    fontWeight: 400,
+                                    textAlign: 'center',
+                                    marginTop: 1.6,
+                                    alignItems: "center",
+                                    lineHeight:"32px",
+                                    color: "#000000",
+                                    opacity: 0.6,
+                                    //
+                                }}>
+                                    {!authorizationSt.passwordReset.emailResetOk && ("Введите адрес")}
+                                    {authorizationSt.passwordReset.emailResetOk && ("Письмо с восстановлением")}
+
+                                </Box>
+                                <Box sx={{
+                                    fontFamily: "Golos Text VF, sans-serif",
+                                    fontStyle: 'normal',
+                                    fontSize: 24,
+                                    fontWeight: 400,
+                                    textAlign: 'center',
+                                    alignItems: "center",
+                                    lineHeight:"32px",
+                                    color: "#000000",
+                                    opacity: 0.6,
+                                }}>
+                                    {!authorizationSt.passwordReset.emailResetOk && ("электронной почты")}
+                                    {authorizationSt.passwordReset.emailResetOk && ("отправлено на вашу почту")}
+                                </Box>
+
+                                <Box sx={{
+                                    width: mobile ? "350px" : "436px",
+                                    justifyContent: "center",
+                                    m: "auto",
+                                    mt: 3.2,
+                                    borderRadius: "8px",
+
+
+                                }}>
+
+                                    {!authorizationSt.passwordReset.emailResetOk && (
+                                        <Controller
+                                            name="email"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({field}) => (
+                                                <FormControl
+                                                    error={errors?.email?.type === "required"}
+                                                    fullWidth
+                                                    sx={{maxWidth: 512,}}
+                                                    variant="outlined"
+                                                >
+
+                                                    <InputLabel>
+                                                        <Box sx={{
+                                                            color: "black",
+                                                            fontSize: "24px",
+                                                            opacity: 0.4,
+                                                            ml: "20px",
+                                                            mt: "22px"
+                                                        }}
+
+                                                        >
+                                                            Электронная почта
+                                                        </Box>
+                                                    </InputLabel>
+                                                    <Input
+                                                        f
+                                                        sx={{
+                                                            width: mobile ? "320px" : "436px",
+                                                            height: "72px",
+                                                            border: "1px solid rgba(0, 0, 0, 0.2)",
+                                                            borderRadius: "8px",
+                                                            ml: "auto",
+                                                            mr: "auto",
+                                                            color:"black",
+                                                            lineHeight: "32px",
+                                                        }}
+                                                        label="Адрес почты"
+                                                        type="text"
+                                                        {...field}
+
+                                                    />
+
+                                                    {errors?.email?.message ===
+                                                        "email is a required field" && (
+                                                            <Typography
+                                                                varinat="subtitle1"
+                                                                sx={{mt: 1, ml: 1}}
+                                                                color="error"
+                                                            >
+                                                                {" "}
+                                                                Обязательное поле{" "}
+                                                            </Typography>
+                                                        )}
+                                                    {errors?.email?.message ===
+                                                        "email must be a valid email" && (
+                                                            <Typography
+                                                                varinat="subtitle1"
+                                                                sx={{mt: 1, ml: 1}}
+                                                                color="error"
+                                                            >
+                                                                {" "}
+                                                                Ошибка валидации{" "}
+                                                            </Typography>
+                                                        )}
+                                                </FormControl>
+                                            )}
+                                        />
+                                    )}
+                                    {authorizationSt.passwordReset.emailResetOk && (
+
+                                        <ImageList cols={1} sx={{ ml:"auto", mr:"auto",mt:"64px",width: 200, height: 200}} >
+                                        <ImageListItem >
+                                            <img
+                                                src = "/assets/auth/Frame12passOk.svg"
+                                                alt="alt"
+
+                                            />
+                                        </ImageListItem>
+                                        </ImageList>
+
+                                    )}
+
+                                    {authorizationSt.passwordReset.errorEmailNotFounedReset && (
+                                        <Typography variant="subtitle1" color="error">
+                                            Мы не нашли такой почты
+                                        </Typography>
+                                    )}
+                                </Box>
+                                <Button
+                                    variant="outlined"
+                                    size="large"
+                                    type="submit"
+                                    sx={{
+                                        "&.MuiButton-root": {
+                                            fontFamily: "Golos Text VF, sans-serif",
+                                            fontStyle: "normal",
+                                            fontWeight: 400,
+                                            fontSize: "24px",
+                                            lineHeight: "25px",
+                                            width: mobile ? "320px" : "436px",
+                                            height: mobile ? "50px" : "72px",
+                                            color: "#FFFFFF",
+                                            bgcolor: "#000000",
+                                            "&:hover": {
+                                                bgcolor: "gray",
+                                            },
+                                            ml: "auto",
+                                            mr: "auto",
+                                            borderRadius: "8px",
+                                        },
+                                    }}
+                                >
+                                    {authorizationSt.passwordReset.emailResetOk && ("Войти")}
+                                    {!authorizationSt.passwordReset.emailResetOk && ("Далее")}
+                                </Button>
+
+                                    <Button
+                                        onClick={() => {
+                                            router.push({
+                                                pathname: "/signin",
+                                            });
+                                        }}
+                                        underline="hover"
+                                        variant="outlined"
+                                        size="large"
+                                        type="submit"
+                                        sx={{
+                                            "&.MuiButton-root": {
+                                                fontFamily: "Golos Text VF, sans-serif",
+                                                fontStyle: "normal",
+                                                fontWeight: 400,
+                                                fontSize: "24px",
+                                                lineHeight: "25px",
+                                                width: mobile ? "320px" : "436px",
+                                                height: mobile ? "50px" : "72px",
+                                                color: "#000000",
+                                                bgcolor: "#FFFFFF",
+                                                ml: "auto",
+                                                mr: "auto",
+                                                borderRadius: "8px",
+                                                border: 0,
+                                            },
+                                        }}
+                                    >
+                                        {!authorizationSt.passwordReset.emailResetOk && ("Отмена")}
+                                        {authorizationSt.passwordReset.emailResetOk && ("Отправить заново (4:99)")}
+
+                                    </Button>
+
+
+
+                                {authorizationSt.passwordReset.emailResetOk && (
+                                    <Typography variant="subtitle1">
+                                        Письмо отправлено. С этой страницы можно безопасно уходить
+                                    </Typography>
+
+                                )}
+                            </Stack>
+                        </Box>
+
+                    </Box>
+
                 </Stack>
-              </Box>
-            </Paper>
-          </Box>
-          <div />
-        </Stack>
-      </>
-    );
-  })
+            </>
+        )
+            ;
+    })
 );
 
 export default PassResetEmail;
