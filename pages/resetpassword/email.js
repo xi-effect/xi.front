@@ -1,25 +1,14 @@
 import Head from "next/head";
 import {useRouter} from "next/router";
-import {
-    ImageListItem,
-
-    Stack,
-    Input,
-    useMediaQuery,
-    InputLabel,
-    FormControl,
-    Typography,
-    Box,
-    Button,
-    ImageList,
-} from "@mui/material";
+import {Box, Button, FormControl, Input, InputLabel, Stack, Typography, useMediaQuery,} from "@mui/material";
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {useForm, Controller} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import {motion} from "framer-motion";
+import Image from "next/image";
 
 
 const schema = yup
@@ -80,14 +69,11 @@ const PassResetEmail = inject(
                             onSubmit={handleSubmit(onSubmit)}
                         >
                             <Stack
-                                bo
                                 component={motion.div}
                                 initial={{opacity: 0}}
                                 animate={{opacity: 1}}
                                 transition={{delay: 0.2, duration: 1}}
                                 direction="column"
-                                justifyContent="space-around"
-                                alignIems="center"
                                 spacing={0}
                                 sx={{
                                     boxSizing: "border-box",
@@ -95,36 +81,37 @@ const PassResetEmail = inject(
                                     width: mobile ? "375px" : "520px",
                                     pl: 2,
                                     pr: 2,
-                                    pb: 2,
+                                    pb: 4.2,
                                     pt: 4.2,
                                     mt: 0,
                                 }}
                             >
-                                <ImageList cols={1} sx={{ width: 130, height: 32 ,ml:"auto", mr:"auto",}} rowHeight={15} >
-                                    <ImageListItem >
-                                        <img
-                                            src ="/assets/auth/xi.effect.svg"
-                                            alt="alt"
-                                            width={130}
-                                            height={32}
-                                        />
-                                    </ImageListItem>
-                                </ImageList>
 
-                                <Box sx={{
-                                    fontFamily: "Golos Text VF, sans-serif",
-                                    fontStyle: 'normal',
-                                    fontSize: 32,
-                                    fontWeight: 600,
-                                    textAlign: 'center',
-                                    marginTop: 5.6,
-                                    alignItems: "center",
-                                    color: "#000000",
-                                    // lineHeight:40
+                                <Box display="flex" justifyContent="center">
+                                    <Image
+                                        src="/assets/auth/xi.effect.svg"
+                                        alt="alt"
+                                        width={130}
+                                        height={32}
+                                    />
+                                </Box>
 
-                                }}>Восстановление</Box>
+                                <Typography variant="root"
+                                            sx={{
 
-                                <Box sx={{
+                                                   fontFamily: "Golos Text VF, sans-serif",
+                                                fontStyle: 'normal',
+                                                 fontSize: 32,
+                                                  fontWeight: 600,
+                                                textAlign: 'center',
+                                                marginTop: 5.6,
+                                                alignItems: "center",
+                                                color: "#000000",
+                                            }}
+                                >Восстановление</Typography>
+
+                                <Typography variant="root"
+                                    sx={{
                                     fontFamily: "Golos Text VF, sans-serif",
                                     fontStyle: 'normal',
                                     fontSize: 24,
@@ -132,7 +119,7 @@ const PassResetEmail = inject(
                                     textAlign: 'center',
                                     marginTop: 1.6,
                                     alignItems: "center",
-                                    lineHeight:"32px",
+                                    lineHeight: "32px",
                                     color: "#000000",
                                     opacity: 0.6,
                                     //
@@ -140,31 +127,33 @@ const PassResetEmail = inject(
                                     {!authorizationSt.passwordReset.emailResetOk && ("Введите адрес")}
                                     {authorizationSt.passwordReset.emailResetOk && ("Письмо с восстановлением")}
 
-                                </Box>
-                                <Box sx={{
+                                </Typography>
+                                <Typography variant="root"
+                                    sx={{
                                     fontFamily: "Golos Text VF, sans-serif",
                                     fontStyle: 'normal',
                                     fontSize: 24,
                                     fontWeight: 400,
                                     textAlign: 'center',
                                     alignItems: "center",
-                                    lineHeight:"32px",
+                                    lineHeight: "32px",
                                     color: "#000000",
                                     opacity: 0.6,
                                 }}>
                                     {!authorizationSt.passwordReset.emailResetOk && ("электронной почты")}
                                     {authorizationSt.passwordReset.emailResetOk && ("отправлено на вашу почту")}
-                                </Box>
+                                </Typography>
 
-                                <Box sx={{
-                                    width: mobile ? "350px" : "436px",
-                                    justifyContent: "center",
-                                    m: "auto",
-                                    mt: 3.2,
-                                    borderRadius: "8px",
+                                <Box display="flex"
+                                     justifyContent="space-around"
+                                     sx={{
+                                         width: mobile ? "350px" : "436px",
+                                         m: "auto",
+                                         mt: 3.2,
+                                         borderRadius: "8px",
 
 
-                                }}>
+                                     }}>
 
                                     {!authorizationSt.passwordReset.emailResetOk && (
                                         <Controller
@@ -201,7 +190,7 @@ const PassResetEmail = inject(
                                                             borderRadius: "8px",
                                                             ml: "auto",
                                                             mr: "auto",
-                                                            color:"black",
+                                                            color: "black",
                                                             lineHeight: "32px",
                                                         }}
                                                         label="Адрес почты"
@@ -238,15 +227,18 @@ const PassResetEmail = inject(
                                     )}
                                     {authorizationSt.passwordReset.emailResetOk && (
 
-                                        <ImageList cols={1} sx={{ ml:"auto", mr:"auto",mt:"64px",width: 200, height: 200}} >
-                                        <ImageListItem >
-                                            <img
-                                                src = "/assets/auth/Frame12passOk.svg"
-                                                alt="alt"
 
+                                        <Box display="flex" justifyContent="center" alignItems="center"
+                                             sx={{mt: "43px"}}>
+                                            <Image
+                                                src="/assets/auth/Frame12passOk.svg"
+                                                alt="alt"
+                                                width={200}
+                                                height={200}
+                                                alignItems="center"
                                             />
-                                        </ImageListItem>
-                                        </ImageList>
+                                        </Box>
+
 
                                     )}
 
@@ -256,6 +248,23 @@ const PassResetEmail = inject(
                                         </Typography>
                                     )}
                                 </Box>
+                                {authorizationSt.passwordReset.emailResetOk && (
+
+
+                                    <Box display="flex" justifyContent="center" alignItems="center">
+                                        <Image
+                                            src="/assets/auth/Frame12passOk.svg"
+                                            alt="alt"
+                                            width={200}
+                                            height={200}
+                                            alignItems="center"
+                                        />
+                                    </Box>
+
+
+                                )}
+
+
                                 <Button
                                     variant="outlined"
                                     size="large"
@@ -284,39 +293,38 @@ const PassResetEmail = inject(
                                     {!authorizationSt.passwordReset.emailResetOk && ("Далее")}
                                 </Button>
 
-                                    <Button
-                                        onClick={() => {
-                                            router.push({
-                                                pathname: "/signin",
-                                            });
-                                        }}
-                                        underline="hover"
-                                        variant="outlined"
-                                        size="large"
-                                        type="submit"
-                                        sx={{
-                                            "&.MuiButton-root": {
-                                                fontFamily: "Golos Text VF, sans-serif",
-                                                fontStyle: "normal",
-                                                fontWeight: 400,
-                                                fontSize: "24px",
-                                                lineHeight: "25px",
-                                                width: mobile ? "320px" : "436px",
-                                                height: mobile ? "50px" : "72px",
-                                                color: "#000000",
-                                                bgcolor: "#FFFFFF",
-                                                ml: "auto",
-                                                mr: "auto",
-                                                borderRadius: "8px",
-                                                border: 0,
-                                            },
-                                        }}
-                                    >
-                                        {!authorizationSt.passwordReset.emailResetOk && ("Отмена")}
-                                        {authorizationSt.passwordReset.emailResetOk && ("Отправить заново (4:99)")}
+                                <Button
+                                    onClick={() => {
+                                        router.push({
+                                            pathname: "/signin",
+                                        });
+                                    }}
+                                    underline="hover"
+                                    variant="outlined"
+                                    size="large"
+                                    type="submit"
+                                    sx={{
+                                        "&.MuiButton-root": {
+                                            fontFamily: "Golos Text VF, sans-serif",
+                                            fontStyle: "normal",
+                                            fontWeight: 400,
+                                            fontSize: "24px",
+                                            lineHeight: "25px",
+                                            width: mobile ? "320px" : "436px",
+                                            height: mobile ? "50px" : "72px",
+                                            color: "#000000",
+                                            bgcolor: "#FFFFFF",
+                                            ml: "auto",
+                                            mr: "auto",
+                                            borderRadius: "8px",
+                                            border: 0,
+                                        },
+                                    }}
+                                >
+                                    {!authorizationSt.passwordReset.emailResetOk && ("Отмена")}
+                                    {authorizationSt.passwordReset.emailResetOk && ("Отправить заново (4:99)")}
 
-                                    </Button>
-
+                                </Button>
 
 
                                 {authorizationSt.passwordReset.emailResetOk && (
