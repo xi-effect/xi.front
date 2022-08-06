@@ -51,15 +51,37 @@ export const getDesignTokens = (mode) => ({
             ? {
                 mode: "light",
                 primary: {
-                    main: "#5F85D8",
-                    light: "#7f9ddf",
-                    dark: "#425d97",
+                    dark: "#445AFF",
+                    main: "#697BFF",
+                    light: "#B4BDFF",
+                    pale: "#ECEFFF",
                 },
                 secondary: {
-                    main: "#53BF80",
-                    light: "#75cb99",
-                    dark: "#3a8559",
+                    dark: "#9769FF",
+                    main: "#BD9FFF",
+                    light: "#EEE7FF",
+                    pale: "#F5F0FF",
                 },
+                gray: {
+                    100: "#000000",
+                    80: "#333333",
+                    40: "#999999",
+                    10: "#E6E6E6",
+                    0: "#FFFFFF",
+                },
+                success: {
+                    dark: "#39EF84",
+                    main: "#61F29D",
+                    light: "#B0F9CE",
+                    pale: "#EBFDF3",
+                },
+                error: {
+                    dark: "#F42D2D",
+                    main: "#F65757",
+                    light: "#FBABAB",
+                    pale: "#FEEAEA",
+                },
+                // Старые значения
                 background: {
                     main: "#f5f5f5",
                     secondary: "#eeeeee",
@@ -68,15 +90,37 @@ export const getDesignTokens = (mode) => ({
             : {
                 mode: "dark",
                 primary: {
-                    main: "#5F85D8",
-                    light: "#7f9ddf",
-                    dark: "#425d97",
+                    dark: "#445AFF",
+                    main: "#697BFF",
+                    light: "#B4BDFF",
+                    pale: "#ECEFFF",
                 },
                 secondary: {
-                    main: "#53BF80",
-                    light: "#75cb99",
-                    dark: "#3a8559",
+                    dark: "#9769FF",
+                    main: "#BD9FFF",
+                    light: "#EEE7FF",
+                    pale: "#F5F0FF",
                 },
+                gray: {
+                    100: "#000000",
+                    80: "#333333",
+                    40: "#999999",
+                    10: "#E6E6E6",
+                    0: "#FFFFFF",
+                },
+                success: {
+                    dark: "#39EF84",
+                    main: "#61F29D",
+                    light: "#B0F9CE",
+                    pale: "#EBFDF3",
+                },
+                error: {
+                    dark: "#F42D2D",
+                    main: "#F65757",
+                    light: "#FBABAB",
+                    pale: "#FEEAEA",
+                },
+                // Старые значения
                 background: {
                     main: "#212121",
                     secondary: "#424242",
