@@ -20,10 +20,7 @@ const SidebarSecond = inject()(observer(() => {
         <Paper
             sx={{
                 zIndex: 20,
-                position: "absolute",
-                left: 64,
-                top: 8,
-                m: 0,
+                mt: "8px",
                 p: 0,
                 width: 236,
                 borderTopRightRadius: "4px",
@@ -31,6 +28,7 @@ const SidebarSecond = inject()(observer(() => {
                 borderBottomRightRadius: 0,
                 borderBottomLeftRadius: 0,
                 backgroundColor: "gray.0",
+                height: "calc(100vh - 8px)",
             }}
         >
             <Stack

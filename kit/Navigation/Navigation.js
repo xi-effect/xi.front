@@ -5,7 +5,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
-import { Slide, Button, Box, useMediaQuery } from '@mui/material';
+import { Stack, Slide, Button, Box, useMediaQuery } from '@mui/material';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSwipeable } from 'react-swipeable';
@@ -124,13 +124,16 @@ const Navigation = inject(
 
       if (!mobile) {
         return (
-          <Box
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
             sx={{
               zIndex: 0,
               backgroundColor: 'primary.pale',
-              height: '100vh',
+              // height: '100vh',
               overflow: 'hidden',
-              width: '100%',
+              // width: '100%',
             }}
           >
             <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
@@ -140,8 +143,6 @@ const Navigation = inject(
                 zIndex: 0,
                 height: '100vh',
                 overflow: 'hidden',
-                width: `calc(100% - 336px)`,
-                ml: '336px',
               }}
             >
               {!(router.pathname.includes('/message') && !router.pathname.includes('chat')) && (
@@ -170,7 +171,7 @@ const Navigation = inject(
               {router.pathname.includes('message') ||
                 (router.pathname.includes('chat') && children)}
             </Box>
-          </Box>
+          </Stack>
         );
       }
 

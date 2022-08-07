@@ -3,18 +3,18 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
-import { Stack, Tooltip, IconButton } from '@mui/material';
+import { Stack, Box, Tooltip, IconButton } from '@mui/material';
 
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-// import { Scrollbars } from 'react-custom-scrollbars-2';
+import { Scrollbars } from 'react-custom-scrollbars-2';
 import { motion } from 'framer-motion';
-// import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
 import useListen from 'utils/useListen';
-// import { grey } from '@mui/material/colors';
-// import CommunityItem from './CommunityItem';
+import { grey } from '@mui/material/colors';
+import CommunityItem from './CommunityItem';
 
 const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
   ssr: false,
@@ -26,7 +26,7 @@ type SidebarType = {
   userSt?: any;
 };
 
-// const menuListDividers = ['home', 'none'];
+const menuListDividers = ['home', 'none'];
 
 const Sidebar: React.FC<SidebarType> = inject(
   'rootStore',
@@ -58,46 +58,46 @@ const Sidebar: React.FC<SidebarType> = inject(
       label: 'Выход',
     };
 
-    // const reorder = (list, startIndex, endIndex) => {
-    //   const result = Array.from(list);
-    //   const [removed] = result.splice(startIndex, 1);
-    //   result.splice(endIndex, 0, removed);
+    const reorder = (list, startIndex, endIndex) => {
+      const result = Array.from(list);
+      const [removed] = result.splice(startIndex, 1);
+      result.splice(endIndex, 0, removed);
 
-    //   return result;
-    // };
+      return result;
+    };
 
-    // const reorderFn = (source, destination) => {
-    //   const communities = reorder(
-    //     communitiesMenuSt.userCommunities,
-    //     source,
-    //     destination
-    //   );
-    //   // @ts-ignore
-    //   rootStore.socket.emit(
-    //     'reorder-community',
-    //     {
-    //       // @ts-ignore
-    //       'source-id': communities[destination].id,
-    //       'target-index': destination,
-    //     },
-    //     ({ code, message, data }) => {
-    //       console.info(code, message, data);
-    //     }
-    //   );
-    //   communitiesMenuSt.setUserCommunities(communities);
-    // };
+    const reorderFn = (source, destination) => {
+      const communities = reorder(
+        communitiesMenuSt.userCommunities,
+        source,
+        destination
+      );
+      // @ts-ignore
+      rootStore.socket.emit(
+        'reorder-community',
+        {
+          // @ts-ignore
+          'source-id': communities[destination].id,
+          'target-index': destination,
+        },
+        ({ code, message, data }) => {
+          console.info(code, message, data);
+        }
+      );
+      communitiesMenuSt.setUserCommunities(communities);
+    };
 
-    // const onDragEnd = (result) => {
-    //   if (!result.destination) {
-    //     return;
-    //   }
+    const onDragEnd = (result) => {
+      if (!result.destination) {
+        return;
+      }
 
-    //   if (result.destination.index === result.source.index) {
-    //     return;
-    //   }
+      if (result.destination.index === result.source.index) {
+        return;
+      }
 
-    //   reorderFn(result.source.index, result.destination.index);
-    // };
+      reorderFn(result.source.index, result.destination.index);
+    };
 
     type Communty = {
       id: number;
@@ -161,7 +161,6 @@ const Sidebar: React.FC<SidebarType> = inject(
         alignItems='center'
         spacing={2}
         sx={{
-          position: 'absolute',
           width: "64px",
           height: '100vh',
           overflow: 'hidden',
@@ -170,7 +169,7 @@ const Sidebar: React.FC<SidebarType> = inject(
         <Stack
           direction='row'
           justifyContent='flex-start'
-          sx={{ position: 'relative', p: "8px" }}
+          sx={{ p: "8px" }}
           alignItems='flex-start'
         >
           {/* <Stack
@@ -195,7 +194,7 @@ const Sidebar: React.FC<SidebarType> = inject(
             ))}
           </Stack> */}
           <Stack
-            sx={{ width: 64 }}
+            sx={{ width: "64px" }}
             direction='column'
             justifyContent='center'
             alignItems='center'
@@ -233,7 +232,7 @@ const Sidebar: React.FC<SidebarType> = inject(
             ))}
           </Stack>
         </Stack>
-        {/* <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId='sidebar-communities-list'>
             {(provided) => (
               <Scrollbars
@@ -313,7 +312,7 @@ const Sidebar: React.FC<SidebarType> = inject(
               </Scrollbars>
             )}
           </Droppable>
-        </DragDropContext> */}
+        </DragDropContext>
         <Tooltip placement='right' title={logoutButton.label}>
           <IconButton
             component={motion.button}
