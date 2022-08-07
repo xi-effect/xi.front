@@ -2,15 +2,15 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
 
-import { Typography, Stack, Tooltip, IconButton } from "@mui/material";
-import PlusOneIcon from "@mui/icons-material/PlusOne";
+import { Typography, Stack } from "@mui/material";
+// import PlusOneIcon from "@mui/icons-material/PlusOne";
 
-import { useSnackbar } from "notistack";
+// import { useSnackbar } from "notistack";
 
 
-const Home = inject()(observer(() => {
-    const { enqueueSnackbar } = useSnackbar();
-    return (
+const Home = inject()(observer(() => 
+    // const { enqueueSnackbar } = useSnackbar();
+     (
         <Stack
             direction="row"
             justifyContent="space-between"
@@ -18,6 +18,7 @@ const Home = inject()(observer(() => {
             spacing={2}
             sx={{
                 p: 1,
+                height: '100%',
             }}
         >
             <Typography
@@ -28,21 +29,8 @@ const Home = inject()(observer(() => {
             >
                 Главная
             </Typography>
-            <Tooltip arrow title="Создать профиль">
-                <IconButton
-                    sx={{
-                        height: 36,
-                        width: 36,
-                    }}
-                    onClick={() => enqueueSnackbar("Эту функцию мы ещё только разрабатываем", {
-                        variant: "info",
-                    })}
-                >
-                    <PlusOneIcon />
-                </IconButton>
-            </Tooltip>
         </Stack>
-    );
-}));
+    )
+));
 
 export default Home;
