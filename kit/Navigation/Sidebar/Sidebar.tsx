@@ -139,16 +139,16 @@ const Sidebar: React.FC<SidebarType> = inject(
         alignItems="center"
         spacing={2}
         sx={{
-          width: "64px",
+          width: '64px',
           height: '100vh',
           overflow: 'hidden',
         }}
       >
         <Stack
-          direction='row'
-          justifyContent='flex-start'
+          direction="row"
+          justifyContent="flex-start"
           sx={{ position: 'relative' }}
-          alignItems='flex-start'
+          alignItems="flex-start"
         >
           {/* <Stack
             sx={{ width: 4, position: 'absolute' }}
@@ -173,9 +173,9 @@ const Sidebar: React.FC<SidebarType> = inject(
           </Stack> */}
           <Stack
             sx={{ width: 80 }}
-            direction='column'
-            justifyContent='center'
-            alignItems='center'
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
             spacing={2}
           >
             {menuList.map((item, index) => (
@@ -187,14 +187,10 @@ const Sidebar: React.FC<SidebarType> = inject(
                     } else router.push(item.href);
                   }}
                   sx={{
-                    bgcolor: router.pathname.includes(item.href)
-                      ? 'primary.main'
-                      : '',
+                    bgcolor: router.pathname.includes(item.href) ? 'primary.main' : '',
                     borderRadius: 2,
                     '&:hover': {
-                      bgcolor: router.pathname.includes(item.href)
-                        ? 'primary.main'
-                        : '',
+                      bgcolor: router.pathname.includes(item.href) ? 'primary.main' : '',
                     },
                   }}
                 >
