@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Paper, Stack, Box, Divider, Chip, Tooltip, Typography, IconButton } from '@mui/material';
 
-import {inject, observer} from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -13,7 +13,7 @@ import PlusOneIcon from '@mui/icons-material/PlusOne';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { AnimatePresence, motion } from 'framer-motion';
 import moment from 'moment';
-import {useSnackbar} from 'notistack';
+import { useSnackbar } from 'notistack';
 
 const tasks = [
   {
@@ -259,7 +259,8 @@ const Days = inject()(
                   fontSize: 24,
                   pt: 3,
                   pb: 0,
-                }}>
+                }}
+              >
                 {day.dayNumber}
               </Typography>
               <Typography
@@ -268,7 +269,8 @@ const Days = inject()(
                   fontSize: 20,
                   p: 0,
                   mt: -2,
-                }}>
+                }}
+              >
                 {day.month}
               </Typography>
             </Stack>
