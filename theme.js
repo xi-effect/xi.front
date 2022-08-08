@@ -2,14 +2,27 @@
 import GolosTextVF from './public/fonts/Golos-Text_VF.woff2';
 
 export const getDesignTokens = (mode) => ({
-    typography: {
-        htmlFontSize: 10,
-        button: {
-            textTransform: "none"
-        },
-        fontFamily: 'Golos, Arial',
-    },
     components: {
+        // Name of the component
+        MuiButton: {
+            variants: [
+                {
+                    props: { variant: 'contained' },
+                    style: {
+                        height: "48px",
+                        width: "164px",
+                        borderRadius: "8px",
+                        fontWeight: 500,
+                        fontSize: 18,
+                        lineHeight: "22px",
+                        backgroundColor: "#445AFF",
+                        "&:hover": {
+                            backgroundColor: "#697BFF",
+                        },
+                    },
+                },
+            ],
+        },
         MuiCssBaseline: {
             styleOverrides: `
             @font-face {
@@ -21,6 +34,13 @@ export const getDesignTokens = (mode) => ({
             }
           `,
         },
+    },
+    typography: {
+        htmlFontSize: 10,
+        // button: {
+        //     textTransform: "none"
+        // },
+        fontFamily: 'Golos, Arial',
     },
     breakpoints: {
         key: {
