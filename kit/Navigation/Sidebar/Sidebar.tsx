@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
@@ -26,12 +25,12 @@ type SidebarType = {
   userSt?: any;
 };
 
-const menuListDividers = ['home', 'none'];
+// const menuListDividers = ['home', 'none'];
 
 const Sidebar: React.FC<SidebarType> = inject(
   'rootStore',
   'communitiesMenuSt',
-  'userSt'
+  'userSt',
 )(
   observer(({ rootStore, communitiesMenuSt, userSt }) => {
     const [openDialogCC, setOpenDialogCC] = React.useState(false);
@@ -67,11 +66,7 @@ const Sidebar: React.FC<SidebarType> = inject(
     };
 
     const reorderFn = (source, destination) => {
-      const communities = reorder(
-        communitiesMenuSt.userCommunities,
-        source,
-        destination
-      );
+      const communities = reorder(communitiesMenuSt.userCommunities, source, destination);
       // @ts-ignore
       rootStore.socket.emit(
         'reorder-community',
@@ -82,7 +77,7 @@ const Sidebar: React.FC<SidebarType> = inject(
         },
         ({ code, message, data }) => {
           console.info(code, message, data);
-        }
+        },
       );
       communitiesMenuSt.setUserCommunities(communities);
     };
@@ -107,21 +102,14 @@ const Sidebar: React.FC<SidebarType> = inject(
     const subReorder = (data) => {
       const newArray = Array.from(communitiesMenuSt.userCommunities);
       const item = newArray.find((i: Communty) => i.id === data['source-id']);
-      const itemIndex = newArray.findIndex(
-        (i: Communty) => i.id === data['source-id']
-      );
+      const itemIndex = newArray.findIndex((i: Communty) => i.id === data['source-id']);
       newArray.splice(itemIndex, 1);
       newArray.splice(data['target-index'], 0, item);
       console.log('on reorder-community', newArray);
       communitiesMenuSt.setUserCommunities(newArray);
     };
 
-    useListen(
-      rootStore.socket,
-      'reorder-community',
-      subReorder,
-      communitiesMenuSt.userCommunities
-    );
+    useListen(rootStore.socket, 'reorder-community', subReorder, communitiesMenuSt.userCommunities);
 
     const addItemtoMenu = (data) => {
       console.log('on new-community', data);
@@ -135,30 +123,20 @@ const Sidebar: React.FC<SidebarType> = inject(
       ]);
     };
 
-    useListen(
-      rootStore.socket,
-      'new-community',
-      addItemtoMenu,
-      communitiesMenuSt.userCommunities
-    );
+    useListen(rootStore.socket, 'new-community', addItemtoMenu, communitiesMenuSt.userCommunities);
 
     const removeItem = (data) => {
       console.log('on leave-community');
       communitiesMenuSt.removeCommunity(data.id);
     };
 
-    useListen(
-      rootStore.socket,
-      'leave-community',
-      removeItem,
-      communitiesMenuSt
-    );
+    useListen(rootStore.socket, 'leave-community', removeItem, communitiesMenuSt);
 
     return (
       <Stack
-        direction='column'
-        justifyContent='flex-start'
-        alignItems='center'
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="center"
         spacing={2}
         sx={{
           width: "64px",
@@ -169,14 +147,14 @@ const Sidebar: React.FC<SidebarType> = inject(
         <Stack
           direction='row'
           justifyContent='flex-start'
-          sx={{ p: "8px" }}
+          sx={{ position: 'relative' }}
           alignItems='flex-start'
         >
           {/* <Stack
             sx={{ width: 4, position: 'absolute' }}
-            direction='column'
-            justifyContent='flex-start'
-            alignItems='center'
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
             spacing={2}
           >
             {menuListDividers.map((item, index) => (
@@ -194,18 +172,14 @@ const Sidebar: React.FC<SidebarType> = inject(
             ))}
           </Stack> */}
           <Stack
-            sx={{ width: "64px" }}
+            sx={{ width: 80 }}
             direction='column'
             justifyContent='center'
             alignItems='center'
-            spacing={1}
+            spacing={2}
           >
             {menuList.map((item, index) => (
-              <Tooltip
-                key={index.toString()}
-                placement='right'
-                title={item.label}
-              >
+              <Tooltip key={index.toString()} placement="right" title={item.label}>
                 <IconButton
                   onClick={() => {
                     if (item.href === 'createcommunity') {
@@ -213,16 +187,14 @@ const Sidebar: React.FC<SidebarType> = inject(
                     } else router.push(item.href);
                   }}
                   sx={{
-                    height: 48,
-                    width: 48,
-                    borderRadius: 24,
                     bgcolor: router.pathname.includes(item.href)
                       ? 'primary.main'
-                      : 'gray.0',
+                      : '',
+                    borderRadius: 2,
                     '&:hover': {
                       bgcolor: router.pathname.includes(item.href)
                         ? 'primary.main'
-                        : 'gray.0',
+                        : '',
                     },
                   }}
                 >
@@ -233,7 +205,7 @@ const Sidebar: React.FC<SidebarType> = inject(
           </Stack>
         </Stack>
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId='sidebar-communities-list'>
+          <Droppable droppableId="sidebar-communities-list">
             {(provided) => (
               <Scrollbars
                 renderThumbHorizontal={(props) => (
@@ -264,16 +236,16 @@ const Sidebar: React.FC<SidebarType> = inject(
                 autoHideDuration={200}
               >
                 <Stack
-                  direction='row'
-                  justifyContent='flex-start'
+                  direction="row"
+                  justifyContent="flex-start"
                   sx={{ position: 'relative', pt: 2 }}
-                  alignItems='flex-start'
+                  alignItems="flex-start"
                 >
                   <Stack
                     sx={{ width: 4, position: 'absolute', height: '100%' }}
-                    direction='column'
-                    justifyContent='flex-start'
-                    alignItems='center'
+                    direction="column"
+                    justifyContent="flex-start"
+                    alignItems="center"
                     spacing={2}
                   >
                     {communitiesMenuSt.userCommunities.map((item, index) => (
@@ -282,10 +254,7 @@ const Sidebar: React.FC<SidebarType> = inject(
                         sx={{
                           height: 50,
                           width: 4,
-                          bgcolor:
-                            Number(router.query.id) === item.id
-                              ? grey[200]
-                              : 'transparent',
+                          bgcolor: Number(router.query.id) === item.id ? grey[200] : 'transparent',
                           borderTopRightRadius: 8,
                           borderBottomRightRadius: 8,
                         }}
@@ -293,9 +262,9 @@ const Sidebar: React.FC<SidebarType> = inject(
                     ))}
                   </Stack>
                   <Stack
-                    direction='column'
-                    justifyContent='flex-start'
-                    alignItems='center'
+                    direction="column"
+                    justifyContent="flex-start"
+                    alignItems="center"
                     spacing={2}
                     sx={{
                       width: 80,
@@ -313,7 +282,7 @@ const Sidebar: React.FC<SidebarType> = inject(
             )}
           </Droppable>
         </DragDropContext>
-        <Tooltip placement='right' title={logoutButton.label}>
+        <Tooltip placement="right" title={logoutButton.label}>
           <IconButton
             component={motion.button}
             whileHover={{ scale: 1.15 }}
@@ -332,13 +301,10 @@ const Sidebar: React.FC<SidebarType> = inject(
             {logoutButton.icon}
           </IconButton>
         </Tooltip>
-        <DialogCreateCommunity
-          openDialogCC={openDialogCC}
-          setOpenDialogCC={setOpenDialogCC}
-        />
+        <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC} />
       </Stack>
     );
-  })
+  }),
 );
 
 export default Sidebar;

@@ -18,8 +18,15 @@ const XiLogo = ({ size = 'm' }) => {
       sx={{
         cursor: 'pointer',
         mt: 1,
-      }}>
-      <Image alt="xilogo" src="/logo.svg" quality={100} width={size === 's' ? 100 : 146} height={size === 's' ? 36 : 56} />
+      }}
+    >
+      <Image
+        alt="xilogo"
+        src="/logo.svg"
+        quality={100}
+        width={size === 's' ? 100 : 146}
+        height={size === 's' ? 36 : 56}
+      />
     </Box>
   );
 };

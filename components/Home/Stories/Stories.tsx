@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 
 import { Stack, Button, Typography } from '@mui/material';
@@ -127,7 +126,8 @@ const Stories: React.FC = inject()(
             width: '100%',
             pl: 4,
             pr: 4,
-          }}>
+          }}
+        >
           <Button
             variant="contained"
             sx={{
@@ -141,7 +141,8 @@ const Stories: React.FC = inject()(
                 bgcolor: 'transparent',
               },
             }}
-            onClick={handleLeft}>
+            onClick={handleLeft}
+          >
             <ArrowBackIosNewIcon />
           </Button>
           <Button
@@ -157,7 +158,8 @@ const Stories: React.FC = inject()(
                 bgcolor: 'transparent',
               },
             }}
-            onClick={handleRight}>
+            onClick={handleRight}
+          >
             <ArrowForwardIosIcon />
           </Button>
           <Typography
@@ -166,7 +168,8 @@ const Stories: React.FC = inject()(
               fontSize: 22,
               ml: 2,
               color: 'text.secondary',
-            }}>
+            }}
+          >
             Истории:
           </Typography>
         </Stack>
@@ -183,7 +186,8 @@ const Stories: React.FC = inject()(
             scrollSnapType: 'x-mandatory',
             transition: '0.4s',
             scrollBehavior: 'smooth',
-          }}>
+          }}
+        >
           {stories.map((item, index) => (
             <StoryItem
               index={index}

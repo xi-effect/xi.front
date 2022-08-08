@@ -1,12 +1,7 @@
+import React from 'react';
+import { inject, observer } from 'mobx-react';
 
-import React from "react";
-import { inject, observer } from "mobx-react";
-
-import { Typography, Stack } from "@mui/material";
-// import PlusOneIcon from "@mui/icons-material/PlusOne";
-
-// import { useSnackbar } from "notistack";
-
+import { Typography, Stack } from '@mui/material';
 
 const Home = inject()(observer(() => 
     // const { enqueueSnackbar } = useSnackbar();

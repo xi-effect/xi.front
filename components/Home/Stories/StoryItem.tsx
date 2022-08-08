@@ -67,7 +67,8 @@ const StoryItem: React.FC<StoryItemProps> = inject()(
           scrollSnapAlign: 'start',
           cursor: 'pointer',
           bgcolor: item.bgcolor ?? '',
-        }}>
+        }}
+      >
         <Stack
           direction="column"
           justifyContent="flex-end"
@@ -78,7 +79,8 @@ const StoryItem: React.FC<StoryItemProps> = inject()(
             position: 'relative',
             width: '100%',
             height: '100%',
-          }}>
+          }}
+        >
           <Box
             sx={{
               position: 'absolute',
@@ -86,7 +88,8 @@ const StoryItem: React.FC<StoryItemProps> = inject()(
               left: getLeft(item.left),
               width: getImageSize(item.size),
               height: getImageSize(item.size),
-            }}>
+            }}
+          >
             <Image
               alt="alt"
               src={item.image}
@@ -101,7 +104,8 @@ const StoryItem: React.FC<StoryItemProps> = inject()(
               sx={{
                 pl: 1.5,
                 pr: 1,
-              }}>
+              }}
+            >
               {item.label}
             </Typography>
           )}
@@ -111,7 +115,8 @@ const StoryItem: React.FC<StoryItemProps> = inject()(
               sx={{
                 pl: 1.5,
                 pr: 1,
-              }}>
+              }}
+            >
               {item.sublabel}
             </Typography>
           )}
@@ -122,7 +127,8 @@ const StoryItem: React.FC<StoryItemProps> = inject()(
                 pl: 1.5,
                 pr: 1,
                 color: 'text.secondary',
-              }}>
+              }}
+            >
               {item.body}
             </Typography>
           )}

@@ -41,13 +41,15 @@ const Calendar: React.FC<CalendarProps> = ({ week }) => (
     }}
     direction="row"
     justifyContent="center"
-    alignItems="flex-start">
+    alignItems="flex-start"
+  >
     <Time />
     <Stack
       sx={{ width: '100%', overflow: 'auto' }}
       direction="column"
       justifyContent="flex-start"
-      alignItems="center">
+      alignItems="center"
+    >
       <Stack sx={{ width: '100%' }} direction="row" justifyContent="flex-start" alignItems="center">
         {week.map((day, index) => (
           <Stack
@@ -63,7 +65,8 @@ const Calendar: React.FC<CalendarProps> = ({ week }) => (
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={0.4}>
+            spacing={0.4}
+          >
             <Typography>{moment(day).format('D MMM')}</Typography>
             <Typography sx={{ color: 'text.secondary' }}>{moment(day).format('dddd')}</Typography>
           </Stack>
@@ -82,7 +85,8 @@ const Calendar: React.FC<CalendarProps> = ({ week }) => (
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={0.4}>
+            spacing={0.4}
+          >
             1
           </Stack>
         ))}
