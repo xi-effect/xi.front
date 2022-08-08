@@ -4,15 +4,13 @@ import { inject, observer } from 'mobx-react';
 
 import { Stack, Paper, Box } from '@mui/material';
 
-import MenuHomeComp from './Home';
 import MenuCommunity from './Community';
 import MenuSettingsComp from './SettingsComp';
+// import MenuHomeComp from "./Home";
 
 import Home from '../SidebarSecondHeaders/Home';
 import Community from '../SidebarSecondHeaders/Community';
 import Settings from '../SidebarSecondHeaders/Settings';
-
-import UserBar from './UserBar';
 
 const SidebarSecond = inject()(
   observer(() => {
@@ -20,23 +18,27 @@ const SidebarSecond = inject()(
 
     return (
       <Paper
-        elevation={24}
         sx={{
           zIndex: 20,
-          position: 'absolute',
-          left: 80,
-          m: 0,
+          mt: '8px',
           p: 0,
-          width: 256,
+          width: 236,
+          borderTopRightRadius: '4px',
+          borderTopLeftRadius: '4px',
+          borderBottomRightRadius: 0,
+          borderBottomLeftRadius: 0,
+          backgroundColor: 'gray.0',
+          height: 'calc(100vh - 8px)',
         }}
       >
         <Stack direction="column" justifyContent="flex-start" alignItems="flex-start">
           <Box
             sx={{
               width: '100%',
-              height: '48px',
+              height: '52px',
               zIndex: 100,
               p: 0,
+              borderBottom: '1px solid #ECEFFF',
             }}
           >
             {router.pathname.includes('/home') && <Home />}
@@ -46,22 +48,13 @@ const SidebarSecond = inject()(
           <Box
             sx={{
               width: '100%',
-              height: 'calc(100vh - 128px)',
+              height: 'calc(100vh - 56px)',
               zIndex: 100,
             }}
           >
-            {router.pathname.includes('/home') && <MenuHomeComp />}
+            {/* {router.pathname.includes("/home") && <MenuHomeComp />} */}
             {router.pathname.includes('/community') && <MenuCommunity />}
             {router.pathname.includes('/settings') && <MenuSettingsComp />}
-          </Box>
-          <Box
-            sx={{
-              width: '100%',
-              height: '80px',
-              zIndex: 100,
-            }}
-          >
-            <UserBar />
           </Box>
         </Stack>
       </Paper>

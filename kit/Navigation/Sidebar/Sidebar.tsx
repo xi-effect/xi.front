@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
-import { Stack, Tooltip, IconButton, Box } from '@mui/material';
+import { Stack, Box, Tooltip, IconButton } from '@mui/material';
 
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -25,7 +25,7 @@ type SidebarType = {
   userSt?: any;
 };
 
-const menuListDividers = ['home', 'none'];
+// const menuListDividers = ['home', 'none'];
 
 const Sidebar: React.FC<SidebarType> = inject(
   'rootStore',
@@ -139,10 +139,7 @@ const Sidebar: React.FC<SidebarType> = inject(
         alignItems="center"
         spacing={2}
         sx={{
-          position: 'absolute',
-          pt: 2,
-          pb: 2,
-          width: 80,
+          width: '64px',
           height: '100vh',
           overflow: 'hidden',
         }}
@@ -153,7 +150,7 @@ const Sidebar: React.FC<SidebarType> = inject(
           sx={{ position: 'relative' }}
           alignItems="flex-start"
         >
-          <Stack
+          {/* <Stack
             sx={{ width: 4, position: 'absolute' }}
             direction="column"
             justifyContent="flex-start"
@@ -173,7 +170,7 @@ const Sidebar: React.FC<SidebarType> = inject(
                 }}
               />
             ))}
-          </Stack>
+          </Stack> */}
           <Stack
             sx={{ width: 80 }}
             direction="column"
@@ -184,9 +181,6 @@ const Sidebar: React.FC<SidebarType> = inject(
             {menuList.map((item, index) => (
               <Tooltip key={index.toString()} placement="right" title={item.label}>
                 <IconButton
-                  component={motion.li}
-                  whileHover={{ scale: 1.15 }}
-                  whileTap={{ scale: 0.9 }}
                   onClick={() => {
                     if (item.href === 'createcommunity') {
                       setOpenDialogCC(true);
@@ -206,7 +200,6 @@ const Sidebar: React.FC<SidebarType> = inject(
             ))}
           </Stack>
         </Stack>
-
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="sidebar-communities-list">
             {(provided) => (
