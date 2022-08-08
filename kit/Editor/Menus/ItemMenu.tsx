@@ -57,13 +57,15 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
           maxHeight: ITEM_HEIGHT * 4.5,
           width: '40ch',
         },
-      }}>
+      }}
+    >
       {openItemsMenu === null && (
         <Stack>
           <MenuItem
             onClick={() => {
               setOpenItemsMenu('change');
-            }}>
+            }}
+          >
             <ListItemIcon>
               <AutorenewIcon fontSize="small" />
             </ListItemIcon>
@@ -74,7 +76,8 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
             onClick={() => {
               if (editor.children.length !== 1) Transforms.removeNodes(editor, { at: [index] });
               selectItemMenu();
-            }}>
+            }}
+          >
             <ListItemIcon>
               <DeleteForeverIcon fontSize="small" />
             </ListItemIcon>
@@ -89,7 +92,8 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
                 { at: [index + 1] },
               );
               selectItemMenu();
-            }}>
+            }}
+          >
             <ListItemIcon>
               <ContentCopyIcon fontSize="small" />
             </ListItemIcon>
@@ -100,7 +104,8 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
               // @ts-ignore
               copyToClipboard(Node.string(editor.children[index]));
               selectItemMenu();
-            }}>
+            }}
+          >
             <ListItemIcon>
               <FileCopyIcon fontSize="small" />
             </ListItemIcon>
@@ -116,7 +121,8 @@ const ItemMenu: React.FC<ItemMenuProps> = ({
               onClick={() => {
                 selectItemMenu();
                 setOpenItemsMenu(null);
-              }}>
+              }}
+            >
               <Stack direction="column" justifyContent="center" alignItems="flex-start">
                 <Typography variant="h5">{item.label}</Typography>
                 <Typography sx={{ color: 'text.secondary' }} variant="subtitle1">

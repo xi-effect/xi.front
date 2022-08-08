@@ -27,7 +27,8 @@ const H1: React.FC<H1Props> = ({ children, attributes, style }) => {
         textAlign: style.textAlign,
         minHeight: '32px',
         width: '100%',
-      }}>
+      }}
+    >
       {children}
     </Typography>
   );

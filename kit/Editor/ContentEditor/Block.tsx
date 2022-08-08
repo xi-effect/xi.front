@@ -91,7 +91,8 @@ const Block = (props: BlockProps) => {
             cursor: 'default !important',
           }}
           ref={provided.innerRef}
-          {...provided.draggableProps}>
+          {...provided.draggableProps}
+        >
           {!mobile && (
             <Tooltip title="Добавить элемент">
               <Stack
@@ -112,7 +113,8 @@ const Block = (props: BlockProps) => {
                   '&:hover': {
                     bgcolor: grey[800],
                   },
-                }}>
+                }}
+              >
                 <AddIcon
                   sx={{
                     color: 'text.secondary',
@@ -151,7 +153,8 @@ const Block = (props: BlockProps) => {
                   '&:hover': {
                     bgcolor: grey[800],
                   },
-                }}>
+                }}
+              >
                 <DragIndicatorIcon
                   sx={{
                     color: 'text.secondary',
@@ -185,7 +188,8 @@ const Block = (props: BlockProps) => {
               height: '100%',
               p: 0.5,
               pl: 10,
-            }}>
+            }}
+          >
             <Element attributes={attributes} element={element}>
               {children}
             </Element>

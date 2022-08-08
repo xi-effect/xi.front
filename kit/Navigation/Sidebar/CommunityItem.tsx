@@ -37,7 +37,8 @@ const CommunityItem: React.FC<CommunityItemType> = (props) => {
                 '&:hover': {
                   bgcolor: 'primary.dark',
                 },
-              }}>
+              }}
+            >
               <Avatar size={64} name={`${item.label}${item.id}`} variant="beam" colors={colors} />
             </IconButton>
           </Tooltip>
