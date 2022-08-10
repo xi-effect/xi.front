@@ -1,6 +1,7 @@
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 
+// eslint-disable-next-line no-empty-pattern
 const TextFieldCustom = styled(TextField)(({}) => ({
   marginBottom: '16px',
   backgroundColor: 'background.main',

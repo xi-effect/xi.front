@@ -2,43 +2,36 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRouter, NextRouter} from 'next/router';
 // import Image from 'next/image';
 
 import {
   Stack,
   Link,
-  useMediaQuery,
   InputAdornment,
   IconButton,
   Box,
   Button,
-  TextField,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
 } from '@mui/material';
 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-// import {motion} from 'framer-motion';
 import {inject, observer} from 'mobx-react';
 
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
-// import {createTheme, ThemeProvider} from "@mui/material/styles";
-// import Header from "./Header";
 
-
+const MIN_PASS_LENGTH = 6;
+const MAX_PASS_OR_EMAIL_LENGTH = 100;
 
 const schema = yup
   .object({
-    email: yup.string().email().max(100).required(),
-    password: yup.string().min(6).max(100).required(),
+    email: yup.string().email().max(MAX_PASS_OR_EMAIL_LENGTH).required(),
+    password: yup.string().min(MIN_PASS_LENGTH).max(MAX_PASS_OR_EMAIL_LENGTH).required(),
   })
   .required();
 
@@ -71,6 +64,45 @@ const Form: React.FC<Props> = inject('authorizationSt')(
       authorizationSt.clickEnterButton(data, trigger);
     };
 
+    // @ts-ignore
+    const [errorMessage, setErrorMessage] = useState({
+      email: '',
+      password: '',
+      isEmailError: false,
+      isPasswordError: false
+    });
+
+    useEffect(() => {
+
+      let email = '';
+      let password = '';
+
+      if (authorizationSt.login.error === "User doesn't exist") {
+        email = 'Пользователь с таким e-mail не найден';
+      } else if (authorizationSt.login.error === "Wrong password") {
+        password = 'Неверный Пароль';
+      }else if (authorizationSt.login.error === "Server error") {
+        [email, password] = 'Ошибка сервера';
+      } else if (errors?.email?.type === "email") {
+        email = 'Введите корректный e-mail';
+      } else if (errors?.password?.type === "min") {
+        password = `Минимальное число символов - ${MIN_PASS_LENGTH}`;
+      }else if (errors?.password?.type === "max") {
+        password = `Максимальное число символов - ${MAX_PASS_OR_EMAIL_LENGTH}`;
+      }else if (errors?.password?.type === "required") {
+        password = `Пароль не может быть пустым`;
+      }
+
+      setErrorMessage({
+        email,
+        password,
+        isEmailError: !!email,
+        isPasswordError: !!password
+      });
+
+    }, [errors, authorizationSt]);
+
+
     return (
       <Box
         component="form"
@@ -87,8 +119,8 @@ const Form: React.FC<Props> = inject('authorizationSt')(
       >
         <Stack
           sx={{
-          width: '100%'
-        }}
+            width: '100%'
+          }}
         >
           <Controller
             name="email"
@@ -98,21 +130,11 @@ const Form: React.FC<Props> = inject('authorizationSt')(
             render={({field}) => (
               <TextFieldCustom
                 variant="outlined"
-                error={
-                  errors?.email?.type === 'email' ||
-                  authorizationSt.login.error === "User doesn't exist"
-                }
+                error={errorMessage?.isEmailError}
                 type="text"
                 fullWidth
                 placeholder="Электронная почта"
-                helperText={`
-                      ${
-                  authorizationSt.login.error === "User doesn't exist"
-                    ? 'Пользователь с таким e-mail не найден'
-                    : ''
-                }
-                      ${errors?.email?.type === 'email' ? 'Введите корректный e-mail' : ''}
-                      `}
+                helperText={errorMessage?.email}
                 {...field}
               />
             )}
@@ -124,30 +146,11 @@ const Form: React.FC<Props> = inject('authorizationSt')(
             render={({field}) => (
               <TextFieldCustom
                 variant="outlined"
-                error={
-                  errors?.password?.type === 'min' ||
-                  errors?.password?.type === 'required' ||
-                  authorizationSt.login.error === 'Wrong password'
-                }
+                error={errorMessage?.isPasswordError}
                 fullWidth
                 placeholder="Пароль"
                 type={showPassword ? 'text' : 'password'}
-                helperText={`
-                      ${errors?.password?.type === 'min' ? 'Минимальное число символов - 6' : ''}
-                      ${
-                  errors?.password?.type === 'max' ? 'Максимальное число символов - 100' : ''
-                } 
-                      ${
-                  authorizationSt.login.error === 'Wrong password' && !errors?.password?.type
-                    ? 'Неверный Пароль'
-                    : ''
-                } 
-                      ${
-                  authorizationSt.login.error === 'Server error' && !errors?.password?.type
-                    ? 'Ошибка сервера'
-                    : ''
-                }
-                      `}
+                helperText={errorMessage?.password}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment sx={{mr: 0.5}} position="end">
@@ -200,13 +203,13 @@ const Form: React.FC<Props> = inject('authorizationSt')(
 
 
         <Stack
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
-        sx={{
-          width: '100%'
-        }}
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+          sx={{
+            width: '100%'
+          }}
         >
           <Link
             underline="hover"
