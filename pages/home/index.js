@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
-import { Stack } from '@mui/material';
+import { Box, InputBase, Stack } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import Navigation from 'kit/Navigation/Navigation';
 
@@ -18,16 +18,24 @@ const Home = inject()(
           alignItems="center"
           spacing={0}
           sx={{
-            width: '100%',
-            pt: 1,
+            width: '100vw',
             ml: 0,
             mr: 0,
+            p: 4,
             pb: 10,
-            position: 'relative',
             overflow: 'hidden',
           }}
         >
-          Главная
+          <Box
+            sx={{
+              width: 456,
+              height: 456,
+              p: 2,
+              backgroundColor: 'blue',
+            }}
+          >
+            <InputBase variant="filled" placeholder="Description" />
+          </Box>
         </Stack>
       </Navigation>
     </>
