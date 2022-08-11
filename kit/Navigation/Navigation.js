@@ -130,47 +130,13 @@ const Navigation = inject(
             alignItems="center"
             sx={{
               zIndex: 0,
-              backgroundColor: 'primary.pale',
-              // height: '100vh',
+              backgroundColor: 'background.main',
               overflow: 'hidden',
-              // width: '100%',
             }}
           >
             <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
             <SidebarSecond hoverLeftName={hoverLeftName} />
-            <Box
-              sx={{
-                zIndex: 0,
-                height: '100vh',
-                overflow: 'hidden',
-              }}
-            >
-              {!(router.pathname.includes('/message') && !router.pathname.includes('chat')) && (
-                <Scrollbars
-                  renderThumbHorizontal={(props) => (
-                    <div
-                      {...props}
-                      style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4 }}
-                    />
-                  )}
-                  renderThumbVertical={(props) => (
-                    <div
-                      {...props}
-                      style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4 }}
-                    />
-                  )}
-                  universal
-                  style={{ width: '100%', height: '100%' }}
-                  autoHide
-                  autoHideTimeout={1000}
-                  autoHideDuration={200}
-                >
-                  {children}
-                </Scrollbars>
-              )}
-              {router.pathname.includes('message') ||
-                (router.pathname.includes('chat') && children)}
-            </Box>
+            {children}
           </Stack>
         );
       }
