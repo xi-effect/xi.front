@@ -130,12 +130,16 @@ const Navigation = inject(
             alignItems="center"
             sx={{
               zIndex: 0,
-              backgroundColor: 'background.main',
+              backgroundColor: 'primary.pale',
               overflow: 'hidden',
             }}
           >
-            <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
-            <SidebarSecond hoverLeftName={hoverLeftName} />
+            <Box sx={{ width: 64 }}>
+              <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
+            </Box>
+            <Box sx={{ width: 236 }}>
+              <SidebarSecond hoverLeftName={hoverLeftName} />
+            </Box>
             {children}
           </Stack>
         );

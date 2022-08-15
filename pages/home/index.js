@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
-import { Box, InputBase, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import Navigation from 'kit/Navigation/Navigation';
 
@@ -26,16 +26,7 @@ const Home = inject()(
             overflow: 'hidden',
           }}
         >
-          <Box
-            sx={{
-              width: 456,
-              height: 456,
-              p: 2,
-              backgroundColor: 'blue',
-            }}
-          >
-            <InputBase variant="filled" placeholder="Description" />
-          </Box>
+          1
         </Stack>
       </Navigation>
     </>
