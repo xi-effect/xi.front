@@ -20,21 +20,25 @@ const SidebarSecond = inject()(
       <Paper
         sx={{
           zIndex: 20,
-          mt: '8px',
+          mt: '0px',
           p: 0,
           width: 236,
-          borderTopRightRadius: '4px',
-          borderTopLeftRadius: '4px',
-          borderBottomRightRadius: 0,
-          borderBottomLeftRadius: 0,
+          border: '4px',
           backgroundColor: 'gray.0',
-          height: 'calc(100vh - 8px)',
+          height: 'calc(100vh - 16px)',
         }}
       >
-        <Stack direction="column" justifyContent="flex-start" alignItems="flex-start">
+        <Stack
+          sx={{
+            width: 236,
+          }}
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+        >
           <Box
             sx={{
-              width: '100%',
+              width: 236,
               height: '52px',
               zIndex: 100,
               p: 0,
