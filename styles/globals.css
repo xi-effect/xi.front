@@ -49,7 +49,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 60px #266798 inset !important;
-  background-color: #266798 !important;
+  -webkit-box-shadow: 0 0 0 60px #ECEFFF inset !important;
+  background-color: #ECEFFF !important;
   background-clip: content-box !important;
 }

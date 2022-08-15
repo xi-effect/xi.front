@@ -9,6 +9,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
 import useListen from 'utils/useListen';
 import Image from 'next/image';
+import Scroll from 'kit/Scroll';
 import CommunityItem from './CommunityItem';
 
 const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
@@ -173,23 +174,24 @@ const Sidebar: React.FC<SidebarType> = inject(
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="sidebar-communities-list">
             {(provided) => (
-              <Stack
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="center"
-                spacing={1}
-                sx={{
-                  width: 64,
-                  overflowX: "scroll",
-                }}
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                {communitiesMenuSt.userCommunities.map((item, index) => (
-                  <CommunityItem item={item} index={index} key={item.id} />
-                ))}
-                {provided.placeholder}
-              </Stack>
+              <Scroll>
+                <Stack
+                  direction="column"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                  sx={{
+                    width: 64,
+                  }}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {communitiesMenuSt.userCommunities.map((item, index) => (
+                    <CommunityItem item={item} index={index} key={item.id} />
+                  ))}
+                  {provided.placeholder}
+                </Stack>
+              </Scroll>
             )}
           </Droppable>
         </DragDropContext>
