@@ -59,12 +59,8 @@ const Main = inject(
             position: 'relative',
           }}
         >
-          <Typography variant='h4'>
-            Мы переделываем Дизайн
-          </Typography>
-          <Typography variant='h5'>
-            Опять...
-          </Typography>
+          <Typography variant="h4">Мы переделываем Дизайн</Typography>
+          <Typography variant="h5">Опять...</Typography>
         </Stack>
       </>
     );
