@@ -34,7 +34,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ week, type, setType }) => {
       sx={{
         width: '100%',
         height: 48,
-      }}>
+      }}
+    >
       <Tooltip title={type === 0 ? 'День назад' : 'Неделя назад'}>
         <Button
           variant="contained"
@@ -62,7 +63,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ week, type, setType }) => {
               bgcolor: 'secondary.dark',
             },
             ml: 1,
-          }}>
+          }}
+        >
           <ArrowForwardIosIcon />
         </Button>
       </Tooltip>
@@ -95,7 +97,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ week, type, setType }) => {
         textColor="inherit"
         value={type}
         onChange={handleChange}
-        aria-label="tabs">
+        aria-label="tabs"
+      >
         <Tab label="День" {...a11yProps(0)} />
         <Tab label="Неделя" {...a11yProps(1)} />
       </Tabs>

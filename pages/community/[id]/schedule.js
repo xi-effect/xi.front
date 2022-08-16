@@ -11,7 +11,6 @@ import DayPicker from 'components/Community/Schedule/DayPicker';
 import Toolbar from 'components/Community/Schedule/Toolbar';
 import Calendar from 'components/Community/Schedule/Calendar';
 
-
 const Schedule = inject('userSt')(
   observer(() => {
     const [type, setType] = React.useState(0);
@@ -48,12 +47,7 @@ const Schedule = inject('userSt')(
         <Navigation>
           <Grid sx={{ p: 4, width: '100%' }} container spacing={2}>
             <Grid sx={{ width: '100%' }} item xs>
-              <Stack
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="center"
-                spacing={2}
-              >
+              <Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={2}>
                 <Paper
                   sx={{
                     bgcolor: 'primary.dark',
@@ -61,7 +55,8 @@ const Schedule = inject('userSt')(
                     width: '100%',
                     height: '100%',
                     borderRadius: 4,
-                  }}>
+                  }}
+                >
                   <Toolbar week={getWeek()} type={type} setType={setType} />
                 </Paper>
                 <Paper
@@ -71,7 +66,8 @@ const Schedule = inject('userSt')(
                     width: '100%',
                     height: '100%',
                     borderRadius: 4,
-                  }}>
+                  }}
+                >
                   <Calendar week={getWeek()} />
                 </Paper>
               </Stack>

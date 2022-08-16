@@ -1,6 +1,6 @@
 {
-  "name": "\u039effect Education",
-  "short_name": "\u039effect",
+  "name": "xi.effect education",
+  "short_name": "xi.effect",
   "icons": [
     {
       "src": "/assets/icons/icon-48x48.png",
@@ -38,8 +38,8 @@
       "type": "image/png"
     },
     {
-      "src": "/assets/icons/icon-284x284.png",
-      "sizes": "284x284",
+      "src": "/assets/icons/icon-384x384.png",
+      "sizes": "384x384",
       "type": "image/png"
     },
     {
@@ -52,6 +52,6 @@
   "background_color": "#26282B",
   "display": "standalone",
   "orientation": "portrait",
-  "description": "\u039effect - платформа построения образовательных процессов",
+  "description": "xi.effect - платформа построения образовательных процессов",
   "start_url": "./home"
 }

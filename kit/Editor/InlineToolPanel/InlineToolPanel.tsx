@@ -133,7 +133,8 @@ const HoveringToolbar = () => {
         onMouseDown={(e) => {
           // prevent toolbar from taking focus away from editor
           e.preventDefault();
-        }}>
+        }}
+      >
         <FormatButton format="bold" icon="format_bold" />
         <FormatButton format="italic" icon="format_italic" />
         <FormatButton format="underlined" icon="format_underlined" />
@@ -168,7 +169,8 @@ const FormatButton = ({ format, icon }) => {
     <Button
       reversed
       active={isFormatActive(editor, format)}
-      onClick={() => toggleFormat(editor, format)}>
+      onClick={() => toggleFormat(editor, format)}
+    >
       {icon === 'format_bold' && (
         <FormatBoldIcon sx={{ color: active ? 'secondary.main' : 'text.main' }} />
       )}
@@ -179,7 +181,7 @@ const FormatButton = ({ format, icon }) => {
         <FormatUnderlinedIcon sx={{ color: active ? 'secondary.main' : 'text.main' }} />
       )}
       {icon === 'format_strike' && (
-          <StrikethroughSIcon sx={{ color: active ? 'secondary.main' : 'text.main' }} />
+        <StrikethroughSIcon sx={{ color: active ? 'secondary.main' : 'text.main' }} />
       )}
       {icon === 'format_code' && (
         <CodeIcon sx={{ color: active ? 'secondary.main' : 'text.main' }} />

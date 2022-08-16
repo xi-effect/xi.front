@@ -5,7 +5,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
-import { Slide, Button, Box, useMediaQuery } from '@mui/material';
+import { Stack, Slide, Button, Box, useMediaQuery } from '@mui/material';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSwipeable } from 'react-swipeable';
@@ -13,7 +13,6 @@ import { useSessionStorage, useBeforeUnload } from 'react-use';
 import dynamic from 'next/dynamic';
 import { useSnackbar } from 'notistack';
 import { SidebarSecond } from './SidebarSecond';
-import { Upbar } from './Upbar';
 
 import { configSwipe, sidebarVariantsRight, dragVariants } from './consts';
 
@@ -125,61 +124,24 @@ const Navigation = inject(
 
       if (!mobile) {
         return (
-          <Box
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
             sx={{
               zIndex: 0,
-              backgroundColor: 'background.main',
-              height: '100vh',
+              backgroundColor: 'primary.pale',
               overflow: 'hidden',
-              width: '100%',
             }}
           >
-            <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
-            <SidebarSecond hoverLeftName={hoverLeftName} />
-            <Box
-              sx={{
-                zIndex: 0,
-                backgroundColor: 'background.main',
-                height: '100vh',
-                overflow: 'hidden',
-                width: `calc(100% - 336px)`,
-                ml: '336px',
-              }}
-            >
-              <Upbar
-                swipe={uiSt.navigation.swipe}
-                setSwipe={uiSt.setNavigation}
-                haveRightMenu={haveRightMenu}
-                haveRightToolbar={haveRightToolbar}
-                haveRightMenuMore={haveRightMenuMore}
-              />
-              {!(router.pathname.includes('/message') && !router.pathname.includes('chat')) && (
-                <Scrollbars
-                  renderThumbHorizontal={(props) => (
-                    <div
-                      {...props}
-                      style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4 }}
-                    />
-                  )}
-                  renderThumbVertical={(props) => (
-                    <div
-                      {...props}
-                      style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4 }}
-                    />
-                  )}
-                  universal
-                  style={{ width: '100%', height: '100%' }}
-                  autoHide
-                  autoHideTimeout={1000}
-                  autoHideDuration={200}
-                >
-                  {children}
-                </Scrollbars>
-              )}
-              {router.pathname.includes('message') ||
-                (router.pathname.includes('chat') && children)}
+            <Box sx={{ width: 64 }}>
+              <Sidebar hoverLeftName={hoverLeftName} setHoverLeftName={setHoverLeftName} />
             </Box>
-          </Box>
+            <Box sx={{ width: 236 }}>
+              <SidebarSecond hoverLeftName={hoverLeftName} />
+            </Box>
+            {children}
+          </Stack>
         );
       }
 
@@ -248,13 +210,6 @@ const Navigation = inject(
                 duration: 0.5,
               }}
             >
-              <Upbar
-                swipe={uiSt.navigation.swipe}
-                setSwipe={uiSt.setNavigation}
-                haveRightMenu={haveRightMenu}
-                haveRightToolbar={haveRightToolbar}
-                haveRightMenuMore={haveRightMenuMore}
-              />
               {!router.pathname.includes('/message') && (
                 <Scrollbars
                   renderThumbHorizontal={(props) => (

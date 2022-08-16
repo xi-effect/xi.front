@@ -19,7 +19,6 @@ type CommunityMenuProps = {
 
 const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
   observer(({ uiSt, open, setOpen, handleClose, handleListKeyDown }) => {
-
     const onInviteClick = () => {
       uiSt.setDialogs('invite', true);
       if (setOpen) setOpen(false);
@@ -31,15 +30,15 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
         id="composition-menu"
         aria-labelledby="composition-button"
         onKeyDown={handleListKeyDown}
-        sx={{ width: '100%' }}>
-        <MenuItem
-          sx={{ width: '100%' }}
-          onClick={onInviteClick}>
+        sx={{ width: '100%' }}
+      >
+        <MenuItem sx={{ width: '100%' }} onClick={onInviteClick}>
           <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ width: '100%' }}>
+            sx={{ width: '100%' }}
+          >
             Пригласить людей
             <PersonAddAlt1Icon fontSize="small" />
           </Stack>
@@ -49,12 +48,14 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
           onClick={() => {
             uiSt.setDialogs('communitySettings', true);
             uiSt.setDialogs('communityMenu', false);
-          }}>
+          }}
+        >
           <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ width: '100%' }}>
+            sx={{ width: '100%' }}
+          >
             Настройки сообщества
             <SettingsIcon fontSize="small" />
           </Stack>
@@ -65,12 +66,14 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
           onClick={() => {
             uiSt.setDialogs('channelCreation', true);
             if (setOpen) setOpen(false);
-          }}>
+          }}
+        >
           <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ width: '100%' }}>
+            sx={{ width: '100%' }}
+          >
             Создать канал
             <AddCircleIcon fontSize="small" />
           </Stack>
@@ -80,12 +83,14 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
           onClick={() => {
             uiSt.setDialogs('categoryCreation', true);
             if (setOpen) setOpen(false);
-          }}>
+          }}
+        >
           <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ width: '100%' }}>
+            sx={{ width: '100%' }}
+          >
             Создать категорию
             <CreateNewFolderIcon fontSize="small" />
           </Stack>
@@ -95,12 +100,14 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
           sx={{ width: '100%' }}
           onClick={() => {
             if (handleClose) handleClose();
-          }}>
+          }}
+        >
           <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ width: '100%', color: 'error.main' }}>
+            sx={{ width: '100%', color: 'error.main' }}
+          >
             Покинуть сообщество
             <LogoutIcon sx={{ color: 'error.main' }} fontSize="small" />
           </Stack>

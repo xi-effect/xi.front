@@ -86,7 +86,8 @@ function MobileContextMenu(props: Props) {
             borderTopRightRadius: '32px',
           },
         }}
-        disableSwipeToOpen>
+        disableSwipeToOpen
+      >
         <StyledBox
           sx={{
             position: 'absolute',
@@ -96,10 +97,12 @@ function MobileContextMenu(props: Props) {
             visibility: 'visible',
             right: 0,
             left: 0,
-          }}>
+          }}
+        >
           <Puller />
           <Typography
-            sx={{ pt: 2, pl: 2, pb: 1, color: 'text.secondary', fontSize: 16, userSelect: 'none' }}>
+            sx={{ pt: 2, pl: 2, pb: 1, color: 'text.secondary', fontSize: 16, userSelect: 'none' }}
+          >
             {openItemsMenu === null && 'Меню блока'}
             {openItemsMenu === 'add' && 'Выберите тип нового блока'}
             {openItemsMenu === 'change' && 'Выберите новой тип блока'}
@@ -107,7 +110,8 @@ function MobileContextMenu(props: Props) {
           {openItemsMenu != null && (
             <IconButton
               onClick={() => setOpenItemsMenu(null)}
-              sx={{ position: 'absolute', right: 8, top: 6 }}>
+              sx={{ position: 'absolute', right: 8, top: 6 }}
+            >
               <UndoIcon />
             </IconButton>
           )}
@@ -120,32 +124,37 @@ function MobileContextMenu(props: Props) {
             height: '100%',
             overflow: 'auto',
             width: '100%',
-          }}>
+          }}
+        >
           {openItemsMenu === null && (
             <>
               <MenuItem
                 onClick={() => {
                   setOpenItemsMenu('add');
-                }}>
+                }}
+              >
                 <ListItemIcon>
                   <AddIcon />
                 </ListItemIcon>
                 <ListItemText
                   disableTypography
-                  sx={{ fontSize: 18, fontWeight: 'bold', userSelect: 'none' }}>
+                  sx={{ fontSize: 18, fontWeight: 'bold', userSelect: 'none' }}
+                >
                   Добавить
                 </ListItemText>
               </MenuItem>
               <MenuItem
                 onClick={() => {
                   setOpenItemsMenu('change');
-                }}>
+                }}
+              >
                 <ListItemIcon>
                   <AutorenewIcon />
                 </ListItemIcon>
                 <ListItemText
                   disableTypography
-                  sx={{ fontSize: 18, fontWeight: 'bold', userSelect: 'none' }}>
+                  sx={{ fontSize: 18, fontWeight: 'bold', userSelect: 'none' }}
+                >
                   Сменить тип
                 </ListItemText>
               </MenuItem>
@@ -153,13 +162,15 @@ function MobileContextMenu(props: Props) {
                 onClick={() => {
                   if (editor.children.length !== 1) Transforms.removeNodes(editor, { at: [index] });
                   setOpen(false);
-                }}>
+                }}
+              >
                 <ListItemIcon>
                   <DeleteForeverIcon />
                 </ListItemIcon>
                 <ListItemText
                   disableTypography
-                  sx={{ fontSize: 18, fontWeight: 'bold', userSelect: 'none' }}>
+                  sx={{ fontSize: 18, fontWeight: 'bold', userSelect: 'none' }}
+                >
                   Удалить
                 </ListItemText>
               </MenuItem>
@@ -172,13 +183,15 @@ function MobileContextMenu(props: Props) {
                     { at: [index + 1] },
                   );
                   setOpen(false);
-                }}>
+                }}
+              >
                 <ListItemIcon>
                   <ContentCopyIcon />
                 </ListItemIcon>
                 <ListItemText
                   disableTypography
-                  sx={{ fontSize: 18, fontWeight: 'bold', userSelect: 'none' }}>
+                  sx={{ fontSize: 18, fontWeight: 'bold', userSelect: 'none' }}
+                >
                   Дублировать
                 </ListItemText>
               </MenuItem>
@@ -186,7 +199,8 @@ function MobileContextMenu(props: Props) {
                 onClick={() => {
                   copyToClipboard(Node.string(editor.children[index]));
                   setOpen(false);
-                }}>
+                }}
+              >
                 <ListItemIcon>
                   <FileCopyIcon />
                 </ListItemIcon>
@@ -203,7 +217,8 @@ function MobileContextMenu(props: Props) {
                   key={indx.toString()}
                   onClick={() => {
                     // addNewItem(index, item.type);
-                  }}>
+                  }}
+                >
                   <Stack direction="column" justifyContent="center" alignItems="flex-start">
                     <Typography variant="h5">{item.label}</Typography>
                     <Typography sx={{ color: 'text.secondary' }} variant="subtitle1">
@@ -223,7 +238,8 @@ function MobileContextMenu(props: Props) {
                     // changeItemType(index, item.type);
                     setOpen(false);
                     setOpenItemsMenu(null);
-                  }}>
+                  }}
+                >
                   <Stack direction="column" justifyContent="center" alignItems="flex-start">
                     <Typography variant="h5">{item.label}</Typography>
                     <Typography sx={{ color: 'text.secondary' }} variant="subtitle1">

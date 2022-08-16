@@ -15,14 +15,15 @@ type QuoteProps = {
 
 const Quote: React.FC<QuoteProps> = ({ children }) => (
   <Typography
-    component='blockquote'
+    component="blockquote"
     sx={{
       p: 2,
       borderLeft: 1,
       borderColor: 'white',
       display: 'flex',
-      alignItems: 'center'
-    }}>
+      alignItems: 'center',
+    }}
+  >
     {children}
   </Typography>
 );

@@ -1,10 +1,8 @@
 import Head from 'next/head';
 import React from 'react';
-import { Stack, Grid } from '@mui/material';
+import { Stack } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import Navigation from 'kit/Navigation/Navigation';
-import { Stories } from 'components/Home/Stories';
-import TaskForDay from 'components/Home/TaskForDay';
 
 const Home = inject()(
   observer(() => (
@@ -20,50 +18,15 @@ const Home = inject()(
           alignItems="center"
           spacing={0}
           sx={{
-            width: '100%',
-            pt: 1,
+            width: '100vw',
             ml: 0,
             mr: 0,
+            p: 4,
             pb: 10,
-            position: 'relative',
             overflow: 'hidden',
           }}
         >
-          <Stories />
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="flex-start"
-            sx={{
-              mt: 2,
-              height: '100%',
-              pb: 20,
-            }}
-          >
-            <Grid
-              ax={12}
-              xs={12}
-              sm={12}
-              md={12}
-              dl={12}
-              lg={12}
-              gx={6}
-              xl={4}
-              item
-              sx={{
-                p: 1,
-                transition: '0.8s',
-                width: '100%',
-              }}
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="flex-start"
-            >
-              <TaskForDay />
-            </Grid>
-          </Grid>
+          1
         </Stack>
       </Navigation>
     </>

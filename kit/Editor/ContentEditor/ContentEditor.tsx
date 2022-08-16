@@ -28,26 +28,32 @@ import Block from './Block';
 
 // eslint-disable-next-line react/prop-types
 const Leaf = ({ attributes, children, leaf }) => {
-  Object.keys(leaf).forEach(key => {
+  Object.keys(leaf).forEach((key) => {
     switch (key) {
-      case 'bold': children = <strong>{children}</strong>;
+      case 'bold':
+        children = <strong>{children}</strong>;
         break;
-      case 'italic': children = <em>{children}</em>;
+      case 'italic':
+        children = <em>{children}</em>;
         break;
-      case 'underlined': children = <u>{children}</u>;
+      case 'underlined':
+        children = <u>{children}</u>;
         break;
-      case 'strike': children = <s>{children}</s>;
+      case 'strike':
+        children = <s>{children}</s>;
         break;
-      case 'code': children = (
+      case 'code':
+        children = (
           <code
-              className={css`
-          background-color: #333;
-          padding: 0.25em 0.5em;
-          border-radius: 0.25em;
-        `}>
+            className={css`
+              background-color: #333;
+              padding: 0.25em 0.5em;
+              border-radius: 0.25em;
+            `}
+          >
             {children}
           </code>
-      );
+        );
         break;
     }
   });

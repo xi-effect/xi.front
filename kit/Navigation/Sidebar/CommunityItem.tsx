@@ -24,8 +24,6 @@ const CommunityItem: React.FC<CommunityItemType> = (props) => {
           <Tooltip enterDelay={500} leaveDelay={0} placement="right" title={item.name}>
             <IconButton
               component={motion.li}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
               onClick={() => {
                 router.push(`/community/${item.id}`);
               }}
@@ -37,7 +35,8 @@ const CommunityItem: React.FC<CommunityItemType> = (props) => {
                 '&:hover': {
                   bgcolor: 'primary.dark',
                 },
-              }}>
+              }}
+            >
               <Avatar size={64} name={`${item.label}${item.id}`} variant="beam" colors={colors} />
             </IconButton>
           </Tooltip>

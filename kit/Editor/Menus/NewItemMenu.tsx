@@ -42,7 +42,8 @@ const NewItemMenu: React.FC<NewItemMenuProps> = ({
         maxHeight: ITEM_HEIGHT * 4.5,
         width: '40ch',
       },
-    }}>
+    }}
+  >
     <Typography variant="h6" sx={{ ml: 2 }}>
       Выберите новый блок
     </Typography>
@@ -57,7 +58,8 @@ const NewItemMenu: React.FC<NewItemMenuProps> = ({
             { at: [index + 1] },
           );
           selectItemMenu(item.type);
-        }}>
+        }}
+      >
         <Stack direction="column" justifyContent="center" alignItems="flex-start">
           <Typography variant="h6">{item.label}</Typography>
           <Typography sx={{ color: 'text.secondary' }} variant="subtitle1">

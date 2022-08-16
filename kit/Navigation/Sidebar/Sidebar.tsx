@@ -1,34 +1,33 @@
-
 import React from 'react';
 import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
-import { Stack, Tooltip, IconButton, Box } from '@mui/material';
+import { Stack, Tooltip, IconButton } from '@mui/material';
 
 import HomeIcon from '@mui/icons-material/Home';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import { Scrollbars } from 'react-custom-scrollbars-2';
-import { motion } from 'framer-motion';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
 import useListen from 'utils/useListen';
-import { grey } from '@mui/material/colors';
+import Image from 'next/image';
+import Scroll from 'kit/Scroll';
 import CommunityItem from './CommunityItem';
 
-const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), { ssr: false });
+const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
+  ssr: false,
+});
 
 type SidebarType = {
   rootStore?: any;
   communitiesMenuSt?: any;
+  userSt?: any;
 };
-
-const menuListDividers = ['home', 'none'];
 
 const Sidebar: React.FC<SidebarType> = inject(
   'rootStore',
   'communitiesMenuSt',
+  'userSt',
 )(
-  observer(({ rootStore, communitiesMenuSt }) => {
+  observer(({ rootStore, communitiesMenuSt, userSt }) => {
     const [openDialogCC, setOpenDialogCC] = React.useState(false);
     const router = useRouter();
 
@@ -41,7 +40,7 @@ const Sidebar: React.FC<SidebarType> = inject(
       },
       {
         id: 1,
-        icon: <AddBoxIcon />,
+        icon: <Image src="/icons/i-add.svg" width={24} height={24} />,
         label: 'Создать сообщество',
         href: 'createcommunity',
       },
@@ -58,11 +57,17 @@ const Sidebar: React.FC<SidebarType> = inject(
     const reorderFn = (source, destination) => {
       const communities = reorder(communitiesMenuSt.userCommunities, source, destination);
       // @ts-ignore
-      rootStore.socket.emit('reorder-community', {
-        // @ts-ignore
-        'source-id': communities[destination].id,
-        'target-index': destination,
-      }, ({ code, message, data }) => { console.info(code, message, data); });
+      rootStore.socket.emit(
+        'reorder-community',
+        {
+          // @ts-ignore
+          'source-id': communities[destination].id,
+          'target-index': destination,
+        },
+        ({ code, message, data }) => {
+          console.info(code, message, data);
+        },
+      );
       communitiesMenuSt.setUserCommunities(communities);
     };
 
@@ -121,136 +126,105 @@ const Sidebar: React.FC<SidebarType> = inject(
         direction="column"
         justifyContent="flex-start"
         alignItems="center"
-        spacing={2}
+        spacing={1}
         sx={{
-          position: 'absolute',
-          pt: 2,
-          width: 80,
+          pt: 1,
+          pb: 1,
+          width: 64,
           height: '100vh',
           overflow: 'hidden',
-        }}>
+        }}
+      >
         <Stack
+          sx={{
+            width: 64,
+          }}
           direction="row"
           justifyContent="flex-start"
-          sx={{ position: 'relative' }}
-          alignItems="flex-start">
+          alignItems="flex-start"
+        >
           <Stack
-            sx={{ width: 4, position: 'absolute' }}
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="center"
-            spacing={2}>
-            {menuListDividers.map((item, index) => (
-              <Box
-                key={index.toString()}
-                sx={{
-                  display: router.pathname.includes(item) ? 'flex' : 'none',
-                  height: 40,
-                  width: 4,
-                  bgcolor: grey[200],
-                  borderTopRightRadius: 8,
-                  borderBottomRightRadius: 8,
-                }}
-              />
-            ))}
-          </Stack>
-          <Stack
-            sx={{ width: 80 }}
+            sx={{ width: 64 }}
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={2}>
+            spacing={2}
+          >
             {menuList.map((item, index) => (
               <Tooltip key={index.toString()} placement="right" title={item.label}>
                 <IconButton
-                  component={motion.li}
-                  whileHover={{ scale: 1.15 }}
-                  whileTap={{ scale: 0.9 }}
                   onClick={() => {
                     if (item.href === 'createcommunity') {
                       setOpenDialogCC(true);
                     } else router.push(item.href);
                   }}
                   sx={{
-                    bgcolor: router.pathname.includes(item.href) ? 'primary.main' : '',
-                    borderRadius: 2,
-                    '&:hover': {
-                      bgcolor: router.pathname.includes(item.href) ? 'primary.main' : '',
-                    },
-                  }}>
+                    bgcolor: 'white',
+                    width: 48,
+                    height: 48,
+                    borderRadius: 24,
+                  }}
+                >
                   {item.icon}
                 </IconButton>
               </Tooltip>
             ))}
           </Stack>
         </Stack>
-
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="sidebar-communities-list">
             {(provided) => (
-              <Scrollbars
-                renderThumbHorizontal={(props) => (
-                  <div
-                    {...props}
-                    style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 2 }}
-                  />
-                )}
-                renderThumbVertical={(props) => (
-                  <div
-                    {...props}
-                    style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 2 }}
-                  />
-                )}
-                universal
-                // @ts-ignore
-                style={{ height: '100%', overflowY: 'hidden !important' }}
-                autoHide
-                autoHideTimeout={1000}
-                autoHideDuration={200}>
+              <Scroll>
                 <Stack
-                  direction="row"
+                  direction="column"
                   justifyContent="flex-start"
-                  sx={{ position: 'relative', pt: 2 }}
-                  alignItems="flex-start">
-                  <Stack
-                    sx={{ width: 4, position: 'absolute', height: '100%' }}
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    spacing={2}>
-                    {communitiesMenuSt.userCommunities.map((item, index) => (
-                      <Box
-                        key={index.toString()}
-                        sx={{
-                          height: 50,
-                          width: 4,
-                          bgcolor: Number(router.query.id) === item.id ? grey[200] : 'transparent',
-                          borderTopRightRadius: 8,
-                          borderBottomRightRadius: 8,
-                        }}
-                      />
-                    ))}
-                  </Stack>
-                  <Stack
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    spacing={2}
-                    sx={{
-                      width: 80,
-                    }}
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}>
-                    {communitiesMenuSt.userCommunities.map((item, index) => (
-                      <CommunityItem item={item} index={index} key={item.id} />
-                    ))}
-                    {provided.placeholder}
-                  </Stack>
+                  alignItems="center"
+                  spacing={1}
+                  sx={{
+                    width: 64,
+                  }}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {communitiesMenuSt.userCommunities.map((item, index) => (
+                    <CommunityItem item={item} index={index} key={item.id} />
+                  ))}
+                  {provided.placeholder}
                 </Stack>
-              </Scrollbars>
+              </Scroll>
             )}
           </Droppable>
         </DragDropContext>
+        <Tooltip placement="right" title="Профиль пользователя">
+          <IconButton
+            sx={{
+              bgcolor: 'white',
+              width: 48,
+              height: 48,
+              borderRadius: 24,
+            }}
+          >
+            <Image src="/icons/i-account.svg" width={24} height={24} />
+          </IconButton>
+        </Tooltip>
+        <Tooltip placement="right" title="Выйти">
+          <IconButton
+            onClick={() => {
+              userSt.logout();
+            }}
+            sx={{
+              bgcolor: 'white',
+              width: 48,
+              height: 48,
+              borderRadius: 24,
+              '&:hover': {
+                bgcolor: 'error.light',
+              },
+            }}
+          >
+            <Image src="/icons/i-exit.svg" width={24} height={24} />
+          </IconButton>
+        </Tooltip>
         <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC} />
       </Stack>
     );

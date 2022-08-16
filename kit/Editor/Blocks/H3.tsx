@@ -25,7 +25,8 @@ const H3: React.FC<H3Props> = ({ children, attributes, style }) => {
         textAlign: style.textAlign,
         minHeight: '32px',
         width: '100%',
-      }}>
+      }}
+    >
       {children}
     </Typography>
   );
