@@ -9,7 +9,7 @@ import StepTwoForm from './StepTwoForm';
 
 const schema = yup
   .object({
-    code: yup.string().length(35).required(),
+    code: yup.string().required(),
     username: yup.string().min(1).max(100).required(),
     email: yup.string().email().max(100).required(),
     password: yup.string().min(6).max(100).required(),
@@ -74,8 +74,20 @@ const SignupForm: React.FC<ISignupForm> = inject('authorizationSt')(
           flexDirection: 'column',
           justifyContent: 'space-between',
           marginTop: '32px',
+          position: 'relative',
         }}
       >
+        <Box
+          sx={{
+            position: 'absolute',
+            width: '100%',
+            bottom: '80px',
+            textAlign: 'center',
+            color: 'red',
+          }}
+        >
+          {authorizationSt.signup.error}
+        </Box>
         {activeStep === 0 && (
           <StepOneForm control={control} errors={errors} nextStepHandler={nextStepHandler} />
         )}

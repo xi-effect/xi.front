@@ -15,7 +15,7 @@ const Signup = inject()(
     return (
       <>
         <Head>
-          <title>Ξffect | Регистрация</title>
+          <title>xi.effect | Регистрация</title>
         </Head>
         <Box
           sx={{
