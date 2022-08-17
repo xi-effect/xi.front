@@ -47,7 +47,7 @@ const StepOneForm: React.FC<IStepOneForm> = ({ control, errors, nextStepHandler 
               type="text"
               fullWidth
               placeholder="Код-приглашение"
-              helperText={errors.code?.message ? 'Длина кода должна быть 35 символов' : ''}
+              helperText={errors.code?.message ? 'Обязательное поле' : ''}
               {...field}
               sx={{
                 backgroundColor: '#fff',

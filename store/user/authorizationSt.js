@@ -99,8 +99,18 @@ class AuthorizationSt {
             setTimeout(() => {
               this.rootStore.uiSt.setLoading('loading', false);
             }, 1500);
-          } else {
-            this.setSignup('error', 'emailAlreadyUsed');
+          }
+          if (data.a === 'Malformed code (BadSignature)') {
+            this.setSignup('error', 'Неверный код-приглашение');
+          }
+          if (data.a === 'Invite not found') {
+            this.setSignup('error', 'Код-приглашение не найден');
+          }
+          if (data.a === 'Invite not found') {
+            this.setSignup('error', 'Код-приглашение истек');
+          }
+          if (data.a === 'Email already in use') {
+            this.setSignup('error', 'E-mail уже зарегистрирован');
           }
         } else {
           this.setSignup('error', 'serverError');
