@@ -15,7 +15,7 @@ export default class MyDocument extends Document {
             name="Keywords"
             content="xi.effect, effect, Образованиие, Эффект, Кси Эффект, Xi Effect, Effect"
           />
-          <meta name="yandex-verification" content="42187efe6d19061b" />
+          <meta name="yandex-verification" content="bcbf220b765d388a" />
           <meta
             name="google-site-verification"
             content="VAN7yVAfRqd5NWFpUJlz0MVL1wcv0mdhDY-16-d48-U"
