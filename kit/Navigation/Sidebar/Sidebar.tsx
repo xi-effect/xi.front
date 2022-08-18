@@ -2,17 +2,14 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
-import { Stack, Box, Tooltip, IconButton } from '@mui/material';
+import { Stack, Tooltip, IconButton } from '@mui/material';
 
 import HomeIcon from '@mui/icons-material/Home';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import { Scrollbars } from 'react-custom-scrollbars-2';
-import { motion } from 'framer-motion';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
 import useListen from 'utils/useListen';
-import { grey } from '@mui/material/colors';
+import Image from 'next/image';
+import Scroll from 'kit/Scroll';
 import CommunityItem from './CommunityItem';
 
 const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
@@ -24,8 +21,6 @@ type SidebarType = {
   communitiesMenuSt?: any;
   userSt?: any;
 };
-
-// const menuListDividers = ['home', 'none'];
 
 const Sidebar: React.FC<SidebarType> = inject(
   'rootStore',
@@ -45,17 +40,11 @@ const Sidebar: React.FC<SidebarType> = inject(
       },
       {
         id: 1,
-        icon: <AddBoxIcon />,
+        icon: <Image src="/icons/i-add.svg" width={24} height={24} />,
         label: 'Создать сообщество',
         href: 'createcommunity',
       },
     ];
-
-    const logoutButton = {
-      id: 0,
-      icon: <LogoutIcon />,
-      label: 'Выход',
-    };
 
     const reorder = (list, startIndex, endIndex) => {
       const result = Array.from(list);
@@ -137,42 +126,25 @@ const Sidebar: React.FC<SidebarType> = inject(
         direction="column"
         justifyContent="flex-start"
         alignItems="center"
-        spacing={2}
+        spacing={1}
         sx={{
-          width: '64px',
+          pt: 1,
+          pb: 1,
+          width: 64,
           height: '100vh',
           overflow: 'hidden',
         }}
       >
         <Stack
+          sx={{
+            width: 64,
+          }}
           direction="row"
           justifyContent="flex-start"
-          sx={{ position: 'relative' }}
           alignItems="flex-start"
         >
-          {/* <Stack
-            sx={{ width: 4, position: 'absolute' }}
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="center"
-            spacing={2}
-          >
-            {menuListDividers.map((item, index) => (
-              <Box
-                key={index.toString()}
-                sx={{
-                  display: router.pathname.includes(item) ? 'flex' : 'none',
-                  height: 40,
-                  width: 4,
-                  bgcolor: grey[200],
-                  borderTopRightRadius: 8,
-                  borderBottomRightRadius: 8,
-                }}
-              />
-            ))}
-          </Stack> */}
           <Stack
-            sx={{ width: 80 }}
+            sx={{ width: 64 }}
             direction="column"
             justifyContent="center"
             alignItems="center"
@@ -187,11 +159,10 @@ const Sidebar: React.FC<SidebarType> = inject(
                     } else router.push(item.href);
                   }}
                   sx={{
-                    bgcolor: router.pathname.includes(item.href) ? 'primary.main' : '',
-                    borderRadius: 2,
-                    '&:hover': {
-                      bgcolor: router.pathname.includes(item.href) ? 'primary.main' : '',
-                    },
+                    bgcolor: 'white',
+                    width: 48,
+                    height: 48,
+                    borderRadius: 24,
                   }}
                 >
                   {item.icon}
@@ -203,98 +174,55 @@ const Sidebar: React.FC<SidebarType> = inject(
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="sidebar-communities-list">
             {(provided) => (
-              <Scrollbars
-                renderThumbHorizontal={(props) => (
-                  <div
-                    {...props}
-                    style={{
-                      backgroundColor: '#cccccc',
-                      borderRadius: 8,
-                      width: 2,
-                    }}
-                  />
-                )}
-                renderThumbVertical={(props) => (
-                  <div
-                    {...props}
-                    style={{
-                      backgroundColor: '#cccccc',
-                      borderRadius: 8,
-                      width: 2,
-                    }}
-                  />
-                )}
-                universal
-                // @ts-ignore
-                style={{ height: '100%', overflowY: 'hidden !important' }}
-                autoHide
-                autoHideTimeout={1000}
-                autoHideDuration={200}
-              >
+              <Scroll>
                 <Stack
-                  direction="row"
+                  direction="column"
                   justifyContent="flex-start"
-                  sx={{ position: 'relative', pt: 2 }}
-                  alignItems="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                  sx={{
+                    width: 64,
+                  }}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
                 >
-                  <Stack
-                    sx={{ width: 4, position: 'absolute', height: '100%' }}
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    spacing={2}
-                  >
-                    {communitiesMenuSt.userCommunities.map((item, index) => (
-                      <Box
-                        key={index.toString()}
-                        sx={{
-                          height: 50,
-                          width: 4,
-                          bgcolor: Number(router.query.id) === item.id ? grey[200] : 'transparent',
-                          borderTopRightRadius: 8,
-                          borderBottomRightRadius: 8,
-                        }}
-                      />
-                    ))}
-                  </Stack>
-                  <Stack
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    spacing={2}
-                    sx={{
-                      width: 80,
-                    }}
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                  >
-                    {communitiesMenuSt.userCommunities.map((item, index) => (
-                      <CommunityItem item={item} index={index} key={item.id} />
-                    ))}
-                    {provided.placeholder}
-                  </Stack>
+                  {communitiesMenuSt.userCommunities.map((item, index) => (
+                    <CommunityItem item={item} index={index} key={item.id} />
+                  ))}
+                  {provided.placeholder}
                 </Stack>
-              </Scrollbars>
+              </Scroll>
             )}
           </Droppable>
         </DragDropContext>
-        <Tooltip placement="right" title={logoutButton.label}>
+        <Tooltip placement="right" title="Профиль пользователя">
           <IconButton
-            component={motion.button}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.9 }}
+            sx={{
+              bgcolor: 'white',
+              width: 48,
+              height: 48,
+              borderRadius: 24,
+            }}
+          >
+            <Image src="/icons/i-account.svg" width={24} height={24} />
+          </IconButton>
+        </Tooltip>
+        <Tooltip placement="right" title="Выйти">
+          <IconButton
             onClick={() => {
               userSt.logout();
             }}
             sx={{
-              bgcolor: 'error.main',
-              borderRadius: 2,
+              bgcolor: 'white',
+              width: 48,
+              height: 48,
+              borderRadius: 24,
               '&:hover': {
                 bgcolor: 'error.light',
               },
             }}
           >
-            {logoutButton.icon}
+            <Image src="/icons/i-exit.svg" width={24} height={24} />
           </IconButton>
         </Tooltip>
         <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC} />

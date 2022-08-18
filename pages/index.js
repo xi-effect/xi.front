@@ -1,18 +1,11 @@
 import React from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
-import { Slide, Box, useMediaQuery, Stack } from '@mui/material';
+import { Slide, Stack, Typography } from '@mui/material';
 
 import { inject, observer } from 'mobx-react';
 import { motion } from 'framer-motion';
 
-import Header from 'components/Landing/Header';
-import MainLabel from 'components/Landing/MainLabel';
-import WhyLabel from 'components/Landing/WhyLabel';
-import EffectFor from 'components/Landing/EffectFor';
-import Footer from 'components/Landing/Footer';
 import CustomCookieShackbar from 'components/Landing/CustomCookieShackbar';
-import EasyToBegin from 'components/Landing/EasyToBegin';
 
 import { useSnackbar } from 'notistack';
 
@@ -23,10 +16,9 @@ const Main = inject(
   'uiSt',
 )(
   observer(() => {
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
-
     const { enqueueSnackbar } = useSnackbar();
     const [valueLS] = useLocalStorage('cookies-agree');
+
     React.useEffect(() => {
       if (!valueLS) {
         setTimeout(() => {
@@ -47,7 +39,7 @@ const Main = inject(
     return (
       <>
         <Head>
-          <title>Ξffect</title>
+          <title>xi.effect</title>
           <meta name="description" content="Всё, что нужно для вашего образования" />
         </Head>
         <Stack
@@ -56,7 +48,7 @@ const Main = inject(
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 2 }}
           direction="column"
-          justifyContent="flex-start"
+          justifyContent="center"
           alignItems="center"
           sx={{
             zIndex: 1,
@@ -67,99 +59,8 @@ const Main = inject(
             position: 'relative',
           }}
         >
-          {!mobile && (
-            <>
-              <Box
-                component={motion.div}
-                whileTap={{ scale: 0.7, rotate: 360 }}
-                transition={{ duration: 1 }}
-                sx={{
-                  position: 'absolute',
-                  top: 700,
-                  right: 100,
-                }}
-              >
-                <Image
-                  alt="alt"
-                  src="/assets/landing/blob1.svg"
-                  quality={100}
-                  width={256}
-                  height={256}
-                />
-              </Box>
-              <Box
-                component={motion.div}
-                whileTap={{ scale: 0.5 }}
-                transition={{ duration: 1 }}
-                sx={{
-                  position: 'absolute',
-                  top: 500,
-                  left: 200,
-                }}
-              >
-                <Image
-                  alt="alt"
-                  src="/assets/landing/blob2.svg"
-                  quality={100}
-                  width={256}
-                  height={256}
-                />
-              </Box>
-              <Box
-                component={motion.div}
-                whileTap={{ scale: 0.5 }}
-                transition={{ duration: 1 }}
-                sx={{
-                  position: 'absolute',
-                  top: 1800,
-                  right: 40,
-                }}
-              >
-                <Image
-                  alt="alt"
-                  src="/assets/landing/blob4.svg"
-                  quality={100}
-                  width={256}
-                  height={256}
-                />
-              </Box>
-              <Box
-                component={motion.div}
-                whileTap={{ scale: 0.5 }}
-                transition={{ duration: 1 }}
-                sx={{
-                  position: 'absolute',
-                  top: 2500,
-                  left: 120,
-                }}
-              >
-                <Image
-                  alt="alt"
-                  src="/assets/landing/blob3.svg"
-                  quality={100}
-                  width={256}
-                  height={256}
-                />
-              </Box>
-            </>
-          )}
-
-          <Stack
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="center"
-            sx={{
-              maxWidth: 1920,
-              height: '100%',
-            }}
-          >
-            <Header />
-            <MainLabel />
-            <EasyToBegin />
-            <WhyLabel />
-            <EffectFor />
-            <Footer />
-          </Stack>
+          <Typography variant="h4">Мы переделываем Дизайн</Typography>
+          <Typography variant="h5">Опять...</Typography>
         </Stack>
       </>
     );
