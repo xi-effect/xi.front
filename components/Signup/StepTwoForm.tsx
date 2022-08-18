@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
-import { Box, Button, IconButton, InputAdornment, Link, Stack } from '@mui/material';
+import { Button, IconButton, InputAdornment, Link, Stack } from '@mui/material';
 import { Control, Controller, FieldErrors, FieldValues } from 'react-hook-form';
 import TextFieldCustom from 'kit/TextFieldCustom';
 import Visibility from '@mui/icons-material/Visibility';
@@ -75,22 +75,11 @@ const StepOneForm: React.FC<IStepTwoForm> = ({ control, errors, prevStepHandler 
           )}
         />
       </Stack>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Link
           underline="hover"
-          sx={{
-            cursor: 'pointer',
-            color: 'primary.dark',
-            fontWeight: 500,
-            fontSize: '16px',
-            lineHeight: '20px',
-          }}
+          aria-label="Назад"
+          sx={{ cursor: 'pointer' }}
           onClick={() => prevStepHandler()}
         >
           Назад
@@ -100,7 +89,6 @@ const StepOneForm: React.FC<IStepTwoForm> = ({ control, errors, prevStepHandler 
           type="submit"
           sx={{
             width: '120px',
-            height: '48px',
             fontWeight: 500,
             fontSize: '18px',
             lineHeight: '22px',
@@ -109,7 +97,7 @@ const StepOneForm: React.FC<IStepTwoForm> = ({ control, errors, prevStepHandler 
         >
           Далее
         </Button>
-      </Box>
+      </Stack>
     </>
   );
 };
