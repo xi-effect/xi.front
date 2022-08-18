@@ -4,6 +4,16 @@ import GolosTextVF from './public/fonts/Golos-Text_VF.woff2';
 export const getDesignTokens = (mode) => ({
   components: {
     // Name of the component
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          marginTop: '4px',
+          marginLeft: 0,
+          fontSize: '14px',
+          lineHeight: '16px',
+        },
+      },
+    },
     MuiInputBase: {
       variants: [
         {
@@ -13,7 +23,7 @@ export const getDesignTokens = (mode) => ({
             width: '356px',
             borderRadius: '8px',
             backgroundColor: '#FFFFFF',
-            padding: "19px 20px 17px 20px",
+            padding: '19px 20px 17px 20px',
             '&:hover': {
               backgroundColor: '#FFFFFF',
             },
@@ -54,9 +64,6 @@ export const getDesignTokens = (mode) => ({
   },
   typography: {
     htmlFontSize: 10,
-    // button: {
-    //     textTransform: "none"
-    // },
     fontFamily: 'Golos, Arial',
   },
   breakpoints: {

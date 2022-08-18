@@ -4,7 +4,7 @@
 import React from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
-import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Router from 'next/router';
 import { Provider, observer } from 'mobx-react';
 
@@ -41,9 +41,7 @@ const MyApp = observer((props) => {
   const rootStore = useStore(pageProps.initialState);
   const theme = React.useMemo(
     () =>
-      responsiveFontSizes(
-        createTheme(getDesignTokens('light' || rootStore.userSt.settings.darkTheme)),
-      ), // Только светлая тема
+        createTheme(getDesignTokens('light' || rootStore.userSt.settings.darkTheme)), // Только светлая тема
     [rootStore.userSt.settings.darkTheme],
   );
 
