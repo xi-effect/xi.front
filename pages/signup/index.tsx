@@ -33,7 +33,7 @@ const Signup = inject()(
             width={isMobile ? '100%' : '420px'}
             spacing={2}
           >
-            <Image onClick={() => router.push("/")} src="/logo.svg" height={24} width={100} />
+            <Image onClick={() => router.push('/')} src="/logo.svg" height={24} width={100} />
             <Typography
               component="h1"
               variant="h5"

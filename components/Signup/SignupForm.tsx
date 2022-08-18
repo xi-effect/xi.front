@@ -44,7 +44,7 @@ const SignupForm: React.FC<ISignupForm> = inject('authorizationSt')(
       if (activeStep < 1) {
         trigger(['username', 'code']).then((res) => {
           if (res) {
-            authorizationSt.setSignup("error", null);
+            authorizationSt.setSignup('error', null);
             setActiveStep((prev) => prev + 1);
           }
         });

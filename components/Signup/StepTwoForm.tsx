@@ -77,11 +77,11 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
             )}
           />
           <Typography
-          color="error"
-          sx={{
-            fontSize: '14px',
-            pt: '8px',
-          }}
+            color="error"
+            sx={{
+              fontSize: '14px',
+              pt: '8px',
+            }}
           >
             {authorizationSt.signup.error}
           </Typography>
