@@ -15,17 +15,17 @@ export default class MyDocument extends Document {
             name="Keywords"
             content="xi.effect, effect, Образованиие, Эффект, Кси Эффект, Xi Effect, Effect"
           />
-          <meta name="yandex-verification" content="bcbf220b765d388a" />
+          <meta name="yandex-verification" content="5896c9df498c0cd0" />
           <meta
             name="google-site-verification"
             content="VAN7yVAfRqd5NWFpUJlz0MVL1wcv0mdhDY-16-d48-U"
           />
           <meta name="description" content="Всё, что нужно для вашего Образования" />
 
-          <meta name="application-name" content="\u039effect" />
+          <meta name="application-name" content="xi.effect" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-          <meta name="apple-mobile-web-app-title" content="\u039effect" />
+          <meta name="apple-mobile-web-app-title" content="xi.effect" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta name="msapplication-config" content="/browserconfig.xml" />
           <meta name="format-detection" content="telephone=no" />
