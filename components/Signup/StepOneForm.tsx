@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { useRouter } from 'next/router';
-import { Box, Button, Link, Stack } from '@mui/material';
+import { Button, Link, Stack } from '@mui/material';
 import { Control, Controller, FieldErrors, FieldValues } from 'react-hook-form';
 import TextFieldCustom from 'kit/TextFieldCustom';
 
@@ -56,22 +56,11 @@ const StepOneForm: React.FC<IStepOneForm> = ({ control, errors, nextStepHandler 
           )}
         />
       </Stack>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Link
           underline="hover"
-          sx={{
-            cursor: 'pointer',
-            color: 'primary.dark',
-            fontWeight: 500,
-            fontSize: '16px',
-            lineHeight: '20px',
-          }}
+          aria-label="Ко входу"
+          sx={{ cursor: 'pointer' }}
           onClick={() => router.push('/signin')}
         >
           Ко входу
@@ -81,7 +70,6 @@ const StepOneForm: React.FC<IStepOneForm> = ({ control, errors, nextStepHandler 
           variant="contained"
           sx={{
             width: '120px',
-            height: '48px',
             fontWeight: 500,
             fontSize: '18px',
             lineHeight: '22px',
@@ -90,7 +78,7 @@ const StepOneForm: React.FC<IStepOneForm> = ({ control, errors, nextStepHandler 
         >
           Далее
         </Button>
-      </Box>
+      </Stack>
     </>
   );
 };

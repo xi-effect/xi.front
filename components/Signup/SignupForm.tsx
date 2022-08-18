@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import StepOneForm from './StepOneForm';
 import StepTwoForm from './StepTwoForm';
 
@@ -65,27 +65,14 @@ const SignupForm: React.FC<ISignupForm> = inject('authorizationSt')(
     };
 
     return (
-      <Box
+      <Stack
         component="form"
         onSubmit={handleSubmit(onSubmitHandler)}
-        sx={{
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          marginTop: '32px',
-          position: 'relative',
-        }}
+        justifyContent="space-between"
+        height="100%"
+        position="relative"
       >
-        <Box
-          sx={{
-            position: 'absolute',
-            width: '100%',
-            bottom: '80px',
-            textAlign: 'center',
-            color: 'red',
-          }}
-        >
+        <Box position="absolute" width="100%" textAlign="center" bottom="80px" color="red">
           {authorizationSt.signup.error}
         </Box>
         {activeStep === 0 && (
@@ -94,7 +81,7 @@ const SignupForm: React.FC<ISignupForm> = inject('authorizationSt')(
         {activeStep === 1 && (
           <StepTwoForm control={control} errors={errors} prevStepHandler={prevStepHandler} />
         )}
-      </Box>
+      </Stack>
     );
   }),
 );
