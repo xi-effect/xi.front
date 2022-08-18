@@ -40,8 +40,7 @@ const MyApp = observer((props) => {
 
   const rootStore = useStore(pageProps.initialState);
   const theme = React.useMemo(
-    () =>
-        createTheme(getDesignTokens('light' || rootStore.userSt.settings.darkTheme)), // Только светлая тема
+    () => createTheme(getDesignTokens('light' || rootStore.userSt.settings.darkTheme)), // Только светлая тема
     [rootStore.userSt.settings.darkTheme],
   );
 
