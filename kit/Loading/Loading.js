@@ -44,7 +44,7 @@ const randomValue = Math.floor(Math.random() * quotes.length);
 const Loading = inject('uiSt')(
   observer(({ uiSt }) => (
     <AnimatePresence>
-      {(uiSt.load.loading || true) && (
+      {uiSt.load.loading && (
         <Grid
           component={motion.div}
           container
