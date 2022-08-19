@@ -286,8 +286,6 @@ const Days = inject()(
 
 const Task = inject()(
   observer(({ task, nextTask }) => {
-    // console.log(task.startTime)
-    // console.log(task.endTime)
     const dateStart = moment(task.startTime);
     let dateStartNext = null;
     if (nextTask) dateStartNext = moment(nextTask.startTime);
@@ -331,8 +329,6 @@ const Task = inject()(
       } минут`;
       // if (hoursB == 1 && minutesB == 0) return `${hoursB} часов`
     };
-
-    // console.log("isBetween", moment().isBetween(dateStart, dateEnd))
 
     return (
       <>

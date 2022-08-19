@@ -34,7 +34,6 @@ const Schedule = inject('userSt')(
       for (let k = 1; k !== lastDaysOfWeek + 1; k += 1) {
         weekArray = [...weekArray, moment().add(k, 'day').toDate()];
       }
-      console.log('weekArray', weekArray);
       return weekArray;
     };
 

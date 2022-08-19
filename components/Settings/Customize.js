@@ -15,7 +15,6 @@ const Customize = inject(
           changed: { 'dark-theme': !userSt.settings.darkTheme },
         })
         .then((data) => {
-          console.log(data);
           if (data.a) {
             userSt.setSettings('darkTheme', !userSt.settings.darkTheme);
             // enqueueSnackbar("Успешно", {

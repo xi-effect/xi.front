@@ -37,12 +37,9 @@ const Content: React.FC<ContentProps> = inject('rootStore')(
 
     const acceptInvite = () => {
       const code = getLastCodeFromURL();
-      rootStore
-        .fetchData(`${rootStore.url}/communities/join/${code}/`, 'POST')
-        .then(({ name, description, id }) => {
-          console.log(name, description, id);
-          router.push(`/community/${id}`);
-        });
+      rootStore.fetchData(`${rootStore.url}/communities/join/${code}/`, 'POST').then(({ id }) => {
+        router.push(`/community/${id}`);
+      });
     };
 
     if (!auth) {
@@ -124,7 +121,6 @@ const Form: React.FC<Props> = inject('rootStore')(
       rootStore
         .fetchData(`${rootStore.url}/communities/join/${code}/`, 'GET')
         .then(({ joined, authorized, community }) => {
-          console.log(joined, authorized, community);
           setAuth(authorized);
           setJoin(joined);
           setComm(community);
