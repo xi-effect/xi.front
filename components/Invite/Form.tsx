@@ -37,11 +37,9 @@ const Content: React.FC<ContentProps> = inject('rootStore')(
 
     const acceptInvite = () => {
       const code = getLastCodeFromURL();
-      rootStore
-        .fetchData(`${rootStore.url}/communities/join/${code}/`, 'POST')
-        .then(({ id }) => {
-          router.push(`/community/${id}`);
-        });
+      rootStore.fetchData(`${rootStore.url}/communities/join/${code}/`, 'POST').then(({ id }) => {
+        router.push(`/community/${id}`);
+      });
     };
 
     if (!auth) {
