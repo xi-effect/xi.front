@@ -7,7 +7,6 @@ const rangeTimeline = (f: string, l: string) => {
   const lastNumArray = l.split(':');
   const firstNumValue = Number(firstNumArray[0]);
   const lastNumValue = Number(lastNumArray[0]);
-  console.log(firstNumValue, lastNumValue);
   const newArray: Array<string> = [];
   for (let i = firstNumValue; i < lastNumValue + 1; i += 1) {
     newArray.push(`${i}:00`);
