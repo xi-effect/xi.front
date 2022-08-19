@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Box, Typography } from '@mui/material';
+import { Grid, Box, Typography, useMediaQuery } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { inject, observer } from 'mobx-react';
 import ImpulseSpinner from 'kit/Loading/ImpulseSpinner';
@@ -42,61 +42,69 @@ const quotes = [
 const randomValue = Math.floor(Math.random() * quotes.length);
 
 const Loading = inject('uiSt')(
-  observer(({ uiSt }) => (
-    <AnimatePresence>
-      {(uiSt.load.loading || true) && (
-        <Grid
-          component={motion.div}
-          container
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          sx={{
-            p: '98px 100px',
-            position: 'fixed',
-            height: '100vh',
-            width: '100vw',
-            zIndex: 99999,
-            bgcolor: 'primary.dark',
-            overflow: 'hidden',
-          }}
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
-        >
-          <Box
+  observer(({ uiSt }) => {
+    const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
+
+    return (
+      <AnimatePresence>
+        {uiSt.load.loading && (
+          <Grid
+            component={motion.div}
+            container
+            direction="column"
+            justifyContent="flex-start"
+            alignItems={mobile ? 'center' : 'flex-start'}
             sx={{
-              pl: '4px',
+              p: mobile ? '48px 40px' : '98px 100px',
+              position: 'fixed',
+              height: '100vh',
+              width: '100vw',
+              zIndex: 99999,
+              bgcolor: 'primary.dark',
+              overflow: 'hidden',
             }}
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, delay: 1 }}
           >
-            <ImpulseSpinner />
-          </Box>
-          <Typography
-            sx={{
-              mt: '64px',
-              color: '#FFFFFF',
-              fontSize: '36px',
-              maxWidth: '752px',
-              lineHeight: '48px',
-            }}
-          >
-            {quotes[randomValue].text}
-          </Typography>
-          <Typography
-            sx={{
-              mt: '24px',
-              color: '#FFFFFF',
-              fontSize: '36px',
-              lineHeight: '48px',
-            }}
-          >
-            {`© ${quotes[randomValue ?? 0].author}`}
-          </Typography>
-        </Grid>
-      )}
-    </AnimatePresence>
-  )),
+            <Box
+              sx={{
+                pl: '4px',
+              }}
+            >
+              <ImpulseSpinner />
+            </Box>
+            <Typography
+              align="left"
+              sx={{
+                width: '100%',
+                mt: '64px',
+                color: '#FFFFFF',
+                fontSize: mobile ? '24px' : '36px',
+                maxWidth: '752px',
+                lineHeight: mobile ? '36px' : '48px',
+              }}
+            >
+              {quotes[randomValue].text}
+            </Typography>
+            <Typography
+              align="left"
+              sx={{
+                width: '100%',
+                mt: '24px',
+                color: '#FFFFFF',
+                fontSize: mobile ? '24px' : '36px',
+                lineHeight: '48px',
+              }}
+            >
+              {`© ${quotes[randomValue ?? 0].author}`}
+            </Typography>
+          </Grid>
+        )}
+      </AnimatePresence>
+    );
+  }),
 );
 
 export default Loading;
