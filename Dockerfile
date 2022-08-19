@@ -39,6 +39,7 @@ COPY --from=builder /app/.next .next/
 COPY --from=builder /app/public/ public/
 COPY --from=builder /app/public/* /app/.next/sw.js* /app/.next/worker-*.js /app/.next/workbox-*.js /app/.next/fallback-*.js ./public/
 COPY --from=builder /app/styles styles/
+COPY --from=builder /app/next.config.js ./
 
 # Random cache directory, huh?
 RUN mkdir -p .next/cache && chmod -R 777 .next/cache
