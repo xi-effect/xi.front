@@ -95,16 +95,16 @@ export const getDesignTokens = (mode) => ({
       ? {
           mode: 'light',
           primary: {
-            dark: '#445AFF',
-            main: '#697BFF',
-            light: '#B4BDFF',
-            pale: '#ECEFFF',
+            dark: '#445AFF', // blue.100
+            main: '#697BFF', // blue.80
+            light: '#B4BDFF', // blue.40
+            pale: '#ECEFFF', // blue.10
           },
           secondary: {
-            dark: '#9769FF',
-            main: '#BD9FFF',
-            light: '#EEE7FF',
-            pale: '#F5F0FF',
+            dark: '#9769FF', // purple.100
+            main: '#BD9FFF', // blue.80
+            light: '#EEE7FF', // blue.40
+            pale: '#F5F0FF', // blue.10
           },
           gray: {
             100: '#000000',

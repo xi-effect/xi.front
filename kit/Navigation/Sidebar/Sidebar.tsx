@@ -4,12 +4,11 @@ import { inject, observer } from 'mobx-react';
 
 import { Stack, Tooltip, IconButton } from '@mui/material';
 
-import HomeIcon from '@mui/icons-material/Home';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
 import useListen from 'utils/useListen';
-import Image from 'next/image';
 import Scroll from 'kit/Scroll';
+import MyIcon from 'kit/MyIcon';
 import CommunityItem from './CommunityItem';
 
 const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
@@ -30,21 +29,6 @@ const Sidebar: React.FC<SidebarType> = inject(
   observer(({ rootStore, communitiesMenuSt, userSt }) => {
     const [openDialogCC, setOpenDialogCC] = React.useState(false);
     const router = useRouter();
-
-    const menuList = [
-      {
-        id: 0,
-        icon: <HomeIcon />,
-        label: 'Главная',
-        href: '/home',
-      },
-      {
-        id: 1,
-        icon: <Image src="/icons/i-add.svg" width={24} height={24} />,
-        label: 'Создать сообщество',
-        href: 'createcommunity',
-      },
-    ];
 
     const reorder = (list, startIndex, endIndex) => {
       const result = Array.from(list);
@@ -150,25 +134,22 @@ const Sidebar: React.FC<SidebarType> = inject(
             alignItems="center"
             spacing={2}
           >
-            {menuList.map((item, index) => (
-              <Tooltip key={index.toString()} placement="right" title={item.label}>
-                <IconButton
-                  onClick={() => {
-                    if (item.href === 'createcommunity') {
-                      setOpenDialogCC(true);
-                    } else router.push(item.href);
-                  }}
-                  sx={{
-                    bgcolor: 'white',
-                    width: 48,
-                    height: 48,
-                    borderRadius: 24,
-                  }}
-                >
-                  {item.icon}
-                </IconButton>
-              </Tooltip>
-            ))}
+            <Tooltip placement="right" title="Главная">
+              <IconButton
+                onClick={() => router.push('/home')}
+                sx={{
+                  bgcolor: router.pathname.includes('home') ? 'primary.dark' : 'gray.0',
+                  width: 48,
+                  height: 48,
+                  borderRadius: 24,
+                  '&:hover': {
+                    bgcolor: router.pathname.includes('home') ? 'primary.main' : 'primary.pale',
+                  }
+                }}
+              >
+                <MyIcon name={router.pathname.includes('home') ? 'home-white' : 'home-blue'} />
+              </IconButton>
+            </Tooltip>
           </Stack>
         </Stack>
         <DragDropContext onDragEnd={onDragEnd}>
@@ -204,7 +185,7 @@ const Sidebar: React.FC<SidebarType> = inject(
               borderRadius: 24,
             }}
           >
-            <Image src="/icons/i-account.svg" width={24} height={24} />
+            <MyIcon name="account" />
           </IconButton>
         </Tooltip>
         <Tooltip placement="right" title="Выйти">
@@ -222,7 +203,7 @@ const Sidebar: React.FC<SidebarType> = inject(
               },
             }}
           >
-            <Image src="/icons/i-exit.svg" width={24} height={24} />
+            <MyIcon name="exit" />
           </IconButton>
         </Tooltip>
         <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC} />

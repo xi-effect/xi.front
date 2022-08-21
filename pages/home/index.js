@@ -8,7 +8,7 @@ const Home = inject()(
   observer(() => (
     <>
       <Head>
-        <title>Ξffect | Главная</title>
+        <title>xi.effect | главная</title>
         <meta name="robots" content="noindex" />
       </Head>
       <Navigation>
