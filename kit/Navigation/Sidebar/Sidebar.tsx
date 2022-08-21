@@ -1,5 +1,4 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
 import { Stack, Tooltip, IconButton } from '@mui/material';
@@ -10,6 +9,7 @@ import useListen from 'utils/useListen';
 import Scroll from 'kit/Scroll';
 import MyIcon from 'kit/MyIcon';
 import CommunityItem from './CommunityItem';
+import IButton from './IButton';
 
 const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
   ssr: false,
@@ -28,7 +28,6 @@ const Sidebar: React.FC<SidebarType> = inject(
 )(
   observer(({ rootStore, communitiesMenuSt, userSt }) => {
     const [openDialogCC, setOpenDialogCC] = React.useState(false);
-    const router = useRouter();
 
     const reorder = (list, startIndex, endIndex) => {
       const result = Array.from(list);
@@ -134,22 +133,13 @@ const Sidebar: React.FC<SidebarType> = inject(
             alignItems="center"
             spacing={2}
           >
-            <Tooltip placement="right" title="Главная">
-              <IconButton
-                onClick={() => router.push('/home')}
-                sx={{
-                  bgcolor: router.pathname.includes('home') ? 'primary.dark' : 'gray.0',
-                  width: 48,
-                  height: 48,
-                  borderRadius: 24,
-                  '&:hover': {
-                    bgcolor: router.pathname.includes('home') ? 'primary.main' : 'primary.pale',
-                  }
-                }}
-              >
-                <MyIcon name={router.pathname.includes('home') ? 'home-white' : 'home-blue'} />
-              </IconButton>
-            </Tooltip>
+            <IButton
+              tooltip="Главная"
+              href="/home"
+              iconWhite="home-white"
+              iconBlue="home-blue"
+              isBefore
+            />
           </Stack>
         </Stack>
         <DragDropContext onDragEnd={onDragEnd}>
@@ -176,18 +166,7 @@ const Sidebar: React.FC<SidebarType> = inject(
             )}
           </Droppable>
         </DragDropContext>
-        <Tooltip placement="right" title="Профиль пользователя">
-          <IconButton
-            sx={{
-              bgcolor: 'white',
-              width: 48,
-              height: 48,
-              borderRadius: 24,
-            }}
-          >
-            <MyIcon name="account" />
-          </IconButton>
-        </Tooltip>
+        <IButton tooltip="Профиль" href="/profile/1" iconWhite="account" isBefore />
         <Tooltip placement="right" title="Выйти">
           <IconButton
             onClick={() => {
