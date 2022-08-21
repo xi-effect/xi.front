@@ -16,7 +16,7 @@ const IButton: React.FC<Props> = (props) => {
   const { tooltip, href, iconWhite, iconBlue, isBefore = false, typography } = props;
 
   const router = useRouter();
-  const array = href.split("/");
+  const array = href.split('/');
   const isActive = router.query.id === array[2];
 
   return (
