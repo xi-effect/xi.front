@@ -5,24 +5,35 @@ import MyIcon from 'kit/MyIcon';
 
 type Props = {
   tooltip: string;
-  href: string;
+  href?: string;
   iconWhite?: string;
   iconBlue?: string;
   isBefore?: boolean;
   typography?: string;
+  onClick?: () => void;
 };
 
 const IButton: React.FC<Props> = (props) => {
-  const { tooltip, href, iconWhite, iconBlue, isBefore = false, typography } = props;
+  const { tooltip, href, iconWhite, iconBlue, isBefore = false, typography, onClick } = props;
 
   const router = useRouter();
-  const array = href.split('/');
-  const isActive = router.query.id === array[2];
+  const array = href ? href.split('/') : false;
+  const isActive = array ? router.query.id === array[2] : false;
+
+  const handleClick = () => {
+    if (onClick) {
+      return onClick();
+    }
+    if (href) {
+      return router.push(href);
+    }
+    return null;
+  };
 
   return (
     <Tooltip placement="right" title={tooltip}>
       <IconButton
-        onClick={() => router.push(href)}
+        onClick={handleClick}
         sx={{
           bgcolor: isActive ? 'primary.dark' : 'gray.0',
           width: 48,
@@ -37,7 +48,7 @@ const IButton: React.FC<Props> = (props) => {
             position: 'absolute',
             top: '12px',
             left: '-8px',
-            bgcolor: 'gray.100',
+            bgcolor: 'gray.80',
             content: '""',
             width: '4px',
             height: '26px',

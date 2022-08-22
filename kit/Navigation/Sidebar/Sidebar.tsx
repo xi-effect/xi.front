@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 
-import { Stack, Tooltip, IconButton } from '@mui/material';
+import { Stack, Tooltip, Divider, IconButton } from '@mui/material';
 
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
@@ -109,7 +109,7 @@ const Sidebar: React.FC<SidebarType> = inject(
         direction="column"
         justifyContent="flex-start"
         alignItems="center"
-        spacing={1}
+        spacing={0}
         sx={{
           pt: 1,
           pb: 1,
@@ -131,7 +131,7 @@ const Sidebar: React.FC<SidebarType> = inject(
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={2}
+            spacing={1}
           >
             <IButton
               tooltip="Главная"
@@ -139,6 +139,19 @@ const Sidebar: React.FC<SidebarType> = inject(
               iconWhite="home-white"
               iconBlue="home-blue"
               isBefore
+            />
+            <IButton
+              tooltip="Создать сообщество"
+              iconWhite="add"
+              onClick={() => console.log('click')}
+            />
+            <Divider
+              sx={{
+                height: '1px',
+                width: '40px',
+                borderRadius: '5px',
+                backgroundColor: 'primary.light',
+              }}
             />
           </Stack>
         </Stack>
@@ -152,6 +165,8 @@ const Sidebar: React.FC<SidebarType> = inject(
                   alignItems="center"
                   spacing={1}
                   sx={{
+                    pt: 1,
+                    pb: 1,
                     width: 64,
                   }}
                   ref={provided.innerRef}
@@ -166,25 +181,42 @@ const Sidebar: React.FC<SidebarType> = inject(
             )}
           </Droppable>
         </DragDropContext>
-        <IButton tooltip="Профиль" href="/profile/1" iconWhite="account" isBefore />
-        <Tooltip placement="right" title="Выйти">
-          <IconButton
-            onClick={() => {
-              userSt.logout();
-            }}
+        <Stack
+          sx={{ width: 64 }}
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={1}
+        >
+          <Divider
             sx={{
-              bgcolor: 'white',
-              width: 48,
-              height: 48,
-              borderRadius: 24,
-              '&:hover': {
-                bgcolor: 'error.light',
-              },
+              height: '1px',
+              width: '40px',
+              borderRadius: '5px',
+              backgroundColor: 'primary.light',
             }}
-          >
-            <MyIcon name="exit" />
-          </IconButton>
-        </Tooltip>
+          />
+          <IButton tooltip="Уведомления" iconWhite="notification" />
+          <IButton tooltip="Профиль" href="/profile/1" iconWhite="account" isBefore />
+          <Tooltip placement="right" title="Выйти">
+            <IconButton
+              onClick={() => {
+                userSt.logout();
+              }}
+              sx={{
+                bgcolor: 'white',
+                width: 48,
+                height: 48,
+                borderRadius: 24,
+                '&:hover': {
+                  bgcolor: 'error.light',
+                },
+              }}
+            >
+              <MyIcon name="exit" />
+            </IconButton>
+          </Tooltip>
+        </Stack>
         <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC} />
       </Stack>
     );
