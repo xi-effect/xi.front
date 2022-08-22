@@ -19,18 +19,13 @@
     "jsx": "preserve",
     "incremental": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "jsxImportSource": "@emotion/react",
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "store/rootStore.js",
-    "kit/Editor/config.js",
-    "store/contentEditor/contentEditorSt.js",
-    "kit/Avatar/const.js",
-    "kit/CreateInvite.js",
-    "kit/XiLogo.js"
-, "kit/SettingsDialog/MenuItems/UserAvatar.js"  ],
+  ],
   "exclude": ["node_modules"]
 }
