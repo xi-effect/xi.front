@@ -7,7 +7,6 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import { inject, observer } from 'mobx-react';
 import { useCopyToClipboard } from 'react-use';
-import QRCode from 'react-qr-code';
 
 import TextFieldCustom from 'kit/TextFieldCustom';
 
