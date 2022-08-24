@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Divider, Typography } from '@mui/material';
-import { inject, observer } from 'mobx-react';       
+import { inject, observer } from 'mobx-react';
 
 const UserAvatar = inject('userSt')(
   observer(() => (

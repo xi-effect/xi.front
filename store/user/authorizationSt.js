@@ -41,7 +41,7 @@ class AuthorizationSt {
   };
 
   @observable passwordReset = {
-    errorEmailNotFounedReset: false,
+    emailNotFound: false,
     emailResetOk: false,
   };
 
@@ -50,7 +50,7 @@ class AuthorizationSt {
   };
 
   @action clickPasswordResetButton = (data) => {
-    this.setPasswordReset('errorEmailNotFounedReset', false);
+    this.setPasswordReset('emailNotFound', false);
     this.setPasswordReset('emailResetOk', false);
     this.rootStore
       .fetchData(`${this.rootStore.url}/password-reset/`, 'POST', {
@@ -62,7 +62,7 @@ class AuthorizationSt {
           if (data.a === true) {
             this.setPasswordReset('emailResetOk', true);
           } else if (data.a === false) {
-            this.setPasswordReset('errorEmailNotFounedReset', true);
+            this.setPasswordReset('emailNotFound', true);
           }
         }
       });
