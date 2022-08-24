@@ -1,32 +1,28 @@
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 
-// eslint-disable-next-line no-empty-pattern
-const TextFieldCustom = styled(TextField)(({}) => ({
+const TextFieldCustom = styled(TextField)(({ error }) => ({
   marginBottom: '16px',
-  backgroundColor: 'background.main',
-
-  // '& label': {
-  //   color: theme.palette.common.white,
-  // },
-  // '& label.Mui-focused': {
-  //   color: 'yellow'
-  // },
   '& .MuiInputBase-root': {
+    borderRadius: '8px',
     height: '56px',
-    color: 'gray.100',
+    fontFamily: 'Golos',
     fontWeight: 400,
-    fontSize: '16px',
-    lineHeight: '20px'
+    fontSize: 16,
+    lineHeight: '20px',
+    borderColor: `${error ? '#F42D2D' : '#999999'}` // error.dark : gray.40
   },
-  // '& .MuiInputBase-root.MuiFilledInput-root': {
-  //   backgroundColor: 'background.main',
-  // },
+  '& .MuiInputBase-input::placeholder': {
+    color: `${error ? '#F42D2D' : '#999999'}` // error.dark : gray.40
+  },
   '& .MuiFormHelperText-root': {
     marginTop: '4px',
     marginLeft: 0,
-    fontsize: '14px',
-    lineHeight: '16px'
+    fontFamily: 'Golos',
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '16px',
+    color: '#F42D2D', // error.dark
   }
 }));
 
