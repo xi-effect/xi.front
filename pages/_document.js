@@ -30,9 +30,12 @@ export default class MyDocument extends Document {
           <meta name="msapplication-config" content="/browserconfig.xml" />
           <meta name="format-detection" content="telephone=no" />
           <meta name="format-detection" content="address=no" />
-          <link rel="preconnect" href="https://fonts.googleapis.com"/>
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital@1&display=swap" rel="stylesheet"/>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital@1&display=swap"
+            rel="stylesheet"
+          />
           <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
           <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 

@@ -66,7 +66,9 @@ const Form: React.FC<ISignupForm> = inject('authorizationSt')(
                 type="email"
                 fullWidth
                 placeholder="Электронная почта"
-                helperText={authorizationSt.passwordReset.emailNotFound ? "Не удалось найти аккаунт" : ""}
+                helperText={
+                  authorizationSt.passwordReset.emailNotFound ? 'Не удалось найти аккаунт' : ''
+                }
                 {...field}
                 sx={{
                   backgroundColor: '#fff',
