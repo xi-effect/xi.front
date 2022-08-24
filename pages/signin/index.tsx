@@ -159,7 +159,7 @@ const Signin = inject(
                 </Typography>
               </Stack>
               <Stack>
-                <Form {...props} handleShowErrorInfo={handleShowErrorInfo}/>
+                <Form {...props} handleShowErrorInfo={handleShowErrorInfo} mobile={mobile}/>
               </Stack>
             </Box>
             <Stack

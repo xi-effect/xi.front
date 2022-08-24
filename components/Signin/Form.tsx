@@ -11,7 +11,6 @@ import {
   InputAdornment,
   Box,
   Typography,
-  useMediaQuery,
 } from '@mui/material';
 
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
@@ -35,16 +34,15 @@ const schema = yup
 
 type Props = {
   authorizationSt: any;
-  handleShowErrorInfo: any
+  handleShowErrorInfo: any,
+  mobile: boolean
 };
 
 const Form: React.FC<Props> = inject('authorizationSt')(
   observer((props) => {
-    const {authorizationSt, handleShowErrorInfo} = props;
+    const {authorizationSt, handleShowErrorInfo, mobile} = props;
 
     const router: NextRouter = useRouter();
-    // @ts-ignore
-    const mobile: boolean = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
