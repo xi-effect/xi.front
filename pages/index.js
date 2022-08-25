@@ -61,6 +61,20 @@ const Main = inject(
         >
           <Typography variant="h4">Мы переделываем Дизайн</Typography>
           <Typography variant="h5">Опять...</Typography>
+          <Stack
+            sx={{ mt: 2 }}
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={1}
+          >
+            <Typography sx={{ fontWeight: 400 }}>400 400 400</Typography>
+            <Typography sx={{ fontWeight: 500 }}>500 500 500</Typography>
+            <Typography sx={{ fontWeight: 600 }}>600 600 600</Typography>
+            <Typography sx={{ fontWeight: 700 }}>700 700 700</Typography>
+            <Typography sx={{ fontWeight: 800 }}>800 800 800</Typography>
+            <Typography sx={{ fontWeight: 900 }}>900 900 900</Typography>
+          </Stack>
         </Stack>
       </>
     );

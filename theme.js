@@ -53,18 +53,18 @@ export const getDesignTokens = (mode) => ({
     MuiCssBaseline: {
       styleOverrides: `
             @font-face {
-              font-family: 'Golos';
+              font-family: 'GolosTextVF';
               font-style: normal;
               font-display: swap;
               font-weight: 400;
-              src: local('Golos'), url(${GolosTextVF}) format('woff2');
+              src: local('GolosTextVF'), url(${GolosTextVF}) format('woff2');
             }
           `,
     },
   },
   typography: {
     htmlFontSize: 10,
-    fontFamily: 'Golos, Arial',
+    fontFamily: 'GolosTextVF, Arial',
   },
   breakpoints: {
     key: {
