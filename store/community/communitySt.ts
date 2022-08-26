@@ -1,11 +1,11 @@
 /* eslint-disable no-shadow */
 import { action, observable, makeObservable } from 'mobx';
-import RootStore from "../rootStore";
+import RootStore from '../rootStore';
 
 type MetaType = {
-  id: null| number,
-  name: string,
-  description: string,
+  id: null | number;
+  name: string;
+  description: string;
 };
 
 class CommunitySt {
@@ -20,13 +20,13 @@ class CommunitySt {
     makeObservable(this);
   }
 
-  @observable meta:MetaType = {
+  @observable meta: MetaType = {
     id: null,
     name: '',
     description: '',
   };
 
-  @action setMeta = (name:string, value:string) => {
+  @action setMeta = (name: string, value: string) => {
     this.meta[name] = value;
   };
 

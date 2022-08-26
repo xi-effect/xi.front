@@ -1,5 +1,5 @@
 import { action, observable, makeObservable } from 'mobx';
-import RootStore from "../rootStore";
+import RootStore from '../rootStore';
 
 class CommunitiesMenuSt {
   // `this` from rootstore passed to the constructor and we can
@@ -20,7 +20,7 @@ class CommunitiesMenuSt {
   };
 
   @action removeCommunity = (lid) => {
-    const newArray:any = this.userCommunities;
+    const newArray: any = this.userCommunities;
     this.userCommunities = newArray.filter((item) => item.id !== lid);
   };
 }
