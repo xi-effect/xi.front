@@ -33,7 +33,8 @@ const StepOneForm: React.FC<IStepOneForm> = inject('authorizationSt')(
                 placeholder="Имя пользователя"
                 {...field}
                 sx={{
-                  backgroundColor: '#fff',
+                  backgroundColor: 'gray.0',
+                  borderRadius: '8px',
                 }}
               />
             )}
@@ -45,14 +46,15 @@ const StepOneForm: React.FC<IStepOneForm> = inject('authorizationSt')(
             render={({ field }) => (
               <TextFieldCustom
                 variant="outlined"
-                error={!!errors.code?.message}
+                error={!!errors.code?.message || !!authorizationSt.signup.error}
                 type="text"
                 fullWidth
                 placeholder="Код-приглашение"
                 helperText={authorizationSt.signup.error}
                 {...field}
                 sx={{
-                  backgroundColor: '#fff',
+                  backgroundColor: 'gray.0',
+                  borderRadius: '8px',
                 }}
               />
             )}
@@ -61,11 +63,11 @@ const StepOneForm: React.FC<IStepOneForm> = inject('authorizationSt')(
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Link
             underline="none"
-            aria-label="Ко входу"
-            sx={{ cursor: 'pointer' }}
+            aria-label="Войти"
+            sx={{ cursor: 'pointer', fontWeight: 500 }}
             onClick={() => router.push('/signin')}
           >
-            Ко входу
+            Войти
           </Link>
           <Button
             onClick={nextStepHandler}

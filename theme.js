@@ -1,6 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
-import GolosTextVF from './public/fonts/Golos-Text_VF.woff2';
-
 export const getDesignTokens = (mode) => ({
   components: {
     // Name of the component
@@ -50,21 +47,10 @@ export const getDesignTokens = (mode) => ({
         },
       ],
     },
-    MuiCssBaseline: {
-      styleOverrides: `
-            @font-face {
-              font-family: 'Golos';
-              font-style: normal;
-              font-display: swap;
-              font-weight: 400;
-              src: local('Golos'), url(${GolosTextVF}) format('woff2');
-            }
-          `,
-    },
   },
   typography: {
     htmlFontSize: 10,
-    fontFamily: 'Golos, Arial',
+    fontFamily: 'Inter, Arial',
   },
   breakpoints: {
     key: {
