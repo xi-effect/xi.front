@@ -13,7 +13,7 @@ const XiLogo = () => {
       onClick={() => router.push({ pathname: '/' })}
     >
       <Image
-        src="/xi.effect.svg"
+        src="/logo.svg"
         alt="xi.logo"
         width="100px"
         height="24px"

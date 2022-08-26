@@ -13,6 +13,7 @@ const TextFieldCustom = styled(TextField)(({ error }) => ({
     borderColor: `${error ? '#F42D2D' : '#999999'}` // error.dark : gray.40
   },
   '& .MuiInputBase-input::placeholder': {
+    paddingLeft: '5px',
     color: `${error ? '#F42D2D' : '#999999'}` // error.dark : gray.40
   },
   '& .MuiFormHelperText-root': {

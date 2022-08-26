@@ -9,18 +9,38 @@ import {
   Stack,
   Link,
   InputAdornment,
-  Box,
-  Typography,
+  Box
 } from '@mui/material';
-
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { styled } from '@mui/system';
+import MyIcon from "../../kit/MyIcon";
+
+const CustomButton = styled(ButtonUnstyled)`
+  background-color: #445AFF;
+  border-radius: 8px;
+  transition: all 150ms ease;
+  cursor: pointer;
+  border: none;
+  color: #FFFFFF;
+  margin-top: -2px;
+
+
+  &:hover {
+    background-color: #697BFF;
+  }
+
+  &.${buttonUnstyledClasses.active} {
+
+  }
+
+  &.${buttonUnstyledClasses.focusVisible} {
+    outline: none;
+  }
+`;
 
 const MIN_PASS_LENGTH = 6;
 const MAX_PASS_OR_EMAIL_LENGTH = 100;
@@ -35,12 +55,11 @@ const schema = yup
 type Props = {
   authorizationSt: any;
   handleShowErrorInfo: any,
-  mobile: boolean
 };
 
 const Form: React.FC<Props> = inject('authorizationSt')(
   observer((props) => {
-    const {authorizationSt, handleShowErrorInfo, mobile} = props;
+    const {authorizationSt, handleShowErrorInfo} = props;
 
     const router: NextRouter = useRouter();
 
@@ -56,6 +75,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
     });
 
     const onSubmit = (data) => {
+      console.log('onSubmit');
       trigger();
       authorizationSt.clickEnterButton(data, trigger);
     };
@@ -145,47 +165,20 @@ const Form: React.FC<Props> = inject('authorizationSt')(
       }
     }, [errors, authorizationSt]);
 
-    const CustomButton = styled(ButtonUnstyled)`
-      background-color: #445AFF;
-      border-radius: 8px;
-      transition: all 150ms ease;
-      cursor: pointer;
-      border: none;
-      color: #FFFFFF;
-      &:hover {
-        background-color: #697BFF;
-      }
-
-      &.${buttonUnstyledClasses.active} {
-          
-      }
-
-      &.${buttonUnstyledClasses.focusVisible} {
-        outline: none;
-      }
-    `;
 
     return (
-      <Box
-        component="form"
-        display="flex"
-        flexDirection="column"
+      <Stack
+        height="100%"
+        direction="column"
         justifyContent="space-between"
-        sx={{
-          width: mobile ? '335px' : '356px',
-          height: mobile ? '263px' : '313px',
-          mb: mobile ? 0: '32px'
-        }}
+        component="form"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Stack
-          sx={{
-            width: '100%'
-          }}
-        >
+        <Stack>
           <Controller
             name="email"
             control={control}
+            defaultValue=""
             render={({field}) => (
               <TextFieldCustom
                 variant="outlined"
@@ -195,12 +188,16 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                 placeholder="Электронная почта"
                 helperText={errorMessage.email}
                 {...field}
+                sx={{
+                  backgroundColor: '#fff',
+                }}
               />
             )}
           />
           <Controller
             name="password"
             control={control}
+            defaultValue=""
             render={({field}) => (
               <TextFieldCustom
                 variant="outlined"
@@ -209,78 +206,72 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                 placeholder="Пароль"
                 type={showPassword ? 'text' : 'password'}
                 helperText={errorMessage.password}
+                {...field}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment
                       position="end"
+                      sx={{mr: '7px', mt: '3px'}}
                     >
                       <Box
                         width="22px"
                         height="22px"
                         borderRadius="8px"
-                        sx={{ cursor: 'pointer' }}
+                        sx={{cursor: 'pointer'}}
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                      {!showPassword ? (
-                        <VisibilityOffOutlinedIcon
-                          sx={{ fontSize: 22, color: '#000000' }}/> // gray.100
-                      ) : (
-                        <RemoveRedEyeOutlinedIcon
-                          sx={{ fontSize: 22, color: '#000000' }}/> // gray.100
-                      )}
+                        {!showPassword ? (
+                          <MyIcon name="eye-off"/>
+                        ) : (
+                          <MyIcon name="eye-on"/>
+                        )}
                       </Box>
                     </InputAdornment>
                   ),
                 }}
-                {...field}
               />
             )}
           />
-          <Stack
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
-            sx={{width: '100%'}}
+          <Link
+            underline="none"
+            href="/"
+            sx={{
+              cursor: 'pointer',
+              color: '#445AFF', // primary.dark
+              fontWeight: 500,
+              fontSize: 14,
+              lineHeight: '18px',
+              letterSpacing: 0
+            }}
+            // paddingBottom="137px"
+            onClick={() => router.push({pathname: '/resetpassword/email'})}
           >
-            <Link
-              underline="hover"
-              href="/"
-              sx={{ cursor: 'pointer' }}
-              onClick={() => router.push({pathname: '/resetpassword/email'})}
-            >
-              <Typography
-                variant="body2"
-                sx={{color: '#445AFF'}} // primary.dark
-              >
-                Восстановить пароль
-              </Typography>
-            </Link>
-          </Stack>
+            Восстановить пароль
+          </Link>
         </Stack>
         <Stack
-          display="flex"
           flexDirection="row"
           justifyContent="space-between"
           alignItems="center"
-          sx={{
-            width: '100%'
-          }}
         >
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <Link
-            underline="hover"
-            href="/"
-            sx={{ cursor: 'pointer' }}
-            onClick={() => router.push({ pathname: '/signup' })}
+            underline="none"
+            sx={{
+              cursor: 'pointer',
+              color: '#445AFF', // primary.dark
+              fontWeight: 500,
+              fontSize: 16,
+              lineHeight: '20px',
+              letterSpacing: 0
+            }}
+            onClick={() => router.push({pathname: '/signup'})}
           >
-            <Typography
-              variant="subtitle1"
-              sx={{color: '#445AFF'}} // primary.dark
-            >
-              Регистрация
-            </Typography>
+            Регистрация
           </Link>
           <CustomButton
             type="submit"
+            variant="contained"
             sx={{
               width: '120px',
               height: '48px',
@@ -294,7 +285,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
             Войти
           </CustomButton>
         </Stack>
-      </Box>
+      </Stack>
     );
   }),
 );
