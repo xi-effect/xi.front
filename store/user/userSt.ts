@@ -1,17 +1,59 @@
 import { action, observable, makeObservable } from 'mobx';
 import Router from 'next/router';
+import RootStore from "../rootStore";
+import {ResponseDataRegT} from "../../utils/dataUserStore";
+
+type SettingsUserStoreT = {
+  id: null | number,
+  avatar: SettingsAvatarStoreT ,
+  username: string,
+  darkTheme: boolean,
+  emailConfirmed: any,
+  invite: any,
+  communities: [],
+};
+
+type SettingsAvatarStoreT = {
+  topType: number,
+  accessoriesType: number,
+  hairColor: number,
+  facialHairType: number,
+  clotheType: number,
+  eyeType: number,
+  eyebrowType: number,
+  mouthType: number,
+  skinColor: number,
+  bgcolor: number,
+};
+type ResponseGetSettings = {
+  id: number,
+  username: string,
+  "dark-theme": boolean,
+  language: string,
+  avatar: {},
+  email: string,
+  "email-confirmed": boolean,
+  code: string,
+  name: string,
+  surname: string,
+  patronymic: string,
+  bio: string,
+  group: string,
+};
 
 class UserSt {
   // `this` from rootstore passed to the constructor and we can
   // assign it to a variable accessible in this class called
   // `rootStore`. Therefore, we can access other store like
   // useStore for e.g (this.rootStore.userStore)
+  rootStore: RootStore;
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this);
   }
 
-  @observable settings = {
+  @observable settings:SettingsUserStoreT = {
     id: null,
     avatar: {
       topType: 0,
@@ -32,16 +74,16 @@ class UserSt {
     communities: [],
   };
 
-  @action setSettings = (item, value) => {
+  @action setSettings = (item:string, value) => {
     this.settings[item] = value;
   };
 
-  @action setSettingsSecond = (item, secondItem, value) => {
+  @action setSettingsSecond = (item:string, secondItem, value) => {
     this.settings[item][secondItem] = value;
   };
 
   @action getMainSettings = (type = null) => {
-    this.rootStore.fetchData(`${this.rootStore.url}/home/`, 'GET').then((data) => {
+    this.rootStore.fetchData(`${this.rootStore.url}/home/`, 'GET').then((data: ResponseDataRegT) => {
       if (data) {
         const { id, username } = data.user;
         this.setSettings('darkTheme', data.user['dark-theme']);
@@ -59,7 +101,7 @@ class UserSt {
   };
 
   @action getAllSettings = () => {
-    this.rootStore.fetchData(`${this.rootStore.url}/settings/`, 'GET').then((data) => {
+    this.rootStore.fetchData(`${this.rootStore.url}/settings/`, 'GET').then((data:ResponseGetSettings) => {
       if (data) {
         const emailArr = data.email.split('@', 2);
         this.setSettings('emailBefore', emailArr[0]);
@@ -106,6 +148,7 @@ class UserSt {
             darkTheme: true,
             emailConfirmed: null,
             invite: null,
+            communities: [],
           };
         }
       });
