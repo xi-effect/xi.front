@@ -126,7 +126,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
         } else if (!errors.email?.type && (errors.password?.type === 'min' || errors.password?.type === 'max')) {
           setErrorMessage(prevState => ({
             ...prevState,
-            password: '',
+            password: 'Неправильный пароль',
             isPasswordError: true
           }));
         }
