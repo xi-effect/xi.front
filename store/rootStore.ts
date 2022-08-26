@@ -20,8 +20,6 @@ import CommunityChannelsSt from './community/communityChannelsSt';
 import CommunitiesInvitesSt from './community/communitiesInvitesSt';
 import CommunitySettingsSt from './community/communitySettingsSt';
 
-
-
 enableStaticRendering(typeof window === 'undefined');
 
 let store;
@@ -36,17 +34,17 @@ class RootStore {
 
   authorizationSt: AuthorizationSt;
 
-  communitySt:CommunitySt;
+  communitySt: CommunitySt;
 
-  communityCreationSt:CommunityCreationSt;
+  communityCreationSt: CommunityCreationSt;
 
-  communityChannelsSt:CommunityChannelsSt;
+  communityChannelsSt: CommunityChannelsSt;
 
-  communitySettingsSt:CommunitySettingsSt;
+  communitySettingsSt: CommunitySettingsSt;
 
-  communitiesInvitesSt:CommunitiesInvitesSt;
+  communitiesInvitesSt: CommunitiesInvitesSt;
 
-  communitiesMenuSt:CommunitiesMenuSt;
+  communitiesMenuSt: CommunitiesMenuSt;
 
   url = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -69,15 +67,15 @@ class RootStore {
     makeObservable(this);
   }
 
-  socket:null | Socket = null ;
+  socket: null | Socket = null;
 
   @action initSocket = () => {
-    this.socket= io('https://xieffect.ru:5000/', {
+    this.socket = io('https://xieffect.ru:5000/', {
       withCredentials: true,
     });
   };
 
-  @action fetchData = async (url:string, method: MethodT, data?: any) => {
+  @action fetchData = async (url: string, method: MethodT, data?: any) => {
     try {
       let response: null | Response = null;
       if (data != null) {
