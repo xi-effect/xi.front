@@ -1,5 +1,5 @@
 import { action, observable, makeObservable } from 'mobx';
-import RootStore from "../rootStore";
+import RootStore from '../rootStore';
 
 class CommunitiesInvitesSt {
   // `this` from rootstore passed to the constructor and we can

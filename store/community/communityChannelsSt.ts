@@ -1,19 +1,19 @@
-import {action, observable, makeObservable} from 'mobx';
-import RootStore from "../rootStore";
+import { action, observable, makeObservable } from 'mobx';
+import RootStore from '../rootStore';
 
 type ChannelsType = {
-  id: number,
-  type: string,
-  name: string,
-  unread?: number,
-  open?: boolean,
-  children?: ChildrenType[]
+  id: number;
+  type: string;
+  name: string;
+  unread?: number;
+  open?: boolean;
+  children?: ChildrenType[];
 };
 
 type ChildrenType = {
-  id: number,
-  type: string,
-  name: string,
+  id: number;
+  type: string;
+  name: string;
 };
 
 class CommunityChannelsSt {
@@ -28,13 +28,12 @@ class CommunityChannelsSt {
     makeObservable(this);
   }
 
-  @observable channels: ChannelsType[]  = [
+  @observable channels: ChannelsType[] = [
     {
       id: 0,
       type: 'page',
       name: 'Страница',
       unread: 0, // Для чатов
-
     },
     {
       id: 1,
@@ -165,12 +164,14 @@ class CommunityChannelsSt {
   };
 
   @action pushNewChannelToCategory = (data, id) => {
-
-    this.channels.map(c => c.id === id ? c.children?.push({
-          id: new Date().getTime(),
-          type: data.type,
-          name: data.name,
-        }):c
+    this.channels.map((c) =>
+      c.id === id
+        ? c.children?.push({
+            id: new Date().getTime(),
+            type: data.type,
+            name: data.name,
+          })
+        : c,
     );
   };
 }
