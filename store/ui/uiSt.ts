@@ -1,15 +1,15 @@
 import { action, observable, makeObservable } from 'mobx';
-import RootStore from "../rootStore";
+import RootStore from '../rootStore';
 
 type DialogsType = {
-  categoryCreation: boolean,
-  channelCreation: boolean,
-  invite: boolean,
-  privacy: boolean,
-  settings: boolean,
-  userSettings: boolean,
-  communitySettings: boolean,
-  communityMenu: boolean,
+  categoryCreation: boolean;
+  channelCreation: boolean;
+  invite: boolean;
+  privacy: boolean;
+  settings: boolean;
+  userSettings: boolean;
+  communitySettings: boolean;
+  communityMenu: boolean;
 };
 
 class UISt {
@@ -28,7 +28,7 @@ class UISt {
     swipe: 'center',
   };
 
-  @action setNavigation = (name:string, value:string) => {
+  @action setNavigation = (name: string, value: string) => {
     this.navigation[name] = value;
   };
 
@@ -37,7 +37,7 @@ class UISt {
     loading: null,
   };
 
-  @action setLoading = (name:string, value:boolean) => {
+  @action setLoading = (name: string, value: boolean) => {
     this.load[name] = value;
   };
 
@@ -60,7 +60,7 @@ class UISt {
     this.reportData = {};
   };
 
-  @observable dialogs : DialogsType = {
+  @observable dialogs: DialogsType = {
     categoryCreation: false,
     channelCreation: false,
     invite: false,
@@ -71,7 +71,7 @@ class UISt {
     communityMenu: false,
   };
 
-  @action setDialogs = (name:string, value:boolean) => {
+  @action setDialogs = (name: string, value: boolean) => {
     this.dialogs[name] = value;
   };
 }
