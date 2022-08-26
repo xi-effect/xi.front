@@ -34,7 +34,8 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
                 helperText={errors.email?.message ? 'Некорректный email' : ''}
                 {...field}
                 sx={{
-                  backgroundColor: '#fff',
+                  backgroundColor: 'gray.0',
+                  borderRadius: '8px',
                 }}
               />
             )}
@@ -71,7 +72,8 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
                   ),
                 }}
                 sx={{
-                  backgroundColor: '#fff',
+                  backgroundColor: 'gray.0',
+                  borderRadius: '8px',
                 }}
               />
             )}
@@ -99,14 +101,14 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
             variant="contained"
             type="submit"
             sx={{
-              width: '120px',
+              width: '180px',
               fontWeight: 500,
               fontSize: '18px',
               lineHeight: '22px',
               textTransform: 'none',
             }}
           >
-            Далее
+            Регистрация
           </Button>
         </Stack>
       </>

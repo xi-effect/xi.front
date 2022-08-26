@@ -101,13 +101,13 @@ class AuthorizationSt {
             }, 1500);
           }
           if (data.a === 'Malformed code (BadSignature)') {
-            this.setSignup('error', 'Неверный код-приглашение');
+            this.setSignup('error', 'Неверный код');
           }
           if (data.a === 'Invite not found') {
-            this.setSignup('error', 'Код-приглашение не найден');
+            this.setSignup('error', 'Код не найден');
           }
           if (data.a === 'Invite not found') {
-            this.setSignup('error', 'Код-приглашение истек');
+            this.setSignup('error', 'Код истек');
           }
           if (data.a === 'Email already in use') {
             this.setSignup('error', 'E-mail уже зарегистрирован');

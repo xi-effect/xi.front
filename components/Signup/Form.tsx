@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { inject, observer } from 'mobx-react';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -18,6 +19,8 @@ const schema = yup
 
 interface ISignupForm {
   authorizationSt?: any;
+  activeStep: number;
+  setActiveStep: (value: number) => void;
 }
 
 type SignupFormValues = {
@@ -28,9 +31,7 @@ type SignupFormValues = {
 };
 
 const SignupForm: React.FC<ISignupForm> = inject('authorizationSt')(
-  observer(({ authorizationSt }) => {
-    const [activeStep, setActiveStep] = useState<number>(0);
-
+  observer(({ authorizationSt, activeStep, setActiveStep }) => {
     const {
       control,
       handleSubmit,
@@ -45,7 +46,8 @@ const SignupForm: React.FC<ISignupForm> = inject('authorizationSt')(
         trigger(['username', 'code']).then((res) => {
           if (res) {
             authorizationSt.setSignup('error', null);
-            setActiveStep((prev) => prev + 1);
+            // @ts-ignore
+            setActiveStep((prev: number) => prev + 1);
           }
         });
       }
@@ -53,16 +55,16 @@ const SignupForm: React.FC<ISignupForm> = inject('authorizationSt')(
 
     const prevStepHandler = () => {
       if (activeStep > 0) {
-        setActiveStep((prev) => prev - 1);
+        // @ts-ignore
+        setActiveStep((prev: number) => prev - 1);
       }
     };
 
     const onSubmitHandler: SubmitHandler<SignupFormValues> = (data) => {
-      trigger().then((res) => {
-        if (res) {
-          authorizationSt.clickRegistrationButton(data);
-        }
-      });
+      trigger();
+      if (Object.keys(errors).length === 0) {
+        authorizationSt.clickRegistrationButton(data);
+      }
     };
 
     return (
