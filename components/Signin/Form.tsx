@@ -1,313 +1,290 @@
-/* eslint-disable consistent-return */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/function-component-definition */
-/* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter, NextRouter } from 'next/router';
-import Image from 'next/image';
-
-import {
-  Stack,
-  Link,
-  useMediaQuery,
-  InputAdornment,
-  IconButton,
-  Typography,
-  Box,
-  Button,
-  Paper,
-} from '@mui/material';
-
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
-import { motion } from 'framer-motion';
 import { inject, observer } from 'mobx-react';
-
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
+import {
+  Stack,
+  Link,
+  InputAdornment,
+  Box
+} from '@mui/material';
+
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { styled } from '@mui/system';
+import MyIcon from "../../kit/MyIcon";
+
+const CustomButton = styled(ButtonUnstyled)`
+  background-color: #445AFF;
+  border-radius: 8px;
+  transition: all 150ms ease;
+  cursor: pointer;
+  border: none;
+  color: #FFFFFF;
+  margin-top: -2px;
+
+
+  &:hover {
+    background-color: #697BFF;
+  }
+
+  &.${buttonUnstyledClasses.active} {
+
+  }
+
+  &.${buttonUnstyledClasses.focusVisible} {
+    outline: none;
+  }
+`;
+
+const MIN_PASS_LENGTH = 6;
+const MAX_PASS_OR_EMAIL_LENGTH = 100;
 
 const schema = yup
   .object({
-    email: yup.string().email().max(100).required(),
-    password: yup.string().min(6).max(100).required(),
+    email: yup.string().email().max(MAX_PASS_OR_EMAIL_LENGTH).required(),
+    password: yup.string().required().min(MIN_PASS_LENGTH).max(MAX_PASS_OR_EMAIL_LENGTH),
   })
   .required();
 
 type Props = {
-  authorizationSt?: any;
+  authorizationSt: any;
+  handleShowErrorInfo: any,
 };
 
 const Form: React.FC<Props> = inject('authorizationSt')(
   observer((props) => {
-    const { authorizationSt } = props;
-    // @ts-ignore
-    const mobile: boolean = useMediaQuery((theme) => theme.breakpoints.down('dl'));
-    // @ts-ignore
-    const mobileImage: boolean = useMediaQuery((theme) => theme.breakpoints.down('md'));
+    const {authorizationSt, handleShowErrorInfo} = props;
+
     const router: NextRouter = useRouter();
 
-    const [showPassword, setShowPassword] = React.useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const {
       control,
       handleSubmit,
       trigger,
-      formState: { errors },
+      formState: {errors},
     } = useForm({
       resolver: yupResolver(schema),
     });
 
     const onSubmit = (data) => {
+      console.log('onSubmit');
       trigger();
       authorizationSt.clickEnterButton(data, trigger);
     };
 
+    // @ts-ignore
+    const [errorMessage, setErrorMessage] = useState({
+      email: '',
+      password: '',
+      isEmailError: false,
+      isPasswordError: false
+    });
+
+    useEffect(() => {
+      setErrorMessage(() => ({
+        email: '',
+        password: '',
+        isEmailError: false,
+        isPasswordError: false
+      }));
+
+      handleShowErrorInfo({
+        isServerError: false,
+        message: ''
+      });
+
+      if (errors.email || errors.password) {
+
+        if (errors.email?.type === 'required') {
+          setErrorMessage(prevState => ({
+            ...prevState,
+            email: '',
+            isEmailError: true
+          }));
+        } else if (errors.email?.type) {
+          setErrorMessage(prevState => ({
+            ...prevState,
+            email: 'Некорректный email',
+            isEmailError: true
+          }));
+        }
+
+        if (errors.password?.type === 'required') {
+          setErrorMessage(prevState => ({
+            ...prevState,
+            password: '',
+            isPasswordError: true
+          }));
+        } else if (!errors.email?.type && (errors.password?.type === 'min' || errors.password?.type === 'max')) {
+          setErrorMessage(prevState => ({
+            ...prevState,
+            password: 'Неправильный пароль',
+            isPasswordError: true
+          }));
+        }
+
+      } else if (authorizationSt.login.error) {
+
+        switch (authorizationSt.login.error) {
+          case `User doesn't exist`:
+            setErrorMessage(prevState => ({
+              ...prevState,
+              email: 'Не удалось найти аккаунт',
+              password: '',
+              isEmailError: true,
+              isPasswordError: false
+            }));
+            break;
+
+          case 'Wrong password':
+            setErrorMessage(prevState => ({
+              ...prevState,
+              password: 'Неправильный пароль',
+              isPasswordError: true
+            }));
+            break;
+
+          case 'Server error':
+            handleShowErrorInfo({
+              isServerError: true,
+              message: 'Ошибка сервера, попробуйте позже'
+            });
+            break;
+
+          default:
+            break;
+        }
+      }
+    }, [errors, authorizationSt]);
+
+
     return (
       <Stack
+        height="100%"
         direction="column"
-        justifyContent="flex-start"
-        alignItems="center"
-        sx={{
-          position: 'relative',
-          width: 'calc(100% - 32px)',
-          maxWidth: 512,
-          zIndex: 0,
-        }}
+        justifyContent="space-between"
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
       >
-        {!mobile && (
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '0px',
-              right: '-156px',
-              zIndex: -1,
-            }}
-          >
-            <Image
-              alt="alt"
-              src="/assets/landing/blob1.svg"
-              quality={100}
-              width={256}
-              height={256}
-            />
-          </Box>
-        )}
-        {!mobile && (
-          <Box
-            sx={{
-              position: 'absolute',
-              bottom: '0px',
-              left: '-156px',
-              zIndex: -1,
-            }}
-          >
-            <Image
-              alt="alt"
-              src="/assets/landing/blob3.svg"
-              quality={100}
-              width={256}
-              height={256}
-            />
-          </Box>
-        )}
-        <Typography component="h1" variant="h4">
-          Вход
-        </Typography>
-        <Paper
-          elevation={24}
-          sx={{
-            mt: 4,
-            zIndex: 500,
-            bgcolor: 'grey.800',
-            borderRadius: '20px',
-          }}
-        >
-          <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-            <Stack
-              component={motion.div}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 1 }}
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              sx={{ width: '100%' }}
-            >
-              <Image
-                alt="alt"
-                src="/assets/auth/Login.svg"
-                quality={100}
-                width={mobileImage ? 312 : 456}
-                height={mobileImage ? 312 : 456}
-              />
-              <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={1}
+        <Stack>
+          <Controller
+            name="email"
+            control={control}
+            defaultValue=""
+            render={({field}) => (
+              <TextFieldCustom
+                variant="outlined"
+                error={errorMessage.isEmailError}
+                type="text"
+                fullWidth
+                placeholder="Электронная почта"
+                helperText={errorMessage.email}
+                {...field}
                 sx={{
-                  width: '100%',
-                  maxWidth: '386px',
-                  mt: mobileImage ? '-16px' : '-32px',
-                  pr: 1,
-                  pl: 1,
+                  backgroundColor: '#fff',
                 }}
-              >
-                <Controller
-                  name="email"
-                  control={control}
-                  defaultValue=""
-                  render={({ field }) => (
-                    <TextFieldCustom
-                      variant="filled"
-                      error={
-                        errors?.email?.type === 'email' ||
-                        authorizationSt.login.error === "User doesn't exist"
-                      }
-                      type="text"
-                      fullWidth
-                      label="Адрес почты"
-                      helperText={`
-                      ${
-                        authorizationSt.login.error === "User doesn't exist"
-                          ? 'Пользователь с таким e-mail не найден'
-                          : ''
-                      }
-                      ${errors?.email?.type === 'email' ? 'Введите корректный e-mail' : ''}
-                      `}
-                      {...field}
-                    />
-                  )}
-                />
-                <Controller
-                  name="password"
-                  control={control}
-                  defaultValue=""
-                  render={({ field }) => (
-                    <TextFieldCustom
-                      variant="filled"
-                      error={
-                        errors?.password?.type === 'min' ||
-                        errors?.password?.type === 'required' ||
-                        authorizationSt.login.error === 'Wrong password'
-                      }
-                      fullWidth
-                      label="Пароль"
-                      type={showPassword ? 'text' : 'password'}
-                      helperText={`
-                      ${errors?.password?.type === 'min' ? 'Минимальное число символов - 6' : ''}
-                      ${
-                        errors?.password?.type === 'max' ? 'Максимальное число символов - 100' : ''
-                      } 
-                      ${
-                        authorizationSt.login.error === 'Wrong password' && !errors?.password?.type
-                          ? 'Неверный Пароль'
-                          : ''
-                      } 
-                      ${
-                        authorizationSt.login.error === 'Server error' && !errors?.password?.type
-                          ? 'Ошибка сервера'
-                          : ''
-                      }
-                      `}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment sx={{ mr: 0.5 }} position="end">
-                            <IconButton
-                              aria-label="toggle password visibility"
-                              onClick={() => setShowPassword(!showPassword)}
-                              edge="end"
-                              size="large"
-                            >
-                              {showPassword ? (
-                                <Visibility sx={{ color: 'text.secondary' }} />
-                              ) : (
-                                <VisibilityOff sx={{ color: 'text.secondary' }} />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                      {...field}
-                    />
-                  )}
-                />
-                <Stack
-                  direction="row"
-                  justifyContent="flex-end"
-                  alignItems="center"
-                  sx={{ width: '100%' }}
-                >
-                  <Link
-                    sx={{ color: 'text.secondary', fontWeight: 500, cursor: 'pointer' }}
-                    onClick={() => {
-                      router.push({
-                        pathname: '/resetpassword/email',
-                      });
-                    }}
-                    underline="hover"
-                  >
-                    восстановить пароль
-                  </Link>
-                </Stack>
-                <Stack
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  sx={{ width: '100%', pt: 2, pb: 4 }}
-                >
-                  <Button
-                    size="large"
-                    onClick={() => {
-                      router.push({
-                        pathname: '/signup',
-                      });
-                    }}
-                    sx={{
-                      '&.MuiButton-root': {
-                        fontSize: '15px',
-                        lineHeight: '26px',
-                        letterSpacing: '0.46000000834465027px',
-                        width: mobile ? '140px' : '140px',
-                        height: mobile ? '42px' : '42px',
-                        color: 'text.primary',
-                        borderRadius: mobile ? '62px' : '88px',
-                      },
-                    }}
-                  >
-                    РЕГИСТРАЦИЯ
-                  </Button>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    type="submit"
-                    sx={{
-                      '&.MuiButton-root': {
-                        fontSize: '15px',
-                        lineHeight: '26px',
-                        letterSpacing: '0.46000000834465027px',
-                        width: mobile ? '196px' : '196px',
-                        height: mobile ? '42px' : '42px',
-                        color: 'text.primary',
-                        bgcolor: 'secondary.main',
-                        borderRadius: mobile ? '62px' : '88px',
-                        '&:hover': {
-                          bgcolor: 'secondary.dark',
-                        },
-                        boxShadow: 2,
-                      },
-                    }}
-                  >
-                    ВОЙТИ
-                  </Button>
-                </Stack>
-              </Stack>
-            </Stack>
-          </Box>
-        </Paper>
+              />
+            )}
+          />
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            render={({field}) => (
+              <TextFieldCustom
+                variant="outlined"
+                error={errorMessage.isPasswordError}
+                fullWidth
+                placeholder="Пароль"
+                type={showPassword ? 'text' : 'password'}
+                helperText={errorMessage.password}
+                {...field}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment
+                      position="end"
+                      sx={{mr: '7px', mt: '3px'}}
+                    >
+                      <Box
+                        width="22px"
+                        height="22px"
+                        borderRadius="8px"
+                        sx={{cursor: 'pointer'}}
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {!showPassword ? (
+                          <MyIcon name="eye-off"/>
+                        ) : (
+                          <MyIcon name="eye-on"/>
+                        )}
+                      </Box>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+          />
+          <Link
+            underline="none"
+            href="/"
+            sx={{
+              cursor: 'pointer',
+              color: '#445AFF', // primary.dark
+              fontWeight: 500,
+              fontSize: 14,
+              lineHeight: '18px',
+              letterSpacing: 0
+            }}
+            // paddingBottom="137px"
+            onClick={() => router.push({pathname: '/resetpassword/email'})}
+          >
+            Восстановить пароль
+          </Link>
+        </Stack>
+        <Stack
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <Link
+            underline="none"
+            sx={{
+              cursor: 'pointer',
+              color: '#445AFF', // primary.dark
+              fontWeight: 500,
+              fontSize: 16,
+              lineHeight: '20px',
+              letterSpacing: 0
+            }}
+            onClick={() => router.push({pathname: '/signup'})}
+          >
+            Регистрация
+          </Link>
+          <CustomButton
+            type="submit"
+            variant="contained"
+            sx={{
+              width: '120px',
+              height: '48px',
+              borderRadius: '8px',
+              fontFamily: 'Golos',
+              fontWeight: 500,
+              fontSize: 18,
+              lineHeight: '22px',
+            }}
+          >
+            Войти
+          </CustomButton>
+        </Stack>
       </Stack>
     );
   }),
