@@ -2,13 +2,13 @@
 /* eslint-disable no-shadow */
 import { action, observable, makeObservable } from 'mobx';
 import Router from 'next/router';
-import RootStore from "../rootStore";
-import {ResponseDataRegT} from "../../utils/dataUserStore";
+import RootStore from '../rootStore';
+import { ResponseDataRegT } from '../../utils/dataUserStore';
 
 const Crypto = require('crypto-js');
 
- type EmailResetT = {
-  emailResetOk: boolean
+type EmailResetT = {
+  emailResetOk: boolean;
 };
 
 type DataConfirmT = {
@@ -20,24 +20,24 @@ type DataT = {
 };
 
 type DataSuthT = {
-  password:string,
-  email:string,
-  "X-Fields"?:string
+  password: string;
+  email: string;
+  'X-Fields'?: string;
 };
 
-type ResponseDataT = "Success"| "Code error"| "User doesn't exist";
+type ResponseDataT = 'Success' | 'Code error' | "User doesn't exist";
 
 type PasswordResetT = {
-  errorEmailNotFounedReset: boolean,
-  emailResetOk: boolean,
+  errorEmailNotFounedReset: boolean;
+  emailResetOk: boolean;
 };
 
-type DataRegT ={
-  password:string,
-  email:string,
-  username:string,
-  code:string,
-  "X-Fields"?:string
+type DataRegT = {
+  password: string;
+  email: string;
+  username: string;
+  code: string;
+  'X-Fields'?: string;
 };
 
 class AuthorizationSt {
@@ -46,30 +46,30 @@ class AuthorizationSt {
   // `rootStore`. Therefore, we can access other store like
   // useStore for e.g (this.rootStore.userStore)
   rootStore: RootStore;
-  
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this);
   }
 
-  @observable newPasswordReset:EmailResetT = {
+  @observable newPasswordReset: EmailResetT = {
     emailResetOk: false,
   };
 
-  @action setNewPasswordReset = (name:string, value:boolean) => {
+  @action setNewPasswordReset = (name: string, value: boolean) => {
     this.newPasswordReset[name] = value;
   };
 
-  @action saveNewPassword = (id:string, data:DataConfirmT) => {
+  @action saveNewPassword = (id: string, data: DataConfirmT) => {
     this.setNewPasswordReset('emailResetOk', false);
     this.rootStore
       .fetchData(`${this.rootStore.url}/password-reset/confirm/`, 'POST', {
         code: id,
         password: Crypto.SHA384(data.password.trim()).toString(),
       })
-      .then((data:ResponseDataT) => {
+      .then((data: ResponseDataT) => {
         if (data !== undefined) {
-          if (data === "Success") {
+          if (data === 'Success') {
             // "Success"
             this.setNewPasswordReset('emailResetOk', true);
           }
@@ -77,16 +77,16 @@ class AuthorizationSt {
       });
   };
 
-  @observable passwordReset:PasswordResetT = {
+  @observable passwordReset: PasswordResetT = {
     errorEmailNotFounedReset: false,
     emailResetOk: false,
   };
 
-  @action setPasswordReset = (name:string, value:boolean) => {
+  @action setPasswordReset = (name: string, value: boolean) => {
     this.passwordReset[name] = value;
   };
 
-  @action clickPasswordResetButton = (data:DataT) => {
+  @action clickPasswordResetButton = (data: DataT) => {
     this.setPasswordReset('errorEmailNotFounedReset', false);
     this.setPasswordReset('emailResetOk', false);
     this.rootStore
@@ -109,11 +109,11 @@ class AuthorizationSt {
     error: null,
   };
 
-  @action setSignup = (name:string, value:string | null) => {
+  @action setSignup = (name: string, value: string | null) => {
     this.signup[name] = value;
   };
 
-  @action clickRegistrationButton = (data:DataRegT) => {
+  @action clickRegistrationButton = (data: DataRegT) => {
     this.setSignup('error', null);
     this.rootStore
       .fetchData(`${this.rootStore.url}/reg/`, 'POST', {
@@ -122,7 +122,7 @@ class AuthorizationSt {
         username: data.username,
         code: data.code,
       })
-      .then((data:ResponseDataRegT) => {
+      .then((data: ResponseDataRegT) => {
         if (data !== undefined) {
           if (data.user) {
             this.rootStore.uiSt.setLoading('loading', true);
@@ -159,18 +159,18 @@ class AuthorizationSt {
     error: null,
   };
 
-  @action setLogin = (name:string, value:string| null) => {
+  @action setLogin = (name: string, value: string | null) => {
     this.login[name] = value;
   };
 
-  @action clickEnterButton = (data:DataSuthT, trigger:any) => {
+  @action clickEnterButton = (data: DataSuthT, trigger: any) => {
     this.setLogin('error', null);
     this.rootStore
       .fetchData(`${this.rootStore.url}/auth/`, 'POST', {
         email: data.email.toLowerCase(),
         password: Crypto.SHA384(data.password.trim()).toString(),
       })
-      .then((data:ResponseDataRegT) => {
+      .then((data: ResponseDataRegT) => {
         if (data !== undefined) {
           if (data.user) {
             this.rootStore.uiSt.setLoading('loading', true);
