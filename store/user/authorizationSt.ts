@@ -113,7 +113,7 @@ class AuthorizationSt {
     this.signup[name] = value;
   };
 
-  @action clickRegistrationButton = (data: DataRegT) => {
+  @action clickRegistrationButton = (data:DataRegT) => {
     this.setSignup('error', null);
     this.rootStore
       .fetchData(`${this.rootStore.url}/reg/`, 'POST', {

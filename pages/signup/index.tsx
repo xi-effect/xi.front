@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { Stack, Typography, useMediaQuery } from '@mui/material';
-import SignupForm from 'components/Signup/SignupForm';
+import SignupForm from 'components/Signup/Form';
 import Image from 'next/image';
 
 const Signup = inject()(
