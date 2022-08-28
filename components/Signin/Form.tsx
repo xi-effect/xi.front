@@ -106,11 +106,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                         sx={{ cursor: 'pointer' }}
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {!showPassword ? (
-                          <MyIcon name="eyeoff"/>
-                        ) : (
-                          <MyIcon name="eyeon"/>
-                        )}
+                        {!showPassword ? <MyIcon name="eyeoff" /> : <MyIcon name="eyeon" />}
                       </Box>
                     </InputAdornment>
                   ),

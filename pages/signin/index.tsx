@@ -74,7 +74,7 @@ const Signin = inject(
             }}
           >
             <Stack alignItems="center">
-               <XiLogo />
+              <XiLogo />
             </Stack>
             <Typography
               variant="h5"

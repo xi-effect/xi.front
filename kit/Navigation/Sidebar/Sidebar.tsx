@@ -133,12 +133,7 @@ const Sidebar: React.FC<SidebarType> = inject(
             alignItems="center"
             spacing={1}
           >
-            <IButton
-              tooltip="Главная"
-              href="/home"
-              icon="home"
-              isBefore
-            />
+            <IButton tooltip="Главная" href="/home" icon="home" isBefore />
             <IButton
               tooltip="Создать сообщество"
               icon="add"
