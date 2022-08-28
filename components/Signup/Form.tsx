@@ -30,7 +30,7 @@ type SignupFormValues = {
   password: string;
 };
 
-const SignupForm: React.FC<ISignupForm> = inject('authorizationSt')(
+const Form: React.FC<ISignupForm> = inject('authorizationSt')(
   observer(({ authorizationSt, activeStep, setActiveStep }) => {
     const {
       control,
@@ -86,4 +86,4 @@ const SignupForm: React.FC<ISignupForm> = inject('authorizationSt')(
   }),
 );
 
-export default SignupForm;
+export default Form;

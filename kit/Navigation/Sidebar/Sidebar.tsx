@@ -136,14 +136,14 @@ const Sidebar: React.FC<SidebarType> = inject(
             <IButton
               tooltip="Главная"
               href="/home"
-              iconWhite="home-white"
-              iconBlue="home-blue"
+              icon="home"
               isBefore
             />
             <IButton
               tooltip="Создать сообщество"
-              iconWhite="add"
+              icon="add"
               onClick={() => console.log('click')}
+              disableHover
             />
             <Divider
               sx={{
@@ -196,8 +196,8 @@ const Sidebar: React.FC<SidebarType> = inject(
               backgroundColor: 'primary.light',
             }}
           />
-          <IButton tooltip="Уведомления" iconWhite="notification" />
-          <IButton tooltip="Профиль" href="/profile/1" iconWhite="account" isBefore />
+          <IButton tooltip="Уведомления" icon="notification" disableHover />
+          <IButton tooltip="Профиль" href="/profile/1" icon="account" isBefore />
           <Tooltip placement="right" title="Выйти">
             <IconButton
               onClick={() => {
@@ -209,7 +209,7 @@ const Sidebar: React.FC<SidebarType> = inject(
                 height: 48,
                 borderRadius: 24,
                 '&:hover': {
-                  bgcolor: 'error.light',
+                  borderRadius: '16px',
                 },
               }}
             >

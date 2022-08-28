@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Router, { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { Link, Divider, Stack, Typography, useMediaQuery } from '@mui/material';
-import SignupForm from 'components/Signup/Form';
+import Form from 'components/Signup/Form';
 import Image from 'next/image';
 
 const Tearms = () => (
@@ -88,7 +88,7 @@ const Signup = inject()(
             >
               Регистрация
             </Typography>
-            <SignupForm activeStep={activeStep} setActiveStep={setActiveStep} />
+            <Form activeStep={activeStep} setActiveStep={setActiveStep} />
             {!isMobile && activeStep === 1 && (
               <Stack
                 direction="column"

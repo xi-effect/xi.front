@@ -1,65 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter, NextRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
-import {
-  Stack,
-  Link,
-  InputAdornment,
-  Box
-} from '@mui/material';
+import { Button, Stack, Link, InputAdornment, Box } from '@mui/material';
 
-
-// eslint-disable-next-line import/no-extraneous-dependencies
-import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { styled } from '@mui/system';
-import MyIcon from "../../kit/MyIcon";
-
-const CustomButton = styled(ButtonUnstyled)`
-  background-color: #445AFF;
-  border-radius: 8px;
-  transition: all 150ms ease;
-  cursor: pointer;
-  border: none;
-  color: #FFFFFF;
-  margin-top: -2px;
-
-
-  &:hover {
-    background-color: #697BFF;
-  }
-
-  &.${buttonUnstyledClasses.active} {
-
-  }
-
-  &.${buttonUnstyledClasses.focusVisible} {
-    outline: none;
-  }
-`;
-
-const MIN_PASS_LENGTH = 6;
-const MAX_PASS_OR_EMAIL_LENGTH = 100;
+import MyIcon from 'kit/MyIcon';
 
 const schema = yup
   .object({
-    email: yup.string().email().max(MAX_PASS_OR_EMAIL_LENGTH).required(),
-    password: yup.string().required().min(MIN_PASS_LENGTH).max(MAX_PASS_OR_EMAIL_LENGTH),
+    email: yup.string().email().max(100).required(),
+    password: yup.string().required().min(6).max(100),
   })
   .required();
 
 type Props = {
   authorizationSt: any;
-  handleShowErrorInfo: any,
 };
 
 const Form: React.FC<Props> = inject('authorizationSt')(
   observer((props) => {
-    const {authorizationSt, handleShowErrorInfo} = props;
+    const { authorizationSt } = props;
+    const { signin } = authorizationSt;
+    const { errorEmail, errorPassword } = signin;
 
     const router: NextRouter = useRouter();
 
@@ -69,102 +34,26 @@ const Form: React.FC<Props> = inject('authorizationSt')(
       control,
       handleSubmit,
       trigger,
-      formState: {errors},
+      formState: { errors },
     } = useForm({
       resolver: yupResolver(schema),
     });
 
     const onSubmit = (data) => {
-      console.log('onSubmit');
       trigger();
-      authorizationSt.clickEnterButton(data, trigger);
+      authorizationSt.clickSigninButton(data, trigger);
     };
 
-    // @ts-ignore
-    const [errorMessage, setErrorMessage] = useState({
-      email: '',
-      password: '',
-      isEmailError: false,
-      isPasswordError: false
-    });
+    const getEmailError = () => {
+      if (errors.email?.message) return 'Некорректный email';
+      if (errorEmail) return 'Не удалось найти аккаунт';
+      return null;
+    };
 
-    useEffect(() => {
-      setErrorMessage(() => ({
-        email: '',
-        password: '',
-        isEmailError: false,
-        isPasswordError: false
-      }));
-
-      handleShowErrorInfo({
-        isServerError: false,
-        message: ''
-      });
-
-      if (errors.email || errors.password) {
-
-        if (errors.email?.type === 'required') {
-          setErrorMessage(prevState => ({
-            ...prevState,
-            email: '',
-            isEmailError: true
-          }));
-        } else if (errors.email?.type) {
-          setErrorMessage(prevState => ({
-            ...prevState,
-            email: 'Некорректный email',
-            isEmailError: true
-          }));
-        }
-
-        if (errors.password?.type === 'required') {
-          setErrorMessage(prevState => ({
-            ...prevState,
-            password: '',
-            isPasswordError: true
-          }));
-        } else if (!errors.email?.type && (errors.password?.type === 'min' || errors.password?.type === 'max')) {
-          setErrorMessage(prevState => ({
-            ...prevState,
-            password: 'Неправильный пароль',
-            isPasswordError: true
-          }));
-        }
-
-      } else if (authorizationSt.login.error) {
-
-        switch (authorizationSt.login.error) {
-          case `User doesn't exist`:
-            setErrorMessage(prevState => ({
-              ...prevState,
-              email: 'Не удалось найти аккаунт',
-              password: '',
-              isEmailError: true,
-              isPasswordError: false
-            }));
-            break;
-
-          case 'Wrong password':
-            setErrorMessage(prevState => ({
-              ...prevState,
-              password: 'Неправильный пароль',
-              isPasswordError: true
-            }));
-            break;
-
-          case 'Server error':
-            handleShowErrorInfo({
-              isServerError: true,
-              message: 'Ошибка сервера, попробуйте позже'
-            });
-            break;
-
-          default:
-            break;
-        }
-      }
-    }, [errors, authorizationSt]);
-
+    const getPasswordError = () => {
+      if (errors.email?.password || errorPassword) return 'Неправильный пароль';
+      return null;
+    };
 
     return (
       <Stack
@@ -179,17 +68,17 @@ const Form: React.FC<Props> = inject('authorizationSt')(
             name="email"
             control={control}
             defaultValue=""
-            render={({field}) => (
+            render={({ field }) => (
               <TextFieldCustom
                 variant="outlined"
-                error={errorMessage.isEmailError}
-                type="text"
+                error={!!errors.email?.message || !!errorEmail}
+                type="email"
                 fullWidth
                 placeholder="Электронная почта"
-                helperText={errorMessage.email}
+                helperText={getEmailError()}
                 {...field}
                 sx={{
-                  backgroundColor: '#fff',
+                  backgroundColor: 'gray.0',
                 }}
               />
             )}
@@ -198,32 +87,29 @@ const Form: React.FC<Props> = inject('authorizationSt')(
             name="password"
             control={control}
             defaultValue=""
-            render={({field}) => (
+            render={({ field }) => (
               <TextFieldCustom
                 variant="outlined"
-                error={errorMessage.isPasswordError}
+                error={!!errors.password?.message || !!errorPassword}
                 fullWidth
                 placeholder="Пароль"
                 type={showPassword ? 'text' : 'password'}
-                helperText={errorMessage.password}
+                helperText={getPasswordError()}
                 {...field}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment
-                      position="end"
-                      sx={{mr: '7px', mt: '3px'}}
-                    >
+                    <InputAdornment position="end" sx={{ mr: '7px' }}>
                       <Box
-                        width="22px"
-                        height="22px"
+                        width="24px"
+                        height="24px"
                         borderRadius="8px"
-                        sx={{cursor: 'pointer'}}
+                        sx={{ cursor: 'pointer' }}
                         onClick={() => setShowPassword(!showPassword)}
                       >
                         {!showPassword ? (
-                          <MyIcon name="eye-off"/>
+                          <MyIcon name="eyeoff"/>
                         ) : (
-                          <MyIcon name="eye-on"/>
+                          <MyIcon name="eyeon"/>
                         )}
                       </Box>
                     </InputAdornment>
@@ -237,53 +123,48 @@ const Form: React.FC<Props> = inject('authorizationSt')(
             href="/"
             sx={{
               cursor: 'pointer',
-              color: '#445AFF', // primary.dark
+              color: 'primary.dark',
               fontWeight: 500,
               fontSize: 14,
               lineHeight: '18px',
-              letterSpacing: 0
+              letterSpacing: 0,
             }}
-            // paddingBottom="137px"
-            onClick={() => router.push({pathname: '/resetpassword/email'})}
+            onClick={() => router.push({ pathname: '/resetpassword/email' })}
           >
             Восстановить пароль
           </Link>
         </Stack>
-        <Stack
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
+        <Stack flexDirection="row" justifyContent="space-between" alignItems="center">
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <Link
             underline="none"
             sx={{
               cursor: 'pointer',
-              color: '#445AFF', // primary.dark
+              color: 'primary.dark',
               fontWeight: 500,
               fontSize: 16,
               lineHeight: '20px',
-              letterSpacing: 0
+              letterSpacing: 0,
             }}
-            onClick={() => router.push({pathname: '/signup'})}
+            onClick={() => router.push({ pathname: '/signup' })}
           >
             Регистрация
           </Link>
-          <CustomButton
+          <Button
             type="submit"
             variant="contained"
             sx={{
               width: '120px',
               height: '48px',
               borderRadius: '8px',
-              fontFamily: 'Golos',
               fontWeight: 500,
               fontSize: 18,
               lineHeight: '22px',
+              textTransform: 'capitalize',
             }}
           >
             Войти
-          </CustomButton>
+          </Button>
         </Stack>
       </Stack>
     );
