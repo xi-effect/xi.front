@@ -1,13 +1,17 @@
-import { Button, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material'; // useMediaQuery
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Image from 'next/image';
 import React from 'react';
+import { errorCode } from 'texts/errorMessages/errorMessages';
 
-// eslint-disable-next-line react/prop-types
-export default function ErrorPage({ imageSrc, textMessage }) {
-  const mobile = useMediaQuery((theme) => theme.breakpoints.down('lg'));
+type ErrorPageProps = {
+  code: errorCode;
+};
+
+export default function ErrorPage({ code }: ErrorPageProps) {
+  // // @ts-ignore
+  // const mobile = useMediaQuery((theme) => theme.breakpoints.down('lg'));
+
   const router = useRouter();
 
   return (
@@ -27,8 +31,11 @@ export default function ErrorPage({ imageSrc, textMessage }) {
         bgcolor: 'background.main',
       }}
     >
+      <Stack direction="row" justifyContent="center" alignItems="center">
+        Header
+      </Stack>
       <Stack
-        direction={mobile ? 'column-reverse' : 'row'}
+        direction="row"
         justifyContent="center"
         alignItems="center"
         sx={{
@@ -41,21 +48,10 @@ export default function ErrorPage({ imageSrc, textMessage }) {
           alignItems="center"
           spacing={4}
           sx={{
-            mr: mobile ? '0px' : '32px',
+            mr: 32,
           }}
         >
-          <Typography
-            sx={{
-              fontSize: mobile ? '50px !important' : '60px !important',
-              fontWeight: 500,
-              maxWidth: mobile ? '289px' : '323px',
-              lineHeight: '65px',
-              letterSpacing: '-0.5px',
-              textAlign: mobile ? 'center' : 'left',
-            }}
-          >
-            {textMessage}
-          </Typography>
+          <Typography variant="h1">{code}</Typography>
           <Button
             onClick={() => {
               router.push({
@@ -91,25 +87,8 @@ export default function ErrorPage({ imageSrc, textMessage }) {
             >
               Вернуться на главную
             </Typography>
-            <Stack
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              sx={{
-                color: 'text.primary',
-                bgcolor: 'secondary.main',
-                height: '46px',
-                width: '46px',
-                borderRadius: '50%',
-                ml: 'auto',
-                mr: '0px',
-              }}
-            >
-              <ArrowForwardIcon />
-            </Stack>
           </Button>
         </Stack>
-        <Image alt="alt" src={imageSrc} quality={100} width={512} height={364} />
       </Stack>
     </Stack>
   );
