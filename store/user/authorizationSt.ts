@@ -8,9 +8,8 @@ import {ResponseDataRegT} from "../../utils/dataUserStore";
 const Crypto = require('crypto-js');
 
  type EmailResetT = {
-  emailResetOk: boolean
+  emailResetOk: boolean;
 };
-
 type DataConfirmT = {
   code: string;
   password: string;
