@@ -63,7 +63,7 @@ const ImpulseSpinner = ({ size, frontColor, backColor, loading, sizeUnit }) => {
   );
 };
 
-const Wrapper = styled.div(props => ({
+const Wrapper = styled.div((props) => ({
   position: 'relative',
   display: 'flex',
   justifyContent: 'center',
@@ -72,7 +72,7 @@ const Wrapper = styled.div(props => ({
   height: `${props.size / 5}${props.sizeUnit}`,
 }));
 
-const Ball = styled.div(props => ({
+const Ball = styled.div((props) => ({
   position: 'absolute',
   top: `${props.y}${props.sizeUnit}`,
   left: `${props.x}${props.sizeUnit}`,

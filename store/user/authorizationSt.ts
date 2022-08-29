@@ -2,12 +2,12 @@
 /* eslint-disable no-shadow */
 import { action, observable, makeObservable } from 'mobx';
 import Router from 'next/router';
-import RootStore from "../rootStore";
-import {ResponseDataRegT} from "../../utils/dataUserStore";
+import RootStore from '../rootStore';
+import { ResponseDataRegT } from '../../utils/dataUserStore';
 
 const Crypto = require('crypto-js');
 
- type EmailResetT = {
+type EmailResetT = {
   emailResetOk: boolean;
 };
 type DataConfirmT = {
@@ -27,8 +27,8 @@ type DataSuthT = {
 type ResponseDataT = 'Success' | 'Code error' | "User doesn't exist";
 
 type PasswordResetT = {
-  emailNotFound: boolean,
-  emailResetOk: boolean,
+  emailNotFound: boolean;
+  emailResetOk: boolean;
 };
 
 type DataRegT = {
@@ -76,7 +76,7 @@ class AuthorizationSt {
       });
   };
 
-  @observable passwordReset:PasswordResetT = {
+  @observable passwordReset: PasswordResetT = {
     emailNotFound: false,
     emailResetOk: false,
   };
@@ -85,7 +85,7 @@ class AuthorizationSt {
     this.passwordReset[name] = value;
   };
 
-  @action clickPasswordResetButton = (data:DataT) => {
+  @action clickPasswordResetButton = (data: DataT) => {
     this.setPasswordReset('emailNotFound', false);
     this.setPasswordReset('emailResetOk', false);
     this.rootStore
@@ -160,11 +160,11 @@ class AuthorizationSt {
     error: null,
   };
 
-  @action setSignin = (name:string, value:string| null) => {
+  @action setSignin = (name: string, value: string | null) => {
     this.signin[name] = value;
   };
 
-  @action clickSigninButton = (data:DataSuthT, trigger:any) => {
+  @action clickSigninButton = (data: DataSuthT, trigger: any) => {
     this.setSignin('errorEmail', null);
     this.setSignin('errorPassword', null);
     this.setSignin('error', null);
