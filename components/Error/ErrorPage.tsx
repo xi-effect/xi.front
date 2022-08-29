@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import React from 'react';
 import { errorCode, errorMessages } from 'texts/errorMessages/errorMessages';
 import XiLogo from 'kit/XiLogo';
+import NavBar from 'components/Landing/NavBar';
 
 type ErrorPageProps = {
   code: errorCode;
@@ -43,18 +44,26 @@ export default function ErrorPage({ code }: ErrorPageProps) {
         }}
       >
         <Box style={{ flexGrow: 1 }}>
-          <XiLogo />
+          <XiLogo height="48px" width="200px" />
         </Box>
-        <Typography variant='body1' color='gray.80' sx={{ lineHeight: '32px' }}>
-          ссылки тут
-        </Typography>
+        <Stack
+          sx={{
+            height: '32px',
+          }}
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
+          spacing={3}
+        >
+          <NavBar />
+        </Stack>
       </Stack>
       <Stack
         direction="row"
         justifyContent="left"
         sx={{
           marginTop: '153px',
-          height: '220px'
+          height: '220px',
         }}
       >
         <Typography
