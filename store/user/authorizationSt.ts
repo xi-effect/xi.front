@@ -197,7 +197,7 @@ class AuthorizationSt {
             trigger();
           }
         } else {
-          this.setSignin('error', 'Ошибка сервера, попробуйте позже');
+          this.setSignin('errorPassword', 'Неправильный пароль');
           trigger();
         }
       });
