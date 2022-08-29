@@ -4,7 +4,7 @@ import { NextRouter, useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { useSessionStorage } from 'react-use';
 import Form from 'components/Signin/Form';
-import XiLogo from 'kit/XiLogoNew';
+import XiLogo from 'kit/XiLogo';
 
 import { Stack, Typography, Link, Divider, useMediaQuery } from '@mui/material';
 

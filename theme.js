@@ -33,8 +33,9 @@ export const getDesignTokens = (mode) => ({
         {
           props: { variant: 'contained' },
           style: {
-            height: '48px',
-            width: '164px',
+            textTransform: 'capitalize',
+            height: '64px',
+            width: '136px',
             borderRadius: '8px',
             fontWeight: 500,
             fontSize: 18,
@@ -43,6 +44,21 @@ export const getDesignTokens = (mode) => ({
             '&:hover': {
               backgroundColor: '#697BFF',
             },
+          },
+        },
+        {
+          props: { variant: 'outlined' },
+          style: {
+            textTransform: 'capitalize',
+            height: '64px',
+            width: '136px',
+            borderRadius: '8px',
+            color: '#445AFF',
+            border: '1px solid #445AFF',
+            fontWeight: 500,
+            fontSize: 18,
+            lineHeight: '22px',
+            backgroundColor: 'transparent',
           },
         },
       ],

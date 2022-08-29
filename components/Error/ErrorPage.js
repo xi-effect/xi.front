@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Image from 'next/image';
 import React from 'react';
-import Header from '../Landing/Header';
 
 // eslint-disable-next-line react/prop-types
 export default function ErrorPage({ imageSrc, textMessage }) {
@@ -28,7 +27,6 @@ export default function ErrorPage({ imageSrc, textMessage }) {
         bgcolor: 'background.main',
       }}
     >
-      <Header />
       <Stack
         direction={mobile ? 'column-reverse' : 'row'}
         justifyContent="center"
