@@ -40,7 +40,6 @@ const Tearms = () => (
 
 const Signup = inject()(
   observer(() => {
-
     const isMobile = useMediaQuery('(max-width: 472px)');
 
     const [activeStep, setActiveStep] = useState<number>(0);

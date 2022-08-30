@@ -15,7 +15,6 @@ import Header from 'components/Landing/Header';
 import NavBar from 'components/Landing/NavBar';
 import Buttons from 'components/Landing/Buttons';
 
-
 const Main = inject(
   'rootStore',
   'uiSt',
@@ -84,6 +83,7 @@ const Main = inject(
               alignItems="flex-start"
             >
               <Typography
+                component="h1"
                 sx={{
                   fontWeight: 600,
                   fontSize: '98px',
@@ -121,6 +121,7 @@ const Main = inject(
               alignItems="flex-start"
             >
               <Typography
+                component="h2"
                 sx={{
                   fontWeight: 400,
                   fontSize: '32px',

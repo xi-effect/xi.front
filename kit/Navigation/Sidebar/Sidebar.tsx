@@ -133,7 +133,14 @@ const Sidebar: React.FC<SidebarType> = inject(
             alignItems="center"
             spacing={1}
           >
-            <IButton tooltip="Главная" href="/home" icon="home" isBefore />
+            <IButton
+              tooltip="Главная"
+              href="/home"
+              icon="home"
+              iconColor="#445AFF"
+              iconColorHover="#FFFFFF"
+              isBefore
+            />
             <IButton
               tooltip="Создать сообщество"
               icon="add"
@@ -192,7 +199,14 @@ const Sidebar: React.FC<SidebarType> = inject(
             }}
           />
           <IButton tooltip="Уведомления" icon="notification" disableHover />
-          <IButton tooltip="Профиль" href="/profile/1" icon="account" isBefore />
+          <IButton
+            tooltip="Профиль"
+            href="/profile/1"
+            icon="account"
+            isBefore
+            iconColor="#445AFF"
+            iconColorHover="#FFFFFF"
+          />
           <Tooltip placement="right" title="Выйти">
             <IconButton
               onClick={() => {
