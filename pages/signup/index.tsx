@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import Head from 'next/head';
-import Router from 'next/router';
+import Router, { useRouter, NextRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { Link, Divider, Stack, Typography, useMediaQuery } from '@mui/material';
 import Form from 'components/Signup/Form';
 import XiLogo from 'kit/XiLogo';
+import { useSessionStorage } from 'react-use';
 
 const Tearms = () => (
   <>
@@ -43,6 +44,15 @@ const Signup = inject()(
     const isMobile = useMediaQuery('(max-width: 472px)');
 
     const [activeStep, setActiveStep] = useState<number>(0);
+
+    const router: NextRouter = useRouter();
+    // eslint-disable-next-line no-unused-vars
+    const [prevPathname, setPrevPathname] = useSessionStorage('prevPathname');
+
+    React.useEffect(() => {
+      // @ts-ignore
+      setPrevPathname(router.pathname);
+    }, [router.pathname]);
 
     return (
       <>

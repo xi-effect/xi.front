@@ -51,7 +51,7 @@ const Signin = inject(
     const isMobile: boolean = useMediaQuery('(max-width: 472px)');
 
     useEffect(() => {
-      if (prevPathname !== '/home') {
+      if (prevPathname !== '/home' && prevPathname !== '/signup') {
         uiSt.setLoading('loading', true);
         userSt.getMainSettings('login');
       }

@@ -38,7 +38,7 @@
     "mobx": "^6.3.6",
     "mobx-react": "^7.2.1",
     "moment": "^2.29.2",
-    "next": "^12.1.5",
+    "next": "^12.2.5",
     "next-pwa": "^5.4.6",
     "next-sitemap": "^1.6.203",
     "notistack": "^2.0.3",

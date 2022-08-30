@@ -142,7 +142,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
               lineHeight: '20px',
               letterSpacing: 0,
             }}
-            onClick={() => router.push({ pathname: '/signup' })}
+            onClick={() => router.push('/signup')}
           >
             Регистрация
           </Link>
