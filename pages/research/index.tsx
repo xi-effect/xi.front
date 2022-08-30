@@ -133,7 +133,7 @@ const Research: React.FC = () => {
               minHeight: '300px'
             }}
           >
-            {fileProperty?.type.includes('image') ? (
+            {fileProperty?.type?.includes('image') ? (
                 <img
                   alt=""
                   src={URL.createObjectURL(new Blob([selectedFile]))}
