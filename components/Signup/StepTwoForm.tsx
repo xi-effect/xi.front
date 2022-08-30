@@ -99,6 +99,7 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
             variant="contained"
             type="submit"
             sx={{
+              height: '48px',
               width: '180px',
               fontWeight: 500,
               fontSize: '18px',
@@ -115,3 +116,4 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
 );
 
 export default StepOneForm;
+

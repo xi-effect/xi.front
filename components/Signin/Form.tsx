@@ -63,7 +63,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
         component="form"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Stack>
+        <Stack direction="column" spacing={2}>
           <Controller
             name="email"
             control={control}

@@ -2,7 +2,6 @@ import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 
 const TextFieldCustom = styled(TextField)(({ error }) => ({
-  marginBottom: '16px',
   '& .MuiInputBase-root': {
     borderRadius: '8px',
     height: '56px',
