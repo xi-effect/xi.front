@@ -116,4 +116,3 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
 );
 
 export default StepOneForm;
-
