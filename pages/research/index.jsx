@@ -10,7 +10,7 @@ const fileSizeFormat = (size) => size.toString().length > 9 ? `${(size / 1073741
     : size.toString().length > 3 ? `${(size / 1024).toFixed(1)} KB`
       : `${size} Bytes`;
 
-const Research: React.FC = () => {
+const Research = () => {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploaded, setUploaded] = useState();
@@ -32,16 +32,13 @@ const Research: React.FC = () => {
 
   const handleGet = async () => {
     if (!fileName) {
-      alert("Please enter a fileName");
+      // alert("Please enter a fileName");
       return;
-    };
+    }
 
     const res = await fetch(`${baseUrl + fileName}/`,
       {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'image/jpeg'
-        }
+        method: 'GET'
       }
     );
     setServerAnswerGet(res);
@@ -52,9 +49,9 @@ const Research: React.FC = () => {
 
   const handlePost = async () => {
     if (!selectedFile) {
-      alert("Please select a file");
+      // alert("Please select a file");
       return;
-    };
+    }
 
     const formData = new FormData();
     formData.append('file', selectedFile);
@@ -90,9 +87,9 @@ const Research: React.FC = () => {
 
   const handleDelete = async () => {
     if (!indexDelete) {
-      alert("Please enter a index");
+      // alert("Please enter a index");
       return;
-    };
+    }
 
     const res = await fetch(`${baseUrl}manager/${indexDelete}/`,
       {
