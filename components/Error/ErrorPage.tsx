@@ -30,7 +30,7 @@ export default function ErrorPage({ code }: ErrorPageProps) {
         height: '100vh',
         width: '100%',
         paddingX: '100px',
-        bgcolor: 'background.main',
+        bgcolor: 'primary.pale',
       }}
     >
       <Stack
@@ -102,17 +102,12 @@ export default function ErrorPage({ code }: ErrorPageProps) {
             height: '64px',
             width: '201px',
             textTransform: 'none',
+            fontSize: '24px',
+            lineHeight: '32px',
+            fontWeight: 500,
           }}
         >
-          <Typography
-            sx={{
-              fontSize: '24px',
-              lineHeight: '32px',
-              fontWeight: 500,
-            }}
-          >
-            На главную
-          </Typography>
+          На главную
         </Button>
       </Stack>
     </Stack>
