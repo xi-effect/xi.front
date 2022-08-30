@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import { inject, observer } from 'mobx-react';
-import { Typography, Button, IconButton, InputAdornment, Link, Stack } from '@mui/material';
+import { Typography, Button, Box, InputAdornment, Link, Stack } from '@mui/material';
 import { Control, Controller, FieldErrors, FieldValues } from 'react-hook-form';
 import TextFieldCustom from 'kit/TextFieldCustom';
-import Image from 'next/image';
+
+import MyIcon from 'kit/MyIcon';
 
 interface IStepTwoForm {
   control: Control<FieldValues, object> | undefined;
@@ -55,19 +56,16 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
                 {...field}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment sx={{ mr: 1 }} position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
+                    <InputAdornment position="end" sx={{ mr: '7px' }}>
+                      <Box
+                        width="24px"
+                        height="24px"
+                        borderRadius="8px"
+                        sx={{ cursor: 'pointer' }}
                         onClick={() => setShowPassword(!showPassword)}
-                        edge="end"
-                        size="large"
                       >
-                        {showPassword ? (
-                          <Image src="/icons/i-eye-on.svg" width={24} height={24} />
-                        ) : (
-                          <Image src="/icons/i-eye-off.svg" width={24} height={24} />
-                        )}
-                      </IconButton>
+                        {!showPassword ? <MyIcon name="eyeoff" /> : <MyIcon name="eyeon" />}
+                      </Box>
                     </InputAdornment>
                   ),
                 }}
@@ -101,6 +99,7 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
             variant="contained"
             type="submit"
             sx={{
+              height: '48px',
               width: '180px',
               fontWeight: 500,
               fontSize: '18px',
@@ -117,3 +116,4 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
 );
 
 export default StepOneForm;
+

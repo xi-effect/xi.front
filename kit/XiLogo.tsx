@@ -4,21 +4,22 @@ import Image from 'next/image';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 
-const XiLogo = () => {
+type Props = {
+  width?: string;
+  height?: string;
+};
+
+const XiLogo: React.FC<Props> = ({ width = '100px', height = '24px' }) => {
   const router = useRouter();
 
   return (
     <Box
+      width={width}
+      height={height}
       sx={{ cursor: 'pointer' }}
       onClick={() => router.push({ pathname: '/' })}
     >
-      <Image
-        src="/logo.svg"
-        alt="xi.logo"
-        width="100px"
-        height="24px"
-        quality={100}
-      />
+      <Image src="/logo.svg" alt="xi.logo" width={width} height={height} quality={100} />
     </Box>
   );
 };

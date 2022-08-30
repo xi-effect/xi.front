@@ -6,15 +6,29 @@ import MyIcon from 'kit/MyIcon';
 type Props = {
   tooltip: string;
   href?: string;
-  iconWhite?: string;
-  iconBlue?: string;
+  icon?: string;
   isBefore?: boolean;
   typography?: string;
   onClick?: () => void;
+  disableHover?: boolean;
 };
 
 const IButton: React.FC<Props> = (props) => {
-  const { tooltip, href, iconWhite, iconBlue, isBefore = false, typography, onClick } = props;
+  const {
+    tooltip,
+    href,
+    icon,
+    isBefore = false,
+    typography,
+    onClick,
+    disableHover = false,
+  } = props;
+
+  const [isHover, setIsHover] = React.useState(false);
+
+  const toggleHover = () => {
+    setIsHover((prev) => !prev);
+  };
 
   const router = useRouter();
   const array = href ? href.split('/') : false;
@@ -33,14 +47,22 @@ const IButton: React.FC<Props> = (props) => {
   return (
     <Tooltip placement="right" title={tooltip}>
       <IconButton
+        onMouseEnter={toggleHover}
+        onMouseLeave={toggleHover}
         onClick={handleClick}
         sx={{
           bgcolor: isActive ? 'primary.dark' : 'gray.0',
           width: 48,
           height: 48,
-          borderRadius: 24,
+          borderRadius: isActive ? '16px' : 24,
+          transition: '0.3s',
           '&:hover': {
-            bgcolor: isActive ? 'primary.main' : 'primary.pale',
+            bgcolor: !disableHover ? 'primary.dark' : '',
+            borderRadius: '16px',
+
+            '.MuiTypography-root': {
+              color: !disableHover ? 'gray.0' : '',
+            },
           },
           '&:before': {
             display: isBefore && isActive ? 'block' : 'none',
@@ -69,8 +91,7 @@ const IButton: React.FC<Props> = (props) => {
             {typography}
           </Typography>
         )}
-        {!typography && iconBlue && iconWhite && <MyIcon name={isActive ? iconWhite : iconBlue} />}
-        {!typography && !iconBlue && iconWhite && <MyIcon name={iconWhite} />}
+        {icon && <MyIcon name={icon} color={isHover ? 'primary' : 'primary'} />}
       </IconButton>
     </Tooltip>
   );

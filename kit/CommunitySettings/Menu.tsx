@@ -3,7 +3,6 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import Overview from './MenuItems/Overview';
 import Invites from './MenuItems/Invites';
 
 interface TabPanelProps {
@@ -55,12 +54,8 @@ export default function Menu() {
         onChange={handleChange}
         sx={{ borderRight: 2, borderColor: 'divider', pl: 2, width: 128 }}
       >
-        <Tab label="Обзор" {...a11yProps(0)} />
         <Tab label="Приглашения" {...a11yProps(1)} />
       </Tabs>
-      <TabPanel value={value} index={0}>
-        <Overview />
-      </TabPanel>
       <TabPanel value={value} index={1}>
         <Invites />
       </TabPanel>

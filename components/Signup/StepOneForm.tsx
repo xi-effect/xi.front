@@ -74,6 +74,7 @@ const StepOneForm: React.FC<IStepOneForm> = inject('authorizationSt')(
             variant="contained"
             sx={{
               width: '120px',
+              height: '48px',
               fontWeight: 500,
               fontSize: '18px',
               lineHeight: '22px',
