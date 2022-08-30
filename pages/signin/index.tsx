@@ -89,12 +89,11 @@ const Signin = inject(
           sx={{
             width: '100%',
             minHeight: '100vh',
-            pt: isMobile ? '4px' : 0, // but need '96px' for Server Error
           }}
         >
           <Stack
             direction="column"
-            padding={isMobile ? '0 20px 0 20px' : '32px'}
+            padding={isMobile ? '16px 20px 0 20px' : '32px'}
             sx={{
               width: isMobile ? '100%' : '420px',
               height: isMobile ? '395px' : '514px',

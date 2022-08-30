@@ -1,13 +1,16 @@
 import * as React from 'react';
 import Head from 'next/head';
 
-import { Stack, Button, Typography } from '@mui/material';
+import { Divider, Stack, Button, Typography, useMediaQuery } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import { getLastCodeFromURL } from 'utils/getLastCodeFromURL';
+import { useRouter } from 'next/router';
+import XiLogo from 'kit/XiLogo';
 
 const Email = inject('rootStore')(
   observer(({ rootStore }) => {
-    // const mobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
+    const isMobile = useMediaQuery('(max-width: 472px)');
+    const router = useRouter();
 
     const [ok, setOk] = React.useState(null);
 
@@ -38,6 +41,7 @@ const Email = inject('rootStore')(
           direction="column"
           justifyContent="center"
           alignItems="center"
+          position="relative"
           sx={{
             minHeight: '100vh',
             backgroundColor: 'primary.pale', // Цвета есть в файле theme.js и в дефолтной теме в MUI
@@ -51,14 +55,18 @@ const Email = inject('rootStore')(
               backgroundColor: 'gray.0',
               borderRadius: '16px',
               border: '1px solid rgba(230, 230, 230, 1)',
-              height: '176px',
+              height: '224px',
               maxWidth: '420px',
               width: '100%',
+              p: '32px',
             }}
-            spacing={4}
           >
+            <Stack alignItems="center">
+              <XiLogo width="142px" height="24px" />
+            </Stack>
             <Typography
               sx={{
+                mt: '24px',
                 color: 'gray.100',
                 fontWeight: 600,
                 fontSize: '24px',
@@ -68,10 +76,26 @@ const Email = inject('rootStore')(
               {' '}
               {getStatus(ok)}{' '}
             </Typography>
-            <Button variant="contained" sx={{ width: '356px' }}>
-              Перейти на платформу
+            <Button
+              onClick={() => router.push('/signin')}
+              variant="contained"
+              sx={{ mt: '32px', width: '356px', height: '48px' }}
+            >
+              Войти
             </Button>
           </Stack>
+          {isMobile && (
+            <Divider
+              sx={{
+                position: 'absolute',
+                bottom: '8px',
+                width: '134px',
+                height: '5px',
+                backgroundColor: 'gray.100',
+                borderRadius: '100px',
+              }}
+            />
+          )}
         </Stack>
       </>
     );
