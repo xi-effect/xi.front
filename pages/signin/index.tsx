@@ -88,20 +88,21 @@ const Signin = inject(
           alignItems="center"
           sx={{
             width: '100%',
-            minHeight: '100vh',
+            minHeight: isMobile ? 'calc(100vh - 96px)' : '100vh',
+            height: '100%',
           }}
         >
           <Stack
             direction="column"
             padding={isMobile ? '16px 20px 0 20px' : '32px'}
+            spacing={2}
             sx={{
               width: isMobile ? '100%' : '420px',
               height: isMobile ? '395px' : '514px',
               borderRadius: '16px',
               border: isMobile ? 'none' : '1px solid #E6E6E6', // gray.10
+              position: 'relative',
             }}
-            spacing={2}
-            position="relative"
           >
             <Stack alignItems="center">
               <XiLogo width="142px" height="24px" />
@@ -132,32 +133,29 @@ const Signin = inject(
               </Stack>
             )}
           </Stack>
-          {isMobile && (
-            <Stack
-              direction="column"
-              alignItems="center"
-              sx={{
-                position: 'absolute',
-                bottom: '66px',
-                p: '20px',
-              }}
-            >
-              <Tearms />
-            </Stack>
-          )}
-          {isMobile && (
+        </Stack>
+        {isMobile && (
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            sx={{
+              width: '100%',
+              height: '96px',
+            }}
+          >
+            <Tearms />
             <Divider
               sx={{
-                position: 'absolute',
-                bottom: '8px',
+                mt: 4,
                 width: '134px',
                 height: '5px',
                 backgroundColor: 'gray.100',
                 borderRadius: '100px',
               }}
             />
-          )}
-        </Stack>
+          </Stack>
+        )}
       </>
     );
   }),
