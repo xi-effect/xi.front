@@ -2,24 +2,16 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
-import {
-  Typography,
-  MenuItem,
-  Stack,
-  MenuList,
-  ListItemIcon,
-  ListItemText,
-  Button,
-} from '@mui/material';
+import { Typography, MenuItem, Stack, MenuList, ListItemIcon, ListItemText } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import AddIcon from '@mui/icons-material/Add';
 import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import ForumIcon from '@mui/icons-material/Forum';
 import TodayIcon from '@mui/icons-material/Today';
 import ArticleIcon from '@mui/icons-material/Article';
-import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useLocalStorage } from 'react-use';
 import { motion } from 'framer-motion';
+import Scroll from 'kit/Scroll';
 
 const arrowVariants = {
   open: {
@@ -187,7 +179,7 @@ const MenuCommunity = inject(
   'uiSt',
   'communityChannelsSt',
 )(
-  observer(({ uiSt, communityChannelsSt }) => {
+  observer(({ communityChannelsSt }) => {
     const [valueLS, setValueLS] = useLocalStorage('second-menu-c-upper-items-position-is-vert');
 
     useEffect(() => {
@@ -207,36 +199,11 @@ const MenuCommunity = inject(
           overflow: 'hidden',
         }}
       >
-        <Scrollbars
-          renderThumbHorizontal={(props) => (
-            <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4 }} />
-          )}
-          renderThumbVertical={(props) => (
-            <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4 }} />
-          )}
-          universal
-          style={{ height: '100%', overflowY: 'hidden !important' }}
-          autoHide
-          autoHideTimeout={1000}
-          autoHideDuration={200}
-        >
+        <Scroll>
           {communityChannelsSt.channels.map((channel, index) => (
             <Channel index={index} key={index.toString()} />
           ))}
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            sx={{
-              pt: 4,
-              pb: 12,
-            }}
-          >
-            <Button onClick={() => uiSt.setDialogs('channelCreation', true)} variant="contained">
-              Создать канал
-            </Button>
-          </Stack>
-        </Scrollbars>
+        </Scroll>
       </MenuList>
     );
   }),
