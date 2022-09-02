@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Stack, Typography } from '@mui/material';
 
 const footerLinks = [
-  { label: 'Вакансии', link: 'https://startupfellows.ru/vacancy/3995' },
+  { label: 'Вакансии', link: '' },
   { label: 'Дискорд', link: 'https://youtu.be/LDU_Txk06tM?t=28' },
   { label: 'Роудмап', link: 'https://youtu.be/dQw4w9WgXcQ' },
 ];
