@@ -74,9 +74,10 @@ const Community = inject('communitySt')(
       >
         <Typography
           noWrap
-          variant="h5"
           sx={{
+            fontWeight: 500,
             fontSize: 18,
+            lineHeight: '22px',
           }}
         >
           {communitySt.meta.name || 'Тестовое сообщество'}

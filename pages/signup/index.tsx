@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import Head from 'next/head';
-import Router from 'next/router';
+import Router, { useRouter, NextRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { Link, Divider, Stack, Typography, useMediaQuery } from '@mui/material';
 import Form from 'components/Signup/Form';
 import XiLogo from 'kit/XiLogo';
+import { useSessionStorage } from 'react-use';
 
 const Tearms = () => (
   <>
@@ -44,6 +45,15 @@ const Signup = inject()(
 
     const [activeStep, setActiveStep] = useState<number>(0);
 
+    const router: NextRouter = useRouter();
+    // eslint-disable-next-line no-unused-vars
+    const [prevPathname, setPrevPathname] = useSessionStorage('prevPathname');
+
+    React.useEffect(() => {
+      // @ts-ignore
+      setPrevPathname(router.pathname);
+    }, [router.pathname]);
+
     return (
       <>
         <Head>
@@ -52,18 +62,23 @@ const Signup = inject()(
         <Stack
           justifyContent={isMobile ? 'flex-start' : 'center'}
           alignItems="center"
-          width="100%"
-          minHeight="100vh"
+          sx={{
+            width: '100%',
+            minHeight: isMobile ? 'calc(100vh - 96px)' : '100vh',
+            height: '100%',
+          }}
         >
           <Stack
             direction="column"
-            border={isMobile ? 'none' : '1px solid #E6E6E6'}
-            borderRadius="16px"
-            padding={`${isMobile ? '65px' : '32px'} 32px 32px 32px`}
-            height="514px"
-            width={isMobile ? '100%' : '420px'}
+            padding={isMobile ? '16px 20px 0 20px' : '32px'}
             spacing={2}
-            position="relative"
+            sx={{
+              width: isMobile ? '100%' : '420px',
+              height: isMobile ? '395px' : '514px',
+              borderRadius: '16px',
+              border: isMobile ? 'none' : '1px solid #E6E6E6', // gray.10
+              position: 'relative',
+            }}
           >
             <Stack alignItems="center">
               <XiLogo width="142px" height="24px" />
@@ -95,32 +110,29 @@ const Signup = inject()(
               </Stack>
             )}
           </Stack>
-          {isMobile && activeStep === 1 && (
-            <Stack
-              direction="column"
-              alignItems="center"
-              sx={{
-                position: 'absolute',
-                bottom: '66px',
-                p: '20px',
-              }}
-            >
-              <Tearms />
-            </Stack>
-          )}
-          {isMobile && (
+        </Stack>
+        {isMobile && (
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            sx={{
+              width: '100%',
+              height: '96px',
+            }}
+          >
+            {isMobile && activeStep === 1 && <Tearms />}
             <Divider
               sx={{
-                position: 'absolute',
-                bottom: '8px',
+                mt: activeStep === 1 ? 4 : 8,
                 width: '134px',
                 height: '5px',
                 backgroundColor: 'gray.100',
                 borderRadius: '100px',
               }}
             />
-          )}
-        </Stack>
+          </Stack>
+        )}
       </>
     );
   }),

@@ -2,24 +2,12 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
-import {
-  Typography,
-  MenuItem,
-  Stack,
-  MenuList,
-  ListItemIcon,
-  ListItemText,
-  Button,
-} from '@mui/material';
+import { Typography, MenuItem, Stack, MenuList, ListItemIcon, ListItemText } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import AddIcon from '@mui/icons-material/Add';
-import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
-import ForumIcon from '@mui/icons-material/Forum';
-import TodayIcon from '@mui/icons-material/Today';
-import ArticleIcon from '@mui/icons-material/Article';
-import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useLocalStorage } from 'react-use';
 import { motion } from 'framer-motion';
+import Scroll from 'kit/Scroll';
+import MyIcon from 'kit/MyIcon';
 
 const arrowVariants = {
   open: {
@@ -35,20 +23,10 @@ const Channel = inject('communityChannelsSt')(
   observer(({ communityChannelsSt, index }) => {
     const channel = communityChannelsSt.channels[index];
 
-    const [hoverCategory, setHoverCategory] = React.useState(null);
-
     const router = useRouter();
     const splitPathname = router.pathname.split('/');
     const lastType = splitPathname[splitPathname.length - 2];
     const typeId = router.query.typeId ?? null;
-
-    const iconSelect = (type) => {
-      if (type === 'schedule') return <TodayIcon fontSize="small" />;
-      if (type === 'chat') return <ForumIcon fontSize="small" />;
-      if (type === 'room') return <RecordVoiceOverIcon fontSize="small" />;
-      if (type === 'page') return <ArticleIcon fontSize="small" />;
-      return null;
-    };
 
     if (channel.type === 'category') {
       return (
@@ -67,8 +45,6 @@ const Channel = inject('communityChannelsSt')(
         >
           <Stack
             onClick={() => communityChannelsSt.setChannel(index, 'open', !channel.open)}
-            onMouseEnter={() => setHoverCategory(index)}
-            onMouseLeave={() => setHoverCategory(null)}
             direction="row"
             justifyContent="flex-start"
             alignItems="center"
@@ -100,7 +76,6 @@ const Channel = inject('communityChannelsSt')(
             >
               {channel.name.toLowerCase()}
             </Typography>
-            {hoverCategory === index && <AddIcon sx={{ ml: 'auto', mr: 0, fontSize: 20 }} />}
           </Stack>
           {channel.open && (
             <MenuList sx={{ width: '100%', pl: 2, pr: 1, zIndex: 1 }}>
@@ -125,7 +100,7 @@ const Channel = inject('communityChannelsSt')(
                       },
                     }}
                   >
-                    {iconSelect(child.type)}
+                    <MyIcon name={child.type} />
                   </ListItemIcon>
                   <ListItemText
                     disableTypography
@@ -154,6 +129,9 @@ const Channel = inject('communityChannelsSt')(
             ml: 1,
             mr: 1,
             bgcolor: lastType === channel.type && typeId === channel.id ? 'action.hover' : null,
+            '&:hover': {
+              bgcolor: 'primary.pale',
+            },
           }}
         >
           <ListItemIcon
@@ -164,7 +142,7 @@ const Channel = inject('communityChannelsSt')(
               },
             }}
           >
-            {iconSelect(channel.type)}
+            <MyIcon name={channel.type} />
           </ListItemIcon>
           <ListItemText
             disableTypography
@@ -187,7 +165,7 @@ const MenuCommunity = inject(
   'uiSt',
   'communityChannelsSt',
 )(
-  observer(({ uiSt, communityChannelsSt }) => {
+  observer(({ communityChannelsSt }) => {
     const [valueLS, setValueLS] = useLocalStorage('second-menu-c-upper-items-position-is-vert');
 
     useEffect(() => {
@@ -207,36 +185,11 @@ const MenuCommunity = inject(
           overflow: 'hidden',
         }}
       >
-        <Scrollbars
-          renderThumbHorizontal={(props) => (
-            <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4 }} />
-          )}
-          renderThumbVertical={(props) => (
-            <div {...props} style={{ backgroundColor: '#cccccc', borderRadius: 8, width: 4 }} />
-          )}
-          universal
-          style={{ height: '100%', overflowY: 'hidden !important' }}
-          autoHide
-          autoHideTimeout={1000}
-          autoHideDuration={200}
-        >
+        <Scroll>
           {communityChannelsSt.channels.map((channel, index) => (
             <Channel index={index} key={index.toString()} />
           ))}
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            sx={{
-              pt: 4,
-              pb: 12,
-            }}
-          >
-            <Button onClick={() => uiSt.setDialogs('channelCreation', true)} variant="contained">
-              Создать канал
-            </Button>
-          </Stack>
-        </Scrollbars>
+        </Scroll>
       </MenuList>
     );
   }),

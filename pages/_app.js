@@ -40,7 +40,10 @@ const MyApp = observer((props) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+        <meta
+          name="viewport"
+          content="height=device-height, width=device-width, initial-scale=0.9, maximum-scale=0.9"
+        />
       </Head>
       {/* MobX Provider */}
       <Provider

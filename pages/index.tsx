@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import { Slide, Stack, Typography } from '@mui/material';
+import { Button, Box, Slide, Stack, Typography } from '@mui/material';
 
 import { inject, observer } from 'mobx-react';
 import { motion } from 'framer-motion';
@@ -10,10 +10,9 @@ import CustomCookieShackbar from 'components/Landing/CustomCookieShackbar';
 import { useSnackbar } from 'notistack';
 
 import { useLocalStorage } from 'react-use';
-
+import Image from 'next/image';
 import Header from 'components/Landing/Header';
-import NavBar from 'components/Landing/NavBar';
-import Buttons from 'components/Landing/Buttons';
+import { MouseParallax } from 'react-just-parallax';
 
 const Main = inject(
   'rootStore',
@@ -61,109 +60,96 @@ const Main = inject(
             height: '100vh',
             bgcolor: 'primary.pale',
             position: 'relative',
-            p: '112px 100px 64px 100px',
+            p: '16px 84px 64px 84px',
           }}
         >
           <Header />
-          <Stack
-            sx={{ mt: 8, height: '100%', width: '100%' }}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            spacing={2}
+          <Box
+            sx={{
+              position: 'relative',
+              mt: '94px',
+              width: '100%',
+              maxWidth: '1430px',
+            }}
           >
-            <Stack
+            <Typography
+              component="h1"
+              textAlign="center"
               sx={{
-                position: 'relative',
-                height: '100%',
-                width: '50%',
+                fontWeight: 500,
+                fontSize: '164px',
+                lineHeight: '170px',
+                zIndex: 1000,
               }}
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="flex-start"
             >
-              <Typography
-                component="h1"
-                sx={{
-                  fontWeight: 600,
-                  fontSize: '98px',
-                  lineHeight: '110px',
-                  maxWidth: 848,
-                  height: '220px',
-                }}
-              >
-                Платформа для&#160;обучения
-              </Typography>
-              <Buttons />
-              <Stack
+              Платформа для&#160;обучения
+            </Typography>
+            <MouseParallax zIndex={-1} isAbsolutelyPositioned>
+              <Box
                 sx={{
                   position: 'absolute',
-                  bottom: 10,
-                  height: '32px',
-                  width: '100%',
-                }}
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="center"
-                spacing={3}
-              >
-                <NavBar />
-              </Stack>
-            </Stack>
-            <Stack
-              sx={{
-                position: 'relative',
-                height: '100%',
-                width: '50%',
-              }}
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="flex-start"
-            >
-              <Typography
-                component="h2"
-                sx={{
-                  fontWeight: 400,
-                  fontSize: '32px',
-                  lineHeight: '42px',
-                  width: '558px',
-                  mt: '120px',
+                  top: '-66px',
+                  left: '115px',
+                  height: 210,
+                  width: 210,
+                  zIndex: -1,
                 }}
               >
-                Для&#160;школ,&#160;курсов, дополнительного&#160;образования
-              </Typography>
-              <Stack
+                <Image
+                  style={{ zIndex: -1 }}
+                  src="/assets/landing/star.svg"
+                  width={210}
+                  height={210}
+                />
+              </Box>
+              {/* </MouseParallax>
+            <MouseParallax> */}
+              <Box
                 sx={{
                   position: 'absolute',
-                  bottom: 10,
-                  width: '100%',
+                  bottom: '-84px',
+                  right: '55px',
+                  height: 210,
+                  width: 210,
+                  zIndex: -1,
                 }}
-                direction="column"
-                justifyContent="center"
-                alignItems="flex-start"
-                spacing={2}
               >
-                <Typography
-                  sx={{
-                    fontWeight: 400,
-                    fontSize: '20px',
-                    lineHeight: '24px',
-                  }}
-                >
-                  Бета-тестирование
-                </Typography>
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                    fontSize: '32px',
-                    lineHeight: '32px',
-                  }}
-                >
-                  5 ноября 2022
-                </Typography>
-              </Stack>
-            </Stack>
-          </Stack>
+                <Image
+                  style={{ zIndex: -1 }}
+                  src="/assets/landing/triangle.svg"
+                  width={210}
+                  height={210}
+                />
+              </Box>
+            </MouseParallax>
+          </Box>
+          <Typography
+            component="h2"
+            textAlign="center"
+            sx={{
+              mt: 4,
+              fontWeight: 400,
+              fontSize: '28px',
+              lineHeight: '42px',
+              zIndex: 1000,
+            }}
+          >
+            Для школ, курсов, дополнительного образования
+          </Typography>
+          <Button
+            variant="contained"
+            sx={{
+              mt: '120px',
+              width: '400px',
+              height: '80px',
+              fontWeight: 500,
+              fontSize: '32px',
+              lineHeight: '32px',
+              zIndex: 1000,
+            }}
+          >
+            Войти
+          </Button>
         </Stack>
       </>
     );

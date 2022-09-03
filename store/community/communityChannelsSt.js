@@ -13,9 +13,15 @@ class CommunityChannelsSt {
   @observable channels = [
     {
       id: 0,
-      type: 'page',
-      name: 'Страница',
+      type: 'announce',
+      name: 'Объявления',
       unread: 0, // Для чатов
+    },
+    {
+      id: 1,
+      type: 'сalendar',
+      name: 'Расписание',
+      unread: 0,
     },
     {
       id: 1,
@@ -25,109 +31,25 @@ class CommunityChannelsSt {
       children: [
         {
           id: 2,
-          type: 'room',
-          name: 'Комната',
+          type: 'announce',
+          name: 'Объявления',
         },
         {
           id: 5,
-          type: 'page',
-          name: 'Страница',
+          type: 'task',
+          name: 'Задания',
+        },
+        {
+          id: 2,
+          type: 'chat',
+          name: 'Чат со студентами',
+        },
+        {
+          id: 5,
+          type: 'task',
+          name: 'Видеоконференция',
         },
       ],
-    },
-    {
-      id: 4,
-      type: 'room',
-      name: 'Комната',
-    },
-    {
-      id: 1,
-      type: 'category',
-      name: 'Категория 2',
-      open: true,
-      children: [
-        {
-          id: 2,
-          type: 'room',
-          name: 'Комната',
-        },
-        {
-          id: 2,
-          type: 'room',
-          name: 'Комната',
-        },
-        {
-          id: 2,
-          type: 'room',
-          name: 'Комната',
-        },
-      ],
-    },
-    {
-      id: 5,
-      type: 'room',
-      name: 'Комната',
-    },
-    {
-      id: 50,
-      type: 'page',
-      name: 'Страница',
-    },
-    {
-      id: 4,
-      type: 'room',
-      name: 'Комната',
-    },
-    {
-      id: 1,
-      type: 'category',
-      name: 'Категория 2',
-      open: true,
-      children: [
-        {
-          id: 2,
-          type: 'room',
-          name: 'Комната',
-        },
-        {
-          id: 2,
-          type: 'room',
-          name: 'Комната',
-        },
-        {
-          id: 2,
-          type: 'room',
-          name: 'Комната',
-        },
-      ],
-    },
-    {
-      id: 5,
-      type: 'room',
-      name: 'Комната',
-    },
-    {
-      id: 4,
-      type: 'room',
-      name: 'Комната',
-    },
-    {
-      id: 1,
-      type: 'category',
-      name: 'Категория 2',
-      open: true,
-      children: [
-        {
-          id: 2,
-          type: 'room',
-          name: 'Комната',
-        },
-      ],
-    },
-    {
-      id: 5,
-      type: 'room',
-      name: 'Комната',
     },
   ];
 
