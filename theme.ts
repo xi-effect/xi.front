@@ -1,3 +1,19 @@
+/* eslint-disable no-unused-vars */
+// import { Theme } from '@mui/material';
+
+// declare module '@mui/material/styles' {
+//   interface ThemeOptions {
+//     breakpoints: {
+//       keys: {
+//         [key in number]: string;
+//       },
+//       values: {
+//         [key in string]: number;
+//       },
+//     };
+//   }
+// }
+
 export const getDesignTokens = (mode) => ({
   components: {
     // Name of the component
@@ -69,17 +85,7 @@ export const getDesignTokens = (mode) => ({
     fontFamily: 'Inter, Arial',
   },
   breakpoints: {
-    key: {
-      0: 'ax',
-      1: 'xs',
-      2: 'sm',
-      3: 'md',
-      4: 'dl',
-      5: 'lg',
-      6: 'gx',
-      7: 'xl',
-      8: 'lp',
-    },
+    keys: ['ax', 'xs', 'sm', 'md', 'dl', 'lg', 'gx', 'xl', 'lp'],
     values: {
       ax: 0,
       xs: 240,
