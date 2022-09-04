@@ -5,8 +5,6 @@ import { inject, observer } from 'mobx-react';
 import { Stack, Paper, Box } from '@mui/material';
 
 import MenuCommunity from './Community';
-import MenuSettingsComp from './SettingsComp';
-// import MenuHomeComp from "./Home";
 
 import Home from '../SidebarSecondHeaders/Home';
 import Community from '../SidebarSecondHeaders/Community';
@@ -56,9 +54,7 @@ const SidebarSecond = inject()(
               zIndex: 100,
             }}
           >
-            {/* {router.pathname.includes("/home") && <MenuHomeComp />} */}
             {router.pathname.includes('/community') && <MenuCommunity />}
-            {router.pathname.includes('/settings') && <MenuSettingsComp />}
           </Box>
         </Stack>
       </Paper>

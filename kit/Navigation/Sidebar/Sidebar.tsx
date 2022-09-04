@@ -1,16 +1,15 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
-import { Stack, Tooltip, IconButton } from '@mui/material';
+import { Stack, Tooltip, Divider, IconButton } from '@mui/material';
 
-import HomeIcon from '@mui/icons-material/Home';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
 import useListen from 'utils/useListen';
-import Image from 'next/image';
 import Scroll from 'kit/Scroll';
+import MyIcon from 'kit/MyIcon';
 import CommunityItem from './CommunityItem';
+import IButton from './IButton';
 
 const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
   ssr: false,
@@ -29,22 +28,6 @@ const Sidebar: React.FC<SidebarType> = inject(
 )(
   observer(({ rootStore, communitiesMenuSt, userSt }) => {
     const [openDialogCC, setOpenDialogCC] = React.useState(false);
-    const router = useRouter();
-
-    const menuList = [
-      {
-        id: 0,
-        icon: <HomeIcon />,
-        label: 'Главная',
-        href: '/home',
-      },
-      {
-        id: 1,
-        icon: <Image src="/icons/i-add.svg" width={24} height={24} />,
-        label: 'Создать сообщество',
-        href: 'createcommunity',
-      },
-    ];
 
     const reorder = (list, startIndex, endIndex) => {
       const result = Array.from(list);
@@ -126,7 +109,7 @@ const Sidebar: React.FC<SidebarType> = inject(
         direction="column"
         justifyContent="flex-start"
         alignItems="center"
-        spacing={1}
+        spacing={0}
         sx={{
           pt: 1,
           pb: 1,
@@ -148,27 +131,30 @@ const Sidebar: React.FC<SidebarType> = inject(
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={2}
+            spacing={1}
           >
-            {menuList.map((item, index) => (
-              <Tooltip key={index.toString()} placement="right" title={item.label}>
-                <IconButton
-                  onClick={() => {
-                    if (item.href === 'createcommunity') {
-                      setOpenDialogCC(true);
-                    } else router.push(item.href);
-                  }}
-                  sx={{
-                    bgcolor: 'white',
-                    width: 48,
-                    height: 48,
-                    borderRadius: 24,
-                  }}
-                >
-                  {item.icon}
-                </IconButton>
-              </Tooltip>
-            ))}
+            <IButton
+              tooltip="Главная"
+              href="/home"
+              icon="home"
+              iconColor="#445AFF"
+              iconColorHover="#FFFFFF"
+              isBefore
+            />
+            <IButton
+              tooltip="Создать сообщество"
+              icon="add"
+              onClick={() => console.log('click')}
+              disableHover
+            />
+            <Divider
+              sx={{
+                height: '1px',
+                width: '40px',
+                borderRadius: '5px',
+                backgroundColor: 'primary.light',
+              }}
+            />
           </Stack>
         </Stack>
         <DragDropContext onDragEnd={onDragEnd}>
@@ -181,6 +167,8 @@ const Sidebar: React.FC<SidebarType> = inject(
                   alignItems="center"
                   spacing={1}
                   sx={{
+                    pt: 1,
+                    pb: 1,
                     width: 64,
                   }}
                   ref={provided.innerRef}
@@ -195,36 +183,49 @@ const Sidebar: React.FC<SidebarType> = inject(
             )}
           </Droppable>
         </DragDropContext>
-        <Tooltip placement="right" title="Профиль пользователя">
-          <IconButton
+        <Stack
+          sx={{ width: 64 }}
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={1}
+        >
+          <Divider
             sx={{
-              bgcolor: 'white',
-              width: 48,
-              height: 48,
-              borderRadius: 24,
+              height: '1px',
+              width: '40px',
+              borderRadius: '5px',
+              backgroundColor: 'primary.light',
             }}
-          >
-            <Image src="/icons/i-account.svg" width={24} height={24} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip placement="right" title="Выйти">
-          <IconButton
-            onClick={() => {
-              userSt.logout();
-            }}
-            sx={{
-              bgcolor: 'white',
-              width: 48,
-              height: 48,
-              borderRadius: 24,
-              '&:hover': {
-                bgcolor: 'error.light',
-              },
-            }}
-          >
-            <Image src="/icons/i-exit.svg" width={24} height={24} />
-          </IconButton>
-        </Tooltip>
+          />
+          <IButton tooltip="Уведомления" icon="notification" disableHover />
+          <IButton
+            tooltip="Профиль"
+            href="/profile/1"
+            icon="account"
+            isBefore
+            iconColor="#445AFF"
+            iconColorHover="#FFFFFF"
+          />
+          <Tooltip placement="right" title="Выйти">
+            <IconButton
+              onClick={() => {
+                userSt.logout();
+              }}
+              sx={{
+                bgcolor: 'white',
+                width: 48,
+                height: 48,
+                borderRadius: 24,
+                '&:hover': {
+                  borderRadius: '16px',
+                },
+              }}
+            >
+              <MyIcon name="exit" />
+            </IconButton>
+          </Tooltip>
+        </Stack>
         <DialogCreateCommunity openDialogCC={openDialogCC} setOpenDialogCC={setOpenDialogCC} />
       </Stack>
     );

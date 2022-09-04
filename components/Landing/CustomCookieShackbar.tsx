@@ -5,7 +5,7 @@ import CookieIcon from '@mui/icons-material/Cookie';
 import { Stack, Button, Card, Typography } from '@mui/material';
 import { useLocalStorage } from 'react-use';
 
-const CustomCookieShackbar = forwardRef<HTMLDivElement, { id: string | number }>((props, ref) => {
+const CustomCookieShackbar = forwardRef<HTMLDivElement, { id?: string | number }>((props, ref) => {
   const { closeSnackbar } = useSnackbar();
 
   // eslint-disable-next-line no-unused-vars

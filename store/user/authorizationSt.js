@@ -41,8 +41,9 @@ class AuthorizationSt {
   };
 
   @observable passwordReset = {
-    errorEmailNotFounedReset: false,
+    emailNotFound: false,
     emailResetOk: false,
+    email: '',
   };
 
   @action setPasswordReset = (name, value) => {
@@ -50,7 +51,7 @@ class AuthorizationSt {
   };
 
   @action clickPasswordResetButton = (data) => {
-    this.setPasswordReset('errorEmailNotFounedReset', false);
+    this.setPasswordReset('emailNotFound', false);
     this.setPasswordReset('emailResetOk', false);
     this.rootStore
       .fetchData(`${this.rootStore.url}/password-reset/`, 'POST', {
@@ -62,7 +63,7 @@ class AuthorizationSt {
           if (data.a === true) {
             this.setPasswordReset('emailResetOk', true);
           } else if (data.a === false) {
-            this.setPasswordReset('errorEmailNotFounedReset', true);
+            this.setPasswordReset('emailNotFound', true);
           }
         }
       });
@@ -101,13 +102,13 @@ class AuthorizationSt {
             }, 1500);
           }
           if (data.a === 'Malformed code (BadSignature)') {
-            this.setSignup('error', 'Неверный код-приглашение');
+            this.setSignup('error', 'Неверный код');
           }
           if (data.a === 'Invite not found') {
-            this.setSignup('error', 'Код-приглашение не найден');
+            this.setSignup('error', 'Код не найден');
           }
           if (data.a === 'Invite not found') {
-            this.setSignup('error', 'Код-приглашение истек');
+            this.setSignup('error', 'Код истек');
           }
           if (data.a === 'Email already in use') {
             this.setSignup('error', 'E-mail уже зарегистрирован');
@@ -118,16 +119,21 @@ class AuthorizationSt {
       });
   };
 
-  @observable login = {
+  @observable signin = {
+    errorEmail: null,
+    errorPassword: null,
     error: null,
   };
 
-  @action setLogin = (name, value) => {
-    this.login[name] = value;
+  @action setSignin = (name, value) => {
+    this.signin[name] = value;
   };
 
-  @action clickEnterButton = (data, trigger) => {
-    this.setLogin('error', null);
+  @action clickSigninButton = (data, trigger) => {
+    this.setSignin('errorEmail', null);
+    this.setSignin('errorPassword', null);
+    this.setSignin('error', null);
+
     this.rootStore
       .fetchData(`${this.rootStore.url}/auth/`, 'POST', {
         email: data.email.toLowerCase(),
@@ -149,14 +155,14 @@ class AuthorizationSt {
               this.rootStore.uiSt.setLoading('loading', false);
             }, 1500);
           } else if (data.a === "User doesn't exist") {
-            this.setLogin('error', "User doesn't exist");
+            this.setSignin('errorEmail', 'Не удалось найти аккаунт');
             trigger();
           } else if (data.a === 'Wrong password') {
-            this.setLogin('error', 'Wrong password');
+            this.setSignin('errorPassword', 'Неправильный пароль');
             trigger();
           }
         } else {
-          this.setLogin('error', 'Server error');
+          this.setSignin('error', 'Ошибка сервера, попробуйте позже');
           trigger();
         }
       });

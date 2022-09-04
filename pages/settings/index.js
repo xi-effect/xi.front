@@ -22,7 +22,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import Navigation from 'kit/Navigation/Navigation';
-import CustomAvatar from 'kit/Avatar/CustomAvatar';
 
 import Secure from 'components/Settings/Secure';
 import Interface from 'components/Settings/Interface';
@@ -109,13 +108,6 @@ const Settings = inject(
                   maxWidth: 1200,
                 }}
               >
-                <Box sx={{ height: 196, width: 196 }}>
-                  <CustomAvatar
-                    avatar={{ ...userSt.settings.avatar, bgcolor: null }}
-                    height={196}
-                    width={196}
-                  />
-                </Box>
                 {!mobile && (
                   <Button
                     sx={{ ml: 'auto', mr: 1, mb: 1.2 }}

@@ -30,7 +30,12 @@ export default class MyDocument extends Document {
           <meta name="msapplication-config" content="/browserconfig.xml" />
           <meta name="format-detection" content="telephone=no" />
           <meta name="format-detection" content="address=no" />
-
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital@1&display=swap"
+            rel="stylesheet"
+          />
           <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
           <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -98,8 +103,8 @@ MyDocument.getInitialProps = async (ctx) => {
     });
 
   const initialProps = await Document.getInitialProps(ctx);
-  // This is important. It prevents emotion to render invalid HTML.
-  // See https://github.com/mui-org/material-ui/issues/26561#issuecomment-855286153
+  // This is important. It prevents Emotion to render invalid HTML.
+  // See https://github.com/mui/material-ui/issues/26561#issuecomment-855286153
   const emotionStyles = extractCriticalToChunks(initialProps.html);
   const emotionStyleTags = emotionStyles.styles.map((style) => (
     <style
@@ -112,7 +117,6 @@ MyDocument.getInitialProps = async (ctx) => {
 
   return {
     ...initialProps,
-    // Styles fragment is rendered after the app and page rendering finish.
-    styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags],
+    emotionStyleTags,
   };
 };

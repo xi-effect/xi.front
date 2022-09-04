@@ -1,10 +1,8 @@
 import React from 'react';
 
-import { Box, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 
 import { inject, observer } from 'mobx-react';
-
-import CustomAvatar from 'kit/Avatar/CustomAvatar';
 
 const Comment = inject()(
   observer(() => (
@@ -17,14 +15,6 @@ const Comment = inject()(
         height: '100%',
       }}
     >
-      <Box
-        sx={{
-          height: 52,
-          width: 52,
-        }}
-      >
-        <CustomAvatar avatar={{ bgcolor: 'none' }} />
-      </Box>
       <Stack
         direction="column"
         justifyContent="flex-start"

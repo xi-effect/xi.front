@@ -1,5 +1,4 @@
 /* eslint-disable consistent-return */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';

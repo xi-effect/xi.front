@@ -5,7 +5,6 @@ import React from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Router from 'next/router';
 import { Provider, observer } from 'mobx-react';
 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,22 +17,16 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import '../styles/globals.css';
 
-import NProgress from 'nprogress'; // nprogress module
 import Loading from 'kit/Loading/Loading';
 import createEmotionCache from '../store/createEmotionCache';
 import { useStore } from '../store/rootStore';
 import { getDesignTokens } from '../theme';
-import 'nprogress/nprogress.css'; // styles of nprogress
 
 config.autoAddCss = false;
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 // Binding events.
-NProgress.configure({ showSpinner: false });
-Router.events.on('routeChangeStart', () => NProgress.start());
-Router.events.on('routeChangeComplete', () => NProgress.done());
-Router.events.on('routeChangeError', () => NProgress.done());
 
 const MyApp = observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
@@ -47,7 +40,10 @@ const MyApp = observer((props) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+        <meta
+          name="viewport"
+          content="height=device-height, width=device-width, initial-scale=0.9, maximum-scale=0.9"
+        />
       </Head>
       {/* MobX Provider */}
       <Provider

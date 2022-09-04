@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Grid, Divider, Typography, Box, IconButton } from '@mui/material';
+import { Stack, Grid, Divider, Typography, IconButton } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -17,7 +17,6 @@ import {
   mouthType,
   skinColor,
 } from 'kit/Avatar/const';
-import CustomAvatar from 'kit/Avatar/CustomAvatar';
 
 const items = [
   { length: topType.length, label: 'Верх', type: 'topType' },
@@ -93,16 +92,6 @@ const UserAvatar = inject('userSt')(
               justifyContent="center"
               alignItems="center"
             >
-              <Box
-                onClick={() => userSt.setSettingsSecond('avatar', 'bgcolor', index)}
-                sx={{ height: 64, width: 64, m: 1, cursor: 'pointer' }}
-              >
-                <CustomAvatar
-                  avatar={{ ...userSt.settings.avatar, bgcolor: index }}
-                  height="64px"
-                  width="64px"
-                />
-              </Box>
               {userSt.settings.avatar.bgcolor === index && <CheckIcon />}
             </Stack>
           ))}
