@@ -45,58 +45,43 @@ export default function ErrorPage({ code }: ErrorPageProps) {
       }}
     >
       <Header />
-      <Stack
-        direction="row"
-        justifyContent="left"
+      <Typography
         sx={{
+          marginLeft: mobile1336 ? '4px' : '16px', // скопировано из components/Landing/Header
           marginTop: '153px',
-          height: '220px',
+          fontSize: '220px',
+          lineHeight: '220px',
+          fontWeight: 600,
         }}
       >
-        <Typography
-          sx={{
-            fontSize: '220px',
-            lineHeight: '220px',
-            fontWeight: 600,
-          }}
-        >
-          {code}
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: '32px',
-            lineHeight: '42px',
-            fontWeight: 400,
-            marginTop: '148px',
-            marginLeft: '56px',
-          }}
-        >
-          {errorMessages[code]}
-        </Typography>
-      </Stack>
-      <Stack
-        direction="row"
-        justifyContent="left"
-        alignItems="center"
+        {code}
+      </Typography>
+      <Typography
         sx={{
-          marginTop: '72px',
+          marginLeft: mobile1336 ? '4px' : '16px', // скопировано из components/Landing/Header
+          fontSize: '32px',
+          lineHeight: '42px',
+          fontWeight: 400,
         }}
       >
-        <Button
-          variant="contained"
-          onClick={() => router.push('/')}
-          sx={{
-            height: '64px',
-            width: '201px',
-            textTransform: 'none',
-            fontSize: '24px',
-            lineHeight: '32px',
-            fontWeight: 500,
-          }}
-        >
-          На главную
-        </Button>
-      </Stack>
+        {errorMessages[code]}
+      </Typography>
+      <Button
+        variant="contained"
+        onClick={() => router.push('/')}
+        sx={{
+          marginLeft: mobile1336 ? '4px' : '16px', // скопировано из components/Landing/Header
+          marginTop: '72px',
+          height: '64px',
+          width: '201px',
+          textTransform: 'none',
+          fontSize: '24px',
+          lineHeight: '32px',
+          fontWeight: 500,
+        }}
+      >
+        На главную
+      </Button>
     </Stack>
   );
 }
