@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Typography, Button, Box, InputAdornment, Link, Stack } from '@mui/material';

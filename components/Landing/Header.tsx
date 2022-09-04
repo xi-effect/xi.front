@@ -99,7 +99,7 @@ const Header = () => {
           Вакансии
         </Button>
         <Button
-          onClick={() => window.open('https://startupfellows.ru/vacancy/3995')}
+          onClick={() => window.open('https://discord.gg/aNQfXXb')}
           sx={{
             width: button2Width[deviceWidth],
             height: buttonsHeight[deviceWidth],

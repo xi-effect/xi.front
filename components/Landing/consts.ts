@@ -8,7 +8,7 @@ export const tFontSize = {
 
 export const tLineHeight = {
   min480: '56px',
-  min1000: '56px',
+  min1000: '110px',
   min1336: '110px',
   min1920: '110px',
   max1920: '170px',

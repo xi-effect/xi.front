@@ -190,7 +190,7 @@ const Main = inject(
               fontWeight: 500,
               fontSize: buttonFontSize[deviceWidth],
               lineHeight: buttonLineHeight[deviceWidth],
-              borderRadius: '12px',
+              borderRadius: mobilesm ? '8px' : '12px',
               boxShadow: 'none',
               '&:hover': {
                 boxShadow: 'none',

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Router, { useRouter, NextRouter } from 'next/router';
@@ -20,7 +19,6 @@ const Tearms = () => (
     >
       Нажимая «Регистрация», вы принимаете условия
     </Typography>
-    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
     <Link
       underline="none"
       sx={{

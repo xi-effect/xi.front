@@ -116,7 +116,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
           />
           <Link
             underline="none"
-            href="/"
             sx={{
               cursor: 'pointer',
               color: 'primary.dark',
@@ -125,13 +124,12 @@ const Form: React.FC<Props> = inject('authorizationSt')(
               lineHeight: '18px',
               letterSpacing: 0,
             }}
-            onClick={() => router.push({ pathname: '/resetpassword/email' })}
+            onClick={() => router.push('/resetpassword/email')}
           >
             Восстановить пароль
           </Link>
         </Stack>
         <Stack flexDirection="row" justifyContent="space-between" alignItems="center">
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <Link
             underline="none"
             sx={{
