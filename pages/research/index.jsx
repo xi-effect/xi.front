@@ -1,57 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { Button, Stack, Typography, LinearProgress } from '@mui/material';
 import { AttachFile, TextSnippetOutlined, Clear } from '@mui/icons-material';
-
-const baseUrl = 'https://xieffect.ru:5000/files/';
-
-// eslint-disable-next-line no-nested-ternary
-const fileSizeFormat = (size) => size.toString().length > 9 ? `${(size / 1073741824).toFixed(1)} GB`
-  // eslint-disable-next-line no-nested-ternary
-  : size.toString().length > 6 ? `${(size / 1048576).toFixed(1)} MB`
-    : size.toString().length > 3 ? `${(size / 1024).toFixed(1)} KB`
-      : `${size} Bytes`;
+import { usePostFetcher } from 'kit/useFetcher';
 
 const Research = () => {
   const filePicker = useRef(null);
-
   const [filesArray, setFilesArray] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
-  const [serverAnswerPost, setServerAnswerPost] = useState({});
+
+  const { handlePost, fileSizeFormat, isLoading, errors, notUploaded} = usePostFetcher();
+  console.log(errors, notUploaded);
 
   const handleInputFile = (event) => {
     setFilesArray(prevState => [...prevState, ...event.target.files]);
-  };
-
-  const handlePost = async () => {
-    if (!filesArray) {
-      console.log('Choose a file!');
-      return;
-    }
-    setIsFetching(true);
-
-    while(filesArray.length) {
-      try {
-        const formData = new FormData();
-        formData.append('file', filesArray.shift());
-
-        // eslint-disable-next-line no-await-in-loop
-        const res = await fetch(baseUrl,
-          {
-            method: 'POST',
-            body: formData,
-            credentials: "include",
-            mode: "cors",
-          }
-        );
-        // eslint-disable-next-line no-await-in-loop
-        setServerAnswerPost(await res.json());
-      } catch (e) {
-        console.log('###-Error:',e);
-      } finally {
-        console.log('###-ResPost:', JSON.stringify(serverAnswerPost));
-      }
-    }
-    setIsFetching(false);
   };
 
   const handlePick = () => {
@@ -113,10 +73,9 @@ const Research = () => {
                   handleFileDelete={handleFileDelete}
                   fileName={file.name}
                   fileSize={fileSizeFormat(file.size)}
-                  isFetching={isFetching && index === 0}
+                  isLoading={isLoading && index === 0}
                 />
               ))}
-
           <Stack
             direction="row"
             justifyContent="space-between"
@@ -140,7 +99,7 @@ const Research = () => {
             }}
           >
             <Button
-              onClick={handlePost}
+              onClick={() => handlePost(filesArray)}
               variant="contained"
               sx={{
                 width: '100%',
@@ -161,7 +120,7 @@ export default Research;
 
 const FileItemComponent = (props) => {
   // eslint-disable-next-line react/prop-types
-  const { id, fileName, fileSize, handleFileDelete, isFetching } = props;
+  const { id, fileName, fileSize, handleFileDelete, isLoading } = props;
 
   return (
     <>
@@ -190,7 +149,7 @@ const FileItemComponent = (props) => {
         </Stack>
       </Stack>
       {
-        isFetching &&
+        isLoading &&
         <Stack
           sx={{
             m: '-8px 32px 0 32px',
