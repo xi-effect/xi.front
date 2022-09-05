@@ -1,115 +1,99 @@
-import { Box, Button, Stack, Typography } from '@mui/material'; // useMediaQuery
-import { useRouter } from 'next/router';
+import { Button, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
+import { NextRouter, useRouter } from 'next/router';
 import { motion } from 'framer-motion';
-import React from 'react';
 import { errorCode, errorMessages } from 'texts/errorMessages/errorMessages';
-import XiLogo from 'kit/XiLogo';
-import NavBar from 'components/Landing/NavBar';
+import Header from 'components/Landing/Header';
+import {
+  buttonFontSize,
+  buttonHeight,
+  buttonMarginTop,
+  buttonWidth,
+  mainFontSize,
+  mainMarginTop,
+  ScreenSize,
+  secondaryFontSize,
+  secondaryLineHeight,
+  secondaryMarginTop,
+} from './breakpoints';
 
 type ErrorPageProps = {
   code: errorCode;
 };
 
 export default function ErrorPage({ code }: ErrorPageProps) {
-  // // @ts-ignore
-  // const mobile = useMediaQuery((theme) => theme.breakpoints.down('lg'));
+  // скопировано из Main в pages/index.tsx
+  const mobile1920: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1920));
+  const mobile1336: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1336));
+  const mobile1000: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1000));
+  const mobilesm: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
-  const router = useRouter();
+  const getDeviceWidth = () => {
+    if (mobilesm) return 'min480';
+    if (mobile1000) return 'min1000';
+    if (mobile1336) return 'min1336';
+    if (mobile1920) return 'min1920';
+    return 'max1920';
+  };
+
+  const screenSize: ScreenSize = getDeviceWidth();
+  const router: NextRouter = useRouter();
 
   return (
-    <Stack
+    <Stack // скопировано из pages/index.tsx кроме alignItems
       component={motion.div}
-      initial={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.4, duration: 2 }}
       direction="column"
+      justifyContent="flex-start"
       sx={{
         zIndex: 1,
         margin: 0,
         overflow: 'auto',
-        height: '100vh',
-        width: '100%',
-        paddingX: '100px',
+        minHeight: mobilesm ? 'calc(100vh - 14px)' : '100vh',
+        height: '100%',
         bgcolor: 'primary.pale',
+        p: mobile1336 ? '20px 16px 20px 16px' : '16px 84px 64px 84px',
       }}
     >
-      <Stack
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
+      <Header />
+      <Typography
         sx={{
-          width: '100%',
-          height: '32px',
-          marginTop: '111px',
+          marginLeft: mobile1336 ? '4px' : '16px', // скопировано из components/Landing/Header
+          marginTop: mainMarginTop[screenSize],
+          fontSize: mainFontSize[screenSize],
+          lineHeight: mainFontSize[screenSize],
+          fontWeight: 600,
         }}
       >
-        <Box style={{ flexGrow: 1 }}>
-          <XiLogo height="48px" width="200px" />
-        </Box>
-        <Stack
-          sx={{
-            height: '32px',
-          }}
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
-          spacing={3}
-        >
-          <NavBar />
-        </Stack>
-      </Stack>
-      <Stack
-        direction="row"
-        justifyContent="left"
+        {code}
+      </Typography>
+      <Typography
         sx={{
-          marginTop: '153px',
-          height: '220px',
+          marginLeft: mobile1336 ? '4px' : '16px', // скопировано из components/Landing/Header
+          marginTop: secondaryMarginTop[screenSize],
+          fontSize: secondaryFontSize[screenSize],
+          lineHeight: secondaryLineHeight[screenSize],
+          fontWeight: 400,
         }}
       >
-        <Typography
-          sx={{
-            fontSize: '220px',
-            lineHeight: '220px',
-            fontWeight: 600,
-          }}
-        >
-          {code}
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: '32px',
-            lineHeight: '42px',
-            fontWeight: 400,
-            marginTop: '148px',
-            marginLeft: '56px',
-          }}
-        >
-          {errorMessages[code]}
-        </Typography>
-      </Stack>
-      <Stack
-        direction="row"
-        justifyContent="left"
-        alignItems="center"
+        {errorMessages[code]}
+      </Typography>
+      <Button
+        variant="contained"
+        onClick={() => router.push('/')}
         sx={{
-          marginTop: '72px',
+          marginLeft: mobile1336 ? '4px' : '16px', // скопировано из components/Landing/Header
+          marginTop: buttonMarginTop[screenSize],
+          height: buttonHeight[screenSize],
+          width: buttonWidth[screenSize],
+          fontSize: buttonFontSize[screenSize],
+          textTransform: 'none',
+          fontWeight: 500,
         }}
       >
-        <Button
-          variant="contained"
-          onClick={() => router.push('/')}
-          sx={{
-            height: '64px',
-            width: '201px',
-            textTransform: 'none',
-            fontSize: '24px',
-            lineHeight: '32px',
-            fontWeight: 500,
-          }}
-        >
-          На главную
-        </Button>
-      </Stack>
+        На главную
+      </Button>
     </Stack>
   );
 }

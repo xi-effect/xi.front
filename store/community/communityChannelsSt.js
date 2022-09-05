@@ -26,7 +26,8 @@ class CommunityChannelsSt {
     {
       id: 1,
       type: 'category',
-      name: 'Категория 1',
+      name: '4Д — БЖ',
+      subtext: 'Кастырин И.И.',
       open: true,
       children: [
         {
@@ -46,7 +47,7 @@ class CommunityChannelsSt {
         },
         {
           id: 5,
-          type: 'task',
+          type: 'room',
           name: 'Видеоконференция',
         },
       ],

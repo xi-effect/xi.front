@@ -40,7 +40,7 @@ const Schedule = inject('userSt')(
     return (
       <>
         <Head>
-          <title>Ξffect</title>
+          <title>xi.effect</title>
           <meta name="robots" content="noindex" />
         </Head>
         <Navigation>

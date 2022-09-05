@@ -22,7 +22,7 @@ const RoomPage = inject(
     return (
       <>
         <Head>
-          <title>Ξffect | Комната</title>
+          <title>xi.effect</title>
           <meta name="robots" content="noindex" />
         </Head>
         <Navigation>rjvgjytyns nen</Navigation>

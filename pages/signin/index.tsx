@@ -19,7 +19,6 @@ const Tearms = () => (
     >
       Нажимая «Войти», вы принимаете условия
     </Typography>
-    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
     <Link
       underline="none"
       sx={{

@@ -47,6 +47,7 @@ class UISt {
   };
 
   @observable dialogs = {
+    communityCreation: false,
     categoryCreation: false,
     channelCreation: false,
     invite: false,

@@ -3,11 +3,12 @@ import { useRouter } from 'next/router';
 import { Stack, Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import ResetPasswordForm from 'components/ResetPassword/Form';
+import Form from 'components/ResetPassword/Email';
 import Image from 'next/image';
 
 const PassResetEmail = inject('authorizationSt')(
-  observer(() => {
+  observer(({ authorizationSt }) => {
+    const { passwordReset } = authorizationSt;
     const router = useRouter();
 
     const isMobile = useMediaQuery('(max-width: 472px)');
@@ -43,9 +44,9 @@ const PassResetEmail = inject('authorizationSt')(
                 fontWeight: 600,
               }}
             >
-              Восстановление
+              {passwordReset.emailResetOk ? 'Письмо отправлено' : 'Восстановление'}
             </Typography>
-            <ResetPasswordForm />
+            <Form />
           </Stack>
         </Stack>
       </>
