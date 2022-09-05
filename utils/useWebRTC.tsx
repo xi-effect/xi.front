@@ -167,7 +167,9 @@ export default function useWebRTC(socket, roomID) {
         const localVideoElement = peerMediaElements.current[LOCAL_VIDEO];
 
         if (localVideoElement) {
+          // @ts-ignore
           localVideoElement.volume = 0;
+          // @ts-ignore
           localVideoElement.srcObject = localMediaStream.current;
         }
       });

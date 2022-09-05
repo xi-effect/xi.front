@@ -12,7 +12,7 @@ const useStateWithCallback = (initialState) => {
 
   useEffect(() => {
     if (cbRef.current) {
-      cbRef.current(state);
+      //   cbRef.current(state);
       cbRef.current = null;
     }
   }, [state]);
