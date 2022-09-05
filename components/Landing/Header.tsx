@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter, NextRouter } from 'next/router';
 import { Box, Stack, Button, useMediaQuery, Theme } from '@mui/material';
 import Image from 'next/image';
 
@@ -43,6 +44,8 @@ const buttonsLineHeight = {
 };
 
 const Header = () => {
+  const router: NextRouter = useRouter();
+
   const mobile1920: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1920));
   const mobile1336: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1336));
   const mobile1000: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1000));
@@ -67,6 +70,7 @@ const Header = () => {
       sx={{ width: '100%', height: '96px', p: mobile1336 ? '4px' : '16px' }}
     >
       <Box
+        onClick={() => router.push('/')}
         sx={{
           pb: '12px',
         }}

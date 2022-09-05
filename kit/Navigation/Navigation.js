@@ -78,6 +78,29 @@ const Navigation = inject(
         });
       }, []);
 
+      React.useEffect(() => {
+        if (!rootStore.socketTest?.connected) {
+          rootStore.initSocketTest();
+        }
+        rootStore.socketTest.on('connectTest', () => {
+          console.log('SIO connectTest', rootStore.socketTest.id);
+        });
+        rootStore.socketTest.on('disconnectTest', () => {
+          console.log('SIO disconnectTest', rootStore.socketTest.id);
+        });
+        rootStore.socketTest.on('errorTest', (error) => {
+          enqueueSnackbar('Ошибка соединения', {
+            persist: true,
+            anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center',
+            },
+            TransitionComponent: Slide,
+            action,
+          });
+        });
+      }, []);
+
       useBeforeUnload(() => {
         rootStore.socket.disconnect();
         rootStore.socket.off();

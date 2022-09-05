@@ -47,7 +47,7 @@ class CommunityChannelsSt {
         },
         {
           id: 5,
-          type: 'task',
+          type: 'room',
           name: 'Видеоконференция',
         },
       ],

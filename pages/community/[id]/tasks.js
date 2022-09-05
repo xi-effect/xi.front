@@ -9,7 +9,7 @@ const Tasks = inject('userSt')(
     // const router = useRouter()
     <>
       <Head>
-        <title>Ξffect</title>
+        <title>xi.effect</title>
         <meta name="robots" content="noindex" />
       </Head>
       <Navigation>
