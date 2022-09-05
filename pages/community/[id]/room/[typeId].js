@@ -2,15 +2,18 @@ import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import React from 'react';
 import { useRouter } from 'next/router';
+import { Stack } from '@mui/material';
 
 import Navigation from 'kit/Navigation/Navigation';
+
+import Room from 'components/Community/Room';
 
 const RoomPage = inject(
   'rootStore',
   'userSt',
   'userSt',
 )(
-  observer(() => {
+  observer(({ rootStore }) => {
     const router = useRouter();
 
     React.useEffect(() => {
@@ -25,7 +28,25 @@ const RoomPage = inject(
           <title>xi.effect</title>
           <meta name="robots" content="noindex" />
         </Head>
-        <Navigation>rjvgjytyns nen</Navigation>
+        <Navigation>
+          <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+            sx={{
+              width: '100vw',
+              ml: 0,
+              mr: 0,
+              p: 4,
+              pb: 10,
+              overflow: 'hidden',
+            }}
+          >
+            <Room rootStore={rootStore} />
+            {/* 1 */}
+          </Stack>
+        </Navigation>
       </>
     );
   }),
