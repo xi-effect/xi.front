@@ -16,6 +16,13 @@ import Scroll from 'kit/Scroll';
 import MyIcon from 'kit/MyIcon';
 import Image from 'next/image';
 
+const iconsDict = {
+  announces: 'announce',
+  announce: 'announce',
+  task: 'task',
+  chat: 'chat',
+};
+
 type ChannelT = {
   channel: any;
 };
@@ -32,9 +39,19 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
     const lastType = splitPathname[splitPathname.length - 2];
     const typeId = router.query.typeId ?? null;
 
+    console.log('channel', channel);
+
+    const handleChannelClick = () => {
+      router.push(
+        `/community/${router.query.id}/${channel.type}${
+          channel.type[channel.type.length - 1] !== 's' ? `/${channel.id}` : ''
+        }`,
+      );
+    };
+
     return (
       <MenuItem
-        onClick={() => router.push(`/community/${router.query.id}/${channel.type}/${channel.id}`)}
+        onClick={handleChannelClick}
         sx={{
           width: 'calc(100% - 16px)',
           borderRadius: 1,
@@ -56,7 +73,7 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
             minWidth: '24px !important',
           }}
         >
-          <MyIcon name={channel.type} />
+          <MyIcon name={iconsDict[channel.type]} />
         </ListItemIcon>
         <ListItemText
           disableTypography

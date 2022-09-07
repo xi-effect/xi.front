@@ -5,15 +5,16 @@ import { useRouter } from 'next/router';
 import { Stack } from '@mui/material';
 
 import Navigation from 'kit/Navigation/Navigation';
+import dynamic from 'next/dynamic';
 
-import Room from 'components/Community/Room';
+const Room = dynamic(() => import('components/Community/Room'), { ssr: false });
 
 const RoomPage = inject(
   'rootStore',
   'userSt',
   'userSt',
-)(
-  observer(({ rootStore }) => {
+)(  
+  observer(() => {
     const router = useRouter();
 
     React.useEffect(() => {
@@ -43,7 +44,7 @@ const RoomPage = inject(
               overflow: 'hidden',
             }}
           >
-            <Room rootStore={rootStore} />
+            <Room />
             {/* 1 */}
           </Stack>
         </Navigation>

@@ -13,9 +13,8 @@ class CommunityChannelsSt {
   @observable channels = [
     {
       id: 0,
-      type: 'announce',
+      type: 'announces',
       name: 'Объявления',
-      unread: 0, // Для чатов
     },
     {
       id: 1,
@@ -32,7 +31,7 @@ class CommunityChannelsSt {
       children: [
         {
           id: 2,
-          type: 'announce',
+          type: 'announces',
           name: 'Объявления',
         },
         {

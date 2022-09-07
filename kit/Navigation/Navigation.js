@@ -79,7 +79,9 @@ const Navigation = inject(
       }, []);
 
       React.useEffect(() => {
+        console.log('rootStore.socketTest?.connected', rootStore.socketTest?.connected);
         if (!rootStore.socketTest?.connected) {
+          console.log('rootStore.initSocketTest()');
           rootStore.initSocketTest();
         }
         rootStore.socketTest.on('connectTest', () => {
@@ -99,7 +101,7 @@ const Navigation = inject(
             action,
           });
         });
-      }, []);
+      }, [rootStore.socketTest?.connected]);
 
       useBeforeUnload(() => {
         rootStore.socket.disconnect();
