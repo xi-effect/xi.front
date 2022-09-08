@@ -54,9 +54,8 @@ class RootStore {
   socketTest = null;
 
   @action initSocketTest = () => {
-    this.socketTest = io('https://xieffect.ru:5000/', {
-      withCredentials: true,
-    });
+    this.socketTest = io('https://xieffect.ru:8000/');
+    console.log('this.socketTest', this.socketTest);
   };
 
   @action async fetchData(url, method, data = null) {

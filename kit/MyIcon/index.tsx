@@ -2,6 +2,7 @@ import * as React from 'react';
 import Home from './Home';
 import Exit from './Exit';
 import Add from './Add';
+import Arrow from './Arrow';
 import Account from './Account';
 import Notification from './Notification';
 import EyeOff from './EyeOff';
@@ -19,6 +20,7 @@ type Props = {
 
 const MyIcon: React.FC<Props> = ({ name, ...props }) => {
   const iDict = {
+    arrow: <Arrow {...props} />,
     home: <Home {...props} />,
     exit: <Exit {...props} />,
     add: <Add {...props} />,
