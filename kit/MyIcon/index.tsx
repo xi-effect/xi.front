@@ -12,6 +12,7 @@ import Check from './Check';
 import Task from './Task';
 import Announce from './Announce';
 import Chat from './Chat';
+import Burger from './Burger';
 
 type Props = {
   name: string;
@@ -20,6 +21,7 @@ type Props = {
 
 const MyIcon: React.FC<Props> = ({ name, ...props }) => {
   const iDict = {
+    burger: <Burger {...props} />,
     arrow: <Arrow {...props} />,
     home: <Home {...props} />,
     exit: <Exit {...props} />,

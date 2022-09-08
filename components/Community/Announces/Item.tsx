@@ -100,7 +100,7 @@ const Item: React.FC<ItemsT> = inject('rootStore')(
       <Box
         sx={{ width: '24px', height: '24px', position: 'absolute', bottom: '24px', right: '24px' }}
       >
-        <MyIcon name="arrow" color="#445AFF"/>
+        <MyIcon name="arrow" color="#445AFF" />
       </Box>
     </Stack>
   )),

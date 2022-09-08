@@ -13,7 +13,7 @@ const RoomPage = inject(
   'rootStore',
   'userSt',
   'userSt',
-)(  
+)(
   observer(() => {
     const router = useRouter();
 
