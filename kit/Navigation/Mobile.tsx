@@ -89,6 +89,26 @@ const Mobile: React.FC<MobileT> = inject()(
 
     const handleEnd = (event: TouchEvent) => {
       console.log('end', event);
+      const endX = event.changedTouches[0].pageX;
+      const endY = event.changedTouches[0].pageY;
+
+      if (
+        startPositinRef &&
+        startPositinRef.current &&
+        startPositinRef.current.x &&
+        endX - startPositinRef.current.x > 100
+      ) {
+        setOpenMenu(true);
+      }
+
+      if (
+        startPositinRef &&
+        startPositinRef.current &&
+        startPositinRef.current.x &&
+        startPositinRef.current.x - endX > 100
+      ) {
+        setOpenMenu(false);
+      }
     };
 
     const handleMove = (event: TouchEvent) => {
