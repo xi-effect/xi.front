@@ -13,9 +13,8 @@ class CommunityChannelsSt {
   @observable channels = [
     {
       id: 0,
-      type: 'announce',
+      type: 'announces',
       name: 'Объявления',
-      unread: 0, // Для чатов
     },
     {
       id: 1,
@@ -26,12 +25,13 @@ class CommunityChannelsSt {
     {
       id: 1,
       type: 'category',
-      name: 'Категория 1',
+      name: '4Д — БЖ',
+      subtext: 'Кастырин И.И.',
       open: true,
       children: [
         {
           id: 2,
-          type: 'announce',
+          type: 'announces',
           name: 'Объявления',
         },
         {
@@ -46,7 +46,7 @@ class CommunityChannelsSt {
         },
         {
           id: 5,
-          type: 'task',
+          type: 'room',
           name: 'Видеоконференция',
         },
       ],

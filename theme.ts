@@ -44,6 +44,13 @@ export const getDesignTokens = (mode) => ({
         },
       ],
     },
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        },
+      },
+    },
     MuiButton: {
       variants: [
         {
@@ -57,8 +64,10 @@ export const getDesignTokens = (mode) => ({
             fontSize: 18,
             lineHeight: '22px',
             backgroundColor: '#445AFF',
+            boxShadow: 'none',
             '&:hover': {
               backgroundColor: '#697BFF',
+              boxShadow: 'none',
             },
           },
         },

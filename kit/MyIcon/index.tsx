@@ -2,6 +2,7 @@ import * as React from 'react';
 import Home from './Home';
 import Exit from './Exit';
 import Add from './Add';
+import Arrow from './Arrow';
 import Account from './Account';
 import Notification from './Notification';
 import EyeOff from './EyeOff';
@@ -11,6 +12,7 @@ import Check from './Check';
 import Task from './Task';
 import Announce from './Announce';
 import Chat from './Chat';
+import Burger from './Burger';
 
 type Props = {
   name: string;
@@ -19,6 +21,8 @@ type Props = {
 
 const MyIcon: React.FC<Props> = ({ name, ...props }) => {
   const iDict = {
+    burger: <Burger {...props} />,
+    arrow: <Arrow {...props} />,
     home: <Home {...props} />,
     exit: <Exit {...props} />,
     add: <Add {...props} />,

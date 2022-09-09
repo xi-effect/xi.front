@@ -22,16 +22,16 @@ export const secondaryFontSize: ScreenToString = {
   min480: '16px',
   min1000: '24px',
   min1336: '24px',
-  min1920: '32px',
-  max1920: '32px',
+  min1920: '24px',
+  max1920: '24px',
 };
 
 export const secondaryLineHeight: ScreenToString = {
   min480: '32px',
   min1000: '32px',
   min1336: '32px',
-  min1920: '42px',
-  max1920: '42px',
+  min1920: '32px',
+  max1920: '32px',
 };
 
 export const secondaryMarginTop: ScreenToString = {

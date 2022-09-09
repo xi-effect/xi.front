@@ -1,6 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable consistent-return */
 /* eslint-disable class-methods-use-this */
 import { action, makeObservable } from 'mobx';
@@ -54,6 +51,13 @@ class RootStore {
     });
   };
 
+  socketTest = null;
+
+  @action initSocketTest = () => {
+    this.socketTest = io('https://xieffect.ru:8000/');
+    console.log('this.socketTest', this.socketTest);
+  };
+
   @action async fetchData(url, method, data = null) {
     try {
       let response = null;
@@ -98,6 +102,7 @@ class RootStore {
 }
 
 function initializeStore(initialData = null) {
+  // eslint-disable-next-line no-underscore-dangle
   const _store = store ?? new RootStore();
 
   // If your page has Next.js data fetching methods that use a Mobx store, it will
