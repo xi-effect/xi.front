@@ -39,8 +39,6 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
     const lastType = splitPathname[splitPathname.length - 2];
     const typeId = router.query.typeId ?? null;
 
-    console.log('channel', channel);
-
     const handleChannelClick = () => {
       router.push(
         `/community/${router.query.id}/${channel.type}${
