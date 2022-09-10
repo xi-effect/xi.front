@@ -13,10 +13,10 @@ import { SidebarSecond } from './SidebarSecond';
 const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 
 type UpbarT = {
-  setOpenMenu: (value) => void;
+  setMenuPosition: (value) => void;
 };
 
-const Upbar = ({ setOpenMenu }: UpbarT) => (
+const Upbar = ({ setMenuPosition }: UpbarT) => (
   <Stack
     sx={{
       p: '14px 20px 14px 20px',
@@ -37,7 +37,17 @@ const Upbar = ({ setOpenMenu }: UpbarT) => (
       direction="row"
       justifyContent="center"
       alignItems="center"
-      onClick={() => setOpenMenu((prev: boolean) => !prev)}
+      onClick={() =>
+        setMenuPosition((prev: number) => {
+          console.log(prev);
+          if (prev < 158) {
+            return 316;
+          }
+          if (prev >= 158) {
+            return 0;
+          }
+        })
+      }
       sx={{
         height: '32px',
         width: '32px',
@@ -65,6 +75,11 @@ type startPositionT = {
   y: number;
 } | null;
 
+type movePositionT = {
+  x: number;
+  y: number;
+} | null;
+
 type MobileT = {
   children: React.ReactNode;
 };
@@ -73,64 +88,52 @@ const Mobile: React.FC<MobileT> = inject()(
   observer(({ children }) => {
     const router = useRouter();
 
-    const [openMenu, setOpenMenu] = React.useState<boolean>(false);
+    const [menuPosition, setMenuPosition] = React.useState<number>(0);
 
-    const startPositinRef = useRef<startPositionT>(null);
+    React.useEffect(() => {
+      let prevX = 0;
 
-    const handleStart = (event: TouchEvent) => {
-      console.log('start', event.touches[0]);
-      startPositinRef.current = {
-        x: 0,
-        y: 0,
+      const handleStart = (event: TouchEvent) => {
+        prevX = event.touches[0].pageX;
       };
-      startPositinRef.current.x = event.touches[0].pageX;
-      startPositinRef.current.y = event.touches[0].pageY;
-    };
 
-    const handleEnd = (event: TouchEvent) => {
-      console.log('end', event);
-      const endX = event.changedTouches[0].pageX;
-      const endY = event.changedTouches[0].pageY;
+      const handleMove = (event: TouchEvent) => {
+        const dif = event.changedTouches[0].pageX - prevX;
 
-      if (
-        startPositinRef &&
-        startPositinRef.current &&
-        startPositinRef.current.x &&
-        endX - startPositinRef.current.x > 100
-      ) {
-        setOpenMenu(true);
-      }
+        setMenuPosition((prev) => {
+          if (prev + dif < 0) return 0;
+          if (prev + dif > 316) return 316;
+          return prev + dif;
+        });
 
-      if (
-        startPositinRef &&
-        startPositinRef.current &&
-        startPositinRef.current.x &&
-        startPositinRef.current.x - endX > 100
-      ) {
-        setOpenMenu(false);
-      }
-    };
+        prevX = event.changedTouches[0].pageX;
+      };
 
-    const handleMove = (event: TouchEvent) => {
-      console.log('move', event);
-    };
+      const handleEnd = (event: TouchEvent) => {
+        setMenuPosition((prev) => {
+          if (prev) {
+            if (prev > 180 && prev !== 316) {
+              return 316;
+            }
 
-    React.useEffect(() => {
+            if (prev <= 180 && prev !== 0) {
+              return 0;
+            }
+          }
+
+          return prev;
+        });
+      };
+
       window.addEventListener('touchstart', handleStart);
-
-      return () => window.addEventListener('touchstart', handleStart);
-    }, []);
-
-    React.useEffect(() => {
+      window.addEventListener('touchmove', handleMove);
       window.addEventListener('touchend', handleEnd);
 
-      return () => window.addEventListener('touchend', handleEnd);
-    }, []);
-
-    React.useEffect(() => {
-      window.addEventListener('touchmove', handleMove);
-
-      return () => window.addEventListener('touchmove', handleMove);
+      return () => {
+        window.removeEventListener('touchstart', handleStart);
+        window.removeEventListener('touchmove', handleMove);
+        window.removeEventListener('touchend', handleEnd);
+      };
     }, []);
 
     return (
@@ -167,7 +170,7 @@ const Mobile: React.FC<MobileT> = inject()(
             height: '100vh',
             width: '100vw',
             zIndex: 1000,
-            transform: openMenu ? 'translateX(316px)' : '',
+            transform: `translateX(${menuPosition}px)`,
             transition: '0.4s',
           }}
           direction="column"
@@ -180,7 +183,7 @@ const Mobile: React.FC<MobileT> = inject()(
             justifyContent="flex-start"
             alignItems="center"
           >
-            <Upbar setOpenMenu={setOpenMenu} />
+            <Upbar setMenuPosition={setMenuPosition} />
             {children}
           </Stack>
         </Stack>
