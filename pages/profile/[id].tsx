@@ -1,7 +1,7 @@
 import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import React from 'react';
-import Navigation from 'kit/Navigation/Navigation';
+import { Navigation } from 'kit/Navigation';
 import { Stack, Typography } from '@mui/material';
 
 const Profile = inject('userSt')(

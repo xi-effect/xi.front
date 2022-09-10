@@ -15,12 +15,12 @@ import { SnackbarProvider } from 'notistack';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import '../styles/globals.css';
+import 'styles/globals.css';
 
 import Loading from 'kit/Loading/Loading';
-import createEmotionCache from '../store/createEmotionCache';
-import { useStore } from '../store/rootStore';
-import { getDesignTokens } from '../theme';
+import { useStore } from 'store/rootStore';
+import createEmotionCache from 'store/createEmotionCache';
+import { getDesignTokens } from 'theme';
 
 config.autoAddCss = false;
 

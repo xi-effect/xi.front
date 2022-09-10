@@ -5,7 +5,7 @@ import { Stack, Grid, Paper } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 
-import Navigation from 'kit/Navigation/Navigation';
+import { Navigation } from 'kit/Navigation';
 
 import DayPicker from 'components/Community/Schedule/DayPicker';
 import Toolbar from 'components/Community/Schedule/Toolbar';

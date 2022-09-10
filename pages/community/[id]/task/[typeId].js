@@ -3,7 +3,7 @@ import Head from 'next/head';
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import Navigation from 'kit/Navigation/Navigation';
+import { Navigation } from 'kit/Navigation';
 import Task from 'components/Community/Task/Task';
 
 const TaskPage = inject()(

@@ -22,16 +22,21 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import CommunityMenu from 'kit/CommunityMenu';
 
+type CommunityT = {
+  communitySt?: any;
+};
+
 const Community = inject('communitySt')(
-  observer(({ communitySt }) => {
+  observer(({ communitySt }: CommunityT) => {
     const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
+    const anchorRef = React.useRef<HTMLButtonElement>(null);
 
     const handleToggle = () => {
       setOpen((prevOpen) => !prevOpen);
     };
 
     const handleClose = (event) => {
+      // @ts-irnore
       if (anchorRef.current && anchorRef.current.contains(event.target)) {
         return;
       }
@@ -51,7 +56,7 @@ const Community = inject('communitySt')(
     // return focus to the button when we transitioned from !open -> open
     const prevOpen = React.useRef(open);
     React.useEffect(() => {
-      if (prevOpen.current === true && open === false) {
+      if (anchorRef && anchorRef.current && prevOpen.current === true && open === false) {
         anchorRef.current.focus();
       }
 

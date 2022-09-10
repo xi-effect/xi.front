@@ -180,12 +180,14 @@ const Items: React.FC<ItemsT> = inject('communityChannelsSt')(
   }),
 );
 
+type MenuCommunityT = {
+  communityChannelsSt?: any;
+};
+
 const MenuCommunity = inject(
-  'rootStore',
-  'uiSt',
   'communityChannelsSt',
 )(
-  observer(({ communityChannelsSt }) => {
+  observer(({ communityChannelsSt }: MenuCommunityT) => {
     const [valueLS, setValueLS] = useLocalStorage('second-menu-c-upper-items-position-is-vert');
 
     useEffect(() => {

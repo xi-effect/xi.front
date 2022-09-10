@@ -4,7 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { Stack } from '@mui/material';
 
-import Navigation from 'kit/Navigation/Navigation';
+import { Navigation } from 'kit/Navigation';
 import dynamic from 'next/dynamic';
 
 const Room = dynamic(() => import('components/Community/Room'), { ssr: false });
