@@ -75,7 +75,6 @@ const Content = inject()(
     });
 
     const onSubmit = (data) => {
-      console.log('onSubmit');
       trigger();
       const type = getType(channelSelect);
       communityChannelsSt.pushNewChannel({ ...data, type });
