@@ -9,6 +9,11 @@ import { Button, Stack, Link, InputAdornment, Box } from '@mui/material';
 
 import MyIcon from 'kit/MyIcon';
 
+type FormValues = {
+  email: string;
+  password: string;
+};
+
 const schema = yup
   .object({
     email: yup.string().email().max(100).required(),
@@ -35,9 +40,11 @@ const Form: React.FC<Props> = inject('authorizationSt')(
       handleSubmit,
       trigger,
       formState: { errors },
-    } = useForm({
+    } = useForm<FormValues>({
       resolver: yupResolver(schema),
     });
+
+    console.log("errors", errors);
 
     const onSubmit = (data) => {
       trigger();
@@ -51,7 +58,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
     };
 
     const getPasswordError = () => {
-      if (errors.email?.password || errorPassword) return 'Неправильный пароль';
+      if (errors.email || errorPassword) return 'Неправильный пароль';
       return null;
     };
 

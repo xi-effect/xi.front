@@ -1,14 +1,34 @@
 // Не поддавайтесь соблазну использовать здесь import
-const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
 
-module.exports = withPWA({
-  experimental: { esmExternals: true },
+const plugins = [];
+
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  runtimeCaching,
+  mode: 'production',
+  reloadOnOnline: true,
+  cacheOnFrontEndNav: true,
+  disable: process.env.NODE_ENV === 'development',
+  skipWaiting: true,
+  sw: '/sw.js',
+  buildExcludes: [
+    /middleware-manifest\.json$/,
+    /_middleware\.js$/,
+    /_middleware\.js\.map$/,
+    /middleware-runtime\.js$/,
+    /server\/pages\/_middleware\.js$/,
+  ],
+});
+
+plugins.push(withPWA);
+
+const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV !== 'development',
   },
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     domains: [
       'xieffect.pythonanywhere.com',
@@ -20,24 +40,6 @@ module.exports = withPWA({
       'www.youtube.com',
     ],
   },
-  pwa: {
-    dest: 'public',
-    register: true,
-    runtimeCaching,
-    mode: 'production',
-    reloadOnOnline: true,
-    cacheOnFrontEndNav: true,
-    disable: process.env.NODE_ENV === 'development',
-    skipWaiting: true,
-    sw: '/sw.js',
-    buildExcludes: [
-      /middleware-manifest\.json$/,
-      /_middleware\.js$/,
-      /_middleware\.js\.map$/,
-      /middleware-runtime\.js$/,
-      /server\/pages\/_middleware\.js$/,
-    ],
-  },
   webpack(config) {
     config.module.rules.push({
       test: /\.(woff|woff2|eot|ttf|otf)$/i,
@@ -46,4 +48,6 @@ module.exports = withPWA({
     });
     return config;
   },
-});
+};
+
+module.exports = () => plugins.reduce((acc, next) => next(acc), nextConfig);
