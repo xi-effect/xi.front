@@ -13,6 +13,7 @@ import Task from './Task';
 import Announce from './Announce';
 import Chat from './Chat';
 import Burger from './Burger';
+import Camera from './Camera';
 
 type Props = {
   name: string;
@@ -35,6 +36,7 @@ const MyIcon: React.FC<Props> = ({ name, ...props }) => {
     task: <Task {...props} />,
     announce: <Announce {...props} />,
     chat: <Chat {...props} />,
+    camera: <Camera {...props} />,
   };
 
   return name && Object.keys(iDict).includes(name) ? iDict[name] : <Home {...props} />;

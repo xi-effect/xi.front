@@ -17,10 +17,11 @@ import MyIcon from 'kit/MyIcon';
 import Image from 'next/image';
 
 const iconsDict = {
-  announces: 'announce',
-  announce: 'announce',
+  posts: 'announce',
+  post: 'announce',
   task: 'task',
   chat: 'chat',
+  room: 'camera',
 };
 
 type ChannelT = {
@@ -40,11 +41,7 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
     const typeId = router.query.typeId ?? null;
 
     const handleChannelClick = () => {
-      router.push(
-        `/community/${router.query.id}/${channel.type}${
-          channel.type[channel.type.length - 1] !== 's' ? `/${channel.id}` : ''
-        }`,
-      );
+      router.push(`/community/${router.query.comid}/${channel.type}/${channel.id}/`);
     };
 
     return (
