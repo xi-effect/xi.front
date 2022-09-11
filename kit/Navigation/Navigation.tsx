@@ -57,10 +57,10 @@ const Navigation = inject(
         rootStore.initSocket();
       }
       rootStore.socket.on('connect', () => {
-        console.log('SIO connect', rootStore.socket.id);
+        console.info('SIO connect', rootStore.socket.id);
       });
       rootStore.socket.on('disconnect', () => {
-        console.log('SIO disconnect', rootStore.socket.id);
+        console.info('SIO disconnect', rootStore.socket.id);
       });
       rootStore.socket.on('error', (error) => {
         enqueueSnackbar('Ошибка соединения', {
@@ -76,16 +76,14 @@ const Navigation = inject(
     }, []);
 
     React.useEffect(() => {
-      console.log('rootStore.socketTest?.connected', rootStore.socketTest?.connected);
       if (!rootStore.socketTest?.connected) {
-        console.log('rootStore.initSocketTest()');
         rootStore.initSocketTest();
       }
       rootStore.socketTest.on('connectTest', () => {
-        console.log('SIO connectTest', rootStore.socketTest.id);
+        console.info('SIO connectTest', rootStore.socketTest.id);
       });
       rootStore.socketTest.on('disconnectTest', () => {
-        console.log('SIO disconnectTest', rootStore.socketTest.id);
+        console.info('SIO disconnectTest', rootStore.socketTest.id);
       });
       rootStore.socketTest.on('errorTest', (error) => {
         enqueueSnackbar('Ошибка соединения', {

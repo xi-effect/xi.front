@@ -8,6 +8,7 @@ import { inject, observer } from 'mobx-react';
 import { Stack, Box, Typography } from '@mui/material';
 import dynamic from 'next/dynamic';
 import MyIcon from 'kit/MyIcon';
+import { useLocalStorage } from 'react-use';
 import { SidebarSecond } from './SidebarSecond';
 
 const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
@@ -87,8 +88,14 @@ type MobileT = {
 const Mobile: React.FC<MobileT> = inject()(
   observer(({ children }) => {
     const router = useRouter();
+    const [valueLS, setValueLS] = useLocalStorage('is-main-menu-open');
 
     const [menuPosition, setMenuPosition] = React.useState<number>(0);
+
+    React.useEffect(() => {
+      if (valueLS) return setMenuPosition(316);
+      if (!valueLS) return setMenuPosition(0);
+    }, []);
 
     React.useEffect(() => {
       let prevX = 0;
@@ -101,22 +108,32 @@ const Mobile: React.FC<MobileT> = inject()(
         const dif = event.changedTouches[0].pageX - prevX;
 
         setMenuPosition((prev) => {
-          if (prev + dif < 0) return 0;
-          if (prev + dif > 316) return 316;
+          if (prev + dif < 0) {
+            setValueLS(false);
+            return 0;
+          }
+          if (prev + dif > 316) {
+            setValueLS(true);
+            return 316;
+          }
           return prev + dif;
         });
 
         prevX = event.changedTouches[0].pageX;
       };
 
+      const widthSwipe = valueLS ? 160 : 200;
+
       const handleEnd = (event: TouchEvent) => {
         setMenuPosition((prev) => {
           if (prev) {
-            if (prev > 180 && prev !== 316) {
+            if (prev > widthSwipe && prev !== 316) {
+              setValueLS(true);
               return 316;
             }
 
-            if (prev <= 180 && prev !== 0) {
+            if (prev <= widthSwipe && prev !== 0) {
+              setValueLS(false);
               return 0;
             }
           }

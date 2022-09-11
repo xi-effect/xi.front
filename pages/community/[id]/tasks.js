@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import React from 'react';
-import Navigation from 'kit/Navigation/Navigation';
+import { Navigation } from 'kit/Navigation';
 
 const Tasks = inject('userSt')(
   observer(() => (
