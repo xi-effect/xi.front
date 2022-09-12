@@ -72,7 +72,7 @@ class RootStore {
     });
   };
 
-  socketTest : null | Socket = null;
+  socketTest: null | Socket = null;
 
   @action initSocketTest = () => {
     this.socketTest = io('https://xieffect.ru:8000/');

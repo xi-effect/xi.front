@@ -2,7 +2,7 @@ import { action, observable, makeObservable } from 'mobx';
 import RootStore from '../rootStore';
 
 type DialogsType = {
-  communityCreation: boolean,
+  communityCreation: boolean;
   categoryCreation: boolean;
   channelCreation: boolean;
   invite: boolean;
