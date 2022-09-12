@@ -3,9 +3,9 @@ import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import React from 'react';
 import { Navigation } from 'kit/Navigation';
-import { Header, SubHeader, Items } from 'components/Community/Announces';
+import { Header, SubHeader, Items } from 'components/Community/Posts';
 
-const Announces = inject('userSt')(
+const Posts = inject('userSt')(
   observer(() => (
     // const router = useRouter()
     <>
@@ -18,7 +18,6 @@ const Announces = inject('userSt')(
           direction="column"
           justifyContent="flex-start"
           alignItems="flex-start"
-          spacing={0}
           sx={{
             height: '100vh',
             width: '100%',
@@ -35,4 +34,4 @@ const Announces = inject('userSt')(
   )),
 );
 
-export default Announces;
+export default Posts;

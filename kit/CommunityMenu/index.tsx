@@ -4,7 +4,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import { MenuItem, Stack, MenuList, Divider } from '@mui/material';
+import { MenuItem, Stack, MenuList, Divider, Typography } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 
 type CommunityMenuProps = {
@@ -39,7 +39,15 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
             alignItems="center"
             sx={{ width: '100%' }}
           >
-            Пригласить людей
+            <Typography
+              sx={{
+                fontWeight: 500,
+                fontSize: '14px',
+                lineHeight: '18px',
+              }}
+            >
+              Пригласить людей
+            </Typography>
             <PersonAddAlt1Icon fontSize="small" />
           </Stack>
         </MenuItem>
@@ -56,7 +64,15 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
             alignItems="center"
             sx={{ width: '100%' }}
           >
-            Настройки сообщества
+            <Typography
+              sx={{
+                fontWeight: 500,
+                fontSize: '14px',
+                lineHeight: '18px',
+              }}
+            >
+              Настройки сообщества
+            </Typography>
             <SettingsIcon fontSize="small" />
           </Stack>
         </MenuItem>
@@ -74,7 +90,15 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
             alignItems="center"
             sx={{ width: '100%' }}
           >
-            Создать канал
+            <Typography
+              sx={{
+                fontWeight: 500,
+                fontSize: '14px',
+                lineHeight: '18px',
+              }}
+            >
+              Создать канал
+            </Typography>
             <AddCircleIcon fontSize="small" />
           </Stack>
         </MenuItem>
@@ -91,7 +115,15 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
             alignItems="center"
             sx={{ width: '100%' }}
           >
-            Создать категорию
+            <Typography
+              sx={{
+                fontWeight: 500,
+                fontSize: '14px',
+                lineHeight: '18px',
+              }}
+            >
+              Создать категорию
+            </Typography>
             <CreateNewFolderIcon fontSize="small" />
           </Stack>
         </MenuItem>
@@ -108,7 +140,15 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
             alignItems="center"
             sx={{ width: '100%', color: 'error.main' }}
           >
-            Покинуть сообщество
+            <Typography
+              sx={{
+                fontWeight: 500,
+                fontSize: '14px',
+                lineHeight: '18px',
+              }}
+            >
+              Покинуть сообщество
+            </Typography>
             <LogoutIcon sx={{ color: 'error.main' }} fontSize="small" />
           </Stack>
         </MenuItem>

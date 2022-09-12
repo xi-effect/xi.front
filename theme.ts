@@ -1,19 +1,3 @@
-/* eslint-disable no-unused-vars */
-// import { Theme } from '@mui/material';
-
-// declare module '@mui/material/styles' {
-//   interface ThemeOptions {
-//     breakpoints: {
-//       keys: {
-//         [key in number]: string;
-//       },
-//       values: {
-//         [key in string]: number;
-//       },
-//     };
-//   }
-// }
-
 export const getDesignTokens = (mode) => ({
   components: {
     // Name of the component

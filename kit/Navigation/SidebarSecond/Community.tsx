@@ -17,10 +17,12 @@ import MyIcon from 'kit/MyIcon';
 import Image from 'next/image';
 
 const iconsDict = {
-  announces: 'announce',
-  announce: 'announce',
+  posts: 'announce',
+  post: 'announce',
   task: 'task',
   chat: 'chat',
+  room: 'camera',
+  schedule: 'calendar',
 };
 
 type ChannelT = {
@@ -40,11 +42,7 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
     const typeId = router.query.typeId ?? null;
 
     const handleChannelClick = () => {
-      router.push(
-        `/community/${router.query.id}/${channel.type}${
-          channel.type[channel.type.length - 1] !== 's' ? `/${channel.id}` : ''
-        }`,
-      );
+      router.push(`/community/${router.query.comid}/${channel.type}/${channel.id}/`);
     };
 
     return (
@@ -61,6 +59,14 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
           bgcolor: lastType === channel.type && typeId === channel.id ? 'action.hover' : null,
           '&:hover': {
             bgcolor: 'primary.pale',
+
+            '.MuiListItemText-root': {
+              color: 'primary.dark',
+            },
+
+            svg: {
+              fill: '#445AFF',
+            },
           },
         }}
       >
@@ -71,7 +77,7 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
             minWidth: '24px !important',
           }}
         >
-          <MyIcon name={iconsDict[channel.type]} />
+          <MyIcon name={iconsDict[channel.type]} color="primary" />
         </ListItemIcon>
         <ListItemText
           disableTypography

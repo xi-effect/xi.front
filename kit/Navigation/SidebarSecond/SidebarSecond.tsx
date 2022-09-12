@@ -21,14 +21,16 @@ const SidebarSecond = inject()(
           mt: '0px',
           p: 0,
           width: 236,
-          border: '4px',
+          borderRadius: '8px',
           backgroundColor: 'gray.0',
           height: 'calc(100vh - 16px)',
+          boxShadow: 0,
         }}
       >
         <Stack
           sx={{
             width: 236,
+            borderRadius: '8px',
           }}
           direction="column"
           justifyContent="flex-start"
@@ -41,6 +43,7 @@ const SidebarSecond = inject()(
               zIndex: 100,
               p: 0,
               borderBottom: '1px solid #ECEFFF',
+              borderRadius: '8px',
             }}
           >
             {router.pathname.includes('/home') && <Home />}

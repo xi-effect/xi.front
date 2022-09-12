@@ -33,7 +33,7 @@ const Desktop: React.FC<DesktopT> = inject()(
         <Box sx={{ width: 64 }}>
           <Sidebar />
         </Box>
-        <Box sx={{ width: 236 }}>
+        <Box sx={{ width: 236, borderRadius: '8px' }}>
           <SidebarSecond />
         </Box>
         {children}
