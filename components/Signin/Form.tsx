@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
 import { Button, Stack, Link, InputAdornment, Box } from '@mui/material';
 import MyIcon from 'kit/MyIcon';
-import AuthorizationSt from "../../store/user/authorizationSt";
+import AuthorizationSt from '../../store/user/authorizationSt';
 
 type FormValues = {
   email: string;
