@@ -1,12 +1,41 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
-import { NextRouter, useRouter } from 'next/router';
+import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { useSessionStorage } from 'react-use';
 import Form from 'components/Signin/Form';
-import XiLogo from 'kit/XiLogoNew';
-
+import XiLogo from 'kit/XiLogo';
 import { Stack, Typography, Link, Divider, useMediaQuery } from '@mui/material';
+
+const Tearms = () => (
+  <>
+    <Typography
+      variant="caption"
+      paddingTop="12px"
+      paddingBottom="5px"
+      sx={{
+        color: 'gray.40',
+      }}
+    >
+      Нажимая «Войти», вы принимаете условия
+    </Typography>
+    <Link
+      underline="none"
+      sx={{
+        cursor: 'pointer',
+        mt: '-4px',
+        color: 'primary.main',
+        fontWeight: 400,
+        fontSize: 12,
+        lineHeight: '16px',
+        letterSpacing: 0,
+      }}
+      onClick={() => Router.replace('/signin')}
+    >
+      пользовательского соглашения
+    </Link>
+  </>
+);
 
 const Signin = inject(
   'uiSt',
@@ -15,14 +44,13 @@ const Signin = inject(
 )(
   observer((props) => {
     const { uiSt, userSt, authorizationSt } = props;
-    const router: NextRouter = useRouter();
 
     const [prevPathname] = useSessionStorage('prevPathname');
 
     const isMobile: boolean = useMediaQuery('(max-width: 472px)');
 
     useEffect(() => {
-      if (prevPathname !== '/home') {
+      if (prevPathname !== '/home' && prevPathname !== '/signup') {
         uiSt.setLoading('loading', true);
         userSt.getMainSettings('login');
       }
@@ -59,29 +87,29 @@ const Signin = inject(
           alignItems="center"
           sx={{
             width: '100%',
-            minHeight: '100vh',
-            pt: isMobile ? '4px' : 0, // but need '96px' for Server Error
+            minHeight: isMobile ? 'calc(100vh - 96px)' : '100vh',
+            height: '100%',
           }}
         >
           <Stack
             direction="column"
-            padding={isMobile ? '0 20px 0 20px' : '30px 31px 31px 32px'}
+            padding={isMobile ? '16px 20px 0 20px' : '32px'}
+            spacing={2}
             sx={{
               width: isMobile ? '100%' : '420px',
               height: isMobile ? '395px' : '514px',
               borderRadius: '16px',
               border: isMobile ? 'none' : '1px solid #E6E6E6', // gray.10
+              position: 'relative',
             }}
           >
             <Stack alignItems="center">
-              <XiLogo />
+              <XiLogo width="142px" height="24px" />
             </Stack>
             <Typography
               variant="h5"
               sx={{
-                pt: isMobile ? `${authorizationSt.signin.error ? 35 : 9}px` : '9px',
-                pb: '33px',
-                ml: '-3px',
+                pb: '16px',
                 textAlign: 'center',
                 fontWeight: 600,
               }}
@@ -89,53 +117,44 @@ const Signin = inject(
               Вход в аккаунт
             </Typography>
             <Form {...props} />
-          </Stack>
-          <Stack
-            position={isMobile ? 'absolute' : 'inherit'}
-            bottom="4px"
-            direction="column"
-            alignItems="center"
-            sx={{}}
-          >
-            <Typography
-              variant="caption"
-              paddingTop="12px"
-              paddingBottom="5px"
-              sx={{
-                color: 'gray.40',
-              }}
-            >
-              Нажимая «Войти», вы принимаете условия
-            </Typography>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <Link
-              underline="none"
-              sx={{
-                cursor: 'pointer',
-                mt: '-4px',
-                color: 'primary.main',
-                fontWeight: 400,
-                fontSize: 12,
-                lineHeight: '16px',
-                letterSpacing: 0,
-              }}
-              onClick={() => router.replace('/signup')}
-            >
-              пользовательского соглашения
-            </Link>
-            {isMobile && (
-              <Divider
+            {!isMobile && (
+              <Stack
+                direction="column"
+                alignItems="center"
                 sx={{
-                  mt: '53px',
-                  width: '134px',
-                  height: '5px',
-                  backgroundColor: 'gray.100',
-                  borderRadius: '100px',
+                  position: 'absolute',
+                  bottom: '-48px',
+                  left: '0px',
+                  width: '100%',
                 }}
-              />
+              >
+                <Tearms />
+              </Stack>
             )}
           </Stack>
         </Stack>
+        {isMobile && (
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            sx={{
+              width: '100%',
+              height: '96px',
+            }}
+          >
+            <Tearms />
+            <Divider
+              sx={{
+                mt: 4,
+                width: '134px',
+                height: '5px',
+                backgroundColor: 'gray.100',
+                borderRadius: '100px',
+              }}
+            />
+          </Stack>
+        )}
       </>
     );
   }),

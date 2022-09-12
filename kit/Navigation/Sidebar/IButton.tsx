@@ -11,6 +11,8 @@ type Props = {
   typography?: string;
   onClick?: () => void;
   disableHover?: boolean;
+  iconColor?: string;
+  iconColorHover?: string;
 };
 
 const IButton: React.FC<Props> = (props) => {
@@ -22,6 +24,8 @@ const IButton: React.FC<Props> = (props) => {
     typography,
     onClick,
     disableHover = false,
+    iconColor,
+    iconColorHover,
   } = props;
 
   const [isHover, setIsHover] = React.useState(false);
@@ -44,6 +48,18 @@ const IButton: React.FC<Props> = (props) => {
     return null;
   };
 
+  const getSvgFill = () => {
+    if (iconColor && iconColorHover && isActive) return iconColorHover;
+    if (iconColor) return iconColor;
+    return '';
+  };
+
+  const getSvgFillHover = () => {
+    if (iconColor && iconColorHover && isActive) return iconColorHover;
+    if (iconColorHover) return iconColorHover;
+    return '';
+  };
+
   return (
     <Tooltip placement="right" title={tooltip}>
       <IconButton
@@ -56,6 +72,10 @@ const IButton: React.FC<Props> = (props) => {
           height: 48,
           borderRadius: isActive ? '16px' : 24,
           transition: '0.3s',
+          svg: {
+            fill: getSvgFill(),
+          },
+
           '&:hover': {
             bgcolor: !disableHover ? 'primary.dark' : '',
             borderRadius: '16px',
@@ -63,7 +83,11 @@ const IButton: React.FC<Props> = (props) => {
             '.MuiTypography-root': {
               color: !disableHover ? 'gray.0' : '',
             },
+            svg: {
+              fill: getSvgFillHover(),
+            },
           },
+
           '&:before': {
             display: isBefore && isActive ? 'block' : 'none',
             transition: '0.4s',

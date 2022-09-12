@@ -15,12 +15,12 @@ import { SnackbarProvider } from 'notistack';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import '../styles/globals.css';
+import 'styles/globals.css';
 
 import Loading from 'kit/Loading/Loading';
-import createEmotionCache from '../store/createEmotionCache';
-import { useStore } from '../store/rootStore';
-import { getDesignTokens } from '../theme';
+import { useStore } from 'store/rootStore';
+import createEmotionCache from 'store/createEmotionCache';
+import { getDesignTokens } from 'theme';
 
 config.autoAddCss = false;
 
@@ -40,7 +40,10 @@ const MyApp = observer((props) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+        <meta
+          name="viewport"
+          content="height=device-height, width=device-width, initial-scale=0.9, maximum-scale=0.9"
+        />
       </Head>
       {/* MobX Provider */}
       <Provider

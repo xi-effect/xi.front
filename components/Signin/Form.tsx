@@ -9,6 +9,11 @@ import { Button, Stack, Link, InputAdornment, Box } from '@mui/material';
 
 import MyIcon from 'kit/MyIcon';
 
+type FormValues = {
+  email: string;
+  password: string;
+};
+
 const schema = yup
   .object({
     email: yup.string().email().max(100).required(),
@@ -35,9 +40,11 @@ const Form: React.FC<Props> = inject('authorizationSt')(
       handleSubmit,
       trigger,
       formState: { errors },
-    } = useForm({
+    } = useForm<FormValues>({
       resolver: yupResolver(schema),
     });
+
+    console.log('errors', errors);
 
     const onSubmit = (data) => {
       trigger();
@@ -51,7 +58,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
     };
 
     const getPasswordError = () => {
-      if (errors.email?.password || errorPassword) return 'Неправильный пароль';
+      if (errors.email || errorPassword) return 'Неправильный пароль';
       return null;
     };
 
@@ -63,7 +70,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
         component="form"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Stack>
+        <Stack direction="column" spacing={2}>
           <Controller
             name="email"
             control={control}
@@ -116,7 +123,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
           />
           <Link
             underline="none"
-            href="/"
             sx={{
               cursor: 'pointer',
               color: 'primary.dark',
@@ -125,13 +131,12 @@ const Form: React.FC<Props> = inject('authorizationSt')(
               lineHeight: '18px',
               letterSpacing: 0,
             }}
-            onClick={() => router.push({ pathname: '/resetpassword/email' })}
+            onClick={() => router.push('/resetpassword/email')}
           >
             Восстановить пароль
           </Link>
         </Stack>
         <Stack flexDirection="row" justifyContent="space-between" alignItems="center">
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <Link
             underline="none"
             sx={{
@@ -142,7 +147,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
               lineHeight: '20px',
               letterSpacing: 0,
             }}
-            onClick={() => router.push({ pathname: '/signup' })}
+            onClick={() => router.push('/signup')}
           >
             Регистрация
           </Link>

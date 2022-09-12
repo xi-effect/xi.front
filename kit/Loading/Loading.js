@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Box, Typography, useMediaQuery } from '@mui/material';
+import { Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { inject, observer } from 'mobx-react';
 import ImpulseSpinner from 'kit/Loading/ImpulseSpinner';
@@ -52,15 +52,15 @@ const Loading = inject('uiSt')(
             component={motion.div}
             container
             direction="column"
-            justifyContent="flex-start"
-            alignItems={mobile ? 'center' : 'flex-start'}
+            justifyContent={mobile ? 'flex-start' : 'center'}
+            alignItems={mobile ? 'center' : 'center'}
             sx={{
-              p: mobile ? '48px 40px' : '98px 100px',
+              p: mobile ? '56px 20px' : '98px 100px',
               position: 'fixed',
               height: '100vh',
               width: '100vw',
               zIndex: 99999,
-              bgcolor: 'primary.dark',
+              bgcolor: 'primary.pale',
               overflow: 'hidden',
             }}
             initial={{ opacity: 1 }}
@@ -68,38 +68,57 @@ const Loading = inject('uiSt')(
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, delay: 1 }}
           >
-            <Box
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
               sx={{
-                pl: '4px',
+                height: '28px',
+                position: 'relative',
+                maxWidth: '540px',
+                width: '100%',
               }}
             >
               <ImpulseSpinner />
-            </Box>
-            <Typography
-              align="left"
-              sx={{
-                width: '100%',
-                mt: '64px',
-                color: '#FFFFFF',
-                fontSize: mobile ? '24px' : '36px',
-                maxWidth: '752px',
-                lineHeight: mobile ? '36px' : '48px',
-              }}
-            >
-              {quotes[randomValue].text}
-            </Typography>
-            <Typography
-              align="left"
-              sx={{
-                width: '100%',
-                mt: '24px',
-                color: '#FFFFFF',
-                fontSize: mobile ? '24px' : '36px',
-                lineHeight: '48px',
-              }}
-            >
-              {`© ${quotes[randomValue ?? 0].author}`}
-            </Typography>
+              <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                sx={{
+                  position: 'absolute',
+                  top: '66px',
+                  maxWidth: '540px',
+                  width: '100%',
+                }}
+              >
+                <Typography
+                  align={mobile ? 'left' : 'center'}
+                  sx={{
+                    width: '100%',
+                    color: 'gray.80',
+                    fontSize: mobile ? '20px' : '20px',
+                    maxWidth: '540px',
+                    lineHeight: mobile ? '28px' : '28px',
+                    fontWeight: 500,
+                  }}
+                >
+                  {quotes[randomValue].text}
+                </Typography>
+                <Typography
+                  align={mobile ? 'left' : 'center'}
+                  sx={{
+                    width: '100%',
+                    mt: '24px',
+                    color: 'gray.80',
+                    fontSize: mobile ? '20px' : '20px',
+                    lineHeight: '48px',
+                    fontWeight: 500,
+                  }}
+                >
+                  {`© ${quotes[randomValue ?? 0].author}`}
+                </Typography>
+              </Stack>
+            </Stack>
           </Grid>
         )}
       </AnimatePresence>

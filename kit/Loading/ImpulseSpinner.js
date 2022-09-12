@@ -12,7 +12,7 @@ const impulse = keyframes`
         animation-timing-function: cubic-bezier(1,0,0.7,1);
     }
     40% {
-        background: #ffffff;
+        background: #445AFF;
         transform: scale(1.5);
         animation-timing-function: cubic-bezier(0.3,0,0,1);
     }

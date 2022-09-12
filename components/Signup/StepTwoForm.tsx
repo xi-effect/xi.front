@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Typography, Button, Box, InputAdornment, Link, Stack } from '@mui/material';
@@ -99,6 +98,7 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
             variant="contained"
             type="submit"
             sx={{
+              height: '48px',
               width: '180px',
               fontWeight: 500,
               fontSize: '18px',

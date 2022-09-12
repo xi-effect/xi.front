@@ -2,6 +2,7 @@ import { action, observable, makeObservable } from 'mobx';
 import RootStore from '../rootStore';
 
 type DialogsType = {
+  communityCreation: boolean,
   categoryCreation: boolean;
   channelCreation: boolean;
   invite: boolean;
@@ -61,6 +62,7 @@ class UISt {
   };
 
   @observable dialogs: DialogsType = {
+    communityCreation: false,
     categoryCreation: false,
     channelCreation: false,
     invite: false,

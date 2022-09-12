@@ -1,33 +1,39 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useState } from 'react';
+import { useRouter, NextRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
-import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Button, Link, Stack, Typography } from '@mui/material';
 import TextFieldCustom from 'kit/TextFieldCustom';
-import { useRouter } from 'next/router';
+import { Button, Stack, Link, InputAdornment, Box } from '@mui/material';
+
+import MyIcon from 'kit/MyIcon';
+import { getLastCodeFromURL } from 'utils/getLastCodeFromURL';
 
 const schema = yup
   .object({
-    email: yup.string().email().max(100).required(),
+    password: yup.string().min(6).max(100).required(),
+    passwordAgain: yup.string().min(6).max(100).required(),
   })
   .required();
 
-interface ISignupForm {
-  authorizationSt?: any;
-}
-
-type SignupFormValues = {
-  code: string;
-  username: string;
-  email: string;
-  password: string;
+type Props = {
+  authorizationSt: any;
 };
 
-const Form: React.FC<ISignupForm> = inject('authorizationSt')(
-  observer(({ authorizationSt }) => {
-    const router = useRouter();
+type SignupFormValues = {
+  password: string;
+  passwordAgain: string;
+};
+
+const Form: React.FC<Props> = inject('authorizationSt')(
+  observer((props) => {
+    const { authorizationSt } = props;
+    const router: NextRouter = useRouter();
+
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [showPasswordAgain, setShowPasswordAgain] = useState<boolean>(false);
+    const [passwordsError, setPasswordsError] = useState<boolean>(false);
 
     const {
       control,
@@ -39,57 +45,105 @@ const Form: React.FC<ISignupForm> = inject('authorizationSt')(
     });
 
     const onSubmitHandler: SubmitHandler<SignupFormValues> = (data) => {
-      trigger().then((res) => {
-        if (res) {
-          authorizationSt.clickPasswordResetButton(data);
-        }
-      });
+      const id = getLastCodeFromURL();
+      setPasswordsError(false);
+      trigger();
+      if (data.password !== data.passwordAgain) {
+        setPasswordsError(true);
+      } else {
+        authorizationSt.saveNewPassword(id, data);
+      }
+    };
+
+    const getPasswordError = () => {
+      if (errors.passwordAgain?.message) return 'Неправильный пароль';
+      if (passwordsError) return 'Пароли не совпадают';
+      return '';
     };
 
     return (
       <Stack
+        height="100%"
+        direction="column"
+        justifyContent="space-between"
         component="form"
         onSubmit={handleSubmit(onSubmitHandler)}
-        justifyContent="space-between"
-        height="100%"
-        position="relative"
       >
-        <Stack spacing="16px">
+        <Stack direction="column" spacing={2}>
           <Controller
-            name="email"
+            name="password"
             control={control}
             defaultValue=""
             render={({ field }) => (
               <TextFieldCustom
                 variant="outlined"
-                error={!!errors.email || authorizationSt.passwordReset.emailNotFound}
-                type="email"
+                error={!!errors.password?.message}
                 fullWidth
-                placeholder="Электронная почта"
-                helperText={
-                  authorizationSt.passwordReset.emailNotFound ? 'Не удалось найти аккаунт' : ''
-                }
+                placeholder="Пароль"
+                type={showPassword ? 'text' : 'password'}
+                helperText={errors.password?.message ? 'Неправильный пароль' : ''}
                 {...field}
-                sx={{
-                  backgroundColor: '#fff',
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end" sx={{ mr: '7px' }}>
+                      <Box
+                        width="24px"
+                        height="24px"
+                        borderRadius="8px"
+                        sx={{ cursor: 'pointer' }}
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {!showPassword ? <MyIcon name="eyeoff" /> : <MyIcon name="eyeon" />}
+                      </Box>
+                    </InputAdornment>
+                  ),
                 }}
               />
             )}
           />
-          <Typography
-            sx={{
-              fontSize: '14px',
-              lineHeight: '16px',
-            }}
-          >
-            Введите адрес, привязанный к аккаунту
-          </Typography>
+          <Controller
+            name="passwordAgain"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextFieldCustom
+                variant="outlined"
+                error={!!errors.passwordAgain?.message}
+                fullWidth
+                placeholder="Подтверждение пароля"
+                type={showPassword ? 'text' : 'password'}
+                helperText={getPasswordError()}
+                {...field}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end" sx={{ mr: '7px' }}>
+                      <Box
+                        width="24px"
+                        height="24px"
+                        borderRadius="8px"
+                        sx={{ cursor: 'pointer' }}
+                        onClick={() => setShowPasswordAgain(!showPasswordAgain)}
+                      >
+                        {!showPasswordAgain ? <MyIcon name="eyeoff" /> : <MyIcon name="eyeon" />}
+                      </Box>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+          />
         </Stack>
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack flexDirection="row" justifyContent="space-between" alignItems="center">
           <Link
             underline="none"
-            aria-label="Войти"
-            sx={{ cursor: 'pointer' }}
+            sx={{
+              cursor: 'pointer',
+              color: 'primary.dark',
+              fontWeight: 500,
+              fontSize: 16,
+              lineHeight: '20px',
+              letterSpacing: 0,
+            }}
             onClick={() => router.push('/signin')}
           >
             Войти
@@ -98,14 +152,16 @@ const Form: React.FC<ISignupForm> = inject('authorizationSt')(
             type="submit"
             variant="contained"
             sx={{
-              width: '120px',
+              width: '160px',
+              height: '48px',
+              borderRadius: '8px',
               fontWeight: 500,
-              fontSize: '18px',
+              fontSize: 18,
               lineHeight: '22px',
-              textTransform: 'none',
+              textTransform: 'capitalize',
             }}
           >
-            Далее
+            Сохранить
           </Button>
         </Stack>
       </Stack>

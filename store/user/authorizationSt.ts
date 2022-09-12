@@ -79,6 +79,7 @@ class AuthorizationSt {
   @observable passwordReset: PasswordResetT = {
     emailNotFound: false,
     emailResetOk: false,
+    email: '',
   };
 
   @action setPasswordReset = (name: string, value: boolean) => {

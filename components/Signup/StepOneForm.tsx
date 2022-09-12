@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { useRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
@@ -74,6 +73,7 @@ const StepOneForm: React.FC<IStepOneForm> = inject('authorizationSt')(
             variant="contained"
             sx={{
               width: '120px',
+              height: '48px',
               fontWeight: 500,
               fontSize: '18px',
               lineHeight: '22px',
