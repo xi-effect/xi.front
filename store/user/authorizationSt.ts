@@ -29,6 +29,7 @@ type ResponseDataT = 'Success' | 'Code error' | "User doesn't exist";
 type PasswordResetT = {
   emailNotFound: boolean;
   emailResetOk: boolean;
+  email:string;
 };
 
 type DataRegT = {

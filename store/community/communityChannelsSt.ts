@@ -7,6 +7,7 @@ type ChannelsType = {
   name: string;
   unread?: number;
   open?: boolean;
+  subtext?:string;
   children?: ChildrenType[];
 };
 
