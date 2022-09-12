@@ -7,7 +7,7 @@ import { useRouter, NextRouter } from 'next/router';
 
 type ItemsT = {
   rootStore?: any;
-  index: number
+  index: number;
 };
 
 const Item: React.FC<ItemsT> = inject('rootStore')(
@@ -19,7 +19,9 @@ const Item: React.FC<ItemsT> = inject('rootStore')(
         direction="column"
         justifyContent="flex-start"
         alignItems="flex-start"
-        onClick={() => router.push(`/community/${router.query.comid}/posts/${router.query.chid}/post/${index}`)}
+        onClick={() =>
+          router.push(`/community/${router.query.comid}/posts/${router.query.chid}/post/${index}`)
+        }
         sx={{
           position: 'relative',
           height: '224px',

@@ -24,7 +24,7 @@ const Breadcrumbs: React.FC<BreadcrumbsT> = inject('rootStore')(
         sx={{
           fontWeight: 400,
           fontSize: '14px',
-          lineHeight: '16px', 
+          lineHeight: '16px',
           color: 'primary.main',
         }}
       >

@@ -15,7 +15,7 @@ const Items: React.FC<ItemsT> = inject('rootStore')(
       <Grid container spacing={2}>
         {Array.from(Array(9)).map((_, index) => (
           <Grid item xs key={index}>
-            <Item index={index}/>
+            <Item index={index} />
           </Grid>
         ))}
       </Grid>
