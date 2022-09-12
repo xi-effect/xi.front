@@ -58,6 +58,14 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
           bgcolor: lastType === channel.type && typeId === channel.id ? 'action.hover' : null,
           '&:hover': {
             bgcolor: 'primary.pale',
+
+            '.MuiListItemText-root': {
+              color: 'primary.dark',
+            },
+
+            svg: {
+              fill: '#445AFF',
+            },
           },
         }}
       >
@@ -68,7 +76,7 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
             minWidth: '24px !important',
           }}
         >
-          <MyIcon name={iconsDict[channel.type]} />
+          <MyIcon name={iconsDict[channel.type]} color="primary" />
         </ListItemIcon>
         <ListItemText
           disableTypography

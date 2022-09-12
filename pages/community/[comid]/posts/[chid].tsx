@@ -18,7 +18,6 @@ const Posts = inject('userSt')(
           direction="column"
           justifyContent="flex-start"
           alignItems="flex-start"
-          spacing={0}
           sx={{
             height: '100vh',
             width: '100%',

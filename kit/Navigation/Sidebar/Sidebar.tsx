@@ -201,7 +201,7 @@ const Sidebar: React.FC<SidebarType> = inject(
           <IButton tooltip="Уведомления" icon="notification" disableHover />
           <IButton
             tooltip="Профиль"
-            href="/profile/1"
+            href="/profile/profile1"
             icon="account"
             isBefore
             iconColor="#445AFF"

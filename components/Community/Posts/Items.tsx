@@ -11,11 +11,11 @@ type ItemsT = {
 
 const Items: React.FC<ItemsT> = inject('rootStore')(
   observer(() => (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, mt: '24px' }}>
       <Grid container spacing={2}>
         {Array.from(Array(9)).map((_, index) => (
           <Grid item xs key={index}>
-            <Item />
+            <Item index={index}/>
           </Grid>
         ))}
       </Grid>

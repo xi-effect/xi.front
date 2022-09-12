@@ -28,15 +28,9 @@ const IButton: React.FC<Props> = (props) => {
     iconColorHover,
   } = props;
 
-  const [isHover, setIsHover] = React.useState(false);
-
-  const toggleHover = () => {
-    setIsHover((prev) => !prev);
-  };
-
   const router = useRouter();
   const array = href ? href.split('/') : false;
-  const isActive = array ? router.query.id === array[2] : false;
+  const isActive = array ? router.query.comid === array[2] : false;
 
   const handleClick = () => {
     if (onClick) {
@@ -63,8 +57,6 @@ const IButton: React.FC<Props> = (props) => {
   return (
     <Tooltip placement="right" title={tooltip}>
       <IconButton
-        onMouseEnter={toggleHover}
-        onMouseLeave={toggleHover}
         onClick={handleClick}
         sx={{
           bgcolor: isActive ? 'primary.dark' : 'gray.0',
@@ -115,7 +107,7 @@ const IButton: React.FC<Props> = (props) => {
             {typography}
           </Typography>
         )}
-        {icon && <MyIcon name={icon} color={isHover ? 'primary' : 'primary'} />}
+        {icon && <MyIcon name={icon} color="primary" />}
       </IconButton>
     </Tooltip>
   );
