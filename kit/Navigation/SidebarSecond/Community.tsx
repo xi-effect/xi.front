@@ -22,6 +22,7 @@ const iconsDict = {
   task: 'task',
   chat: 'chat',
   room: 'camera',
+  schedule: 'calendar',
 };
 
 type ChannelT = {

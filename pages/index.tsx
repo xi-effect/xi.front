@@ -124,6 +124,7 @@ const Main = inject(
                 fontSize: tFontSize[deviceWidth],
                 lineHeight: tLineHeight[deviceWidth],
                 zIndex: 1000,
+                cursor: 'default',
               }}
             >
               Платформа
@@ -175,6 +176,7 @@ const Main = inject(
               fontWeight: 400,
               fontSize: t2FontSize[deviceWidth],
               lineHeight: t2LineHeight[deviceWidth],
+              cursor: 'default',
             }}
           >
             Для школ, курсов, {mobilesm && <br />} дополнительного образования

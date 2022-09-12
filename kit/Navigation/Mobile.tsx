@@ -124,7 +124,7 @@ const Mobile: React.FC<MobileT> = inject()(
 
       const widthSwipe = valueLS ? 160 : 200;
 
-      const handleEnd = (event: TouchEvent) => {
+      const handleEnd = () => {
         setMenuPosition((prev) => {
           if (prev) {
             if (prev > widthSwipe && prev !== 316) {
@@ -176,7 +176,7 @@ const Mobile: React.FC<MobileT> = inject()(
           <Box sx={{ width: 64 }}>
             <Sidebar />
           </Box>
-          <Box sx={{ width: 236 }}>
+          <Box sx={{ width: 236, borderRadius: '8px' }}>
             <SidebarSecond />
           </Box>
         </Stack>

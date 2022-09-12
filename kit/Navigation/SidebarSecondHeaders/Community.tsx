@@ -15,7 +15,6 @@ import {
   ClickAwayListener,
 } from '@mui/material';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -70,9 +69,12 @@ const Community = inject('communitySt')(
         justifyContent="space-between"
         alignItems="center"
         sx={{
+          borderBottom: '1px solid #ECEFFF',
+          borderRadius: '8px',
           p: 1,
+          bgcolor: open ? 'primary.light' : 'gray.0' ,
           '&:hover': {
-            bgcolor: 'action.hover',
+            bgcolor: open ? 'primary.light' : 'gray.0',
             cursor: 'pointer',
           },
         }}
@@ -99,32 +101,8 @@ const Community = inject('communitySt')(
               width: 36,
             }}
           >
-            <AnimatePresence initial={false} exitBeforeEnter>
-              {!open && (
-                <Stack
-                  key="arrow"
-                  component={motion.div}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <KeyboardArrowDownIcon />
-                </Stack>
-              )}
-              {open && (
-                <Stack
-                  key="close"
-                  component={motion.div}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <CloseIcon />
-                </Stack>
-              )}
-            </AnimatePresence>
+            {!open && <KeyboardArrowDownIcon />}
+            {open && <CloseIcon />}
           </IconButton>
         </Tooltip>
         <Popper
@@ -134,7 +112,7 @@ const Community = inject('communitySt')(
           transition
           sx={{
             height: 356,
-            width: 248,
+            width: 228,
             left: 0,
             zIndex: 10000,
           }}
@@ -146,7 +124,17 @@ const Community = inject('communitySt')(
                 transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom',
               }}
             >
-              <Paper sx={{ position: 'absolute', left: 4, top: 4, width: 248 }}>
+              <Paper
+                sx={{
+                  position: 'absolute',
+                  left: 4,
+                  top: 12,
+                  width: 228,
+                  boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.2)',
+                  borderRadius: '8px',
+                  bgcolor: 'primary.pale',
+                }}
+              >
                 <ClickAwayListener onClickAway={handleClose}>
                   <Box>
                     <CommunityMenu

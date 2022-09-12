@@ -14,6 +14,9 @@ import Announce from './Announce';
 import Chat from './Chat';
 import Burger from './Burger';
 import Camera from './Camera';
+import Settings from './Settings';
+import Close from './Close';
+import Invite from './Invite';
 
 type Props = {
   name: string;
@@ -37,6 +40,9 @@ const MyIcon: React.FC<Props> = ({ name, ...props }) => {
     announce: <Announce {...props} />,
     chat: <Chat {...props} />,
     camera: <Camera {...props} />,
+    settings: <Settings {...props} />,
+    close: <Close {...props} />,
+    invite: <Invite {...props} />,
   };
 
   return name && Object.keys(iDict).includes(name) ? iDict[name] : <Home {...props} />;

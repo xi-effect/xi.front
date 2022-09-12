@@ -3,7 +3,7 @@ import { SvgIcon } from '@mui/material';
 type Props = {
   color?: string;
   size?: number;
-  fontSize?: number,
+  fontSize?: number;
   [key: string]: any;
 };
 
