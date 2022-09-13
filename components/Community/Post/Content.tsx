@@ -14,6 +14,7 @@ const Content: React.FC<ItemsT> = inject('rootStore')(
       justifyContent="flex-start"
       alignItems="flex-start"
       sx={{
+        mt: '24px',
         position: 'relative',
         backgroundColor: 'gray.0',
         padding: 3,

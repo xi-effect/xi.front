@@ -38,12 +38,14 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
   observer(({ channel }) => {
     const router = useRouter();
     const splitPathname = router.pathname.split('/');
-    const lastType = splitPathname[splitPathname.length - 2];
-    const typeId = router.query.typeId ?? null;
+    const chType = splitPathname[3];
+    const chid = router.query.chid ?? null;
 
     const handleChannelClick = () => {
       router.push(`/community/${router.query.comid}/${channel.type}/${channel.id}/`);
     };
+
+    const isSameChannel = chType === channel.type && chid === channel.id.toString();
 
     return (
       <MenuItem
@@ -56,7 +58,16 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
           mr: 1,
           pl: '6px',
           pr: '6px',
-          bgcolor: lastType === channel.type && typeId === channel.id ? 'action.hover' : null,
+          bgcolor: isSameChannel ? 'primary.pale' : null,
+
+          '.MuiListItemText-root': {
+            color: isSameChannel ? 'primary.dark' : null,
+          },
+
+          svg: {
+            fill: isSameChannel ? '#445AFF' : '',
+          },
+
           '&:hover': {
             bgcolor: 'primary.pale',
 

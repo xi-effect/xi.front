@@ -8,7 +8,7 @@ type HeaderT = {
   rootStore?: any;
 };
 
-const Header: React.FC<HeaderT> = inject('rootStore')(
+const Title: React.FC<HeaderT> = inject('rootStore')(
   observer(() => (
     <Stack
       direction="row"
@@ -26,7 +26,7 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
           color: 'gray.100',
         }}
       >
-        Объявления
+        Задания
       </Typography>
       <Button
         variant="contained"
@@ -59,4 +59,4 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
   )),
 );
 
-export default Header;
+export default Title;

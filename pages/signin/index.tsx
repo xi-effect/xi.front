@@ -6,6 +6,15 @@ import { useSessionStorage } from 'react-use';
 import Form from 'components/Signin/Form';
 import XiLogo from 'kit/XiLogo';
 import { Stack, Typography, Link, Divider, useMediaQuery } from '@mui/material';
+import UiSt from "../../store/ui/uiSt";
+import UserSt from "../../store/user/userSt";
+import AuthorizationSt from "../../store/user/authorizationSt";
+
+type SigninT = {
+  uiSt: UiSt
+  userSt: UserSt
+  authorizationSt: AuthorizationSt
+};
 
 const Tearms = () => (
   <>
@@ -42,8 +51,8 @@ const Signin = inject(
   'userSt',
   'authorizationSt',
 )(
-  observer((props) => {
-    const { uiSt, userSt, authorizationSt } = props;
+  observer((props:SigninT) => {
+    const { uiSt, userSt, authorizationSt }:SigninT = props;
 
     const [prevPathname] = useSessionStorage('prevPathname');
 

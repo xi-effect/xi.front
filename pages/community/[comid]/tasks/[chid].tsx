@@ -3,9 +3,9 @@ import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import React from 'react';
 import { Navigation } from 'kit/Navigation';
-import { Header, Items } from 'components/Community/Posts';
+import { Header, Items } from 'components/Community/Tasks';
 
-const Posts = inject('userSt')(
+const Tasks = inject('userSt')(
   observer(() => (
     // const router = useRouter()
     <>
@@ -33,4 +33,4 @@ const Posts = inject('userSt')(
   )),
 );
 
-export default Posts;
+export default Tasks;

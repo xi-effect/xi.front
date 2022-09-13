@@ -17,12 +17,6 @@ const Slider: React.FC<ItemsT> = inject('rootStore')(
 
     const [showLeft, setShowLeft] = React.useState(false);
 
-    React.useEffect(() => {
-      const scrollDiv = document.getElementById('scroll-container');
-      console.log('scrollDiv', scrollDiv);
-      console.log('scrollDiv.scrollLeft', scrollDiv?.scrollLeft);
-    }, [containerRef?.current?.scrollLeft]);
-
     const handleLeft = () => {
       if (containerRef && containerRef.current) {
         containerRef.current.scrollBy({
@@ -54,7 +48,7 @@ const Slider: React.FC<ItemsT> = inject('rootStore')(
     return (
       <Box
         sx={{
-          pt: 2,
+          mt: 2,
           position: 'relative',
           width: '100%',
         }}
@@ -119,7 +113,6 @@ const Slider: React.FC<ItemsT> = inject('rootStore')(
           </Button>
         </Stack>
         <Stack
-          id="scroll-container"
           ref={containerRef}
           direction="row"
           justifyContent="flex-start"
@@ -128,8 +121,10 @@ const Slider: React.FC<ItemsT> = inject('rootStore')(
           sx={{
             padding: 0,
             width: '100%',
+            height: '320px',
             borderRadius: '8px',
-            overflow: 'auto',
+            overflowX: 'auto',
+            overflowY: 'none',
             scrollBehavior: 'smooth',
           }}
         >
