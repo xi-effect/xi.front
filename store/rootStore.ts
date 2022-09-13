@@ -5,7 +5,7 @@ import { enableStaticRendering } from 'mobx-react';
 import { useMemo } from 'react';
 import Router from 'next/router';
 
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import UISt from './ui/uiSt';
 import HomeSt from './home/homeSt';
 import UserSt from './user/userSt';
@@ -21,7 +21,28 @@ enableStaticRendering(typeof window === 'undefined');
 
 let store;
 
+type MethodT = 'GET' | 'POST' | 'DELETE' | 'PATCH';
 class RootStore {
+  uiSt: UISt;
+
+  homeSt: HomeSt;
+
+  userSt: UserSt;
+
+  authorizationSt: AuthorizationSt;
+
+  communitySt: CommunitySt;
+
+  communityCreationSt: CommunityCreationSt;
+
+  communityChannelsSt: CommunityChannelsSt;
+
+  communitySettingsSt: CommunitySettingsSt;
+
+  communitiesInvitesSt: CommunitiesInvitesSt;
+
+  communitiesMenuSt: CommunitiesMenuSt;
+
   url = process.env.NEXT_PUBLIC_SERVER_URL;
 
   constructor() {
@@ -43,7 +64,7 @@ class RootStore {
     makeObservable(this);
   }
 
-  socket = null;
+  socket: null | Socket = null;
 
   @action initSocket = () => {
     this.socket = io('https://xieffect.ru:5000/', {
@@ -51,16 +72,16 @@ class RootStore {
     });
   };
 
-  socketTest = null;
+  socketTest: null | Socket = null;
 
   @action initSocketTest = () => {
     this.socketTest = io('https://xieffect.ru:8000/');
     console.log('this.socketTest', this.socketTest);
   };
 
-  @action async fetchData(url, method, data = null) {
+  @action fetchData = async (url: string, method: MethodT, data?: any) => {
     try {
-      let response = null;
+      let response: null | Response = null;
       if (data != null) {
         response = await fetch(url, {
           method,
@@ -82,23 +103,20 @@ class RootStore {
           },
         });
       }
-      if (response.status === 401 || response.status === 403 || response.status === 422) {
+      if (response?.status === 401 || response?.status === 403 || response?.status === 422) {
         const router = Router;
-        router.push('/signin');
+        await router.push('/signin');
         return null;
       }
-      if (response.ok) {
-        const string = await response.text();
+      if (response?.ok) {
+        const string = await response?.text();
         const json = string === '' ? {} : JSON.parse(string);
         return json;
       }
-      const string = await response.text();
-      const json = string === '' ? {} : JSON.parse(string);
-      return json;
     } catch (error) {
       console.log('Возникла проблема с вашим fetch запросом: ', error.message);
     }
-  }
+  };
 }
 
 function initializeStore(initialData = null) {
@@ -122,3 +140,4 @@ export function useStore(initialState) {
   const store = useMemo(() => initializeStore(initialState), [initialState]);
   return store;
 }
+export default RootStore;
