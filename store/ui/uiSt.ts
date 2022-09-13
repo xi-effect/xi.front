@@ -1,10 +1,25 @@
 import { action, observable, makeObservable } from 'mobx';
+import RootStore from '../rootStore';
+
+type DialogsType = {
+  communityCreation: boolean;
+  categoryCreation: boolean;
+  channelCreation: boolean;
+  invite: boolean;
+  privacy: boolean;
+  settings: boolean;
+  userSettings: boolean;
+  communitySettings: boolean;
+  communityMenu: boolean;
+};
 
 class UISt {
   // `this` from rootstore passed to the constructor and we can
   // assign it to a variable accessible in this class called
   // `rootStore`. Therefore, we can access other store like
   // useStore for e.g (this.rootStore.userStore)
+  rootStore: RootStore;
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this);
@@ -14,7 +29,7 @@ class UISt {
     swipe: 'center',
   };
 
-  @action setNavigation = (name, value) => {
+  @action setNavigation = (name: string, value: string) => {
     this.navigation[name] = value;
   };
 
@@ -23,7 +38,7 @@ class UISt {
     loading: null,
   };
 
-  @action setLoading = (name, value) => {
+  @action setLoading = (name: string, value: boolean) => {
     this.load[name] = value;
   };
 
@@ -46,7 +61,7 @@ class UISt {
     this.reportData = {};
   };
 
-  @observable dialogs = {
+  @observable dialogs: DialogsType = {
     communityCreation: false,
     categoryCreation: false,
     channelCreation: false,
@@ -58,7 +73,7 @@ class UISt {
     communityMenu: false,
   };
 
-  @action setDialogs = (name, value) => {
+  @action setDialogs = (name: string, value: boolean) => {
     this.dialogs[name] = value;
   };
 }

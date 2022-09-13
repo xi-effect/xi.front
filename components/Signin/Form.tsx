@@ -6,8 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
 import { Button, Stack, Link, InputAdornment, Box } from '@mui/material';
-
 import MyIcon from 'kit/MyIcon';
+import AuthorizationSt from '../../store/user/authorizationSt';
 
 type FormValues = {
   email: string;
@@ -22,7 +22,7 @@ const schema = yup
   .required();
 
 type Props = {
-  authorizationSt: any;
+  authorizationSt: AuthorizationSt;
 };
 
 const Form: React.FC<Props> = inject('authorizationSt')(
