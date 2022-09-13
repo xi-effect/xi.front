@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { Button, Stack, Typography } from '@mui/material';
 import MyIcon from 'kit/MyIcon';
 
+
 type HeaderT = {
   rootStore?: any;
 };
@@ -15,23 +16,40 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
       justifyContent="flex-start"
       alignItems="center"
       sx={{
+        mt: '12px',
         width: '100%',
       }}
     >
-      <Typography
-        sx={{
-          fontWeight: 600,
-          fontSize: '32px',
-          lineHeight: '40px',
-          color: 'gray.100',
-        }}
-      >
-        Объявления
-      </Typography>
       <Button
         variant="contained"
         sx={{
-          ml: '21px',
+          width: 173,
+          height: 40,
+          borderRadius: '4px',
+          bgcolor: 'gray.0',
+
+          '&:hover': {
+            bgcolor: 'gray.0',
+          },
+        }}
+      >
+        <MyIcon name="add" />
+        <Typography
+          sx={{
+            ml: '4px',
+            fontWeight: 500,
+            fontSize: '16px',
+            lineHeight: '20px',
+            color: 'gray.100',
+          }}
+        >
+          Редактировать
+        </Typography>
+      </Button>
+      <Button
+        variant="contained"
+        sx={{
+          ml: '8px',
           width: 118,
           height: 40,
           borderRadius: '4px',
@@ -52,7 +70,7 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
             color: 'gray.100',
           }}
         >
-          Создать
+          Удалить
         </Typography>
       </Button>
     </Stack>

@@ -12,7 +12,8 @@ const SubHeader: React.FC<HeaderT> = inject('rootStore')(
     <Stack
       sx={{
         width: '100%',
-        height: '24px',
+        height: '16px',
+        mt: '12px',
       }}
       direction="row"
       justifyContent="flex-start"

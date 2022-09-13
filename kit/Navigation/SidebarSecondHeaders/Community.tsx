@@ -72,7 +72,7 @@ const Community = inject('communitySt')(
           borderBottom: '1px solid #ECEFFF',
           borderRadius: '8px',
           p: 1,
-          bgcolor: open ? 'primary.light' : 'gray.0' ,
+          bgcolor: open ? 'primary.light' : 'gray.0',
           '&:hover': {
             bgcolor: open ? 'primary.light' : 'gray.0',
             cursor: 'pointer',

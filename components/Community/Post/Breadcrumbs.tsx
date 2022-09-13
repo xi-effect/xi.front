@@ -16,8 +16,8 @@ const Breadcrumbs: React.FC<BreadcrumbsT> = inject('rootStore')(
       alignItems="center"
       spacing={0.5}
       sx={{
-        height: '56px',
         width: '100%',
+        height: '16px',
       }}
     >
       <Typography

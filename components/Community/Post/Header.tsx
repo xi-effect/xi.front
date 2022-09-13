@@ -14,7 +14,7 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
       justifyContent="flex-start"
       alignItems="center"
       sx={{
-        height: '56px',
+        mt: '12px',
         width: '100%',
       }}
     >

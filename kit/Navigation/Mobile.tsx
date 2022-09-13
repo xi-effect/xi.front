@@ -1,85 +1,13 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-unused-vars */
-
-import React, { useRef } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
 import { inject, observer } from 'mobx-react';
 
-import { Stack, Box, Typography } from '@mui/material';
+import { Stack, Box } from '@mui/material';
 import dynamic from 'next/dynamic';
-import MyIcon from 'kit/MyIcon';
 import { useLocalStorage } from 'react-use';
 import { SidebarSecond } from './SidebarSecond';
+import Upbar from './Upbar';
 
 const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
-
-type UpbarT = {
-  setMenuPosition: (value) => void;
-};
-
-const Upbar = ({ setMenuPosition }: UpbarT) => (
-  <Stack
-    sx={{
-      p: '14px 20px 14px 20px',
-      position: 'absolute',
-      top: 0,
-      height: '52px',
-      width: '100%',
-      bgcolor: 'gray.0',
-      borderBottomLeftRadius: '8px',
-      borderBottomRightRadius: '8px',
-      zIndex: 1010,
-    }}
-    direction="row"
-    justifyContent="flex-start"
-    alignItems="center"
-  >
-    <Stack
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-      onClick={() =>
-        setMenuPosition((prev: number) => {
-          console.log(prev);
-          if (prev < 158) {
-            return 316;
-          }
-          if (prev >= 158) {
-            return 0;
-          }
-        })
-      }
-      sx={{
-        height: '32px',
-        width: '32px',
-        cursor: 'pointer',
-      }}
-    >
-      <MyIcon name="burger" color="#333333" />
-    </Stack>
-    <Typography
-      sx={{
-        fontWeight: 500,
-        fontSize: '18px',
-        lineHeight: '22px',
-        ml: 1,
-      }}
-    >
-      {' '}
-      Задания{' '}
-    </Typography>
-  </Stack>
-);
-
-type startPositionT = {
-  x: number;
-  y: number;
-} | null;
-
-type movePositionT = {
-  x: number;
-  y: number;
-} | null;
 
 type MobileT = {
   children: React.ReactNode;
@@ -87,14 +15,13 @@ type MobileT = {
 
 const Mobile: React.FC<MobileT> = inject()(
   observer(({ children }) => {
-    const router = useRouter();
     const [valueLS, setValueLS] = useLocalStorage('is-main-menu-open');
 
     const [menuPosition, setMenuPosition] = React.useState<number>(0);
 
     React.useEffect(() => {
       if (valueLS) return setMenuPosition(316);
-      if (!valueLS) return setMenuPosition(0);
+      return setMenuPosition(0);
     }, []);
 
     React.useEffect(() => {
@@ -186,7 +113,7 @@ const Mobile: React.FC<MobileT> = inject()(
             bgcolor: 'primary.pale',
             height: '100vh',
             width: '100vw',
-            zIndex: 1000,
+            zIndex: 20001,
             transform: `translateX(${menuPosition}px)`,
             transition: '0.4s',
           }}

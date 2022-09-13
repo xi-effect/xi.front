@@ -145,7 +145,8 @@ const Sidebar: React.FC<SidebarType> = inject(
               tooltip="Создать сообщество"
               icon="add"
               onClick={() => uiSt.setDialogs('communityCreation', true)}
-              disableHover
+              iconColor="#333333"
+              iconColorHover="#FFFFFF"
             />
             <Divider
               sx={{
@@ -198,13 +199,18 @@ const Sidebar: React.FC<SidebarType> = inject(
               backgroundColor: 'primary.light',
             }}
           />
-          <IButton tooltip="Уведомления" icon="notification" disableHover />
+          <IButton
+            tooltip="Уведомления"
+            icon="notification"
+            iconColor="#333333"
+            iconColorHover="#FFFFFF"
+          />
           <IButton
             tooltip="Профиль"
             href="/profile/profile1"
             icon="account"
             isBefore
-            iconColor="#445AFF"
+            iconColor="#333333"
             iconColorHover="#FFFFFF"
           />
           <Tooltip placement="right" title="Выйти">
@@ -213,16 +219,25 @@ const Sidebar: React.FC<SidebarType> = inject(
                 userSt.logout();
               }}
               sx={{
-                bgcolor: 'white',
+                bgcolor: '#FFFFFF',
                 width: 48,
                 height: 48,
                 borderRadius: 24,
+                svg: {
+                  fill: '#F42D2D',
+                },
+
                 '&:hover': {
                   borderRadius: '16px',
+                  bgcolor: '#F42D2D',
+
+                  svg: {
+                    fill: '#FFFFFF',
+                  },
                 },
               }}
             >
-              <MyIcon name="exit" />
+              <MyIcon name="exit" color="" />
             </IconButton>
           </Tooltip>
         </Stack>

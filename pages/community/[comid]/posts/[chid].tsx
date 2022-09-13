@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import React from 'react';
 import { Navigation } from 'kit/Navigation';
-import { Header, SubHeader, Items } from 'components/Community/Posts';
+import { Header, Items } from 'components/Community/Posts';
 
 const Posts = inject('userSt')(
   observer(() => (
@@ -26,7 +26,6 @@ const Posts = inject('userSt')(
           }}
         >
           <Header />
-          <SubHeader />
           <Items />
         </Stack>
       </Navigation>
