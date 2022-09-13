@@ -3,8 +3,9 @@ import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import React from 'react';
 import { Navigation } from 'kit/Navigation';
+import { Header, SubHeader, Content, Breadcrumbs, Slider } from 'components/Community/Post';
 
-const Tasks = inject('userSt')(
+const Task = inject('userSt')(
   observer(() => (
     // const router = useRouter()
     <>
@@ -17,14 +18,23 @@ const Tasks = inject('userSt')(
           direction="column"
           justifyContent="flex-start"
           alignItems="flex-start"
-          spacing={2}
+          spacing={0}
           sx={{
-            p: 2,
+            height: '100vh',
+            width: '100%',
+            p: 4,
+            overflow: 'auto',
           }}
-        />
+        >
+          <Breadcrumbs />
+          <Header />
+          <SubHeader />
+          <Content />
+          <Slider />
+        </Stack>
       </Navigation>
     </>
   )),
 );
 
-export default Tasks;
+export default Task;

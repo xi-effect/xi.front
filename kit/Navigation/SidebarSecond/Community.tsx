@@ -41,12 +41,6 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
     const chType = splitPathname[3];
     const chid = router.query.chid ?? null;
 
-    console.log('channel.type', channel.type);
-    console.log('chType', chType);
-    console.log('channel.id', channel.id);
-    console.log('chid', chid);
-    console.log(chType === channel.type && chid === channel.id);
-
     const handleChannelClick = () => {
       router.push(`/community/${router.query.comid}/${channel.type}/${channel.id}/`);
     };
@@ -70,7 +64,6 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
             color: isSameChannel ? 'primary.dark' : null,
           },
 
-          
           svg: {
             fill: isSameChannel ? '#445AFF' : '',
           },

@@ -36,7 +36,7 @@ class CommunityChannelsSt {
         },
         {
           id: 5,
-          type: 'task',
+          type: 'tasks',
           name: 'Задания',
         },
         {
