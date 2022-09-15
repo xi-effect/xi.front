@@ -58,7 +58,7 @@ const Content: React.FC<ContentProps> = inject('rootStore')(
           </Typography>
           <GreenButton
             sx={{ mt: 3, borderRadius: 4, width: 146, height: 40 }}
-            onClick={() => router.push('/signin')}
+            onClick={() => router.push('/')}
           >
             {' '}
             Войти{' '}

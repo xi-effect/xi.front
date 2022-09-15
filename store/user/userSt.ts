@@ -133,7 +133,7 @@ class UserSt {
       .then((data) => {
         if (data?.a) {
           const router = Router;
-          router.push('/signin');
+          router.push('/');
           this.settings = {
             id: null,
             avatar: {

@@ -117,7 +117,7 @@ const Email: React.FC<Props> = inject('authorizationSt')(
             onClick={() =>
               passwordReset.emailResetOk
                 ? authorizationSt.setPasswordReset('emailResetOk', false)
-                : router.push('/signin')
+                : router.push('/')
             }
           >
             {passwordReset.emailResetOk ? 'Отправить еще раз' : ' Войти'}

@@ -64,7 +64,7 @@ const StepOneForm: React.FC<IStepOneForm> = inject('authorizationSt')(
             underline="none"
             aria-label="Войти"
             sx={{ cursor: 'pointer', fontWeight: 500 }}
-            onClick={() => router.push('/signin')}
+            onClick={() => router.push('/')}
           >
             Войти
           </Link>

@@ -105,7 +105,7 @@ class RootStore {
       }
       if (response?.status === 401 || response?.status === 403 || response?.status === 422) {
         const router = Router;
-        await router.push('/signin');
+        await router.push('/');
         return null;
       }
       if (response?.ok) {
