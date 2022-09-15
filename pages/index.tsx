@@ -1,219 +1,161 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
-import {
-  Divider,
-  Button,
-  Box,
-  Slide,
-  Stack,
-  Typography,
-  Theme,
-  useMediaQuery,
-} from '@mui/material';
-
+import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
-import { motion } from 'framer-motion';
-import { useRouter, NextRouter } from 'next/router';
-import CustomCookieShackbar from 'components/Landing/CustomCookieShackbar';
+import { useSessionStorage } from 'react-use';
+import Form from 'components/Signin/Form';
+import XiLogo from 'kit/XiLogo';
+import { Stack, Typography, Link, Divider, useMediaQuery } from '@mui/material';
+import UiSt from '../store/ui/uiSt';
+import UserSt from '../store/user/userSt';
+import AuthorizationSt from '../store/user/authorizationSt';
 
-import { useSnackbar } from 'notistack';
+type SigninT = {
+  uiSt: UiSt;
+  userSt: UserSt;
+  authorizationSt: AuthorizationSt;
+};
 
-import { useLocalStorage } from 'react-use';
-import Image from 'next/image';
-import Header from 'components/Landing/Header';
-import { MouseParallax } from 'react-just-parallax';
-import {
-  t1MarginTop,
-  t1MaxWidth,
-  tFontSize,
-  tLineHeight,
-  image1Top,
-  image1Left,
-  imageSize,
-  image2Right,
-  buttonLineHeight,
-  buttonFontSize,
-  buttonHeight,
-  buttonMarginTop,
-  buttonWidth,
-  image2Bottom,
-  t2FontSize,
-  t2LineHeight,
-} from 'components/Landing/consts';
+const Tearms = () => (
+  <>
+    <Typography
+      variant="caption"
+      paddingTop="12px"
+      paddingBottom="5px"
+      sx={{
+        color: 'gray.40',
+      }}
+    >
+      Нажимая «Войти», вы принимаете условия
+    </Typography>
+    <Link
+      underline="none"
+      sx={{
+        cursor: 'pointer',
+        mt: '-4px',
+        color: 'primary.main',
+        fontWeight: 400,
+        fontSize: 12,
+        lineHeight: '16px',
+        letterSpacing: 0,
+      }}
+      onClick={() => Router.replace('/')}
+    >
+      пользовательского соглашения
+    </Link>
+  </>
+);
 
-const Main = inject(
-  'rootStore',
+const Signin = inject(
   'uiSt',
+  'userSt',
+  'authorizationSt',
 )(
-  observer(() => {
-    const { enqueueSnackbar } = useSnackbar();
-    const [valueLS] = useLocalStorage('cookies-agree');
+  observer((props: SigninT) => {
+    const { uiSt, userSt, authorizationSt }: SigninT = props;
 
-    React.useEffect(() => {
-      if (!valueLS) {
-        setTimeout(() => {
-          enqueueSnackbar('', {
-            content: <CustomCookieShackbar />,
-            autoHideDuration: 20000,
-            persist: true,
-            anchorOrigin: {
-              vertical: 'bottom',
-              horizontal: 'center',
-            },
-            TransitionComponent: Slide,
-          });
-        }, 2000);
+    const [prevPathname] = useSessionStorage('prevPathname');
+
+    const isMobile: boolean = useMediaQuery('(max-width: 472px)');
+
+    useEffect(() => {
+      if (prevPathname !== '/home' && prevPathname !== '/signup') {
+        uiSt.setLoading('loading', true);
+        userSt.getMainSettings('login');
       }
     }, []);
-
-    const mobile1920: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1920));
-    const mobile1336: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1336));
-    const mobile1000: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1000));
-    const mobilesm: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
-
-    const getDeviceWidth = () => {
-      if (mobilesm) return 'min480';
-      if (mobile1000) return 'min1000';
-      if (mobile1336) return 'min1336';
-      if (mobile1920) return 'min1920';
-      return 'max1920';
-    };
-
-    const deviceWidth = getDeviceWidth();
-    const router: NextRouter = useRouter();
 
     return (
       <>
         <Head>
-          <title>xi.effect</title>
-          <meta name="description" content="Всё, что нужно для вашего образования" />
+          <title>xi.effect | вход</title>
         </Head>
+        {!!authorizationSt.signin.error && (
+          <Typography
+            position="absolute"
+            variant="body1"
+            sx={{
+              width: '311px',
+              height: '32px',
+              borderRadius: '8px',
+              backgroundColor: 'error.pale',
+              pt: '5px',
+              m: 'auto',
+              top: isMobile ? '4px' : '32px',
+              left: 0,
+              right: 0,
+              color: 'error.dark',
+              textAlign: 'center',
+            }}
+          >
+            {authorizationSt.signin.error}
+          </Typography>
+        )}
         <Stack
-          component={motion.div}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 2 }}
-          direction="column"
-          justifyContent="flex-start"
+          justifyContent={isMobile ? 'flex-start' : 'center'}
           alignItems="center"
           sx={{
-            zIndex: 1,
-            margin: 0,
-            overflow: 'auto',
-            minHeight: mobilesm ? 'calc(100vh - 14px)' : '100vh',
+            width: '100%',
+            minHeight: isMobile ? 'calc(100vh - 96px)' : '100vh',
             height: '100%',
-            bgcolor: 'primary.pale',
-            position: 'relative',
-            p: mobile1336 ? '20px 16px 20px 16px' : '16px 84px 64px 84px',
           }}
         >
-          <Header />
-          <Box
+          <Stack
+            direction="column"
+            padding={isMobile ? '16px 20px 0 20px' : '32px'}
+            spacing={2}
             sx={{
+              width: isMobile ? '100%' : '420px',
+              height: isMobile ? '395px' : '514px',
+              borderRadius: '16px',
+              border: isMobile ? 'none' : '1px solid #E6E6E6', // gray.10
               position: 'relative',
-              mt: t1MarginTop[deviceWidth],
-              width: '100%',
-              maxWidth: t1MaxWidth[deviceWidth],
             }}
           >
+            <Stack alignItems="center">
+              <XiLogo width="142px" height="24px" />
+            </Stack>
             <Typography
-              component="h1"
-              textAlign="center"
+              variant="h5"
               sx={{
-                fontWeight: 500,
-                fontSize: tFontSize[deviceWidth],
-                lineHeight: tLineHeight[deviceWidth],
-                zIndex: 1000,
-                cursor: 'default',
+                pb: '16px',
+                textAlign: 'center',
+                fontWeight: 600,
               }}
             >
-              Платформа
-              <br />
-              для&#160;обучения
+              Вход в аккаунт
             </Typography>
-            <MouseParallax zIndex={-1} isAbsolutelyPositioned shouldResetPosition strength={0.1}>
-              <Box
+            <Form {...props} />
+            {!isMobile && (
+              <Stack
+                direction="column"
+                alignItems="center"
                 sx={{
                   position: 'absolute',
-                  top: image1Top[deviceWidth],
-                  left: image1Left[deviceWidth],
-                  height: imageSize[deviceWidth],
-                  width: imageSize[deviceWidth],
-                  zIndex: -1,
+                  bottom: '-48px',
+                  left: '0px',
+                  width: '100%',
                 }}
               >
-                <Image
-                  style={{ zIndex: -1 }}
-                  src="/assets/landing/star.svg"
-                  width={imageSize[deviceWidth]}
-                  height={imageSize[deviceWidth]}
-                />
-              </Box>
-              <Box
-                sx={{
-                  position: 'absolute',
-                  bottom: image2Bottom[deviceWidth],
-                  right: image2Right[deviceWidth],
-                  height: imageSize[deviceWidth],
-                  width: imageSize[deviceWidth],
-                  zIndex: -1,
-                }}
-              >
-                <Image
-                  style={{ zIndex: -1 }}
-                  src="/assets/landing/triangle.svg"
-                  width={imageSize[deviceWidth]}
-                  height={imageSize[deviceWidth]}
-                />
-              </Box>
-            </MouseParallax>
-          </Box>
-          <Typography
-            component="h2"
-            textAlign="center"
-            sx={{
-              mt: 4,
-              fontWeight: 400,
-              fontSize: t2FontSize[deviceWidth],
-              lineHeight: t2LineHeight[deviceWidth],
-              cursor: 'default',
-            }}
-          >
-            Для школ, курсов, {mobilesm && <br />} дополнительного образования
-          </Typography>
-          <Button
-            variant="contained"
-            onClick={() => router.push('/signin')}
-            sx={{
-              mt: buttonMarginTop[deviceWidth],
-              maxWidth: buttonWidth[deviceWidth],
-              width: '100%',
-              height: buttonHeight[deviceWidth],
-              fontWeight: 500,
-              fontSize: buttonFontSize[deviceWidth],
-              lineHeight: buttonLineHeight[deviceWidth],
-              borderRadius: mobilesm ? '8px' : '12px',
-              boxShadow: 'none',
-              '&:hover': {
-                boxShadow: 'none',
-              },
-            }}
-          >
-            Войти
-          </Button>
+                <Tearms />
+              </Stack>
+            )}
+          </Stack>
         </Stack>
-        {mobilesm && (
+        {isMobile && (
           <Stack
             direction="column"
             justifyContent="flex-start"
             alignItems="center"
             sx={{
               width: '100%',
-              height: '14px',
+              height: '96px',
             }}
           >
+            <Tearms />
             <Divider
               sx={{
+                mt: 4,
                 width: '134px',
                 height: '5px',
                 backgroundColor: 'gray.100',
@@ -227,4 +169,4 @@ const Main = inject(
   }),
 );
 
-export default Main;
+export default Signin;

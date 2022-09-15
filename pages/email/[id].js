@@ -77,7 +77,7 @@ const Email = inject('rootStore')(
               {getStatus(ok)}{' '}
             </Typography>
             <Button
-              onClick={() => router.push('/signin')}
+              onClick={() => router.push('/')}
               variant="contained"
               sx={{ mt: '32px', width: '356px', height: '48px' }}
             >

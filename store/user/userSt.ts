@@ -82,7 +82,7 @@ class UserSt {
     this.settings[item][secondItem] = value;
   };
 
-  @action getMainSettings = (type :null | string ) => {
+  @action getMainSettings = (type: null | string) => {
     this.rootStore
       .fetchData(`${this.rootStore.url}/home/`, 'GET')
       .then((data: ResponseDataRegT) => {
@@ -133,7 +133,7 @@ class UserSt {
       .then((data) => {
         if (data?.a) {
           const router = Router;
-          router.push('/signin');
+          router.push('/');
           this.settings = {
             id: null,
             avatar: {

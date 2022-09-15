@@ -144,7 +144,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
               lineHeight: '20px',
               letterSpacing: 0,
             }}
-            onClick={() => router.push('/signin')}
+            onClick={() => router.push('/')}
           >
             Войти
           </Link>

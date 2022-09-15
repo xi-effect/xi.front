@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import React from 'react';
 import { Navigation } from 'kit/Navigation';
-import { Header, Items } from 'components/Community/Tasks';
+import { Header, Items, Title } from 'components/Community/Tasks';
 
 const Tasks = inject('userSt')(
   observer(() => (
@@ -25,6 +25,7 @@ const Tasks = inject('userSt')(
             overflow: 'auto',
           }}
         >
+          <Title />
           <Header />
           <Items />
         </Stack>

@@ -20,6 +20,7 @@ const iconsDict = {
   posts: 'announce',
   post: 'announce',
   task: 'task',
+  tasks: 'task',
   chat: 'chat',
   room: 'camera',
   schedule: 'calendar',
