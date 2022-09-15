@@ -65,7 +65,6 @@ const Message: React.FC<TimelineT> = inject('rootStore')(
       spacing={1}
       sx={{
         width: '100%',
-        height: '76px',
         borderRadius: '8px',
         position: 'relative',
       }}
