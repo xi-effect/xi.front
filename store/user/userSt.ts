@@ -82,7 +82,7 @@ class UserSt {
     this.settings[item][secondItem] = value;
   };
 
-  @action getMainSettings = (type :null | string ) => {
+  @action getMainSettings = (type: null | string) => {
     this.rootStore
       .fetchData(`${this.rootStore.url}/home/`, 'GET')
       .then((data: ResponseDataRegT) => {

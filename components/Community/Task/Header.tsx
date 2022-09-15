@@ -7,39 +7,29 @@ type HeaderT = {
   rootStore?: any;
 };
 
-const Title: React.FC<HeaderT> = inject('rootStore')(
+const Header: React.FC<HeaderT> = inject('rootStore')(
   observer(() => (
     <Stack
-      direction="column"
+      direction="row"
       justifyContent="flex-start"
-      alignItems="flex-start"
+      alignItems="center"
       sx={{
+        mt: '12px',
         width: '100%',
       }}
     >
       <Typography
         sx={{
           fontWeight: 600,
-          fontSize: '24px',
-          lineHeight: '32px',
+          fontSize: '32px',
+          lineHeight: '40px',
           color: 'gray.100',
         }}
       >
-        4Д — БЖ
-      </Typography>
-      <Typography
-        sx={{
-          mt: '4px',
-          fontWeight: 400,
-          fontSize: '16px',
-          lineHeight: '24px',
-          color: 'gray.100',
-        }}
-      >
-        Кастырин И.И.
+        Выполнить тест в тетради. Результат — фотография. Тест прикрепил в задании.
       </Typography>
     </Stack>
   )),
 );
 
-export default Title;
+export default Header;

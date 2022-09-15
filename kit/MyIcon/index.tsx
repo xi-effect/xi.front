@@ -17,6 +17,9 @@ import Camera from './Camera';
 import Settings from './Settings';
 import Close from './Close';
 import Invite from './Invite';
+import Clip from './Clip';
+import File from './File';
+import Send from './Send';
 
 type Props = {
   name: string;
@@ -43,6 +46,9 @@ const MyIcon: React.FC<Props> = ({ name, ...props }) => {
     settings: <Settings {...props} />,
     close: <Close {...props} />,
     invite: <Invite {...props} />,
+    clip: <Clip {...props} />,
+    file: <File {...props} />,
+    send: <Send {...props} />,
   };
 
   return name && Object.keys(iDict).includes(name) ? iDict[name] : <Home {...props} />;
