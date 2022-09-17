@@ -1,0 +1,13 @@
+name: Feature Branch PR Pipeline
+
+on:
+  pull_request:
+    branches: [ pre-main ]
+
+jobs:
+  build:
+    # needs: prepare
+    uses: xi-effect/xieffect-actions/.github/workflows/docker-build-nocache.yml@main
+    with:
+      tag: front-${{ github.run_id }}
+    secrets: inherit

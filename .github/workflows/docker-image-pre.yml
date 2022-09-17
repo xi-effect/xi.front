@@ -1,0 +1,13 @@
+name: Preproduction Pipeline
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    # needs: prepare
+    uses: xi-effect/xieffect-actions/.github/workflows/docker-build.yml@main
+    with:
+      tag: front-pre
+    secrets: inherit
