@@ -1,15 +1,15 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable import/no-unresolved */
-import { inject, observer } from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 import Head from 'next/head';
 import React from 'react';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 
 import dynamic from 'next/dynamic';
-import { Box } from '@mui/material';
-import { Navigation } from 'kit/Navigation';
+import {Box} from '@mui/material';
+import {Navigation} from 'kit/Navigation';
 
-const ContentEditor = dynamic(() => import('kit/Editor/ContentEditor/ContentEditor.tsx'), {
+const ContentEditor = dynamic(() => import('kit/Editor/index'), {
   ssr: false,
 });
 
@@ -31,11 +31,15 @@ const PagePage = inject(
       <>
         <Head>
           <title>Ξffect</title>
-          <meta name="robots" content="noindex" />
+          <meta name="robots" content="noindex"/>
         </Head>
         <Navigation>
-          <Box>
-            <ContentEditor initialState={null} />
+          <Box
+            sx={{
+              width: '100%'
+            }}
+          >
+            <ContentEditor initialState={null}/>
           </Box>
         </Navigation>
       </>
