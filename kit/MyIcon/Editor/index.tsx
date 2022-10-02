@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Stack } from '@mui/material';
+import {Stack} from '@mui/material';
 import Text from './Text';
 import H1 from './H1';
 import H2 from './H2';
@@ -16,10 +16,10 @@ import Arrow from './Arrow';
 
 type EditorIconT = {
   name: string;
-  [key: string]: any;
+  color: string
 };
 
-export const IconWrap: React.FC = ({ children, ...props }) => (
+export const IconWrap: React.FC = ({children, ...props}) => (
   <Stack
     justifyContent="center"
     alignItems="center"
@@ -37,22 +37,22 @@ export const IconWrap: React.FC = ({ children, ...props }) => (
   </Stack>
 );
 
-const EditorIcon: React.FC<EditorIconT> = ({ name }) => {
+const EditorIcon: React.FC<EditorIconT> = ({name, color}) => {
   const icon = {
-    text: <Text />,
-    h1: <H1 />,
-    h2: <H2 />,
-    h3: <H3 />,
-    ol: <NumList />,
-    ul: <MarkList />,
-    quote: <Quote />,
-    divider: <Divider />,
-    image: <Image />,
-    video: <Video />,
-    fileEditor: <FileEditor />,
-    delete: <Delete />,
-    arrowUp: <Arrow up />,
-    arrowDown: <Arrow />,
+    text: <Text color={color}/>,
+    h1: <H1 color={color}/>,
+    h2: <H2 color={color}/>,
+    h3: <H3 color={color}/>,
+    ol: <NumList color={color}/>,
+    ul: <MarkList color={color}/>,
+    quote: <Quote color={color}/>,
+    divider: <Divider color={color}/>,
+    image: <Image color={color}/>,
+    video: <Video color={color}/>,
+    fileEditor: <FileEditor color={color}/>,
+    delete: <Delete color={color}/>,
+    arrowUp: <Arrow up color={color}/>,
+    arrowDown: <Arrow color={color}/>,
   };
 
   return icon[name];
