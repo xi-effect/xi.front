@@ -27,7 +27,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import UndoIcon from '@mui/icons-material/Undo';
 import { Transforms, Node } from 'slate';
 import { useCopyToClipboard } from 'react-use';
-import { NewBlocks } from '../config';
+import { CreationMenuConfig } from '../common/MenuConfig';
 
 const drawerBleeding = 0;
 // @ts-ignore
@@ -212,7 +212,7 @@ function MobileContextMenu(props: Props) {
           )}
           {openItemsMenu === 'add' && (
             <>
-              {NewBlocks.map((item, indx) => (
+              {CreationMenuConfig.map((item, indx) => (
                 <MenuItem
                   key={indx.toString()}
                   onClick={() => {
@@ -221,9 +221,6 @@ function MobileContextMenu(props: Props) {
                 >
                   <Stack direction="column" justifyContent="center" alignItems="flex-start">
                     <Typography variant="h5">{item.label}</Typography>
-                    <Typography sx={{ color: 'text.secondary' }} variant="subtitle1">
-                      {item.description}
-                    </Typography>
                   </Stack>
                 </MenuItem>
               ))}
@@ -231,7 +228,7 @@ function MobileContextMenu(props: Props) {
           )}
           {openItemsMenu === 'change' && (
             <>
-              {NewBlocks.map((item, indx) => (
+              {CreationMenuConfig.map((item, indx) => (
                 <MenuItem
                   key={indx.toString()}
                   onClick={() => {
@@ -242,9 +239,6 @@ function MobileContextMenu(props: Props) {
                 >
                   <Stack direction="column" justifyContent="center" alignItems="flex-start">
                     <Typography variant="h5">{item.label}</Typography>
-                    <Typography sx={{ color: 'text.secondary' }} variant="subtitle1">
-                      {item.description}
-                    </Typography>
                   </Stack>
                 </MenuItem>
               ))}
