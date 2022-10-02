@@ -23,8 +23,8 @@ import { createEditor, Descendant, Transforms } from 'slate';
 import { withHistory } from 'slate-history';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { css } from '@emotion/css';
-import InlineToolPanel, { toggleFormat } from '../InlineToolPanel/InlineToolPanel';
-import Block from './Block';
+import InlineToolPanel, { toggleFormat } from '../Menus/InlineToolPanel';
+import ControlBlock from './ControlBlock';
 
 // eslint-disable-next-line react/prop-types
 const Leaf = ({ attributes, children, leaf }) => {
@@ -66,7 +66,7 @@ const initialValueDefault = [
     id: 1,
     children: [
       {
-        text: '',
+        text: 'Текст, который можно редактировать',
       },
     ],
   },
@@ -89,6 +89,7 @@ const ContentEditor: React.FC<Props> = (props) => {
   const [storage, setStorage, remove] = useLocalStorage(`page-${pageId}`);
 
   const handleChange = (value) => {
+    console.log(value);
     setValue(value);
     setStorage(value);
   };
@@ -101,7 +102,6 @@ const ContentEditor: React.FC<Props> = (props) => {
     if (result.destination.index === result.source.index) {
       return;
     }
-
     Transforms.moveNodes(editor, {
       at: [result.source.index],
       to: [result.destination.index],
@@ -109,7 +109,11 @@ const ContentEditor: React.FC<Props> = (props) => {
   };
 
   return (
-    <Box sx={{ width: 'calc(100% - 88px)', height: '100%', mt: 4, ml: 2, mr: 9 }}>
+    <Box
+      sx={{
+        m: 2,
+      }}
+    >
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="list">
           {(provided) => (
@@ -117,7 +121,9 @@ const ContentEditor: React.FC<Props> = (props) => {
               <Slate editor={editor} value={value} onChange={handleChange}>
                 <InlineToolPanel />
                 <Editable
-                  renderElement={(props) => <Block {...props} editor={editor} value={value} />}
+                  renderElement={(props) => (
+                    <ControlBlock {...props} editor={editor} value={value} />
+                  )}
                   renderLeaf={(props) => <Leaf {...props} />}
                   placeholder="Введите некоторый текст..."
                   onDOMBeforeInput={(event: InputEvent) => {
