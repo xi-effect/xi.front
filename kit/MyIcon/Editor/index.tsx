@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Stack } from '@mui/material';
+import {Stack} from '@mui/material';
 import Text from './Text';
 import H1 from './H1';
 import H2 from './H2';
@@ -19,7 +19,7 @@ type EditorIconT = {
   [key: string]: any;
 };
 
-export const IconWrap: React.FC = ({ children, ...props }) => (
+export const IconWrap: React.FC = ({children, ...props}) => (
   <Stack
     justifyContent="center"
     alignItems="center"
@@ -37,22 +37,22 @@ export const IconWrap: React.FC = ({ children, ...props }) => (
   </Stack>
 );
 
-const EditorIcon: React.FC<EditorIconT> = ({ name, ...props }) => {
+const EditorIcon: React.FC<EditorIconT> = ({name}) => {
   const icon = {
-    text: <Text {...props} />,
-    h1: <H1 {...props} />,
-    h2: <H2 {...props} />,
-    h3: <H3 {...props} />,
-    ol: <NumList {...props} />,
-    ul: <MarkList {...props} />,
-    quote: <Quote {...props} />,
-    divider: <Divider {...props} />,
-    image: <Image {...props} />,
-    video: <Video {...props} />,
-    fileEditor: <FileEditor {...props} />,
-    delete: <Delete {...props} />,
-    arrowUp: <Arrow up {...props} />,
-    arrowDown: <Arrow {...props} />,
+    text: <Text/>,
+    h1: <H1/>,
+    h2: <H2/>,
+    h3: <H3/>,
+    ol: <NumList/>,
+    ul: <MarkList/>,
+    quote: <Quote/>,
+    divider: <Divider/>,
+    image: <Image/>,
+    video: <Video/>,
+    fileEditor: <FileEditor/>,
+    delete: <Delete/>,
+    arrowUp: <Arrow up/>,
+    arrowDown: <Arrow/>,
   };
 
   return icon[name];
