@@ -1,4 +1,4 @@
-import {Typography} from '@mui/material';
+import { Typography } from '@mui/material';
 
 import * as React from 'react';
 
@@ -7,7 +7,7 @@ type TextProps = {
   attributes: any;
 };
 
-const Text: React.FC<TextProps> = ({children, attributes}) => (
+const Text: React.FC<TextProps> = ({ children, attributes }) => (
   <Typography
     {...attributes}
     sx={{
@@ -19,6 +19,5 @@ const Text: React.FC<TextProps> = ({children, attributes}) => (
     {children}
   </Typography>
 );
-
 
 export default Text;
