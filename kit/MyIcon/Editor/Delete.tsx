@@ -1,10 +1,10 @@
-import {IconWrap} from './index';
+import { IconWrap } from './index';
 
 type Props = {
   color?: string;
 };
 
-const Delete = ({color = '#333'}: Props) => (
+const Delete = ({ color = '#333' }: Props) => (
   <IconWrap>
     <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

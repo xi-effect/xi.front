@@ -1,11 +1,11 @@
-import {IconWrap} from './index';
+import { IconWrap } from './index';
 
 type Props = {
   color?: string;
   up?: boolean;
 };
 
-const Arrow = ({color = '#333', up,}: Props) => (
+const Arrow = ({ color = '#333', up }: Props) => (
   <IconWrap>
     {up ? (
       <svg
