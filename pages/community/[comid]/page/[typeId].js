@@ -5,13 +5,13 @@ import Head from 'next/head';
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import dynamic from 'next/dynamic';
 import { Box } from '@mui/material';
 import { Navigation } from 'kit/Navigation';
+import { ContentEditor } from 'kit/Editor';
 
-const ContentEditor = dynamic(() => import('kit/Editor/index'), {
-  ssr: false,
-});
+// const ContentEditor = dynamic(() => import('kit/Editor/index'), {
+//   ssr: false,
+// });
 
 const PagePage = inject(
   'rootStore',
