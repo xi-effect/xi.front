@@ -23,8 +23,9 @@ const H3: React.FC<H3Props> = ({ children, attributes, style }) => {
       {...attributes}
       sx={{
         textAlign: style.textAlign,
-        minHeight: '32px',
-        width: '100%',
+        fontWeight: '600',
+        fontSize: '32px',
+        lineHeight: '40px',
       }}
     >
       {children}

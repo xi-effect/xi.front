@@ -14,19 +14,18 @@ import * as React from 'react';
 type TextProps = {
   children: any;
   attributes: any;
-  style: any;
 };
 
-const Text: React.FC<TextProps> = ({ children, attributes, style }) => {
+const Text: React.FC<TextProps> = ({ children, attributes }) => {
   console.log('props', 'Text');
-
+  console.log(attributes);
   return (
     <Typography
       {...attributes}
       sx={{
-        textAlign: style.textAlign,
-        minHeight: '32px',
-        width: '100%',
+        fontWeight: '500',
+        fontSize: '16px',
+        lineHeight: '20px',
       }}
     >
       {children}
