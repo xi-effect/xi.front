@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {Menu} from '@mui/material';
-import {Editor, Transforms} from 'slate';
-import {menuDelete, menuStyles} from '../common/styles';
+import { Menu } from '@mui/material';
+import { Editor, Transforms } from 'slate';
+import { menuDelete, menuStyles } from '../common/styles';
 import ChangesMenuItem from './MenuItem/ChangesMenuItem';
 
 type ItemMenuProps = {
@@ -11,7 +11,7 @@ type ItemMenuProps = {
   closeMenu: () => void;
 };
 
-const ChangesMenu: React.FC<ItemMenuProps> = ({editor, index, anchorEl, closeMenu}) => {
+const ChangesMenu: React.FC<ItemMenuProps> = ({ editor, index, anchorEl, closeMenu }) => {
   const MoveUp = () => {
     Transforms.moveNodes(editor, {
       at: [index],
@@ -29,7 +29,7 @@ const ChangesMenu: React.FC<ItemMenuProps> = ({editor, index, anchorEl, closeMen
   };
 
   const Delete = () => {
-    Transforms.removeNodes(editor, {at: [index]});
+    Transforms.removeNodes(editor, { at: [index] });
     closeMenu();
   };
 
@@ -42,7 +42,7 @@ const ChangesMenu: React.FC<ItemMenuProps> = ({editor, index, anchorEl, closeMen
         vertical: 'top',
         horizontal: 'right',
       }}
-      sx={{...menuStyles, ...menuDelete}}
+      sx={{ ...menuStyles, ...menuDelete }}
     >
       <ChangesMenuItem
         icon="arrowUp"

@@ -5,8 +5,8 @@
 /* eslint-disable react/prefer-exact-props */
 // @flow
 import * as React from 'react';
-import {Global} from '@emotion/react';
-import {styled} from '@mui/material/styles';
+import { Global } from '@emotion/react';
+import { styled } from '@mui/material/styles';
 import {
   CssBaseline,
   MenuItem,
@@ -18,29 +18,29 @@ import {
   Stack,
   IconButton,
 } from '@mui/material';
-import {grey} from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import UndoIcon from '@mui/icons-material/Undo';
-import {Transforms, Node} from 'slate';
-import {useCopyToClipboard} from 'react-use';
-import {CreationMenuConfig} from '../common/menuConfig';
+import { Transforms, Node } from 'slate';
+import { useCopyToClipboard } from 'react-use';
+import { CreationMenuConfig } from '../common/menuConfig';
 
 const drawerBleeding = 0;
 // @ts-ignore
-const Root = styled('div')(({theme}) => ({
+const Root = styled('div')(({ theme }) => ({
   height: '100%',
   backgroundColor: theme.palette.mode === 'light' ? grey[100] : theme.palette.background.default,
 }));
 // @ts-ignore
-const StyledBox = styled(Box)(({theme}) => ({
+const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
 }));
 // @ts-ignore
-const Puller = styled(Box)(({theme}) => ({
+const Puller = styled(Box)(({ theme }) => ({
   width: 30,
   height: 6,
   backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
@@ -58,7 +58,7 @@ type Props = {
 };
 
 function MobileContextMenu(props: Props) {
-  const {editor, index, open, setOpen} = props;
+  const { editor, index, open, setOpen } = props;
   // @ts-ignore
   const [openItemsMenu, setOpenItemsMenu] = React.useState<null | string>(null);
   // eslint-disable-next-line no-unused-vars
@@ -66,7 +66,7 @@ function MobileContextMenu(props: Props) {
 
   return (
     <Root>
-      <CssBaseline/>
+      <CssBaseline />
       <Global
         styles={{
           '.MuiDrawer-root > .MuiPaper-root': {
@@ -99,9 +99,9 @@ function MobileContextMenu(props: Props) {
             left: 0,
           }}
         >
-          <Puller/>
+          <Puller />
           <Typography
-            sx={{pt: 2, pl: 2, pb: 1, color: 'text.secondary', fontSize: 16, userSelect: 'none'}}
+            sx={{ pt: 2, pl: 2, pb: 1, color: 'text.secondary', fontSize: 16, userSelect: 'none' }}
           >
             {openItemsMenu === null && 'Меню блока'}
             {openItemsMenu === 'add' && 'Выберите тип нового блока'}
@@ -110,9 +110,9 @@ function MobileContextMenu(props: Props) {
           {openItemsMenu != null && (
             <IconButton
               onClick={() => setOpenItemsMenu(null)}
-              sx={{position: 'absolute', right: 8, top: 6}}
+              sx={{ position: 'absolute', right: 8, top: 6 }}
             >
-              <UndoIcon/>
+              <UndoIcon />
             </IconButton>
           )}
         </StyledBox>
@@ -134,11 +134,11 @@ function MobileContextMenu(props: Props) {
                 }}
               >
                 <ListItemIcon>
-                  <AddIcon/>
+                  <AddIcon />
                 </ListItemIcon>
                 <ListItemText
                   disableTypography
-                  sx={{fontSize: 18, fontWeight: 'bold', userSelect: 'none'}}
+                  sx={{ fontSize: 18, fontWeight: 'bold', userSelect: 'none' }}
                 >
                   Добавить
                 </ListItemText>
@@ -149,27 +149,27 @@ function MobileContextMenu(props: Props) {
                 }}
               >
                 <ListItemIcon>
-                  <AutorenewIcon/>
+                  <AutorenewIcon />
                 </ListItemIcon>
                 <ListItemText
                   disableTypography
-                  sx={{fontSize: 18, fontWeight: 'bold', userSelect: 'none'}}
+                  sx={{ fontSize: 18, fontWeight: 'bold', userSelect: 'none' }}
                 >
                   Сменить тип
                 </ListItemText>
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  if (editor.children.length !== 1) Transforms.removeNodes(editor, {at: [index]});
+                  if (editor.children.length !== 1) Transforms.removeNodes(editor, { at: [index] });
                   setOpen(false);
                 }}
               >
                 <ListItemIcon>
-                  <DeleteForeverIcon/>
+                  <DeleteForeverIcon />
                 </ListItemIcon>
                 <ListItemText
                   disableTypography
-                  sx={{fontSize: 18, fontWeight: 'bold', userSelect: 'none'}}
+                  sx={{ fontSize: 18, fontWeight: 'bold', userSelect: 'none' }}
                 >
                   Удалить
                 </ListItemText>
@@ -179,18 +179,18 @@ function MobileContextMenu(props: Props) {
                   Transforms.insertNodes(
                     editor,
                     // @ts-ignore
-                    {...editor.children[index], id: new Date().getUTCMilliseconds()},
-                    {at: [index + 1]},
+                    { ...editor.children[index], id: new Date().getUTCMilliseconds() },
+                    { at: [index + 1] },
                   );
                   setOpen(false);
                 }}
               >
                 <ListItemIcon>
-                  <ContentCopyIcon/>
+                  <ContentCopyIcon />
                 </ListItemIcon>
                 <ListItemText
                   disableTypography
-                  sx={{fontSize: 18, fontWeight: 'bold', userSelect: 'none'}}
+                  sx={{ fontSize: 18, fontWeight: 'bold', userSelect: 'none' }}
                 >
                   Дублировать
                 </ListItemText>
@@ -202,9 +202,9 @@ function MobileContextMenu(props: Props) {
                 }}
               >
                 <ListItemIcon>
-                  <FileCopyIcon/>
+                  <FileCopyIcon />
                 </ListItemIcon>
-                <ListItemText disableTypography sx={{fontSize: 18, fontWeight: 'bold'}}>
+                <ListItemText disableTypography sx={{ fontSize: 18, fontWeight: 'bold' }}>
                   Скопировать текст
                 </ListItemText>
               </MenuItem>

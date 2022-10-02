@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {useState} from 'react';
-import {MenuItem, Stack, Typography} from '@mui/material';
-import {Descendant, Editor, Transforms} from 'slate';
-import {CreationMenuConfigT} from '../../common/menuConfig';
+import { useState } from 'react';
+import { MenuItem, Stack, Typography } from '@mui/material';
+import { Descendant, Editor, Transforms } from 'slate';
+import { CreationMenuConfigT } from '../../common/menuConfig';
 import EditorIcon from '../../../MyIcon/Editor';
 
 type MenuElementT = {
@@ -17,7 +17,7 @@ const CreationMenuItem: React.FC<MenuElementT> = (props) => {
     editor,
     index,
     closeMenu,
-    elem: {label, icon, type},
+    elem: { label, icon, type },
   } = props;
   const [hover, setHover] = useState(false);
 
@@ -31,9 +31,9 @@ const CreationMenuItem: React.FC<MenuElementT> = (props) => {
           {
             type,
             id: new Date().getUTCMilliseconds(),
-            children: [{text: 'Текст, который можно редактировать'}],
+            children: [{ text: 'Текст, который можно редактировать' }],
           } as Descendant,
-          {at: [index + 1]},
+          { at: [index + 1] },
         );
         closeMenu();
       }}
@@ -46,7 +46,7 @@ const CreationMenuItem: React.FC<MenuElementT> = (props) => {
           height: '100%',
         }}
       >
-        <EditorIcon color={hover ? '#445AFF' : '#333'} name={icon}/>
+        <EditorIcon color={hover ? '#445AFF' : '#333'} name={icon} />
 
         <Typography
           sx={{

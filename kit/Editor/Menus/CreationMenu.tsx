@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
-import {Editor} from 'slate';
-import {CreationMenuConfig} from '../common/menuConfig';
+import { Editor } from 'slate';
+import { CreationMenuConfig } from '../common/menuConfig';
 import CreationMenuItem from './MenuItem/CreationMenuItem';
-import {menuStyles} from '../common/styles';
+import { menuStyles } from '../common/styles';
 
 type NewItemMenuProps = {
   editor: Editor;
@@ -12,7 +12,7 @@ type NewItemMenuProps = {
   anchorEl: Element | null;
 };
 
-const CreationMenu: React.FC<NewItemMenuProps> = ({editor, index, anchorEl, closeMenu}) => (
+const CreationMenu: React.FC<NewItemMenuProps> = ({ editor, index, anchorEl, closeMenu }) => (
   <Menu
     open={!!anchorEl}
     onClose={closeMenu}
@@ -24,7 +24,7 @@ const CreationMenu: React.FC<NewItemMenuProps> = ({editor, index, anchorEl, clos
     sx={menuStyles}
   >
     {CreationMenuConfig.map((elem, i) => (
-      <CreationMenuItem key={i} elem={elem} index={index} editor={editor} closeMenu={closeMenu}/>
+      <CreationMenuItem key={i} elem={elem} index={index} editor={editor} closeMenu={closeMenu} />
     ))}
   </Menu>
 );
