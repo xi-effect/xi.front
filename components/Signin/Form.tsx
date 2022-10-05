@@ -6,7 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
 import { Button, Stack, Link, InputAdornment, Box } from '@mui/material';
-import MyIcon from 'kit/MyIcon';
+
+import { Eyeoff } from '@xieffect/base.icons.eyeoff';
+import { Eyeon } from '@xieffect/base.icons.eyeon';
+
 import AuthorizationSt from '../../store/user/authorizationSt';
 
 type FormValues = {
@@ -113,7 +116,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                         sx={{ cursor: 'pointer' }}
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {!showPassword ? <MyIcon name="eyeoff" /> : <MyIcon name="eyeon" />}
+                        {!showPassword ? <Eyeoff /> : <Eyeon />}
                       </Box>
                     </InputAdornment>
                   ),

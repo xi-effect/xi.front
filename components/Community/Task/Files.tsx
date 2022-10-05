@@ -2,7 +2,8 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Stack, Typography, Button, useMediaQuery, Theme } from '@mui/material';
-import MyIcon from 'kit/MyIcon';
+import { File } from '@xieffect/base.icons.file';
+import { Clip } from '@xieffect/base.icons.clip';
 
 type FilesT = {
   rootStore?: any;
@@ -107,7 +108,7 @@ const Files: React.FC<FilesT> = inject('rootStore')(
               textTransform: 'none',
             }}
           >
-            <MyIcon name="file" />
+            <File />
             Прикрепить
           </Button>
           <Button
@@ -118,7 +119,7 @@ const Files: React.FC<FilesT> = inject('rootStore')(
               textTransform: 'none',
             }}
           >
-            <MyIcon name="clip" />
+            <Clip />
             Редактор
           </Button>
         </Stack>

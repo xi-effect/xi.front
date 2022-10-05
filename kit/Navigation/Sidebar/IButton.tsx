@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import MyIcon from 'kit/MyIcon';
 
 type Props = {
   tooltip: string;
   href?: string;
-  icon?: string;
+  icon?: ReactNode;
   isBefore?: boolean;
   typography?: string;
   onClick?: () => void;
@@ -107,7 +106,7 @@ const IButton: React.FC<Props> = (props) => {
             {typography}
           </Typography>
         )}
-        {icon && <MyIcon name={icon} color="primary" />}
+        {icon}
       </IconButton>
     </Tooltip>
   );

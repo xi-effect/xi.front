@@ -2,8 +2,8 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Box, Typography, Stack } from '@mui/material';
-import MyIcon from 'kit/MyIcon';
 import { useRouter, NextRouter } from 'next/router';
+import { Arrow } from '@xieffect/base.icons.arrow';
 
 type ItemsT = {
   rootStore?: any;
@@ -115,7 +115,7 @@ const Item: React.FC<ItemsT> = inject('rootStore')(
             right: '24px',
           }}
         >
-          <MyIcon name="arrow" color="#445AFF" />
+          <Arrow color="#445AFF" />
         </Box>
       </Stack>
     );

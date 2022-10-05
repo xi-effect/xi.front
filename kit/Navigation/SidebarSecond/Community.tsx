@@ -13,17 +13,22 @@ import {
 } from '@mui/material';
 import { useLocalStorage } from 'react-use';
 import Scroll from 'kit/Scroll';
-import MyIcon from 'kit/MyIcon';
+import { Announce } from '@xieffect/base.icons.announce';
+import { Task } from '@xieffect/base.icons.task';
+import { Chat } from '@xieffect/base.icons.chat';
+import { Camera } from '@xieffect/base.icons.camera';
+import { Calendar } from '@xieffect/base.icons.calendar';
+
 import Image from 'next/image';
 
 const iconsDict = {
-  posts: 'announce',
-  post: 'announce',
-  task: 'task',
-  tasks: 'task',
-  chat: 'chat',
-  room: 'camera',
-  schedule: 'calendar',
+  posts: <Announce color="primary" />,
+  post: <Announce color="primary" />,
+  task: <Task color="primary" />,
+  tasks: <Task color="primary" />,
+  chat: <Chat color="primary" />,
+  room: <Camera color="primary" />,
+  schedule: <Calendar color="primary" />,
 };
 
 type ChannelT = {
@@ -89,7 +94,7 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
             minWidth: '24px !important',
           }}
         >
-          <MyIcon name={iconsDict[channel.type]} color="primary" />
+          {iconsDict[channel.type]}
         </ListItemIcon>
         <ListItemText
           disableTypography

@@ -4,7 +4,8 @@ import { Typography, Button, Box, InputAdornment, Link, Stack } from '@mui/mater
 import { Control, Controller, FieldErrors, FieldValues } from 'react-hook-form';
 import TextFieldCustom from 'kit/TextFieldCustom';
 
-import MyIcon from 'kit/MyIcon';
+import { Eyeoff } from '@xieffect/base.icons.eyeoff';
+import { Eyeon } from '@xieffect/base.icons.eyeon';
 
 interface IStepTwoForm {
   control: Control<FieldValues, object> | undefined;
@@ -63,7 +64,7 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
                         sx={{ cursor: 'pointer' }}
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {!showPassword ? <MyIcon name="eyeoff" /> : <MyIcon name="eyeon" />}
+                        {!showPassword ? <Eyeoff /> : <Eyeon />}
                       </Box>
                     </InputAdornment>
                   ),

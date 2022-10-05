@@ -2,7 +2,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Button, Stack, Typography } from '@mui/material';
-import MyIcon from 'kit/MyIcon';
+import { Add } from '@xieffect/base.icons.add';
 
 type HeaderT = {
   rootStore?: any;
@@ -42,7 +42,7 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
           },
         }}
       >
-        <MyIcon name="add" />
+        <Add />
         <Typography
           sx={{
             ml: '4px',

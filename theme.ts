@@ -40,19 +40,7 @@ export const getDesignTokens = (mode) => ({
         {
           props: { variant: 'contained' },
           style: {
-            textTransform: 'capitalize',
-            height: '64px',
-            width: '136px',
-            borderRadius: '8px',
-            fontWeight: 500,
-            fontSize: 18,
-            lineHeight: '22px',
-            backgroundColor: '#445AFF',
-            boxShadow: 'none',
-            '&:hover': {
-              backgroundColor: '#697BFF',
-              boxShadow: 'none',
-            },
+            
           },
         },
         {
