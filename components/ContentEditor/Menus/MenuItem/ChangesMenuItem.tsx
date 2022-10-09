@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { MenuItem, Stack, Typography } from '@mui/material';
-import EditorIcon from '../../../MyIcon/Editor';
+import EditorIcon from '../../../../kit/MyIcon/Editor';
 
 type ChangesMenuItemT = {
   text: string;

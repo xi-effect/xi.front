@@ -70,6 +70,7 @@ const Menu = React.forwardRef(
           & > * {
             display: inline-block;
           }
+
           & > * + * {
             margin-left: 8px;
           }
@@ -133,7 +134,7 @@ const HoveringToolbar = () => {
           transition: opacity 0.75s;
         `}
         onMouseDown={(e) => {
-          // prevent toolbar from taking focus away from Editor
+          // prevent toolbar from taking focus away from EditorSample
           e.preventDefault();
         }}
       >

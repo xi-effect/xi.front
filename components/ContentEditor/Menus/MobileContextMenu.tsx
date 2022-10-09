@@ -27,7 +27,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import UndoIcon from '@mui/icons-material/Undo';
 import { Transforms, Node } from 'slate';
 import { useCopyToClipboard } from 'react-use';
-import { CreationMenuConfig } from '../common/menuConfig';
+import { CreationMenuConfig } from '../../../kit/Editor/common/menuConfig';
 
 const drawerBleeding = 0;
 // @ts-ignore

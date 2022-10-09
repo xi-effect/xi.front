@@ -1,14 +1,8 @@
 import { Typography } from '@mui/material';
 import * as React from 'react';
 
-type H2Props = {
-  attributes: any;
-};
-
-const H2: React.FC<H2Props> = ({ children, attributes }) => (
+const H2: React.FC = ({ children }) => (
   <Typography
-    variant="h4"
-    {...attributes}
     sx={{
       fontWeight: '600',
       fontSize: '24px',

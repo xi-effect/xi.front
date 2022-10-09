@@ -1,35 +1,32 @@
-import * as React from 'react';
+import React from 'react';
 import { Menu } from '@mui/material';
-import { Editor, Transforms } from 'slate';
-import { menuDelete, menuStyles } from '../common/styles';
+import { menuDelete, menuStyles } from 'kit/Editor/common/styles';
+import { ChangeEditorsT, EditorsT } from 'kit/Editor/ContentEditor';
 import ChangesMenuItem from './MenuItem/ChangesMenuItem';
 
 type ItemMenuProps = {
-  editor: Editor;
   index: number;
-  anchorEl: Element | null;
+  editors: EditorsT[];
   closeMenu: () => void;
+  anchorEl: Element | null;
+  changeEditors: ChangeEditorsT;
 };
 
-const ChangesMenu: React.FC<ItemMenuProps> = ({ editor, index, anchorEl, closeMenu }) => {
+const ChangesMenu: React.FC<ItemMenuProps> = (props) => {
+  const { editors, closeMenu, anchorEl, index, changeEditors } = props;
+
   const MoveUp = () => {
-    Transforms.moveNodes(editor, {
-      at: [index],
-      to: [index - 1],
-    });
+    changeEditors({ endIndex: index, startIndex: index - 1 });
     closeMenu();
   };
 
   const MoveDown = () => {
-    Transforms.moveNodes(editor, {
-      at: [index],
-      to: [index + 1],
-    });
+    changeEditors({ endIndex: index, startIndex: index + 1 });
     closeMenu();
   };
 
   const Delete = () => {
-    Transforms.removeNodes(editor, { at: [index] });
+    changeEditors(null)(index);
     closeMenu();
   };
 
@@ -55,14 +52,14 @@ const ChangesMenu: React.FC<ItemMenuProps> = ({ editor, index, anchorEl, closeMe
         icon="arrowDown"
         handler={MoveDown}
         text="Переместить вниз"
-        disabled={index === editor.children.length - 1}
+        disabled={index === editors.length - 1}
       />
 
       <ChangesMenuItem
         icon="delete"
         handler={Delete}
         text="Удалить блок"
-        disabled={editor.children.length === 1}
+        disabled={editors.length === 1}
       />
     </Menu>
   );

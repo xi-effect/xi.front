@@ -14,6 +14,7 @@ const Text: React.FC<TextProps> = ({ children, attributes }) => (
       fontWeight: '500',
       fontSize: '16px',
       lineHeight: '20px',
+      pt: '5px',
     }}
   >
     {children}

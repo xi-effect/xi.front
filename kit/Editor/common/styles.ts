@@ -1,3 +1,5 @@
+import { CSSProperties } from '@mui/styles';
+
 export const menuStyles = {
   ml: '8px',
   '& .MuiBackdrop-invisible': {
@@ -34,3 +36,13 @@ export const menuDelete = {
     },
   },
 };
+
+export const ButtonStyles = (activeBtn: boolean, styles: CSSProperties) => ({
+  '&:hover ': {
+    backgroundColor: '#E6E6E6',
+  },
+  borderRadius: '4px',
+  transition: 'background-color 0.5s ease',
+  backgroundColor: activeBtn ? '#E6E6E6' : 'transparent',
+  ...styles,
+});

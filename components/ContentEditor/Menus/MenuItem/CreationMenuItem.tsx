@@ -1,42 +1,40 @@
+/* eslint-disable no-unused-vars */
 import * as React from 'react';
 import { useState } from 'react';
 import { MenuItem, Stack, Typography } from '@mui/material';
-import { Descendant, Editor, Transforms } from 'slate';
-import { CreationMenuConfigT } from '../../common/menuConfig';
-import EditorIcon from '../../../MyIcon/Editor';
+import { CreationMenuConfigT, editorExample } from 'kit/Editor/common/menuConfig';
+import EditorIcon from 'kit/MyIcon/Editor';
+import { EditorsT } from 'kit/Editor/ContentEditor';
+import { Type } from 'kit/Editor/common/withListsPlugin';
 
 type MenuElementT = {
-  elem: CreationMenuConfigT;
-  editor: Editor;
-  index: number;
   closeMenu: () => void;
+  elem: CreationMenuConfigT;
+  onClick?: (type: Type) => void;
+  setEditors: React.Dispatch<React.SetStateAction<EditorsT[]>>;
 };
 
 const CreationMenuItem: React.FC<MenuElementT> = (props) => {
   const {
-    editor,
-    index,
+    onClick,
     closeMenu,
+    setEditors,
     elem: { label, icon, type },
   } = props;
   const [hover, setHover] = useState(false);
 
+  const addBaseNode = () => {
+    if (onClick) onClick(type);
+
+    closeMenu();
+    setEditors((editors) => [...editors, editorExample(type)]);
+  };
+
   return (
     <MenuItem
+      onClick={addBaseNode}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onClick={() => {
-        Transforms.insertNodes(
-          editor,
-          {
-            type,
-            id: new Date().getUTCMilliseconds(),
-            children: [{ text: 'Текст, который можно редактировать' }],
-          } as Descendant,
-          { at: [index + 1] },
-        );
-        closeMenu();
-      }}
     >
       <Stack
         direction="row"
