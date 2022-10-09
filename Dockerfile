@@ -32,6 +32,7 @@ WORKDIR /app
 COPY ./package*.json ./
 
 # Install dependencies
+RUN npm set-script prepare ""
 RUN npm install --omit=dev
 
 # Get the built application from the first stage

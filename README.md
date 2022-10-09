@@ -16,6 +16,4 @@
     `npm run dev`
 
 -------
-### Использование Линтера:
-
-    `npm run lint`
+По всем остальным вопросам, в том числе по вопросу доступа к норм документации, к [@unknownproperty](https://t.me/unknownproperty)
