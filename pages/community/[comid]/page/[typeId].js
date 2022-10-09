@@ -4,14 +4,11 @@ import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import React from 'react';
 import { useRouter } from 'next/router';
-
 import { Box } from '@mui/material';
 import { Navigation } from 'kit/Navigation';
-import { ContentEditor } from 'kit/Editor';
+import dynamic from 'next/dynamic';
 
-// const ContentEditor = dynamic(() => import('kit/Editor/index'), {
-//   ssr: false,
-// });
+const ContentEditor = dynamic(import('kit/Editor/ContentEditor'), { ssr: false });
 
 const PagePage = inject(
   'rootStore',
@@ -39,7 +36,7 @@ const PagePage = inject(
               width: '100%',
             }}
           >
-            <ContentEditor initialState={null} />
+            <ContentEditor />
           </Box>
         </Navigation>
       </>
