@@ -3,14 +3,14 @@ import { useState } from 'react';
 const baseUrl: string = `${process.env.NEXT_PUBLIC_SERVER_URL}/files/`;
 
 interface IFile {
-  name: string,
-  size: number,
-  type: string
+  name: string;
+  size: number;
+  type: string;
 }
 
 interface IResult {
-  url?: string,
-  error?: string,
+  url?: string;
+  error?: string;
 }
 
 const fileSizeFormat = (fileSize: number): string => {
@@ -67,23 +67,20 @@ export const useGetFile: any = () => {
 };
 
 const postFile = async (file) => {
-
   try {
     const formData = new FormData();
     formData.append('file', file);
 
-    const response = await fetch(baseUrl,
-      {
-        method: 'POST',
-        body: formData,
-        credentials: "include",
-        mode: "cors",
-      }
-    );
+    const response = await fetch(baseUrl, {
+      method: 'POST',
+      body: formData,
+      credentials: 'include',
+      mode: 'cors',
+    });
 
     if (response.status === 200) {
       const data = await response.json();
-      // console.log(data);
+
       return { ...data };
     }
   } catch (e) {
@@ -117,9 +114,9 @@ export const usePostFiles: any = () => {
     const currentFile = files.shift();
 
     const data = await postFile(currentFile);
-    // console.log(data);
+
     if (data.error) {
-      setNotUploaded(prevState => prevState ? [...prevState, currentFile] : [currentFile]);
+      setNotUploaded((prevState) => (prevState ? [...prevState, currentFile] : [currentFile]));
     }
     if (!files.length) return files;
 
@@ -144,13 +141,11 @@ export const usePostFiles: any = () => {
 
 const deleteFile = async (fileId): Promise<IResult> => {
   try {
-    const response = await fetch(`${baseUrl}manager/${fileId}/`,
-      {
-        method: 'DELETE',
-        credentials: "include",
-        mode: "cors",
-      }
-    );
+    const response = await fetch(`${baseUrl}manager/${fileId}/`, {
+      method: 'DELETE',
+      credentials: 'include',
+      mode: 'cors',
+    });
 
     if (response.status === 200) {
       const data = await response.json();

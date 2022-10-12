@@ -137,7 +137,7 @@ const Items: React.FC<ItemsT> = inject('communityChannelsSt')(
             sx={{
               width: '100%',
               cursor: 'pointer',
-              color: 'gray.80',
+              color: 'grayscale.80',
               zIndex: 1,
               pl: '14px',
               position: 'relative',

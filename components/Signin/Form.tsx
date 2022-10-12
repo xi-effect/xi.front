@@ -88,7 +88,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                 helperText={getEmailError()}
                 {...field}
                 sx={{
-                  backgroundColor: 'gray.0',
+                  backgroundColor: 'grayscale.0',
                 }}
               />
             )}

@@ -27,7 +27,7 @@ const Upbar = ({ setMenuPosition }: UpbarT) => {
         top: 0,
         height: '52px',
         width: '100%',
-        bgcolor: 'gray.0',
+        bgcolor: 'grayscale.0',
         borderBottomLeftRadius: '8px',
         borderBottomRightRadius: '8px',
         zIndex: 1010,

@@ -21,7 +21,7 @@ const Files: React.FC<FilesT> = inject('rootStore')(
         sx={{
           width: '100%',
           borderRadius: '8px',
-          bgcolor: 'gray.0',
+          bgcolor: 'grayscale.0',
           p: 3,
         }}
       >
@@ -39,7 +39,7 @@ const Files: React.FC<FilesT> = inject('rootStore')(
               fontWeight: 600,
               fontSize: '24px',
               lineHeight: '32px',
-              color: 'gray.100',
+              color: 'grayscale.100',
             }}
           >
             Решение
@@ -52,7 +52,7 @@ const Files: React.FC<FilesT> = inject('rootStore')(
                 fontWeight: 400,
                 fontSize: '14px',
                 lineHeight: '16px',
-                color: 'gray.100',
+                color: 'grayscale.100',
               }}
             >
               до 14 сен 22
@@ -84,7 +84,7 @@ const Files: React.FC<FilesT> = inject('rootStore')(
               fontWeight: 400,
               fontSize: '14px',
               lineHeight: '16px',
-              color: 'gray.100',
+              color: 'grayscale.100',
             }}
           >
             до 14 сен 22

@@ -23,7 +23,7 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
           fontWeight: 600,
           fontSize: '32px',
           lineHeight: '40px',
-          color: 'gray.100',
+          color: 'grayscale.100',
         }}
       >
         Объявления
@@ -35,10 +35,10 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
           width: 118,
           height: 40,
           borderRadius: '4px',
-          bgcolor: 'gray.0',
+          bgcolor: 'grayscale.0',
 
           '&:hover': {
-            bgcolor: 'gray.0',
+            bgcolor: 'grayscale.0',
           },
         }}
       >
@@ -49,7 +49,7 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
             fontWeight: 500,
             fontSize: '16px',
             lineHeight: '20px',
-            color: 'gray.100',
+            color: 'grayscale.100',
           }}
         >
           Создать

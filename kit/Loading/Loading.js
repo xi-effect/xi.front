@@ -95,7 +95,7 @@ const Loading = inject('uiSt')(
                   align={mobile ? 'left' : 'center'}
                   sx={{
                     width: '100%',
-                    color: 'gray.80',
+                    color: 'grayscale.80',
                     fontSize: mobile ? '20px' : '20px',
                     maxWidth: '540px',
                     lineHeight: mobile ? '28px' : '28px',
@@ -109,7 +109,7 @@ const Loading = inject('uiSt')(
                   sx={{
                     width: '100%',
                     mt: '24px',
-                    color: 'gray.80',
+                    color: 'grayscale.80',
                     fontSize: mobile ? '20px' : '20px',
                     lineHeight: '48px',
                     fontWeight: 500,

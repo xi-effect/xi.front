@@ -23,7 +23,7 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
           fontWeight: 600,
           fontSize: '32px',
           lineHeight: '40px',
-          color: 'gray.100',
+          color: 'grayscale.100',
         }}
       >
         Выполнить тест в тетради. Результат — фотография. Тест прикрепил в задании.

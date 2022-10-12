@@ -81,7 +81,7 @@ const Email: React.FC<Props> = inject('authorizationSt')(
                   fontWeight: 400,
                   fontSize: '14px',
                   lineHeight: '16px',
-                  color: 'gray.40',
+                  color: 'grayscale.40',
                   width: '100%',
                   textAlign: !passwordReset.emailResetOk ? 'left' : 'center',
                 }}
@@ -96,7 +96,7 @@ const Email: React.FC<Props> = inject('authorizationSt')(
                 fontWeight: 400,
                 fontSize: '16px',
                 lineHeight: '20px',
-                color: 'gray.100',
+                color: 'grayscale.100',
               }}
             >
               {`Ссылка на восстановление пароля отправлена на ${email}`}

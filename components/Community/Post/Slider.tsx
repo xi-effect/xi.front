@@ -76,7 +76,7 @@ const Slider: React.FC<ItemsT> = inject('rootStore')(
                 width: 48,
                 minWidth: 48,
                 borderRadius: 24,
-                bgcolor: 'gray.0',
+                bgcolor: 'grayscale.0',
                 transform: 'rotate(180deg)',
               }}
             >
@@ -106,7 +106,7 @@ const Slider: React.FC<ItemsT> = inject('rootStore')(
               width: 48,
               minWidth: 48,
               borderRadius: 24,
-              bgcolor: 'gray.0',
+              bgcolor: 'grayscale.0',
             }}
           >
             <Arrow color="#445AFF" />
