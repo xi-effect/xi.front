@@ -6,12 +6,12 @@ import { Stack, Tooltip, Divider, IconButton } from '@mui/material';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
 import useListen from 'utils/useListen';
-import Scroll from 'kit/Scroll';
 import { Account } from '@xieffect/base.icons.account';
 import { Add } from '@xieffect/base.icons.add';
 import { Notification } from '@xieffect/base.icons.notification';
 import { Home } from '@xieffect/base.icons.home';
 import { Exit } from '@xieffect/base.icons.exit';
+import { Scroll } from '@xieffect/base.components.scroll';
 import CommunityItem from './CommunityItem';
 import IButton from './IButton';
 

@@ -12,7 +12,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import { useLocalStorage } from 'react-use';
-import Scroll from 'kit/Scroll';
+import { Scroll } from '@xieffect/base.components.scroll';
 import { Announce } from '@xieffect/base.icons.announce';
 import { Task } from '@xieffect/base.icons.task';
 import { Chat } from '@xieffect/base.icons.chat';
