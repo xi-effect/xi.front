@@ -34,6 +34,9 @@ const PagePage = inject(
           <Box
             sx={{
               width: '100%',
+              height: '100vh',
+              padding: '30px',
+              maxWidth: '1060px',
             }}
           >
             <ContentEditor />
