@@ -7,17 +7,14 @@ import { handlingEditors } from 'utils/handlingEditors';
 import EditorSample from 'components/ContentEditor/Editor/EditorSample';
 import { Type } from './common/withListsPlugin';
 
-type Props = {
-  initialState?: any;
-  pageId?: any;
-};
+type ContentEditorT = {};
 
 export type EditorsT = { id: string; type: Type };
 export type ChangeEditorsT = (
   options: { startIndex: number; endIndex: number } | null,
 ) => (index: number) => void;
 
-const ContentEditor: React.FC<Props> = () => {
+const ContentEditor: React.FC<ContentEditorT> = () => {
   const [editors, setEditors] = useState<EditorsT[]>([{ id: v4(), type: Type.TEXT }]);
 
   const changeEditors = (options: { startIndex: number; endIndex: number } | null) => {
@@ -38,7 +35,15 @@ const ContentEditor: React.FC<Props> = () => {
   };
 
   return (
-    <Box m={2}>
+    <Box
+      sx={{
+        height: '100%',
+        padding: '30px',
+        borderRadius: '8px',
+        backgroundColor: '#fff',
+        overflowY: 'scroll',
+      }}
+    >
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="list">
           {(provided) => (
