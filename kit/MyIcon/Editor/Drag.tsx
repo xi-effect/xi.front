@@ -1,11 +1,11 @@
+import React from 'react';
 import { Stack } from '@mui/material';
 
 type Props = {
   active: boolean;
-  [key: string]: any;
 };
 
-const Drag = ({ active, ...props }: Props) => (
+const Drag: React.FC<Props> = ({ active, ...props }) => (
   <Stack
     justifyContent="center"
     alignItems="center"

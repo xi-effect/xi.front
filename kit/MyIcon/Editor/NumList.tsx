@@ -1,10 +1,11 @@
+import React from 'react';
 import { IconWrap } from './index';
 
 type Props = {
   color?: string;
 };
 
-const NumList = ({ color = '#333' }: Props) => (
+const NumList: React.FC<Props> = ({ color = '#333' }) => (
   <IconWrap>
     <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

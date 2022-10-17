@@ -1,3 +1,4 @@
+import React from 'react';
 import { IconWrap } from './index';
 
 type Props = {
@@ -5,7 +6,7 @@ type Props = {
   up?: boolean;
 };
 
-const Arrow = ({ color = '#333', up }: Props) => (
+const Arrow: React.FC<Props> = ({ color = '#333', up }) => (
   <IconWrap>
     {up ? (
       <svg

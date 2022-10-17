@@ -1,5 +1,5 @@
+import React from 'react';
 import { Typography } from '@mui/material';
-import * as React from 'react';
 
 const Quote: React.FC = ({ children }) => (
   <Typography

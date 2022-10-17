@@ -1,5 +1,5 @@
+import React from 'react';
 import { Divider } from '@mui/material';
-import * as React from 'react';
 
 const DividerComp = () => (
   <div contentEditable={false}>
@@ -8,7 +8,7 @@ const DividerComp = () => (
         mt: '14px',
         height: '1px',
         width: '100%',
-        bgcolor: '#D9D9D9',
+        backgroundColor: '#D9D9D9',
       }}
     />
   </div>
