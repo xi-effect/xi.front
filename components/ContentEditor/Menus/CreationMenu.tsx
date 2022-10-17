@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Menu from '@mui/material/Menu';
 import { CreationMenuConfig } from 'kit/Editor/common/menuConfig';
 import { menuStyles } from 'kit/Editor/common/styles';

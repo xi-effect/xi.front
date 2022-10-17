@@ -52,6 +52,12 @@ const SlateSample: React.FC<SlateSampleT> = ({ editor, type }) => {
           width: '100%',
           height: '100%',
           p: '5px 10px',
+          ' > div': {
+            width: '100%',
+          },
+          ' > div ~ div': {
+            width: 'auto',
+          },
         }}
       >
         <Editable

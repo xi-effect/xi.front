@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { MenuItem, Stack, Typography } from '@mui/material';
 import { CreationMenuConfigT, editorExample } from 'kit/Editor/common/menuConfig';
 import EditorIcon from 'kit/MyIcon/Editor';

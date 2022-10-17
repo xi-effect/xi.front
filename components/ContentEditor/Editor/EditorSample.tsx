@@ -4,7 +4,7 @@ import { withHistory } from 'slate-history';
 import { Draggable } from 'react-beautiful-dnd';
 import { ReactEditor, withReact } from 'slate-react';
 import { withListsReact } from '@prezly/slate-lists';
-import { ButtonStyles } from 'kit/Editor/common/styles';
+import { EditorButtonS } from 'kit/Editor/common/styles';
 import { Add, DragIndicator } from '@mui/icons-material';
 import { IconButton, Stack, Tooltip } from '@mui/material';
 import { ChangeEditorsT, EditorsT } from 'kit/Editor/ContentEditor';
@@ -45,7 +45,7 @@ const EditorSample: React.FC<EditorT> = (props) => {
         >
           <Tooltip title="Добавить элемент">
             <IconButton
-              sx={ButtonStyles(!!addAnchorEl, { mr: '5px' })}
+              sx={EditorButtonS(!!addAnchorEl, { mr: '5px' })}
               onClick={(e) => setAddAnchorEl(e.currentTarget)}
             >
               <Add sx={{ color: '#333' }} />
@@ -55,7 +55,7 @@ const EditorSample: React.FC<EditorT> = (props) => {
           <Tooltip title="Перетащить элемент">
             <Stack
               {...provided.dragHandleProps}
-              sx={ButtonStyles(!!editAnchorEl, { p: '8px' })}
+              sx={EditorButtonS(!!editAnchorEl, { p: '8px' })}
               onClick={(e) => setEditAnchorEl(e.currentTarget)}
             >
               <DragIndicator sx={{ color: '#333' }} />
