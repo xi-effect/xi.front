@@ -12,16 +12,16 @@ export const editorExample = (type: Type) => ({ type, id: v4() });
 export const slateExample = (type: Type) => {
   switch (type) {
     case Type.H1:
-      return [{ type, children: [{ text: 'Заголовок 1' }] }];
+      return [{ type, children: [{ text: '' }] }];
 
     case Type.H2:
-      return [{ type, children: [{ text: 'Заголовок 2' }] }];
+      return [{ type, children: [{ text: '' }] }];
 
     case Type.H3:
-      return [{ type, children: [{ text: 'Заголовок 3' }] }];
+      return [{ type, children: [{ text: '' }] }];
 
     case Type.QUOTE:
-      return [{ type, children: [{ text: 'Колямбус вжжжжж...' }] }];
+      return [{ type, children: [{ text: '' }] }];
 
     case Type.ORDERED_LIST:
       return [
@@ -33,7 +33,7 @@ export const slateExample = (type: Type) => {
               children: [
                 {
                   type: Type.LIST_ITEM_TEXT,
-                  children: [{ text: 'Нумерованный список' }],
+                  children: [{ text: '' }],
                 },
               ],
             },
@@ -42,7 +42,7 @@ export const slateExample = (type: Type) => {
               children: [
                 {
                   type: Type.LIST_ITEM_TEXT,
-                  children: [{ text: 'Нумерация продолжается' }],
+                  children: [{ text: '' }],
                 },
               ],
             },
@@ -60,7 +60,7 @@ export const slateExample = (type: Type) => {
               children: [
                 {
                   type: Type.LIST_ITEM_TEXT,
-                  children: [{ text: 'Маркированный список' }],
+                  children: [{ text: '' }],
                 },
               ],
             },
@@ -69,7 +69,7 @@ export const slateExample = (type: Type) => {
               children: [
                 {
                   type: Type.LIST_ITEM_TEXT,
-                  children: [{ text: 'Маркирация продолжается' }],
+                  children: [{ text: '' }],
                 },
               ],
             },
@@ -78,7 +78,7 @@ export const slateExample = (type: Type) => {
       ];
 
     default:
-      return [{ type, children: [{ text: 'Текст, который можно редактировать' }] }];
+      return [{ type, children: [{ text: '' }] }];
   }
 };
 
@@ -91,19 +91,7 @@ export const CreationMenuConfig: CreationMenuConfigT[] = [
   { type: Type.UNORDERED_LIST, icon: 'ul', label: 'Маркированный список' },
   { type: Type.QUOTE, icon: 'quote', label: 'Цитата' },
   { type: Type.DIVIDER, icon: 'divider', label: 'Разделитель' },
+  { type: Type.IMAGE, icon: 'image', label: 'Изображение' },
+  { type: Type.VIDEO, icon: 'video', label: 'Видео' },
+  { type: Type.FILE, icon: 'fileEditor', label: 'Файл' },
 ];
-
-// export const CreationMenuConfigTest: CreationMenuConfigT[] = [
-//   {type: Type.ORDERED_LIST, icon: 'ol', label: 'Нумерованный список'},
-//   {type: Type.UNORDERED_LIST, icon: 'ul', label: 'Маркированный список'},
-//
-// ];
-
-// export const CreationMenuConfigTest1: CreationMenuConfigT[] = [
-//   {type: 'ol', icon: 'ol', label: 'Нумерованный список'},
-//   {type: 'ul', icon: 'ul', label: 'Маркированный список'},
-//   {type: 'quote', icon: 'quote', label: 'Цитата'},
-//   {type: 'image', icon: 'image', label: 'Изображение'},
-//   {type: 'video', icon: 'video', label: 'Видео'},
-//   {type: 'file', icon: 'fileEditor', label: 'Файл'},
-// ];
