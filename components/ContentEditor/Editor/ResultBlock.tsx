@@ -11,6 +11,7 @@ import { CreationMenuConfigT } from 'kit/Editor/common/menuConfig';
 import Ol from '../Blocks/Ol';
 import ListItem from '../Blocks/ListItem';
 import Ul from '../Blocks/Ul';
+import File from '../Blocks/File';
 
 export type ResultBlockT = RenderElementProps & { element: CreationMenuConfigT };
 
@@ -27,9 +28,6 @@ const ResultBlock: React.FC<ResultBlockT> = (props) => {
     case Type.H3:
       return <H3>{children}</H3>;
 
-    case Type.QUOTE:
-      return <Quote>{children}</Quote>;
-
     case Type.DIVIDER:
       return <DividerComp />;
 
@@ -39,14 +37,27 @@ const ResultBlock: React.FC<ResultBlockT> = (props) => {
     case Type.UNORDERED_LIST:
       return <Ul>{children}</Ul>;
 
+    case Type.QUOTE:
+      return <Quote>{children}</Quote>;
+
     case Type.LIST_ITEM:
       return <ListItem>{children}</ListItem>;
 
     case Type.LIST_ITEM_TEXT:
       return <div {...attributes}>{children}</div>;
 
+    case Type.IMAGE:
+      return <File type="image" icon="imageMedium" text="Добавить изображение" />;
+
+    case Type.VIDEO:
+      return <File type="video" icon="videoMedium" text="Добавить видео" />;
+
+    case Type.FILE:
+      return <File type="file" text="Добавить файл" icon="fileEditorMedium" />;
+
     default:
-      return <Text attributes={attributes}>{children}</Text>;
+      return <Text>{children}</Text>;
   }
 };
+
 export default ResultBlock;
