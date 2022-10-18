@@ -6,8 +6,12 @@ import { Stack, Tooltip, Divider, IconButton } from '@mui/material';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
 import useListen from 'utils/useListen';
-import Scroll from 'kit/Scroll';
-import MyIcon from 'kit/MyIcon';
+import { Account } from '@xieffect/base.icons.account';
+import { Add } from '@xieffect/base.icons.add';
+import { Notification } from '@xieffect/base.icons.notification';
+import { Home } from '@xieffect/base.icons.home';
+import { Exit } from '@xieffect/base.icons.exit';
+import { Scroll } from '@xieffect/base.components.scroll';
 import CommunityItem from './CommunityItem';
 import IButton from './IButton';
 
@@ -18,17 +22,15 @@ const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
 type SidebarType = {
   rootStore?: any;
   communitiesMenuSt?: any;
-  userSt?: any;
   uiSt?: any;
 };
 
 const Sidebar: React.FC<SidebarType> = inject(
   'rootStore',
   'communitiesMenuSt',
-  'userSt',
   'uiSt',
 )(
-  observer(({ rootStore, communitiesMenuSt, userSt, uiSt }) => {
+  observer(({ rootStore, communitiesMenuSt, uiSt }) => {
     const reorder = (list, startIndex, endIndex) => {
       const result = Array.from(list);
       const [removed] = result.splice(startIndex, 1);
@@ -136,14 +138,14 @@ const Sidebar: React.FC<SidebarType> = inject(
             <IButton
               tooltip="Главная"
               href="/home"
-              icon="home"
+              icon={<Home color="primary" />}
               iconColor="#445AFF"
               iconColorHover="#FFFFFF"
               isBefore
             />
             <IButton
               tooltip="Создать сообщество"
-              icon="add"
+              icon={<Add color="primary" />}
               onClick={() => uiSt.setDialogs('communityCreation', true)}
               iconColor="#333333"
               iconColorHover="#FFFFFF"
@@ -201,14 +203,15 @@ const Sidebar: React.FC<SidebarType> = inject(
           />
           <IButton
             tooltip="Уведомления"
-            icon="notification"
+            icon={<Notification color="primary" />}
             iconColor="#333333"
             iconColorHover="#FFFFFF"
           />
           <IButton
             tooltip="Профиль"
             href="/profile/profile1"
-            icon="account"
+            icon={<Account color="primary" />}
+            onClick={() => uiSt.setDialogs('userProfile', true)}
             isBefore
             iconColor="#333333"
             iconColorHover="#FFFFFF"
@@ -216,7 +219,7 @@ const Sidebar: React.FC<SidebarType> = inject(
           <Tooltip placement="right" title="Выйти">
             <IconButton
               onClick={() => {
-                userSt.logout();
+                uiSt.setDialogs('exit', true);
               }}
               sx={{
                 bgcolor: '#FFFFFF',
@@ -237,7 +240,7 @@ const Sidebar: React.FC<SidebarType> = inject(
                 },
               }}
             >
-              <MyIcon name="exit" color="" />
+              <Exit color="" />
             </IconButton>
           </Tooltip>
         </Stack>

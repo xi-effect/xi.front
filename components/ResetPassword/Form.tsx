@@ -7,7 +7,9 @@ import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
 import { Button, Stack, Link, InputAdornment, Box } from '@mui/material';
 
-import MyIcon from 'kit/MyIcon';
+import { Eyeoff } from '@xieffect/base.icons.eyeoff';
+import { Eyeon } from '@xieffect/base.icons.eyeon';
+
 import { getLastCodeFromURL } from 'utils/getLastCodeFromURL';
 
 const schema = yup
@@ -93,7 +95,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                         sx={{ cursor: 'pointer' }}
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {!showPassword ? <MyIcon name="eyeoff" /> : <MyIcon name="eyeon" />}
+                        {!showPassword ? <Eyeoff /> : <Eyeon />}
                       </Box>
                     </InputAdornment>
                   ),
@@ -124,7 +126,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
                         sx={{ cursor: 'pointer' }}
                         onClick={() => setShowPasswordAgain(!showPasswordAgain)}
                       >
-                        {!showPasswordAgain ? <MyIcon name="eyeoff" /> : <MyIcon name="eyeon" />}
+                        {!showPasswordAgain ? <Eyeoff /> : <Eyeon />}
                       </Box>
                     </InputAdornment>
                   ),

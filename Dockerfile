@@ -9,6 +9,9 @@ WORKDIR /app
 # Copy package.json and package-lock.json before other files
 COPY ./package*.json ./
 
+# Set registry
+RUN npm config set '@xieffect:registry' https://node.bit.cloud/
+
 # Install all dependencies (with dev ones)
 RUN npm install
 

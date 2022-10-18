@@ -14,7 +14,7 @@ const Tearms = () => (
       paddingTop="12px"
       paddingBottom="5px"
       sx={{
-        color: 'gray.40',
+        color: 'grayscale.40',
       }}
     >
       Нажимая «Регистрация», вы принимаете условия
@@ -74,7 +74,7 @@ const Signup = inject()(
               width: isMobile ? '100%' : '420px',
               height: isMobile ? '395px' : '514px',
               borderRadius: '16px',
-              border: isMobile ? 'none' : '1px solid #E6E6E6', // gray.10
+              border: isMobile ? 'none' : '1px solid #E6E6E6', // grayscale.10
               position: 'relative',
             }}
           >
@@ -125,7 +125,7 @@ const Signup = inject()(
                 mt: activeStep === 1 ? 4 : 8,
                 width: '134px',
                 height: '5px',
-                backgroundColor: 'gray.100',
+                backgroundColor: 'grayscale.100',
                 borderRadius: '100px',
               }}
             />

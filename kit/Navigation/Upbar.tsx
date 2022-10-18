@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
 import { Stack, Typography } from '@mui/material';
-import MyIcon from 'kit/MyIcon';
+import { Burger } from '@xieffect/base.icons.burger';
 
 type UpbarT = {
   // eslint-disable-next-line no-unused-vars
@@ -27,7 +27,7 @@ const Upbar = ({ setMenuPosition }: UpbarT) => {
         top: 0,
         height: '52px',
         width: '100%',
-        bgcolor: 'gray.0',
+        bgcolor: 'grayscale.0',
         borderBottomLeftRadius: '8px',
         borderBottomRightRadius: '8px',
         zIndex: 1010,
@@ -54,7 +54,7 @@ const Upbar = ({ setMenuPosition }: UpbarT) => {
           cursor: 'pointer',
         }}
       >
-        <MyIcon name="burger" color="#333333" />
+        <Burger color="#333333" />
       </Stack>
       <Typography
         sx={{

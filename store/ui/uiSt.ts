@@ -8,9 +8,10 @@ type DialogsType = {
   invite: boolean;
   privacy: boolean;
   settings: boolean;
-  userSettings: boolean;
+  userProfile: boolean;
   communitySettings: boolean;
   communityMenu: boolean;
+  exit: boolean;
 };
 
 class UISt {
@@ -68,13 +69,29 @@ class UISt {
     invite: false,
     privacy: false,
     settings: false,
-    userSettings: false,
+    userProfile: false,
     communitySettings: false,
     communityMenu: false,
+    exit: false,
   };
 
   @action setDialogs = (name: string, value: boolean) => {
     this.dialogs[name] = value;
+  };
+
+  @action setDialogsFalse = () => {
+    this.dialogs = {
+      communityCreation: false,
+      categoryCreation: false,
+      channelCreation: false,
+      invite: false,
+      privacy: false,
+      settings: false,
+      userProfile: false,
+      communitySettings: false,
+      communityMenu: false,
+      exit: false,
+    };
   };
 }
 

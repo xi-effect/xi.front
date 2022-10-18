@@ -2,7 +2,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Stack, Typography } from '@mui/material';
-import MyIcon from 'kit/MyIcon';
+import { Arrow } from '@xieffect/base.icons.arrow';
 
 type BreadcrumbsT = {
   rootStore?: any;
@@ -30,7 +30,7 @@ const Breadcrumbs: React.FC<BreadcrumbsT> = inject('rootStore')(
       >
         4Д — БЖ
       </Typography>
-      <MyIcon name="arrow" fontSize={12} color="#697BFF" />
+      <Arrow fontSize={12} color="#697BFF" />
       <Typography
         sx={{
           fontWeight: 400,

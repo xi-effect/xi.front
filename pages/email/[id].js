@@ -52,7 +52,7 @@ const Email = inject('rootStore')(
             justifyContent="center"
             alignItems="center"
             sx={{
-              backgroundColor: 'gray.0',
+              backgroundColor: 'grayscale.0',
               borderRadius: '16px',
               border: '1px solid rgba(230, 230, 230, 1)',
               height: '224px',
@@ -67,7 +67,7 @@ const Email = inject('rootStore')(
             <Typography
               sx={{
                 mt: '24px',
-                color: 'gray.100',
+                color: 'grayscale.100',
                 fontWeight: 600,
                 fontSize: '24px',
                 lineHeight: '32px',
@@ -91,7 +91,7 @@ const Email = inject('rootStore')(
                 bottom: '8px',
                 width: '134px',
                 height: '5px',
-                backgroundColor: 'gray.100',
+                backgroundColor: 'grayscale.100',
                 borderRadius: '100px',
               }}
             />

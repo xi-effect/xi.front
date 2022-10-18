@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 
+// Тип
 type Props = {
   width?: string;
   height?: string;

@@ -2,7 +2,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Button, Stack, Typography } from '@mui/material';
-import MyIcon from 'kit/MyIcon';
+import { Add } from '@xieffect/base.icons.add';
 
 type HeaderT = {
   rootStore?: any;
@@ -23,7 +23,7 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
           fontWeight: 600,
           fontSize: '32px',
           lineHeight: '40px',
-          color: 'gray.100',
+          color: 'grayscale.100',
         }}
       >
         Объявления
@@ -35,21 +35,21 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
           width: 118,
           height: 40,
           borderRadius: '4px',
-          bgcolor: 'gray.0',
+          bgcolor: 'grayscale.0',
 
           '&:hover': {
-            bgcolor: 'gray.0',
+            bgcolor: 'grayscale.0',
           },
         }}
       >
-        <MyIcon name="add" />
+        <Add />
         <Typography
           sx={{
             ml: '4px',
             fontWeight: 500,
             fontSize: '16px',
             lineHeight: '20px',
-            color: 'gray.100',
+            color: 'grayscale.100',
           }}
         >
           Создать

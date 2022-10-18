@@ -3,7 +3,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Box, Stack, Button } from '@mui/material';
 import Image from 'next/image';
-import MyIcon from 'kit/MyIcon';
+import { Arrow } from '@xieffect/base.icons.arrow';
 
 type ItemsT = {
   rootStore?: any;
@@ -76,11 +76,11 @@ const Slider: React.FC<ItemsT> = inject('rootStore')(
                 width: 48,
                 minWidth: 48,
                 borderRadius: 24,
-                bgcolor: 'gray.0',
+                bgcolor: 'grayscale.0',
                 transform: 'rotate(180deg)',
               }}
             >
-              <MyIcon name="arrow" color="#445AFF" />
+              <Arrow color="#445AFF" />
             </Button>
           </Stack>
         )}
@@ -106,10 +106,10 @@ const Slider: React.FC<ItemsT> = inject('rootStore')(
               width: 48,
               minWidth: 48,
               borderRadius: 24,
-              bgcolor: 'gray.0',
+              bgcolor: 'grayscale.0',
             }}
           >
-            <MyIcon name="arrow" color="#445AFF" />
+            <Arrow color="#445AFF" />
           </Button>
         </Stack>
         <Stack

@@ -75,7 +75,7 @@ const DialogCreateCommunity: React.FC<DialogCreateCommunityT> = inject(
             height: '328px',
             borderRadius: '16px',
             border: '1px solid #E6E6E6',
-            bgcolor: 'gray.0',
+            bgcolor: 'grayscale.0',
             boxShadow: 'none',
             position: 'relative',
           },

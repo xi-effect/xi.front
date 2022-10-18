@@ -2,8 +2,8 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Box, Typography, Stack } from '@mui/material';
-import MyIcon from 'kit/MyIcon';
 import { useRouter, NextRouter } from 'next/router';
+import { Arrow } from '@xieffect/base.icons.arrow';
 
 type ItemsT = {
   rootStore?: any;
@@ -25,7 +25,7 @@ const Item: React.FC<ItemsT> = inject('rootStore')(
         sx={{
           position: 'relative',
           height: '224px',
-          backgroundColor: 'gray.0',
+          backgroundColor: 'grayscale.0',
           padding: 3,
           textAlign: 'center',
           width: '100%',
@@ -39,7 +39,7 @@ const Item: React.FC<ItemsT> = inject('rootStore')(
             fontWeight: 600,
             fontSize: '20px',
             lineHeight: '24px',
-            color: 'gray.100',
+            color: 'grayscale.100',
           }}
         >
           Театральная постановка
@@ -56,7 +56,7 @@ const Item: React.FC<ItemsT> = inject('rootStore')(
               fontWeight: 400,
               fontSize: '16px',
               lineHeight: '20px',
-              color: 'gray.80',
+              color: 'grayscale.80',
             }}
           >
             23 мая в актовом зале состоится театральная постановка.
@@ -77,7 +77,7 @@ const Item: React.FC<ItemsT> = inject('rootStore')(
               fontWeight: 500,
               fontSize: '12px',
               lineHeight: '16px',
-              color: 'gray.100',
+              color: 'grayscale.100',
             }}
           >
             3 мая 2022
@@ -90,10 +90,10 @@ const Item: React.FC<ItemsT> = inject('rootStore')(
               fontWeight: 500,
               fontSize: '12px',
               lineHeight: '16px',
-              color: 'gray.100',
+              color: 'grayscale.100',
               '&:before': {
                 content: "''",
-                bgcolor: 'gray.100',
+                bgcolor: 'grayscale.100',
                 position: 'absolute',
                 left: '-7px',
                 top: '7px',
@@ -115,7 +115,7 @@ const Item: React.FC<ItemsT> = inject('rootStore')(
             right: '24px',
           }}
         >
-          <MyIcon name="arrow" color="#445AFF" />
+          <Arrow color="#445AFF" />
         </Box>
       </Stack>
     );

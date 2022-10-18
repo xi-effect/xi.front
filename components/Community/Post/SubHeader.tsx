@@ -25,7 +25,7 @@ const SubHeader: React.FC<HeaderT> = inject('rootStore')(
           fontWeight: 500,
           fontSize: '12px',
           lineHeight: '16px',
-          color: 'gray.100',
+          color: 'grayscale.100',
         }}
       >
         4 мая 2022
@@ -38,10 +38,10 @@ const SubHeader: React.FC<HeaderT> = inject('rootStore')(
           fontWeight: 500,
           fontSize: '12px',
           lineHeight: '16px',
-          color: 'gray.100',
+          color: 'grayscale.100',
           '&:before': {
             content: "''",
-            bgcolor: 'gray.100',
+            bgcolor: 'grayscale.100',
             position: 'absolute',
             left: '-7px',
             top: '7px',

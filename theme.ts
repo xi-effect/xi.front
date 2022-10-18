@@ -39,21 +39,7 @@ export const getDesignTokens = (mode) => ({
       variants: [
         {
           props: { variant: 'contained' },
-          style: {
-            textTransform: 'capitalize',
-            height: '64px',
-            width: '136px',
-            borderRadius: '8px',
-            fontWeight: 500,
-            fontSize: 18,
-            lineHeight: '22px',
-            backgroundColor: '#445AFF',
-            boxShadow: 'none',
-            '&:hover': {
-              backgroundColor: '#697BFF',
-              boxShadow: 'none',
-            },
-          },
+          style: {},
         },
         {
           props: { variant: 'outlined' },
@@ -107,7 +93,7 @@ export const getDesignTokens = (mode) => ({
             light: '#EEE7FF', // blue.40
             pale: '#F5F0FF', // blue.10
           },
-          gray: {
+          grayscale: {
             100: '#000000',
             80: '#333333',
             40: '#999999',
@@ -125,11 +111,6 @@ export const getDesignTokens = (mode) => ({
             main: '#F65757',
             light: '#FBABAB',
             pale: '#FEEAEA',
-          },
-          // Старые значения
-          background: {
-            main: '#f5f5f5',
-            secondary: '#eeeeee',
           },
         }
       : {
@@ -146,7 +127,7 @@ export const getDesignTokens = (mode) => ({
             light: '#EEE7FF',
             pale: '#F5F0FF',
           },
-          gray: {
+          grayscale: {
             100: '#000000',
             80: '#333333',
             40: '#999999',
@@ -164,11 +145,6 @@ export const getDesignTokens = (mode) => ({
             main: '#F65757',
             light: '#FBABAB',
             pale: '#FEEAEA',
-          },
-          // Старые значения
-          background: {
-            main: '#212121',
-            secondary: '#424242',
           },
         }),
   },
