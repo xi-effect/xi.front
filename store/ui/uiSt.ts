@@ -8,7 +8,7 @@ type DialogsType = {
   invite: boolean;
   privacy: boolean;
   settings: boolean;
-  userSettings: boolean;
+  userProfile: boolean;
   communitySettings: boolean;
   communityMenu: boolean;
 };
@@ -68,7 +68,7 @@ class UISt {
     invite: false,
     privacy: false,
     settings: false,
-    userSettings: false,
+    userProfile: false,
     communitySettings: false,
     communityMenu: false,
   };

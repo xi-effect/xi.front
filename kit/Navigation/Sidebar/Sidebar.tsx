@@ -213,6 +213,7 @@ const Sidebar: React.FC<SidebarType> = inject(
             tooltip="Профиль"
             href="/profile/profile1"
             icon={<Account color="primary" />}
+            onClick={() => uiSt.setDialogs("userProfile", true)}
             isBefore
             iconColor="#333333"
             iconColorHover="#FFFFFF"

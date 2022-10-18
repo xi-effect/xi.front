@@ -7,6 +7,7 @@ import { inject, observer } from 'mobx-react';
 
 import { Stack, Box } from '@mui/material';
 import dynamic from 'next/dynamic';
+import { UserProfile } from 'kit/UserProfile';
 import { SidebarSecond } from './SidebarSecond';
 
 const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
@@ -30,6 +31,7 @@ const Desktop: React.FC<DesktopT> = inject()(
           overflow: 'hidden',
         }}
       >
+        <UserProfile />
         <Box sx={{ width: 64 }}>
           <Sidebar />
         </Box>
