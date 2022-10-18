@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { Stack, Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 import { useLocalStorage } from 'react-use';
+import { ExitDialog } from 'kit/ExitDialog';
 import { UserProfile } from 'kit/UserProfile';
 import { SidebarSecond } from './SidebarSecond';
 import Upbar from './Upbar';
@@ -94,6 +95,7 @@ const Mobile: React.FC<MobileT> = inject()(
         }}
       >
         <UserProfile />
+        <ExitDialog />
         <Stack
           direction="row"
           justifyContent="flex-start"

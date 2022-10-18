@@ -25,14 +25,14 @@ interface UserProfileProps {
 const UserProfile = inject(
   'rootStore',
   'userSt',
-  'uiSt'
+  'uiSt',
 )(
   observer((props: UserProfileProps) => {
     const { uiSt, userSt } = props;
     const { dialogs, setDialogs } = uiSt;
 
     const handleClose = () => {
-      setDialogs("userProfile", false);
+      setDialogs('userProfile', false);
     };
 
     React.useEffect(() => {
@@ -45,8 +45,8 @@ const UserProfile = inject(
         sx={{ backgroundColor: 'primary.pale' }}
         PaperProps={{
           sx: {
-            backgroundColor: 'primary.pale'
-          }
+            backgroundColor: 'primary.pale',
+          },
         }}
         fullScreen
         open={dialogs.userProfile}
@@ -69,7 +69,8 @@ const UserProfile = inject(
               width: '40px',
               height: '40px',
               bgcolor: 'grayscale.0',
-            }}>
+            }}
+          >
             <Close />
           </IconButton>
         </Stack>

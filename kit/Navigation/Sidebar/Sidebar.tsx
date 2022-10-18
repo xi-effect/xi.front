@@ -22,17 +22,15 @@ const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
 type SidebarType = {
   rootStore?: any;
   communitiesMenuSt?: any;
-  userSt?: any;
   uiSt?: any;
 };
 
 const Sidebar: React.FC<SidebarType> = inject(
   'rootStore',
   'communitiesMenuSt',
-  'userSt',
   'uiSt',
 )(
-  observer(({ rootStore, communitiesMenuSt, userSt, uiSt }) => {
+  observer(({ rootStore, communitiesMenuSt, uiSt }) => {
     const reorder = (list, startIndex, endIndex) => {
       const result = Array.from(list);
       const [removed] = result.splice(startIndex, 1);
@@ -213,7 +211,7 @@ const Sidebar: React.FC<SidebarType> = inject(
             tooltip="Профиль"
             href="/profile/profile1"
             icon={<Account color="primary" />}
-            onClick={() => uiSt.setDialogs("userProfile", true)}
+            onClick={() => uiSt.setDialogs('userProfile', true)}
             isBefore
             iconColor="#333333"
             iconColorHover="#FFFFFF"
@@ -221,7 +219,7 @@ const Sidebar: React.FC<SidebarType> = inject(
           <Tooltip placement="right" title="Выйти">
             <IconButton
               onClick={() => {
-                userSt.logout();
+                uiSt.setDialogs('exit', true);
               }}
               sx={{
                 bgcolor: '#FFFFFF',

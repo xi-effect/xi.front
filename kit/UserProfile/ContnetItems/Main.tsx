@@ -22,11 +22,13 @@ const Main = inject(
           padding: '24px 36px',
         }}
       >
-        <Typography sx={{
-          fontWeight: 600,
-          fontSize: '24px',
-          lineHeight: '32px',
-        }}>
+        <Typography
+          sx={{
+            fontWeight: 600,
+            fontSize: '24px',
+            lineHeight: '32px',
+          }}
+        >
           Kolipseazer
         </Typography>
       </Stack>
@@ -44,19 +46,23 @@ const Main = inject(
         }}
         spacing={3}
       >
-        <Typography sx={{
-          fontWeight: 600,
-          fontSize: '24px',
-          lineHeight: '32px',
-        }}>
+        <Typography
+          sx={{
+            fontWeight: 600,
+            fontSize: '24px',
+            lineHeight: '32px',
+          }}
+        >
           Ссылка-приглашение
         </Typography>
-        <Typography sx={{
-          color: 'grayscale.40',
-          fontWeight: 400,
-          fontSize: '20px',
-          lineHeight: '24px',
-        }}>
+        <Typography
+          sx={{
+            color: 'grayscale.40',
+            fontWeight: 400,
+            fontSize: '20px',
+            lineHeight: '24px',
+          }}
+        >
           Пригласите знакомых на платформу
         </Typography>
       </Stack>
