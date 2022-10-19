@@ -47,8 +47,6 @@ const Form: React.FC<Props> = inject('authorizationSt')(
       resolver: yupResolver(schema),
     });
 
-    console.log('errors', errors);
-
     const onSubmit = (data) => {
       trigger();
       authorizationSt.clickSigninButton(data, trigger);

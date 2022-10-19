@@ -14,7 +14,7 @@ const Community = inject('communitySt')(
     useEffect(() => {
       const code = getLastCodeFromURL();
       communitySt.getMeta(code);
-    }, [router.query.id]);
+    }, [router.query.comid]);
 
     return (
       <>
