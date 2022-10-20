@@ -2,8 +2,9 @@
 import * as React from 'react';
 
 import { TransitionProps } from '@mui/material/transitions';
-import { Dialog, Slide, Stack, IconButton } from '@mui/material';
+import { Dialog, Slide, Stack, IconButton, useMediaQuery, Theme } from '@mui/material';
 import { inject, observer } from 'mobx-react';
+import { Burger } from '@xieffect/base.icons.burger';
 import { Close } from '@xieffect/base.icons.close';
 import Menu from './Menu';
 import Content from './Content';
@@ -31,6 +32,9 @@ const UserProfile = inject(
     const { uiSt, userSt } = props;
     const { dialogs, setDialogs } = uiSt;
 
+    const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
+    const mobile1400: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1400));
+
     const handleClose = () => {
       setDialogs('userProfile', false);
     };
@@ -46,6 +50,10 @@ const UserProfile = inject(
         PaperProps={{
           sx: {
             backgroundColor: 'primary.pale',
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            p: '16px',
           },
         }}
         fullScreen
@@ -54,25 +62,57 @@ const UserProfile = inject(
         TransitionComponent={Transition}
       >
         <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="flex-start"
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="center"
           sx={{
-            pt: '64px',
+            pt: mobile1400 ? '0px' : '64px',
+            maxWidth: '1226px',
+            width: '100%',
           }}
         >
-          <Menu />
-          <Content />
-          <IconButton
-            onClick={() => uiSt.setDialogs('userProfile', false)}
+          <Stack
+            direction="row"
+            justifyContent={mobile700 ? 'space-between' : 'flex-end'}
+            alignItems="center"
             sx={{
-              width: '40px',
-              height: '40px',
-              bgcolor: 'grayscale.0',
+              width: '100%',
             }}
           >
-            <Close />
-          </IconButton>
+            {mobile700 && (
+              <IconButton
+                onClick={() => uiSt.setDialogs('userProfile', false)}
+                sx={{
+                  width: '40px',
+                  height: '40px',
+                  bgcolor: 'grayscale.0',
+                }}
+              >
+                <Burger />
+              </IconButton>
+            )}
+            <IconButton
+              onClick={() => uiSt.setDialogs('userProfile', false)}
+              sx={{
+                width: '40px',
+                height: '40px',
+                bgcolor: 'grayscale.0',
+              }}
+            >
+              <Close />
+            </IconButton>
+          </Stack>
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            sx={{
+              width: '100%',
+            }}
+          >
+            <Menu />
+            {!mobile700 && <Content />}
+          </Stack>
         </Stack>
       </Dialog>
     );

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import * as React from 'react';
-import { Button, Stack, ButtonProps } from '@mui/material';
+import { Button, Stack, ButtonProps, useMediaQuery, Theme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { inject, observer } from 'mobx-react';
 
@@ -8,7 +8,7 @@ const ColorButton = styled(Button)<ButtonProps>(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-start',
-  width: '220px',
+  width: '100%',
   height: '40px',
   p: '9px 16px 11px 16px',
   borderRadius: '8px',
@@ -27,15 +27,16 @@ const Menu = inject('uiSt')(
   observer(({ uiSt }: MenuProps) => {
     const { setDialogs } = uiSt;
     const activeButton = 0;
+    const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
 
     return (
       <Stack
         direction="column"
         justifyContent="flex-start"
-        alignItems="center"
+        alignItems="flex-start"
         sx={{
-          mt: '56px',
-          width: '220px',
+          mt: '16px',
+          width: mobile700 ? '100%' : '220px',
         }}
       >
         <ColorButton

@@ -10,7 +10,7 @@ import Home from '../SidebarSecondHeaders/Home';
 import Community from '../SidebarSecondHeaders/Community';
 import Settings from '../SidebarSecondHeaders/Settings';
 
-const SidebarSecond = inject()(
+const SidebarSecond = inject('communitySt')(
   observer(() => {
     const router = useRouter();
 
