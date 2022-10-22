@@ -19,14 +19,43 @@ const ColorButton = styled(Button)<ButtonProps>(() => ({
   lineHeight: '20px',
 }));
 
+const menu = [
+  {
+    mt: '0',
+    name: 'Главная',
+  },
+  {
+    mt: '4px',
+    name: 'Личные данные',
+  },
+  {
+    mt: '4px',
+    name: 'Безопасность',
+  },
+  {
+    mt: '4px',
+    name: 'Звук и видео',
+  },
+  {
+    mt: '24px',
+    name: 'Плюс',
+  },
+  {
+    mt: '4px',
+    name: 'Бонусы',
+  },
+];
+
 type MenuProps = {
   uiSt?: any;
+  activeContent: number;
+  // eslint-disable-next-line no-unused-vars
+  setActiveContent: (activeContent: number) => void;
 };
 
 const Menu = inject('uiSt')(
-  observer(({ uiSt }: MenuProps) => {
+  observer(({ uiSt, activeContent, setActiveContent }: MenuProps) => {
     const { setDialogs } = uiSt;
-    const activeButton = 0;
     const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
 
     return (
@@ -39,83 +68,29 @@ const Menu = inject('uiSt')(
           width: mobile700 ? '100%' : '220px',
         }}
       >
-        <ColorButton
-          sx={{
-            color: 'grayscale.100',
-            backgroundColor: activeButton === 0 ? 'grayscale.0' : 'transparent',
-            '&:hover': {
-              backgroundColor: 'grayscale.0',
-            },
-          }}
-        >
-          Главная
-        </ColorButton>
-        <ColorButton
-          sx={{
-            mt: '4px',
-            color: 'grayscale.100',
-            backgroundColor: activeButton === 1 ? 'grayscale.0' : 'transparent',
-            '&:hover': {
-              backgroundColor: 'grayscale.0',
-            },
-          }}
-        >
-          Личные данные
-        </ColorButton>
-        <ColorButton
-          sx={{
-            mt: '4px',
-            color: 'grayscale.100',
-            backgroundColor: activeButton === 2 ? 'grayscale.0' : 'transparent',
-            '&:hover': {
-              backgroundColor: 'grayscale.0',
-            },
-          }}
-        >
-          Безопасность
-        </ColorButton>
-        <ColorButton
-          sx={{
-            mt: '4px',
-            color: 'grayscale.100',
-            backgroundColor: activeButton === 2 ? 'grayscale.0' : 'transparent',
-            '&:hover': {
-              backgroundColor: 'grayscale.0',
-            },
-          }}
-        >
-          Звук и видео
-        </ColorButton>
-        <ColorButton
-          sx={{
-            mt: '24px',
-            color: 'grayscale.100',
-            backgroundColor: activeButton === 2 ? 'grayscale.0' : 'transparent',
-            '&:hover': {
-              backgroundColor: 'grayscale.0',
-            },
-          }}
-        >
-          Плюс
-        </ColorButton>
-        <ColorButton
-          sx={{
-            mt: '4px',
-            color: 'grayscale.100',
-            backgroundColor: activeButton === 2 ? 'grayscale.0' : 'transparent',
-            '&:hover': {
-              backgroundColor: 'grayscale.0',
-            },
-          }}
-        >
-          Бонусы
-        </ColorButton>
+        {menu.map((item, index) => (
+          <ColorButton
+            onClick={() => setActiveContent(index)}
+            key={index.toString()}
+            sx={{
+              mt: item.mt,
+              color: 'grayscale.100',
+              textTransform: 'none',
+              backgroundColor: index === activeContent ? 'grayscale.0' : 'transparent',
+              '&:hover': {
+                backgroundColor: 'grayscale.0',
+              },
+            }}
+          >
+            {item.name}
+          </ColorButton>
+        ))}
         <ColorButton
           onClick={() => setDialogs('exit', true)}
           sx={{
             mt: '24px',
             color: 'grayscale.100',
-            backgroundColor: activeButton === 2 ? 'grayscale.0' : 'transparent',
+            backgroundColor: 'transparent',
             '&:hover': {
               color: 'error.dark',
               backgroundColor: 'error.pale',

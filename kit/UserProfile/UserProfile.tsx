@@ -32,6 +32,8 @@ const UserProfile = inject(
     const { uiSt, userSt } = props;
     const { dialogs, setDialogs } = uiSt;
 
+    const [activeContent, setActiveContent] = React.useState(0);
+
     const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
     const mobile1400: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1400));
 
@@ -110,8 +112,8 @@ const UserProfile = inject(
               width: '100%',
             }}
           >
-            <Menu />
-            {!mobile700 && <Content />}
+            <Menu activeContent={activeContent} setActiveContent={setActiveContent} />
+            {!mobile700 && <Content activeContent={activeContent} />}
           </Stack>
         </Stack>
       </Dialog>

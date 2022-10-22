@@ -12,6 +12,8 @@ type DialogsType = {
   communitySettings: boolean;
   communityMenu: boolean;
   exit: boolean;
+  passwordChange: boolean;
+  emailChange: boolean;
 };
 
 class UISt {
@@ -73,6 +75,8 @@ class UISt {
     communitySettings: false,
     communityMenu: false,
     exit: false,
+    passwordChange: false,
+    emailChange: false,
   };
 
   @action setDialogs = (name: string, value: boolean) => {
@@ -91,6 +95,8 @@ class UISt {
       communitySettings: false,
       communityMenu: false,
       exit: false,
+      passwordChange: false,
+      emailChange: false,
     };
   };
 }
