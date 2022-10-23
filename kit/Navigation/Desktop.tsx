@@ -8,17 +8,20 @@ import { inject, observer } from 'mobx-react';
 import { Stack, Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 import { UserProfile } from 'kit/UserProfile';
-import { ExitDialog } from 'kit/ExitDialog';
+import { ExitDialog } from '@xieffect/base.dialogs.exit';
 import { SidebarSecond } from './SidebarSecond';
+
 
 const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 
 type DesktopT = {
   children: React.ReactNode;
+  uiSt?: any;
+  userSt?: any; 
 };
 
-const Desktop: React.FC<DesktopT> = inject()(
-  observer(({ children }) => {
+const Desktop: React.FC<DesktopT> = inject("uiSt", "userSt")(
+  observer(({ children, uiSt, userSt }) => {
     const router = useRouter();
 
     return (
@@ -33,7 +36,7 @@ const Desktop: React.FC<DesktopT> = inject()(
         }}
       >
         <UserProfile />
-        <ExitDialog />
+        <ExitDialog uiSt={uiSt} userSt={userSt} />
         <Box sx={{ width: 64 }}>
           <Sidebar />
         </Box>
