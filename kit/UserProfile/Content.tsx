@@ -2,9 +2,14 @@
 import * as React from 'react';
 import { Stack, useMediaQuery, Theme } from '@mui/material';
 import Main from './ContnetItems/Main';
+import Account from './ContnetItems/Account';
+import Secure from './ContnetItems/Secure';
 
-const Content = () => {
-  const activeButton = 0;
+type ContentProps = {
+  activeContent: number;
+};
+
+const Content = ({ activeContent }: ContentProps) => {
   const mobile1400: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1400));
 
   return (
@@ -18,7 +23,9 @@ const Content = () => {
         width: '100%',
       }}
     >
-      {activeButton === 0 && <Main />}
+      {activeContent === 0 && <Main />}
+      {activeContent === 1 && <Account />}
+      {activeContent === 2 && <Secure />}
     </Stack>
   );
 };

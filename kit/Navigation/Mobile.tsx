@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { Stack, Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 import { useLocalStorage } from 'react-use';
-import { ExitDialog } from 'kit/ExitDialog';
+import { ExitDialog } from '@xieffect/base.dialogs.exit';
 import { UserProfile } from 'kit/UserProfile';
 import { SidebarSecond } from './SidebarSecond';
 import Upbar from './Upbar';
@@ -13,10 +13,12 @@ const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 
 type MobileT = {
   children: React.ReactNode;
+  uiSt?: any;
+  userSt?: any; 
 };
 
-const Mobile: React.FC<MobileT> = inject()(
-  observer(({ children }) => {
+const Mobile: React.FC<MobileT> = inject("uiSt", "userSt")(
+  observer(({ children, uiSt, userSt }) => {
     const [valueLS, setValueLS] = useLocalStorage('is-main-menu-open');
 
     const [menuPosition, setMenuPosition] = React.useState<number>(0);
@@ -95,7 +97,7 @@ const Mobile: React.FC<MobileT> = inject()(
         }}
       >
         <UserProfile />
-        <ExitDialog />
+        <ExitDialog uiSt={uiSt} userSt={userSt} />
         <Stack
           direction="row"
           justifyContent="flex-start"
