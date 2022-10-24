@@ -10,7 +10,7 @@ import Home from '../SidebarSecondHeaders/Home';
 import Community from '../SidebarSecondHeaders/Community';
 import Settings from '../SidebarSecondHeaders/Settings';
 
-const SidebarSecond = inject()(
+const SidebarSecond = inject('communitySt')(
   observer(() => {
     const router = useRouter();
 
@@ -22,7 +22,7 @@ const SidebarSecond = inject()(
           p: 0,
           width: 236,
           borderRadius: '8px',
-          backgroundColor: 'gray.0',
+          backgroundColor: 'grayscale.0',
           height: 'calc(100vh - 16px)',
           boxShadow: 0,
         }}

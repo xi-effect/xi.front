@@ -87,7 +87,7 @@ const Header = () => {
           sx={{
             width: button1Width[deviceWidth],
             height: buttonsHeight[deviceWidth],
-            color: 'gray.100',
+            color: 'grayscale.100',
             background: '#FFFFFF',
             borderRadius: '12px',
             fontWeight: '400',
@@ -95,7 +95,7 @@ const Header = () => {
             lineHeight: buttonsLineHeight[deviceWidth],
             textTransform: 'capitalize',
             '&:hover': {
-              color: 'gray.0',
+              color: 'grayscale.0',
               bgcolor: 'secondary.dark',
             },
           }}
@@ -107,7 +107,7 @@ const Header = () => {
           sx={{
             width: button2Width[deviceWidth],
             height: buttonsHeight[deviceWidth],
-            color: 'gray.100',
+            color: 'grayscale.100',
             background: '#FFFFFF',
             borderRadius: '12px',
             fontWeight: '400',
@@ -115,7 +115,7 @@ const Header = () => {
             lineHeight: buttonsLineHeight[deviceWidth],
             textTransform: 'capitalize',
             '&:hover': {
-              color: 'gray.0',
+              color: 'grayscale.0',
               bgcolor: 'secondary.dark',
             },
           }}

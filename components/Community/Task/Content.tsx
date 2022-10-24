@@ -16,7 +16,7 @@ const Content: React.FC<ItemsT> = inject('rootStore')(
       sx={{
         mt: '24px',
         position: 'relative',
-        backgroundColor: 'gray.0',
+        backgroundColor: 'grayscale.0',
         padding: 3,
         width: '100%',
         borderRadius: '8px',
@@ -27,7 +27,7 @@ const Content: React.FC<ItemsT> = inject('rootStore')(
           fontWeight: 400,
           fontSize: '16px',
           lineHeight: '24px',
-          color: 'gray.100',
+          color: 'grayscale.100',
         }}
       >
         Порядок проверки исправности. Сроков первичных средств пожаротушения. Использование

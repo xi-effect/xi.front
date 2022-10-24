@@ -22,7 +22,7 @@ const Title: React.FC<HeaderT> = inject('rootStore')(
           fontWeight: 600,
           fontSize: '24px',
           lineHeight: '32px',
-          color: 'gray.100',
+          color: 'grayscale.100',
         }}
       >
         4Д — БЖ
@@ -33,7 +33,7 @@ const Title: React.FC<HeaderT> = inject('rootStore')(
           fontWeight: 400,
           fontSize: '16px',
           lineHeight: '24px',
-          color: 'gray.100',
+          color: 'grayscale.100',
         }}
       >
         Кастырин И.И.

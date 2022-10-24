@@ -32,7 +32,7 @@ const StepOneForm: React.FC<IStepOneForm> = inject('authorizationSt')(
                 placeholder="Имя пользователя"
                 {...field}
                 sx={{
-                  backgroundColor: 'gray.0',
+                  backgroundColor: 'grayscale.0',
                   borderRadius: '8px',
                 }}
               />
@@ -52,7 +52,7 @@ const StepOneForm: React.FC<IStepOneForm> = inject('authorizationSt')(
                 helperText={authorizationSt.signup.error}
                 {...field}
                 sx={{
-                  backgroundColor: 'gray.0',
+                  backgroundColor: 'grayscale.0',
                   borderRadius: '8px',
                 }}
               />

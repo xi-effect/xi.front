@@ -58,7 +58,7 @@ const IButton: React.FC<Props> = (props) => {
       <IconButton
         onClick={handleClick}
         sx={{
-          bgcolor: isActive ? 'primary.dark' : 'gray.0',
+          bgcolor: isActive ? 'primary.dark' : 'grayscale.0',
           width: 48,
           height: 48,
           borderRadius: isActive ? '16px' : 24,
@@ -72,7 +72,7 @@ const IButton: React.FC<Props> = (props) => {
             borderRadius: '16px',
 
             '.MuiTypography-root': {
-              color: !disableHover ? 'gray.0' : '',
+              color: !disableHover ? 'grayscale.0' : '',
             },
             svg: {
               fill: getSvgFillHover(),
@@ -85,7 +85,7 @@ const IButton: React.FC<Props> = (props) => {
             position: 'absolute',
             top: '12px',
             left: '-8px',
-            bgcolor: 'gray.80',
+            bgcolor: 'grayscale.80',
             content: '""',
             width: '4px',
             height: '26px',
@@ -97,7 +97,7 @@ const IButton: React.FC<Props> = (props) => {
         {typography && (
           <Typography
             sx={{
-              color: isActive ? 'gray.0' : 'gray.100',
+              color: isActive ? 'grayscale.0' : 'grayscale.100',
               fontWeight: 600,
               fontSize: '20px',
               lineHeight: '20px',

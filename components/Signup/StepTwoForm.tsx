@@ -35,7 +35,7 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
                 helperText={errors.email?.message ? 'Некорректный email' : ''}
                 {...field}
                 sx={{
-                  backgroundColor: 'gray.0',
+                  backgroundColor: 'grayscale.0',
                   borderRadius: '8px',
                 }}
               />
@@ -70,7 +70,7 @@ const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
                   ),
                 }}
                 sx={{
-                  backgroundColor: 'gray.0',
+                  backgroundColor: 'grayscale.0',
                   borderRadius: '8px',
                 }}
               />

@@ -17,7 +17,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import 'styles/globals.css';
 
-import Loading from 'kit/Loading/Loading';
+import { Loading } from '@xieffect/base.components.loading';
 import { useStore } from 'store/rootStore';
 import createEmotionCache from 'store/createEmotionCache';
 import { getDesignTokens } from 'theme';
@@ -63,7 +63,7 @@ const MyApp = observer((props) => {
       >
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Loading />
+          <Loading loading={rootStore.uiSt.load.loading} />
           <SnackbarProvider
             anchorOrigin={{
               vertical: 'bottom',

@@ -85,7 +85,7 @@ const Message: React.FC<TimelineT> = inject('rootStore')(
           fontWeight: 500,
           fontSize: '18px',
           lineHeight: '22px',
-          color: 'gray.100',
+          color: 'grayscale.100',
           pl: '60px',
         }}
       >
@@ -96,7 +96,7 @@ const Message: React.FC<TimelineT> = inject('rootStore')(
           fontWeight: 400,
           fontSize: '16px',
           lineHeight: '20px',
-          color: 'gray.100',
+          color: 'grayscale.100',
           pl: '60px',
         }}
       >
@@ -120,7 +120,7 @@ const Timeline: React.FC<TimelineT> = inject('rootStore')(
       sx={{
         width: '100%',
         borderRadius: '8px',
-        bgcolor: 'gray.0',
+        bgcolor: 'grayscale.0',
         p: 3,
       }}
     >
@@ -138,7 +138,7 @@ const Timeline: React.FC<TimelineT> = inject('rootStore')(
             fontWeight: 600,
             fontSize: '24px',
             lineHeight: '32px',
-            color: 'gray.100',
+            color: 'grayscale.100',
           }}
         >
           Личные комментарии
@@ -149,7 +149,7 @@ const Timeline: React.FC<TimelineT> = inject('rootStore')(
             fontWeight: 600,
             fontSize: '24px',
             lineHeight: '32px',
-            color: 'gray.40',
+            color: 'grayscale.40',
           }}
         >
           3
@@ -165,7 +165,7 @@ const Timeline: React.FC<TimelineT> = inject('rootStore')(
         fullWidth
         placeholder="Напишите что-нибудь"
         sx={{
-          backgroundColor: 'gray.0',
+          backgroundColor: 'grayscale.0',
         }}
       />
     </Stack>
