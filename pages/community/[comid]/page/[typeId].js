@@ -4,14 +4,11 @@ import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import React from 'react';
 import { useRouter } from 'next/router';
-
-import dynamic from 'next/dynamic';
 import { Box } from '@mui/material';
 import { Navigation } from 'kit/Navigation';
+import dynamic from 'next/dynamic';
 
-const ContentEditor = dynamic(() => import('kit/Editor/ContentEditor/ContentEditor.tsx'), {
-  ssr: false,
-});
+const ContentEditor = dynamic(import('kit/Editor/ContentEditor'), { ssr: false });
 
 const PagePage = inject(
   'rootStore',
@@ -34,8 +31,15 @@ const PagePage = inject(
           <meta name="robots" content="noindex" />
         </Head>
         <Navigation>
-          <Box>
-            <ContentEditor initialState={null} />
+          <Box
+            sx={{
+              width: '100%',
+              height: '100vh',
+              padding: '30px',
+              maxWidth: '1060px',
+            }}
+          >
+            <ContentEditor />
           </Box>
         </Navigation>
       </>
