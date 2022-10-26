@@ -4,7 +4,7 @@ import Head from 'next/head';
 import React from 'react';
 import { Navigation } from 'kit/Navigation';
 
-const Lessons = inject('userSt')(
+const Lessons = inject('profileSt')(
   observer(() => (
     // const router = useRouter()
     <>

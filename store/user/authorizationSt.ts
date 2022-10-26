@@ -2,8 +2,8 @@
 /* eslint-disable no-shadow */
 import { action, observable, makeObservable } from 'mobx';
 import Router from 'next/router';
+import { ResponseDataRegT } from 'models/dataProfileStore';
 import RootStore from '../rootStore';
-import { ResponseDataRegT } from '../../utils/dataUserStore';
 
 const Crypto = require('crypto-js');
 
@@ -44,7 +44,7 @@ class AuthorizationSt {
   // `this` from rootstore passed to the constructor and we can
   // assign it to a variable accessible in this class called
   // `rootStore`. Therefore, we can access other store like
-  // useStore for e.g (this.rootStore.userStore)
+  // useStore for e.g (this.rootStore.profileStore)
   rootStore: RootStore;
 
   constructor(rootStore) {
@@ -129,10 +129,10 @@ class AuthorizationSt {
             this.rootStore.uiSt.setLoading('loading', true);
             const { id, username, language } = data.user;
             this.rootStore.uiSt.setLoading('loading', true);
-            this.rootStore.userSt.setSettings('id', id);
-            this.rootStore.userSt.setSettings('username', username);
-            this.rootStore.userSt.setSettings('darkTheme', data.user['dark-theme']);
-            this.rootStore.userSt.setSettings('language', language);
+            this.rootStore.profileSt.setSettings('id', id);
+            this.rootStore.profileSt.setSettings('username', username);
+            this.rootStore.profileSt.setSettings('darkTheme', data.user['dark-theme']);
+            this.rootStore.profileSt.setSettings('language', language);
             Router.push('/home');
             setTimeout(() => {
               this.rootStore.uiSt.setLoading('loading', false);
@@ -182,10 +182,10 @@ class AuthorizationSt {
             this.rootStore.uiSt.setLoading('loading', true);
             const { id, username, language } = data.user;
             this.rootStore.uiSt.setLoading('loading', true);
-            this.rootStore.userSt.setSettings('id', id);
-            this.rootStore.userSt.setSettings('username', username);
-            this.rootStore.userSt.setSettings('darkTheme', data.user['dark-theme']);
-            this.rootStore.userSt.setSettings('language', language);
+            this.rootStore.profileSt.setSettings('id', id);
+            this.rootStore.profileSt.setSettings('username', username);
+            this.rootStore.profileSt.setSettings('darkTheme', data.user['dark-theme']);
+            this.rootStore.profileSt.setSettings('language', language);
             this.rootStore.communitiesMenuSt.setUserCommunities(data.communities);
             Router.push('/home');
             setTimeout(() => {

@@ -14,14 +14,11 @@ const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 type MobileT = {
   children: React.ReactNode;
   uiSt?: any;
-  userSt?: any;
+  profileSt?: any;
 };
 
-const Mobile: React.FC<MobileT> = inject(
-  'uiSt',
-  'userSt',
-)(
-  observer(({ children, uiSt, userSt }) => {
+const Mobile: React.FC<MobileT> = inject()(
+  observer(({ children }) => {
     const [valueLS, setValueLS] = useLocalStorage('is-main-menu-open');
 
     const [menuPosition, setMenuPosition] = React.useState<number>(0);
@@ -100,7 +97,7 @@ const Mobile: React.FC<MobileT> = inject(
         }}
       >
         <UserProfile />
-        <ExitDialog uiSt={uiSt} userSt={userSt} />
+        <ExitDialog />
         <Stack
           direction="row"
           justifyContent="flex-start"

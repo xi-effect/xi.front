@@ -19,17 +19,17 @@ const Transition = React.forwardRef(
 );
 
 interface UserProfileProps {
-  userSt?: any;
+  profileSt?: any;
   uiSt?: any;
 }
 
 const UserProfile = inject(
   'rootStore',
-  'userSt',
+  'profileSt',
   'uiSt',
 )(
   observer((props: UserProfileProps) => {
-    const { uiSt, userSt } = props;
+    const { uiSt, profileSt } = props;
     const { dialogs, setDialogs } = uiSt;
 
     const [activeContent, setActiveContent] = React.useState(0);
@@ -42,9 +42,9 @@ const UserProfile = inject(
     };
 
     React.useEffect(() => {
-      userSt.getAllSettings();
-      userSt.getMainSettings();
-    }, [userSt]);
+      profileSt.getAllSettings();
+      profileSt.getMainSettings();
+    }, [profileSt]);
 
     return (
       <Dialog

@@ -16,14 +16,11 @@ const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 type DesktopT = {
   children: React.ReactNode;
   uiSt?: any;
-  userSt?: any;
+  profileSt?: any;
 };
 
-const Desktop: React.FC<DesktopT> = inject(
-  'uiSt',
-  'userSt',
-)(
-  observer(({ children, uiSt, userSt }) => {
+const Desktop: React.FC<DesktopT> = inject()(
+  observer(({ children }) => {
     const router = useRouter();
 
     return (
@@ -38,7 +35,7 @@ const Desktop: React.FC<DesktopT> = inject(
         }}
       >
         <UserProfile />
-        <ExitDialog uiSt={uiSt} userSt={userSt} />
+        <ExitDialog />
         <Box sx={{ width: 64 }}>
           <Sidebar />
         </Box>

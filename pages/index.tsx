@@ -7,12 +7,12 @@ import Form from 'components/Signin/Form';
 import XiLogo from 'kit/XiLogo';
 import { Stack, Typography, Link, Divider, useMediaQuery } from '@mui/material';
 import UiSt from '../store/ui/uiSt';
-import UserSt from '../store/user/userSt';
+import profileSt from '../store/user/profileSt';
 import AuthorizationSt from '../store/user/authorizationSt';
 
 type SigninT = {
   uiSt: UiSt;
-  userSt: UserSt;
+  profileSt: profileSt;
   authorizationSt: AuthorizationSt;
 };
 
@@ -48,11 +48,11 @@ const Tearms = () => (
 
 const Signin = inject(
   'uiSt',
-  'userSt',
+  'profileSt',
   'authorizationSt',
 )(
   observer((props: SigninT) => {
-    const { uiSt, userSt, authorizationSt }: SigninT = props;
+    const { uiSt, profileSt, authorizationSt }: SigninT = props;
 
     const [prevPathname] = useSessionStorage('prevPathname');
 
@@ -61,7 +61,7 @@ const Signin = inject(
     useEffect(() => {
       if (prevPathname !== '/home' && prevPathname !== '/signup') {
         uiSt.setLoading('loading', true);
-        userSt.getMainSettings('login');
+        profileSt.getMainSettings('login');
       }
     }, []);
 

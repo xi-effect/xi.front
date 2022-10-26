@@ -7,7 +7,7 @@ import { Stack, Typography, useMediaQuery } from '@mui/material';
 
 const ResetPassword = inject(
   'uiSt',
-  'userSt',
+  'profileSt',
 )(
   observer((props) => {
     const isMobile: boolean = useMediaQuery('(max-width: 472px)');
