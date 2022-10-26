@@ -1,6 +1,14 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { Button, Dialog, IconButton, Stack, Typography, InputAdornment, Slide } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  IconButton,
+  Stack,
+  Typography,
+  InputAdornment,
+  Slide,
+} from '@mui/material';
 import { Close } from '@xieffect/base.icons.close';
 
 import Visibility from '@mui/icons-material/Visibility';
@@ -31,7 +39,10 @@ type EmailChangeDialogPropsT = {
   uiSt?: any;
 };
 
-const EmailChangeDialog = inject('rootStore', 'uiSt')(
+const EmailChangeDialog = inject(
+  'rootStore',
+  'uiSt',
+)(
   observer(({ rootStore, uiSt }: EmailChangeDialogPropsT) => {
     const { dialogs, setDialogs } = uiSt;
 
@@ -58,7 +69,7 @@ const EmailChangeDialog = inject('rootStore', 'uiSt')(
     });
 
     const onSubmit = (newData) => {
-      const { password, email } = newData; 
+      const { password, email } = newData;
       setEmailError(false);
       setPasswordError(false);
       rootStore
@@ -112,7 +123,10 @@ const EmailChangeDialog = inject('rootStore', 'uiSt')(
       >
         <IconButton
           sx={{ color: 'text.secondary', position: 'absolute', top: '12px', right: '12px' }}
-          onClick={() => setDialogs('emailChange', false)}
+          onClick={() => {
+            reset();
+            setDialogs('emailChange', false);
+          }}
         >
           <Close />
         </IconButton>
@@ -203,7 +217,7 @@ const EmailChangeDialog = inject('rootStore', 'uiSt')(
               },
             }}
           >
-            Изменить
+            Изменить почту
           </Button>
         </Stack>
       </Dialog>

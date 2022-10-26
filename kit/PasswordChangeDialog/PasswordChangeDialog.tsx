@@ -1,6 +1,14 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { Button, Dialog, InputAdornment, IconButton, Stack, Typography, Slide } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  InputAdornment,
+  IconButton,
+  Stack,
+  Typography,
+  Slide,
+} from '@mui/material';
 import { Close } from '@xieffect/base.icons.close';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -32,7 +40,10 @@ type PasswordChangeDialogPropsT = {
   uiSt?: any;
 };
 
-const PasswordChangeDialog = inject('rootStore', 'uiSt')(
+const PasswordChangeDialog = inject(
+  'rootStore',
+  'uiSt',
+)(
   observer(({ rootStore, uiSt }: PasswordChangeDialogPropsT) => {
     const { dialogs, setDialogs } = uiSt;
     const { enqueueSnackbar } = useSnackbar();
@@ -44,7 +55,6 @@ const PasswordChangeDialog = inject('rootStore', 'uiSt')(
     // eslint-disable-next-line no-unused-vars
     const [passwordError, setPasswordError] = React.useState<string | null>(null);
 
-
     const {
       control,
       handleSubmit,
@@ -55,7 +65,7 @@ const PasswordChangeDialog = inject('rootStore', 'uiSt')(
       resolver: yupResolver(schema),
     });
 
-    console.log("errors", errors);
+    console.log('errors', errors);
 
     const handleMouseDownPassword = (event) => {
       event.preventDefault();
@@ -65,9 +75,9 @@ const PasswordChangeDialog = inject('rootStore', 'uiSt')(
       const { password, newPassword, newPasswordAgain } = newData;
 
       setPasswordError(null);
-  
+
       if (newPassword !== newPasswordAgain) {
-        setPasswordError("Пароли не совпадают");
+        setPasswordError('Пароли не совпадают');
         return;
       }
 
@@ -91,7 +101,7 @@ const PasswordChangeDialog = inject('rootStore', 'uiSt')(
                 TransitionComponent: Slide,
               });
             } else {
-              setPasswordError("Ошибка сервера");
+              setPasswordError('Ошибка сервера');
             }
           }
           trigger();
@@ -121,7 +131,10 @@ const PasswordChangeDialog = inject('rootStore', 'uiSt')(
       >
         <IconButton
           sx={{ color: 'text.secondary', position: 'absolute', top: '12px', right: '12px' }}
-          onClick={() => setDialogs('passwordChange', false)}
+          onClick={() => {
+            reset();
+            setDialogs('passwordChange', false);
+          }}
         >
           <Close />
         </IconButton>
@@ -151,7 +164,7 @@ const PasswordChangeDialog = inject('rootStore', 'uiSt')(
               <TextFieldCustom
                 variant="outlined"
                 error={!!errors.password?.message}
-                type={showPassword ? "text" : "password"} 
+                type={showPassword ? 'text' : 'password'}
                 fullWidth
                 placeholder="Текущий пароль"
                 // helperText={getEmailError()}
@@ -186,7 +199,7 @@ const PasswordChangeDialog = inject('rootStore', 'uiSt')(
               <TextFieldCustom
                 variant="outlined"
                 error={!!errors.newPassword?.message}
-                type={showPasswordNew ? "text" : "password"} 
+                type={showPasswordNew ? 'text' : 'password'}
                 fullWidth
                 placeholder="Новый пароль"
                 // helperText={getEmailError()}
@@ -223,7 +236,7 @@ const PasswordChangeDialog = inject('rootStore', 'uiSt')(
                 error={!!errors.newPasswordAgain?.message || !!passwordError}
                 fullWidth
                 placeholder="Подтверждение нового пароля"
-                type={showPasswordNewAgain ? "text" : "password"} 
+                type={showPasswordNewAgain ? 'text' : 'password'}
                 helperText={passwordError}
                 InputProps={{
                   endAdornment: (
