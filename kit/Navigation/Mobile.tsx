@@ -14,10 +14,13 @@ const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 type MobileT = {
   children: React.ReactNode;
   uiSt?: any;
-  userSt?: any; 
+  userSt?: any;
 };
 
-const Mobile: React.FC<MobileT> = inject("uiSt", "userSt")(
+const Mobile: React.FC<MobileT> = inject(
+  'uiSt',
+  'userSt',
+)(
   observer(({ children, uiSt, userSt }) => {
     const [valueLS, setValueLS] = useLocalStorage('is-main-menu-open');
 

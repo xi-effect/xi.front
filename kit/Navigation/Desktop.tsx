@@ -11,16 +11,18 @@ import { UserProfile } from 'kit/UserProfile';
 import { ExitDialog } from '@xieffect/base.dialogs.exit';
 import { SidebarSecond } from './SidebarSecond';
 
-
 const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 
 type DesktopT = {
   children: React.ReactNode;
   uiSt?: any;
-  userSt?: any; 
+  userSt?: any;
 };
 
-const Desktop: React.FC<DesktopT> = inject("uiSt", "userSt")(
+const Desktop: React.FC<DesktopT> = inject(
+  'uiSt',
+  'userSt',
+)(
   observer(({ children, uiSt, userSt }) => {
     const router = useRouter();
 

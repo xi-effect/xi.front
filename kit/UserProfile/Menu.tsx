@@ -36,14 +36,6 @@ const menu = [
     mt: '4px',
     name: 'Звук и видео',
   },
-  {
-    mt: '24px',
-    name: 'Плюс',
-  },
-  {
-    mt: '4px',
-    name: 'Бонусы',
-  },
 ];
 
 type MenuProps = {
