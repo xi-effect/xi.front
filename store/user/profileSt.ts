@@ -3,10 +3,11 @@ import Router from 'next/router';
 import { ResponseDataRegT } from 'models/dataProfileStore';
 import RootStore from '../rootStore';
 
-type SettingsprofileStoreT = {
+type SettingsProfileStoreT = {
   id: null | number;
   username: string;
   darkTheme: boolean;
+  email: string | null;
   emailConfirmed: any;
   invite: any;
   communities: [];
@@ -18,7 +19,7 @@ type ResponseGetSettings = {
   'dark-theme': boolean;
   language: string;
   avatar: {};
-  email: string;
+  email: string | null;
   'email-confirmed': boolean;
   code: string;
   name: string;
@@ -40,10 +41,11 @@ class profileSt {
     makeObservable(this);
   }
 
-  @observable settings: SettingsprofileStoreT = {
+  @observable settings: SettingsProfileStoreT = {
     id: null,
     username: '',
     darkTheme: true,
+    email: null,
     emailConfirmed: null,
     invite: null,
     communities: [],
@@ -82,9 +84,7 @@ class profileSt {
       .fetchData(`${this.rootStore.url}/settings/`, 'GET')
       .then((data: ResponseGetSettings) => {
         if (data) {
-          const emailArr = data.email.split('@', 2);
-          this.setSettings('emailBefore', emailArr[0]);
-          this.setSettings('emailAfter', `@${emailArr[1]}`);
+          this.setSettings('email', data.email);
           this.setSettings('emailConfirmed', data['email-confirmed']);
           this.setSettings('avatar', data.avatar);
           this.setSettings('invite', data.code);
@@ -113,6 +113,7 @@ class profileSt {
             id: null,
             username: '',
             darkTheme: true,
+            email: null,
             emailConfirmed: null,
             invite: null,
             communities: [],
