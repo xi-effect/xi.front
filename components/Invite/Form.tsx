@@ -115,14 +115,21 @@ const Form: React.FC<Props> = inject('rootStore')(
     const [auth, setAuth] = React.useState<boolean | null>(null);
     const [comm, setComm] = React.useState<CommunityInfo | null>(null);
 
+    const [undef, setUndef] = React.useState<boolean>(false);
+
     React.useEffect(() => {
       const code = getLastCodeFromURL();
       rootStore
         .fetchData(`${rootStore.url}/communities/join/${code}/`, 'GET')
-        .then(({ joined, authorized, community }) => {
-          setAuth(authorized);
-          setJoin(joined);
-          setComm(community);
+        .then((data) => {
+          if (data) {
+            const { joined, authorized, community } = data;
+            setAuth(authorized);
+            setJoin(joined);
+            setComm(community);
+          } else {
+            setUndef(true);
+          }
         });
     }, []);
 
@@ -212,7 +219,7 @@ const Form: React.FC<Props> = inject('rootStore')(
                   p: 2,
                 }}
               >
-                {join !== null && auth !== null && comm !== null ? (
+                {!undef && join !== null && auth !== null && comm !== null ? (
                   <Content join={join} auth={auth} comm={comm} />
                 ) : (
                   <Skeleton sx={{ width: '100%', height: 64 }} />
