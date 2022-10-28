@@ -12,8 +12,8 @@ const ContentEditor = dynamic(import('kit/Editor/ContentEditor'), { ssr: false }
 
 const PagePage = inject(
   'rootStore',
-  'userSt',
-  'userSt',
+  'profileSt',
+  'profileSt',
 )(
   observer(() => {
     const router = useRouter();

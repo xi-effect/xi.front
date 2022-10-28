@@ -1,11 +1,10 @@
 import { action, observable, makeObservable } from 'mobx';
 import Router from 'next/router';
+import { ResponseDataRegT } from 'models/dataProfileStore';
 import RootStore from '../rootStore';
-import { ResponseDataRegT } from '../../utils/dataUserStore';
 
-type SettingsUserStoreT = {
+type SettingsprofileStoreT = {
   id: null | number;
-  avatar: SettingsAvatarStoreT;
   username: string;
   darkTheme: boolean;
   emailConfirmed: any;
@@ -13,18 +12,6 @@ type SettingsUserStoreT = {
   communities: [];
 };
 
-type SettingsAvatarStoreT = {
-  topType: number;
-  accessoriesType: number;
-  hairColor: number;
-  facialHairType: number;
-  clotheType: number;
-  eyeType: number;
-  eyebrowType: number;
-  mouthType: number;
-  skinColor: number;
-  bgcolor: number;
-};
 type ResponseGetSettings = {
   id: number;
   username: string;
@@ -41,11 +28,11 @@ type ResponseGetSettings = {
   group: string;
 };
 
-class UserSt {
+class profileSt {
   // `this` from rootstore passed to the constructor and we can
   // assign it to a variable accessible in this class called
   // `rootStore`. Therefore, we can access other store like
-  // useStore for e.g (this.rootStore.userStore)
+  // useStore for e.g (this.rootStore.profileStore)
   rootStore: RootStore;
 
   constructor(rootStore) {
@@ -53,20 +40,8 @@ class UserSt {
     makeObservable(this);
   }
 
-  @observable settings: SettingsUserStoreT = {
+  @observable settings: SettingsprofileStoreT = {
     id: null,
-    avatar: {
-      topType: 0,
-      accessoriesType: 0,
-      hairColor: 0,
-      facialHairType: 0,
-      clotheType: 0,
-      eyeType: 0,
-      eyebrowType: 0,
-      mouthType: 0,
-      skinColor: 0,
-      bgcolor: 0,
-    },
     username: '',
     darkTheme: true,
     emailConfirmed: null,
@@ -136,18 +111,6 @@ class UserSt {
           router.push('/');
           this.settings = {
             id: null,
-            avatar: {
-              topType: 0,
-              accessoriesType: 0,
-              hairColor: 0,
-              facialHairType: 0,
-              clotheType: 0,
-              eyeType: 0,
-              eyebrowType: 0,
-              mouthType: 0,
-              skinColor: 0,
-              bgcolor: 0,
-            },
             username: '',
             darkTheme: true,
             emailConfirmed: null,
@@ -159,4 +122,4 @@ class UserSt {
   };
 }
 
-export default UserSt;
+export default profileSt;

@@ -33,8 +33,8 @@ const MyApp = observer((props) => {
 
   const rootStore = useStore(pageProps.initialState);
   const theme = React.useMemo(
-    () => createTheme(getDesignTokens('light' || rootStore.userSt.settings.darkTheme)), // Только светлая тема
-    [rootStore.userSt.settings.darkTheme],
+    () => createTheme(getDesignTokens('light' || rootStore.profileSt.settings.darkTheme)), // Только светлая тема
+    [rootStore.profileSt.settings.darkTheme],
   );
 
   return (
@@ -49,7 +49,7 @@ const MyApp = observer((props) => {
       <Provider
         rootStore={rootStore}
         uiSt={rootStore.uiSt}
-        userSt={rootStore.userSt}
+        profileSt={rootStore.profileSt}
         homeSt={rootStore.homeSt}
         authorizationSt={rootStore.authorizationSt}
         // Community Stores

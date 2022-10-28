@@ -5,7 +5,7 @@ import React from 'react';
 import { Navigation } from 'kit/Navigation';
 import { Header, Items, Title } from 'components/Community/Tasks';
 
-const Tasks = inject('userSt')(
+const Tasks = inject('profileSt')(
   observer(() => (
     // const router = useRouter()
     <>
