@@ -8,7 +8,7 @@ import Router from 'next/router';
 import { io, Socket } from 'socket.io-client';
 import UISt from './ui/uiSt';
 import HomeSt from './home/homeSt';
-import UserSt from './user/userSt';
+import profileSt from './user/profileSt';
 import AuthorizationSt from './user/authorizationSt';
 import CommunitySt from './community/communitySt';
 import CommunityCreationSt from './community/communityCreationSt';
@@ -27,7 +27,7 @@ class RootStore {
 
   homeSt: HomeSt;
 
-  userSt: UserSt;
+  profileSt: profileSt;
 
   authorizationSt: AuthorizationSt;
 
@@ -48,7 +48,7 @@ class RootStore {
   constructor() {
     this.uiSt = new UISt(this);
     this.homeSt = new HomeSt(this);
-    this.userSt = new UserSt(this);
+    this.profileSt = new profileSt(this);
     this.authorizationSt = new AuthorizationSt(this);
 
     // Community Stores

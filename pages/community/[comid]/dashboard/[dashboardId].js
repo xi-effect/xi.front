@@ -7,8 +7,8 @@ import { Navigation } from 'kit/Navigation';
 
 const Dashboard = inject(
   'rootStore',
-  'userSt',
-  'userSt',
+  'profileSt',
+  'profileSt',
 )(
   observer(() => {
     const router = useRouter();

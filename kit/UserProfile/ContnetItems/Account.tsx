@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react';
 
 const Account = inject(
   'rootStore',
-  'userSt',
+  'profileSt',
 )(
   observer(() => (
     <>

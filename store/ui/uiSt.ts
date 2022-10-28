@@ -20,7 +20,7 @@ class UISt {
   // `this` from rootstore passed to the constructor and we can
   // assign it to a variable accessible in this class called
   // `rootStore`. Therefore, we can access other store like
-  // useStore for e.g (this.rootStore.userStore)
+  // useStore for e.g (this.rootStore.profileStore)
   rootStore: RootStore;
 
   constructor(rootStore) {

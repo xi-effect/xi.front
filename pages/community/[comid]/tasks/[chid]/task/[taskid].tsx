@@ -12,7 +12,7 @@ import {
   Timeline,
 } from 'components/Community/Task';
 
-const Task = inject('userSt')(
+const Task = inject('profileSt')(
   observer(() => {
     const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
     const mobileSide = useMediaQuery((theme: Theme) => theme.breakpoints.down(1920));

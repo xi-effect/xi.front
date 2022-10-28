@@ -11,8 +11,8 @@ const Room = dynamic(() => import('components/Community/Room'), { ssr: false });
 
 const RoomPage = inject(
   'rootStore',
-  'userSt',
-  'userSt',
+  'profileSt',
+  'profileSt',
 )(
   observer(() => {
     const router = useRouter();

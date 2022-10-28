@@ -17,18 +17,18 @@ const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 
 type NavigationT = {
   rootStore?: any;
-  userSt?: any;
+  profileSt?: any;
   uiSt?: any;
   children: React.ReactNode;
 };
 
 const Navigation = inject(
   'rootStore',
-  'userSt',
+  'profileSt',
   'uiSt',
 )(
   observer((props: NavigationT) => {
-    const { rootStore, userSt, uiSt, children } = props;
+    const { rootStore, profileSt, uiSt, children } = props;
 
     const router = useRouter();
     const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
@@ -111,15 +111,15 @@ const Navigation = inject(
     });
 
     React.useEffect(() => {
-      if (userSt.settings.id === null) {
+      if (profileSt.settings.id === null) {
         uiSt.setLoading('loading', true);
-        userSt.getMainSettings();
+        profileSt.getMainSettings();
       }
     }, []);
 
     React.useEffect(() => {
-      if (userSt.settings.code === null) {
-        userSt.getAllSettings();
+      if (profileSt.settings.code === null) {
+        profileSt.getAllSettings();
       }
     }, []);
 

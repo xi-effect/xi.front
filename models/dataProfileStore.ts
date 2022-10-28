@@ -3,6 +3,7 @@ export type ResponseDataRegT = {
   a: string;
   user: RegUserT;
 };
+
 type RegUserT = {
   id: number;
   username: string;
