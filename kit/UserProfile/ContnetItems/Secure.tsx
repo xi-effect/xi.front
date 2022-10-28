@@ -6,8 +6,8 @@ import { inject, observer } from 'mobx-react';
 import { PasswordChangeDialog } from 'kit/PasswordChangeDialog';
 import { EmailChangeDialog } from 'kit/EmailChangeDialog';
 
-const Secure = inject('uiSt')(
-  observer(({ uiSt }) => (
+const Secure = inject('profileSt', 'uiSt')(
+  observer(({ profileSt, uiSt }) => (
     <>
       <Stack
         direction="column"
@@ -115,7 +115,7 @@ const Secure = inject('uiSt')(
             right: '200px',
           }}
         >
-          kolipseazer@yandex.ru
+          {profileSt.settings.email}
         </Typography>
         <Button
           onClick={() => uiSt.setDialogs('emailChange', true)}
