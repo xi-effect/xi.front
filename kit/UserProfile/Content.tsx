@@ -2,9 +2,9 @@
 import * as React from 'react';
 import { Stack, useMediaQuery, Theme } from '@mui/material';
 import dynamic from 'next/dynamic';
-import Main from './ContentItems/Main';
-import Account from './ContentItems/Account';
-import Secure from './ContentItems/Secure';
+import Main from './ContnetItems/Main';
+import Account from './ContnetItems/Account';
+import Secure from './ContnetItems/Secure';
 
 const SoundAndVideo = dynamic(import('./ContentItems/SoundAndVideo'), { ssr: false });
 
