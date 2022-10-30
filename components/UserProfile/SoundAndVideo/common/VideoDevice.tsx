@@ -12,15 +12,19 @@ const VideoDevice = () => {
   const [activeDevice, setActiveDevice] = useState<string>('');
   const [startStream, setStartStream] = useState<boolean>(false);
   const [mirrorVideo, setMirrorVideo] = useState<boolean>(true);
-  const { devices, changeDevice } = useUserMedia({ device: 'videoinput', mediaElementRef });
+  const { devices, changeDevice, error } = useUserMedia({ device: 'videoinput', mediaElementRef });
 
   const onStreamStart = () => {
-    setStartStream(true);
+    if (!error) {
+      setStartStream(true);
 
-    if (mediaElementRef.current) {
-      mediaElementRef.current.play();
-      mediaElementRef.current.volume = 0.1;
+      if (mediaElementRef.current) {
+        mediaElementRef.current.play();
+        mediaElementRef.current.volume = 0.1;
+      }
     }
+
+    console.log(error);
   };
 
   const onStreamStop = () => {
