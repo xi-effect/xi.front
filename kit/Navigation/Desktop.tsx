@@ -20,7 +20,7 @@ type DesktopT = {
 };
 
 const Desktop: React.FC<DesktopT> = inject()(
-  observer(({ children}) => {
+  observer(({ children }) => {
     const router = useRouter();
 
     return (

@@ -6,7 +6,10 @@ import { inject, observer } from 'mobx-react';
 import { PasswordChangeDialog } from 'kit/PasswordChangeDialog';
 import { EmailChangeDialog } from 'kit/EmailChangeDialog';
 
-const Secure = inject('profileSt', 'uiSt')(
+const Secure = inject(
+  'profileSt',
+  'uiSt',
+)(
   observer(({ profileSt, uiSt }) => (
     <>
       <Stack

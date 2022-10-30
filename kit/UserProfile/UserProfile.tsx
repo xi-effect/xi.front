@@ -2,12 +2,15 @@
 import * as React from 'react';
 
 import { TransitionProps } from '@mui/material/transitions';
-import { Dialog, Slide, Stack, IconButton, useMediaQuery, Theme } from '@mui/material';
+import { Dialog, Slide, Stack, IconButton, useMediaQuery, Theme, Typography } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import { Burger } from '@xieffect/base.icons.burger';
 import { Close } from '@xieffect/base.icons.close';
+import { Arrow } from '@xieffect/base.icons.arrow';
 import Menu from './Menu';
 import Content from './Content';
+
+const titles = ['Главная', 'Личные данные', 'Безопасность', 'Звук и видео'];
 
 const Transition = React.forwardRef(
   (
@@ -33,6 +36,7 @@ const UserProfile = inject(
     const { dialogs, setDialogs } = uiSt;
 
     const [activeContent, setActiveContent] = React.useState(0);
+    const [openContent, setOpenContent] = React.useState(false);
 
     const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
     const mobile1400: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1400));
@@ -55,7 +59,7 @@ const UserProfile = inject(
             display: 'flex',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            p: '16px',
+            p: mobile700 ? '8px' : '16px',
           },
         }}
         fullScreen
@@ -75,23 +79,56 @@ const UserProfile = inject(
         >
           <Stack
             direction="row"
-            justifyContent={mobile700 ? 'space-between' : 'flex-end'}
+            justifyContent="flex-start"
             alignItems="center"
             sx={{
               width: '100%',
+              position: 'relative',
             }}
           >
             {mobile700 && (
-              <IconButton
-                onClick={() => uiSt.setDialogs('userProfile', false)}
+              <>
+                {!openContent && (
+                  <IconButton
+                    onClick={() => setOpenContent(false)}
+                    sx={{
+                      width: '40px',
+                      height: '40px',
+                      backgroundColor: 'transparent',
+                      '&:hover': {
+                        backgroundColor: 'transparent',
+                      },
+                    }}
+                  >
+                    <Burger />
+                  </IconButton>
+                )}
+                {openContent && (
+                  <IconButton
+                    onClick={() => setOpenContent(false)}
+                    sx={{
+                      width: '40px',
+                      height: '40px',
+                      transform: 'rotate(180deg)',
+                      backgroundColor: 'grayscale.0',
+                    }}
+                  >
+                    <Arrow />
+                  </IconButton>
+                )}
+              </>
+            )}
+            {openContent && (
+              <Typography
                 sx={{
-                  width: '40px',
-                  height: '40px',
-                  bgcolor: 'grayscale.0',
+                  ml: '8px',
+                  fontWeight: 500,
+                  fontSize: '16px',
+                  lineHeight: '20px',
                 }}
               >
-                <Burger />
-              </IconButton>
+                {titles[activeContent] ?? 'Главная'}
+              </Typography>
             )}
             <IconButton
               onClick={() => uiSt.setDialogs('userProfile', false)}
@@ -99,21 +136,29 @@ const UserProfile = inject(
                 width: '40px',
                 height: '40px',
                 bgcolor: 'grayscale.0',
+                position: 'absolute',
+                right: 0,
               }}
             >
               <Close />
             </IconButton>
           </Stack>
           <Stack
-            direction="row"
+            direction={mobile700 ? 'column' : 'row'}
             justifyContent="flex-start"
             alignItems="flex-start"
             sx={{
               width: '100%',
             }}
           >
-            <Menu activeContent={activeContent} setActiveContent={setActiveContent} />
-            {!mobile700 && <Content activeContent={activeContent} />}
+            {!openContent && (
+              <Menu
+                activeContent={activeContent}
+                setActiveContent={setActiveContent}
+                setOpenContent={setOpenContent}
+              />
+            )}
+            {(openContent || !mobile700) && <Content activeContent={activeContent} />}
           </Stack>
         </Stack>
       </Dialog>

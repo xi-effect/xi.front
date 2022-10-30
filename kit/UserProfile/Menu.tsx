@@ -43,10 +43,12 @@ type MenuProps = {
   activeContent: number;
   // eslint-disable-next-line no-unused-vars
   setActiveContent: (activeContent: number) => void;
+  // eslint-disable-next-line no-unused-vars
+  setOpenContent: (openContent: boolean) => void;
 };
 
 const Menu = inject('uiSt')(
-  observer(({ uiSt, activeContent, setActiveContent }: MenuProps) => {
+  observer(({ uiSt, activeContent, setActiveContent, setOpenContent }: MenuProps) => {
     const { setDialogs } = uiSt;
     const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
 
@@ -62,15 +64,19 @@ const Menu = inject('uiSt')(
       >
         {menu.map((item, index) => (
           <ColorButton
-            onClick={() => setActiveContent(index)}
+            onClick={() => {
+              setActiveContent(index);
+              if (mobile700) setOpenContent(true);
+            }}
             key={index.toString()}
             sx={{
               mt: item.mt,
               color: 'grayscale.100',
               textTransform: 'none',
-              backgroundColor: index === activeContent ? 'grayscale.0' : 'transparent',
+              backgroundColor:
+                index === activeContent && !mobile700 ? 'grayscale.0' : 'transparent',
               '&:hover': {
-                backgroundColor: 'grayscale.0',
+                backgroundColor: !mobile700 ? 'grayscale.0' : '',
               },
             }}
           >

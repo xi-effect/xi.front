@@ -119,18 +119,16 @@ const Form: React.FC<Props> = inject('rootStore')(
 
     React.useEffect(() => {
       const code = getLastCodeFromURL();
-      rootStore
-        .fetchData(`${rootStore.url}/communities/join/${code}/`, 'GET')
-        .then((data) => {
-          if (data) {
-            const { joined, authorized, community } = data;
-            setAuth(authorized);
-            setJoin(joined);
-            setComm(community);
-          } else {
-            setUndef(true);
-          }
-        });
+      rootStore.fetchData(`${rootStore.url}/communities/join/${code}/`, 'GET').then((data) => {
+        if (data) {
+          const { joined, authorized, community } = data;
+          setAuth(authorized);
+          setJoin(joined);
+          setComm(community);
+        } else {
+          setUndef(true);
+        }
+      });
     }, []);
 
     return (
