@@ -98,6 +98,7 @@ const VideoDevice = () => {
           }
           control={
             <Checkbox
+              defaultChecked
               onChange={(e) => setMirrorVideo(e.target.checked)}
               icon={
                 <Box
