@@ -3,7 +3,7 @@ html {
   margin: 0;
   font-size: 10px;
   font-family: Golos, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-    Helvetica Neue, sans-serif;
+  Helvetica Neue, sans-serif;
 }
 
 body {
@@ -12,7 +12,7 @@ body {
   overflow: visible !important;
   padding-right: 0px !important;
   font-family: Golos, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-    Helvetica Neue, sans-serif;
+  Helvetica Neue, sans-serif;
 }
 
 a {
@@ -28,6 +28,7 @@ a {
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track-piece {
   background: transparent;
   border-radius: 6px;
@@ -52,4 +53,20 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 60px #ECEFFF inset !important;
   background-color: #ECEFFF !important;
   background-clip: content-box !important;
+}
+
+.sound-meter {
+  width: 100%;
+  height: 20px;
+}
+
+.sound-meter::-webkit-meter-bar {
+  background: #E6E6E6;
+  border-radius: 100px;
+  box-shadow: none;
+  border: none;
+}
+
+.sound-meter::-webkit-meter-optimum-value {
+  background: #445AFF;
 }
