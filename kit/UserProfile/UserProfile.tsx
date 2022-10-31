@@ -60,6 +60,7 @@ const UserProfile = inject(
             justifyContent: 'flex-start',
             alignItems: 'center',
             p: mobile700 ? '8px' : '16px',
+            overflow: 'scroll',
           },
         }}
         fullScreen
@@ -82,6 +83,7 @@ const UserProfile = inject(
             justifyContent="flex-start"
             alignItems="center"
             sx={{
+              height: '40px',
               width: '100%',
               position: 'relative',
             }}

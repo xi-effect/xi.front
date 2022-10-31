@@ -1,11 +1,10 @@
 import React from 'react';
-import SoundBlock from 'components/UserProfile/SoundAndVideo/SoundBlock';
-import VideoBlock from 'components/UserProfile/SoundAndVideo/VideoBlock';
+import SoundBlock from 'kit/UserProfile/ContentItems/SoundAndVideo/SoundBlock';
+import VideoBlock from 'kit/UserProfile/ContentItems/SoundAndVideo/VideoBlock';
 
 const SoundAndVideo = () => (
   <>
     <SoundBlock />
-
     <VideoBlock />
   </>
 );

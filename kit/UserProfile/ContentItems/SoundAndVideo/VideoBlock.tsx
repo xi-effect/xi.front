@@ -1,14 +1,13 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import SoundDevice from './common/SoundDevice';
 import { contentSubTitle, contentTitle } from './common/Styles/styles';
+import VideoDevice from './common/VideoDevice';
 
-const SoundBlock = () => (
+const VideoBlock = () => (
   <Box
     sx={{
       p: '24px',
-      mb: '16px',
-      width: '96.2%',
+      width: '100%',
       borderRadius: '8px',
       backgroundColor: 'grayscale.0',
     }}
@@ -19,24 +18,20 @@ const SoundBlock = () => (
         ...contentTitle,
       }}
     >
-      Звук
+      Камера
     </Typography>
 
     <Typography
       sx={{
-        mb: '32px',
+        mb: '24px',
         ...contentSubTitle,
       }}
     >
-      Настройте звук перед звонком
+      Настройте камеру для видеоконференций
     </Typography>
 
-    <Box mb="24px">
-      <SoundDevice device="audioinput" />
-    </Box>
-
-    <SoundDevice device="audiooutput" />
+    <VideoDevice />
   </Box>
 );
 
-export default SoundBlock;
+export default VideoBlock;
