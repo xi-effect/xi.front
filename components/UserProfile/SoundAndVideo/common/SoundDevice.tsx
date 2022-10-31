@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useRef, useState } from 'react';
 import { Box, Slider, Stack, Typography } from '@mui/material';
+import styled from '@emotion/styled';
 import Btn from './Btn';
 import { SliderS } from './Styles/styles';
 import useUserMedia from '../hooks/useUserMedia';
@@ -14,7 +15,9 @@ type DeviceVolumeT = {
   defaultVolume: number;
 };
 
-type DeviceT = { device: 'audiooutput' | 'audioinput' };
+type DeviceT = {
+  device: 'audiooutput' | 'audioinput';
+};
 
 const SoundDevice: React.FC<DeviceT> = ({ device }) => {
   const [activeDevice, setActiveDevice] = useState<string>('');
@@ -64,14 +67,30 @@ const SoundDevice: React.FC<DeviceT> = ({ device }) => {
       mediaElementRef.current.volume = deviceVolume.defaultVolume;
   };
 
+  const SoundMeter = styled.meter`
+    width: 100%;
+    height: 20px;
+
+    &::-webkit-meter-bar {
+      background: #e6e6e6;
+      border-radius: 100px;
+      box-shadow: none;
+      border: none;
+    }
+
+    &::-webkit-meter-optimum-value {
+      background: #445aff;
+    }
+  `;
+
   return (
     <Box>
       <Typography
         sx={{
           mb: '8px',
-          color: '#000',
           fontWeight: 500,
           fontSize: '14px',
+          color: 'grayscale.100',
         }}
       >
         {device === 'audioinput' ? 'Микрофон' : 'Динамик'}
@@ -94,16 +113,16 @@ const SoundDevice: React.FC<DeviceT> = ({ device }) => {
         )}
       </Stack>
 
-      <meter className="sound-meter" value={volumeValue} />
+      <SoundMeter value={volumeValue} />
 
       <Stack mt="10px" direction="row" alignItems="center">
         <Typography
           sx={{
             mr: '18px',
-            color: '#000',
             width: '200px',
             fontWeight: 400,
             fontSize: '14px',
+            color: 'grayscale.100',
           }}
         >
           Громкость

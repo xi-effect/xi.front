@@ -141,9 +141,9 @@ const VideoDevice = () => {
       <Typography
         sx={{
           mb: '8px',
-          color: '#000',
           fontWeight: 500,
           fontSize: '14px',
+          color: 'grayscale.100',
         }}
       >
         Камера

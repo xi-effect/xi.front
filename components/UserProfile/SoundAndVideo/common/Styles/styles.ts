@@ -4,12 +4,12 @@ export const menuStyles = (width?: number) => ({
     backgroundColor: 'rgba(0,0,0,0)',
   },
   '& .MuiMenuItem-root:hover': {
-    backgroundColor: '#ECEFFF',
-    color: '#445AFF',
+    backgroundColor: 'primary.pale',
+    color: 'primary.dark',
   },
   '& .MuiMenuItem-root.active': {
-    backgroundColor: '#ECEFFF',
-    color: '#445AFF',
+    backgroundColor: 'primary.pale',
+    color: 'primary.dark',
   },
   '& .MuiPaper-elevation': {
     borderRadius: '4px',
@@ -28,28 +28,27 @@ export const menuStyles = (width?: number) => ({
 });
 
 export const contentTitle = {
-  color: '#000',
   fontWeight: 500,
   fontSize: '24px',
-
   lineHeight: '32px',
+  color: 'grayscale.100',
 };
 
 export const contentSubTitle = {
-  color: '#999',
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '24px',
+  color: 'grayscale.40',
 };
 
 export const SliderS = {
   m: '0 12px',
-  color: '#445AFF',
+  color: 'primary.dark',
   borderRadius: '8px',
   '& .MuiSlider-rail': {
     borderRadius: '8px',
     opacity: 1,
-    backgroundColor: '#999',
+    backgroundColor: 'grayscale.40',
   },
   '& .MuiSlider-thumb': {
     height: '16px',

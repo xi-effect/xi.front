@@ -9,7 +9,7 @@ const VideoBlock = () => (
       p: '24px',
       width: '96.2%',
       borderRadius: '8px',
-      backgroundColor: '#fff',
+      backgroundColor: 'grayscale.0',
     }}
   >
     <Typography
