@@ -54,19 +54,3 @@ input:-webkit-autofill:active {
   background-color: #ECEFFF !important;
   background-clip: content-box !important;
 }
-
-.sound-meter {
-  width: 100%;
-  height: 20px;
-}
-
-.sound-meter::-webkit-meter-bar {
-  background: #E6E6E6;
-  border-radius: 100px;
-  box-shadow: none;
-  border: none;
-}
-
-.sound-meter::-webkit-meter-optimum-value {
-  background: #445AFF;
-}
