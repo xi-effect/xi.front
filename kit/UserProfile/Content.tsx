@@ -4,6 +4,7 @@ import { Stack, useMediaQuery, Theme } from '@mui/material';
 import Main from './ContnetItems/Main';
 import Account from './ContnetItems/Account';
 import Secure from './ContnetItems/Secure';
+import SoundAndVideo from './ContentItems/SoundAndVideo';
 
 type ContentProps = {
   activeContent: number;
@@ -28,6 +29,7 @@ const Content = ({ activeContent }: ContentProps) => {
       {activeContent === 0 && <Main />}
       {activeContent === 1 && <Account />}
       {activeContent === 2 && <Secure />}
+      {activeContent === 3 && <SoundAndVideo />}
     </Stack>
   );
 };
