@@ -14,7 +14,9 @@ const useSoundMeter = () => {
   const startAnimate = () => {
     if (analyserNode && pcmData) {
       analyserNode.getFloatTimeDomainData(pcmData);
+
       let sumSquares = 0.0;
+
       for (const amplitude of pcmData) {
         sumSquares += amplitude * amplitude;
       }
@@ -28,7 +30,9 @@ const useSoundMeter = () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
 
     const audioContext = new AudioContext();
+
     const analyserNode = audioContext.createAnalyser();
+
     const mediaStreamAudioSourceNode = audioContext.createMediaStreamSource(stream);
 
     mediaStreamAudioSourceNode.connect(analyserNode);

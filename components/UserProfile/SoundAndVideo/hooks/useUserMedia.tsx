@@ -6,7 +6,10 @@ type UseUserMediaT = {
   device: 'audiooutput' | 'audioinput' | 'videoinput';
 };
 
-type GetUserMediaT = { audioId?: string; videoId?: string };
+type GetUserMediaT = {
+  audioId?: string;
+  videoId?: string;
+};
 
 export interface MediaElement extends HTMLMediaElement {
   setSinkId(id: string);
