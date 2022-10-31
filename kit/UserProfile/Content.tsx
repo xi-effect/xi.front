@@ -1,12 +1,10 @@
 // @ts-nocheck
 import * as React from 'react';
 import { Stack, useMediaQuery, Theme } from '@mui/material';
-import dynamic from 'next/dynamic';
 import Main from './ContnetItems/Main';
 import Account from './ContnetItems/Account';
 import Secure from './ContnetItems/Secure';
-
-const SoundAndVideo = dynamic(import('./ContentItems/SoundAndVideo'), { ssr: false });
+import SoundAndVideo from './ContentItems/SoundAndVideo';
 
 type ContentProps = {
   activeContent: number;
