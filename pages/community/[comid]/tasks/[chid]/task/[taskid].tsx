@@ -1,6 +1,6 @@
 import { Stack, useMediaQuery, Theme } from '@mui/material';
 import { inject, observer } from 'mobx-react';
-import Head from 'next/head';
+import LayoutPages from 'kit/LayoutPages';
 import React from 'react';
 import { Navigation } from 'kit/Navigation';
 import {
@@ -25,11 +25,7 @@ const Task = inject('profileSt')(
     };
 
     return (
-      <>
-        <Head>
-          <title>xi.effect</title>
-          <meta name="robots" content="noindex" />
-        </Head>
+      <LayoutPages noIndex>
         <Navigation>
           <Stack
             direction="column"
@@ -77,7 +73,7 @@ const Task = inject('profileSt')(
             </Stack>
           </Stack>
         </Navigation>
-      </>
+      </LayoutPages>
     );
   }),
 );

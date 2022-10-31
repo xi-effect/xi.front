@@ -1,17 +1,14 @@
-import Head from 'next/head';
 import { Stack } from '@mui/material';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 
 import Header from 'components/Invite/Header';
 import Form from 'components/Invite/Form';
+import LayoutPages from 'kit/LayoutPages';
 
 const InviteCommunity = inject()(
   observer(() => (
-    <>
-      <Head>
-        <title>Ξffect</title>
-      </Head>
+    <LayoutPages title="приглашение">
       <Stack
         direction="column"
         justifyContent="flex-start"
@@ -26,7 +23,7 @@ const InviteCommunity = inject()(
         <Header />
         <Form />
       </Stack>
-    </>
+    </LayoutPages>
   )),
 );
 

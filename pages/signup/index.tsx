@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
 import Router, { useRouter, NextRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { Link, Divider, Stack, Typography, useMediaQuery } from '@mui/material';
 import Form from 'components/Signup/Form';
 import XiLogo from 'kit/XiLogo';
 import { useSessionStorage } from 'react-use';
+import LayoutPages from 'kit/LayoutPages';
 
 const Tearms = () => (
   <>
@@ -53,10 +53,7 @@ const Signup = inject()(
     }, [router.pathname]);
 
     return (
-      <>
-        <Head>
-          <title>xi.effect | регистрация</title>
-        </Head>
+      <LayoutPages title="регистрация">
         <Stack
           justifyContent={isMobile ? 'flex-start' : 'center'}
           alignItems="center"
@@ -131,7 +128,7 @@ const Signup = inject()(
             />
           </Stack>
         )}
-      </>
+      </LayoutPages>
     );
   }),
 );

@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react';
-import Head from 'next/head';
+import LayoutPages from 'kit/LayoutPages';
 import React from 'react';
 import { useRouter } from 'next/router';
 
@@ -20,13 +20,9 @@ const Dashboard = inject(
     }, [router.query.id]);
 
     return (
-      <>
-        <Head>
-          <title>Ξffect</title>
-          <meta name="robots" content="noindex" />
-        </Head>
+      <LayoutPages noIndex>
         <Navigation />
-      </>
+      </LayoutPages>
     );
   }),
 );
