@@ -9,7 +9,7 @@ import { Provider, observer } from 'mobx-react';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
-import 'moment/locale/ru';
+import 'dayjs/locale/ru';
 
 import { SnackbarProvider } from 'notistack';
 
@@ -17,10 +17,12 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import 'styles/globals.css';
 
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Loading } from '@xieffect/base.components.loading';
 import { useStore } from 'store/rootStore';
 import createEmotionCache from 'store/createEmotionCache';
 import { getDesignTokens } from 'theme';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 config.autoAddCss = false;
 
@@ -61,21 +63,23 @@ const MyApp = observer((props) => {
         communitiesMenuSt={rootStore.communitiesMenuSt}
         communitiesInvitesSt={rootStore.communitiesInvitesSt}
       >
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Loading loading={rootStore.uiSt.load.loading} />
-          <SnackbarProvider
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            maxSnack={3}
-            preventDuplicate
-            dense
-          >
-            <Component {...pageProps} />
-          </SnackbarProvider>
-        </ThemeProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Loading loading={rootStore.uiSt.load.loading} />
+            <SnackbarProvider
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              maxSnack={3}
+              preventDuplicate
+              dense
+            >
+              <Component {...pageProps} />
+            </SnackbarProvider>
+          </ThemeProvider>
+        </LocalizationProvider>
       </Provider>
     </CacheProvider>
   );
