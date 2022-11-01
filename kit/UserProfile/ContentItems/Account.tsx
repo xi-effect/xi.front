@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Theme, useMediaQuery } from '@mui/material';
 
 import { inject, observer } from 'mobx-react';
 import dayjs, { Dayjs } from 'dayjs';
@@ -8,6 +8,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 const typographyStyles = {
@@ -18,16 +19,18 @@ const typographyStyles = {
 };
 
 type FormValues = {
-  password: string;
-  newPassword: string;
-  newPasswordAgain: string;
+  username: string;
+  name: string;
+  surname: string;
+  patronymic: string;
 };
 
 const schema = yup
   .object({
-    password: yup.string().min(6).max(100).required(),
-    newPassword: yup.string().min(6).max(100).required(),
-    newPasswordAgain: yup.string().min(6).max(100).required(),
+    username: yup.string().max(100).required(),
+    name: yup.string().max(100).required(),
+    surname: yup.string().max(100).required(),
+    patronymic: yup.string().max(100).required(),
   })
   .required();
 
@@ -36,6 +39,8 @@ const Account = inject(
   'profileSt',
 )(
   observer(() => {
+    const mobile1000: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1000));
+
     const {
       control,
       handleSubmit,
@@ -102,7 +107,7 @@ const Account = inject(
             Никнейм
           </Typography>
           <Controller
-            name="password"
+            name="username"
             control={control}
             defaultValue=""
             render={({ field }) => (
@@ -110,7 +115,7 @@ const Account = inject(
                 variant="outlined"
                 type="text"
                 fullWidth
-                placeholder="Текущий пароль"
+                placeholder="Никнейм"
                 {...field}
                 sx={{
                   mt: '4px',
@@ -128,7 +133,7 @@ const Account = inject(
             Имя
           </Typography>
           <Controller
-            name="password"
+            name="name"
             control={control}
             defaultValue=""
             render={({ field }) => (
@@ -136,7 +141,7 @@ const Account = inject(
                 variant="outlined"
                 type="text"
                 fullWidth
-                placeholder="Текущий пароль"
+                placeholder="Имя"
                 {...field}
                 sx={{
                   mt: '4px',
@@ -154,7 +159,7 @@ const Account = inject(
             Фамилия
           </Typography>
           <Controller
-            name="password"
+            name="surname"
             control={control}
             defaultValue=""
             render={({ field }) => (
@@ -162,7 +167,7 @@ const Account = inject(
                 variant="outlined"
                 type="text"
                 fullWidth
-                placeholder="Текущий пароль"
+                placeholder="Фамилия"
                 {...field}
                 sx={{
                   mt: '4px',
@@ -180,7 +185,7 @@ const Account = inject(
             Отчество
           </Typography>
           <Controller
-            name="password"
+            name="patronymic"
             control={control}
             defaultValue=""
             render={({ field }) => (
@@ -188,7 +193,7 @@ const Account = inject(
                 variant="outlined"
                 type="text"
                 fullWidth
-                placeholder="Текущий пароль"
+                placeholder="Отчество"
                 {...field}
                 sx={{
                   mt: '4px',
@@ -205,13 +210,24 @@ const Account = inject(
           >
             Дата рождения
           </Typography>
-          <DesktopDatePicker
-            inputFormat="MM/DD/YYYY"
-            value={value}
-            onChange={handleChange}
-            renderInput={(params) => <TextFieldCustom {...params} />}
-            maxDate={dayjs()}
-          />
+          {!mobile1000 && (
+            <DesktopDatePicker
+              inputFormat="MM/DD/YYYY"
+              value={value}
+              onChange={handleChange}
+              renderInput={(params) => <TextFieldCustom {...params} />}
+              maxDate={dayjs()}
+            />
+          )}
+          {mobile1000 && (
+            <MobileDatePicker
+              inputFormat="MM/DD/YYYY"
+              value={value}
+              onChange={handleChange}
+              renderInput={(params) => <TextFieldCustom {...params} />}
+              maxDate={dayjs()}
+            />
+          )}
         </Stack>
       </>
     );
