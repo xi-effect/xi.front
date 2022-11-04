@@ -1,4 +1,6 @@
 /* eslint-disable jsx-a11y/media-has-caption */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import React from 'react';
 import useWebRTC, { LOCAL_VIDEO } from 'utils/useWebRTC';
 import { inject, observer } from 'mobx-react';
@@ -44,7 +46,8 @@ const Room: React.FC<RoomT> = inject('rootStore')(
     const { rootStore }: RoomT = props;
 
     const { clients, provideMediaRef } = useWebRTC(rootStore.socketTest, 1);
-    const videoLayout = layout(clients.length);
+
+    const videoLayout = layout(2);
 
     console.log('clients', clients);
     console.log('provideMediaRef', provideMediaRef);
