@@ -56,8 +56,11 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
               fontWeight: 500,
               fontSize: '16px',
               lineHeight: '20px',
+              boxShadow: 0,
+              textTransform: 'capitalize',
 
               '&:hover': {
+                boxShadow: 0,
                 bgcolor: tab === 0 ? 'primary.dark' : 'transparent',
                 color: tab === 0 ? 'grayscale.0' : 'grayscale.100',
               },
@@ -78,8 +81,11 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
               fontWeight: 500,
               fontSize: '16px',
               lineHeight: '20px',
+              boxShadow: 0,
+              textTransform: 'capitalize',
 
               '&:hover': {
+                boxShadow: 0,
                 bgcolor: tab === 1 ? 'primary.dark' : 'transparent',
                 color: tab === 1 ? 'grayscale.0' : 'grayscale.100',
               },
@@ -100,8 +106,11 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
               fontWeight: 500,
               fontSize: '16px',
               lineHeight: '20px',
-
+              boxShadow: 0,
+              textTransform: 'capitalize',
+  
               '&:hover': {
+                boxShadow: 0,
                 bgcolor: tab === 2 ? 'primary.dark' : 'transparent',
                 color: tab === 2 ? 'grayscale.0' : 'grayscale.100',
               },
@@ -122,8 +131,11 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
               fontWeight: 500,
               fontSize: '16px',
               lineHeight: '20px',
+              boxShadow: 0,
+              textTransform: 'capitalize',
 
               '&:hover': {
+                boxShadow: 0,
                 bgcolor: tab === 3 ? 'primary.dark' : 'transparent',
                 color: tab === 3 ? 'grayscale.0' : 'grayscale.100',
               },

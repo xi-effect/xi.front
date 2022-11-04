@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Stack, Typography, Theme, useMediaQuery } from '@mui/material';
+import { Stack, Typography, Theme, useMediaQuery, Button } from '@mui/material';
 
 import { inject, observer } from 'mobx-react';
 import dayjs, { Dayjs } from 'dayjs';
@@ -55,7 +55,7 @@ const Account = inject(
       console.log('newData', newData);
     };
 
-    const [value, setValue] = React.useState<Dayjs | null>(dayjs());
+    const [value, setValue] = React.useState<Dayjs | null>(null);
 
     const handleChange = (newValue: Dayjs | null) => {
       setValue(newValue);
@@ -212,7 +212,7 @@ const Account = inject(
           </Typography>
           {!mobile1000 && (
             <DesktopDatePicker
-              inputFormat="MM/DD/YYYY"
+              inputFormat="DD/MM/YYYY"
               value={value}
               onChange={handleChange}
               renderInput={(params) => <TextFieldCustom {...params} />}
@@ -221,13 +221,33 @@ const Account = inject(
           )}
           {mobile1000 && (
             <MobileDatePicker
-              inputFormat="MM/DD/YYYY"
+              inputFormat="DD/MM/YYYY"
               value={value}
               onChange={handleChange}
               renderInput={(params) => <TextFieldCustom {...params} />}
               maxDate={dayjs()}
             />
           )}
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              width: '160px',
+              height: '56px',
+              borderRadius: '8px',
+              fontWeight: 500,
+              fontSize: '18px',
+              lineHeight: '22px',
+              textTransform: 'capitalize',
+              mt: '56px',
+              boxShadow: 0,
+              '&:hover': {
+                boxShadow: 0,
+              },
+            }}
+          >
+            Сохранить
+          </Button>
         </Stack>
       </>
     );

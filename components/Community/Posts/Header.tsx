@@ -34,10 +34,12 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
           ml: '21px',
           width: 118,
           height: 40,
-          borderRadius: '4px',
+          boxShadow: 0,
+          borderRadius: '8px',
           bgcolor: 'grayscale.0',
 
           '&:hover': {
+            boxShadow: 0,
             bgcolor: 'grayscale.0',
           },
         }}
@@ -50,6 +52,7 @@ const Header: React.FC<HeaderT> = inject('rootStore')(
             fontSize: '16px',
             lineHeight: '20px',
             color: 'grayscale.100',
+            textTransform: 'capitalize',
           }}
         >
           Создать
