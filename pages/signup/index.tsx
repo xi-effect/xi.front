@@ -44,11 +44,10 @@ const Signup = inject()(
     const [activeStep, setActiveStep] = useState<number>(0);
 
     const router: NextRouter = useRouter();
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [prevPathname, setPrevPathname] = useSessionStorage('prevPathname');
 
     React.useEffect(() => {
-      // @ts-ignore
       setPrevPathname(router.pathname);
     }, [router.pathname]);
 

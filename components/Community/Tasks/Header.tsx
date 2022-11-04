@@ -3,11 +3,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Button, Stack, Typography } from '@mui/material';
 
-type HeaderT = {
-  rootStore?: any;
-};
-
-const Header: React.FC<HeaderT> = inject('rootStore')(
+const Header = inject()(
   observer(() => {
     const [tab, setTab] = React.useState(0);
 

@@ -5,11 +5,7 @@ import { Box, Grid } from '@mui/material';
 // import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import Item from './Item';
 
-type ItemsT = {
-  rootStore?: any;
-};
-
-const Items: React.FC<ItemsT> = inject('rootStore')(
+const Items = inject()(
   observer(() => (
     <Box sx={{ flexGrow: 1, mt: '24px' }}>
       <Grid container spacing={2}>

@@ -5,6 +5,7 @@ import { TransitionProps } from '@mui/material/transitions';
 import { Dialog, Slide, AppBar, Toolbar, IconButton, Typography, Button } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import CloseIcon from '@mui/icons-material/Close';
+import UISt from 'store/ui/uiSt';
 import Menu from './Menu';
 
 const Transition = React.forwardRef(
@@ -18,17 +19,16 @@ const Transition = React.forwardRef(
 
 interface Props {
   open: boolean;
-  // eslint-disable-next-line no-unused-vars
   setOpen: (newOpen: boolean) => void;
-  uiSt?: any;
+  uiSt: UISt;
 }
 
 const CommunitySettings = inject(
   'rootStore',
   'uiSt',
 )(
-  observer((props: Props) => {
-    const { uiSt } = props;
+  observer((props) => {
+    const { uiSt }: Props = props;
 
     return (
       <Dialog

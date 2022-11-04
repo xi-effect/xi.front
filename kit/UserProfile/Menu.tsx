@@ -1,8 +1,8 @@
-// @ts-nocheck
 import * as React from 'react';
 import { Button, Stack, ButtonProps, useMediaQuery, Theme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { inject, observer } from 'mobx-react';
+import UISt from 'store/ui/uiSt';
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   display: 'flex',
@@ -39,16 +39,16 @@ const menu = [
 ];
 
 type MenuProps = {
-  uiSt?: any;
+  uiSt: UISt;
   activeContent: number;
-  // eslint-disable-next-line no-unused-vars
   setActiveContent: (activeContent: number) => void;
-  // eslint-disable-next-line no-unused-vars
   setOpenContent: (openContent: boolean) => void;
 };
 
 const Menu = inject('uiSt')(
-  observer(({ uiSt, activeContent, setActiveContent, setOpenContent }: MenuProps) => {
+  observer((props) => {
+    const { activeContent, setActiveContent, setOpenContent, uiSt }: MenuProps = props;
+
     const { setDialogs } = uiSt;
     const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
 

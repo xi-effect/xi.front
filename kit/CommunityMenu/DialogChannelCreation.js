@@ -12,6 +12,7 @@ import {
   Dialog,
   DialogContent,
   useMediaQuery,
+  Theme,
 } from '@mui/material';
 
 import MobileDialog from 'kit/MobileDialog';
@@ -62,8 +63,7 @@ const Content = inject()(
   observer((props) => {
     const { communityChannelsSt, uiSt } = props;
 
-    // @ts-ignore
-    const mobile = useMediaQuery((theme) => theme.breakpoints.down('dl'));
+    const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('dl'));
     const [channelSelect, setChannelSelect] = React.useState(0);
     const {
       control,

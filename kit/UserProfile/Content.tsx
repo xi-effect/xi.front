@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as React from 'react';
 import { Stack, useMediaQuery, Theme } from '@mui/material';
 import Main from './ContnetItems/Main';

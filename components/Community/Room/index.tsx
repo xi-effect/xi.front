@@ -2,11 +2,11 @@
 import React from 'react';
 import useWebRTC, { LOCAL_VIDEO } from 'utils/useWebRTC';
 import { inject, observer } from 'mobx-react';
+import RootStore from 'store/rootStore';
 
 function layout(clientsNumber = 1) {
-  const pairs: any = Array.from({ length: clientsNumber }).reduce((acc, next, index, arr) => {
+  const pairs = Array.from({ length: clientsNumber }).reduce((acc, next, index, arr) => {
     if (index % 2 === 0) {
-      // @ts-ignore
       acc.push(arr.slice(index, index + 2));
     }
 
@@ -36,11 +36,13 @@ function layout(clientsNumber = 1) {
 }
 
 type RoomT = {
-  rootStore?: any;
+  rootStore: RootStore;
 };
 
 const Room: React.FC<RoomT> = inject('rootStore')(
-  observer(({ rootStore }) => {
+  observer((props) => {
+    const { rootStore }: RoomT = props;
+
     const { clients, provideMediaRef } = useWebRTC(rootStore.socketTest, 1);
     const videoLayout = layout(clients.length);
 

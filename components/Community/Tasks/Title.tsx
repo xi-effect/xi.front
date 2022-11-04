@@ -3,11 +3,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Stack, Typography } from '@mui/material';
 
-type HeaderT = {
-  rootStore?: any;
-};
-
-const Title: React.FC<HeaderT> = inject('rootStore')(
+const Title = inject()(
   observer(() => (
     <Stack
       direction="column"

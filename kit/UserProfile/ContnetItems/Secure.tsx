@@ -5,12 +5,21 @@ import { Stack, Typography, Button, useMediaQuery, Theme } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import { PasswordChangeDialog } from 'kit/PasswordChangeDialog';
 import { EmailChangeDialog } from 'kit/EmailChangeDialog';
+import UISt from 'store/ui/uiSt';
+import ProfileSt from 'store/user/profileSt';
+
+type SecureT = {
+  uiSt: UISt;
+  profileSt: ProfileSt;
+};
 
 const Secure = inject(
   'profileSt',
   'uiSt',
 )(
-  observer(({ profileSt, uiSt }) => {
+  observer((props) => {
+    const { profileSt, uiSt }: SecureT = props;
+
     const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1400));
 
     return (

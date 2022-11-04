@@ -5,13 +5,9 @@ import { Box, Stack, Button } from '@mui/material';
 import Image from 'next/image';
 import { Arrow } from '@xieffect/base.icons.arrow';
 
-type ItemsT = {
-  rootStore?: any;
-};
-
 const items = [0, 0, 0, 0, 0];
 
-const Slider: React.FC<ItemsT> = inject('rootStore')(
+const Slider = inject()(
   observer(() => {
     const containerRef = React.useRef<HTMLDivElement>();
 

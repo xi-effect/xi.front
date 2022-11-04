@@ -8,7 +8,7 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import React, { useRef, useEffect, Ref, PropsWithChildren } from 'react';
+import React, { useRef, useEffect, PropsWithChildren, LegacyRef } from 'react';
 import { useSlate, useFocused } from 'slate-react';
 import { Editor, Range } from 'slate';
 import ReactDOM from 'react-dom';
@@ -17,7 +17,6 @@ import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
 import StrikethroughSIcon from '@mui/icons-material/StrikethroughS';
 import CodeIcon from '@mui/icons-material/Code';
-// @ts-ignore
 import { cx, css } from '@emotion/css';
 
 interface BaseProps {
@@ -25,8 +24,6 @@ interface BaseProps {
 
   [key: string]: unknown;
 }
-
-type OrNull<T> = T | null;
 
 const Button = React.forwardRef(
   (
@@ -41,11 +38,10 @@ const Button = React.forwardRef(
         reversed: boolean;
       } & BaseProps
     >,
-    ref: Ref<OrNull<HTMLSpanElement>>,
+    ref: LegacyRef<HTMLSpanElement> | undefined,
   ) => (
     <span
       {...props}
-      // @ts-ignore
       ref={ref}
       className={cx(
         className,
@@ -59,10 +55,12 @@ const Button = React.forwardRef(
 );
 
 const Menu = React.forwardRef(
-  ({ className, ...props }: PropsWithChildren<BaseProps>, ref: Ref<OrNull<HTMLDivElement>>) => (
+  (
+    { className, ...props }: PropsWithChildren<BaseProps>,
+    ref: LegacyRef<HTMLDivElement> | undefined,
+  ) => (
     <div
       {...props}
-      // @ts-ignore
       ref={ref}
       className={cx(
         className,
@@ -84,7 +82,7 @@ const Portal = ({ children }) =>
   typeof document === 'object' ? ReactDOM.createPortal(children, document.body) : null;
 
 const HoveringToolbar = () => {
-  const ref = useRef<HTMLDivElement | null>();
+  const ref = useRef<HTMLDivElement>(null);
   const editor = useSlate();
   const inFocus = useFocused();
 
@@ -119,7 +117,6 @@ const HoveringToolbar = () => {
   return (
     <Portal>
       <Menu
-        // @ts-ignore
         ref={ref}
         className={css`
           padding: 8px 7px 2px;

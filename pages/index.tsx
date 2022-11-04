@@ -6,13 +6,13 @@ import { useSessionStorage } from 'react-use';
 import Form from 'components/Signin/Form';
 import XiLogo from 'kit/XiLogo';
 import { Stack, Typography, Link, Divider, useMediaQuery } from '@mui/material';
-import UiSt from '../store/ui/uiSt';
-import profileSt from '../store/user/profileSt';
-import AuthorizationSt from '../store/user/authorizationSt';
+import UiSt from 'store/ui/uiSt';
+import ProfileSt from 'store/user/profileSt';
+import AuthorizationSt from 'store/user/authorizationSt';
 
 type SigninT = {
   uiSt: UiSt;
-  profileSt: profileSt;
+  profileSt: ProfileSt;
   authorizationSt: AuthorizationSt;
 };
 
@@ -51,7 +51,7 @@ const Signin = inject(
   'profileSt',
   'authorizationSt',
 )(
-  observer((props: SigninT) => {
+  observer((props) => {
     const { uiSt, profileSt, authorizationSt }: SigninT = props;
 
     const [prevPathname] = useSessionStorage('prevPathname');

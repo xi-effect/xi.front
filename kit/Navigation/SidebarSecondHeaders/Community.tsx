@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 
-import React from 'react';
+import React, { KeyboardEvent, MouseEvent } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import {
@@ -20,13 +20,16 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CloseIcon from '@mui/icons-material/Close';
 
 import CommunityMenu from 'kit/CommunityMenu';
+import CommunitySt from 'store/community/communitySt';
 
 type CommunityT = {
-  communitySt?: any;
+  communitySt: CommunitySt;
 };
 
 const Community = inject('communitySt')(
-  observer(({ communitySt }: CommunityT) => {
+  observer((props) => {
+    const { communitySt }: CommunityT = props;
+
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLButtonElement>(null);
 
@@ -34,16 +37,21 @@ const Community = inject('communitySt')(
       setOpen((prevOpen) => !prevOpen);
     };
 
-    const handleClose = (event) => {
-      // @ts-irnore
-      if (anchorRef.current && anchorRef.current.contains(event.target)) {
+    const handleClose = (
+      event:
+        | MouseEvent<HTMLAnchorElement>
+        | MouseEvent<HTMLLIElement>
+        | globalThis.MouseEvent
+        | TouchEvent,
+    ) => {
+      if (anchorRef.current && anchorRef.current.contains(event.target as Node)) {
         return;
       }
 
       setOpen(false);
     };
 
-    function handleListKeyDown(event) {
+    function handleListKeyDown(event: KeyboardEvent<HTMLUListElement>) {
       if (event.key === 'Tab') {
         event.preventDefault();
         setOpen(false);

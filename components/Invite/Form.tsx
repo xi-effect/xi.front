@@ -5,13 +5,23 @@ import React from 'react';
 import { useRouter, NextRouter } from 'next/router';
 import Image from 'next/image';
 
-import { Stack, useMediaQuery, Typography, Box, Paper, Skeleton } from '@mui/material';
+import {
+  Stack,
+  useMediaQuery,
+  Typography,
+  Box,
+  Paper,
+  Skeleton,
+  Breakpoint,
+  Theme,
+} from '@mui/material';
 
 import { motion } from 'framer-motion';
 import { inject, observer } from 'mobx-react';
 import GreenButton from 'kit/GreenButton';
 
 import { getLastCodeFromURL } from 'utils/getLastCodeFromURL';
+import RootStore from 'store/rootStore';
 
 type CommunityInfo = {
   name: string;
@@ -20,18 +30,20 @@ type CommunityInfo = {
 };
 
 type Props = {
-  rootStore?: any;
+  rootStore: RootStore;
 };
 
 type ContentProps = {
   join: boolean;
   auth: boolean;
   comm: CommunityInfo;
-  rootStore?: any;
+  rootStore: RootStore;
 };
 
-const Content: React.FC<ContentProps> = inject('rootStore')(
-  observer(({ join, auth, comm, rootStore }) => {
+const Content = inject('rootStore')(
+  observer((props) => {
+    const { rootStore, comm, auth, join }: ContentProps = props;
+
     const router: NextRouter = useRouter();
 
     const acceptInvite = () => {
@@ -104,12 +116,16 @@ const Content: React.FC<ContentProps> = inject('rootStore')(
   }),
 );
 
-const Form: React.FC<Props> = inject('rootStore')(
-  observer(({ rootStore }) => {
-    // @ts-ignore
-    const mobile: boolean = useMediaQuery((theme) => theme.breakpoints.down('dl'));
-    // @ts-ignore
-    const mobileImage: boolean = useMediaQuery((theme) => theme.breakpoints.down('md'));
+const Form = inject('rootStore')(
+  observer((props) => {
+    const { rootStore }: Props = props;
+
+    const mobile: boolean = useMediaQuery((theme: Theme) =>
+      theme.breakpoints.down('dl' as Breakpoint),
+    );
+    const mobileImage: boolean = useMediaQuery((theme: Theme) =>
+      theme.breakpoints.down('md' as Breakpoint),
+    );
 
     const [join, setJoin] = React.useState<boolean | null>(null);
     const [auth, setAuth] = React.useState<boolean | null>(null);

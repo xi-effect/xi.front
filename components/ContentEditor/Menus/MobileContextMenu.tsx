@@ -1,9 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/prefer-exact-props */
-// @flow
 import * as React from 'react';
 import { Global } from '@emotion/react';
 import { styled } from '@mui/material/styles';
@@ -25,21 +19,20 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import UndoIcon from '@mui/icons-material/Undo';
-import { Transforms, Node } from 'slate';
+import { Transforms, Node, Editor } from 'slate';
 import { useCopyToClipboard } from 'react-use';
-import { CreationMenuConfig } from '../../../kit/Editor/common/menuConfig';
+import { CreationMenuConfig } from 'kit/Editor/common/menuConfig';
 
 const drawerBleeding = 0;
-// @ts-ignore
 const Root = styled('div')(({ theme }) => ({
   height: '100%',
   backgroundColor: theme.palette.mode === 'light' ? grey[100] : theme.palette.background.default,
 }));
-// @ts-ignore
+
 const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
 }));
-// @ts-ignore
+
 const Puller = styled(Box)(({ theme }) => ({
   width: 30,
   height: 6,
@@ -53,15 +46,15 @@ const Puller = styled(Box)(({ theme }) => ({
 type Props = {
   open: boolean;
   setOpen: (state: boolean) => void;
-  editor: any;
-  index: any;
+  editor: Editor;
+  index: number;
 };
 
 function MobileContextMenu(props: Props) {
   const { editor, index, open, setOpen } = props;
-  // @ts-ignore
+
   const [openItemsMenu, setOpenItemsMenu] = React.useState<null | string>(null);
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, copyToClipboard] = useCopyToClipboard();
 
   return (
@@ -178,8 +171,7 @@ function MobileContextMenu(props: Props) {
                 onClick={() => {
                   Transforms.insertNodes(
                     editor,
-                    // @ts-ignore
-                    { ...editor.children[index], id: new Date().getUTCMilliseconds() },
+                    { ...editor.children[index] },
                     { at: [index + 1] },
                   );
                   setOpen(false);

@@ -19,7 +19,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
 import { useSnackbar } from 'notistack';
+import RootStore from 'store/rootStore';
+import UISt from 'store/ui/uiSt';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const Crypto = require('crypto-js');
 
 type FormValues = {
@@ -35,22 +38,25 @@ const schema = yup
   .required();
 
 type EmailChangeDialogPropsT = {
-  rootStore?: any;
-  uiSt?: any;
+  rootStore: RootStore;
+  uiSt: UISt;
 };
 
 const EmailChangeDialog = inject(
   'rootStore',
   'uiSt',
 )(
-  observer(({ rootStore, uiSt }: EmailChangeDialogPropsT) => {
-    const { dialogs, setDialogs } = uiSt;
+  observer((props) => {
+    const {
+      uiSt: { setDialogs, dialogs },
+      rootStore,
+    }: EmailChangeDialogPropsT = props;
 
     const { enqueueSnackbar } = useSnackbar();
 
     const [showPassword, setShowPassword] = React.useState(false);
 
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [emailError, setEmailError] = React.useState(false);
     const [passwordError, setPasswordError] = React.useState(false);
 

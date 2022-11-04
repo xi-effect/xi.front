@@ -18,7 +18,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
 import { useSnackbar } from 'notistack';
+import UISt from '../../store/ui/uiSt';
+import RootStore from '../../store/rootStore';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const Crypto = require('crypto-js');
 
 type FormValues = {
@@ -36,15 +39,17 @@ const schema = yup
   .required();
 
 type PasswordChangeDialogPropsT = {
-  rootStore?: any;
-  uiSt?: any;
+  uiSt: UISt;
+  rootStore: RootStore;
 };
 
 const PasswordChangeDialog = inject(
   'rootStore',
   'uiSt',
 )(
-  observer(({ rootStore, uiSt }: PasswordChangeDialogPropsT) => {
+  observer((props) => {
+    const { uiSt, rootStore }: PasswordChangeDialogPropsT = props;
+
     const { dialogs, setDialogs } = uiSt;
     const { enqueueSnackbar } = useSnackbar();
 

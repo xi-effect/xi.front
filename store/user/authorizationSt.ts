@@ -5,15 +5,13 @@ import Router from 'next/router';
 import { ResponseDataRegT } from 'models/dataProfileStore';
 import RootStore from '../rootStore';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const Crypto = require('crypto-js');
 
 type EmailResetT = {
   emailResetOk: boolean;
 };
-type DataConfirmT = {
-  code: string;
-  password: string;
-};
+
 type DataT = {
   email: string;
 };
@@ -60,7 +58,7 @@ class AuthorizationSt {
     this.newPasswordReset[name] = value;
   };
 
-  @action saveNewPassword = (id: string, data: DataConfirmT) => {
+  @action saveNewPassword = (id: string, data: { password: string }) => {
     this.setNewPasswordReset('emailResetOk', false);
     this.rootStore
       .fetchData(`${this.rootStore.url}/password-reset/confirm/`, 'POST', {

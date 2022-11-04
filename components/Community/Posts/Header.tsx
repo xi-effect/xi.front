@@ -4,11 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { Button, Stack, Typography } from '@mui/material';
 import { Add } from '@xieffect/base.icons.add';
 
-type HeaderT = {
-  rootStore?: any;
-};
-
-const Header: React.FC<HeaderT> = inject('rootStore')(
+const Header = inject()(
   observer(() => (
     <Stack
       direction="row"
