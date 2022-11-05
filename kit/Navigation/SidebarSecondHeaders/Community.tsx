@@ -33,9 +33,7 @@ const Community = inject('communitySt')(
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLButtonElement>(null);
 
-    const handleToggle = () => {
-      setOpen((prevOpen) => !prevOpen);
-    };
+    const handleToggle = () => setOpen((prevOpen) => !prevOpen);
 
     const handleClose = (
       event:
@@ -51,17 +49,18 @@ const Community = inject('communitySt')(
       setOpen(false);
     };
 
-    function handleListKeyDown(event: KeyboardEvent<HTMLUListElement>) {
+    const handleListKeyDown = (event: KeyboardEvent<HTMLUListElement>) => {
       if (event.key === 'Tab') {
         event.preventDefault();
         setOpen(false);
       } else if (event.key === 'Escape') {
         setOpen(false);
       }
-    }
+    };
 
     // return focus to the button when we transitioned from !open -> open
     const prevOpen = React.useRef(open);
+
     React.useEffect(() => {
       if (anchorRef && anchorRef.current && prevOpen.current === true && open === false) {
         anchorRef.current.focus();
