@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import Router from 'next/router';
-import { inject, observer } from 'mobx-react';
-import { useSessionStorage } from 'react-use';
+import {inject, observer} from 'mobx-react';
+import {useSessionStorage} from 'react-use';
 import Form from 'components/Signin/Form';
 import XiLogo from 'kit/XiLogo';
-import { Stack, Typography, Link, Divider, useMediaQuery } from '@mui/material';
+import {Stack, Typography, Link, Divider, useMediaQuery} from '@mui/material';
 import LayoutPages from 'kit/LayoutPages';
 import UiSt from 'store/ui/uiSt';
-import profileSt from 'store/user/profileSt';
+import ProfileSt from 'store/user/profileSt';
 import AuthorizationSt from 'store/user/authorizationSt';
 
 type SigninT = {
   uiSt: UiSt;
-  profileSt: profileSt;
+  profileSt: ProfileSt;
   authorizationSt: AuthorizationSt;
 };
 
@@ -52,7 +52,7 @@ const Signin = inject(
   'authorizationSt',
 )(
   observer((props: SigninT) => {
-    const { uiSt, profileSt, authorizationSt }: SigninT = props;
+    const {uiSt, profileSt, authorizationSt}: SigninT = props;
 
     const [prevPathname] = useSessionStorage('prevPathname');
 
@@ -110,7 +110,7 @@ const Signin = inject(
             }}
           >
             <Stack alignItems="center">
-              <XiLogo width="142px" height="24px" />
+              <XiLogo width="142px" height="24px"/>
             </Stack>
             <Typography
               variant="h5"
@@ -134,7 +134,7 @@ const Signin = inject(
                   width: '100%',
                 }}
               >
-                <Tearms />
+                <Tearms/>
               </Stack>
             )}
           </Stack>
@@ -149,7 +149,7 @@ const Signin = inject(
               height: '96px',
             }}
           >
-            <Tearms />
+            <Tearms/>
             <Divider
               sx={{
                 mt: 4,

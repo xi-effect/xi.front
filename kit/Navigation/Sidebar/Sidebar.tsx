@@ -12,6 +12,10 @@ import { Notification } from '@xieffect/base.icons.notification';
 import { Home } from '@xieffect/base.icons.home';
 import { Exit } from '@xieffect/base.icons.exit';
 import { Scroll } from '@xieffect/base.components.scroll';
+import UISt from 'store/ui/uiSt';
+import CommunitiesMenuSt from 'store/community/communitiesMenuSt';
+import RootStore from 'store/rootStore';
+import { RegCommunityT } from 'models/dataProfileStore';
 import CommunityItem from './CommunityItem';
 import IButton from './IButton';
 
@@ -20,17 +24,19 @@ const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
 });
 
 type SidebarType = {
-  rootStore?: any;
-  communitiesMenuSt?: any;
-  uiSt?: any;
+  rootStore: RootStore;
+  communitiesMenuSt: CommunitiesMenuSt;
+  uiSt: UISt;
 };
 
-const Sidebar: React.FC<SidebarType> = inject(
+const Sidebar = inject(
   'rootStore',
   'communitiesMenuSt',
   'uiSt',
 )(
-  observer(({ rootStore, communitiesMenuSt, uiSt }) => {
+  observer((props) => {
+    const { uiSt, communitiesMenuSt, rootStore }: SidebarType = props;
+
     const reorder = (list, startIndex, endIndex) => {
       const result = Array.from(list);
       const [removed] = result.splice(startIndex, 1);
@@ -41,12 +47,11 @@ const Sidebar: React.FC<SidebarType> = inject(
 
     const reorderFn = (source, destination) => {
       const communities = reorder(communitiesMenuSt.userCommunities, source, destination);
-      // @ts-ignore
-      rootStore.socket.emit(
+
+      rootStore.socket?.emit(
         'reorder-community',
         {
-          // @ts-ignore
-          'source-id': communities[destination].id,
+          'source-id': source,
           'target-index': destination,
         },
         ({ code, message, data }) => {
@@ -68,17 +73,17 @@ const Sidebar: React.FC<SidebarType> = inject(
       reorderFn(result.source.index, result.destination.index);
     };
 
-    type Communty = {
+    type Community = {
       id: number;
       name: string;
     };
 
     const subReorder = (data) => {
       const newArray = Array.from(communitiesMenuSt.userCommunities);
-      const item = newArray.find((i: Communty) => i.id === data['source-id']);
-      const itemIndex = newArray.findIndex((i: Communty) => i.id === data['source-id']);
+      const item = newArray.find((i: Community) => i.id === data['source-id']);
+      const itemIndex = newArray.findIndex((i: Community) => i.id === data['source-id']);
       newArray.splice(itemIndex, 1);
-      newArray.splice(data['target-index'], 0, item);
+      newArray.splice(data['target-index'], 0, item as RegCommunityT);
       console.log('on reorder-community', newArray);
       communitiesMenuSt.setUserCommunities(newArray);
     };

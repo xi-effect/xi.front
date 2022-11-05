@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Stack } from '@mui/material';
+import AuthorizationSt from 'store/user/authorizationSt';
 import StepOneForm from './StepOneForm';
 import StepTwoForm from './StepTwoForm';
 
@@ -18,9 +19,9 @@ const schema = yup
   .required();
 
 interface ISignupForm {
-  authorizationSt?: any;
+  authorizationSt: AuthorizationSt;
   activeStep: number;
-  setActiveStep: (value: number) => void;
+  setActiveStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
 type SignupFormValues = {
@@ -30,8 +31,10 @@ type SignupFormValues = {
   password: string;
 };
 
-const Form: React.FC<ISignupForm> = inject('authorizationSt')(
-  observer(({ authorizationSt, activeStep, setActiveStep }) => {
+const Form = inject('authorizationSt')(
+  observer((props) => {
+    const { authorizationSt, activeStep, setActiveStep }: ISignupForm = props;
+
     const {
       control,
       handleSubmit,
@@ -46,7 +49,6 @@ const Form: React.FC<ISignupForm> = inject('authorizationSt')(
         trigger(['username', 'code']).then((res) => {
           if (res) {
             authorizationSt.setSignup('error', null);
-            // @ts-ignore
             setActiveStep((prev: number) => prev + 1);
           }
         });
@@ -55,7 +57,6 @@ const Form: React.FC<ISignupForm> = inject('authorizationSt')(
 
     const prevStepHandler = () => {
       if (activeStep > 0) {
-        // @ts-ignore
         setActiveStep((prev: number) => prev - 1);
       }
     };

@@ -3,11 +3,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Stack, Typography } from '@mui/material';
 
-type HeaderT = {
-  rootStore?: any;
-};
-
-const SubHeader: React.FC<HeaderT> = inject('rootStore')(
+const SubHeader = inject()(
   observer(() => (
     <Stack
       sx={{

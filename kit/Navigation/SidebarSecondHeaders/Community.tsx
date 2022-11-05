@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 
-import React from 'react';
+import React, { KeyboardEvent, MouseEvent } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import {
@@ -20,40 +20,47 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CloseIcon from '@mui/icons-material/Close';
 
 import CommunityMenu from 'kit/CommunityMenu';
+import CommunitySt from 'store/community/communitySt';
 
 type CommunityT = {
-  communitySt?: any;
+  communitySt: CommunitySt;
 };
 
 const Community = inject('communitySt')(
-  observer(({ communitySt }: CommunityT) => {
+  observer((props) => {
+    const { communitySt }: CommunityT = props;
+
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLButtonElement>(null);
 
-    const handleToggle = () => {
-      setOpen((prevOpen) => !prevOpen);
-    };
+    const handleToggle = () => setOpen((prevOpen) => !prevOpen);
 
-    const handleClose = (event) => {
-      // @ts-irnore
-      if (anchorRef.current && anchorRef.current.contains(event.target)) {
+    const handleClose = (
+      event:
+        | MouseEvent<HTMLAnchorElement>
+        | MouseEvent<HTMLLIElement>
+        | globalThis.MouseEvent
+        | TouchEvent,
+    ) => {
+      if (anchorRef.current && anchorRef.current.contains(event.target as Node)) {
         return;
       }
 
       setOpen(false);
     };
 
-    function handleListKeyDown(event) {
+    const handleListKeyDown = (event: KeyboardEvent<HTMLUListElement>) => {
       if (event.key === 'Tab') {
         event.preventDefault();
         setOpen(false);
       } else if (event.key === 'Escape') {
         setOpen(false);
       }
-    }
+    };
 
     // return focus to the button when we transitioned from !open -> open
     const prevOpen = React.useRef(open);
+
     React.useEffect(() => {
       if (anchorRef && anchorRef.current && prevOpen.current === true && open === false) {
         anchorRef.current.focus();

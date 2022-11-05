@@ -5,7 +5,7 @@ import { Stack, Typography, Box } from '@mui/material';
 import { Avatar } from 'kit/Avatar';
 import TextFieldCustom from 'kit/TextFieldCustom';
 
-const Status: React.FC<TimelineT> = inject('rootStore')(
+const Status = inject()(
   observer(() => {
     const getBgcolor = (v) => {
       if (v === 1) return '#B0F9CE';
@@ -56,7 +56,7 @@ const Status: React.FC<TimelineT> = inject('rootStore')(
   }),
 );
 
-const Message: React.FC<TimelineT> = inject('rootStore')(
+const Message = inject()(
   observer(() => (
     <Stack
       direction="column"
@@ -106,11 +106,7 @@ const Message: React.FC<TimelineT> = inject('rootStore')(
   )),
 );
 
-type TimelineT = {
-  rootStore?: any;
-};
-
-const Timeline: React.FC<TimelineT> = inject('rootStore')(
+const Timeline = inject()(
   observer(() => (
     <Stack
       direction="column"

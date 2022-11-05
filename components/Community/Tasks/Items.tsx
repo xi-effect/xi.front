@@ -6,10 +6,6 @@ import { Box, Grid } from '@mui/material';
 import Item from './Item';
 import { TaskT } from './types';
 
-type ItemsT = {
-  rootStore?: any;
-};
-
 const arrayTasks: TaskT[] = [
   {
     mark: 3,
@@ -38,7 +34,7 @@ const arrayTasks: TaskT[] = [
   },
 ];
 
-const Items: React.FC<ItemsT> = inject('rootStore')(
+const Items = inject()(
   observer(() => (
     <Box sx={{ flexGrow: 1, mt: '24px' }}>
       <Grid container spacing={2}>

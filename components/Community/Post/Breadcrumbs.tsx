@@ -4,11 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { Stack, Typography } from '@mui/material';
 import { Arrow } from '@xieffect/base.icons.arrow';
 
-type BreadcrumbsT = {
-  rootStore?: any;
-};
-
-const Breadcrumbs: React.FC<BreadcrumbsT> = inject('rootStore')(
+const Breadcrumbs = inject()(
   observer(() => (
     <Stack
       direction="row"

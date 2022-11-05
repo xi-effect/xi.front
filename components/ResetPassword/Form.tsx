@@ -11,6 +11,7 @@ import { Eyeoff } from '@xieffect/base.icons.eyeoff';
 import { Eyeon } from '@xieffect/base.icons.eyeon';
 
 import { getLastCodeFromURL } from 'utils/getLastCodeFromURL';
+import AuthorizationSt from 'store/user/authorizationSt';
 
 const schema = yup
   .object({
@@ -20,7 +21,7 @@ const schema = yup
   .required();
 
 type Props = {
-  authorizationSt: any;
+  authorizationSt: AuthorizationSt;
 };
 
 type SignupFormValues = {
@@ -53,7 +54,7 @@ const Form: React.FC<Props> = inject('authorizationSt')(
       if (data.password !== data.passwordAgain) {
         setPasswordsError(true);
       } else {
-        authorizationSt.saveNewPassword(id, data);
+        authorizationSt.saveNewPassword(id, { password: data.password });
       }
     };
 

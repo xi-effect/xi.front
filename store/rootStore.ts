@@ -8,7 +8,7 @@ import Router from 'next/router';
 import { io, Socket } from 'socket.io-client';
 import UISt from './ui/uiSt';
 import HomeSt from './home/homeSt';
-import profileSt from './user/profileSt';
+import ProfileSt from './user/profileSt';
 import AuthorizationSt from './user/authorizationSt';
 import CommunitySt from './community/communitySt';
 import CommunityCreationSt from './community/communityCreationSt';
@@ -22,12 +22,13 @@ enableStaticRendering(typeof window === 'undefined');
 let store;
 
 type MethodT = 'GET' | 'POST' | 'DELETE' | 'PATCH';
+
 class RootStore {
   uiSt: UISt;
 
   homeSt: HomeSt;
 
-  profileSt: profileSt;
+  profileSt: ProfileSt;
 
   authorizationSt: AuthorizationSt;
 
@@ -48,7 +49,7 @@ class RootStore {
   constructor() {
     this.uiSt = new UISt(this);
     this.homeSt = new HomeSt(this);
-    this.profileSt = new profileSt(this);
+    this.profileSt = new ProfileSt(this);
     this.authorizationSt = new AuthorizationSt(this);
 
     // Community Stores
@@ -140,4 +141,5 @@ export function useStore(initialState) {
   const store = useMemo(() => initializeStore(initialState), [initialState]);
   return store;
 }
+
 export default RootStore;

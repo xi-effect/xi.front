@@ -6,16 +6,19 @@ import TextFieldCustom from 'kit/TextFieldCustom';
 
 import { Eyeoff } from '@xieffect/base.icons.eyeoff';
 import { Eyeon } from '@xieffect/base.icons.eyeon';
+import AuthorizationSt from 'store/user/authorizationSt';
 
 interface IStepTwoForm {
   control: Control<FieldValues, object> | undefined;
   errors: FieldErrors;
   prevStepHandler: () => void;
-  authorizationSt?: any;
+  authorizationSt: AuthorizationSt;
 }
 
-const StepOneForm: React.FC<IStepTwoForm> = inject('authorizationSt')(
-  observer(({ authorizationSt, control, errors, prevStepHandler }) => {
+const StepOneForm = inject('authorizationSt')(
+  observer((props) => {
+    const { control, errors, prevStepHandler, authorizationSt }: IStepTwoForm = props;
+
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     return (

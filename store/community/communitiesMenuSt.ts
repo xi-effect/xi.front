@@ -1,4 +1,5 @@
 import { action, observable, makeObservable } from 'mobx';
+import { RegCommunityT } from 'models/dataProfileStore';
 import RootStore from '../rootStore';
 
 class CommunitiesMenuSt {
@@ -13,14 +14,14 @@ class CommunitiesMenuSt {
     makeObservable(this);
   }
 
-  @observable userCommunities = [];
+  @observable userCommunities: RegCommunityT[] = [];
 
   @action setUserCommunities = (value) => {
     this.userCommunities = value;
   };
 
   @action removeCommunity = (lid) => {
-    const newArray: any = this.userCommunities;
+    const newArray: RegCommunityT[] = this.userCommunities;
     this.userCommunities = newArray.filter((item) => item.id !== lid);
   };
 }

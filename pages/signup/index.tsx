@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import Router, { useRouter, NextRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
@@ -41,14 +42,12 @@ const Signup = inject()(
   observer(() => {
     const isMobile = useMediaQuery('(max-width: 472px)');
 
-    const [activeStep, setActiveStep] = useState<number>(0);
-
     const router: NextRouter = useRouter();
-    // eslint-disable-next-line no-unused-vars
+
+    const [activeStep, setActiveStep] = useState<number>(0);
     const [prevPathname, setPrevPathname] = useSessionStorage('prevPathname');
 
     React.useEffect(() => {
-      // @ts-ignore
       setPrevPathname(router.pathname);
     }, [router.pathname]);
 
@@ -71,7 +70,7 @@ const Signup = inject()(
               width: isMobile ? '100%' : '420px',
               height: isMobile ? '395px' : '514px',
               borderRadius: '16px',
-              border: isMobile ? 'none' : '1px solid #E6E6E6', // grayscale.10
+              border: isMobile ? 'none' : '1px solid #E6E6E6',
               position: 'relative',
             }}
           >

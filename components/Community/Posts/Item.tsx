@@ -6,11 +6,10 @@ import { useRouter, NextRouter } from 'next/router';
 import { Arrow } from '@xieffect/base.icons.arrow';
 
 type ItemsT = {
-  rootStore?: any;
   index: number;
 };
 
-const Item: React.FC<ItemsT> = inject('rootStore')(
+const Item: React.FC<ItemsT> = inject()(
   observer(({ index }) => {
     const router: NextRouter = useRouter();
 

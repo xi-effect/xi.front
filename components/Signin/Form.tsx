@@ -10,7 +10,7 @@ import { Button, Stack, Link, InputAdornment, Box } from '@mui/material';
 import { Eyeoff } from '@xieffect/base.icons.eyeoff';
 import { Eyeon } from '@xieffect/base.icons.eyeon';
 
-import AuthorizationSt from '../../store/user/authorizationSt';
+import AuthorizationSt from 'store/user/authorizationSt';
 
 type FormValues = {
   email: string;
@@ -28,9 +28,9 @@ type Props = {
   authorizationSt: AuthorizationSt;
 };
 
-const Form: React.FC<Props> = inject('authorizationSt')(
+const Form = inject('authorizationSt')(
   observer((props) => {
-    const { authorizationSt } = props;
+    const { authorizationSt }: Props = props;
     const { signin } = authorizationSt;
     const { errorEmail, errorPassword } = signin;
 

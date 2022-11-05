@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { KeyboardEvent, MouseEvent } from 'react';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -6,19 +6,24 @@ import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { MenuItem, Stack, MenuList, Divider, Typography } from '@mui/material';
 import { inject, observer } from 'mobx-react';
+import RootStore from 'store/rootStore';
+import CommunitySt from 'store/community/communitySt';
+import UISt from 'store/ui/uiSt';
 
 type CommunityMenuProps = {
-  open?: any;
-  setOpen?: any;
-  handleClose?: any;
-  handleListKeyDown?: any;
-  rootStore?: any;
-  communitySt?: any;
-  uiSt?: any;
+  open?: boolean;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  handleClose?: (e: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLLIElement>) => void;
+  handleListKeyDown?: (e: KeyboardEvent<HTMLUListElement>) => void;
+  rootStore: RootStore;
+  communitySt: CommunitySt;
+  uiSt: UISt;
 };
 
-const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
-  observer(({ uiSt, open, setOpen, handleClose, handleListKeyDown }) => {
+const CommunityMenu = inject('uiSt')(
+  observer((props) => {
+    const { uiSt, open, setOpen, handleClose, handleListKeyDown }: CommunityMenuProps = props;
+
     const onInviteClick = () => {
       uiSt.setDialogs('invite', true);
       if (setOpen) setOpen(false);
@@ -130,8 +135,8 @@ const CommunityMenu: React.FC<CommunityMenuProps> = inject('uiSt')(
         <Divider flexItem />
         <MenuItem
           sx={{ width: '100%' }}
-          onClick={() => {
-            if (handleClose) handleClose();
+          onClick={(e) => {
+            if (handleClose) handleClose(e);
           }}
         >
           <Stack

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { Stack } from '@mui/material';
+import { RegCommunityT } from 'models/dataProfileStore';
 import IButton from './IButton';
 
 type CommunityItemType = {
-  item: any;
-  index: any;
+  item: RegCommunityT;
+  index: number;
 };
 
 const CommunityItem: React.FC<CommunityItemType> = (props) => {
