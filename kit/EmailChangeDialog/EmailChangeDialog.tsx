@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import {
@@ -22,7 +25,6 @@ import { useSnackbar } from 'notistack';
 import RootStore from 'store/rootStore';
 import UISt from 'store/ui/uiSt';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const Crypto = require('crypto-js');
 
 type FormValues = {
@@ -55,8 +57,6 @@ const EmailChangeDialog = inject(
     const { enqueueSnackbar } = useSnackbar();
 
     const [showPassword, setShowPassword] = React.useState(false);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [emailError, setEmailError] = React.useState(false);
     const [passwordError, setPasswordError] = React.useState(false);
 

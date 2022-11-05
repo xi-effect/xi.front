@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import {
@@ -18,10 +19,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
 import { useSnackbar } from 'notistack';
-import UISt from '../../store/ui/uiSt';
-import RootStore from '../../store/rootStore';
+import UISt from 'store/ui/uiSt';
+import RootStore from 'store/rootStore';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const Crypto = require('crypto-js');
 
 type FormValues = {
@@ -57,7 +57,6 @@ const PasswordChangeDialog = inject(
     const [showPasswordNew, setShowPasswordNew] = React.useState(false);
     const [showPasswordNewAgain, setShowPasswordNewAgain] = React.useState(false);
 
-    // eslint-disable-next-line no-unused-vars
     const [passwordError, setPasswordError] = React.useState<string | null>(null);
 
     const {
