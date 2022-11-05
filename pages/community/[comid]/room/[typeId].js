@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react';
-import Head from 'next/head';
+import LayoutPages from 'kit/LayoutPages';
 import React from 'react';
 import { useRouter } from 'next/router';
 import { Stack } from '@mui/material';
@@ -24,11 +24,7 @@ const RoomPage = inject(
     }, [router.query.id]);
 
     return (
-      <>
-        <Head>
-          <title>xi.effect</title>
-          <meta name="robots" content="noindex" />
-        </Head>
+      <LayoutPages noIndex>
         <Navigation>
           <Stack
             direction="column"
@@ -48,7 +44,7 @@ const RoomPage = inject(
             {/* 1 */}
           </Stack>
         </Navigation>
-      </>
+      </LayoutPages>
     );
   }),
 );

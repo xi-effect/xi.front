@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
-import Head from 'next/head';
 import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { useSessionStorage } from 'react-use';
 import Form from 'components/Signin/Form';
 import XiLogo from 'kit/XiLogo';
 import { Stack, Typography, Link, Divider, useMediaQuery } from '@mui/material';
+import LayoutPages from 'kit/LayoutPages';
 import UiSt from 'store/ui/uiSt';
-import ProfileSt from 'store/user/profileSt';
+import profileSt from 'store/user/profileSt';
 import AuthorizationSt from 'store/user/authorizationSt';
 
 type SigninT = {
   uiSt: UiSt;
-  profileSt: ProfileSt;
+  profileSt: profileSt;
   authorizationSt: AuthorizationSt;
 };
 
@@ -51,7 +51,7 @@ const Signin = inject(
   'profileSt',
   'authorizationSt',
 )(
-  observer((props) => {
+  observer((props: SigninT) => {
     const { uiSt, profileSt, authorizationSt }: SigninT = props;
 
     const [prevPathname] = useSessionStorage('prevPathname');
@@ -66,10 +66,7 @@ const Signin = inject(
     }, []);
 
     return (
-      <>
-        <Head>
-          <title>xi.effect | вход</title>
-        </Head>
+      <LayoutPages title="вход">
         {!!authorizationSt.signin.error && (
           <Typography
             position="absolute"
@@ -164,7 +161,7 @@ const Signin = inject(
             />
           </Stack>
         )}
-      </>
+      </LayoutPages>
     );
   }),
 );

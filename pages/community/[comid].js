@@ -1,11 +1,11 @@
 import { Grid } from '@mui/material';
 import { inject, observer } from 'mobx-react';
-import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Navigation } from 'kit/Navigation';
 
 import { getLastCodeFromURL } from 'utils/getLastCodeFromURL';
+import LayoutPages from 'kit/LayoutPages';
 
 const Community = inject('communitySt')(
   observer(({ communitySt }) => {
@@ -17,17 +17,13 @@ const Community = inject('communitySt')(
     }, [router.query.comid]);
 
     return (
-      <>
-        <Head>
-          <title>xi.effect</title>
-          <meta name="robots" content="noindex" />
-        </Head>
+      <LayoutPages noIndex>
         <Navigation>
           <Grid sx={{ p: 2 }} container spacing={2}>
             1
           </Grid>
         </Navigation>
-      </>
+      </LayoutPages>
     );
   }),
 );

@@ -1,10 +1,10 @@
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Stack, Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import Form from 'components/ResetPassword/Email';
 import Image from 'next/image';
+import LayoutPages from 'kit/LayoutPages';
 
 const PassResetEmail = inject('authorizationSt')(
   observer(({ authorizationSt }) => {
@@ -14,10 +14,7 @@ const PassResetEmail = inject('authorizationSt')(
     const isMobile = useMediaQuery('(max-width: 472px)');
 
     return (
-      <>
-        <Head>
-          <title>xi.effect | восстановление пароля</title>
-        </Head>
+      <LayoutPages title="восстановление пароля">
         <Stack
           justifyContent={isMobile ? 'flex-start' : 'center'}
           alignItems="center"
@@ -49,7 +46,7 @@ const PassResetEmail = inject('authorizationSt')(
             <Form />
           </Stack>
         </Stack>
-      </>
+      </LayoutPages>
     );
   }),
 );
