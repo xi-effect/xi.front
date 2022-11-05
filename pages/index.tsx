@@ -7,12 +7,12 @@ import XiLogo from 'kit/XiLogo';
 import { Stack, Typography, Link, Divider, useMediaQuery } from '@mui/material';
 import LayoutPages from 'kit/LayoutPages';
 import UiSt from 'store/ui/uiSt';
-import profileSt from 'store/user/profileSt';
+import ProfileSt from 'store/user/profileSt';
 import AuthorizationSt from 'store/user/authorizationSt';
 
 type SigninT = {
   uiSt: UiSt;
-  profileSt: profileSt;
+  profileSt: ProfileSt;
   authorizationSt: AuthorizationSt;
 };
 
