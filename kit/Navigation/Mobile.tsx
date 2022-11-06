@@ -100,7 +100,7 @@ const Mobile: React.FC<MobileT> = observer(({ children }) => {
       <UserProfile />
       <ExitDialog
         isOpen={uiSt.dialogs.exit}
-        logout={rootStore.logout}
+        logout={rootStore.signout}
         setFalse={uiSt.setDialogs('exit', false)}
       />
       <Stack

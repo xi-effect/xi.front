@@ -32,7 +32,7 @@ const Desktop: React.FC<DesktopT> = observer(({ children }) => {
       <UserProfile />
       <ExitDialog
         isOpen={uiSt.dialogs.exit}
-        logout={rootStore.logout}
+        logout={rootStore.signout}
         setFalse={uiSt.setDialogs('exit', false)}
       />
       <Box sx={{ width: 64 }}>

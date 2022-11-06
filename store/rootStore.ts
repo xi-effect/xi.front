@@ -124,10 +124,16 @@ class RootStore {
     }
   };
 
-  @action logout = () => {
-    this.profileSt.setProfileDefault();
-    this.userSt.setUserDefault();
-    this.uiSt.setDialogsFalse();
+  @action signout = () => {
+    this.fetchData(`${this.url}/signout/`, 'POST', { lol: 'kek' }).then((data) => {
+      if (data?.a) {
+        const router = Router;
+        router.push('/');
+        this.profileSt.setProfileDefault();
+        this.userSt.setUserDefault();
+        this.uiSt.setDialogsFalse();
+      }
+    });
   };
 }
 
