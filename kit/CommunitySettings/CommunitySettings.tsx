@@ -3,9 +3,10 @@ import * as React from 'react';
 
 import { TransitionProps } from '@mui/material/transitions';
 import { Dialog, Slide, AppBar, Toolbar, IconButton, Typography, Button } from '@mui/material';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import CloseIcon from '@mui/icons-material/Close';
-import UISt from 'store/ui/uiSt';
+import { useStore } from 'store/connect';
+
 import Menu from './Menu';
 
 const Transition = React.forwardRef(
@@ -17,52 +18,42 @@ const Transition = React.forwardRef(
   ) => <Slide direction="up" ref={ref} {...props} />,
 );
 
-interface Props {
-  open: boolean;
-  setOpen: (newOpen: boolean) => void;
-  uiSt: UISt;
-}
+const CommunitySettings = observer(() => {
+  const rootStore = useStore();
+  const { uiSt } = rootStore;
 
-const CommunitySettings = inject(
-  'rootStore',
-  'uiSt',
-)(
-  observer((props) => {
-    const { uiSt }: Props = props;
-
-    return (
-      <Dialog
-        fullScreen
-        open={uiSt.dialogs.communitySettings}
-        onClose={() => uiSt.setDialogs('communitySettings', false)}
-        TransitionComponent={Transition}
-      >
-        <AppBar elevation={24} sx={{ position: 'relative' }}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={() => uiSt.setDialogs('communitySettings', false)}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Настройки сообщества
-            </Typography>
-            <Button
-              autoFocus
-              color="inherit"
-              onClick={() => uiSt.setDialogs('communitySettings', false)}
-            >
-              Сохранить
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <Menu />
-      </Dialog>
-    );
-  }),
-);
+  return (
+    <Dialog
+      fullScreen
+      open={uiSt.dialogs.communitySettings}
+      onClose={() => uiSt.setDialogs('communitySettings', false)}
+      TransitionComponent={Transition}
+    >
+      <AppBar elevation={24} sx={{ position: 'relative' }}>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={() => uiSt.setDialogs('communitySettings', false)}
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
+          <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+            Настройки сообщества
+          </Typography>
+          <Button
+            autoFocus
+            color="inherit"
+            onClick={() => uiSt.setDialogs('communitySettings', false)}
+          >
+            Сохранить
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <Menu />
+    </Dialog>
+  );
+});
 
 export default CommunitySettings;

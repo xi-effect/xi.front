@@ -9,6 +9,7 @@ import { io, Socket } from 'socket.io-client';
 import UISt from './ui/uiSt';
 import HomeSt from './home/homeSt';
 import ProfileSt from './user/profileSt';
+import UserSt from './user/userSt';
 import AuthorizationSt from './user/authorizationSt';
 import CommunitySt from './community/communitySt';
 import CommunityCreationSt from './community/communityCreationSt';
@@ -30,6 +31,8 @@ class RootStore {
 
   profileSt: ProfileSt;
 
+  userSt: UserSt;
+
   authorizationSt: AuthorizationSt;
 
   communitySt: CommunitySt;
@@ -49,7 +52,9 @@ class RootStore {
   constructor() {
     this.uiSt = new UISt(this);
     this.homeSt = new HomeSt(this);
+
     this.profileSt = new ProfileSt(this);
+    this.userSt = new UserSt(this);
     this.authorizationSt = new AuthorizationSt(this);
 
     // Community Stores
@@ -118,6 +123,12 @@ class RootStore {
       console.log('Возникла проблема с вашим fetch запросом: ', error.message);
     }
   };
+
+  @action logout = () => {
+    this.profileSt.setProfileDefault();
+    this.userSt.setUserDefault();
+    this.uiSt.setDialogsFalse();
+  };
 }
 
 function initializeStore(initialData = null) {
@@ -137,7 +148,7 @@ function initializeStore(initialData = null) {
   return _store;
 }
 
-export function useStore(initialState) {
+export function useStoreInitialized(initialState) {
   const store = useMemo(() => initializeStore(initialState), [initialState]);
   return store;
 }

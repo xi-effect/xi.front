@@ -3,8 +3,7 @@
 // @ts-nocheck
 import React from 'react';
 import useWebRTC, { LOCAL_VIDEO } from 'utils/useWebRTC';
-import { inject, observer } from 'mobx-react';
-import RootStore from 'store/rootStore';
+import { observer } from 'mobx-react';
 
 function layout(clientsNumber = 1) {
   const pairs = Array.from({ length: clientsNumber }).reduce((acc, next, index, arr) => {
@@ -37,48 +36,42 @@ function layout(clientsNumber = 1) {
     .flat();
 }
 
-type RoomT = {
-  rootStore: RootStore;
-};
+const Room = observer(() => {
+  const rootStore = useStore();
 
-const Room: React.FC<RoomT> = inject('rootStore')(
-  observer((props) => {
-    const { rootStore }: RoomT = props;
+  const { clients, provideMediaRef } = useWebRTC(rootStore.socketTest, 1);
 
-    const { clients, provideMediaRef } = useWebRTC(rootStore.socketTest, 1);
+  const videoLayout = layout(2);
 
-    const videoLayout = layout(2);
+  console.log('clients', clients);
+  console.log('provideMediaRef', provideMediaRef);
+  console.log('videoLayout', videoLayout);
 
-    console.log('clients', clients);
-    console.log('provideMediaRef', provideMediaRef);
-    console.log('videoLayout', videoLayout);
-
-    return (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-        }}
-      >
-        {clients.map((clientID, index) => (
-          <div key={clientID} style={videoLayout[index]} id={clientID}>
-            <video
-              width="100%"
-              height="100%"
-              ref={(instance) => {
-                provideMediaRef(clientID, instance);
-              }}
-              autoPlay
-              playsInline
-              muted={clientID === LOCAL_VIDEO}
-            />
-          </div>
-        ))}
-      </div>
-    );
-  }),
-);
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+      }}
+    >
+      {clients.map((clientID, index) => (
+        <div key={clientID} style={videoLayout[index]} id={clientID}>
+          <video
+            width="100%"
+            height="100%"
+            ref={(instance) => {
+              provideMediaRef(clientID, instance);
+            }}
+            autoPlay
+            playsInline
+            muted={clientID === LOCAL_VIDEO}
+          />
+        </div>
+      ))}
+    </div>
+  );
+});
 
 export default Room;

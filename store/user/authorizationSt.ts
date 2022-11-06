@@ -2,9 +2,15 @@
 import { action, observable, makeObservable } from 'mobx';
 import Router from 'next/router';
 import { ResponseDataRegT } from 'models/dataProfileStore';
+import { UseFormTrigger } from 'react-hook-form';
 import RootStore from '../rootStore';
 
 const Crypto = require('crypto-js');
+
+type FormValues = {
+  email: string;
+  password: string;
+};
 
 type EmailResetT = {
   emailResetOk: boolean;
@@ -110,29 +116,22 @@ class AuthorizationSt {
     this.signup[name] = value;
   };
 
-  @action setUserDataRequest = (data: ResponseDataRegT) => {
-    this.rootStore.uiSt.setLoading('loading', true);
-    const { id, username, language } = data.user;
-    this.rootStore.uiSt.setLoading('loading', true);
-    this.rootStore.profileSt.setSettings('id', id);
-    this.rootStore.profileSt.setSettings('username', username);
-    this.rootStore.profileSt.setSettings('darkTheme', data.user['dark-theme']);
-    this.rootStore.profileSt.setSettings('language', language);
-  };
-
   @action clickRegistrationButton = (data: DataRegT) => {
     this.setSignup('error', null);
+
     this.rootStore
-      .fetchData(`${this.rootStore.url}/reg/`, 'POST', {
+      .fetchData(`${this.rootStore.url}/signup/`, 'POST', {
         email: data.email.toLowerCase(),
         password: Crypto.SHA384(data.password.trim()).toString(),
         username: data.username,
         code: data.code,
       })
       .then((data: ResponseDataRegT) => {
-        if (data !== undefined) {
+        if (data) {
           if (data.user) {
-            this.setUserDataRequest(data);
+            this.rootStore.uiSt.setLoading('loading', true);
+
+            this.rootStore.userSt.setUserAll(data);
 
             Router.push('/home');
 
@@ -168,20 +167,22 @@ class AuthorizationSt {
     this.signin[name] = value;
   };
 
-  @action clickSigninButton = (data: DataSuthT, trigger: any) => {
+  @action clickSigninButton = (data: DataSuthT, trigger: UseFormTrigger<FormValues>) => {
     this.setSignin('errorEmail', null);
     this.setSignin('errorPassword', null);
     this.setSignin('error', null);
 
     this.rootStore
-      .fetchData(`${this.rootStore.url}/auth/`, 'POST', {
+      .fetchData(`${this.rootStore.url}/signup/`, 'POST', {
         email: data.email.toLowerCase(),
         password: Crypto.SHA384(data.password.trim()).toString(),
       })
       .then((data: ResponseDataRegT) => {
-        if (data !== undefined) {
+        if (data) {
           if (data.user) {
-            this.setUserDataRequest(data);
+            this.rootStore.uiSt.setLoading('loading', true);
+
+            this.rootStore.userSt.setUserAll(data);
 
             this.rootStore.communitiesMenuSt.setUserCommunities(data.communities);
 

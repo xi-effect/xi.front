@@ -1,10 +1,11 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
 import { Stack, Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 import { UserProfile } from 'kit/UserProfile';
 import { ExitDialog } from '@xieffect/base.dialogs.exit';
+import { useStore } from 'store/connect';
 import { SidebarSecond } from './SidebarSecond';
 
 const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
@@ -13,8 +14,11 @@ type DesktopT = {
   children: React.ReactNode;
 };
 
-const Desktop: React.FC<DesktopT> = inject()(
-  observer(({ children }) => (
+const Desktop: React.FC<DesktopT> = observer(({ children }) => {
+  const rootStore = useStore();
+  const { uiSt } = rootStore;
+
+  return (
     <Stack
       direction="row"
       justifyContent="flex-start"
@@ -26,7 +30,11 @@ const Desktop: React.FC<DesktopT> = inject()(
       }}
     >
       <UserProfile />
-      <ExitDialog />
+      <ExitDialog
+        isOpen={uiSt.dialogs.exit}
+        logout={rootStore.logout}
+        setFalse={uiSt.setDialogs('exit', false)}
+      />
       <Box sx={{ width: 64 }}>
         <Sidebar />
       </Box>
@@ -35,7 +43,7 @@ const Desktop: React.FC<DesktopT> = inject()(
       </Box>
       {children}
     </Stack>
-  )),
-);
+  );
+});
 
 export default Desktop;

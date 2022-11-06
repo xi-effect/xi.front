@@ -5,11 +5,13 @@ import React from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Provider, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
 import 'dayjs/locale/ru';
+
+import { StoreProvider } from 'store/connect';
 
 import { SnackbarProvider } from 'notistack';
 
@@ -19,7 +21,7 @@ import 'styles/globals.css';
 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Loading } from '@xieffect/base.components.loading';
-import { useStore } from 'store/rootStore';
+import { useStoreInitialized } from 'store/rootStore';
 import createEmotionCache from 'store/createEmotionCache';
 import { getDesignTokens } from 'theme';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -33,11 +35,9 @@ const clientSideEmotionCache = createEmotionCache();
 const MyApp = observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
-  const rootStore = useStore(pageProps.initialState);
-  const theme = React.useMemo(
-    () => createTheme(getDesignTokens('light' || rootStore.profileSt.settings.darkTheme)), // Только светлая тема
-    [rootStore.profileSt.settings.darkTheme],
-  );
+  const rootStore = useStoreInitialized(pageProps.initialState);
+
+  const theme = createTheme(getDesignTokens('light')); // Только светлая тема;
 
   return (
     <CacheProvider value={emotionCache}>
@@ -48,21 +48,7 @@ const MyApp = observer((props) => {
         />
       </Head>
       {/* MobX Provider */}
-      <Provider
-        rootStore={rootStore}
-        uiSt={rootStore.uiSt}
-        profileSt={rootStore.profileSt}
-        homeSt={rootStore.homeSt}
-        authorizationSt={rootStore.authorizationSt}
-        // Community Stores
-        communitySt={rootStore.communitySt}
-        communityCreationSt={rootStore.communityCreationSt}
-        communityChannelsSt={rootStore.communityChannelsSt}
-        communitySettingsSt={rootStore.communitiesInvitesSt}
-        // Communities Stores
-        communitiesMenuSt={rootStore.communitiesMenuSt}
-        communitiesInvitesSt={rootStore.communitiesInvitesSt}
-      >
+      <StoreProvider value={rootStore}>
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
           <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -80,7 +66,7 @@ const MyApp = observer((props) => {
             </SnackbarProvider>
           </ThemeProvider>
         </LocalizationProvider>
-      </Provider>
+      </StoreProvider>
     </CacheProvider>
   );
 });
