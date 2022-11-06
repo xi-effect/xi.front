@@ -22,7 +22,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
 import { useSnackbar } from 'notistack';
-import RootStore from 'store/rootStore';
 import { useStore } from 'store/connect';
 
 const Crypto = require('crypto-js');
@@ -191,7 +190,6 @@ const EmailChangeDialog = observer((props) => {
               fullWidth
               placeholder="Новый адрес почты"
               type="email"
-              // helperText={getPasswordError()}
               {...field}
               sx={{
                 mt: '16px',

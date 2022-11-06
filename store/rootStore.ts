@@ -85,7 +85,7 @@ class RootStore {
     console.log('this.socketTest', this.socketTest);
   };
 
-  @action fetchData = async (url: string, method: MethodT, data?: any) => {
+  @action fetchData = async (url: string, method: MethodT, data?: unknown) => {
     try {
       let response: null | Response = null;
       if (data != null) {
