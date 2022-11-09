@@ -1,16 +1,16 @@
-import { Stack, Typography, useMediaQuery } from '@mui/material';
+import { Stack, Typography, useMediaQuery, } from '@mui/material';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import Form from 'components/ResetPassword/Email';
 import LayoutPages from 'kit/LayoutPages';
-import XiLogo from "../../kit/XiLogo";
+import XiLogo from 'kit/XiLogo';
 
 const PassResetEmail = inject('authorizationSt')(
-  observer(({ authorizationSt }) => {
-    const { passwordReset } = authorizationSt;
-
+  observer(({authorizationSt}) => {
+    const {passwordReset} = authorizationSt;
+    
     const isMobile = useMediaQuery('(max-width: 472px)');
-
+    
     return (
       <LayoutPages title="восстановление пароля">
         <Stack
@@ -43,7 +43,7 @@ const PassResetEmail = inject('authorizationSt')(
             >
               {passwordReset.emailResetOk ? 'Письмо отправлено' : 'Восстановление'}
             </Typography>
-            <Form />
+            <Form/>
           </Stack>
         </Stack>
       </LayoutPages>
