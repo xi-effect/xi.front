@@ -4,9 +4,10 @@ import { inject, observer } from 'mobx-react';
 import Form from 'components/ResetPassword/Email';
 import LayoutPages from 'kit/LayoutPages';
 import XiLogo from 'kit/XiLogo';
+import AuthorizationSt from 'store/user/authorizationSt';
 
 const PassResetEmail = inject('authorizationSt')(
-  observer(({authorizationSt}) => {
+  observer(({authorizationSt}:{authorizationSt:AuthorizationSt}) => {
     const {passwordReset} = authorizationSt;
     
     const isMobile = useMediaQuery('(max-width: 472px)');
