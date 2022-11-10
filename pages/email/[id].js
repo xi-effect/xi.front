@@ -1,11 +1,11 @@
 import * as React from 'react';
-import Head from 'next/head';
 
 import { Divider, Stack, Button, Typography, useMediaQuery } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import { getLastCodeFromURL } from 'utils/getLastCodeFromURL';
 import { useRouter } from 'next/router';
 import XiLogo from 'kit/XiLogo';
+import LayoutPages from 'kit/LayoutPages';
 
 const Email = inject('rootStore')(
   observer(({ rootStore }) => {
@@ -33,10 +33,7 @@ const Email = inject('rootStore')(
     };
 
     return (
-      <>
-        <Head>
-          <title>xi.effect | почта</title>
-        </Head>
+      <LayoutPages title="почта">
         <Stack
           direction="column"
           justifyContent="center"
@@ -97,7 +94,7 @@ const Email = inject('rootStore')(
             />
           )}
         </Stack>
-      </>
+      </LayoutPages>
     );
   }),
 );

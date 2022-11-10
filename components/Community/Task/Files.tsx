@@ -5,11 +5,7 @@ import { Stack, Typography, Button, useMediaQuery, Theme } from '@mui/material';
 import { File } from '@xieffect/base.icons.file';
 import { Clip } from '@xieffect/base.icons.clip';
 
-type FilesT = {
-  rootStore?: any;
-};
-
-const Files: React.FC<FilesT> = inject('rootStore')(
+const Files = inject()(
   observer(() => {
     const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
 

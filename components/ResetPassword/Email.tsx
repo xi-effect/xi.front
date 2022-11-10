@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextFieldCustom from 'kit/TextFieldCustom';
 import { Button, Stack, Link, Typography } from '@mui/material';
+import AuthorizationSt from 'store/user/authorizationSt';
 
 const schema = yup
   .object({
@@ -14,16 +15,16 @@ const schema = yup
   .required();
 
 type Props = {
-  authorizationSt?: any;
+  authorizationSt: AuthorizationSt;
 };
 
 type SignupFormValues = {
   email: string;
 };
 
-const Email: React.FC<Props> = inject('authorizationSt')(
+const Email = inject('authorizationSt')(
   observer((props) => {
-    const { authorizationSt } = props;
+    const { authorizationSt }: Props = props;
     const { passwordReset } = authorizationSt;
     const router: NextRouter = useRouter();
 

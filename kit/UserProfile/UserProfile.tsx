@@ -7,6 +7,8 @@ import { inject, observer } from 'mobx-react';
 import { Burger } from '@xieffect/base.icons.burger';
 import { Close } from '@xieffect/base.icons.close';
 import { Arrow } from '@xieffect/base.icons.arrow';
+import ProfileSt from 'store/user/profileSt';
+import UISt from 'store/ui/uiSt';
 import Menu from './Menu';
 import Content from './Content';
 
@@ -22,17 +24,17 @@ const Transition = React.forwardRef(
 );
 
 interface UserProfileProps {
-  profileSt?: any;
-  uiSt?: any;
+  profileSt: ProfileSt;
+  uiSt: UISt;
 }
 
 const UserProfile = inject(
-  'rootStore',
   'profileSt',
   'uiSt',
 )(
-  observer((props: UserProfileProps) => {
-    const { uiSt, profileSt } = props;
+  observer((props) => {
+    const { uiSt, profileSt }: UserProfileProps = props;
+
     const { dialogs, setDialogs } = uiSt;
 
     const [activeContent, setActiveContent] = React.useState(0);
@@ -47,7 +49,7 @@ const UserProfile = inject(
 
     React.useEffect(() => {
       profileSt.getAllSettings();
-      profileSt.getMainSettings();
+      profileSt.getMainSettings(null);
     }, [profileSt]);
 
     return (
@@ -60,6 +62,7 @@ const UserProfile = inject(
             justifyContent: 'flex-start',
             alignItems: 'center',
             p: mobile700 ? '8px' : '16px',
+            overflow: 'scroll',
           },
         }}
         fullScreen
@@ -82,6 +85,7 @@ const UserProfile = inject(
             justifyContent="flex-start"
             alignItems="center"
             sx={{
+              height: '40px',
               width: '100%',
               position: 'relative',
             }}

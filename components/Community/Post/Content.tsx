@@ -3,11 +3,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Typography, Stack } from '@mui/material';
 
-type ItemsT = {
-  rootStore?: any;
-};
-
-const Content: React.FC<ItemsT> = inject('rootStore')(
+const Content = inject()(
   observer(() => (
     <Stack
       direction="column"

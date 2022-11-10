@@ -7,14 +7,12 @@ import { handlingEditors } from 'utils/handlingEditors';
 import EditorSample from 'components/ContentEditor/Editor/EditorSample';
 import { Type } from './common/withListsPlugin';
 
-type ContentEditorT = {};
-
 export type EditorsT = { id: string; type: Type };
 export type ChangeEditorsT = (
   options: { startIndex: number; endIndex: number } | null,
 ) => (index: number) => void;
 
-const ContentEditor: React.FC<ContentEditorT> = () => {
+const ContentEditor = () => {
   const [editors, setEditors] = useState<EditorsT[]>([{ id: v4(), type: Type.TEXT }]);
 
   const changeEditors = (options: { startIndex: number; endIndex: number } | null) => {

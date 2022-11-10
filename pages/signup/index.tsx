@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
-import Head from 'next/head';
 import Router, { useRouter, NextRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { Link, Divider, Stack, Typography, useMediaQuery } from '@mui/material';
 import Form from 'components/Signup/Form';
 import XiLogo from 'kit/XiLogo';
 import { useSessionStorage } from 'react-use';
+import LayoutPages from 'kit/LayoutPages';
 
 const Tearms = () => (
   <>
@@ -41,22 +42,17 @@ const Signup = inject()(
   observer(() => {
     const isMobile = useMediaQuery('(max-width: 472px)');
 
-    const [activeStep, setActiveStep] = useState<number>(0);
-
     const router: NextRouter = useRouter();
-    // eslint-disable-next-line no-unused-vars
+
+    const [activeStep, setActiveStep] = useState<number>(0);
     const [prevPathname, setPrevPathname] = useSessionStorage('prevPathname');
 
     React.useEffect(() => {
-      // @ts-ignore
       setPrevPathname(router.pathname);
     }, [router.pathname]);
 
     return (
-      <>
-        <Head>
-          <title>xi.effect | регистрация</title>
-        </Head>
+      <LayoutPages title="регистрация">
         <Stack
           justifyContent={isMobile ? 'flex-start' : 'center'}
           alignItems="center"
@@ -74,7 +70,7 @@ const Signup = inject()(
               width: isMobile ? '100%' : '420px',
               height: isMobile ? '395px' : '514px',
               borderRadius: '16px',
-              border: isMobile ? 'none' : '1px solid #E6E6E6', // grayscale.10
+              border: isMobile ? 'none' : '1px solid #E6E6E6',
               position: 'relative',
             }}
           >
@@ -131,7 +127,7 @@ const Signup = inject()(
             />
           </Stack>
         )}
-      </>
+      </LayoutPages>
     );
   }),
 );

@@ -1,16 +1,12 @@
-import Head from 'next/head';
 import React from 'react';
 import { Stack } from '@mui/material';
 import { inject, observer } from 'mobx-react';
 import { Navigation } from 'kit/Navigation';
+import LayoutPages from 'kit/LayoutPages';
 
 const Home = inject()(
   observer(() => (
-    <>
-      <Head>
-        <title>xi.effect | главная</title>
-        <meta name="robots" content="noindex" />
-      </Head>
+    <LayoutPages title="главная" noIndex>
       <Navigation>
         <Stack
           direction="column"
@@ -29,7 +25,7 @@ const Home = inject()(
           1
         </Stack>
       </Navigation>
-    </>
+    </LayoutPages>
   )),
 );
 

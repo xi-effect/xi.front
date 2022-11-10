@@ -4,7 +4,6 @@ import { Stack, Typography } from '@mui/material';
 import { Burger } from '@xieffect/base.icons.burger';
 
 type UpbarT = {
-  // eslint-disable-next-line no-unused-vars
   setMenuPosition: (value) => void;
 };
 

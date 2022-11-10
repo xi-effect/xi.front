@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 
@@ -188,7 +189,6 @@ const Invites = inject()(
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState([]);
-    // eslint-disable-next-line no-unused-vars
     const [page, setPage] = React.useState(0);
 
     const handleRequestSort = (event, property) => {

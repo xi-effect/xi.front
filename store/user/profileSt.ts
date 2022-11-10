@@ -18,7 +18,7 @@ type ResponseGetSettings = {
   username: string;
   'dark-theme': boolean;
   language: string;
-  avatar: {};
+  avatar: null;
   email: string | null;
   'email-confirmed': boolean;
   code: string;
@@ -29,7 +29,7 @@ type ResponseGetSettings = {
   group: string;
 };
 
-class profileSt {
+class ProfileSt {
   // `this` from rootstore passed to the constructor and we can
   // assign it to a variable accessible in this class called
   // `rootStore`. Therefore, we can access other store like
@@ -123,4 +123,4 @@ class profileSt {
   };
 }
 
-export default profileSt;
+export default ProfileSt;

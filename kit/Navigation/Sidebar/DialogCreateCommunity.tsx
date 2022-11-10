@@ -1,6 +1,15 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { Theme, Button, Dialog, useMediaQuery, IconButton, Stack, Typography } from '@mui/material';
+import {
+  Theme,
+  Button,
+  Dialog,
+  useMediaQuery,
+  IconButton,
+  Stack,
+  Typography,
+  Breakpoint,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useRouter } from 'next/router';
@@ -9,6 +18,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import TextFieldCustom from 'kit/TextFieldCustom';
+import RootStore from 'store/rootStore';
+import CommunitiesMenuSt from 'store/community/communitiesMenuSt';
+import UISt from 'store/ui/uiSt';
 
 const schema = yup
   .object({
@@ -17,20 +29,23 @@ const schema = yup
   .required();
 
 type DialogCreateCommunityT = {
-  rootStore?: any;
-  communitiesMenuSt?: any;
-  uiSt?: any;
+  uiSt: UISt;
+  rootStore: RootStore;
+  communitiesMenuSt: CommunitiesMenuSt;
 };
 
-const DialogCreateCommunity: React.FC<DialogCreateCommunityT> = inject(
+const DialogCreateCommunity = inject(
   'rootStore',
   'communitiesMenuSt',
   'uiSt',
 )(
-  observer(({ rootStore, communitiesMenuSt, uiSt }) => {
+  observer((props) => {
+    const { uiSt, communitiesMenuSt, rootStore }: DialogCreateCommunityT = props;
+
     const { dialogs, setDialogs } = uiSt;
-    // @ts-ignore
-    const mobile: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('dl'));
+    const mobile: boolean = useMediaQuery((theme: Theme) =>
+      theme.breakpoints.down('dl' as Breakpoint),
+    );
 
     const {
       control,
@@ -57,7 +72,7 @@ const DialogCreateCommunity: React.FC<DialogCreateCommunityT> = inject(
     };
 
     const onSubmit = (data) => {
-      rootStore.socket.emit('new-community', { name: data.name }, addCtoMenu);
+      rootStore.socket?.emit('new-community', { name: data.name }, addCtoMenu);
     };
 
     return (

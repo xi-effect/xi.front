@@ -1,18 +1,14 @@
 import { Stack } from '@mui/material';
 import { inject, observer } from 'mobx-react';
-import Head from 'next/head';
+import LayoutPages from 'kit/LayoutPages';
+
 import React from 'react';
 import { Navigation } from 'kit/Navigation';
 import { Header, Items, Title } from 'components/Community/Tasks';
 
 const Tasks = inject('profileSt')(
   observer(() => (
-    // const router = useRouter()
-    <>
-      <Head>
-        <title>xi.effect</title>
-        <meta name="robots" content="noindex" />
-      </Head>
+    <LayoutPages noIndex>
       <Navigation>
         <Stack
           direction="column"
@@ -30,7 +26,7 @@ const Tasks = inject('profileSt')(
           <Items />
         </Stack>
       </Navigation>
-    </>
+    </LayoutPages>
   )),
 );
 

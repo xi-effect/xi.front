@@ -13,8 +13,6 @@ const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
 
 type MobileT = {
   children: React.ReactNode;
-  uiSt?: any;
-  profileSt?: any;
 };
 
 const Mobile: React.FC<MobileT> = inject()(

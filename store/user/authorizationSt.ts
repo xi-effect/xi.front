@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-shadow */
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { action, observable, makeObservable } from 'mobx';
 import Router from 'next/router';
 import { ResponseDataRegT } from 'models/dataProfileStore';
@@ -10,10 +9,7 @@ const Crypto = require('crypto-js');
 type EmailResetT = {
   emailResetOk: boolean;
 };
-type DataConfirmT = {
-  code: string;
-  password: string;
-};
+
 type DataT = {
   email: string;
 };
@@ -60,7 +56,7 @@ class AuthorizationSt {
     this.newPasswordReset[name] = value;
   };
 
-  @action saveNewPassword = (id: string, data: DataConfirmT) => {
+  @action saveNewPassword = (id: string, data: { password: string }) => {
     this.setNewPasswordReset('emailResetOk', false);
     this.rootStore
       .fetchData(`${this.rootStore.url}/password-reset/confirm/`, 'POST', {
@@ -114,6 +110,16 @@ class AuthorizationSt {
     this.signup[name] = value;
   };
 
+  @action setUserDataRequest = (data: ResponseDataRegT) => {
+    this.rootStore.uiSt.setLoading('loading', true);
+    const { id, username, language } = data.user;
+    this.rootStore.uiSt.setLoading('loading', true);
+    this.rootStore.profileSt.setSettings('id', id);
+    this.rootStore.profileSt.setSettings('username', username);
+    this.rootStore.profileSt.setSettings('darkTheme', data.user['dark-theme']);
+    this.rootStore.profileSt.setSettings('language', language);
+  };
+
   @action clickRegistrationButton = (data: DataRegT) => {
     this.setSignup('error', null);
     this.rootStore
@@ -126,14 +132,10 @@ class AuthorizationSt {
       .then((data: ResponseDataRegT) => {
         if (data !== undefined) {
           if (data.user) {
-            this.rootStore.uiSt.setLoading('loading', true);
-            const { id, username, language } = data.user;
-            this.rootStore.uiSt.setLoading('loading', true);
-            this.rootStore.profileSt.setSettings('id', id);
-            this.rootStore.profileSt.setSettings('username', username);
-            this.rootStore.profileSt.setSettings('darkTheme', data.user['dark-theme']);
-            this.rootStore.profileSt.setSettings('language', language);
+            this.setUserDataRequest(data);
+
             Router.push('/home');
+
             setTimeout(() => {
               this.rootStore.uiSt.setLoading('loading', false);
             }, 1500);
@@ -179,15 +181,12 @@ class AuthorizationSt {
       .then((data: ResponseDataRegT) => {
         if (data !== undefined) {
           if (data.user) {
-            this.rootStore.uiSt.setLoading('loading', true);
-            const { id, username, language } = data.user;
-            this.rootStore.uiSt.setLoading('loading', true);
-            this.rootStore.profileSt.setSettings('id', id);
-            this.rootStore.profileSt.setSettings('username', username);
-            this.rootStore.profileSt.setSettings('darkTheme', data.user['dark-theme']);
-            this.rootStore.profileSt.setSettings('language', language);
+            this.setUserDataRequest(data);
+
             this.rootStore.communitiesMenuSt.setUserCommunities(data.communities);
+
             Router.push('/home');
+
             setTimeout(() => {
               this.rootStore.uiSt.setLoading('loading', false);
             }, 1500);

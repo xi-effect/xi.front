@@ -1,7 +1,7 @@
 import { action, observable, makeObservable } from 'mobx';
 import RootStore from '../rootStore';
 
-type ChannelsType = {
+export type ChannelsType = {
   id: number;
   type: string;
   name: string;

@@ -16,7 +16,8 @@
     "plugin:jsx-a11y/recommended",
     // "plugin:react-hooks/recommended",
     // always put prettier at last
-    "prettier"
+    "prettier",
+    "plugin:@typescript-eslint/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -34,7 +35,7 @@
       "version": "detect"
     }
   },
-  "ignorePatterns": ["sw.js", "workbox-75794ccf.js", "fallback-xrcLp6oi40dE0e55rzvhr.js"],
+  "ignorePatterns": ["sw.js", "workbox-*.js", "fallback-*.js"],
   "plugins": ["react", "react-hooks", "@typescript-eslint"],
   "rules": {
     "semi": "off",
@@ -56,6 +57,8 @@
     "react/require-default-props": "off",
     "no-shadow": "off",
     "react-hooks/exhaustive-deps": "off",
-    "jsx-a11y/anchor-is-valid": "off"
+    "jsx-a11y/anchor-is-valid": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"]
   }
 }

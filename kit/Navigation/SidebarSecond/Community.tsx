@@ -20,6 +20,7 @@ import { Camera } from '@xieffect/base.icons.camera';
 import { Calendar } from '@xieffect/base.icons.calendar';
 
 import Image from 'next/image';
+import CommunityChannelsSt, { ChannelsType } from 'store/community/communityChannelsSt';
 
 const iconsDict = {
   posts: <Announce color="primary" />,
@@ -32,11 +33,11 @@ const iconsDict = {
 };
 
 type ChannelT = {
-  channel: any;
+  channel: ChannelsType;
 };
 
 type ItemsT = {
-  communityChannelsSt?: any;
+  communityChannelsSt: CommunityChannelsSt;
   index: number;
 };
 
@@ -112,8 +113,10 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
   }),
 );
 
-const Items: React.FC<ItemsT> = inject('communityChannelsSt')(
-  observer(({ communityChannelsSt, index }) => {
+const Items = inject('communityChannelsSt')(
+  observer((props) => {
+    const { communityChannelsSt, index }: ItemsT = props;
+
     const channel = communityChannelsSt.channels[index];
 
     if (channel.type === 'category') {
@@ -188,7 +191,7 @@ const Items: React.FC<ItemsT> = inject('communityChannelsSt')(
           </Stack>
           {channel.open && (
             <MenuList sx={{ width: '100%', pl: 0, pr: 0, zIndex: 1 }}>
-              {channel.children.map((child, indexCh) => (
+              {channel.children?.map((child, indexCh) => (
                 <Channel key={indexCh.toString()} channel={child} />
               ))}
             </MenuList>
@@ -204,11 +207,13 @@ const Items: React.FC<ItemsT> = inject('communityChannelsSt')(
 );
 
 type MenuCommunityT = {
-  communityChannelsSt?: any;
+  communityChannelsSt: CommunityChannelsSt;
 };
 
 const MenuCommunity = inject('communityChannelsSt')(
-  observer(({ communityChannelsSt }: MenuCommunityT) => {
+  observer((props) => {
+    const { communityChannelsSt }: MenuCommunityT = props;
+
     const [valueLS, setValueLS] = useLocalStorage('second-menu-c-upper-items-position-is-vert');
 
     useEffect(() => {

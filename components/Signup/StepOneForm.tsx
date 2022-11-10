@@ -4,16 +4,19 @@ import { inject, observer } from 'mobx-react';
 import { Button, Link, Stack } from '@mui/material';
 import { Control, Controller, FieldErrors, FieldValues } from 'react-hook-form';
 import TextFieldCustom from 'kit/TextFieldCustom';
+import AuthorizationSt from 'store/user/authorizationSt';
 
 interface IStepOneForm {
   control: Control<FieldValues, object> | undefined;
   errors: FieldErrors;
   nextStepHandler: () => void;
-  authorizationSt?: any;
+  authorizationSt: AuthorizationSt;
 }
 
-const StepOneForm: React.FC<IStepOneForm> = inject('authorizationSt')(
-  observer(({ authorizationSt, control, errors, nextStepHandler }) => {
+const StepOneForm = inject('authorizationSt')(
+  observer((props) => {
+    const { authorizationSt, control, errors, nextStepHandler }: IStepOneForm = props;
+
     const router = useRouter();
 
     return (

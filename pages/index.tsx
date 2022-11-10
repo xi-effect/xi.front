@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
-import Head from 'next/head';
 import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { useSessionStorage } from 'react-use';
-import Form from 'components/Signin/Form';
 import XiLogo from 'kit/XiLogo';
 import { Stack, Typography, Link, Divider, useMediaQuery } from '@mui/material';
-import UiSt from '../store/ui/uiSt';
-import profileSt from '../store/user/profileSt';
-import AuthorizationSt from '../store/user/authorizationSt';
+import LayoutPages from 'kit/LayoutPages';
+import UiSt from 'store/ui/uiSt';
+import ProfileSt from 'store/user/profileSt';
+import AuthorizationSt from 'store/user/authorizationSt';
+import { SignIn } from '@xieffect/base.forms.signin';
 
 type SigninT = {
   uiSt: UiSt;
-  profileSt: profileSt;
+  profileSt: ProfileSt;
   authorizationSt: AuthorizationSt;
 };
 
@@ -66,10 +66,7 @@ const Signin = inject(
     }, []);
 
     return (
-      <>
-        <Head>
-          <title>xi.effect | вход</title>
-        </Head>
+      <LayoutPages title="вход">
         {!!authorizationSt.signin.error && (
           <Typography
             position="absolute"
@@ -125,7 +122,9 @@ const Signin = inject(
             >
               Вход в аккаунт
             </Typography>
-            <Form {...props} />
+
+            <SignIn authorizationSt={authorizationSt} />
+
             {!isMobile && (
               <Stack
                 direction="column"
@@ -164,7 +163,7 @@ const Signin = inject(
             />
           </Stack>
         )}
-      </>
+      </LayoutPages>
     );
   }),
 );

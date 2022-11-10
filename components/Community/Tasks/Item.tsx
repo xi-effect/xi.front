@@ -8,11 +8,10 @@ import { TaskT } from './types';
 
 type ItemsT = {
   item: TaskT;
-  rootStore?: any;
   index: number;
 };
 
-const Item: React.FC<ItemsT> = inject('rootStore')(
+const Item: React.FC<ItemsT> = inject()(
   observer(({ item, index }) => {
     const router: NextRouter = useRouter();
 

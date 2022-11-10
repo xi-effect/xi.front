@@ -1,15 +1,15 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { Stack, useMediaQuery } from '@mui/material';
+import { Breakpoint, Stack, Theme, useMediaQuery } from '@mui/material';
 import { motion } from 'framer-motion';
 
-// @ts-ignore
 import XiLogo from 'kit/XiLogo';
 
 const Header: React.FC = () => {
-  // @ts-ignore
-  const mobile: boolean = useMediaQuery((theme) => theme.breakpoints.down('dl'));
+  const mobile: boolean = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('dl' as Breakpoint),
+  );
 
   return (
     <Stack

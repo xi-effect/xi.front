@@ -1,5 +1,5 @@
 export type ResponseDataRegT = {
-  communities: RegCommunnitiT[];
+  communities: RegCommunityT[];
   a: string;
   user: RegUserT;
 };
@@ -9,11 +9,11 @@ type RegUserT = {
   username: string;
   'dark-theme': true;
   language: string;
-  avatar: {};
+  avatar: null;
 };
 
-type RegCommunnitiT = {
+export type RegCommunityT = {
   name: string;
-  description: string;
+  description?: string;
   id: number;
 };

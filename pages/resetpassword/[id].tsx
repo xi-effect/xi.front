@@ -1,9 +1,9 @@
 import React from 'react';
-import Head from 'next/head';
 import { inject, observer } from 'mobx-react';
 import Form from 'components/ResetPassword/Form';
 import XiLogo from 'kit/XiLogo';
 import { Stack, Typography, useMediaQuery } from '@mui/material';
+import LayoutPages from 'kit/LayoutPages';
 
 const ResetPassword = inject(
   'uiSt',
@@ -13,10 +13,7 @@ const ResetPassword = inject(
     const isMobile: boolean = useMediaQuery('(max-width: 472px)');
 
     return (
-      <>
-        <Head>
-          <title>xi.effect | новый пароль</title>
-        </Head>
+      <LayoutPages title="новый пароль">
         <Stack
           justifyContent={isMobile ? 'flex-start' : 'center'}
           alignItems="center"
@@ -54,7 +51,7 @@ const ResetPassword = inject(
             <Form {...props} />
           </Stack>
         </Stack>
-      </>
+      </LayoutPages>
     );
   }),
 );

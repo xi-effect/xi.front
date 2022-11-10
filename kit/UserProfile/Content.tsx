@@ -1,9 +1,8 @@
-// @ts-nocheck
 import * as React from 'react';
 import { Stack, useMediaQuery, Theme } from '@mui/material';
-import Main from './ContnetItems/Main';
-import Account from './ContnetItems/Account';
-import Secure from './ContnetItems/Secure';
+import Main from './ContentItems/Main';
+import Account from './ContentItems/Account';
+import Secure from './ContentItems/Secure';
 import SoundAndVideo from './ContentItems/SoundAndVideo';
 
 type ContentProps = {
@@ -24,6 +23,7 @@ const Content = ({ activeContent }: ContentProps) => {
         margin: mobile700 ? '' : `16px ${!mobile1400 ? '56px' : '0px'} 16px 32px`,
         mt: mobile700 ? '8px' : '',
         width: '100%',
+        mb: '120px',
       }}
     >
       {activeContent === 0 && <Main />}
