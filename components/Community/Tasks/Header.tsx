@@ -104,7 +104,7 @@ const Header = inject()(
               lineHeight: '20px',
               boxShadow: 0,
               textTransform: 'capitalize',
-  
+
               '&:hover': {
                 boxShadow: 0,
                 bgcolor: tab === 2 ? 'primary.dark' : 'transparent',
