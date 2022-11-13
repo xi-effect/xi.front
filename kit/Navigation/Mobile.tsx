@@ -28,25 +28,29 @@ const Mobile: React.FC<MobileT> = inject()(
 
     React.useEffect(() => {
       let prevX = 0;
+      let startX = 0;
 
       const handleStart = (event: TouchEvent) => {
         prevX = event.touches[0].pageX;
+        startX = event.touches[0].clientX;
       };
 
       const handleMove = (event: TouchEvent) => {
         const dif = event.changedTouches[0].pageX - prevX;
 
-        setMenuPosition((prev) => {
-          if (prev + dif < 0) {
-            setValueLS(false);
-            return 0;
-          }
-          if (prev + dif > 316) {
-            setValueLS(true);
-            return 316;
-          }
-          return prev + dif;
-        });
+        if (Math.abs(event.touches[0].clientX - startX) > 20) {
+          setMenuPosition((prev) => {
+            if (prev + dif * 2 < 0) {
+              setValueLS(false);
+              return 0;
+            }
+            if (prev + dif * 2 > 316) {
+              setValueLS(true);
+              return 316;
+            }
+            return prev + dif * 2;
+          });
+        }
 
         prevX = event.changedTouches[0].pageX;
       };
