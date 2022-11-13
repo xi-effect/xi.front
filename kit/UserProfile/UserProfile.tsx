@@ -8,6 +8,7 @@ import { Burger } from '@xieffect/base.icons.burger';
 import { Close } from '@xieffect/base.icons.close';
 import { Arrow } from '@xieffect/base.icons.arrow';
 import ProfileSt from 'store/user/profileSt';
+import UserMediaSt from 'store/user/userMediaSt';
 import UISt from 'store/ui/uiSt';
 import Menu from './Menu';
 import Content from './Content';
@@ -24,16 +25,22 @@ const Transition = React.forwardRef(
 );
 
 interface UserProfileProps {
-  profileSt: ProfileSt;
   uiSt: UISt;
+  profileSt: ProfileSt;
+  userMediaSt: UserMediaSt;
 }
 
 const UserProfile = inject(
   'profileSt',
+  'userMediaSt',
   'uiSt',
 )(
   observer((props) => {
-    const { uiSt, profileSt }: UserProfileProps = props;
+    const {
+      uiSt,
+      profileSt,
+      userMediaSt: { stopStream },
+    }: UserProfileProps = props;
 
     const { dialogs, setDialogs } = uiSt;
 
@@ -135,7 +142,10 @@ const UserProfile = inject(
               </Typography>
             )}
             <IconButton
-              onClick={() => uiSt.setDialogs('userProfile', false)}
+              onClick={() => {
+                stopStream();
+                uiSt.setDialogs('userProfile', false);
+              }}
               sx={{
                 width: '40px',
                 height: '40px',
