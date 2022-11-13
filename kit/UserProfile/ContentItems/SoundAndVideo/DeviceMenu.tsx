@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useRef, useState } from 'react';
 import { Box, Menu, MenuItem, Stack, Typography } from '@mui/material';
 import { menuStyles } from './Styles/styles';
@@ -37,10 +36,13 @@ const DeviceMenu: React.FC<DeviceMenuT> = (props) => {
           mr: '8px',
           p: '11px 21px',
           flex: '0 1 81%',
-          cursor: 'pointer',
           borderRadius: '8px',
           position: 'relative',
           border: '1px solid #E6E6E6',
+          transition: 'opacity 0.3s ease',
+          opacity: !devices.length ? '0.5' : '1',
+          cursor: !devices.length ? 'default' : 'pointer',
+          pointerEvents: !devices.length ? 'none' : 'auto',
         }}
       >
         {(device === 'audioinput' && <Microphone />) ||
