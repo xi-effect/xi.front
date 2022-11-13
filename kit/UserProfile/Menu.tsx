@@ -3,6 +3,7 @@ import { Button, Stack, ButtonProps, useMediaQuery, Theme } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import { inject, observer } from 'mobx-react';
 import UISt from 'store/ui/uiSt';
+import UserMediaSt from '../../store/user/userMediaSt';
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   display: 'flex',
@@ -41,15 +42,24 @@ const menu = [
 type MenuProps = {
   uiSt: UISt;
   activeContent: number;
+  userMediaSt: UserMediaSt;
   setActiveContent: (activeContent: number) => void;
   setOpenContent: (openContent: boolean) => void;
 };
 
-const Menu = inject('uiSt')(
+const Menu = inject(
+  'uiSt',
+  'userMediaSt',
+)(
   observer((props) => {
-    const { activeContent, setActiveContent, setOpenContent, uiSt }: MenuProps = props;
+    const {
+      activeContent,
+      setOpenContent,
+      setActiveContent,
+      uiSt: { setDialogs },
+      userMediaSt: { stopStream },
+    }: MenuProps = props;
 
-    const { setDialogs } = uiSt;
     const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
 
     return (
@@ -65,6 +75,7 @@ const Menu = inject('uiSt')(
         {menu.map((item, index) => (
           <ColorButton
             onClick={() => {
+              stopStream();
               setActiveContent(index);
               if (mobile700) setOpenContent(true);
             }}
@@ -84,7 +95,10 @@ const Menu = inject('uiSt')(
           </ColorButton>
         ))}
         <ColorButton
-          onClick={() => setDialogs('exit', true)}
+          onClick={() => {
+            stopStream();
+            setDialogs('exit', true);
+          }}
           sx={{
             mt: '24px',
             color: 'grayscale.100',
