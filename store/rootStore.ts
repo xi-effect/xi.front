@@ -16,6 +16,7 @@ import CommunitiesMenuSt from './community/communitiesMenuSt';
 import CommunityChannelsSt from './community/communityChannelsSt';
 import CommunitiesInvitesSt from './community/communitiesInvitesSt';
 import CommunitySettingsSt from './community/communitySettingsSt';
+import UserMediaSt from './user/userMediaSt';
 
 enableStaticRendering(typeof window === 'undefined');
 
@@ -30,9 +31,13 @@ class RootStore {
 
   profileSt: ProfileSt;
 
-  authorizationSt: AuthorizationSt;
+  userMediaSt: UserMediaSt;
 
   communitySt: CommunitySt;
+
+  authorizationSt: AuthorizationSt;
+
+  communitiesMenuSt: CommunitiesMenuSt;
 
   communityCreationSt: CommunityCreationSt;
 
@@ -42,14 +47,13 @@ class RootStore {
 
   communitiesInvitesSt: CommunitiesInvitesSt;
 
-  communitiesMenuSt: CommunitiesMenuSt;
-
   url = process.env.NEXT_PUBLIC_SERVER_URL;
 
   constructor() {
     this.uiSt = new UISt(this);
     this.homeSt = new HomeSt(this);
     this.profileSt = new ProfileSt(this);
+    this.userMediaSt = new UserMediaSt(this);
     this.authorizationSt = new AuthorizationSt(this);
 
     // Community Stores
