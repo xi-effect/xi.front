@@ -8,5 +8,6 @@ export const ACTIONS = {
   RELAY_ICE: 'relay-ice',
   ICE_CANDIDATE: 'ice-candidate',
   SESSION_DESCRIPTION: 'session-description',
+  GET_CLIENTS: 'get-clients',
 };
 
