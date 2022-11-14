@@ -79,10 +79,6 @@ const VideoConference: React.FC<ConfT> = ({ socket, roomId }) => {
 
   const handleToggleJoinCancel = () => setToggle(prevToggle => !prevToggle);
 
-  // console.log(audioInputList);
-  // console.log(audioOutputList);
-  // console.log(videoInputList);
-
   return ( !toggle ?
     <Stack
       width="1556px"
