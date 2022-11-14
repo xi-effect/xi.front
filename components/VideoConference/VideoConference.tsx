@@ -11,6 +11,7 @@ import {
   Typography
 } from '@mui/material';
 // import TextField from '@mui/material/TextField';
+import { Socket } from 'socket.io-client';
 import VideoLayout from './videoLayout';
 
 type ConfT = {
