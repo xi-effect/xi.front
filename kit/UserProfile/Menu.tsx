@@ -3,7 +3,7 @@ import { Button, Stack, ButtonProps, useMediaQuery, Theme } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import { inject, observer } from 'mobx-react';
 import UISt from 'store/ui/uiSt';
-import UserMediaSt from '../../store/user/userMediaSt';
+import UserMediaSt from 'store/user/userMediaSt';
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   display: 'flex',
