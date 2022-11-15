@@ -1,5 +1,3 @@
-/* eslint-disable import/no-relative-packages */
-/* eslint-disable import/no-unresolved */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import Head from 'next/head';
@@ -51,8 +49,9 @@ const MyApp = observer((props) => {
       <Provider
         rootStore={rootStore}
         uiSt={rootStore.uiSt}
-        profileSt={rootStore.profileSt}
         homeSt={rootStore.homeSt}
+        profileSt={rootStore.profileSt}
+        userMediaSt={rootStore.userMediaSt}
         authorizationSt={rootStore.authorizationSt}
         // Community Stores
         communitySt={rootStore.communitySt}
