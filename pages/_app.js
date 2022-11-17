@@ -53,6 +53,7 @@ const MyApp = observer((props) => {
         uiSt={rootStore.uiSt}
         profileSt={rootStore.profileSt}
         homeSt={rootStore.homeSt}
+        homeChannelsSt={rootStore.homeChannelsSt}
         authorizationSt={rootStore.authorizationSt}
         // Community Stores
         communitySt={rootStore.communitySt}
