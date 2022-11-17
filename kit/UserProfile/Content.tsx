@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import * as React from 'react';
 import { Stack, useMediaQuery, Theme } from '@mui/material';
 import Main from './ContentItems/Main';
@@ -26,10 +27,7 @@ const Content = ({ activeContent }: ContentProps) => {
         mb: '120px',
       }}
     >
-      {activeContent === 0 && <Main />}
-      {activeContent === 1 && <Account />}
-      {activeContent === 2 && <Secure />}
-      {activeContent === 3 && <SoundAndVideo />}
+      {[<Main />, <Account />, <Secure />, <SoundAndVideo />][activeContent]}
     </Stack>
   );
 };

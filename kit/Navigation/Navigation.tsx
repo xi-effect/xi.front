@@ -71,9 +71,7 @@ const Navigation = inject(
 
     useBeforeUnload(() => {
       rootStore.socket?.off();
-      rootStore.socketTest?.off();
       rootStore.socket?.disconnect();
-      rootStore.socketTest?.disconnect();
 
       return false;
     });
@@ -85,14 +83,6 @@ const Navigation = inject(
 
       checkSocket();
     }, []);
-
-    React.useEffect(() => {
-      if (!rootStore.socketTest?.connected) {
-        rootStore.initSocketTest();
-      }
-
-      checkSocket();
-    }, [rootStore.socketTest?.connected]);
 
     React.useEffect(() => {
       if (profileSt.settings.id === null) {
