@@ -149,7 +149,7 @@ const Item: React.FC<ItemsT> = inject()(
             right: '24px',
           }}
         >
-          <Arrow color="#445AFF" />
+          <Arrow />
         </Box>
       </Stack>
     );

@@ -26,7 +26,7 @@ const Breadcrumbs = inject()(
       >
         МИПК И.Федорова
       </Typography>
-      <Arrow fontSize={12} color="#697BFF" />
+      <Arrow />
       <Typography
         sx={{
           fontWeight: 400,

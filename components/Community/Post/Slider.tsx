@@ -76,7 +76,7 @@ const Slider = inject()(
                 transform: 'rotate(180deg)',
               }}
             >
-              <Arrow color="#445AFF" />
+              <Arrow />
             </Button>
           </Stack>
         )}
@@ -105,7 +105,7 @@ const Slider = inject()(
               bgcolor: 'grayscale.0',
             }}
           >
-            <Arrow color="#445AFF" />
+            <Arrow />
           </Button>
         </Stack>
         <Stack

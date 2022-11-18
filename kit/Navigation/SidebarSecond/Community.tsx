@@ -8,29 +8,19 @@ import {
   MenuItem,
   Stack,
   MenuList,
-  ListItemIcon,
+  // ListItemIcon,
   ListItemText,
 } from '@mui/material';
 import { useLocalStorage } from 'react-use';
 import { Scroll } from '@xieffect/base.components.scroll';
-import { Announce } from '@xieffect/base.icons.announce';
-import { Task } from '@xieffect/base.icons.task';
-import { Chat } from '@xieffect/base.icons.chat';
-import { Camera } from '@xieffect/base.icons.camera';
-import { Calendar } from '@xieffect/base.icons.calendar';
+// import { Announce } from '@xieffect/base.icons.announce';
+// import { Task } from '@xieffect/base.icons.task';
+// import { Chat } from '@xieffect/base.icons.chat';
+// import { Camera } from '@xieffect/base.icons.camera';
+// import { Calendar } from '@xieffect/base.icons.calendar';
 
 import Image from 'next/image';
 import CommunityChannelsSt, { ChannelsType } from 'store/community/communityChannelsSt';
-
-const iconsDict = {
-  posts: <Announce color="primary" />,
-  post: <Announce color="primary" />,
-  task: <Task color="primary" />,
-  tasks: <Task color="primary" />,
-  chat: <Chat color="primary" />,
-  room: <Camera color="primary" />,
-  schedule: <Calendar color="primary" />,
-};
 
 type ChannelT = {
   channel: ChannelsType;
@@ -44,15 +34,32 @@ type ItemsT = {
 const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
   observer(({ channel }) => {
     const router = useRouter();
-    const splitPathname = router.pathname.split('/');
-    const chType = splitPathname[3];
-    const chid = router.query.chid ?? null;
+    // const splitPathname = router.pathname.split('/');
+    // const chType = splitPathname[3];
+    // const chid = router.query.chid ?? null;
 
     const handleChannelClick = () => {
       router.push(`/community/${router.query.comid}/${channel.type}/${channel.id}/`);
     };
 
-    const isSameChannel = chType === channel.type && chid === channel.id.toString();
+    // const isSameChannel = chType === channel.type && chid === channel.id.toString();
+
+    // const getIcon = () => {
+    //   if (channel.type === "posts" || channel.type === "post") {
+    //     return <Announce />;
+    //   }
+    //   if (channel.type === "tasks" || channel.type === "task") {
+    //     return <Task />;
+    //   }
+    //   if (channel.type === "room") {
+    //     return <Camera />;
+    //   }
+    //   if (channel.type === "schedule") {
+    //     return <Calendar />;
+    //   }
+    //   return <Task />;
+    //   // return <span>1</span>;
+    // };
 
     return (
       <MenuItem
@@ -65,38 +72,17 @@ const Channel: React.FC<ChannelT> = inject('communityChannelsSt')(
           mr: 1,
           pl: '6px',
           pr: '6px',
-          bgcolor: isSameChannel ? 'primary.pale' : null,
-
-          '.MuiListItemText-root': {
-            color: isSameChannel ? 'primary.dark' : null,
-          },
-
-          svg: {
-            fill: isSameChannel ? '#445AFF' : '',
-          },
-
-          '&:hover': {
-            bgcolor: 'primary.pale',
-
-            '.MuiListItemText-root': {
-              color: 'primary.dark',
-            },
-
-            svg: {
-              fill: '#445AFF',
-            },
-          },
         }}
       >
-        <ListItemIcon
+        {/* <ListItemIcon
           sx={{
             width: '24px',
             height: '24px',
             minWidth: '24px !important',
           }}
         >
-          {iconsDict[channel.type]}
-        </ListItemIcon>
+          {getIcon()}
+        </ListItemIcon>  */}
         <ListItemText
           disableTypography
           sx={{

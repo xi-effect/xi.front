@@ -53,7 +53,7 @@ const Upbar = ({ setMenuPosition }: UpbarT) => {
           cursor: 'pointer',
         }}
       >
-        <Burger color="#333333" />
+        <Burger />
       </Stack>
       <Typography
         sx={{

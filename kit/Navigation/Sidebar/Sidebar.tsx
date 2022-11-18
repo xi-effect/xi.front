@@ -143,14 +143,14 @@ const Sidebar = inject(
             <IButton
               tooltip="Главная"
               href="/home"
-              icon={<Home color="primary" />}
+              icon={<Home />}
               iconColor="#445AFF"
               iconColorHover="#FFFFFF"
               isBefore
             />
             <IButton
               tooltip="Создать сообщество"
-              icon={<Add color="primary" />}
+              icon={<Add />}
               onClick={() => uiSt.setDialogs('communityCreation', true)}
               iconColor="#333333"
               iconColorHover="#FFFFFF"
@@ -208,14 +208,14 @@ const Sidebar = inject(
           />
           <IButton
             tooltip="Уведомления"
-            icon={<Notification color="primary" />}
+            icon={<Notification />}
             iconColor="#333333"
             iconColorHover="#FFFFFF"
           />
           <IButton
             tooltip="Профиль"
             href="/profile/profile1"
-            icon={<Account color="primary" />}
+            icon={<Account />}
             onClick={() => uiSt.setDialogs('userProfile', true)}
             isBefore
             iconColor="#333333"
@@ -245,7 +245,7 @@ const Sidebar = inject(
                 },
               }}
             >
-              <Exit color="" />
+              <Exit />
             </IconButton>
           </Tooltip>
         </Stack>
