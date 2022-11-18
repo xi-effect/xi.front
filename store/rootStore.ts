@@ -16,7 +16,6 @@ import CommunitiesMenuSt from './community/communitiesMenuSt';
 import CommunityChannelsSt from './community/communityChannelsSt';
 import CommunitiesInvitesSt from './community/communitiesInvitesSt';
 import CommunitySettingsSt from './community/communitySettingsSt';
-import HomeChannelsSt from './home/homeChannelsSt';
 import UserMediaSt from './user/userMediaSt';
 
 enableStaticRendering(typeof window === 'undefined');
@@ -29,8 +28,6 @@ class RootStore {
   uiSt: UISt;
 
   homeSt: HomeSt;
-
-  homeChannelsSt: HomeChannelsSt;
 
   profileSt: ProfileSt;
 
@@ -55,7 +52,6 @@ class RootStore {
   constructor() {
     this.uiSt = new UISt(this);
     this.homeSt = new HomeSt(this);
-    this.homeChannelsSt = new HomeChannelsSt(this);
     this.profileSt = new ProfileSt(this);
     this.userMediaSt = new UserMediaSt(this);
     this.authorizationSt = new AuthorizationSt(this);

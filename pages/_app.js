@@ -50,7 +50,6 @@ const MyApp = observer((props) => {
         rootStore={rootStore}
         uiSt={rootStore.uiSt}
         homeSt={rootStore.homeSt}
-        homeChannelsSt={rootStore.homeChannelsSt}
         profileSt={rootStore.profileSt}
         userMediaSt={rootStore.userMediaSt}
         authorizationSt={rootStore.authorizationSt}
