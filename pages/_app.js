@@ -19,7 +19,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Loading } from '@xieffect/base.components.loading';
 import { useStore } from 'store/rootStore';
 import createEmotionCache from 'store/createEmotionCache';
-import { getDesignTokens } from 'theme';
+import { getScheme } from '@xieffect/base.theme.scheme';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 config.autoAddCss = false;
@@ -33,7 +33,7 @@ const MyApp = observer((props) => {
 
   const rootStore = useStore(pageProps.initialState);
   const theme = React.useMemo(
-    () => createTheme(getDesignTokens('light' || rootStore.profileSt.settings.darkTheme)), // Только светлая тема
+    () => createTheme(getScheme('light' || rootStore.profileSt.settings.darkTheme)), // Только светлая тема
     [rootStore.profileSt.settings.darkTheme],
   );
 
