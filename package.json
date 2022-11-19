@@ -52,6 +52,7 @@
     "@xieffect/base.icons.notification": "^0.0.9",
     "@xieffect/base.icons.task": "^0.0.9",
     "@xieffect/base.pages.error": "^0.0.1",
+    "@xieffect/base.theme.scheme": "^0.0.2",
     "babel-plugin-emotion": "^11.0.0",
     "boring-avatars": "^1.7.0",
     "clsx": "^1.1.1",
