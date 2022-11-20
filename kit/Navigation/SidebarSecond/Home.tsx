@@ -11,11 +11,30 @@ const iconsDict = {
   schedule: <Calendar color="" />,
   update: <Update color="" />,
 };
+
 type MenuItem = {
   id: number;
   type: string;
   name: string;
 };
+
+const menuItems: MenuItem[] = [
+  {
+    id: 0,
+    type: 'posts',
+    name: 'Объявления',
+  },
+  {
+    id: 1,
+    type: 'schedule',
+    name: 'Календарь',
+  },
+  {
+    id: 2,
+    type: 'update',
+    name: 'Обновления',
+  },
+];
 
 const Channel: React.FC<{ menuItem: MenuItem }> = ({ menuItem }) => {
   const handleChannelClick = () => {
@@ -82,43 +101,23 @@ const Channel: React.FC<{ menuItem: MenuItem }> = ({ menuItem }) => {
   );
 };
 
-const MenuHome = () => {
-  const menuItems: MenuItem[] = [
-    {
-      id: 0,
-      type: 'posts',
-      name: 'Объявления',
-    },
-    {
-      id: 1,
-      type: 'schedule',
-      name: 'Календарь',
-    },
-    {
-      id: 2,
-      type: 'update',
-      name: 'Обновления',
-    },
-  ];
-
-  return (
-    <MenuList
-      sx={{
-        width: '100%',
-        height: '100%',
-        pl: 0,
-        pr: 0,
-        zIndex: 1,
-        overflow: 'hidden',
-      }}
-    >
-      <Scroll>
-        {menuItems.map((menuItem, index) => (
-          <Channel menuItem={menuItem} key={index.toString()} />
-        ))}
-      </Scroll>
-    </MenuList>
-  );
-};
+const MenuHome = () => (
+  <MenuList
+    sx={{
+      width: '100%',
+      height: '100%',
+      pl: 0,
+      pr: 0,
+      zIndex: 1,
+      overflow: 'hidden',
+    }}
+  >
+    <Scroll>
+      {menuItems.map((menuItem, index) => (
+        <Channel menuItem={menuItem} key={index.toString()} />
+      ))}
+    </Scroll>
+  </MenuList>
+);
 
 export default MenuHome;
