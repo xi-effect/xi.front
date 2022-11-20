@@ -5,9 +5,7 @@ import { useRouter } from 'next/router';
 import { Stack } from '@mui/material';
 
 import { Navigation } from 'kit/Navigation';
-import dynamic from 'next/dynamic';
-
-const Room = dynamic(() => import('components/Community/Room'), { ssr: false });
+import { VideoConference } from 'components/VideoConference';
 
 const RoomPage = inject(
   'rootStore',
@@ -28,20 +26,16 @@ const RoomPage = inject(
         <Navigation>
           <Stack
             direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={2}
+            justifyContent="flex-start"
+            alignItems="flex-start"
             sx={{
-              width: '100vw',
-              ml: 0,
-              mr: 0,
-              p: 4,
-              pb: 10,
-              overflow: 'hidden',
+              height: '100vh',
+              width: '100%',
+              p: '8px 16px',
+              overflow: 'auto',
             }}
           >
-            <Room />
-            {/* 1 */}
+            <VideoConference />
           </Stack>
         </Navigation>
       </LayoutPages>

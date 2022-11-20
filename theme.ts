@@ -95,6 +95,7 @@ export const getDesignTokens = (mode) => ({
           },
           grayscale: {
             100: '#000000',
+            90: '#202020',
             80: '#333333',
             40: '#999999',
             10: '#E6E6E6',
@@ -129,6 +130,7 @@ export const getDesignTokens = (mode) => ({
           },
           grayscale: {
             100: '#000000',
+            90: '#202020',
             80: '#333333',
             40: '#999999',
             10: '#E6E6E6',
