@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material';
 import { CenterTools } from './CenterTools';
 import { LeftTools } from './LeftTools';
+import { RightTool } from './RightTool';
 
 const BottomBar = () => (
   <Stack
@@ -9,8 +10,10 @@ const BottomBar = () => (
     alignItems="center"
     sx={{
       position: 'absolute',
-      left: '16px',
+      left: 0,
       bottom: '16px',
+      pl: 2,
+      pr: 2,
       width: '100%',
       height: 48,
     }}
@@ -22,7 +25,7 @@ const BottomBar = () => (
       <CenterTools />
     </Stack>
     <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
-      1
+      <RightTool />
     </Stack>
   </Stack>
 );
