@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import useRouter from 'next/router';
 import { observer } from 'mobx-react';
 
 import { Stack, Paper, Box } from '@mui/material';
@@ -70,10 +70,10 @@ const SidebarSecond = observer(() => {
             {router.pathname.includes('/home') && <MenuHome />}
             {router.pathname.includes('/community') && <MenuCommunity />}
           </Box>
-        </Stack>
-      </Paper>
-    );
-  }),
-);
+        </Box>
+      </Stack>
+    </Paper>
+  );
+});
 
 export default SidebarSecond;
