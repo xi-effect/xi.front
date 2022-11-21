@@ -5,24 +5,20 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { MenuItem, Stack, MenuList, Divider, Typography } from '@mui/material';
-import { inject, observer } from 'mobx-react';
-import RootStore from 'store/rootStore';
-import CommunitySt from 'store/community/communitySt';
-import UISt from 'store/ui/uiSt';
+import { observer } from 'mobx-react';
+import { useStore } from 'store/connect';
 
 type CommunityMenuProps = {
   open?: boolean;
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   handleClose?: (e: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLLIElement>) => void;
   handleListKeyDown?: (e: KeyboardEvent<HTMLUListElement>) => void;
-  rootStore: RootStore;
-  communitySt: CommunitySt;
-  uiSt: UISt;
 };
 
-const CommunityMenu = inject('uiSt')(
-  observer((props) => {
-    const { uiSt, open, setOpen, handleClose, handleListKeyDown }: CommunityMenuProps = props;
+const CommunityMenu = observer(
+  ({ open, setOpen, handleClose, handleListKeyDown }: CommunityMenuProps) => {
+    const rootStore = useStore();
+    const { uiSt } = rootStore;
 
     const onInviteClick = () => {
       uiSt.setDialogs('invite', true);
@@ -159,7 +155,7 @@ const CommunityMenu = inject('uiSt')(
         </MenuItem>
       </MenuList>
     );
-  }),
+  },
 );
 
 export default CommunityMenu;
