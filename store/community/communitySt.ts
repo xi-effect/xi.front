@@ -33,10 +33,13 @@ class CommunitySt {
   @action getMeta = (id = null) => {
     this.rootStore
       .fetchData(`${this.rootStore.url}/communities/${id || this.meta.id}/`, 'GET')
-      .then(({ id, name, description }) => {
-        if (id) this.setMeta('id', id);
-        if (name) this.setMeta('name', name);
-        if (description) this.setMeta('description', description);
+      .then((data) => {
+        if (data) {
+          const { id, name, description } = data;
+          if (id) this.setMeta('id', id);
+          if (name) this.setMeta('name', name);
+          if (description) this.setMeta('description', description);
+        }
       });
   };
 }

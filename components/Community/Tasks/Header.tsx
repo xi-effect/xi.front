@@ -130,9 +130,28 @@ const Header = observer(() => {
 
             '&:hover': {
               boxShadow: 0,
-              bgcolor: tab === 3 ? 'primary.dark' : 'transparent',
-              color: tab === 3 ? 'grayscale.0' : 'grayscale.100',
+              textTransform: 'capitalize',
+
+              '&:hover': {
+                boxShadow: 0,
+                bgcolor: tab === 2 ? 'primary.dark' : 'transparent',
+                color: tab === 2 ? 'grayscale.0' : 'grayscale.100',
+              },
             },
+          }}
+        >
+          На проверке
+        </Button>
+        <Button
+          onClick={() => setTab(3)}
+          variant="contained"
+          sx={{
+            p: '5px 12px 7px 12px',
+            width: 94,
+            height: 32,
+            borderRadius: '4px',
+            bgcolor: tab === 3 ? 'primary.dark' : 'transparent',
+            color: tab === 3 ? 'grayscale.0' : 'grayscale.100',
           }}
         >
           Оценено

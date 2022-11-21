@@ -60,8 +60,8 @@ class CommunityChannelsSt {
         },
         {
           id: 2,
-          type: 'chat',
-          name: 'Чат со студентами',
+          type: 'page',
+          name: 'Статья по биологии',
         },
         {
           id: 5,
@@ -77,7 +77,6 @@ class CommunityChannelsSt {
   };
 
   @action pushNewChannel = (data) => {
-    console.log(data);
     this.channels.push({
       id: new Date().getTime(),
       type: data.type,

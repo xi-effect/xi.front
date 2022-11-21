@@ -46,11 +46,12 @@ type MenuProps = {
 
 const Menu = observer(({ activeContent, setActiveContent, setOpenContent }: MenuProps) => {
   const rootStore = useStore();
-  const { uiSt } = rootStore;
-  const { setDialogs } = uiSt;
+  const {
+    uiSt: { setDialogs },
+    userMediaSt: { stopStream },
+  } = rootStore;
 
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
-
   return (
     <Stack
       direction="column"
@@ -64,6 +65,7 @@ const Menu = observer(({ activeContent, setActiveContent, setOpenContent }: Menu
       {menu.map((item, index) => (
         <ColorButton
           onClick={() => {
+            stopStream();
             setActiveContent(index);
             if (mobile700) setOpenContent(true);
           }}

@@ -17,6 +17,7 @@ import CommunitiesMenuSt from './community/communitiesMenuSt';
 import CommunityChannelsSt from './community/communityChannelsSt';
 import CommunitiesInvitesSt from './community/communitiesInvitesSt';
 import CommunitySettingsSt from './community/communitySettingsSt';
+import UserMediaSt from './user/userMediaSt';
 
 enableStaticRendering(typeof window === 'undefined');
 
@@ -33,9 +34,13 @@ class RootStore {
 
   userSt: UserSt;
 
-  authorizationSt: AuthorizationSt;
+  userMediaSt: UserMediaSt;
 
   communitySt: CommunitySt;
+
+  authorizationSt: AuthorizationSt;
+
+  communitiesMenuSt: CommunitiesMenuSt;
 
   communityCreationSt: CommunityCreationSt;
 
@@ -45,8 +50,6 @@ class RootStore {
 
   communitiesInvitesSt: CommunitiesInvitesSt;
 
-  communitiesMenuSt: CommunitiesMenuSt;
-
   url = process.env.NEXT_PUBLIC_SERVER_URL;
 
   constructor() {
@@ -55,6 +58,7 @@ class RootStore {
 
     this.profileSt = new ProfileSt(this);
     this.userSt = new UserSt(this);
+    this.userMediaSt = new UserMediaSt(this);
     this.authorizationSt = new AuthorizationSt(this);
 
     // Community Stores
@@ -75,14 +79,8 @@ class RootStore {
   @action initSocket = () => {
     this.socket = io('https://xieffect.ru:5000/', {
       withCredentials: true,
+      transports: ['websocket', 'polling'],
     });
-  };
-
-  socketTest: null | Socket = null;
-
-  @action initSocketTest = () => {
-    this.socketTest = io('https://xieffect.ru:8000/');
-    console.log('this.socketTest', this.socketTest);
   };
 
   @action fetchData = async (url: string, method: MethodT, data?: unknown) => {

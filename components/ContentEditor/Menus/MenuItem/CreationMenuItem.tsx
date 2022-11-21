@@ -7,6 +7,7 @@ import { EditorsT } from 'kit/Editor/ContentEditor';
 import { Type } from 'kit/Editor/common/withListsPlugin';
 
 type MenuElementT = {
+  index: number;
   closeMenu: () => void;
   elem: CreationMenuConfigT;
   onClick?: (type: Type) => void;
@@ -15,6 +16,7 @@ type MenuElementT = {
 
 const CreationMenuItem: React.FC<MenuElementT> = (props) => {
   const {
+    index,
     onClick,
     closeMenu,
     setEditors,
@@ -26,7 +28,11 @@ const CreationMenuItem: React.FC<MenuElementT> = (props) => {
     if (onClick) onClick(type);
 
     closeMenu();
-    setEditors((editors) => [...editors, editorExample(type)]);
+    setEditors((editors) => {
+      const newEditors = [...editors];
+      newEditors.splice(index + 1, 0, editorExample(type));
+      return newEditors;
+    });
   };
 
   return (

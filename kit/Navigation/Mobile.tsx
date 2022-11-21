@@ -1,6 +1,5 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { useStore } from 'store/connect';
 
 import { Stack, Box } from '@mui/material';
 import dynamic from 'next/dynamic';
@@ -17,9 +16,6 @@ type MobileT = {
 };
 
 const Mobile: React.FC<MobileT> = observer(({ children }) => {
-  const rootStore = useStore();
-  const { uiSt } = rootStore;
-
   const [valueLS, setValueLS] = useLocalStorage('is-main-menu-open');
 
   const [menuPosition, setMenuPosition] = React.useState<number>(0);
@@ -31,25 +27,29 @@ const Mobile: React.FC<MobileT> = observer(({ children }) => {
 
   React.useEffect(() => {
     let prevX = 0;
+    let startX = 0;
 
     const handleStart = (event: TouchEvent) => {
       prevX = event.touches[0].pageX;
+      startX = event.touches[0].clientX;
     };
 
     const handleMove = (event: TouchEvent) => {
       const dif = event.changedTouches[0].pageX - prevX;
 
-      setMenuPosition((prev) => {
-        if (prev + dif < 0) {
-          setValueLS(false);
-          return 0;
-        }
-        if (prev + dif > 316) {
-          setValueLS(true);
-          return 316;
-        }
-        return prev + dif;
-      });
+      if (Math.abs(event.touches[0].clientX - startX) > 20) {
+        setMenuPosition((prev) => {
+          if (prev + dif * 2 < 0) {
+            setValueLS(false);
+            return 0;
+          }
+          if (prev + dif * 2 > 316) {
+            setValueLS(true);
+            return 316;
+          }
+          return prev + dif * 2;
+        });
+      }
 
       prevX = event.changedTouches[0].pageX;
     };
@@ -98,11 +98,7 @@ const Mobile: React.FC<MobileT> = observer(({ children }) => {
       }}
     >
       <UserProfile />
-      <ExitDialog
-        isOpen={uiSt.dialogs.exit}
-        logout={rootStore.signout}
-        setFalse={uiSt.setDialogs('exit', false)}
-      />
+      <ExitDialog />
       <Stack
         direction="row"
         justifyContent="flex-start"

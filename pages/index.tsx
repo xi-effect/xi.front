@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import Router from 'next/router';
 import { observer } from 'mobx-react';
 import { useSessionStorage } from 'react-use';
-import Form from 'components/Signin/Form';
 import XiLogo from 'kit/XiLogo';
 import { Stack, Typography, Link, Divider, useMediaQuery } from '@mui/material';
 import LayoutPages from 'kit/LayoutPages';
+import { SignIn } from '@xieffect/base.forms.signin';
 import { useStore } from 'store/connect';
 
 const Tearms = () => (
@@ -110,7 +110,9 @@ const Signin = observer(() => {
           >
             Вход в аккаунт
           </Typography>
-          <Form />
+
+          <SignIn authorizationSt={authorizationSt} />
+
           {!isMobile && (
             <Stack
               direction="column"

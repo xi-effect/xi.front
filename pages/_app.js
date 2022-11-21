@@ -1,5 +1,3 @@
-/* eslint-disable import/no-relative-packages */
-/* eslint-disable import/no-unresolved */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import Head from 'next/head';
