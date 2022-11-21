@@ -85,9 +85,9 @@ const Navigation = inject(
     }, []);
 
     React.useEffect(() => {
-      if (profileSt?.settings.id === null) {
+      if (profileSt?.profile.email === '') {
         uiSt.setLoading('loading', true);
-        profileSt?.getMainSettings(null);
+        profileSt?.getProfile();
       }
     }, []);
 
