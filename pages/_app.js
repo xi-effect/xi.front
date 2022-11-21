@@ -35,8 +35,8 @@ const MyApp = observer((props) => {
 
   const rootStore = useStoreInitialized(pageProps.initialState);
   const theme = React.useMemo(
-    () => createTheme(getScheme('light' || rootStore.profileSt.settings.darkTheme)), // Только светлая тема
-    [rootStore.profileSt.settings.darkTheme],
+    () => createTheme(getScheme('light')), // Только светлая тема
+    [],
   );
 
   return (
