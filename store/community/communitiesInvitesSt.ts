@@ -15,6 +15,7 @@ class CommunitiesInvitesSt {
 
   @observable channels = null;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   @action createCommunity = () => {};
 }
 
