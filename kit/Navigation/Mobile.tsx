@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 
 import { Stack, Box } from '@mui/material';
 import dynamic from 'next/dynamic';
+import { useStore } from 'store/connect';
 import { useLocalStorage } from 'react-use';
 import { ExitDialog } from '@xieffect/base.dialogs.exit';
 import { UserProfile } from 'kit/UserProfile';
@@ -15,7 +16,10 @@ type MobileT = {
   children: React.ReactNode;
 };
 
-const Mobile: React.FC<MobileT> = observer(({ children }) => {
+const Mobile = observer(({ children }: MobileT) => {
+  const rootStore = useStore();
+  const { uiSt, profileSt } = rootStore;
+
   const [valueLS, setValueLS] = useLocalStorage('is-main-menu-open');
 
   const [menuPosition, setMenuPosition] = React.useState<number>(0);
@@ -98,7 +102,7 @@ const Mobile: React.FC<MobileT> = observer(({ children }) => {
       }}
     >
       <UserProfile />
-      <ExitDialog />
+      <ExitDialog uiSt={uiSt} profileSt={profileSt} />
       <Stack
         direction="row"
         justifyContent="flex-start"

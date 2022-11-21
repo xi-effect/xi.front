@@ -1,11 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 
+import { useStore } from 'store/connect';
 import { Stack, Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 import { UserProfile } from 'kit/UserProfile';
 import { ExitDialog } from '@xieffect/base.dialogs.exit';
-import { useStore } from 'store/connect';
 import { SidebarSecond } from './SidebarSecond';
 
 const Sidebar = dynamic(() => import('./Sidebar/Sidebar'), { ssr: false });
@@ -14,9 +14,9 @@ type DesktopT = {
   children: React.ReactNode;
 };
 
-const Desktop: React.FC<DesktopT> = observer(({ children }) => {
+const Desktop = observer(({ children }: DesktopT) => {
   const rootStore = useStore();
-  const { uiSt } = rootStore;
+  const { uiSt, profileSt } = rootStore;
 
   return (
     <Stack
@@ -30,11 +30,7 @@ const Desktop: React.FC<DesktopT> = observer(({ children }) => {
       }}
     >
       <UserProfile />
-      <ExitDialog
-        isOpen={uiSt.dialogs.exit}
-        logout={rootStore.signout}
-        setFalse={uiSt.setDialogs('exit', false)}
-      />
+      <ExitDialog uiSt={uiSt} profileSt={profileSt} />
       <Box sx={{ width: 64 }}>
         <Sidebar />
       </Box>
