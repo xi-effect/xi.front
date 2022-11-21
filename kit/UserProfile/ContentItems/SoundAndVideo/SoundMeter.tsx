@@ -1,83 +1,84 @@
 import React, { useEffect, useState } from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import UserMediaSt from 'store/user/userMediaSt';
 import styled from '@emotion/styled';
+import { useStore } from 'store/connect';
 
 type SoundMeterT = {
   animate: boolean;
   userMediaSt: UserMediaSt;
 };
 
-const SoundMeter = inject('userMediaSt')(
-  observer((props) => {
-    const {
-      animate,
-      userMediaSt: {
-        mediaInfo: { stream },
-      },
-    }: SoundMeterT = props;
+const SoundMeter = observer((props) => {
+  const { animate }: SoundMeterT = props;
 
-    const [animateId, setAnimateId] = useState<number>(0);
-    const [volumeValue, setVolumeValue] = useState<number>(0);
+  const rootStore = useStore();
+  const {
+    userMediaSt: {
+      mediaInfo: { stream },
+    },
+  } = rootStore;
 
-    const startSoundAnalyser = () => {
-      if (animateId) cancelAnimationFrame(animateId);
+  const [animateId, setAnimateId] = useState<number>(0);
+  const [volumeValue, setVolumeValue] = useState<number>(0);
 
-      if (stream) {
-        const audioContext = new AudioContext();
+  const startSoundAnalyser = () => {
+    if (animateId) cancelAnimationFrame(animateId);
 
-        const analyserNode = audioContext.createAnalyser();
+    if (stream) {
+      const audioContext = new AudioContext();
 
-        const mediaStreamAudioSourceNode = audioContext.createMediaStreamSource(stream);
+      const analyserNode = audioContext.createAnalyser();
 
-        mediaStreamAudioSourceNode.connect(analyserNode);
+      const mediaStreamAudioSourceNode = audioContext.createMediaStreamSource(stream);
 
-        const pcmData = new Float32Array(analyserNode.fftSize);
+      mediaStreamAudioSourceNode.connect(analyserNode);
 
-        const startAnimate = () => {
-          analyserNode.getFloatTimeDomainData(pcmData);
+      const pcmData = new Float32Array(analyserNode.fftSize);
 
-          let sumSquares = 0.0;
+      const startAnimate = () => {
+        analyserNode.getFloatTimeDomainData(pcmData);
 
-          for (const amplitude of pcmData) {
-            sumSquares += amplitude * amplitude;
-          }
+        let sumSquares = 0.0;
 
-          setVolumeValue(Math.sqrt(sumSquares));
-          setAnimateId(requestAnimationFrame(startAnimate));
-        };
+        for (const amplitude of pcmData) {
+          sumSquares += amplitude * amplitude;
+        }
 
-        startAnimate();
-      }
-    };
-
-    const SoundMeter = styled.meter`
-      width: 100%;
-      height: 20px;
-
-      &::-webkit-meter-bar {
-        background: #e6e6e6;
-        border-radius: 100px;
-        box-shadow: none;
-        border: none;
-      }
-
-      &::-webkit-meter-optimum-value {
-        background: #445aff;
-      }
-    `;
-
-    useEffect(() => {
-      if (animate) startSoundAnalyser();
-
-      return () => {
-        setVolumeValue(0);
-        cancelAnimationFrame(animateId);
+        setVolumeValue(Math.sqrt(sumSquares));
+        setAnimateId(requestAnimationFrame(startAnimate));
       };
-    }, [stream]);
 
-    return <SoundMeter value={volumeValue} />;
-  }),
-);
+      startAnimate();
+    }
+  };
+
+  const SoundMeter = styled.meter`
+    width: 100%;
+    height: 20px;
+
+    &::-webkit-meter-bar {
+      background: #e6e6e6;
+      border-radius: 100px;
+      box-shadow: none;
+      border: none;
+    }
+
+    &::-webkit-meter-optimum-value {
+      background: #445aff;
+    }
+  `;
+
+  useEffect(() => {
+    if (animate) startSoundAnalyser();
+
+    return () => {
+      setVolumeValue(0);
+      cancelAnimationFrame(animateId);
+    };
+  }, [stream]);
+
+  return <SoundMeter value={volumeValue} />;
+});
 
 export default SoundMeter;

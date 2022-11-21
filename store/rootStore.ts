@@ -9,6 +9,7 @@ import { io, Socket } from 'socket.io-client';
 import UISt from './ui/uiSt';
 import HomeSt from './home/homeSt';
 import ProfileSt from './user/profileSt';
+import UserSt from './user/userSt';
 import AuthorizationSt from './user/authorizationSt';
 import CommunitySt from './community/communitySt';
 import CommunityCreationSt from './community/communityCreationSt';
@@ -31,6 +32,8 @@ class RootStore {
 
   profileSt: ProfileSt;
 
+  userSt: UserSt;
+
   userMediaSt: UserMediaSt;
 
   communitySt: CommunitySt;
@@ -52,7 +55,9 @@ class RootStore {
   constructor() {
     this.uiSt = new UISt(this);
     this.homeSt = new HomeSt(this);
+
     this.profileSt = new ProfileSt(this);
+    this.userSt = new UserSt(this);
     this.userMediaSt = new UserMediaSt(this);
     this.authorizationSt = new AuthorizationSt(this);
 
@@ -78,7 +83,7 @@ class RootStore {
     });
   };
 
-  @action fetchData = async (url: string, method: MethodT, data?: any) => {
+  @action fetchData = async (url: string, method: MethodT, data?: unknown) => {
     try {
       let response: null | Response = null;
       if (data != null) {
@@ -116,6 +121,18 @@ class RootStore {
       console.log('Возникла проблема с вашим fetch запросом: ', error.message);
     }
   };
+
+  @action signout = () => {
+    this.fetchData(`${this.url}/signout/`, 'POST', { lol: 'kek' }).then((data) => {
+      if (data?.a) {
+        const router = Router;
+        router.push('/');
+        this.profileSt.setProfileDefault();
+        this.userSt.setUserDefault();
+        this.uiSt.setDialogsFalse();
+      }
+    });
+  };
 }
 
 function initializeStore(initialData = null) {
@@ -135,7 +152,7 @@ function initializeStore(initialData = null) {
   return _store;
 }
 
-export function useStore(initialState) {
+export function useStoreInitialized(initialState) {
   const store = useMemo(() => initializeStore(initialState), [initialState]);
   return store;
 }

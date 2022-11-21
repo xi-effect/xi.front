@@ -1,15 +1,13 @@
 /* eslint-disable react/display-name */
 import * as React from 'react';
+import { useStore } from 'store/connect';
 
 import { TransitionProps } from '@mui/material/transitions';
 import { Dialog, Slide, Stack, IconButton, useMediaQuery, Theme, Typography } from '@mui/material';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { Burger } from '@xieffect/base.icons.burger';
 import { Close } from '@xieffect/base.icons.close';
 import { Arrow } from '@xieffect/base.icons.arrow';
-import ProfileSt from 'store/user/profileSt';
-import UserMediaSt from 'store/user/userMediaSt';
-import UISt from 'store/ui/uiSt';
 import Menu from './Menu';
 import Content from './Content';
 
@@ -24,66 +22,132 @@ const Transition = React.forwardRef(
   ) => <Slide direction="up" ref={ref} {...props} />,
 );
 
-interface UserProfileProps {
-  uiSt: UISt;
-  profileSt: ProfileSt;
-  userMediaSt: UserMediaSt;
-}
+const UserProfile = observer(() => {
+  const rootStore = useStore();
+  const {
+    uiSt,
+    profileSt,
+    userSt,
+    userMediaSt: { stopStream },
+  } = rootStore;
 
-const UserProfile = inject(
-  'profileSt',
-  'userMediaSt',
-  'uiSt',
-)(
-  observer((props) => {
-    const {
-      uiSt,
-      profileSt,
-      userMediaSt: { stopStream },
-    }: UserProfileProps = props;
+  const { dialogs, setDialogs } = uiSt;
 
-    const { dialogs, setDialogs } = uiSt;
+  const [activeContent, setActiveContent] = React.useState(0);
+  const [openContent, setOpenContent] = React.useState(false);
 
-    const [activeContent, setActiveContent] = React.useState(0);
-    const [openContent, setOpenContent] = React.useState(false);
+  const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
+  const mobile1400: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1400));
 
-    const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
-    const mobile1400: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1400));
+  const handleClose = () => {
+    setDialogs('userProfile', false);
+  };
 
-    const handleClose = () => {
-      setDialogs('userProfile', false);
-    };
+  React.useEffect(() => {
+    profileSt.getProfile();
+    userSt.getUser();
+  }, [profileSt, userSt]);
 
-    React.useEffect(() => {
-      profileSt.getAllSettings();
-      profileSt.getMainSettings(null);
-    }, [profileSt]);
-
-    return (
-      <Dialog
-        sx={{ backgroundColor: 'primary.pale' }}
-        PaperProps={{
-          sx: {
-            backgroundColor: 'primary.pale',
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            p: mobile700 ? '8px' : '16px',
-            overflow: 'scroll',
-          },
+  return (
+    <Dialog
+      sx={{ backgroundColor: 'primary.pale' }}
+      PaperProps={{
+        sx: {
+          backgroundColor: 'primary.pale',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          p: mobile700 ? '8px' : '16px',
+          overflow: 'scroll',
+        },
+      }}
+      fullScreen
+      open={dialogs.userProfile}
+      onClose={handleClose}
+      TransitionComponent={Transition}
+    >
+      <Stack
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="center"
+        sx={{
+          pt: mobile1400 ? '0px' : '64px',
+          maxWidth: '1226px',
+          width: '100%',
         }}
-        fullScreen
-        open={dialogs.userProfile}
-        onClose={handleClose}
-        TransitionComponent={Transition}
       >
         <Stack
-          direction="column"
+          direction="row"
           justifyContent="flex-start"
           alignItems="center"
           sx={{
-            pt: mobile1400 ? '0px' : '64px',
-            maxWidth: '1226px',
+            height: '40px',
+            width: '100%',
+            position: 'relative',
+          }}
+        >
+          {mobile700 && (
+            <>
+              {!openContent && (
+                <IconButton
+                  onClick={() => setOpenContent(false)}
+                  sx={{
+                    width: '40px',
+                    height: '40px',
+                    backgroundColor: 'transparent',
+                    '&:hover': {
+                      backgroundColor: 'transparent',
+                    },
+                  }}
+                >
+                  <Burger />
+                </IconButton>
+              )}
+              {openContent && (
+                <IconButton
+                  onClick={() => setOpenContent(false)}
+                  sx={{
+                    width: '40px',
+                    height: '40px',
+                    transform: 'rotate(180deg)',
+                    backgroundColor: 'grayscale.0',
+                  }}
+                >
+                  <Arrow />
+                </IconButton>
+              )}
+            </>
+          )}
+          {openContent && (
+            <Typography
+              sx={{
+                ml: '8px',
+                fontWeight: 500,
+                fontSize: '16px',
+                lineHeight: '20px',
+              }}
+            >
+              {titles[activeContent] ?? 'Главная'}
+            </Typography>
+          )}
+          <IconButton
+            onClick={() => uiSt.setDialogs('userProfile', false)}
+            sx={{
+              width: '40px',
+              height: '40px',
+              bgcolor: 'grayscale.0',
+              position: 'absolute',
+              right: 0,
+            }}
+          >
+            <Close />
+          </IconButton>
+        </Stack>
+        <Stack
+          direction={mobile700 ? 'column' : 'row'}
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          sx={{
             width: '100%',
           }}
         >
@@ -175,9 +239,9 @@ const UserProfile = inject(
             {(openContent || !mobile700) && <Content activeContent={activeContent} />}
           </Stack>
         </Stack>
-      </Dialog>
-    );
-  }),
-);
+      </Stack>
+    </Dialog>
+  );
+});
 
 export default UserProfile;

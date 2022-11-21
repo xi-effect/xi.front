@@ -1,15 +1,9 @@
+import { UserT } from "./user";
+
 export type ResponseDataRegT = {
   communities: RegCommunityT[];
   a: string;
-  user: RegUserT;
-};
-
-type RegUserT = {
-  id: number;
-  username: string;
-  'dark-theme': true;
-  language: string;
-  avatar: null;
+  user: UserT;
 };
 
 export type RegCommunityT = {
@@ -17,3 +11,4 @@ export type RegCommunityT = {
   description?: string;
   id: number;
 };
+
