@@ -49,7 +49,7 @@ const Signin = observer(() => {
   useEffect(() => {
     if (prevPathname !== '/home' && prevPathname !== '/signup') {
       uiSt.setLoading('loading', true);
-      profileSt.getProfile();
+      profileSt.getProfile('login');
     }
   }, []);
 

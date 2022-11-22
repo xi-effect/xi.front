@@ -16,7 +16,7 @@ type DesktopT = {
 
 const Desktop = observer(({ children }: DesktopT) => {
   const rootStore = useStore();
-  const { uiSt, profileSt } = rootStore;
+  const { uiSt } = rootStore;
 
   return (
     <Stack
@@ -30,7 +30,7 @@ const Desktop = observer(({ children }: DesktopT) => {
       }}
     >
       <UserProfile />
-      <ExitDialog uiSt={uiSt} profileSt={profileSt} />
+      <ExitDialog uiSt={uiSt} rootStore={rootStore} />
       <Box sx={{ width: 64 }}>
         <Sidebar />
       </Box>

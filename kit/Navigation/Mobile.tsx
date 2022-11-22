@@ -18,7 +18,7 @@ type MobileT = {
 
 const Mobile = observer(({ children }: MobileT) => {
   const rootStore = useStore();
-  const { uiSt, profileSt } = rootStore;
+  const { uiSt } = rootStore;
 
   const [valueLS, setValueLS] = useLocalStorage('is-main-menu-open');
 
@@ -102,7 +102,7 @@ const Mobile = observer(({ children }: MobileT) => {
       }}
     >
       <UserProfile />
-      <ExitDialog uiSt={uiSt} profileSt={profileSt} />
+      <ExitDialog uiSt={uiSt} rootStore={rootStore} />
       <Stack
         direction="row"
         justifyContent="flex-start"

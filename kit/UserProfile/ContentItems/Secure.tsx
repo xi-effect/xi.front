@@ -1,3 +1,4 @@
+import React from 'react';
 import { Stack, Typography, Button, useMediaQuery, Theme } from '@mui/material';
 
 import { useStore } from 'store/connect';

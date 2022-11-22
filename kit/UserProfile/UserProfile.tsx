@@ -131,7 +131,10 @@ const UserProfile = observer(() => {
             </Typography>
           )}
           <IconButton
-            onClick={() => uiSt.setDialogs('userProfile', false)}
+            onClick={() => {
+              stopStream();
+              uiSt.setDialogs('userProfile', false);
+            }}
             sx={{
               width: '40px',
               height: '40px',
@@ -151,93 +154,14 @@ const UserProfile = observer(() => {
             width: '100%',
           }}
         >
-          <Stack
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
-            sx={{
-              height: '40px',
-              width: '100%',
-              position: 'relative',
-            }}
-          >
-            {mobile700 && (
-              <>
-                {!openContent && (
-                  <IconButton
-                    onClick={() => setOpenContent(false)}
-                    sx={{
-                      width: '40px',
-                      height: '40px',
-                      backgroundColor: 'transparent',
-                      '&:hover': {
-                        backgroundColor: 'transparent',
-                      },
-                    }}
-                  >
-                    <Burger />
-                  </IconButton>
-                )}
-                {openContent && (
-                  <IconButton
-                    onClick={() => setOpenContent(false)}
-                    sx={{
-                      width: '40px',
-                      height: '40px',
-                      transform: 'rotate(180deg)',
-                      backgroundColor: 'grayscale.0',
-                    }}
-                  >
-                    <Arrow />
-                  </IconButton>
-                )}
-              </>
-            )}
-            {openContent && (
-              <Typography
-                sx={{
-                  ml: '8px',
-                  fontWeight: 500,
-                  fontSize: '16px',
-                  lineHeight: '20px',
-                }}
-              >
-                {titles[activeContent] ?? 'Главная'}
-              </Typography>
-            )}
-            <IconButton
-              onClick={() => {
-                stopStream();
-                uiSt.setDialogs('userProfile', false);
-              }}
-              sx={{
-                width: '40px',
-                height: '40px',
-                bgcolor: 'grayscale.0',
-                position: 'absolute',
-                right: 0,
-              }}
-            >
-              <Close />
-            </IconButton>
-          </Stack>
-          <Stack
-            direction={mobile700 ? 'column' : 'row'}
-            justifyContent="flex-start"
-            alignItems="flex-start"
-            sx={{
-              width: '100%',
-            }}
-          >
-            {!openContent && (
-              <Menu
-                activeContent={activeContent}
-                setActiveContent={setActiveContent}
-                setOpenContent={setOpenContent}
-              />
-            )}
-            {(openContent || !mobile700) && <Content activeContent={activeContent} />}
-          </Stack>
+          {!openContent && (
+            <Menu
+              activeContent={activeContent}
+              setActiveContent={setActiveContent}
+              setOpenContent={setOpenContent}
+            />
+          )}
+          {(openContent || !mobile700) && <Content activeContent={activeContent} />}
         </Stack>
       </Stack>
     </Dialog>

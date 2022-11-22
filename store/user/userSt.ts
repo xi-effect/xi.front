@@ -31,7 +31,7 @@ class UserSt {
   };
 
   @action getUser = () => {
-    this.rootStore.fetchData(`${this.rootStore.url} /home/`, 'GET').then((data) => {
+    this.rootStore.fetchData(`${this.rootStore.url}/home/`, 'GET').then((data) => {
       if (data) {
         this.setUserAll(data);
       }
