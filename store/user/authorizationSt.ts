@@ -97,7 +97,6 @@ class AuthorizationSt {
         email: data.email.toLowerCase(),
       })
       .then((data) => {
-        console.log(data);
         if (data !== undefined) {
           if (data.a === true) {
             this.setPasswordReset('emailResetOk', true);
@@ -172,8 +171,6 @@ class AuthorizationSt {
     this.setSignin('errorPassword', null);
     this.setSignin('error', null);
 
-    console.log('signin', data);
-
     this.rootStore
       .fetchData(`${this.rootStore.url}/signin/`, 'POST', {
         email: data.email.toLowerCase(),
@@ -181,7 +178,7 @@ class AuthorizationSt {
       })
       .then((data: ResponseDataRegT) => {
         if (data) {
-          if (data.user) {
+          if (data.a === 'Success') {
             this.rootStore.uiSt.setLoading('loading', true);
 
             this.rootStore.userSt.setUserAll(data);

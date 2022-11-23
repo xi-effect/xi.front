@@ -40,7 +40,7 @@ class UserSt {
 
   @action setUserAll = (data) => {
     for (const key in data) {
-      if (Object.prototype.hasOwnProperty.call(data, key)) {
+      if (Object.prototype.hasOwnProperty.call(data, key) && key !== 'a') {
         this.setUser(key, data[key]);
       }
     }
