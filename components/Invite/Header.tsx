@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 import XiLogo from 'kit/XiLogo';
 
-const Header: React.FC = () => {
+const Header = () => {
   const mobile: boolean = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('dl' as Breakpoint),
   );

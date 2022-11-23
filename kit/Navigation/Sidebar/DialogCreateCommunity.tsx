@@ -1,5 +1,4 @@
-import React from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import {
   Theme,
   Button,
@@ -11,6 +10,7 @@ import {
   Breakpoint,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useStore } from 'store/connect';
 
 import { useRouter } from 'next/router';
 import { useForm, Controller } from 'react-hook-form';
@@ -18,9 +18,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import TextFieldCustom from 'kit/TextFieldCustom';
-import RootStore from 'store/rootStore';
-import CommunitiesMenuSt from 'store/community/communitiesMenuSt';
-import UISt from 'store/ui/uiSt';
 
 const schema = yup
   .object({
@@ -28,136 +25,126 @@ const schema = yup
   })
   .required();
 
-type DialogCreateCommunityT = {
-  uiSt: UISt;
-  rootStore: RootStore;
-  communitiesMenuSt: CommunitiesMenuSt;
-};
+const DialogCreateCommunity = observer(() => {
+  const rootStore = useStore();
+  const { uiSt, userSt } = rootStore;
 
-const DialogCreateCommunity = inject(
-  'rootStore',
-  'communitiesMenuSt',
-  'uiSt',
-)(
-  observer((props) => {
-    const { uiSt, communitiesMenuSt, rootStore }: DialogCreateCommunityT = props;
+  const { dialogs, setDialogs } = uiSt;
+  const mobile: boolean = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('dl' as Breakpoint),
+  );
 
-    const { dialogs, setDialogs } = uiSt;
-    const mobile: boolean = useMediaQuery((theme: Theme) =>
-      theme.breakpoints.down('dl' as Breakpoint),
-    );
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-    const {
-      control,
-      handleSubmit,
-      formState: { errors },
-    } = useForm({
-      resolver: yupResolver(schema),
-    });
+  const router = useRouter();
 
-    const router = useRouter();
+  const addCtoMenu = ({ code, message, data }) => {
+    if (code === 200 && message) {
+      const comm = userSt.user.communities;
+      userSt.setUser('communities', [
+        {
+          name: data?.name || 'exe',
+          id: data.id,
+        },
+        ...comm,
+      ]);
+      router.push(`/community/${data.id}`);
+      uiSt.setDialogs('communityCreation', false);
+    }
+  };
 
-    const addCtoMenu = ({ code, message, data }) => {
-      if (code === 200 && message) {
-        communitiesMenuSt.setUserCommunities([
-          {
-            name: data?.name || 'exe',
-            id: data.id,
-          },
-          ...communitiesMenuSt.userCommunities,
-        ]);
-        router.push(`/community/${data.id}`);
-        uiSt.setDialogs('communityCreation', false);
-      }
-    };
+  const onSubmit = (data) => {
+    rootStore.socket?.emit('new-community', { name: data.name }, addCtoMenu);
+  };
 
-    const onSubmit = (data) => {
-      rootStore.socket?.emit('new-community', { name: data.name }, addCtoMenu);
-    };
-
-    return (
-      <Dialog
-        open={dialogs.communityCreation ?? false}
-        onClose={() => setDialogs('communityCreation', false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        fullWidth
-        fullScreen={!!mobile}
-        maxWidth="md"
-        PaperProps={{
-          sx: {
-            width: '420px',
-            height: '328px',
-            borderRadius: '16px',
-            border: '1px solid #E6E6E6',
-            bgcolor: 'grayscale.0',
-            boxShadow: 'none',
-            position: 'relative',
-          },
+  return (
+    <Dialog
+      open={dialogs.communityCreation ?? false}
+      onClose={() => setDialogs('communityCreation', false)}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+      fullWidth
+      fullScreen={!!mobile}
+      maxWidth="md"
+      PaperProps={{
+        sx: {
+          width: '420px',
+          height: '328px',
+          borderRadius: '16px',
+          border: '1px solid #E6E6E6',
+          bgcolor: 'grayscale.0',
+          boxShadow: 'none',
+          position: 'relative',
+        },
+      }}
+    >
+      <IconButton
+        sx={{ color: 'text.secondary', position: 'absolute', top: '12px', right: '12px' }}
+        onClick={() => setDialogs('communityCreation', false)}
+      >
+        <CloseIcon />
+      </IconButton>
+      <Stack
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="center"
+        sx={{
+          p: 4,
+          height: '100%',
+          width: '100%',
         }}
       >
-        <IconButton
-          sx={{ color: 'text.secondary', position: 'absolute', top: '12px', right: '12px' }}
-          onClick={() => setDialogs('communityCreation', false)}
+        <Typography sx={{ fontWeight: 600, fontSize: '24px', lineHeight: '32px' }}>
+          Создать сообщество
+        </Typography>
+        <Typography
+          textAlign="center"
+          sx={{ mt: '24px', mb: '32px', fontWeight: 400, fontSize: '16px', lineHeight: '20px' }}
         >
-          <CloseIcon />
-        </IconButton>
-        <Stack
-          component="form"
-          onSubmit={handleSubmit(onSubmit)}
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="center"
+          Назовите сообщество. Изменить название можно в любой момент.
+        </Typography>
+        <Controller
+          name="name"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextFieldCustom
+              variant="outlined"
+              error={!!errors?.name?.type}
+              type="text"
+              fullWidth
+              placeholder="Название сообщества"
+              helperText={
+                errors?.name?.type === 'max' &&
+                'Максимальная длина названия сообщества - 100 символов'
+              }
+              {...field}
+            />
+          )}
+        />
+        <Button
+          type="submit"
+          variant="contained"
           sx={{
-            p: 4,
-            height: '100%',
-            width: '100%',
+            mt: '32px',
+            width: '356px',
+            height: '48px',
+            boxShadow: 'none',
           }}
         >
-          <Typography sx={{ fontWeight: 600, fontSize: '24px', lineHeight: '32px' }}>
-            Создать сообщество
-          </Typography>
-          <Typography
-            textAlign="center"
-            sx={{ mt: '24px', mb: '32px', fontWeight: 400, fontSize: '16px', lineHeight: '20px' }}
-          >
-            Назовите сообщество. Изменить название можно в любой момент.
-          </Typography>
-          <Controller
-            name="name"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextFieldCustom
-                variant="outlined"
-                error={!!errors?.name?.type}
-                type="text"
-                fullWidth
-                placeholder="Название сообщества"
-                helperText={
-                  errors?.name?.type === 'max' &&
-                  'Максимальная длина названия сообщества - 100 символов'
-                }
-                {...field}
-              />
-            )}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{
-              mt: '32px',
-              width: '356px',
-              height: '48px',
-              boxShadow: 'none',
-            }}
-          >
-            Создать
-          </Button>
-        </Stack>
-      </Dialog>
-    );
-  }),
-);
+          Создать
+        </Button>
+      </Stack>
+    </Dialog>
+  );
+});
 
 export default DialogCreateCommunity;

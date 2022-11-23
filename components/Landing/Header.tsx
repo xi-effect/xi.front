@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRouter, NextRouter } from 'next/router';
 import { Box, Stack, Button, useMediaQuery, Theme } from '@mui/material';
 import Image from 'next/image';

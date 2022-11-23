@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Slider, Stack, Typography } from '@mui/material';
-import { inject, observer } from 'mobx-react';
-import UserMediaSt, { MediaElement } from 'store/user/userMediaSt';
+import { observer } from 'mobx-react';
+import { MediaElement } from 'store/user/userMediaSt';
+import { useStore } from 'store/connect';
 import Btn from './Btn';
 import { SliderS } from './Styles/styles';
 import MinVolume from './Icons/MinVolume';
@@ -17,154 +18,149 @@ type DeviceVolumeT = {
 };
 
 type SoundDeviceT = {
-  userMediaSt: UserMediaSt;
   deviceUnderTest: DeviceUnderTestT;
   device: 'audiooutput' | 'audioinput';
   setDeviceUnderTest: React.Dispatch<React.SetStateAction<DeviceUnderTestT>>;
 };
 
-const SoundDevice = inject('userMediaSt')(
-  observer((props) => {
-    const {
-      device,
-      deviceUnderTest,
-      setDeviceUnderTest,
-      userMediaSt: {
-        startStream,
-        stopStream,
-        mediaInfo: { devices, stream, error },
-      },
-    }: SoundDeviceT = props;
+const SoundDevice = observer((props) => {
+  const { device, deviceUnderTest, setDeviceUnderTest }: SoundDeviceT = props;
 
-    const elementRef = useRef<HTMLAudioElement | null>(null);
-    const mediaElement = elementRef.current;
+  const rootStore = useStore();
+  const {
+    userMediaSt: {
+      startStream,
+      stopStream,
+      mediaInfo: { devices, stream, error },
+    },
+  } = rootStore;
 
-    const [activeDevice, setActiveDevice] = useState<string>('');
-    const [mediaStream, setMediaStream] = useState<'play' | 'stop'>('stop');
-    const [deviceVolume, setDeviceVolume] = useState<DeviceVolumeT>({
-      defaultVolume: 0.1,
-      volume: null,
-    });
+  const elementRef = useRef<HTMLAudioElement | null>(null);
+  const mediaElement = elementRef.current;
 
-    const changeDevice = async (id: string) => {
-      const element = mediaElement as MediaElement | null;
+  const [activeDevice, setActiveDevice] = useState<string>('');
+  const [mediaStream, setMediaStream] = useState<'play' | 'stop'>('stop');
+  const [deviceVolume, setDeviceVolume] = useState<DeviceVolumeT>({
+    defaultVolume: 0.1,
+    volume: null,
+  });
 
-      if (device === 'audiooutput') {
-        element?.setSinkId(id);
-      } else {
-        await startStream({ audioId: id });
-      }
-    };
+  const changeDevice = async (id: string) => {
+    const element = mediaElement as MediaElement | null;
 
-    const onSliderChange = (e: Event, volume: number) => {
-      setDeviceVolume((v) => ({ ...v, volume }));
+    if (device === 'audiooutput') {
+      element?.setSinkId(id);
+    } else {
+      await startStream({ audioId: id });
+    }
+  };
 
-      if (mediaElement) mediaElement.volume = volume;
-    };
+  const onSliderChange = (e: Event, volume: number) => {
+    setDeviceVolume((v) => ({ ...v, volume }));
 
-    const deviceControl = (id: string) => {
-      changeDevice(id);
+    if (mediaElement) mediaElement.volume = volume;
+  };
 
-      setActiveDevice(devices.filter((d) => d.deviceId === id)[0].label);
+  const deviceControl = (id: string) => {
+    changeDevice(id);
 
-      if (mediaStream === 'stop') setMediaStream('play');
-    };
+    setActiveDevice(devices.filter((d) => d.deviceId === id)[0].label);
 
-    const playMediaDevice = () => {
-      setDeviceUnderTest(device);
+    if (mediaStream === 'stop') setMediaStream('play');
+  };
 
-      setMediaStream('play');
+  const playMediaDevice = () => {
+    setDeviceUnderTest(device);
 
-      startStream({});
-    };
+    setMediaStream('play');
 
-    const stopMediaDevice = async () => {
-      stopStream();
-      setMediaStream('stop');
-    };
+    startStream({});
+  };
 
-    useEffect(() => {
-      if (error) {
-        console.error(error);
-        return;
-      }
+  const stopMediaDevice = async () => {
+    stopStream();
+    setMediaStream('stop');
+  };
 
-      if (mediaElement) {
-        if (deviceVolume.volume === null) mediaElement.volume = deviceVolume.defaultVolume;
+  useEffect(() => {
+    if (error) {
+      console.error(error);
+      return;
+    }
 
-        if (device === deviceUnderTest) mediaElement.srcObject = stream;
-      }
+    if (mediaElement) {
+      if (deviceVolume.volume === null) mediaElement.volume = deviceVolume.defaultVolume;
 
-      if (error || device !== deviceUnderTest) setMediaStream('stop');
-    }, [stream, error]);
+      if (device === deviceUnderTest) mediaElement.srcObject = stream;
+    }
 
-    return (
-      <Box>
+    if (error || device !== deviceUnderTest) setMediaStream('stop');
+  }, [stream, error]);
+
+  return (
+    <Box>
+      <Typography
+        sx={{
+          mb: '8px',
+          fontWeight: 500,
+          fontSize: '14px',
+          color: 'grayscale.100',
+        }}
+      >
+        {device === 'audioinput' ? 'Микрофон' : 'Динамик'}
+      </Typography>
+
+      <Stack mb="8px" direction="row" alignItems="center">
+        <DeviceMenu
+          device={device}
+          activeDevice={activeDevice}
+          deviceControl={deviceControl}
+          devices={devices.filter((d) => d.kind === device)}
+        />
+
+        {mediaStream === 'stop' ? (
+          <Btn onClick={playMediaDevice}>Проверить</Btn>
+        ) : (
+          <Btn sx={{ backgroundColor: '#ff6a6a' }} onClick={stopMediaDevice}>
+            Прекратить
+          </Btn>
+        )}
+      </Stack>
+
+      <SoundMeter animate={device === deviceUnderTest} />
+
+      <Stack mt="10px" direction="row" alignItems="center">
         <Typography
           sx={{
-            mb: '8px',
-            fontWeight: 500,
+            mr: '18px',
+            width: '200px',
+            fontWeight: 400,
             fontSize: '14px',
             color: 'grayscale.100',
           }}
         >
-          {device === 'audioinput' ? 'Микрофон' : 'Динамик'}
+          Громкость
         </Typography>
 
-        <Stack mb="8px" direction="row" alignItems="center">
-          <DeviceMenu
-            device={device}
-            activeDevice={activeDevice}
-            deviceControl={deviceControl}
-            devices={devices.filter((d) => d.kind === device)}
+        <Stack sx={{ width: '100%' }} direction="row" alignItems="center">
+          <MinVolume />
+
+          <Slider
+            max={1}
+            min={0}
+            step={0.05}
+            sx={SliderS}
+            onChange={onSliderChange}
+            value={deviceVolume.volume === null ? deviceVolume.defaultVolume : deviceVolume.volume}
           />
 
-          {mediaStream === 'stop' ? (
-            <Btn onClick={playMediaDevice}>Проверить</Btn>
-          ) : (
-            <Btn sx={{ backgroundColor: '#ff6a6a' }} onClick={stopMediaDevice}>
-              Прекратить
-            </Btn>
-          )}
+          <MaxVolume />
         </Stack>
+      </Stack>
 
-        <SoundMeter animate={device === deviceUnderTest} />
-
-        <Stack mt="10px" direction="row" alignItems="center">
-          <Typography
-            sx={{
-              mr: '18px',
-              width: '200px',
-              fontWeight: 400,
-              fontSize: '14px',
-              color: 'grayscale.100',
-            }}
-          >
-            Громкость
-          </Typography>
-
-          <Stack sx={{ width: '100%' }} direction="row" alignItems="center">
-            <MinVolume />
-
-            <Slider
-              max={1}
-              min={0}
-              step={0.05}
-              sx={SliderS}
-              onChange={onSliderChange}
-              value={
-                deviceVolume.volume === null ? deviceVolume.defaultVolume : deviceVolume.volume
-              }
-            />
-
-            <MaxVolume />
-          </Stack>
-        </Stack>
-
-        <audio autoPlay style={{ display: 'none' }} ref={elementRef} />
-      </Box>
-    );
-  }),
-);
+      <audio autoPlay style={{ display: 'none' }} ref={elementRef} />
+    </Box>
+  );
+});
 
 export default SoundDevice;

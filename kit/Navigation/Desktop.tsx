@@ -1,6 +1,7 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
+import { useStore } from 'store/connect';
 import { Stack, Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 import { UserProfile } from 'kit/UserProfile';
@@ -13,8 +14,11 @@ type DesktopT = {
   children: React.ReactNode;
 };
 
-const Desktop: React.FC<DesktopT> = inject()(
-  observer(({ children }) => (
+const Desktop = observer(({ children }: DesktopT) => {
+  const rootStore = useStore();
+  const { uiSt } = rootStore;
+
+  return (
     <Stack
       direction="row"
       justifyContent="flex-start"
@@ -26,7 +30,7 @@ const Desktop: React.FC<DesktopT> = inject()(
       }}
     >
       <UserProfile />
-      <ExitDialog />
+      <ExitDialog uiSt={uiSt} rootStore={rootStore} />
       <Box sx={{ width: 64 }}>
         <Sidebar />
       </Box>
@@ -35,7 +39,7 @@ const Desktop: React.FC<DesktopT> = inject()(
       </Box>
       {children}
     </Stack>
-  )),
-);
+  );
+});
 
 export default Desktop;

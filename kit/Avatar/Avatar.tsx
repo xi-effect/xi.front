@@ -1,9 +1,4 @@
 import { Stack, Typography } from '@mui/material';
-import * as React from 'react';
-
-// type Props = {
-//   children: React.ReactNode;
-// };
 
 const Avatar = () => {
   const getBgcolor = (v) => {

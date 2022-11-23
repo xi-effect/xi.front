@@ -1,33 +1,8 @@
 import { action, observable, makeObservable } from 'mobx';
-import Router from 'next/router';
 import { ResponseDataRegT } from 'models/dataProfileStore';
+import { ProfileT } from 'models/profile';
+import Router from 'next/router';
 import RootStore from '../rootStore';
-
-type SettingsProfileStoreT = {
-  id: null | number;
-  username: string;
-  darkTheme: boolean;
-  email: string | null;
-  emailConfirmed: any;
-  invite: any;
-  communities: [];
-};
-
-type ResponseGetSettings = {
-  id: number;
-  username: string;
-  'dark-theme': boolean;
-  language: string;
-  avatar: null;
-  email: string | null;
-  'email-confirmed': boolean;
-  code: string;
-  name: string;
-  surname: string;
-  patronymic: string;
-  bio: string;
-  group: string;
-};
 
 class ProfileSt {
   // `this` from rootstore passed to the constructor and we can
@@ -36,90 +11,68 @@ class ProfileSt {
   // useStore for e.g (this.rootStore.profileStore)
   rootStore: RootStore;
 
-  constructor(rootStore) {
+  constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     makeObservable(this);
   }
 
-  @observable settings: SettingsProfileStoreT = {
-    id: null,
-    username: '',
-    darkTheme: true,
-    email: null,
-    emailConfirmed: null,
+  @observable profile: ProfileT = {
+    email: '',
+    confirmed: null,
     invite: null,
-    communities: [],
+    name: '',
+    surname: '',
+    patronymic: '',
+    birthday: null,
   };
 
-  @action setSettings = (item: string, value) => {
-    this.settings[item] = value;
+  @action setProfile = (item: string, value: string | number | boolean) => {
+    this.profile[item] = value;
   };
 
-  @action setSettingsSecond = (item: string, secondItem, value) => {
-    this.settings[item][secondItem] = value;
+  @action setProfileSecond = (
+    item: string,
+    secondItem: string,
+    value: string | number | boolean,
+  ) => {
+    this.profile[item][secondItem] = value;
   };
 
-  @action getMainSettings = (type: null | string) => {
+  @action getProfile = (type = 'default') => {
     this.rootStore
-      .fetchData(`${this.rootStore.url}/home/`, 'GET')
+      .fetchData(`${this.rootStore.url}/users/me/profile/`, 'GET')
       .then((data: ResponseDataRegT) => {
         if (data) {
-          const { id, username } = data.user;
-          this.setSettings('darkTheme', data.user['dark-theme']);
-          this.setSettings('id', id);
-          this.setSettings('username', username);
-          this.rootStore.communitiesMenuSt.setUserCommunities(data.communities);
+          this.setProfileAll(data);
+
           if (type === 'login') {
             Router.push('/home');
           }
         }
-        setTimeout(() => {
-          this.rootStore.uiSt.setLoading('loading', false);
-        }, 500);
       });
+    setTimeout(() => {
+      this.rootStore.uiSt.setLoading('loading', false);
+    }, 500);
   };
 
-  @action getAllSettings = () => {
-    this.rootStore
-      .fetchData(`${this.rootStore.url}/settings/`, 'GET')
-      .then((data: ResponseGetSettings) => {
-        if (data) {
-          this.setSettings('email', data.email);
-          this.setSettings('emailConfirmed', data['email-confirmed']);
-          this.setSettings('avatar', data.avatar);
-          this.setSettings('invite', data.code);
-        }
-      });
+  @action setProfileAll = (data: ResponseDataRegT) => {
+    for (const key in data) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        this.setProfile(key, data[key]);
+      }
+    }
   };
 
-  @action saveNewSettings = () => {
-    this.rootStore
-      .fetchData(`${this.rootStore.url}/settings/`, 'POST', {
-        changed: { ...this.settings, 'dark-theme': this.settings.darkTheme },
-      })
-      .then((data) => {
-        console.log(data);
-      });
-  };
-
-  @action logout = () => {
-    this.rootStore
-      .fetchData(`${this.rootStore.url}/logout/`, 'POST', { lol: 'kek' })
-      .then((data) => {
-        if (data?.a) {
-          const router = Router;
-          router.push('/');
-          this.settings = {
-            id: null,
-            username: '',
-            darkTheme: true,
-            email: null,
-            emailConfirmed: null,
-            invite: null,
-            communities: [],
-          };
-        }
-      });
+  @action setProfileDefault = () => {
+    this.profile = {
+      email: '',
+      confirmed: null,
+      invite: null,
+      name: '',
+      surname: '',
+      patronymic: '',
+      birthday: null,
+    };
   };
 }
 
