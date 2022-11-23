@@ -32,7 +32,7 @@
     "@prezly/slate-lists": "^0.64.2",
     "@xieffect/base.components.loading": "^0.0.2",
     "@xieffect/base.components.scroll": "^0.0.1",
-    "@xieffect/base.dialogs.exit": "^0.0.8",
+    "@xieffect/base.dialogs.exit": "^0.0.10",
     "@xieffect/base.forms.signin": "^0.0.3",
     "@xieffect/base.icons.account": "^0.0.9",
     "@xieffect/base.icons.add": "^0.0.9",

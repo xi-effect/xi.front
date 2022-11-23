@@ -1,6 +1,7 @@
 import { action, observable, makeObservable } from 'mobx';
 import { ResponseDataRegT } from 'models/dataProfileStore';
 import { ProfileT } from 'models/profile';
+import Router from 'next/router';
 import RootStore from '../rootStore';
 
 class ProfileSt {
@@ -37,14 +38,21 @@ class ProfileSt {
     this.profile[item][secondItem] = value;
   };
 
-  @action getProfile = () => {
+  @action getProfile = (type = 'default') => {
     this.rootStore
-      .fetchData(`${this.rootStore.url} /users/me/profile/`, 'GET')
+      .fetchData(`${this.rootStore.url}/users/me/profile/`, 'GET')
       .then((data: ResponseDataRegT) => {
         if (data) {
           this.setProfileAll(data);
+
+          if (type === 'login') {
+            Router.push('/home');
+          }
         }
       });
+    setTimeout(() => {
+      this.rootStore.uiSt.setLoading('loading', false);
+    }, 500);
   };
 
   @action setProfileAll = (data: ResponseDataRegT) => {

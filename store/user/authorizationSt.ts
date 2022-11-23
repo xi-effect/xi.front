@@ -172,8 +172,10 @@ class AuthorizationSt {
     this.setSignin('errorPassword', null);
     this.setSignin('error', null);
 
+    console.log('signin', data);
+
     this.rootStore
-      .fetchData(`${this.rootStore.url}/signup/`, 'POST', {
+      .fetchData(`${this.rootStore.url}/signin/`, 'POST', {
         email: data.email.toLowerCase(),
         password: Crypto.SHA384(data.password.trim()).toString(),
       })
