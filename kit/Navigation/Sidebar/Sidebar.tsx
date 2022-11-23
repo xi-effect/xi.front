@@ -13,6 +13,7 @@ import { Exit } from '@xieffect/base.icons.exit';
 import { Scroll } from '@xieffect/base.components.scroll';
 import { RegCommunityT } from 'models/dataProfileStore';
 import { useStore } from 'store/connect';
+import { CommunityInSidebar } from 'models/community';
 import CommunityItem from './CommunityItem';
 import IButton from './IButton';
 
@@ -22,10 +23,10 @@ const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
 
 const Sidebar = observer(() => {
   const rootStore = useStore();
-  const { uiSt, communitiesMenuSt } = rootStore;
+  const { uiSt, userSt } = rootStore;
 
   const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
+    const result: CommunityInSidebar[] = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
 
@@ -33,7 +34,7 @@ const Sidebar = observer(() => {
   };
 
   const reorderFn = (source, destination) => {
-    const communities = reorder(communitiesMenuSt.userCommunities, source, destination);
+    const communities: CommunityInSidebar[] = reorder(userSt.user.communities, source, destination);
 
     rootStore.socket?.emit(
       'reorder-community',
@@ -45,7 +46,7 @@ const Sidebar = observer(() => {
         console.info(code, message, data);
       },
     );
-    communitiesMenuSt.setUserCommunities(communities);
+    userSt.setUser('communities', communities);
   };
 
   const onDragEnd = (result) => {
@@ -66,21 +67,19 @@ const Sidebar = observer(() => {
   };
 
   const subReorder = (data) => {
-    const newArray = Array.from(communitiesMenuSt.userCommunities);
+    const newArray = Array.from(userSt.user.communities);
     const item = newArray.find((i: Community) => i.id === data['source-id']);
     const itemIndex = newArray.findIndex((i: Community) => i.id === data['source-id']);
     newArray.splice(itemIndex, 1);
     newArray.splice(data['target-index'], 0, item as RegCommunityT);
-    console.log('on reorder-community', newArray);
-    communitiesMenuSt.setUserCommunities(newArray);
+    userSt.setUser('communities', newArray);
   };
 
-  useListen(rootStore.socket, 'reorder-community', subReorder, communitiesMenuSt.userCommunities);
+  useListen(rootStore.socket, 'reorder-community', subReorder, userSt.user.communities);
 
   const addItemtoMenu = (data) => {
-    console.log('on new-community', data);
-    const array = communitiesMenuSt.userCommunities;
-    communitiesMenuSt.setUserCommunities([
+    const array = userSt.user.communities;
+    userSt.setUser('communities', [
       {
         name: data.name,
         id: data.id,
@@ -89,14 +88,13 @@ const Sidebar = observer(() => {
     ]);
   };
 
-  useListen(rootStore.socket, 'new-community', addItemtoMenu, communitiesMenuSt.userCommunities);
+  useListen(rootStore.socket, 'new-community', addItemtoMenu, userSt.user.communities);
 
   const removeItem = (data) => {
-    console.log('on leave-community');
-    communitiesMenuSt.removeCommunity(data.id);
+    userSt.removeCommunity(data.id);
   };
 
-  useListen(rootStore.socket, 'leave-community', removeItem, communitiesMenuSt);
+  useListen(rootStore.socket, 'leave-community', removeItem, userSt);
 
   return (
     <Stack
@@ -169,7 +167,7 @@ const Sidebar = observer(() => {
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
-                {communitiesMenuSt.userCommunities.map((item, index) => (
+                {userSt.user.communities.map((item, index) => (
                   <CommunityItem item={item} index={index} key={item.id} />
                 ))}
                 {provided.placeholder}

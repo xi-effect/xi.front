@@ -18,7 +18,7 @@ const Navigation = observer((props) => {
   const { children }: NavigationT = props;
 
   const rootStore = useStore();
-  const { uiSt, profileSt } = rootStore;
+  const { uiSt, userSt, profileSt } = rootStore;
 
   const router = useRouter();
   const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
@@ -80,6 +80,7 @@ const Navigation = observer((props) => {
   React.useEffect(() => {
     if (profileSt?.profile.email === '') {
       uiSt.setLoading('loading', true);
+      userSt?.getUser();
       profileSt?.getProfile();
     }
   }, []);

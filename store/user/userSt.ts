@@ -1,4 +1,5 @@
 import { action, observable, makeObservable } from 'mobx';
+import { CommunityInSidebar } from 'models/community';
 import { UserT } from 'models/user';
 import RootStore from '../rootStore';
 
@@ -22,7 +23,7 @@ class UserSt {
     communities: [], // Массив Сообществ
   };
 
-  @action setUser = (item: string, value: string | number | boolean) => {
+  @action setUser = (item: string, value: string | number | boolean | CommunityInSidebar[]) => {
     this.user[item] = value;
   };
 
@@ -54,6 +55,11 @@ class UserSt {
       avatar: null,
       communities: [],
     };
+  };
+
+  @action removeCommunity = (lid) => {
+    const newArray: CommunityInSidebar[] = this.user.communities;
+    this.user.communities = newArray.filter((item) => item.id !== lid);
   };
 }
 

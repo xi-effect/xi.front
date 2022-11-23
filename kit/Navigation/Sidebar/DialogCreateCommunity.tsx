@@ -27,7 +27,7 @@ const schema = yup
 
 const DialogCreateCommunity = observer(() => {
   const rootStore = useStore();
-  const { uiSt, communitiesMenuSt } = rootStore;
+  const { uiSt, userSt } = rootStore;
 
   const { dialogs, setDialogs } = uiSt;
   const mobile: boolean = useMediaQuery((theme: Theme) =>
@@ -46,12 +46,13 @@ const DialogCreateCommunity = observer(() => {
 
   const addCtoMenu = ({ code, message, data }) => {
     if (code === 200 && message) {
-      communitiesMenuSt.setUserCommunities([
+      const comm = userSt.user.communities;
+      userSt.setUser('communities', [
         {
           name: data?.name || 'exe',
           id: data.id,
         },
-        ...communitiesMenuSt.userCommunities,
+        ...comm,
       ]);
       router.push(`/community/${data.id}`);
       uiSt.setDialogs('communityCreation', false);

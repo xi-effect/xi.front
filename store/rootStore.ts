@@ -13,7 +13,6 @@ import UserSt from './user/userSt';
 import AuthorizationSt from './user/authorizationSt';
 import CommunitySt from './community/communitySt';
 import CommunityCreationSt from './community/communityCreationSt';
-import CommunitiesMenuSt from './community/communitiesMenuSt';
 import CommunityChannelsSt from './community/communityChannelsSt';
 import CommunitiesInvitesSt from './community/communitiesInvitesSt';
 import CommunitySettingsSt from './community/communitySettingsSt';
@@ -39,8 +38,6 @@ class RootStore {
   communitySt: CommunitySt;
 
   authorizationSt: AuthorizationSt;
-
-  communitiesMenuSt: CommunitiesMenuSt;
 
   communityCreationSt: CommunityCreationSt;
 
@@ -69,7 +66,6 @@ class RootStore {
 
     // Communities Stores
     this.communitiesInvitesSt = new CommunitiesInvitesSt(this);
-    this.communitiesMenuSt = new CommunitiesMenuSt(this);
 
     makeObservable(this);
   }

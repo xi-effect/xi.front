@@ -183,8 +183,6 @@ class AuthorizationSt {
 
             this.rootStore.userSt.setUserAll(data);
 
-            this.rootStore.communitiesMenuSt.setUserCommunities(data.communities);
-
             Router.push('/home');
 
             setTimeout(() => {
