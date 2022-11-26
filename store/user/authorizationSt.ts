@@ -127,7 +127,7 @@ class AuthorizationSt {
       })
       .then((data: ResponseDataRegT) => {
         if (data) {
-          if (data.user) {
+          if (data.a === 'Success') {
             this.rootStore.uiSt.setLoading('loading', true);
 
             this.rootStore.userSt.setUserAll(data);
