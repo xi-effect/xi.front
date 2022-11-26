@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import { BottomBar } from './BottomBar';
+import { UpBar } from './UpBar';
 
 const VideoConference = () => (
   <Stack
@@ -14,6 +15,7 @@ const VideoConference = () => (
       bgcolor: 'grayscale.90',
     }}
   >
+    <UpBar />
     <BottomBar />
   </Stack>
 );

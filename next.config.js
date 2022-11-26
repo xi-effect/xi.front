@@ -25,6 +25,9 @@ const withPWA = require('next-pwa')({
 plugins.push(withPWA);
 
 const nextConfig = {
+  experimental: {
+    esmExternals: false,
+  },
   compiler: {
     removeConsole: process.env.NODE_ENV !== 'development',
   },

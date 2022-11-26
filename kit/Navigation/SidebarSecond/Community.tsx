@@ -18,7 +18,7 @@ import { useLocalStorage } from 'react-use';
 import { Scroll } from '@xieffect/base.components.scroll';
 import { Announce } from '@xieffect/base.icons.announce';
 import { Task } from '@xieffect/base.icons.task';
-import { Chat } from '@xieffect/base.icons.chat';
+import { Chat } from 'kit/MyIcon/Chat';
 import { Camera } from '@xieffect/base.icons.camera';
 import { Calendar } from '@xieffect/base.icons.calendar';
 
