@@ -63,6 +63,7 @@ const EditorSample: React.FC<EditorT> = (props) => {
           </Tooltip>
 
           <CreationMenu
+            index={index}
             anchorEl={addAnchorEl}
             setEditors={setEditors}
             closeMenu={() => setAddAnchorEl(null)}

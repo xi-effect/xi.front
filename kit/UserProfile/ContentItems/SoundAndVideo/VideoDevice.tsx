@@ -1,42 +1,70 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, Checkbox, FormControlLabel, IconButton, Stack, Typography } from '@mui/material';
 import { Close, Check } from '@mui/icons-material';
-import useUserMedia from '../hooks/useUserMedia';
+import { observer } from 'mobx-react';
+import { useStore } from 'store/connect';
 import DeviceMenu from './DeviceMenu';
 import Btn from './Btn';
+import { DeviceUnderTestT } from '../SoundAndVideo';
 
-const VideoDevice = () => {
-  const mediaElementRef = useRef<HTMLVideoElement | null>(null);
+type VideoDeviceT = {
+  deviceUnderTest: DeviceUnderTestT;
+  setDeviceUnderTest: React.Dispatch<React.SetStateAction<DeviceUnderTestT>>;
+};
+
+const VideoDevice = observer((props) => {
+  const { deviceUnderTest, setDeviceUnderTest }: VideoDeviceT = props;
+
+  const rootStore = useStore();
+  const {
+    userMediaSt: {
+      stopStream,
+      startStream,
+      mediaInfo: { devices, error, stream },
+    },
+  } = rootStore;
+
+  const elementRef = useRef<HTMLVideoElement | null>(null);
+  const mediaElement = elementRef.current;
 
   const [activeDevice, setActiveDevice] = useState<string>('');
-  const [startStream, setStartStream] = useState<boolean>(false);
+  const [showStream, setShowStream] = useState<boolean>(false);
   const [mirrorVideo, setMirrorVideo] = useState<boolean>(true);
-  const { devices, changeDevice, error } = useUserMedia({ device: 'videoinput', mediaElementRef });
 
-  const onStreamStart = () => {
-    if (!error) {
-      setStartStream(true);
+  const playMediaDevice = () => {
+    setShowStream(true);
 
-      if (mediaElementRef.current) {
-        mediaElementRef.current.play();
-        mediaElementRef.current.volume = 0.1;
-      }
-    }
+    setDeviceUnderTest('videoinput');
 
-    console.log(error);
+    startStream({ enableVideo: true });
   };
 
-  const onStreamStop = () => {
-    setStartStream(false);
+  const stopMediaDevice = () => {
+    stopStream();
 
-    if (mediaElementRef.current) mediaElementRef.current.pause();
+    setShowStream(false);
   };
 
-  const deviceControl = (id: string) => {
-    changeDevice(id);
+  const deviceControl = async (id: string) => {
+    await startStream({ videoId: id });
+
     setActiveDevice(devices.filter((d) => d.deviceId === id)[0].label);
   };
+
+  useEffect(() => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    if (mediaElement && deviceUnderTest === 'videoinput') {
+      mediaElement.volume = 0.1;
+      mediaElement.srcObject = stream;
+    }
+
+    if (error || deviceUnderTest !== 'videoinput') setShowStream(false);
+  }, [stream, error]);
 
   return (
     <Box>
@@ -52,22 +80,23 @@ const VideoDevice = () => {
         alignItems="center"
         justifyContent="center"
       >
-        {!startStream ? <Btn onClick={onStreamStart}>Проверить</Btn> : ''}
+        {!showStream ? <Btn onClick={playMediaDevice}>Проверить</Btn> : ''}
 
         <video
-          ref={mediaElementRef}
+          autoPlay
+          ref={elementRef}
           style={{
             width: '100%',
             height: '100%',
             borderRadius: '8px',
-            display: startStream ? 'block' : 'none',
+            display: showStream ? 'block' : 'none',
             transform: mirrorVideo ? 'scale(-1, 1)' : 'scale(1, 1)',
           }}
         />
 
-        {startStream ? (
+        {showStream ? (
           <IconButton
-            onClick={onStreamStop}
+            onClick={stopMediaDevice}
             sx={{
               position: 'absolute',
               right: '10px',
@@ -150,13 +179,13 @@ const VideoDevice = () => {
       </Typography>
 
       <DeviceMenu
-        devices={devices}
         device="videoinput"
         activeDevice={activeDevice}
         deviceControl={deviceControl}
+        devices={devices.filter((d) => d.kind === 'videoinput')}
       />
     </Box>
   );
-};
+});
 
 export default VideoDevice;

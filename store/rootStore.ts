@@ -9,13 +9,14 @@ import { io, Socket } from 'socket.io-client';
 import UISt from './ui/uiSt';
 import HomeSt from './home/homeSt';
 import ProfileSt from './user/profileSt';
+import UserSt from './user/userSt';
 import AuthorizationSt from './user/authorizationSt';
 import CommunitySt from './community/communitySt';
 import CommunityCreationSt from './community/communityCreationSt';
-import CommunitiesMenuSt from './community/communitiesMenuSt';
 import CommunityChannelsSt from './community/communityChannelsSt';
 import CommunitiesInvitesSt from './community/communitiesInvitesSt';
 import CommunitySettingsSt from './community/communitySettingsSt';
+import UserMediaSt from './user/userMediaSt';
 
 enableStaticRendering(typeof window === 'undefined');
 
@@ -30,9 +31,13 @@ class RootStore {
 
   profileSt: ProfileSt;
 
-  authorizationSt: AuthorizationSt;
+  userSt: UserSt;
+
+  userMediaSt: UserMediaSt;
 
   communitySt: CommunitySt;
+
+  authorizationSt: AuthorizationSt;
 
   communityCreationSt: CommunityCreationSt;
 
@@ -42,14 +47,15 @@ class RootStore {
 
   communitiesInvitesSt: CommunitiesInvitesSt;
 
-  communitiesMenuSt: CommunitiesMenuSt;
-
   url = process.env.NEXT_PUBLIC_SERVER_URL;
 
   constructor() {
     this.uiSt = new UISt(this);
     this.homeSt = new HomeSt(this);
+
     this.profileSt = new ProfileSt(this);
+    this.userSt = new UserSt(this);
+    this.userMediaSt = new UserMediaSt(this);
     this.authorizationSt = new AuthorizationSt(this);
 
     // Community Stores
@@ -60,7 +66,6 @@ class RootStore {
 
     // Communities Stores
     this.communitiesInvitesSt = new CommunitiesInvitesSt(this);
-    this.communitiesMenuSt = new CommunitiesMenuSt(this);
 
     makeObservable(this);
   }
@@ -70,17 +75,11 @@ class RootStore {
   @action initSocket = () => {
     this.socket = io('https://xieffect.ru:5000/', {
       withCredentials: true,
+      transports: ['websocket', 'polling'],
     });
   };
 
-  socketTest: null | Socket = null;
-
-  @action initSocketTest = () => {
-    this.socketTest = io('https://xieffect.ru:8000/');
-    console.log('this.socketTest', this.socketTest);
-  };
-
-  @action fetchData = async (url: string, method: MethodT, data?: any) => {
+  @action fetchData = async (url: string, method: MethodT, data?: unknown) => {
     try {
       let response: null | Response = null;
       if (data != null) {
@@ -118,6 +117,18 @@ class RootStore {
       console.log('Возникла проблема с вашим fetch запросом: ', error.message);
     }
   };
+
+  @action signout = () => {
+    this.fetchData(`${this.url}/signout/`, 'POST', { lol: 'kek' }).then((data) => {
+      if (data?.a) {
+        const router = Router;
+        router.push('/');
+        this.profileSt.setProfileDefault();
+        this.userSt.setUserDefault();
+        this.uiSt.setDialogsFalse();
+      }
+    });
+  };
 }
 
 function initializeStore(initialData = null) {
@@ -137,7 +148,7 @@ function initializeStore(initialData = null) {
   return _store;
 }
 
-export function useStore(initialState) {
+export function useStoreInitialized(initialState) {
   const store = useMemo(() => initializeStore(initialState), [initialState]);
   return store;
 }

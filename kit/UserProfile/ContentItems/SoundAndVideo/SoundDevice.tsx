@@ -1,25 +1,43 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, Slider, Stack, Typography } from '@mui/material';
-import styled from '@emotion/styled';
+import { observer } from 'mobx-react';
+import { MediaElement } from 'store/user/userMediaSt';
+import { useStore } from 'store/connect';
 import Btn from './Btn';
 import { SliderS } from './Styles/styles';
-import useUserMedia from '../hooks/useUserMedia';
 import MinVolume from './Icons/MinVolume';
 import MaxVolume from './Icons/MaxVolume';
-import useSoundMeter from '../hooks/useSoundMeter';
 import DeviceMenu from './DeviceMenu';
+import SoundMeter from './SoundMeter';
+import { DeviceUnderTestT } from '../SoundAndVideo';
 
 type DeviceVolumeT = {
   volume: number | null;
   defaultVolume: number;
 };
 
-type DeviceT = {
+type SoundDeviceT = {
+  deviceUnderTest: DeviceUnderTestT;
   device: 'audiooutput' | 'audioinput';
+  setDeviceUnderTest: React.Dispatch<React.SetStateAction<DeviceUnderTestT>>;
 };
 
-const SoundDevice: React.FC<DeviceT> = ({ device }) => {
+const SoundDevice = observer((props) => {
+  const { device, deviceUnderTest, setDeviceUnderTest }: SoundDeviceT = props;
+
+  const rootStore = useStore();
+  const {
+    userMediaSt: {
+      startStream,
+      stopStream,
+      mediaInfo: { devices, stream, error },
+    },
+  } = rootStore;
+
+  const elementRef = useRef<HTMLAudioElement | null>(null);
+  const mediaElement = elementRef.current;
+
   const [activeDevice, setActiveDevice] = useState<string>('');
   const [mediaStream, setMediaStream] = useState<'play' | 'stop'>('stop');
   const [deviceVolume, setDeviceVolume] = useState<DeviceVolumeT>({
@@ -27,61 +45,57 @@ const SoundDevice: React.FC<DeviceT> = ({ device }) => {
     volume: null,
   });
 
-  const mediaElementRef = useRef<HTMLAudioElement | null>(null);
+  const changeDevice = async (id: string) => {
+    const element = mediaElement as MediaElement | null;
 
-  const { startAnimate, stopAnimate, volumeValue } = useSoundMeter();
-  const { devices, changeDevice } = useUserMedia({ device, mediaElementRef });
+    if (device === 'audiooutput') {
+      element?.setSinkId(id);
+    } else {
+      await startStream({ audioId: id });
+    }
+  };
 
   const onSliderChange = (e: Event, volume: number) => {
     setDeviceVolume((v) => ({ ...v, volume }));
 
-    if (mediaElementRef.current) mediaElementRef.current.volume = volume;
+    if (mediaElement) mediaElement.volume = volume;
   };
 
   const deviceControl = (id: string) => {
-    if (mediaStream === 'stop') {
-      startAnimate();
-      setMediaStream('play');
-    }
-
     changeDevice(id);
 
     setActiveDevice(devices.filter((d) => d.deviceId === id)[0].label);
 
-    if (mediaElementRef.current && deviceVolume.volume === null)
-      mediaElementRef.current.volume = deviceVolume.defaultVolume;
+    if (mediaStream === 'stop') setMediaStream('play');
   };
 
-  const mediaFlowControl = (flow: 'play' | 'stop') => {
-    setMediaStream(flow);
+  const playMediaDevice = () => {
+    setDeviceUnderTest(device);
 
-    if (flow === 'play') {
-      startAnimate();
-      mediaElementRef.current?.play();
-    } else {
-      stopAnimate();
-      mediaElementRef.current?.pause();
-    }
+    setMediaStream('play');
 
-    if (mediaElementRef.current && deviceVolume.volume === null)
-      mediaElementRef.current.volume = deviceVolume.defaultVolume;
+    startStream({});
   };
 
-  const SoundMeter = styled.meter`
-    width: 100%;
-    height: 20px;
+  const stopMediaDevice = async () => {
+    stopStream();
+    setMediaStream('stop');
+  };
 
-    &::-webkit-meter-bar {
-      background: #e6e6e6;
-      border-radius: 100px;
-      box-shadow: none;
-      border: none;
+  useEffect(() => {
+    if (error) {
+      console.error(error);
+      return;
     }
 
-    &::-webkit-meter-optimum-value {
-      background: #445aff;
+    if (mediaElement) {
+      if (deviceVolume.volume === null) mediaElement.volume = deviceVolume.defaultVolume;
+
+      if (device === deviceUnderTest) mediaElement.srcObject = stream;
     }
-  `;
+
+    if (error || device !== deviceUnderTest) setMediaStream('stop');
+  }, [stream, error]);
 
   return (
     <Box>
@@ -99,21 +113,21 @@ const SoundDevice: React.FC<DeviceT> = ({ device }) => {
       <Stack mb="8px" direction="row" alignItems="center">
         <DeviceMenu
           device={device}
-          devices={devices}
           activeDevice={activeDevice}
           deviceControl={deviceControl}
+          devices={devices.filter((d) => d.kind === device)}
         />
 
         {mediaStream === 'stop' ? (
-          <Btn onClick={() => mediaFlowControl('play')}>Проверить</Btn>
+          <Btn onClick={playMediaDevice}>Проверить</Btn>
         ) : (
-          <Btn sx={{ backgroundColor: '#ff6a6a' }} onClick={() => mediaFlowControl('stop')}>
+          <Btn sx={{ backgroundColor: '#ff6a6a' }} onClick={stopMediaDevice}>
             Прекратить
           </Btn>
         )}
       </Stack>
 
-      <SoundMeter value={volumeValue} />
+      <SoundMeter animate={device === deviceUnderTest} />
 
       <Stack mt="10px" direction="row" alignItems="center">
         <Typography
@@ -144,9 +158,9 @@ const SoundDevice: React.FC<DeviceT> = ({ device }) => {
         </Stack>
       </Stack>
 
-      <audio style={{ display: 'none' }} ref={mediaElementRef} />
+      <audio autoPlay style={{ display: 'none' }} ref={elementRef} />
     </Box>
   );
-};
+});
 
 export default SoundDevice;

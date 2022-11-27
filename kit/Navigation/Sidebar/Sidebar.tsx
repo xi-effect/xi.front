@@ -1,5 +1,4 @@
-import React from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
 import { Stack, Tooltip, Divider, IconButton } from '@mui/material';
 
@@ -12,10 +11,9 @@ import { Notification } from '@xieffect/base.icons.notification';
 import { Home } from '@xieffect/base.icons.home';
 import { Exit } from '@xieffect/base.icons.exit';
 import { Scroll } from '@xieffect/base.components.scroll';
-import UISt from 'store/ui/uiSt';
-import CommunitiesMenuSt from 'store/community/communitiesMenuSt';
-import RootStore from 'store/rootStore';
 import { RegCommunityT } from 'models/dataProfileStore';
+import { useStore } from 'store/connect';
+import { CommunityInSidebar } from 'models/community';
 import CommunityItem from './CommunityItem';
 import IButton from './IButton';
 
@@ -23,174 +21,103 @@ const DialogCreateCommunity = dynamic(() => import('./DialogCreateCommunity'), {
   ssr: false,
 });
 
-type SidebarType = {
-  rootStore: RootStore;
-  communitiesMenuSt: CommunitiesMenuSt;
-  uiSt: UISt;
-};
+const Sidebar = observer(() => {
+  const rootStore = useStore();
+  const { uiSt, userSt } = rootStore;
 
-const Sidebar = inject(
-  'rootStore',
-  'communitiesMenuSt',
-  'uiSt',
-)(
-  observer((props) => {
-    const { uiSt, communitiesMenuSt, rootStore }: SidebarType = props;
+  const reorder = (list, startIndex, endIndex) => {
+    const result: CommunityInSidebar[] = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
 
-    const reorder = (list, startIndex, endIndex) => {
-      const result = Array.from(list);
-      const [removed] = result.splice(startIndex, 1);
-      result.splice(endIndex, 0, removed);
+    return result;
+  };
 
-      return result;
-    };
+  const reorderFn = (source, destination) => {
+    const communities: CommunityInSidebar[] = reorder(userSt.user.communities, source, destination);
 
-    const reorderFn = (source, destination) => {
-      const communities = reorder(communitiesMenuSt.userCommunities, source, destination);
+    rootStore.socket?.emit(
+      'reorder-community',
+      {
+        'source-id': source,
+        'target-index': destination,
+      },
+      ({ code, message, data }) => {
+        console.info(code, message, data);
+      },
+    );
+    userSt.setUser('communities', communities);
+  };
 
-      rootStore.socket?.emit(
-        'reorder-community',
-        {
-          'source-id': source,
-          'target-index': destination,
-        },
-        ({ code, message, data }) => {
-          console.info(code, message, data);
-        },
-      );
-      communitiesMenuSt.setUserCommunities(communities);
-    };
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
 
-    const onDragEnd = (result) => {
-      if (!result.destination) {
-        return;
-      }
+    if (result.destination.index === result.source.index) {
+      return;
+    }
 
-      if (result.destination.index === result.source.index) {
-        return;
-      }
+    reorderFn(result.source.index, result.destination.index);
+  };
 
-      reorderFn(result.source.index, result.destination.index);
-    };
+  type Community = {
+    id: number;
+    name: string;
+  };
 
-    type Community = {
-      id: number;
-      name: string;
-    };
+  const subReorder = (data) => {
+    const newArray = Array.from(userSt.user.communities);
+    const item = newArray.find((i: Community) => i.id === data['source-id']);
+    const itemIndex = newArray.findIndex((i: Community) => i.id === data['source-id']);
+    newArray.splice(itemIndex, 1);
+    newArray.splice(data['target-index'], 0, item as RegCommunityT);
+    userSt.setUser('communities', newArray);
+  };
 
-    const subReorder = (data) => {
-      const newArray = Array.from(communitiesMenuSt.userCommunities);
-      const item = newArray.find((i: Community) => i.id === data['source-id']);
-      const itemIndex = newArray.findIndex((i: Community) => i.id === data['source-id']);
-      newArray.splice(itemIndex, 1);
-      newArray.splice(data['target-index'], 0, item as RegCommunityT);
-      console.log('on reorder-community', newArray);
-      communitiesMenuSt.setUserCommunities(newArray);
-    };
+  useListen(rootStore.socket, 'reorder-community', subReorder, userSt.user.communities);
 
-    useListen(rootStore.socket, 'reorder-community', subReorder, communitiesMenuSt.userCommunities);
+  const addItemtoMenu = (data) => {
+    const array = userSt.user.communities;
+    userSt.setUser('communities', [
+      {
+        name: data.name,
+        id: data.id,
+      },
+      ...array,
+    ]);
+  };
 
-    const addItemtoMenu = (data) => {
-      console.log('on new-community', data);
-      const array = communitiesMenuSt.userCommunities;
-      communitiesMenuSt.setUserCommunities([
-        {
-          name: data.name,
-          id: data.id,
-        },
-        ...array,
-      ]);
-    };
+  useListen(rootStore.socket, 'new-community', addItemtoMenu, userSt.user.communities);
 
-    useListen(rootStore.socket, 'new-community', addItemtoMenu, communitiesMenuSt.userCommunities);
+  const removeItem = (data) => {
+    userSt.removeCommunity(data.id);
+  };
 
-    const removeItem = (data) => {
-      console.log('on leave-community');
-      communitiesMenuSt.removeCommunity(data.id);
-    };
+  useListen(rootStore.socket, 'leave-community', removeItem, userSt);
 
-    useListen(rootStore.socket, 'leave-community', removeItem, communitiesMenuSt);
-
-    return (
+  return (
+    <Stack
+      direction="column"
+      justifyContent="flex-start"
+      alignItems="center"
+      spacing={0}
+      sx={{
+        pt: 1,
+        pb: 1,
+        width: 64,
+        height: '100vh',
+        overflow: 'hidden',
+      }}
+    >
       <Stack
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="center"
-        spacing={0}
         sx={{
-          pt: 1,
-          pb: 1,
           width: 64,
-          height: '100vh',
-          overflow: 'hidden',
         }}
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
       >
-        <Stack
-          sx={{
-            width: 64,
-          }}
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-        >
-          <Stack
-            sx={{ width: 64 }}
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={1}
-          >
-            <IButton
-              tooltip="Главная"
-              href="/home"
-              icon={<Home color="primary" />}
-              iconColor="#445AFF"
-              iconColorHover="#FFFFFF"
-              isBefore
-            />
-            <IButton
-              tooltip="Создать сообщество"
-              icon={<Add color="primary" />}
-              onClick={() => uiSt.setDialogs('communityCreation', true)}
-              iconColor="#333333"
-              iconColorHover="#FFFFFF"
-            />
-            <Divider
-              sx={{
-                height: '1px',
-                width: '40px',
-                borderRadius: '5px',
-                backgroundColor: 'primary.light',
-              }}
-            />
-          </Stack>
-        </Stack>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="sidebar-communities-list">
-            {(provided) => (
-              <Scroll>
-                <Stack
-                  direction="column"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  spacing={1}
-                  sx={{
-                    pt: 1,
-                    pb: 1,
-                    width: 64,
-                  }}
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  {communitiesMenuSt.userCommunities.map((item, index) => (
-                    <CommunityItem item={item} index={index} key={item.id} />
-                  ))}
-                  {provided.placeholder}
-                </Stack>
-              </Scroll>
-            )}
-          </Droppable>
-        </DragDropContext>
         <Stack
           sx={{ width: 64 }}
           direction="column"
@@ -198,6 +125,21 @@ const Sidebar = inject(
           alignItems="center"
           spacing={1}
         >
+          <IButton
+            tooltip="Главная"
+            href="/home"
+            icon={<Home color="primary" />}
+            iconColor="#445AFF"
+            iconColorHover="#FFFFFF"
+            isBefore
+          />
+          <IButton
+            tooltip="Создать сообщество"
+            icon={<Add color="primary" />}
+            onClick={() => uiSt.setDialogs('communityCreation', true)}
+            iconColor="#333333"
+            iconColorHover="#FFFFFF"
+          />
           <Divider
             sx={{
               height: '1px',
@@ -206,53 +148,95 @@ const Sidebar = inject(
               backgroundColor: 'primary.light',
             }}
           />
-          <IButton
-            tooltip="Уведомления"
-            icon={<Notification color="primary" />}
-            iconColor="#333333"
-            iconColorHover="#FFFFFF"
-          />
-          <IButton
-            tooltip="Профиль"
-            href="/profile/profile1"
-            icon={<Account color="primary" />}
-            onClick={() => uiSt.setDialogs('userProfile', true)}
-            isBefore
-            iconColor="#333333"
-            iconColorHover="#FFFFFF"
-          />
-          <Tooltip placement="right" title="Выйти">
-            <IconButton
-              onClick={() => {
-                uiSt.setDialogs('exit', true);
-              }}
-              sx={{
-                bgcolor: '#FFFFFF',
-                width: 48,
-                height: 48,
-                borderRadius: 24,
-                svg: {
-                  fill: '#F42D2D',
-                },
-
-                '&:hover': {
-                  borderRadius: '16px',
-                  bgcolor: '#F42D2D',
-
-                  svg: {
-                    fill: '#FFFFFF',
-                  },
-                },
-              }}
-            >
-              <Exit color="" />
-            </IconButton>
-          </Tooltip>
         </Stack>
-        <DialogCreateCommunity />
       </Stack>
-    );
-  }),
-);
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="sidebar-communities-list">
+          {(provided) => (
+            <Scroll>
+              <Stack
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing={1}
+                sx={{
+                  pt: 1,
+                  pb: 1,
+                  width: 64,
+                }}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {userSt.user.communities.map((item, index) => (
+                  <CommunityItem item={item} index={index} key={item.id} />
+                ))}
+                {provided.placeholder}
+              </Stack>
+            </Scroll>
+          )}
+        </Droppable>
+      </DragDropContext>
+      <Stack
+        sx={{ width: 64 }}
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
+      >
+        <Divider
+          sx={{
+            height: '1px',
+            width: '40px',
+            borderRadius: '5px',
+            backgroundColor: 'primary.light',
+          }}
+        />
+        <IButton
+          tooltip="Уведомления"
+          icon={<Notification color="primary" />}
+          iconColor="#333333"
+          iconColorHover="#FFFFFF"
+        />
+        <IButton
+          tooltip="Профиль"
+          href="/profile/profile1"
+          icon={<Account color="primary" />}
+          onClick={() => uiSt.setDialogs('userProfile', true)}
+          isBefore
+          iconColor="#333333"
+          iconColorHover="#FFFFFF"
+        />
+        <Tooltip placement="right" title="Выйти">
+          <IconButton
+            onClick={() => {
+              uiSt.setDialogs('exit', true);
+            }}
+            sx={{
+              bgcolor: '#FFFFFF',
+              width: 48,
+              height: 48,
+              borderRadius: 24,
+              svg: {
+                fill: '#F42D2D',
+              },
+
+              '&:hover': {
+                borderRadius: '16px',
+                bgcolor: '#F42D2D',
+
+                svg: {
+                  fill: '#FFFFFF',
+                },
+              },
+            }}
+          >
+            <Exit color="" />
+          </IconButton>
+        </Tooltip>
+      </Stack>
+      <DialogCreateCommunity />
+    </Stack>
+  );
+});
 
 export default Sidebar;
