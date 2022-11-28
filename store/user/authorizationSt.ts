@@ -12,10 +12,6 @@ type FormValues = {
   password: string;
 };
 
-type EmailResetT = {
-  emailResetOk: boolean;
-};
-
 type DataT = {
   email: string;
 };
@@ -25,8 +21,6 @@ type DataSuthT = {
   email: string;
   'X-Fields'?: string;
 };
-
-type ResponseDataT = 'Success' | 'Code error' | "User doesn't exist";
 
 type PasswordResetT = {
   emailNotFound: boolean;
@@ -53,31 +47,6 @@ class AuthorizationSt {
     this.rootStore = rootStore;
     makeObservable(this);
   }
-
-  @observable newPasswordReset: EmailResetT = {
-    emailResetOk: false,
-  };
-
-  @action setNewPasswordReset = (name: string, value: boolean) => {
-    this.newPasswordReset[name] = value;
-  };
-
-  @action saveNewPassword = (id: string, data: { password: string }) => {
-    this.setNewPasswordReset('emailResetOk', false);
-    this.rootStore
-      .fetchData(`${this.rootStore.url}/password-reset/confirm/`, 'POST', {
-        code: id,
-        password: Crypto.SHA384(data.password.trim()).toString(),
-      })
-      .then((data: ResponseDataT) => {
-        if (data !== undefined) {
-          if (data === 'Success') {
-            // "Success"
-            this.setNewPasswordReset('emailResetOk', true);
-          }
-        }
-      });
-  };
 
   @observable passwordReset: PasswordResetT = {
     emailNotFound: false,

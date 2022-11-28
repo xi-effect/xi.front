@@ -76,6 +76,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-just-parallax": "^3.1.14",
     "react-use": "^17.3.1",
+    "sharp": "^0.31.2",
     "slate": "^0.82.1",
     "slate-history": "^0.66.0",
     "slate-react": "^0.82.1",
