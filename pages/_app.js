@@ -21,7 +21,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Loading } from '@xieffect/base.components.loading';
 import { useStoreInitialized } from 'store/rootStore';
 import createEmotionCache from 'store/createEmotionCache';
-import { getDesignTokens } from 'theme';
+import { getScheme } from '@xieffect/base.theme.scheme';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 config.autoAddCss = false;
@@ -34,8 +34,10 @@ const MyApp = observer((props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const rootStore = useStoreInitialized(pageProps.initialState);
-
-  const theme = createTheme(getDesignTokens('light')); // Только светлая тема;
+  const theme = React.useMemo(
+    () => createTheme(getScheme('light')), // Только светлая тема
+    [],
+  );
 
   return (
     <CacheProvider value={emotionCache}>
