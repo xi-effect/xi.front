@@ -59,7 +59,7 @@ const Menu = observer(({ activeContent, setActiveContent, setOpenContent }: Menu
       alignItems="flex-start"
       sx={{
         mt: '16px',
-        width: mobile700 ? '100%' : '220px',
+        width: mobile700 ? '100%' : '280px',
       }}
     >
       {menu.map((item, index) => (
@@ -104,3 +104,4 @@ const Menu = observer(({ activeContent, setActiveContent, setOpenContent }: Menu
 });
 
 export default Menu;
+

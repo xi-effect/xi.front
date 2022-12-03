@@ -34,11 +34,12 @@ const Main = observer(() => (
       justifyContent="flex-start"
       alignItems="flex-start"
       sx={{
-        bgcolor: 'grayscale.0',
+        bgcolor: 'white',
         width: '100%',
-        height: '232px',
+        height: '217px',
         borderRadius: '8px',
-        padding: '32px',
+        padding: '25px',
+        mt: '32px !important',
       }}
       spacing={3}
     >
@@ -66,3 +67,4 @@ const Main = observer(() => (
 ));
 
 export default Main;
+
