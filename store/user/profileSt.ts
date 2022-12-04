@@ -19,7 +19,7 @@ class ProfileSt {
   @observable profile: ProfileT = {
     email: '',
     confirmed: null,
-    invite: null,
+    code: null,
     name: '',
     surname: '',
     patronymic: '',
@@ -67,7 +67,7 @@ class ProfileSt {
     this.profile = {
       email: '',
       confirmed: null,
-      invite: null,
+      code: null,
       name: '',
       surname: '',
       patronymic: '',
@@ -77,3 +77,4 @@ class ProfileSt {
 }
 
 export default ProfileSt;
+
