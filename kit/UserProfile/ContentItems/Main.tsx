@@ -87,26 +87,7 @@ const Main = observer(() => {
             borderRadius: '8px',
           }}
         >
-          <Typography
-            sx={{
-              width: 'calc(100% - 65px)',
-              fontSize: '24px',
-              lineHeight: '42px',
-              overflow: 'scroll',
-              whiteSpace: 'nowrap',
-              '&::-webkit-scrollbar': {
-                height: '4px',
-              },
-              '&::-webkit-scrollbar-track': {
-                borderRadius: 0,
-              },
-              '&::-webkit-scrollbar-thumb': {
-                borderRadius: 0,
-              },
-            }}
-          >
-            {gInviteLink()}
-          </Typography>
+          <Typography sx={{ fontSize: '24px', lineHeight: '32px' }}>{gInviteLink()}</Typography>
           <Button
             onClick={onCopy}
             sx={{
