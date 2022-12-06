@@ -21,7 +21,7 @@ const Content = ({ activeContent }: ContentProps) => {
       alignItems="flex-start"
       spacing={2}
       sx={{
-        margin: mobile700 ? '' : `16px ${!mobile1400 ? '56px' : '0px'} 16px 32px`,
+        margin: mobile700 ? '' : `16px ${!mobile1400 ? '54px' : '0px'} 16px 32px`,
         mt: mobile700 ? '8px' : '',
         width: '100%',
         mb: '120px',
