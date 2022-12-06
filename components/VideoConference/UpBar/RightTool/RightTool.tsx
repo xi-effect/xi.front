@@ -1,5 +1,8 @@
-import { IconButton, Stack, Tooltip } from '@mui/material';
-import { Endcall } from '@xieffect/base.icons.endcall';
+import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { Grid } from '@xieffect/base.icons.grid';
+import { Maximize } from '@xieffect/base.icons.maximize';
+import { External } from '@xieffect/base.icons.external';
+import { Settings } from '@xieffect/base.icons.settings';
 
 const RightTool = () => (
   <Stack
@@ -11,21 +14,70 @@ const RightTool = () => (
       height: 48,
     }}
   >
-    <Tooltip title="Выйти из конференции">
+    <Tooltip title="Переключить вид" placement="bottom">
       <IconButton
         sx={{
-          height: '48px',
-          width: '48px',
+          ml: '2px',
+          height: '40px',
+          width: '96px',
           color: 'grayscale.0',
-          bgcolor: 'error.dark',
-          borderRadius: '24px',
-
-          '&:hover': {
-            bgcolor: 'error.dark',
-          },
+          bgcolor: 'grayscale.100',
+          borderRadius: '20px',
         }}
       >
-        <Endcall />
+        <Grid />
+        <Typography
+          sx={{
+            ml: '8px',
+            fontWeight: 500,
+            fontSize: '16px',
+            lineHeight: '20px',
+          }}
+        >
+          Вид
+        </Typography>
+      </IconButton>
+    </Tooltip>
+    <Tooltip title="Переключить вид" placement="bottom">
+      <IconButton
+        sx={{
+          ml: '8px',
+          height: '40px',
+          width: '40px',
+          color: 'grayscale.0',
+          bgcolor: 'grayscale.100',
+          borderRadius: '20px',
+        }}
+      >
+        <Maximize />
+      </IconButton>
+    </Tooltip>
+    <Tooltip title="Переключить вид" placement="bottom">
+      <IconButton
+        sx={{
+          ml: '8px',
+          height: '40px',
+          width: '40px',
+          color: 'grayscale.0',
+          bgcolor: 'grayscale.100',
+          borderRadius: '20px',
+        }}
+      >
+        <External />
+      </IconButton>
+    </Tooltip>
+    <Tooltip title="Переключить вид" placement="bottom">
+      <IconButton
+        sx={{
+          ml: '8px',
+          height: '40px',
+          width: '40px',
+          color: 'grayscale.0',
+          bgcolor: 'grayscale.100',
+          borderRadius: '20px',
+        }}
+      >
+        <Settings />
       </IconButton>
     </Tooltip>
   </Stack>

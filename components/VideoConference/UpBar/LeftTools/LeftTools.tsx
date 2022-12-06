@@ -1,7 +1,5 @@
-import { IconButton, Stack, Tooltip } from '@mui/material';
-import { Microphone } from '@xieffect/base.icons.microphone';
-import { Camera } from '@xieffect/base.icons.camera';
-import { Screenshare } from '@xieffect/base.icons.screenshare';
+import { Typography, Stack } from '@mui/material';
+import Image from 'next/image';
 
 const LeftTools = () => (
   <Stack
@@ -13,66 +11,30 @@ const LeftTools = () => (
       height: 48,
     }}
   >
-    <Stack
-      direction="row"
-      justifyContent="space-between"
-      alignItems="center"
+    <Image alt="alt" src="/RoundedLogo.svg" quality={100} width={40} height={40} />
+    <Typography
       sx={{
-        width: '96px',
-        height: '48px',
-        bgcolor: 'grayscale.100',
-        borderRadius: '24px',
+        ml: '32px',
+        fontWeight: 600,
+        fontSize: '24px',
+        lineHeight: '32px',
+        color: 'grayscale.0',
       }}
     >
-      <Tooltip title="Включить микрофон">
-        <IconButton
-          sx={{
-            ml: '2px',
-            height: '44px',
-            width: '44px',
-            color: 'grayscale.0',
-            bgcolor: 'grayscale.100',
-            border: '2px solid #39EF84',
-            borderRadius: '22px',
-          }}
-        >
-          <Microphone />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Включить камеру">
-        <IconButton
-          sx={{
-            mr: '2px',
-            height: '44px',
-            width: '44px',
-            color: 'grayscale.0',
-            bgcolor: 'grayscale.100',
-            border: '2px solid #39EF84',
-            borderRadius: '22px',
-          }}
-        >
-          <Camera />
-        </IconButton>
-      </Tooltip>
-    </Stack>
-    <Tooltip title="Демонстрация экрана">
-      <IconButton
-        sx={{
-          ml: '32px',
-          height: '48px',
-          width: '48px',
-          color: 'grayscale.0',
-          bgcolor: 'grayscale.100',
-          borderRadius: '24px',
-
-          '&:hover': {
-            bgcolor: 'grayscale.100',
-          },
-        }}
-      >
-        <Screenshare />
-      </IconButton>
-    </Tooltip>
+      4Д — БЖ
+    </Typography>
+    <Typography
+      sx={{
+        ml: '8px',
+        mt: '4px',
+        fontWeight: 400,
+        fontSize: '16px',
+        lineHeight: '24px',
+        color: 'grayscale.0',
+      }}
+    >
+      Кастырин И.И.
+    </Typography>
   </Stack>
 );
 

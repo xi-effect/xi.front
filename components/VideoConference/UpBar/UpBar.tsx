@@ -1,5 +1,4 @@
 import { Stack } from '@mui/material';
-import { CenterTools } from './CenterTools';
 import { LeftTools } from './LeftTools';
 import { RightTool } from './RightTool';
 
@@ -20,9 +19,6 @@ const UpBar = () => (
   >
     <Stack direction="row" justifyContent="flex-start" alignItems="center">
       <LeftTools />
-    </Stack>
-    <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
-      <CenterTools />
     </Stack>
     <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={2}>
       <RightTool />
