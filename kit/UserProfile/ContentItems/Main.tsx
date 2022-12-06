@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Button, Stack, Typography } from '@mui/material';
+import Image from 'next/image';
 
 import { observer } from 'mobx-react';
 import { useStore } from 'store/connect';
 
 const Main = observer(() => {
-  // const [inviteRef] = useState<React.RefObject<HTMLSpanElement> | null>(null);
   const rootStore = useStore();
   const { profileSt } = rootStore;
   const inviteId: string | null = profileSt.profile.code;
@@ -98,7 +98,7 @@ const Main = observer(() => {
               borderRadius: '4px',
             }}
           >
-            {' '}
+            <Image src="/icons/copy.svg" width={26} height={26} />
           </Button>
         </Stack>
       </Stack>
