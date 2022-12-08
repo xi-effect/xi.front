@@ -48,7 +48,7 @@ const Main = observer(() => {
         sx={{
           bgcolor: 'white',
           width: '100%',
-          height: '217px',
+          height: '204px',
           borderRadius: '8px',
           padding: '25px 24px',
           mt: '32px !important',
@@ -70,6 +70,7 @@ const Main = observer(() => {
             fontWeight: 400,
             fontSize: '20px',
             lineHeight: '24px',
+            mt: '12px !important',
           }}
         >
           Пригласите знакомых на платформу
@@ -83,19 +84,40 @@ const Main = observer(() => {
             width: '100%',
             height: '64px',
             padding: '6px 6px 6px 20px',
-            bgcolor: '#F5F5F5',
             borderRadius: '8px',
+            bgcolor: '#F5F5F5',
           }}
         >
-          <Typography sx={{ fontSize: '24px', lineHeight: '32px' }}>{gInviteLink()}</Typography>
+          <Typography
+            sx={{
+              fontSize: '24px',
+              lineHeight: '44px',
+              width: '100%',
+              mr: '20px',
+              display: 'block',
+              whiteSpace: 'nowrap',
+              overflowX: 'auto',
+              '&::-webkit-scrollbar': {
+                height: '3px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                borderRadius: 0,
+              },
+            }}
+          >
+            {gInviteLink()}
+          </Typography>
           <Button
             onClick={onCopy}
             sx={{
               width: '52px',
               minWidth: '52px',
               height: '100%',
-              bgcolor: '#445AFF',
+              bgcolor: 'primary.dark',
               borderRadius: '4px',
+              '&:hover': {
+                bgcolor: 'primary.main',
+              },
             }}
           >
             <Image src="/icons/copy.svg" width={26} height={26} />

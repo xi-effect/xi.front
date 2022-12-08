@@ -37,6 +37,7 @@ const UserProfile = observer(() => {
   const [openContent, setOpenContent] = React.useState(false);
 
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
+  const mobile800: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(800));
   const mobile1400: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1400));
 
   const handleClose = () => {
@@ -72,7 +73,7 @@ const UserProfile = observer(() => {
         alignItems="center"
         sx={{
           pt: mobile1400 ? '0px' : '64px',
-          maxWidth: '1226px',
+          maxWidth: mobile800 ? '668px' : '1236px',
           width: '100%',
         }}
       >
@@ -169,3 +170,4 @@ const UserProfile = observer(() => {
 });
 
 export default UserProfile;
+

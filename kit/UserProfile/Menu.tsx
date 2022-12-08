@@ -59,7 +59,8 @@ const Menu = observer(({ activeContent, setActiveContent, setOpenContent }: Menu
       alignItems="flex-start"
       sx={{
         mt: '16px',
-        width: mobile700 ? '100%' : '280px',
+        width: mobile700 ? '100%' : '220px',
+        flexShrink: 0,
       }}
     >
       {menu.map((item, index) => (
@@ -73,6 +74,7 @@ const Menu = observer(({ activeContent, setActiveContent, setOpenContent }: Menu
           sx={{
             mt: item.mt,
             color: 'grayscale.100',
+            paddingLeft: '16px',
             textTransform: 'none',
             backgroundColor: index === activeContent && !mobile700 ? 'grayscale.0' : 'transparent',
             '&:hover': {
