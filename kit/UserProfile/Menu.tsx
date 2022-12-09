@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { Button, Stack, ButtonProps, useMediaQuery, Theme } from '@mui/material';
+import { Button, Stack, ButtonProps, useMediaQuery, Theme, IconButton, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react';
 import { useStore } from 'store/connect';
+import { Burger } from '@xieffect/base.icons.burger';
+import { Close } from '@xieffect/base.icons.close';
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   display: 'flex',
@@ -41,14 +43,15 @@ const menu = [
 type MenuProps = {
   activeContent: number;
   setActiveContent: (activeContent: number) => void;
-  setOpenContent: () => void;
+  closeMenu: () => void;
 };
 
-const Menu = observer(({ activeContent, setActiveContent, setOpenContent }: MenuProps) => {
+const Menu = observer(({ activeContent, setActiveContent, closeMenu }: MenuProps) => {
   const rootStore = useStore();
   const {
     uiSt: { setDialogs },
     userMediaSt: { stopStream },
+    uiSt,
   } = rootStore;
 
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
@@ -63,44 +66,95 @@ const Menu = observer(({ activeContent, setActiveContent, setOpenContent }: Menu
         flexShrink: 0,
       }}
     >
-      {menu.map((item, index) => (
+      {mobile700 && (
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          sx={{ width: '100%', position: 'relative' }}
+        >
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            sx={{
+              height: '40px',
+              width: '100%',
+              position: 'relative',
+            }}
+          >
+            <IconButton
+              sx={{
+                width: '40px',
+                height: '40px',
+                backgroundColor: 'transparent',
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                },
+              }}
+            >
+              <Burger />
+            </IconButton>
+          </Stack>
+          <IconButton
+            onClick={() => {
+              stopStream();
+              uiSt.setDialogs('userProfile', false);
+            }}
+            sx={{
+              width: '40px',
+              height: '40px',
+              bgcolor: 'grayscale.0',
+              position: 'absolute',
+              right: 0,
+            }}
+          >
+            <Close />
+          </IconButton>
+        </Stack>
+      )}
+
+      <Box sx={{ mt: '8px' }}>
+        {menu.map((item, index) => (
+          <ColorButton
+            onClick={() => {
+              stopStream();
+              setActiveContent(index);
+              if (mobile700) closeMenu();
+            }}
+            key={index.toString()}
+            sx={{
+              mt: item.mt,
+              color: 'grayscale.100',
+              paddingLeft: '16px',
+              textTransform: 'none',
+              backgroundColor:
+                index === activeContent && !mobile700 ? 'grayscale.0' : 'transparent',
+              '&:hover': {
+                backgroundColor: !mobile700 ? 'grayscale.0' : '',
+              },
+            }}
+          >
+            {item.name}
+          </ColorButton>
+        ))}
         <ColorButton
           onClick={() => {
-            stopStream();
-            setActiveContent(index);
-            if (mobile700) setOpenContent();
+            if (setDialogs) setDialogs('exit', true);
           }}
-          key={index.toString()}
           sx={{
-            mt: item.mt,
+            mt: '24px',
             color: 'grayscale.100',
-            paddingLeft: '16px',
-            textTransform: 'none',
-            backgroundColor: index === activeContent && !mobile700 ? 'grayscale.0' : 'transparent',
+            backgroundColor: 'transparent',
             '&:hover': {
-              backgroundColor: !mobile700 ? 'grayscale.0' : '',
+              color: 'error.dark',
+              backgroundColor: 'error.pale',
             },
           }}
         >
-          {item.name}
+          Выйти
         </ColorButton>
-      ))}
-      <ColorButton
-        onClick={() => {
-          if (setDialogs) setDialogs('exit', true);
-        }}
-        sx={{
-          mt: '24px',
-          color: 'grayscale.100',
-          backgroundColor: 'transparent',
-          '&:hover': {
-            color: 'error.dark',
-            backgroundColor: 'error.pale',
-          },
-        }}
-      >
-        Выйти
-      </ColorButton>
+      </Box>
     </Stack>
   );
 });

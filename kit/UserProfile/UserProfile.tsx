@@ -3,15 +3,10 @@ import * as React from 'react';
 import { useStore } from 'store/connect';
 
 import { TransitionProps } from '@mui/material/transitions';
-import { Dialog, Slide, Stack, IconButton, useMediaQuery, Theme, Typography } from '@mui/material';
+import { Dialog, Slide, Stack, useMediaQuery, Theme, Box } from '@mui/material';
 import { observer } from 'mobx-react';
-import { Burger } from '@xieffect/base.icons.burger';
-import { Close } from '@xieffect/base.icons.close';
-import { Arrow } from '@xieffect/base.icons.arrow';
 import Menu from './Menu';
 import Content from './Content';
-
-const titles = ['Главная', 'Личные данные', 'Безопасность', 'Звук и видео'];
 
 const Transition = React.forwardRef(
   (
@@ -24,31 +19,18 @@ const Transition = React.forwardRef(
 
 const UserProfile = observer(() => {
   const rootStore = useStore();
-  const {
-    uiSt,
-    profileSt,
-    userSt,
-    userMediaSt: { stopStream },
-  } = rootStore;
-
+  const { uiSt, profileSt, userSt } = rootStore;
   const { dialogs, setDialogs } = uiSt;
 
   const [activeContent, setActiveContent] = React.useState(0);
-  const [openContent, setOpenContent] = React.useState(false);
-  const [isAnimationEnded, setIsAnimationEnded] = React.useState(true);
+  const [isOpenMenu, setIsOpenMenu] = React.useState(true);
 
-  const animateOpening = () => {
-    setIsAnimationEnded(false);
-    setTimeout(() => {
-      setIsAnimationEnded(true);
-    }, 0);
+  const openMenu = () => {
+    setIsOpenMenu(true);
   };
-  const onCloseMenu = () => {
-    setOpenContent(false);
-  };
-  const onOpenMenu = () => {
-    setOpenContent(true);
-    animateOpening();
+  const closeMenu = () => {
+    console.log('close');
+    setIsOpenMenu(false);
   };
 
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
@@ -92,82 +74,10 @@ const UserProfile = observer(() => {
           pt: mobile1400 ? '0px' : '64px',
           maxWidth: mobile800 ? '668px' : '1236px',
           width: '100%',
-          transition: isAnimationEnded ? '0.2s' : 0,
-          transform: openContent
-            ? `translateX(${isAnimationEnded ? 0 : '100%'})`
-            : `translateX(${isAnimationEnded ? 0 : '100%'})`,
+          overflowX: 'hidden',
+          overflowY: isOpenMenu ? 'hidden' : '',
         }}
       >
-        <Stack
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
-          sx={{
-            height: '40px',
-            width: '100%',
-            position: 'relative',
-          }}
-        >
-          {mobile700 && (
-            <>
-              {!openContent && (
-                <IconButton
-                  onClick={onCloseMenu}
-                  sx={{
-                    width: '40px',
-                    height: '40px',
-                    backgroundColor: 'transparent',
-                    '&:hover': {
-                      backgroundColor: 'transparent',
-                    },
-                  }}
-                >
-                  <Burger />
-                </IconButton>
-              )}
-              {openContent && (
-                <IconButton
-                  onClick={onCloseMenu}
-                  sx={{
-                    width: '40px',
-                    height: '40px',
-                    transform: 'rotate(180deg)',
-                    backgroundColor: 'grayscale.0',
-                  }}
-                >
-                  <Arrow />
-                </IconButton>
-              )}
-            </>
-          )}
-          {openContent && (
-            <Typography
-              sx={{
-                ml: '8px',
-                fontWeight: 500,
-                fontSize: '16px',
-                lineHeight: '20px',
-              }}
-            >
-              {titles[activeContent] ?? 'Главная'}
-            </Typography>
-          )}
-          <IconButton
-            onClick={() => {
-              stopStream();
-              uiSt.setDialogs('userProfile', false);
-            }}
-            sx={{
-              width: '40px',
-              height: '40px',
-              bgcolor: 'grayscale.0',
-              position: 'absolute',
-              right: 0,
-            }}
-          >
-            <Close />
-          </IconButton>
-        </Stack>
         <Stack
           direction={mobile700 ? 'column' : 'row'}
           justifyContent="flex-start"
@@ -176,14 +86,30 @@ const UserProfile = observer(() => {
             width: '100%',
           }}
         >
-          {!openContent && (
+          {isOpenMenu && (
             <Menu
               activeContent={activeContent}
               setActiveContent={setActiveContent}
-              setOpenContent={onOpenMenu}
+              closeMenu={closeMenu}
             />
           )}
-          {(openContent || !mobile700) && <Content activeContent={activeContent} />}
+          {(mobile700 && (
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 8,
+                left: isOpenMenu ? '100%' : 0,
+                transition: '200ms',
+                zIndex: 1000000,
+                width: '100%',
+                minWidth: 0,
+                padding: '8px 25px',
+              }}
+            >
+              <Content activeContent={activeContent} openMenu={openMenu} />
+            </Box>
+          )) ||
+            (!mobile700 && <Content activeContent={activeContent} openMenu={openMenu} />)}
         </Stack>
       </Stack>
     </Dialog>
