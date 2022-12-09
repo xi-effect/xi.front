@@ -35,6 +35,21 @@ const UserProfile = observer(() => {
 
   const [activeContent, setActiveContent] = React.useState(0);
   const [openContent, setOpenContent] = React.useState(false);
+  const [isAnimationEnded, setIsAnimationEnded] = React.useState(true);
+
+  const animateOpening = () => {
+    setIsAnimationEnded(false);
+    setTimeout(() => {
+      setIsAnimationEnded(true);
+    }, 0);
+  };
+  const onCloseMenu = () => {
+    setOpenContent(false);
+  };
+  const onOpenMenu = () => {
+    setOpenContent(true);
+    animateOpening();
+  };
 
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
   const mobile800: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(800));
@@ -51,14 +66,16 @@ const UserProfile = observer(() => {
 
   return (
     <Dialog
-      sx={{ backgroundColor: 'primary.pale' }}
+      sx={{
+        backgroundColor: 'primary.pale',
+      }}
       PaperProps={{
         sx: {
           backgroundColor: 'primary.pale',
           display: 'flex',
           justifyContent: 'flex-start',
           alignItems: 'center',
-          p: mobile700 ? '8px' : '16px',
+          p: mobile700 ? '8px 25px' : '16px',
           overflow: 'scroll',
         },
       }}
@@ -75,6 +92,10 @@ const UserProfile = observer(() => {
           pt: mobile1400 ? '0px' : '64px',
           maxWidth: mobile800 ? '668px' : '1236px',
           width: '100%',
+          transition: isAnimationEnded ? '0.2s' : 0,
+          transform: openContent
+            ? `translateX(${isAnimationEnded ? 0 : '100%'})`
+            : `translateX(${isAnimationEnded ? 0 : '100%'})`,
         }}
       >
         <Stack
@@ -91,7 +112,7 @@ const UserProfile = observer(() => {
             <>
               {!openContent && (
                 <IconButton
-                  onClick={() => setOpenContent(false)}
+                  onClick={onCloseMenu}
                   sx={{
                     width: '40px',
                     height: '40px',
@@ -106,7 +127,7 @@ const UserProfile = observer(() => {
               )}
               {openContent && (
                 <IconButton
-                  onClick={() => setOpenContent(false)}
+                  onClick={onCloseMenu}
                   sx={{
                     width: '40px',
                     height: '40px',
@@ -159,7 +180,7 @@ const UserProfile = observer(() => {
             <Menu
               activeContent={activeContent}
               setActiveContent={setActiveContent}
-              setOpenContent={setOpenContent}
+              setOpenContent={onOpenMenu}
             />
           )}
           {(openContent || !mobile700) && <Content activeContent={activeContent} />}

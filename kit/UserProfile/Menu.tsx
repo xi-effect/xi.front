@@ -41,7 +41,7 @@ const menu = [
 type MenuProps = {
   activeContent: number;
   setActiveContent: (activeContent: number) => void;
-  setOpenContent: (openContent: boolean) => void;
+  setOpenContent: () => void;
 };
 
 const Menu = observer(({ activeContent, setActiveContent, setOpenContent }: MenuProps) => {
@@ -68,7 +68,7 @@ const Menu = observer(({ activeContent, setActiveContent, setOpenContent }: Menu
           onClick={() => {
             stopStream();
             setActiveContent(index);
-            if (mobile700) setOpenContent(true);
+            if (mobile700) setOpenContent();
           }}
           key={index.toString()}
           sx={{

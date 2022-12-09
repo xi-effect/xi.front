@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 
 import { observer } from 'mobx-react';
@@ -15,6 +15,8 @@ const Main = observer(() => {
   const onCopy: () => void = async () => {
     await navigator.clipboard.writeText(gInviteLink());
   };
+
+  const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
 
   return (
     <>
@@ -48,18 +50,18 @@ const Main = observer(() => {
         sx={{
           bgcolor: 'white',
           width: '100%',
-          height: '204px',
+          height: mobile700 ? '176px' : '204px',
           borderRadius: '8px',
           padding: '25px 24px',
-          mt: '32px !important',
+          mt: mobile700 ? '24px !important' : '32px !important',
         }}
         spacing={3}
       >
         <Typography
           sx={{
             fontWeight: 600,
-            fontSize: '24px',
-            lineHeight: '32px',
+            fontSize: mobile700 ? '20px' : '24px',
+            lineHeight: mobile700 ? '24px' : '32px',
           }}
         >
           Ссылка-приглашение
@@ -68,8 +70,8 @@ const Main = observer(() => {
           sx={{
             color: 'grayscale.40',
             fontWeight: 400,
-            fontSize: '20px',
-            lineHeight: '24px',
+            fontSize: mobile700 ? '16px' : '20px',
+            lineHeight: mobile700 ? '20px' : '24px',
             mt: '12px !important',
           }}
         >
@@ -82,15 +84,16 @@ const Main = observer(() => {
           justifyContent="space-between"
           sx={{
             width: '100%',
-            height: '64px',
-            padding: '6px 6px 6px 20px',
+            height: mobile700 ? '52px' : '64px',
+            padding: `6px 6px 6px ${mobile700 ? '12px' : '20px'}`,
             borderRadius: '8px',
             bgcolor: '#F5F5F5',
+            mt: mobile700 ? '20px !important' : '',
           }}
         >
           <Typography
             sx={{
-              fontSize: '24px',
+              fontSize: mobile700 ? '15px' : '24px',
               lineHeight: '44px',
               width: '100%',
               mr: '20px',
@@ -110,8 +113,8 @@ const Main = observer(() => {
           <Button
             onClick={onCopy}
             sx={{
-              width: '52px',
-              minWidth: '52px',
+              width: mobile700 ? '40px' : '52px',
+              minWidth: mobile700 ? '40px' : '52px',
               height: '100%',
               bgcolor: 'primary.dark',
               borderRadius: '4px',

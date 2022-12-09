@@ -23,7 +23,7 @@ const Content = ({ activeContent }: ContentProps) => {
       spacing={2}
       sx={{
         margin: mobile700 ? '' : `16px ${!mobile1400 ? '46px' : '0px'} 16px 32px`,
-        ml: mobile800 ? '16px' : '',
+        ml: mobile700 ? '0' : `${mobile800 ? '16px' : ''}`,
         mt: mobile700 ? '8px' : '',
         width: '100%',
         maxWidth: '928px',
