@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react';
 import { useStore } from 'store/connect';
 import { Burger } from '@xieffect/base.icons.burger';
-import { Close } from '@xieffect/base.icons.close';
+import HeaderMobile from './HeaderMobile';
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   display: 'flex',
@@ -51,7 +51,6 @@ const Menu = observer(({ activeContent, setActiveContent, closeMenu }: MenuProps
   const {
     uiSt: { setDialogs },
     userMediaSt: { stopStream },
-    uiSt,
   } = rootStore;
 
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
@@ -61,60 +60,38 @@ const Menu = observer(({ activeContent, setActiveContent, closeMenu }: MenuProps
       justifyContent="flex-start"
       alignItems="flex-start"
       sx={{
-        mt: '16px',
+        mt: mobile700 ? '16px' : '8px',
         width: mobile700 ? '100%' : '220px',
         flexShrink: 0,
       }}
     >
-      {mobile700 && (
+      <HeaderMobile>
         <Stack
           direction="row"
-          justifyContent="space-between"
+          justifyContent="flex-start"
           alignItems="center"
-          sx={{ width: '100%', position: 'relative' }}
+          sx={{
+            height: '40px',
+            width: '100%',
+            position: 'relative',
+          }}
         >
-          <Stack
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
-            sx={{
-              height: '40px',
-              width: '100%',
-              position: 'relative',
-            }}
-          >
-            <IconButton
-              sx={{
-                width: '40px',
-                height: '40px',
-                backgroundColor: 'transparent',
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                },
-              }}
-            >
-              <Burger />
-            </IconButton>
-          </Stack>
           <IconButton
-            onClick={() => {
-              stopStream();
-              uiSt.setDialogs('userProfile', false);
-            }}
             sx={{
               width: '40px',
               height: '40px',
-              bgcolor: 'grayscale.0',
-              position: 'absolute',
-              right: 0,
+              backgroundColor: 'transparent',
+              '&:hover': {
+                backgroundColor: 'transparent',
+              },
             }}
           >
-            <Close />
+            <Burger />
           </IconButton>
         </Stack>
-      )}
+      </HeaderMobile>
 
-      <Box sx={{ mt: '8px' }}>
+      <Box sx={{ mt: '8px', width: '100%' }}>
         {menu.map((item, index) => (
           <ColorButton
             onClick={() => {

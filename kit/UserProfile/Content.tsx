@@ -2,14 +2,13 @@
 import * as React from 'react';
 import { Stack, useMediaQuery, Theme, IconButton, Typography } from '@mui/material';
 import { Arrow } from '@xieffect/base.icons.arrow';
-import { Close } from '@xieffect/base.icons.close';
-import { useStore } from 'store/connect';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Box } from '@mui/system';
 import Main from './ContentItems/Main';
 import Account from './ContentItems/Account';
 import Secure from './ContentItems/Secure';
 import SoundAndVideo from './ContentItems/SoundAndVideo';
+import HeaderMobile from './HeaderMobile';
 
 type ContentProps = {
   activeContent: number;
@@ -17,12 +16,6 @@ type ContentProps = {
 };
 
 const Content = ({ activeContent, openMenu }: ContentProps) => {
-  const rootStore = useStore();
-  const {
-    uiSt,
-    userMediaSt: { stopStream },
-  } = rootStore;
-
   const mobile1400: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1400));
   const mobile800: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(800));
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
@@ -36,7 +29,7 @@ const Content = ({ activeContent, openMenu }: ContentProps) => {
       alignItems="flex-start"
       spacing={2}
       sx={{
-        margin: mobile700 ? '' : `16px ${!mobile1400 ? '46px' : '0px'} 16px 32px`,
+        margin: mobile700 ? '' : `0px ${!mobile1400 ? '46px' : '0px'} 16px 32px`,
         ml: mobile700 ? '0' : `${mobile800 ? '16px' : ''}`,
         width: '100%',
         maxWidth: '928px',
@@ -44,48 +37,24 @@ const Content = ({ activeContent, openMenu }: ContentProps) => {
         mb: '120px',
       }}
     >
-      {/* header in mobile version */}
-      {mobile700 && (
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          sx={{ position: 'relative', width: '100%' }}
-        >
-          <Stack direction="row" alignItems="center">
-            <IconButton
-              onClick={openMenu}
-              sx={{
-                width: '40px',
-                height: '40px',
-                transform: 'rotate(180deg)',
-                backgroundColor: 'grayscale.0',
-              }}
-            >
-              <Arrow />
-            </IconButton>
-            <Typography sx={{ ml: '8px', fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>
-              {settingsTitles[activeContent]}
-            </Typography>
-          </Stack>
-
+      <HeaderMobile>
+        <Stack direction="row" alignItems="center">
           <IconButton
-            onClick={() => {
-              stopStream();
-              uiSt.setDialogs('userProfile', false);
-            }}
+            onClick={openMenu}
             sx={{
               width: '40px',
               height: '40px',
-              bgcolor: 'grayscale.0',
-              position: 'absolute',
-              right: 0,
+              transform: 'rotate(180deg)',
+              backgroundColor: 'grayscale.0',
             }}
           >
-            <Close />
+            <Arrow />
           </IconButton>
+          <Typography sx={{ ml: '8px', fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>
+            {settingsTitles[activeContent]}
+          </Typography>
         </Stack>
-      )}
+      </HeaderMobile>
 
       {/* chosen setting's page content */}
       <Box

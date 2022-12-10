@@ -3,8 +3,9 @@ import * as React from 'react';
 import { useStore } from 'store/connect';
 
 import { TransitionProps } from '@mui/material/transitions';
-import { Dialog, Slide, Stack, useMediaQuery, Theme, Box } from '@mui/material';
+import { Dialog, Slide, Stack, useMediaQuery, Theme, Box, IconButton } from '@mui/material';
 import { observer } from 'mobx-react';
+import { Close } from '@xieffect/base.icons.close';
 import Menu from './Menu';
 import Content from './Content';
 
@@ -19,7 +20,12 @@ const Transition = React.forwardRef(
 
 const UserProfile = observer(() => {
   const rootStore = useStore();
-  const { uiSt, profileSt, userSt } = rootStore;
+  const {
+    uiSt,
+    profileSt,
+    userSt,
+    userMediaSt: { stopStream },
+  } = rootStore;
   const { dialogs, setDialogs } = uiSt;
 
   const [activeContent, setActiveContent] = React.useState(0);
@@ -78,6 +84,30 @@ const UserProfile = observer(() => {
           overflowY: isOpenMenu ? 'hidden' : '',
         }}
       >
+        {!mobile700 && (
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{ width: '100%', height: '40px', position: 'relative' }}
+          >
+            <IconButton
+              onClick={() => {
+                stopStream();
+                uiSt.setDialogs('userProfile', false);
+              }}
+              sx={{
+                width: '40px',
+                height: '40px',
+                bgcolor: 'grayscale.0',
+                position: 'absolute',
+                right: 0,
+              }}
+            >
+              <Close />
+            </IconButton>
+          </Stack>
+        )}
         <Stack
           direction={mobile700 ? 'column' : 'row'}
           justifyContent="flex-start"
