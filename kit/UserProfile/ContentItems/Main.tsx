@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Button, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
+import { Alert, Button, Snackbar, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
+
 import Image from 'next/image';
 
 import { observer } from 'mobx-react';
 import { useStore } from 'store/connect';
 
 const Main = observer(() => {
+  const [isCopied, setIsCopied] = useState(false);
+
   const rootStore = useStore();
   const { profileSt } = rootStore;
   const inviteId: string | null = profileSt.profile.code;
@@ -15,8 +18,12 @@ const Main = observer(() => {
     return `https://app.xieffect.ru/signup?invite=${inviteId}`;
   };
 
+  const copySuccessDuration = 1500;
   const onCopy: () => void = async () => {
     await navigator.clipboard.writeText(gInviteLink());
+    // show success coppy msg
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), copySuccessDuration);
   };
 
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
@@ -130,6 +137,20 @@ const Main = observer(() => {
           </Button>
         </Stack>
       </Stack>
+
+      <Snackbar open={isCopied} autoHideDuration={copySuccessDuration}>
+        <Alert
+          severity="success"
+          sx={{
+            width: '130px',
+            bgcolor: 'primary.dark',
+            color: 'grayscale.0',
+            fontSize: '16px',
+          }}
+        >
+          Copied!
+        </Alert>
+      </Snackbar>
     </>
   );
 });

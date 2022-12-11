@@ -17,8 +17,6 @@ const HeaderMobile = observer(({ children }: HeaderMobile) => {
 
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
 
-  console.log(children);
-
   return (
     <Box sx={{ width: '100%' }}>
       {mobile700 && (
