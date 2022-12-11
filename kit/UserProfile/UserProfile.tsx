@@ -63,7 +63,7 @@ const UserProfile = observer(() => {
           display: 'flex',
           justifyContent: 'flex-start',
           alignItems: 'center',
-          p: mobile700 ? '8px 25px' : '16px',
+          p: mobile700 ? '8px 25px' : '8px',
           overflow: 'scroll',
         },
       }}

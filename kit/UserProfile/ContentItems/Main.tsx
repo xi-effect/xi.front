@@ -10,7 +10,10 @@ const Main = observer(() => {
   const rootStore = useStore();
   const { profileSt } = rootStore;
   const inviteId: string | null = profileSt.profile.code;
-  const gInviteLink: () => string = () => `https://app.xieffect.ru/signup?invite=${inviteId}`;
+  const gInviteLink: () => string = () => {
+    if (!inviteId) return 'Не удалось создать приглашение.';
+    return `https://app.xieffect.ru/signup?invite=${inviteId}`;
+  };
 
   const onCopy: () => void = async () => {
     await navigator.clipboard.writeText(gInviteLink());
@@ -48,9 +51,8 @@ const Main = observer(() => {
         justifyContent="flex-start"
         alignItems="flex-start"
         sx={{
-          bgcolor: 'white',
+          bgcolor: 'grayscale.0',
           width: '100%',
-          height: mobile700 ? '176px' : '204px',
           borderRadius: '8px',
           padding: '25px 24px',
           mt: mobile700 ? '24px !important' : '32px !important',
@@ -94,6 +96,7 @@ const Main = observer(() => {
           <Typography
             sx={{
               fontSize: mobile700 ? '15px' : '24px',
+              color: inviteId ? 'grayscale.100' : 'red',
               lineHeight: '44px',
               width: '100%',
               mr: '20px',
