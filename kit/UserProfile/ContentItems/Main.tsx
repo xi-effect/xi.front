@@ -13,14 +13,15 @@ const Main = observer(() => {
   const rootStore = useStore();
   const { profileSt } = rootStore;
   const inviteId: string | null = profileSt.profile.code;
-  const gInviteLink: () => string = () => {
+
+  const getInviteLink = () => {
     if (!inviteId) return 'Не удалось создать приглашение.';
     return `https://app.xieffect.ru/signup?invite=${inviteId}`;
   };
 
   const copySuccessDuration = 1500;
   const onCopy: () => void = async () => {
-    await navigator.clipboard.writeText(gInviteLink());
+    await navigator.clipboard.writeText(getInviteLink());
     // show success coppy msg
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), copySuccessDuration);
@@ -118,7 +119,7 @@ const Main = observer(() => {
               },
             }}
           >
-            {gInviteLink()}
+            {getInviteLink()}
           </Typography>
           <Button
             onClick={onCopy}
