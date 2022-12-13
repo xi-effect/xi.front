@@ -26,7 +26,7 @@ const UserProfile = observer(() => {
     userSt,
     userMediaSt: { stopStream },
   } = rootStore;
-  const { dialogs, setDialogs } = uiSt;
+  const { dialogs } = uiSt;
 
   const [activeContent, setActiveContent] = React.useState(0);
   const [isOpenMenu, setIsOpenMenu] = React.useState(true);
@@ -42,10 +42,6 @@ const UserProfile = observer(() => {
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
   const mobile800: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(800));
   const mobile1400: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1400));
-
-  const handleClose = () => {
-    setDialogs('userProfile', false);
-  };
 
   React.useEffect(() => {
     profileSt.getProfile();
@@ -69,7 +65,6 @@ const UserProfile = observer(() => {
       }}
       fullScreen
       open={dialogs.userProfile}
-      onClose={handleClose}
       TransitionComponent={Transition}
     >
       <Stack
@@ -130,7 +125,6 @@ const UserProfile = observer(() => {
                 top: 8,
                 left: isOpenMenu ? '100%' : 0,
                 transition: '200ms',
-                zIndex: 1000000,
                 width: '100%',
                 minWidth: 0,
                 padding: '8px 25px',

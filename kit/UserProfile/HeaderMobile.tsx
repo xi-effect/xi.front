@@ -27,7 +27,7 @@ const HeaderMobile = observer(({ children }: HeaderMobile) => {
           sx={{ width: '100%', position: 'relative' }}
         >
           {/* custom btn */}
-          <div>{children}</div>
+          {children}
 
           {/* close btn */}
           <IconButton
