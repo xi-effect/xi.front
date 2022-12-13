@@ -1,9 +1,7 @@
 /* eslint-disable react/jsx-key */
 import * as React from 'react';
-import { Stack, useMediaQuery, Theme, IconButton, Typography } from '@mui/material';
+import { Stack, useMediaQuery, Theme, IconButton, Typography, Box } from '@mui/material';
 import { Arrow } from '@xieffect/base.icons.arrow';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Box } from '@mui/system';
 import Main from './ContentItems/Main';
 import Account from './ContentItems/Account';
 import Secure from './ContentItems/Secure';
