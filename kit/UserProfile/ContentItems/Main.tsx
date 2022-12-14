@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Alert, Button, Snackbar, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
 
-import Image from 'next/image';
+import EditorIcon from 'kit/MyIcon/Editor';
 
 import { observer } from 'mobx-react';
 import { useStore } from 'store/connect';
@@ -132,9 +132,12 @@ const Main = observer(() => {
               '&:hover': {
                 bgcolor: 'primary.main',
               },
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            <Image src="/icons/copy.svg" width={26} height={26} />
+            <EditorIcon name="copy" color="#fff" />
           </Button>
         </Stack>
       </Stack>

@@ -13,6 +13,7 @@ import Divider from './Divider';
 import FileEditor from './File';
 import NumList from './NumList';
 import MarkList from './MarkList';
+import Copy from './Copy';
 
 type EditorIconT = {
   name: string;
@@ -24,9 +25,9 @@ export const IconWrap: React.FC = ({ children, ...props }) => (
     justifyContent="center"
     alignItems="center"
     sx={{
-      pr: '8px',
-      width: '24px',
-      height: '24px',
+      // pr: '8px',
+      width: '26px',
+      height: '26px',
       svg: {
         transition: 'fill 0.2s ease-in, stroke 0.2s ease-in ',
       },
@@ -56,9 +57,11 @@ const EditorIcon: React.FC<EditorIconT> = ({ name, color }) => {
     imageMedium: <Image medium color={color} />,
     videoMedium: <Video medium color={color} />,
     fileEditorMedium: <FileEditor medium color={color} />,
+    copy: <Copy color={color} />,
   };
 
   return icon[name];
 };
 
 export default EditorIcon;
+

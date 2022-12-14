@@ -66,3 +66,4 @@ const CreationMenuItem: React.FC<MenuElementT> = (props) => {
 };
 
 export default CreationMenuItem;
+
