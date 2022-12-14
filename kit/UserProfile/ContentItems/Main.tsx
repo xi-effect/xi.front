@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Alert, Button, Snackbar, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
+import { Button, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
 
 import EditorIcon from 'kit/MyIcon/Editor';
+import { useSnackbar } from 'notistack';
 
 import { observer } from 'mobx-react';
 import { useStore } from 'store/connect';
 
 const Main = observer(() => {
-  const [isCopied, setIsCopied] = useState(false);
-
   const rootStore = useStore();
   const { profileSt } = rootStore;
   const inviteId: string | null = profileSt.profile.code;
@@ -19,12 +18,13 @@ const Main = observer(() => {
     return `https://app.xieffect.ru/signup?invite=${inviteId}`;
   };
 
-  const copySuccessDuration = 1500;
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const onCopy: () => void = async () => {
     await navigator.clipboard.writeText(getInviteLink());
     // show success coppy msg
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), copySuccessDuration);
+    const msgDuration = 1700;
+    enqueueSnackbar('Copied!', { variant: 'success' });
+    setTimeout(() => closeSnackbar(), msgDuration);
   };
 
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
@@ -141,20 +141,6 @@ const Main = observer(() => {
           </Button>
         </Stack>
       </Stack>
-
-      <Snackbar open={isCopied} autoHideDuration={copySuccessDuration}>
-        <Alert
-          severity="success"
-          sx={{
-            width: '130px',
-            bgcolor: 'primary.dark',
-            color: 'grayscale.0',
-            fontSize: '16px',
-          }}
-        >
-          Copied!
-        </Alert>
-      </Snackbar>
     </>
   );
 });
