@@ -51,7 +51,6 @@ const UserProfile = observer(() => {
           justifyContent: 'flex-start',
           alignItems: 'center',
           p: mobile700 ? '8px 25px' : '8px',
-          overflow: 'scroll',
         },
       }}
       fullScreen
@@ -66,8 +65,6 @@ const UserProfile = observer(() => {
           pt: mobile1400 ? '0px' : '64px',
           maxWidth: mobile800 ? '668px' : '1236px',
           width: '100%',
-          overflowX: 'hidden',
-          overflowY: isOpenMenu ? 'hidden' : '',
         }}
       >
         <Header

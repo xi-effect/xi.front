@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import * as React from 'react';
-import { Stack, useMediaQuery, Theme, Box } from '@mui/material';
+import { Stack, useMediaQuery, Theme } from '@mui/material';
 import Main from './ContentItems/Main';
 import Account from './ContentItems/Account';
 import Secure from './ContentItems/Secure';
@@ -20,7 +20,7 @@ const Content = ({ activeContent }: ContentProps) => {
       direction="column"
       justifyContent="flex-start"
       alignItems="flex-start"
-      spacing={2}
+      spacing={4}
       sx={{
         margin: mobile700 ? '' : `0px ${!mobile1400 ? '46px' : '0px'} 16px 32px`,
         ml: mobile700 ? '0' : `${mobile800 ? '16px' : ''}`,
@@ -30,16 +30,22 @@ const Content = ({ activeContent }: ContentProps) => {
         mb: '120px',
       }}
     >
-      <Box
-        sx={{
-          mt: mobile700 ? '8px' : '',
-          width: '100%',
-          minWidth: 0,
-        }}
-      >
-        {[<Main />, <Account />, <Secure />, <SoundAndVideo />][activeContent]}
-      </Box>
+      {[<Main />, <Account />, <Secure />, <SoundAndVideo />][activeContent]}
     </Stack>
+    // <Stack
+    //   direction="column"
+    //   justifyContent="flex-start"
+    //   alignItems="flex-start"
+    //   spacing={2}
+    //   sx={{
+    //     margin: mobile700 ? '' : `16px ${!mobile1400 ? '56px' : '0px'} 16px 32px`,
+    //     mt: mobile700 ? '8px' : '',
+    //     width: '100%',
+    //     mb: '120px',
+    //   }}
+    // >
+    //   {[<Main />, <Account />, <Secure />, <SoundAndVideo />][activeContent]}
+    // </Stack>
   );
 };
 
