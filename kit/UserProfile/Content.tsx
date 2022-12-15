@@ -32,7 +32,7 @@ const Content = ({ activeContent }: ContentProps) => {
     >
       <Box
         sx={{
-          mt: mobile700 ? '8px !important' : '',
+          mt: mobile700 ? '8px' : '',
           width: '100%',
           minWidth: 0,
         }}

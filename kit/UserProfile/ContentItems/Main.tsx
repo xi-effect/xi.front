@@ -63,9 +63,8 @@ const Main = observer(() => {
           width: '100%',
           borderRadius: '8px',
           padding: '25px 24px',
-          mt: mobile700 ? '24px !important' : '32px !important',
+          mt: mobile700 ? '24px' : '32px',
         }}
-        spacing={3}
       >
         <Typography
           sx={{
@@ -77,12 +76,14 @@ const Main = observer(() => {
           Ссылка-приглашение
         </Typography>
         <Typography
+          margin="0"
+          mt="12px"
           sx={{
             color: 'grayscale.40',
             fontWeight: 400,
             fontSize: mobile700 ? '16px' : '20px',
             lineHeight: mobile700 ? '20px' : '24px',
-            mt: '12px !important',
+            m: mobile700 ? '12px 0 20px 0' : '24px 0 24px 0',
           }}
         >
           Пригласите знакомых на платформу
@@ -98,7 +99,6 @@ const Main = observer(() => {
             padding: `6px 6px 6px ${mobile700 ? '12px' : '20px'}`,
             borderRadius: '8px',
             bgcolor: '#F5F5F5',
-            mt: mobile700 ? '20px !important' : '',
           }}
         >
           <Typography
