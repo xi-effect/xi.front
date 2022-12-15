@@ -3,11 +3,11 @@ import * as React from 'react';
 import { useStore } from 'store/connect';
 
 import { TransitionProps } from '@mui/material/transitions';
-import { Dialog, Slide, Stack, useMediaQuery, Theme, Box, IconButton } from '@mui/material';
+import { Dialog, Slide, Stack, useMediaQuery, Theme, Box } from '@mui/material';
 import { observer } from 'mobx-react';
-import { Close } from '@xieffect/base.icons.close';
 import Menu from './Menu';
 import Content from './Content';
+import Header from './Header';
 
 const Transition = React.forwardRef(
   (
@@ -20,23 +20,14 @@ const Transition = React.forwardRef(
 
 const UserProfile = observer(() => {
   const rootStore = useStore();
-  const {
-    uiSt,
-    profileSt,
-    userSt,
-    userMediaSt: { stopStream },
-  } = rootStore;
+  const { uiSt, profileSt, userSt } = rootStore;
   const { dialogs } = uiSt;
 
   const [activeContent, setActiveContent] = React.useState(0);
   const [isOpenMenu, setIsOpenMenu] = React.useState(true);
 
-  const openMenu = () => {
-    setIsOpenMenu(true);
-  };
-  const closeMenu = () => {
-    console.log('close');
-    setIsOpenMenu(false);
+  const changeMenuStatus = (status: boolean) => {
+    setIsOpenMenu(status);
   };
 
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
@@ -79,50 +70,31 @@ const UserProfile = observer(() => {
           overflowY: isOpenMenu ? 'hidden' : '',
         }}
       >
-        {!mobile700 && (
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{ width: '100%', height: '40px', position: 'relative' }}
-          >
-            <IconButton
-              onClick={() => {
-                stopStream();
-                uiSt.setDialogs('userProfile', false);
-              }}
-              sx={{
-                width: '40px',
-                height: '40px',
-                bgcolor: 'grayscale.0',
-                position: 'absolute',
-                right: 0,
-              }}
-            >
-              <Close />
-            </IconButton>
-          </Stack>
-        )}
+        <Header
+          activeContent={isOpenMenu ? null : activeContent}
+          changeMenuStatus={changeMenuStatus}
+        />
         <Stack
           direction={mobile700 ? 'column' : 'row'}
           justifyContent="flex-start"
           alignItems="flex-start"
           sx={{
             width: '100%',
+            mt: mobile700 ? '8px' : '16px',
           }}
         >
           {isOpenMenu && (
             <Menu
               activeContent={activeContent}
               setActiveContent={setActiveContent}
-              closeMenu={closeMenu}
+              changeMenuStatus={changeMenuStatus}
             />
           )}
           {(mobile700 && (
             <Box
               sx={{
                 position: 'absolute',
-                top: 8,
+                top: '40px',
                 left: isOpenMenu ? '100%' : 0,
                 transition: '200ms',
                 width: '100%',
@@ -130,10 +102,10 @@ const UserProfile = observer(() => {
                 padding: '8px 25px',
               }}
             >
-              <Content activeContent={activeContent} openMenu={openMenu} />
+              <Content activeContent={activeContent} />
             </Box>
           )) ||
-            (!mobile700 && <Content activeContent={activeContent} openMenu={openMenu} />)}
+            (!mobile700 && <Content activeContent={activeContent} />)}
         </Stack>
       </Stack>
     </Dialog>

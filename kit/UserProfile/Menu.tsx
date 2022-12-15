@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { Button, Stack, ButtonProps, useMediaQuery, Theme, IconButton, Box } from '@mui/material';
+import { Button, Stack, ButtonProps, useMediaQuery, Theme, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react';
 import { useStore } from 'store/connect';
-import { Burger } from '@xieffect/base.icons.burger';
-import HeaderMobile from './HeaderMobile';
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   display: 'flex',
@@ -41,12 +39,12 @@ const menu = [
 ];
 
 type MenuProps = {
+  changeMenuStatus: (status: boolean) => void;
   activeContent: number;
   setActiveContent: (activeContent: number) => void;
-  closeMenu: () => void;
 };
 
-const Menu = observer(({ activeContent, setActiveContent, closeMenu }: MenuProps) => {
+const Menu = observer(({ activeContent, setActiveContent, changeMenuStatus }: MenuProps) => {
   const rootStore = useStore();
   const {
     uiSt: { setDialogs },
@@ -60,44 +58,18 @@ const Menu = observer(({ activeContent, setActiveContent, closeMenu }: MenuProps
       justifyContent="flex-start"
       alignItems="flex-start"
       sx={{
-        mt: mobile700 ? '16px' : '8px',
+        mt: 0,
         width: mobile700 ? '100%' : '220px',
         flexShrink: 0,
       }}
     >
-      <HeaderMobile>
-        <Stack
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
-          sx={{
-            height: '40px',
-            width: '100%',
-            position: 'relative',
-          }}
-        >
-          <IconButton
-            sx={{
-              width: '40px',
-              height: '40px',
-              backgroundColor: 'transparent',
-              '&:hover': {
-                backgroundColor: 'transparent',
-              },
-            }}
-          >
-            <Burger />
-          </IconButton>
-        </Stack>
-      </HeaderMobile>
-
-      <Box sx={{ mt: '8px', width: '100%' }}>
+      <Box sx={{ width: '100%' }}>
         {menu.map((item, index) => (
           <ColorButton
             onClick={() => {
               stopStream();
               setActiveContent(index);
-              if (mobile700) closeMenu();
+              if (mobile700) changeMenuStatus(false);
             }}
             key={index.toString()}
             sx={{
