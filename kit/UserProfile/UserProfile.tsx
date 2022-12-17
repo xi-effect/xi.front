@@ -50,7 +50,7 @@ const UserProfile = observer(() => {
           display: 'flex',
           justifyContent: 'flex-start',
           alignItems: 'center',
-          p: mobile700 ? '8px 25px' : '8px',
+          p: mobile700 ? '8px 29px' : '8px',
         },
       }}
       fullScreen
@@ -78,6 +78,7 @@ const UserProfile = observer(() => {
           sx={{
             width: '100%',
             mt: mobile700 ? '8px' : '16px',
+            position: 'relative',
           }}
         >
           {isOpenMenu && (
@@ -91,12 +92,10 @@ const UserProfile = observer(() => {
             <Box
               sx={{
                 position: 'absolute',
-                top: '40px',
-                left: isOpenMenu ? '100%' : 0,
+                left: isOpenMenu ? '150%' : 0,
                 transition: '200ms',
                 width: '100%',
                 minWidth: 0,
-                padding: '8px 25px',
               }}
             >
               <Content activeContent={activeContent} />
