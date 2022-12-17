@@ -51,6 +51,9 @@ const UserProfile = observer(() => {
           justifyContent: 'flex-start',
           alignItems: 'center',
           p: mobile700 ? '8px 29px' : '8px',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
         },
       }}
       fullScreen
