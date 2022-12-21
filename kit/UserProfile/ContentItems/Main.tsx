@@ -137,7 +137,7 @@ const Main = observer(() => {
               justifyContent: 'center',
             }}
           >
-            <EditorIcon name="copy" color="#fff" />
+            <EditorIcon name="copy" color="#fff" size={mobile700 ? 20 : 26} />
           </Button>
         </Stack>
       </Stack>

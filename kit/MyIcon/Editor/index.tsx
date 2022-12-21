@@ -18,6 +18,7 @@ import Copy from './Copy';
 type EditorIconT = {
   name: string;
   color?: string;
+  size?: number;
 };
 
 export const IconWrap: React.FC = ({ children, ...props }) => (
@@ -25,9 +26,9 @@ export const IconWrap: React.FC = ({ children, ...props }) => (
     justifyContent="center"
     alignItems="center"
     sx={{
-      // pr: '8px',
-      width: '26px',
-      height: '26px',
+      pr: '8px',
+      width: '24px',
+      height: '24px',
       svg: {
         transition: 'fill 0.2s ease-in, stroke 0.2s ease-in ',
       },
@@ -38,7 +39,7 @@ export const IconWrap: React.FC = ({ children, ...props }) => (
   </Stack>
 );
 
-const EditorIcon: React.FC<EditorIconT> = ({ name, color }) => {
+const EditorIcon: React.FC<EditorIconT> = ({ name, color, size }) => {
   const icon = {
     h1: <H1 color={color} />,
     h2: <H2 color={color} />,
@@ -57,7 +58,7 @@ const EditorIcon: React.FC<EditorIconT> = ({ name, color }) => {
     imageMedium: <Image medium color={color} />,
     videoMedium: <Video medium color={color} />,
     fileEditorMedium: <FileEditor medium color={color} />,
-    copy: <Copy color={color} />,
+    copy: <Copy color={color} size={size} />,
   };
 
   return icon[name];
