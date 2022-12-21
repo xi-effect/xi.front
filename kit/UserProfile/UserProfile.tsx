@@ -50,7 +50,7 @@ const UserProfile = observer(() => {
           display: 'flex',
           justifyContent: 'flex-start',
           alignItems: 'center',
-          p: mobile700 ? '8px 29px' : '8px',
+          p: mobile700 ? '8px 29px' : `${mobile1400 ? '16px 8px' : '64px 8px'}`,
           '&::-webkit-scrollbar': {
             display: 'none',
           },
@@ -65,7 +65,7 @@ const UserProfile = observer(() => {
         justifyContent="flex-start"
         alignItems="center"
         sx={{
-          pt: mobile1400 ? '0px' : '64px',
+          // pt: mobile1400 ? '0px' : '64px',
           maxWidth: mobile800 ? '668px' : '1236px',
           width: '100%',
         }}

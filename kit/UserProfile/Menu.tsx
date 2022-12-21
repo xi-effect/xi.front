@@ -75,7 +75,7 @@ const Menu = observer(({ activeContent, setActiveContent, changeMenuStatus }: Me
             sx={{
               mt: item.mt,
               color: 'grayscale.100',
-              paddingLeft: '16px',
+              pl: '16px',
               textTransform: 'none',
               backgroundColor:
                 index === activeContent && !mobile700 ? 'grayscale.0' : 'transparent',
@@ -95,6 +95,7 @@ const Menu = observer(({ activeContent, setActiveContent, changeMenuStatus }: Me
             mt: '24px',
             color: 'grayscale.100',
             backgroundColor: 'transparent',
+            pl: '16px',
             '&:hover': {
               color: 'error.dark',
               backgroundColor: 'error.pale',
