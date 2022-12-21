@@ -1,17 +1,18 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import { observer } from 'mobx-react';
 
 import { Stack, Paper, Box } from '@mui/material';
 
 import MenuCommunity from './Community';
+import MenuHome from './Home';
 
 import Home from '../SidebarSecondHeaders/Home';
 import Community from '../SidebarSecondHeaders/Community';
 import Settings from '../SidebarSecondHeaders/Settings';
 
 const SidebarSecond = observer(() => {
-  const router = useRouter();
+  const router: NextRouter = useRouter();
 
   return (
     <Paper
@@ -45,18 +46,30 @@ const SidebarSecond = observer(() => {
             borderRadius: '8px',
           }}
         >
-          {router.pathname.includes('/home') && <Home />}
-          {router.pathname.includes('/community') && <Community />}
-          {router.pathname.includes('/settings') && <Settings />}
-        </Box>
-        <Box
-          sx={{
-            width: '100%',
-            height: 'calc(100vh - 56px)',
-            zIndex: 100,
-          }}
-        >
-          {router.pathname.includes('/community') && <MenuCommunity />}
+          <Box
+            sx={{
+              width: 236,
+              height: '52px',
+              zIndex: 100,
+              p: 0,
+              borderBottom: '1px solid #ECEFFF',
+              borderRadius: '8px',
+            }}
+          >
+            {router.pathname.includes('/home') && <Home />}
+            {router.pathname.includes('/community') && <Community />}
+            {router.pathname.includes('/settings') && <Settings />}
+          </Box>
+          <Box
+            sx={{
+              width: '100%',
+              height: 'calc(100vh - 56px)',
+              zIndex: 100,
+            }}
+          >
+            {router.pathname.includes('/home') && <MenuHome />}
+            {router.pathname.includes('/community') && <MenuCommunity />}
+          </Box>
         </Box>
       </Stack>
     </Paper>
