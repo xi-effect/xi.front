@@ -65,7 +65,6 @@ const UserProfile = observer(() => {
         justifyContent="flex-start"
         alignItems="center"
         sx={{
-          // pt: mobile1400 ? '0px' : '64px',
           maxWidth: mobile800 ? '668px' : '1236px',
           width: '100%',
         }}

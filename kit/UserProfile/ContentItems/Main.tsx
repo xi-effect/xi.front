@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
 
-import EditorIcon from 'kit/MyIcon/Editor';
+import Copy from 'kit/MyIcon/Editor/Copy';
 import { useSnackbar } from 'notistack';
 
 import { observer } from 'mobx-react';
@@ -135,9 +135,10 @@ const Main = observer(() => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              fontSize: mobile700 ? '20px' : '26px',
             }}
           >
-            <EditorIcon name="copy" color="#fff" size={mobile700 ? 20 : 26} />
+            <Copy fontSize="inherit" color="#fff" viewBox="0 0 26 26" />
           </Button>
         </Stack>
       </Stack>
