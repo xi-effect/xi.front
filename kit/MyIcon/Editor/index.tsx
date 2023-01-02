@@ -62,3 +62,4 @@ const EditorIcon: React.FC<EditorIconT> = ({ name, color }) => {
 };
 
 export default EditorIcon;
+

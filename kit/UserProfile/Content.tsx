@@ -12,6 +12,7 @@ type ContentProps = {
 
 const Content = ({ activeContent }: ContentProps) => {
   const mobile1400: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(1400));
+  const mobile800: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(800));
   const mobile700: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down(700));
 
   return (
@@ -19,11 +20,13 @@ const Content = ({ activeContent }: ContentProps) => {
       direction="column"
       justifyContent="flex-start"
       alignItems="flex-start"
-      spacing={2}
+      spacing={mobile700 ? 3 : 4}
       sx={{
-        margin: mobile700 ? '' : `16px ${!mobile1400 ? '56px' : '0px'} 16px 32px`,
-        mt: mobile700 ? '8px' : '',
+        margin: mobile700 ? '' : `0px ${!mobile1400 ? '46px' : '0px'} 16px 32px`,
+        ml: mobile700 ? '0' : `${mobile800 ? '16px' : ''}`,
         width: '100%',
+        maxWidth: '928px',
+        minWidth: 0,
         mb: '120px',
       }}
     >
@@ -33,3 +36,4 @@ const Content = ({ activeContent }: ContentProps) => {
 };
 
 export default Content;
+

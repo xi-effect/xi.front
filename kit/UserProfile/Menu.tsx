@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Stack, ButtonProps, useMediaQuery, Theme } from '@mui/material';
+import { Button, Stack, ButtonProps, useMediaQuery, Theme, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react';
 import { useStore } from 'store/connect';
@@ -39,12 +39,12 @@ const menu = [
 ];
 
 type MenuProps = {
+  changeMenuStatus: (status: boolean) => void;
   activeContent: number;
   setActiveContent: (activeContent: number) => void;
-  setOpenContent: (openContent: boolean) => void;
 };
 
-const Menu = observer(({ activeContent, setActiveContent, setOpenContent }: MenuProps) => {
+const Menu = observer(({ activeContent, setActiveContent, changeMenuStatus }: MenuProps) => {
   const rootStore = useStore();
   const {
     uiSt: { setDialogs },
@@ -58,49 +58,56 @@ const Menu = observer(({ activeContent, setActiveContent, setOpenContent }: Menu
       justifyContent="flex-start"
       alignItems="flex-start"
       sx={{
-        mt: '16px',
+        mt: 0,
         width: mobile700 ? '100%' : '220px',
+        flexShrink: 0,
       }}
     >
-      {menu.map((item, index) => (
+      <Box sx={{ width: '100%' }}>
+        {menu.map((item, index) => (
+          <ColorButton
+            onClick={() => {
+              stopStream();
+              setActiveContent(index);
+              if (mobile700) changeMenuStatus(false);
+            }}
+            key={index.toString()}
+            sx={{
+              mt: item.mt,
+              color: 'grayscale.100',
+              pl: '16px',
+              textTransform: 'none',
+              backgroundColor:
+                index === activeContent && !mobile700 ? 'grayscale.0' : 'transparent',
+              '&:hover': {
+                backgroundColor: !mobile700 ? 'grayscale.0' : '',
+              },
+            }}
+          >
+            {item.name}
+          </ColorButton>
+        ))}
         <ColorButton
           onClick={() => {
-            stopStream();
-            setActiveContent(index);
-            if (mobile700) setOpenContent(true);
+            if (setDialogs) setDialogs('exit', true);
           }}
-          key={index.toString()}
           sx={{
-            mt: item.mt,
+            mt: '24px',
             color: 'grayscale.100',
-            textTransform: 'none',
-            backgroundColor: index === activeContent && !mobile700 ? 'grayscale.0' : 'transparent',
+            backgroundColor: 'transparent',
+            pl: '16px',
             '&:hover': {
-              backgroundColor: !mobile700 ? 'grayscale.0' : '',
+              color: 'error.dark',
+              backgroundColor: 'error.pale',
             },
           }}
         >
-          {item.name}
+          Выйти
         </ColorButton>
-      ))}
-      <ColorButton
-        onClick={() => {
-          if (setDialogs) setDialogs('exit', true);
-        }}
-        sx={{
-          mt: '24px',
-          color: 'grayscale.100',
-          backgroundColor: 'transparent',
-          '&:hover': {
-            color: 'error.dark',
-            backgroundColor: 'error.pale',
-          },
-        }}
-      >
-        Выйти
-      </ColorButton>
+      </Box>
     </Stack>
   );
 });
 
 export default Menu;
+
